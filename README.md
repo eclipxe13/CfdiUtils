@@ -62,7 +62,7 @@ and licensed for use under the MIT License (MIT). Please see [LICENSE][] for mor
 [license]: https://github.com/eclipxe13/CfdiUtils/blob/master/LICENSE
 [build]: https://travis-ci.org/eclipxe13/CfdiUtils?branch=master
 [quality]: https://scrutinizer-ci.com/g/eclipxe13/CfdiUtils/
-[sensiolabs]: https://insight.sensiolabs.com/projects/:INSIGHT_UUID
+[sensiolabs]: https://insight.sensiolabs.com/projects/ffa9eb49-58e3-4532-acdd-f8089d46ad73
 [coverage]: https://scrutinizer-ci.com/g/eclipxe13/CfdiUtils/code-structure/master
 [downloads]: https://packagist.org/packages/eclipxe/CfdiUtils
 
@@ -71,6 +71,6 @@ and licensed for use under the MIT License (MIT). Please see [LICENSE][] for mor
 [badge-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [badge-build]: https://img.shields.io/travis/eclipxe13/CfdiUtils/master.svg?style=flat-square
 [badge-quality]: https://img.shields.io/scrutinizer/g/eclipxe13/CfdiUtils/master.svg?style=flat-square
-[badge-sensiolabs]: https://insight.sensiolabs.com/projects/:INSIGHT_UUID/mini.png
+[badge-sensiolabs]: https://insight.sensiolabs.com/projects/ffa9eb49-58e3-4532-acdd-f8089d46ad73/mini.png
 [badge-coverage]: https://img.shields.io/scrutinizer/coverage/g/eclipxe13/CfdiUtils/master.svg?style=flat-square
 [badge-downloads]: https://img.shields.io/packagist/dt/eclipxe/CfdiUtils.svg?style=flat-square
