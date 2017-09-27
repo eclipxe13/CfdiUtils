@@ -139,7 +139,7 @@ class Certificado
      */
     public function verify(string $data, string $signature, int $algorithm = OPENSSL_ALGO_SHA256): bool
     {
-        if (false == $pubKey = openssl_get_publickey($this->getPubkey())) {
+        if (false === $pubKey = openssl_get_publickey($this->getPubkey())) {
             throw new \RuntimeException('Cannot open public key from certificate');
         }
         try {
