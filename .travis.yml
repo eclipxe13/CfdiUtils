@@ -1,0 +1,31 @@
+language: php
+
+# php compatibility
+php:
+  - 7.0
+  - 7.1
+
+# This triggers builds to run on the new TravisCI infrastructure.
+# See: http://docs.travis-ci.com/user/workers/container-based-infrastructure/
+sudo: false
+
+before_script:
+  - travis_retry composer self-update
+  - travis_retry composer install --no-interaction --prefer-dist
+
+script:
+  - mkdir -p build/tests/
+  - vendor/bin/parallel-lint src/ tests/
+  - vendor/bin/phpcs -sp src/ tests/
+  - vendor/bin/php-cs-fixer fix --using-cache=no --dry-run --verbose
+  - vendor/bin/phpunit --coverage-text --coverage-clover=build/tests/coverage.xml
+
+after_script:
+  - |
+    if [[ $TRAVIS_PHP_VERSION == '7.0' ]]; then
+      wget https://scrutinizer-ci.com/ocular.phar
+      php ocular.phar code-coverage:upload --format=php-clover build/tests/coverage.xml
+    fi
+
+notifications:
+  email: false

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd" version="3.2" serie="S" folio="68189" fecha="2017-03-21T08:17:31" sello="NMoGn8m7nw7Z0a4zW4bCU9jsoYNazr9+EYVvAyxr0mC8fT/k50otywuMVto6dbKJqZGgYHPerHR4WPtS0G0azFdHYBE4SnEpG4au92HPOnwvOuv3fmyVAhgDo06Deoflf7D9H1vsl4E7O32WWRcfbq/8MLtH276LTs2g0mJkaWMRDYBjKjIxGLgxaxdZwJIXkxORpBiZSUs33ChqxoeCHyk0FHnZiI+H5rfBoeFdflIPMqsRQc0SbKjJHk6f8FSzxhoJKm6bLfzqroHXbIj+KQF3joAuc7EVxfIwXFxrFjvMfBPZJeafsRG2wSqb4XAVpf3v18pcCr1/YRbgmmVYiA==" formaDePago="Pago en una sola exhibicion" noCertificado="00001000000403543235" certificado="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" condicionesDePago="Credito" subTotal="4038.79" descuento="0.00" total="4685.00" metodoDePago="04" tipoDeComprobante="ingreso" Moneda="MXN" TipoCambio="1.00" LugarExpedicion="TOLUCA, ESTADO DE MEXICO" NumCtaPago="0291">
+  <cfdi:Emisor rfc="CTO021007DZ8" nombre="CEVER TOLUCA S.A. DE C.V.">
+    <cfdi:DomicilioFiscal calle="BLVD. TOLUCA-IXTAPAN NTE." noExterior="126" colonia="LA PURISIMA" localidad="METEPEC" municipio="TOLUCA" estado="ESTADO DE MEXICO" pais="Mexico" codigoPostal="52148"/>
+    <cfdi:ExpedidoEn calle="BLVD. TOLUCA-IXTAPAN NTE." noExterior="126" colonia="LA PURISIMA" localidad="METEPEC" municipio="TOLUCA" estado="ESTADO DE MEXICO" pais="Mexico" codigoPostal="52148"/>
+    <cfdi:RegimenFiscal Regimen="Regimen General de Ley Persona Moral"/>
+  </cfdi:Emisor>
+  <cfdi:Receptor rfc="XAXX010101000" nombre="CORTES SOTO CARLOS">
+    <cfdi:Domicilio calle="PRIVADA LOS CISNES, PRADERA DE LA ASUNCION" noExterior="19" colonia="LA ASUNCION" localidad="METEPEC" municipio="METEPEC" estado="MEXICO" pais="Mexico" codigoPostal="52172"/>
+  </cfdi:Receptor>
+  <cfdi:Conceptos>
+    <cfdi:Concepto cantidad="5" unidad="PIEZA" noIdentificacion="00279DRM2001" descripcion="ACEITE" valorUnitario="61.86" importe="309.30">
+</cfdi:Concepto>
+    <cfdi:Concepto cantidad="1" unidad="PIEZA" noIdentificacion="90915YZZF1" descripcion="FILTRO DE ACEITE" valorUnitario="68.48" importe="68.48">
+</cfdi:Concepto>
+    <cfdi:Concepto cantidad="1" unidad="PIEZA" noIdentificacion="17801AD010" descripcion="FILTRO DE AIRE DE MOTOR" valorUnitario="245.69" importe="245.69">
+</cfdi:Concepto>
+    <cfdi:Concepto cantidad="1" unidad="PIEZA" noIdentificacion="87139YZZ20" descripcion="FILTRO DE AIRE" valorUnitario="239.58" importe="239.58">
+</cfdi:Concepto>
+    <cfdi:Concepto cantidad="1" unidad="PIEZA" noIdentificacion="004751BF03" descripcion="LIQUIDO DE FRENOS" valorUnitario="88.11" importe="88.11">
+</cfdi:Concepto>
+    <cfdi:Concepto cantidad="1" unidad="PIEZA" noIdentificacion="MO1" descripcion="MO DE UNA HORA" valorUnitario="2837.63" importe="2837.63">
+</cfdi:Concepto>
+    <cfdi:Concepto cantidad="1" unidad="SERVICIO" noIdentificacion="TOT" descripcion="TOT MECANICA" valorUnitario="250.00" importe="250.00">
+</cfdi:Concepto>
+  </cfdi:Conceptos>
+  <cfdi:Impuestos totalImpuestosTrasladados="646.21">
+    <cfdi:Traslados>
+      <cfdi:Traslado impuesto="IVA" tasa="16" importe="646.21"/>
+    </cfdi:Traslados>
+  </cfdi:Impuestos>
+  <cfdi:Complemento>
+    <tfd:TimbreFiscalDigital xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" xsi:schemaLocation="http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/TimbreFiscalDigital/TimbreFiscalDigital.xsd" version="1.0" UUID="80824F3B-323E-407B-8F8E-40D83FE2E69F" FechaTimbrado="2017-03-21T08:18:08" selloCFD="NMoGn8m7nw7Z0a4zW4bCU9jsoYNazr9+EYVvAyxr0mC8fT/k50otywuMVto6dbKJqZGgYHPerHR4WPtS0G0azFdHYBE4SnEpG4au92HPOnwvOuv3fmyVAhgDo06Deoflf7D9H1vsl4E7O32WWRcfbq/8MLtH276LTs2g0mJkaWMRDYBjKjIxGLgxaxdZwJIXkxORpBiZSUs33ChqxoeCHyk0FHnZiI+H5rfBoeFdflIPMqsRQc0SbKjJHk6f8FSzxhoJKm6bLfzqroHXbIj+KQF3joAuc7EVxfIwXFxrFjvMfBPZJeafsRG2wSqb4XAVpf3v18pcCr1/YRbgmmVYiA==" noCertificadoSAT="00001000000404477432" selloSAT="bQcopGo0H9dpnwKWRjZU/aKQVD4jtISYx1SRhrzHpojkTFrGcW29FimEjINvPnayNZ5Zxqp9H1fIronBNoFeeo+RxlYmBK8q6H6Gnyx80T2Dfb5Woyx8dY3FnBzjdepHg5FZuzT1Z4B/TZvyv74SK34QnyGm/NUrJCSqimdp2VRtdzvrZ+ZM2Mr7YkN35CPCylQsN+BfklFTnMtPLDVOIOwIc3w9hJqiyb4GesMTs5JZZeoAHKxB3KaYUR0HDLSs1IsULapYc87HtIuWMt5XWokWqFNSFoc+meBgQjXP6/neUJh6cT+V6uGO7rU/oZROFnDBDM2YMd2KZreXnZe4hA=="/>
+  </cfdi:Complemento>
+</cfdi:Comprobante>
