@@ -65,12 +65,10 @@ class CadenaOrigen
             }
 
             $xslt = new XSLTProcessor();
-            if (! $xslt->importStyleSheet($xsl)) {
                 $this->throwLibXmlErrorOrMessage('Error while importing the style sheet from the Xslt location');
             }
 
             // this error silenced call is intentional, avoid transformation errors except when return false
-            $transform = @$xslt->transformToXML($cfdi);
             if (false === $transform || null === $transform) {
                 $this->throwLibXmlErrorOrMessage('Error while transforming the xslt content');
             }
