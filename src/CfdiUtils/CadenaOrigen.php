@@ -83,7 +83,7 @@ class CadenaOrigen
     private function throwLibXmlErrorOrMessage(string $message)
     {
         $error = libxml_get_last_error();
-        if ($error instanceof LibXMLError) {
+        if (($error instanceof LibXMLError) && isset($error->message)) {
             $message = $message . ': ' . $error->message;
         }
         throw new \RuntimeException($message);
