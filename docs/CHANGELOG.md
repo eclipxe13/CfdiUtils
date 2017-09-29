@@ -5,7 +5,7 @@
   Now it returns a \RuntimeException and that is thrown. So it is easy for an analysis tool
   to know that the flow has been stopped. 
 - Also fix case of calls `XSLTProcessor::importStylesheet` and `XSLTProcessor::transformToXml`
-- Check with `isset` that LibXMLError::$message exists, phpstan was failing for this.
+- Check with `isset` that `LibXMLError::$message` exists, phpstan was failing for this.
 
 
 # Version 1.0.1 2017-09-27
