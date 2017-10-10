@@ -47,7 +47,7 @@ class CadenaOrigen
             // load the cfdi document
             $cfdi = new DOMDocument();
             if (! $cfdi->loadXML($cfdiContent)) {
-                $this->throwLibXmlErrorOrMessage('Error while loading the cfdi content');
+                throw $this->createLibXmlErrorOrMessage('Error while loading the cfdi content');
             }
 
             // if not set, obtain default location from document version
@@ -61,18 +61,18 @@ class CadenaOrigen
 
             $xsl = new DOMDocument();
             if (! $xsl->load($xsltLocation)) {
-                $this->throwLibXmlErrorOrMessage('Error while loading the Xslt location');
+                throw $this->createLibXmlErrorOrMessage('Error while loading the Xslt location');
             }
 
             $xslt = new XSLTProcessor();
-            if (! $xslt->importStyleSheet($xsl)) {
-                $this->throwLibXmlErrorOrMessage('Error while importing the style sheet from the Xslt location');
+            if (! $xslt->importStylesheet($xsl)) {
+                throw $this->createLibXmlErrorOrMessage('Error while importing the style sheet from the Xslt location');
             }
 
             // this error silenced call is intentional, avoid transformation errors except when return false
-            $transform = @$xslt->transformToXML($cfdi);
+            $transform = @$xslt->transformToXml($cfdi);
             if (false === $transform || null === $transform) {
-                $this->throwLibXmlErrorOrMessage('Error while transforming the xslt content');
+                throw $this->createLibXmlErrorOrMessage('Error while transforming the xslt content');
             }
 
             return $transform;
@@ -82,12 +82,12 @@ class CadenaOrigen
         }
     }
 
-    private function throwLibXmlErrorOrMessage(string $message)
+    private function createLibXmlErrorOrMessage(string $message): \Exception
     {
         $error = libxml_get_last_error();
-        if ($error instanceof LibXMLError) {
+        if (($error instanceof LibXMLError) && isset($error->message)) {
             $message = $message . ': ' . $error->message;
         }
-        throw new \RuntimeException($message);
+        return new \RuntimeException($message);
     }
 }

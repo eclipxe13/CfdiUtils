@@ -154,4 +154,11 @@ EOD;
 
         $certificate->belongsTo($pemKeyFile);
     }
+
+    public function testCanReadRfcFromCertificateWhenX500UniqueIdentifierOnlyContainsRfcAndNoCurp()
+    {
+        $certificateFile = $this->utilAsset('certs/00001000000301246267.cer');
+        $certificate = new Certificado($certificateFile);
+        $this->assertEquals('SOMG790807J57', $certificate->getRfc());
+    }
 }
