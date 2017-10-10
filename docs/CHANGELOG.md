@@ -1,3 +1,8 @@
+# Version 1.0.3 2017-10-09
+- Fix a bug to read the RFC when a certificate does not contain the pattern RFC / CURP but only RFC in the
+  subject x500UniqueIdentifier field 
+
+
 # Version 1.0.2 2017-09-28 - Thanks phpstan!
 - After using `phpstan/phpstan` change the execution plan on `CadenaOrigen`.
   The function previous function `throwLibXmlErrorOrMessage(string $message)` always
