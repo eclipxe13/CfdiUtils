@@ -52,7 +52,7 @@ class Certificado
         }
 
         // set all the values
-        $this->rfc = strstr($data['subject']['x500UniqueIdentifier'], ' ', true);
+        $this->rfc = strstr($data['subject']['x500UniqueIdentifier'] . ' ', ' ', true);
         $this->name = $data['subject']['name'];
         $this->serial = $this->serialHexToAscii($data['serialNumberHex']);
         $this->validFrom = $data['validFrom_time_t'];
