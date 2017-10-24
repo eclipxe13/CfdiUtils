@@ -26,6 +26,25 @@ class AttributesTest extends TestCase
         }
     }
 
+    public function providerSetMethodWithInvalidName()
+    {
+        return [
+            'empty' => [''],
+            'white space' => ['   '],
+        ];
+    }
+
+    /**
+     * @param string $name
+     * @dataProvider providerSetMethodWithInvalidName
+     */
+    public function testSetMethodWithInvalidName(string $name)
+    {
+        $attributes = new Attributes();
+        $this->expectException(\UnexpectedValueException::class);
+        $attributes->set($name, '');
+    }
+
     public function testSetMethod()
     {
         $attributes = new Attributes();
@@ -41,6 +60,11 @@ class AttributesTest extends TestCase
         $attributes->set('foo', 'BAR');
         $this->assertCount(2, $attributes);
         $this->assertSame('BAR', $attributes->get('foo'));
+
+        // with spaces
+        $attributes->set('  foo  ', 'foo with spaces');
+        $this->assertCount(2, $attributes);
+        $this->assertSame('foo with spaces', $attributes->get('foo'));
     }
 
     public function testGetMethodOnNonExistent()

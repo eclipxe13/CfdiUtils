@@ -21,6 +21,7 @@ class Attributes implements \Countable, \IteratorAggregate, \ArrayAccess
 
     public function set(string $name, string $value): self
     {
+        $name = trim($name);
         if ('' === $name) {
             throw new \UnexpectedValueException('Cannot set an attribute without name');
         }
