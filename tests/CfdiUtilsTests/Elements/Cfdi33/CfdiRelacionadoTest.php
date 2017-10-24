@@ -2,7 +2,7 @@
 namespace CfdiUtilsTests\Elements\Cfdi33;
 
 use CfdiUtils\Elements\Cfdi33\CfdiRelacionado;
-use CfdiUtilsTests\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class CfdiRelacionadoTest extends TestCase
 {

@@ -3,7 +3,7 @@ namespace CfdiUtilsTests\Elements\Cfdi33;
 
 use CfdiUtils\Elements\Cfdi33\CfdiRelacionado;
 use CfdiUtils\Elements\Cfdi33\CfdiRelacionados;
-use CfdiUtilsTests\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class CfdiRelacionadosTest extends TestCase
 {

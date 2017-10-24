@@ -80,3 +80,10 @@ vendor/bin/phpcs -sp src/ tests/
 vendor/bin/php-cs-fixer fix -v --dry-run
 vendor/bin/phpunit --coverage-text
 ```
+
+We try to anticipate to bugs, please use `phpstan` to perform an analysis on the code before pull request.
+Currently this is only recommended and build will not fail on errors. In the future will be mandatory.
+  
+```shell
+vendor/bin/phpstan.phar analyse --level max src/ tests/
+```

@@ -75,7 +75,9 @@ class NodesTest extends TestCase
         $found = $root->searchNode('child');
         $this->assertSame($child, $found);
 
-        $nodes->remove($found);
+        if (null !== $found) {
+            $nodes->remove($found);
+        }
         $this->assertFalse($nodes->exists($child));
     }
 
@@ -105,5 +107,26 @@ class NodesTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('The element index 0 is not a Node class');
         $nodes->importFromArray([new \stdClass()]);
+    }
+
+    public function testGetNodesByName()
+    {
+        $nodes = new Nodes();
+        $first = new Node('children');
+        $second = new Node('children');
+        $third = new Node('children');
+        $nodes->importFromArray([
+            $first,
+            $second,
+            $third,
+            new Node('other'),
+        ]);
+
+        $this->assertCount(4, $nodes);
+        $byName = $nodes->getNodesByName('children');
+        $this->assertCount(3, $byName);
+        $this->assertTrue($byName->exists($first));
+        $this->assertTrue($byName->exists($second));
+        $this->assertTrue($byName->exists($third));
     }
 }
