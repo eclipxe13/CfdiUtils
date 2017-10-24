@@ -11,21 +11,22 @@
 
 > PHP Common utilities for Mexican CFDI 3.2 & 3.3
 
-This library provides helper objects to work with cfdi. Currently it has:
+This library provides helper objects to work with Mexican CFDI (Comprobante Fiscal Digital por Internet).
 
-- `CadenaOrigen`: Class to build the "cadena de origen" that ensures that the information
-  has not been modified. It works using Xslt.
-- `Certificado`: Class to read and obtain information about a CER file.
-  Allows verify if a signature or a private key corresponds to the certificate.
-- `Cfdi`: Class to read and check the version (3.2 or 3.3) of a Cfdi.
-- `CfdiCertificado`: Class to extract a certificate, store to a file or return a `Certificado` object.
+The [documentation] related to this library and its API is documented inside the [GutHub Wiki][documentation]
+and is written in **spanish language** since is the language if the user.
 
-Take a look in docs folder to know about this classes (spanish information).
+Main features:
+- Create CFDI version 3.3 based on a friendly extendable non-xml objects (`nodes`)
+- Read CFDI version 3.2 and 3.3
+- Validate CFDI version 3.3 against schemas, cfdi signature (`Sello`) and custom rules
+- Helper objects to deal with:
+    - `Cadena de origen` generation
+    - Extract information from CER files or `Certificado` attribute
+    - Calculate `Comprobante` sums based on the list of `Conceptos`
+    - Retrieve the CFDI version information
+- Keep a local copy of the three of XSD and XSLT file dependences from SAT
 
-Also, take a look in other helper libraries that can be used in combination with this library:
-- `eclipxe/xmlresourceretriever`: XSD and XLST resource downloader for local storage
-- `eclipxe/xmlschemavalidator`: PHP Library for XML Schema Validations
-- `eclipxe/buzoncfdi-cfdireader`: Library to read and validate a Mexican CFDI 3.2 and 3.3 (Comprobante Fiscal por Internet)
 
 ## Installation
 
@@ -38,7 +39,7 @@ composer require eclipxe/cfdiutils
 ## PHP Support
 
 This library is compatible with PHP versions 7.0 and above.
-Please, try to use the full potential of the language.
+Please, try to use the full potential of the language like type declarations.
 
 
 ## Contributing
@@ -49,13 +50,14 @@ and don't forget to take a look in the [TODO][] and [CHANGELOG][] files.
 
 ## Copyright and License
 
-The eclipxe/CfdiUtils library is copyright © [Carlos C Soto](http://eclipxe.com.mx/)
+The `eclipxe/CfdiUtils` library is copyright © [Carlos C Soto](http://eclipxe.com.mx/)
 and licensed for use under the MIT License (MIT). Please see [LICENSE][] for more information.
 
 
 [contributing]: https://github.com/eclipxe13/CfdiUtils/blob/master/CONTRIBUTING.md
 [changelog]: https://github.com/eclipxe13/CfdiUtils/blob/master/docs/CHANGELOG.md
 [todo]: https://github.com/eclipxe13/CfdiUtils/blob/master/docs/TODO.md
+[documentation]: https://github.com/eclipxe13/CfdiUtils/wiki
 
 [source]: https://github.com/eclipxe13/CfdiUtils
 [release]: https://github.com/eclipxe13/CfdiUtils/releases
@@ -63,7 +65,7 @@ and licensed for use under the MIT License (MIT). Please see [LICENSE][] for mor
 [build]: https://travis-ci.org/eclipxe13/CfdiUtils?branch=master
 [quality]: https://scrutinizer-ci.com/g/eclipxe13/CfdiUtils/
 [sensiolabs]: https://insight.sensiolabs.com/projects/ffa9eb49-58e3-4532-acdd-f8089d46ad73
-[coverage]: https://scrutinizer-ci.com/g/eclipxe13/CfdiUtils/code-structure/master
+[coverage]: https://scrutinizer-ci.com/g/eclipxe13/CfdiUtils/code-structure/master/code-coverage
 [downloads]: https://packagist.org/packages/eclipxe/CfdiUtils
 
 [badge-source]: http://img.shields.io/badge/source-eclipxe13/CfdiUtils-blue.svg?style=flat-square
