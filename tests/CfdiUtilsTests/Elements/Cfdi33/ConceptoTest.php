@@ -105,9 +105,4 @@ class ConceptoTest extends TestCase
         $this->assertCount(1, $parent);
         $this->assertSame('first', $parent->searchAttribute('cfdi:CuentaPredial', 'id'));
     }
-
-    public function testGetComplementoConcepto()
-    {
-        //
-    }
 }

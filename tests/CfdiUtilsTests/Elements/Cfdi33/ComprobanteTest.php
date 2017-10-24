@@ -2,8 +2,8 @@
 namespace CfdiUtilsTests\Elements\Cfdi33;
 
 use CfdiUtils\Elements\Cfdi33\CfdiRelacionado;
-use CfdiUtils\Elements\Cfdi33\Comprobante;
 use CfdiUtils\Elements\Cfdi33\CfdiRelacionados;
+use CfdiUtils\Elements\Cfdi33\Comprobante;
 use CfdiUtils\Elements\Cfdi33\Concepto;
 use CfdiUtils\Elements\Cfdi33\Conceptos;
 use CfdiUtils\Elements\Cfdi33\Emisor;
