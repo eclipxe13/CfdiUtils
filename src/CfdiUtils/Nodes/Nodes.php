@@ -85,7 +85,18 @@ class Nodes implements \Countable, \IteratorAggregate
         return null;
     }
 
-    public function importFromArray(array $nodes)
+    public function getNodesByName(string $nodeName): Nodes
+    {
+        $nodes = new self();
+        foreach ($this->nodes as $node) {
+            if ($node->name() === $nodeName) {
+                $nodes->add($node);
+            }
+        }
+        return $nodes;
+    }
+
+    public function importFromArray(array $nodes): self
     {
         foreach ($nodes as $index => $node) {
             if (! ($node instanceof Node)) {
@@ -93,6 +104,7 @@ class Nodes implements \Countable, \IteratorAggregate
             }
             $this->add($node);
         }
+        return $this;
     }
 
     /**
