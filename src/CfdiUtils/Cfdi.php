@@ -1,8 +1,9 @@
 <?php
 namespace CfdiUtils;
 
+use CfdiUtils\Nodes\Node;
+use CfdiUtils\Nodes\XmlNodeImporter;
 use DOMDocument;
-use DOMXPath;
 
 /**
  * This class contains minimum helpers to read CFDI based on DOMDocument
@@ -11,9 +12,13 @@ use DOMXPath;
  * implements the namespace static::CFDI_NAMESPACE using a prefix
  * the root node is prefix + Comprobante
  *
- * This class also provides version information
+ * This class also provides version information thru getVersion() method
  *
- * It is used by CfdiVersion and CfdiCertificado
+ * This class also provides conversion to Node for easy access and manipulation,
+ * changes made in Node structure are not reflected into the DOMDocument,
+ * changes made in DOMDocument three are not reflected into the Node,
+ *
+ * Use this class as your starting point to read documents
  */
 class Cfdi
 {
@@ -21,10 +26,13 @@ class Cfdi
     private $document;
 
     /** @var string */
-    private $nsPrefix;
+    private $version;
 
     /** @var string */
-    private $version;
+    private $source;
+
+    /** @var Node */
+    private $node;
 
     const CFDI_NAMESPACE = 'http://www.sat.gob.mx/cfd/3';
 
@@ -36,14 +44,15 @@ class Cfdi
         if ('' === $nsPrefix) {
             throw new \UnexpectedValueException('Document does not implement namespace ' . static::CFDI_NAMESPACE);
         }
-
+        if ('cfdi' !== $nsPrefix) {
+            throw new \UnexpectedValueException('Prefix for namespace ' . static::CFDI_NAMESPACE . ' is not "cfdi"');
+        }
         if ($document->documentElement->tagName !== $nsPrefix . ':Comprobante') {
             throw new \UnexpectedValueException('Root element is not Comprobante');
         }
 
-        $this->document = $document;
-        $this->nsPrefix = $nsPrefix;
-        $this->version = $this->obtainVersion();
+        $this->version = CfdiVersion::fromDOMDocument($document);
+        $this->document = clone $document;
     }
 
     /**
@@ -57,6 +66,8 @@ class Cfdi
             throw new \UnexpectedValueException('Content is empty');
         }
         $document = new DOMDocument();
+        $document->formatOutput = true;
+        $document->preserveWhiteSpace = false;
         // this error silenced call is intentional, no need to alter libxml_use_internal_errors
         if (false === @$document->loadXML($content)) {
             throw new \UnexpectedValueException('Cannot create a DOM Document from content');
@@ -64,34 +75,30 @@ class Cfdi
         return new static($document);
     }
 
-    protected function obtainVersion(): string
-    {
-        if ('3.2' === $this->queryComprobanteAttribute('version')) {
-            return '3.2';
-        }
-        if ('3.3' === $this->queryComprobanteAttribute('Version')) {
-            return '3.3';
-        }
-        return '';
-    }
-
     public function getVersion(): string
     {
         return $this->version;
     }
 
-    /**
-     * @param string $attribute
-     * @return string
-     */
-    protected function queryComprobanteAttribute(string $attribute): string
+    public function getDocument(): DOMDocument
     {
-        $docElement = $this->document->documentElement;
-        $query = '/' . $this->nsPrefix . ':Comprobante/@' . $attribute;
-        $nodes = (new DOMXPath($docElement->ownerDocument))->query($query, $docElement);
-        if ($nodes->length === 1) {
-            return (string) $nodes->item(0)->nodeValue;
+        return clone $this->document;
+    }
+
+    public function getSource(): string
+    {
+        if (null === $this->source) {
+            $this->source = $this->document->saveXML($this->document->documentElement);
         }
-        return '';
+        return $this->source;
+    }
+
+    public function getNode(): Node
+    {
+        if (null === $this->node) {
+            $importer = new XmlNodeImporter();
+            $this->node = $importer->import($this->document->documentElement);
+        }
+        return $this->node;
     }
 }

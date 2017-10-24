@@ -1,8 +1,12 @@
 {
     "name": "eclipxe/cfdiutils",
     "description": "PHP Common utilities for Mexican CFDI 3.2 & 3.3",
-    "keywords": ["cfdi", "utility", "helper"],
+    "keywords": ["cfdi", "cfdi33", "mexico", "electronic invoice"],
     "homepage": "https://github.com/eclipxe13/CfdiUtils",
+    "support": {
+        "wiki": "https://github.com/eclipxe13/CfdiUtils/wiki",
+        "issues": "https://github.com/eclipxe13/CfdiUtils/issues"
+    },
     "license": "MIT",
     "authors": [
         {
@@ -12,14 +16,16 @@
         }
     ],
     "require": {
-        "php": ">=7.0"
+        "php": ">=7.0",
+        "eclipxe/xmlresourceretriever": "^1.0",
+        "eclipxe/xmlschemavalidator": "^2.0"
     },
     "require-dev": {
-        "eclipxe/xmlresourceretriever": "^1.0",
         "phpunit/phpunit": "^6.2",
         "jakub-onderka/php-parallel-lint": "^0.9",
         "squizlabs/php_codesniffer": "^3.0",
-        "friendsofphp/php-cs-fixer": "^2.4"
+        "friendsofphp/php-cs-fixer": "^2.4",
+        "phpstan/phpstan-shim": "^0.8.5"
     },
     "autoload": {
         "psr-4": {

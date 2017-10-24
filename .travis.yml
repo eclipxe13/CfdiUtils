@@ -21,6 +21,9 @@ script:
   - vendor/bin/phpunit --coverage-text --coverage-clover=build/tests/coverage.xml
 
 after_script:
+  # check using phpstan
+  - vendor/bin/phpstan.phar analyse --level max src/ tests/
+  # upload to scrutinizer
   - |
     if [[ $TRAVIS_PHP_VERSION == '7.0' ]]; then
       wget https://scrutinizer-ci.com/ocular.phar
