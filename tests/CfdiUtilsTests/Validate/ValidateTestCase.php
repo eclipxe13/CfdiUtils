@@ -3,6 +3,7 @@ namespace CfdiUtilsTests\Validate;
 
 use CfdiUtils\Cfdi;
 use CfdiUtils\Elements\Cfdi33\Comprobante;
+use CfdiUtils\Nodes\Node;
 use CfdiUtils\Validate\Assert;
 use CfdiUtils\Validate\Asserts;
 use CfdiUtils\Validate\Contracts\ValidatorInterface;
@@ -16,7 +17,7 @@ abstract class ValidateTestCase extends TestCase
     /** @var ValidatorInterface */
     protected $validator;
 
-    /** @var Comprobante */
+    /** @var Node */
     protected $comprobante;
 
     /** @var Asserts|Assert[] */

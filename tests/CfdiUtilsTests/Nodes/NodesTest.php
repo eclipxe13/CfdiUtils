@@ -75,7 +75,9 @@ class NodesTest extends TestCase
         $found = $root->searchNode('child');
         $this->assertSame($child, $found);
 
-        $nodes->remove($found);
+        if (null !== $found) {
+            $nodes->remove($found);
+        }
         $this->assertFalse($nodes->exists($child));
     }
 
