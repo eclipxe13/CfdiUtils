@@ -33,10 +33,7 @@ class CfdiRelacionadosTest extends TestCase
         $this->assertCount(1, $this->element);
 
         // add second child
-        $second = $this->element->addCfdiRelacionado();
+        $this->element->addCfdiRelacionado();
         $this->assertCount(2, $this->element);
-
-        // test that first and second are not the same
-        $this->assertNotSame($first, $second);
     }
 }
