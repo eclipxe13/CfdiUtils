@@ -3,7 +3,7 @@ namespace CfdiUtilsTests\Elements\Cfdi33;
 
 use CfdiUtils\Elements\Cfdi33\InformacionAduanera;
 use CfdiUtils\Elements\Cfdi33\Parte;
-use CfdiUtilsTests\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class ParteTest extends TestCase
 {
