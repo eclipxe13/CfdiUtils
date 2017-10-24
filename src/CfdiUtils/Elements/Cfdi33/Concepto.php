@@ -22,9 +22,7 @@ class Concepto extends AbstractElement
 
     public function multiTraslado(array ...$elementAttributes)
     {
-        foreach ($elementAttributes as $attributes) {
-            $this->addTraslado($attributes);
-        }
+        return $this->getImpuestos()->getTraslados()->multiTraslado(...$elementAttributes);
     }
 
     public function addRetencion(array $attributes = []): Retencion
@@ -34,9 +32,7 @@ class Concepto extends AbstractElement
 
     public function multiRetencion(array ...$elementAttributes)
     {
-        foreach ($elementAttributes as $attributes) {
-            $this->addRetencion($attributes);
-        }
+        return $this->getImpuestos()->getRetenciones()->multiRetencion(...$elementAttributes);
     }
 
     public function addInformacionAduanera(array $attributes = []): InformacionAduanera
@@ -53,9 +49,14 @@ class Concepto extends AbstractElement
         }
     }
 
+    public function getCuentaPredial(): CuentaPredial
+    {
+        return $this->helperGetOrAdd(new CuentaPredial());
+    }
+
     public function addCuentaPredial(array $attributes = []): CuentaPredial
     {
-        $cuentaPredial = $this->helperGetOrAdd(new CuentaPredial());
+        $cuentaPredial = $this->getCuentaPredial();
         $cuentaPredial->addAttributes($attributes);
         return $cuentaPredial;
     }
