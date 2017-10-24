@@ -16,4 +16,11 @@ class Retenciones extends AbstractElement
         $this->addChild($Retencion);
         return $Retencion;
     }
+
+    public function multiRetencion(array ...$elementAttributes)
+    {
+        foreach ($elementAttributes as $attributes) {
+            $this->addRetencion($attributes);
+        }
+    }
 }
