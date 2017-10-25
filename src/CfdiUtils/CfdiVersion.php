@@ -1,9 +1,9 @@
 <?php
 namespace CfdiUtils;
 
-use CfdiUtils\Nodes\NodeInterface;
 use \DOMDocument;
 use \DOMElement;
+use CfdiUtils\Nodes\NodeInterface;
 
 /**
  * This class provides static methods to retrieve the version attribute from a cfdi.
