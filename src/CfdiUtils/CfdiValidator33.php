@@ -1,0 +1,77 @@
+<?php
+namespace CfdiUtils;
+
+use CfdiUtils\Nodes\NodeInterface;
+use CfdiUtils\Nodes\XmlNodeUtils;
+use CfdiUtils\Validate\Asserts;
+use CfdiUtils\Validate\Hydrater;
+use CfdiUtils\Validate\MultiValidatorFactory;
+use CfdiUtils\XmlResolver\XmlResolver;
+use CfdiUtils\XmlResolver\XmlResolverPropertyTrait;
+
+class CfdiValidator33
+{
+    use XmlResolverPropertyTrait;
+
+    /**
+     * This class uses a default XmlResolver if not provided or null.
+     * If you really want to remove the XmlResolver then use the method setXmlResolver after construction.
+     *
+     * @param XmlResolver|null $xmlResolver
+     */
+    public function __construct(XmlResolver $xmlResolver = null)
+    {
+        $this->setXmlResolver($xmlResolver ? : new XmlResolver());
+    }
+
+    /**
+     * Validate and return the asserts from the validation process.
+     * This method can use a xml string and a NodeInterface,
+     * is your responsability that the node is the representation of the content.
+     *
+     * @param string $xmlString
+     * @param NodeInterface $node
+     * @return Asserts|\CfdiUtils\Validate\Assert[]
+     */
+    public function validate(string $xmlString, NodeInterface $node): Asserts
+    {
+        if ('' === $xmlString) {
+            throw new \UnexpectedValueException('The xml string to validate cannot be empty');
+        }
+
+        $factory = new MultiValidatorFactory();
+        $validator = $factory->newReceived33();
+
+        $hydrater = new Hydrater();
+        $hydrater->setXmlString($xmlString);
+        $hydrater->setXmlResolver(($this->hasXmlResolver()) ? $this->getXmlResolver() : null);
+        $validator->hydrate($hydrater);
+
+        $asserts = new Asserts();
+        $validator->validate($node, $asserts);
+
+        return $asserts;
+    }
+
+    /**
+     * Validate and return the asserts from the validation process based on a xml string
+     *
+     * @param string $xmlString
+     * @return Asserts|\CfdiUtils\Validate\Assert[]
+     */
+    public function validateXml(string $xmlString): Asserts
+    {
+        return $this->validate($xmlString, XmlNodeUtils::nodeFromXmlString($xmlString));
+    }
+
+    /**
+     * Validate and return the asserts from the validation process based on a node interface object
+     *
+     * @param NodeInterface $node
+     * @return Asserts|\CfdiUtils\Validate\Assert[]
+     */
+    public function validateNode(NodeInterface $node): Asserts
+    {
+        return $this->validate(XmlNodeUtils::nodeToXmlString($node), $node);
+    }
+}
