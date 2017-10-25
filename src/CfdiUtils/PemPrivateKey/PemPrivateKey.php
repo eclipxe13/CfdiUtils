@@ -120,8 +120,7 @@ class PemPrivateKey
     private static function isPEMHasHeader(string $keyContents, array $templates): bool
     {
         foreach ($templates as $template) {
-            $search = sprintf($template, 'BEGIN');
-            if (0 === strpos($keyContents, $search)) {
+            if (0 === strpos($keyContents, sprintf($template, 'BEGIN'))) {
                 return true;
             }
         }

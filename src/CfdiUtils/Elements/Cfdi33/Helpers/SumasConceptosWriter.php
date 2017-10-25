@@ -55,18 +55,26 @@ class SumasConceptosWriter
         if ($this->valueGreaterThanZero($this->sumas->getImpuestosRetenidos())) {
             $impuestos['TotalImpuestosRetenidos'] = $this->format($this->sumas->getImpuestosRetenidos());
         }
-
-        foreach ($this->sumas->getTraslados() as $impuesto) {
-            $data = $impuesto;
-            $data['Importe'] = $this->format($data['Importe']);
-            $impuestos->getTraslados()->addTraslado($data);
+        if ($this->sumas->hasTraslados()) {
+            $impuestos->getTraslados()->multiTraslado(
+                ...$this->getImpuestosContents($this->sumas->getTraslados())
+            );
         }
-
-        foreach ($this->sumas->getRetenciones() as $impuesto) {
-            $data = $impuesto;
-            $data['Importe'] = $this->format($data['Importe']);
-            $impuestos->getRetenciones()->addRetencion($data);
+        if ($this->sumas->hasRetenciones()) {
+            $impuestos->getRetenciones()->multiRetencion(
+                ...$this->getImpuestosContents($this->sumas->getRetenciones())
+            );
         }
+    }
+
+    private function getImpuestosContents(array $impuestos): array
+    {
+        $return = [];
+        foreach ($impuestos as $impuesto) {
+            $impuesto['Importe'] = $this->format($impuesto['Importe']);
+            $return[] = $impuesto;
+        }
+        return $return;
     }
 
     private function valueGreaterThanZero(float $value)

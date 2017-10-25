@@ -131,6 +131,16 @@ class SumasConceptos
         return $this->retenciones;
     }
 
+    public function hasTraslados(): bool
+    {
+        return (count($this->traslados) > 0);
+    }
+
+    public function hasRetenciones(): bool
+    {
+        return (count($this->retenciones) > 0);
+    }
+
     public function getImpuestosTrasladados(): float
     {
         return $this->impuestosTrasladados;
