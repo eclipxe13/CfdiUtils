@@ -28,10 +28,11 @@ class InformacionAduaneraTraitTest extends TestCase
     {
         $node = new UseInformacionAduanera('X');
         $this->assertCount(0, $node);
-        $node->multiInformacionAduanera(
+        $multiReturn = $node->multiInformacionAduanera(
             ['id' => 'first'],
             ['id' => 'second']
         );
+        $this->assertSame($multiReturn, $node);
         $this->assertCount(2, $node);
         $this->assertSame('first', $node->searchAttribute('cfdi:InformacionAduanera', 'id'));
     }
