@@ -169,6 +169,7 @@ class SumasConceptosComprobanteImpuestos extends AbstractDiscoverableVersion33
     ) {
         $extractedItems = [];
         foreach ($this->comprobante->searchNodes(...$impuestosPath) as $extracted) {
+            $new = [];
             foreach ($impuestosKeys as $impuestosKey) {
                 $new[$impuestosKey] = $extracted[$impuestosKey];
             }
