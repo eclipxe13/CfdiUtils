@@ -42,7 +42,7 @@ class Node implements NodeInterface
         return $this->children;
     }
 
-    public function addChild(NodeInterface $node)
+    public function addChild(NodeInterface $node): NodeInterface
     {
         $this->children->add($node);
         return $node;
