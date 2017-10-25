@@ -92,7 +92,6 @@ class Node implements NodeInterface
         $nodeName = array_pop($searchPath);
         $parent = $this->searchNode(...$searchPath);
         if (null !== $parent) {
-            /** @var Node $child */
             foreach ($parent->children() as $child) {
                 if ($child->name() === $nodeName) {
                     $nodes->add($child);
