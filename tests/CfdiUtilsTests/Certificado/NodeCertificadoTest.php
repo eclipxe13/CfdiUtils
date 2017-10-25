@@ -2,14 +2,14 @@
 namespace CfdiUtilsTests\Certificado;
 
 use CfdiUtils\Certificado\NodeCertificado;
-use CfdiUtils\Cfdi;
+use CfdiUtils\Nodes\XmlNodeUtils;
 use CfdiUtilsTests\TestCase;
 
 class NodeCertificadoTest extends TestCase
 {
     private function createNodeCertificado(string $contents)
     {
-        return new NodeCertificado(Cfdi::newFromString($contents)->getNode());
+        return new NodeCertificado(XmlNodeUtils::nodeFromXmlString($contents));
     }
 
     public function testExtractWithWrongVersion()

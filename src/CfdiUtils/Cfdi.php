@@ -72,7 +72,12 @@ class Cfdi
         if (false === @$document->loadXML($content)) {
             throw new \UnexpectedValueException('Cannot create a DOM Document from content');
         }
-        return new static($document);
+
+        // populate source since it is already available
+        // in this way we avoid the conversion from document to string
+        $cfdi = new static($document);
+        $cfdi->source = $content;
+        return $cfdi;
     }
 
     public function getVersion(): string
