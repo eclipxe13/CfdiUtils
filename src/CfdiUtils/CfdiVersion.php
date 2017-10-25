@@ -13,7 +13,7 @@ class CfdiVersion
 {
     public static function fromDOMElement(DOMElement $element): string
     {
-        return static::evaluate($element->getAttribute('version'), $element->getAttribute('Version'));
+        return self::evaluate($element->getAttribute('version'), $element->getAttribute('Version'));
     }
 
     public static function fromDOMDocument(DOMDocument $document): string
@@ -23,7 +23,7 @@ class CfdiVersion
 
     public static function fromNode(Node $node): string
     {
-        return static::evaluate($node['version'], $node['Version']);
+        return self::evaluate($node['version'], $node['Version']);
     }
 
     public static function fromXmlString(string $contents): string
