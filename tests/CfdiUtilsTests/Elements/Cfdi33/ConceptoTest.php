@@ -1,8 +1,10 @@
 <?php
 namespace CfdiUtilsTests\Elements\Cfdi33;
 
+use CfdiUtils\Elements\Cfdi33\ComplementoConcepto;
 use CfdiUtils\Elements\Cfdi33\Concepto;
 use CfdiUtils\Elements\Cfdi33\CuentaPredial;
+use CfdiUtils\Elements\Cfdi33\Parte;
 use PHPUnit\Framework\TestCase;
 
 class ConceptoTest extends TestCase
@@ -28,8 +30,67 @@ class ConceptoTest extends TestCase
     {
         $parent = $this->element;
         $this->assertCount(0, $parent);
-        $this->element->addCuentaPredial(['id' => 'first']);
+
+        $first = $parent->addCuentaPredial(['id' => 'first']);
         $this->assertCount(1, $parent);
+        $this->assertInstanceOf(CuentaPredial::class, $first);
         $this->assertSame('first', $parent->searchAttribute('cfdi:CuentaPredial', 'id'));
+
+        $second = $parent->addCuentaPredial(['ID' => 'BAR']);
+        $this->assertSame($first, $second);
+        $this->assertSame('BAR', $first['ID']);
+    }
+
+    public function testGetComplementoConcepto()
+    {
+        $this->assertNull($this->element->searchNode('cfdi:ComplementoConcepto'));
+        $child = $this->element->getComplementoConcepto();
+        $this->assertInstanceOf(ComplementoConcepto::class, $child);
+        $this->assertSame($child, $this->element->searchNode('cfdi:ComplementoConcepto'));
+    }
+
+    public function testAddComplementoConcepto()
+    {
+        $parent = $this->element;
+        $this->assertCount(0, $parent);
+
+        $first = $parent->addComplementoConcepto(['ID' => '123AD']);
+        $this->assertCount(1, $parent);
+        $this->assertInstanceOf(ComplementoConcepto::class, $first);
+        $this->assertSame('123AD', $first['ID']);
+
+        $second = $parent->addComplementoConcepto(['ID' => 'BAR']);
+        $this->assertSame($first, $second);
+        $this->assertSame('BAR', $first['ID']);
+    }
+
+    public function testAddParte()
+    {
+        // no childs
+        $parent = $this->element;
+        $this->assertCount(0, $parent);
+
+        // add first child
+        $first = $parent->addParte(['name' => 'first']);
+        $this->assertInstanceOf(Parte::class, $first);
+        $this->assertSame('first', $first['name']);
+        $this->assertCount(1, $parent);
+
+        // add second child
+        $parent->addParte();
+        $this->assertCount(2, $parent);
+    }
+
+    public function testMultiParte()
+    {
+        $node = $this->element;
+        $this->assertCount(0, $node);
+        $multiReturn = $node->multiParte(
+            ['id' => 'first'],
+            ['id' => 'second']
+        );
+        $this->assertSame($multiReturn, $node);
+        $this->assertCount(2, $node);
+        $this->assertSame('first', $node->searchAttribute('cfdi:Parte', 'id'));
     }
 }
