@@ -3,7 +3,7 @@ namespace CfdiUtilsTests;
 
 use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\CfdiCreator33;
-use CfdiUtils\Format;
+use CfdiUtils\Utils\Format;
 use CfdiUtils\Validate\Status;
 
 class CreateComprobanteCaseTest extends TestCase

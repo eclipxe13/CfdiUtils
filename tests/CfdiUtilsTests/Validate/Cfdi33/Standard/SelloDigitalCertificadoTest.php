@@ -3,7 +3,7 @@ namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\CfdiCreator33;
-use CfdiUtils\Format;
+use CfdiUtils\Utils\Format;
 use CfdiUtils\Validate\Cfdi33\Standard\SelloDigitalCertificado;
 use CfdiUtils\Validate\Contracts\DiscoverableCreateInterface;
 use CfdiUtils\Validate\Contracts\RequireXmlResolverInterface;

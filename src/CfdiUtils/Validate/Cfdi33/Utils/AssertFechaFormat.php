@@ -1,7 +1,7 @@
 <?php
 namespace CfdiUtils\Validate\Cfdi33\Utils;
 
-use CfdiUtils\Format;
+use CfdiUtils\Utils\Format;
 use CfdiUtils\Validate\Asserts;
 use CfdiUtils\Validate\Status;
 

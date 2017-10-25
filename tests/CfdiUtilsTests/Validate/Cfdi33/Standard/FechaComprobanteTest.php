@@ -1,7 +1,7 @@
 <?php
 namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
-use CfdiUtils\Format;
+use CfdiUtils\Utils\Format;
 use CfdiUtils\Validate\Cfdi33\Standard\FechaComprobante;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;

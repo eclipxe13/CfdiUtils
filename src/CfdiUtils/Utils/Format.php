@@ -1,5 +1,5 @@
 <?php
-namespace CfdiUtils;
+namespace CfdiUtils\Utils;
 
 /**
  * This class provides static methods to format the values of the attributes
