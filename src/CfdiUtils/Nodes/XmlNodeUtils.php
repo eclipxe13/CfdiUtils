@@ -44,6 +44,6 @@ class XmlNodeUtils
 
     public static function nodeFromSimpleXmlElement(SimpleXMLElement $element): NodeInterface
     {
-        return static::nodeFromXmlString($element->asXML());
+        return static::nodeFromXmlString((string) $element->asXML());
     }
 }

@@ -108,10 +108,10 @@ class PemPrivateKey
             '-----%s PRIVATE KEY-----',
             '-----%s RSA PRIVATE KEY-----',
         ];
-        if (! static::isPEMHasHeader($keyContents, $templates)) {
+        if (! self::isPEMHasHeader($keyContents, $templates)) {
             return false;
         }
-        if (! static::isPEMHasFooter($keyContents, $templates)) {
+        if (! self::isPEMHasFooter($keyContents, $templates)) {
             return false;
         }
         return true;
