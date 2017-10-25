@@ -47,10 +47,11 @@ class Concepto extends AbstractElement
         return $parte;
     }
 
-    public function multiParte(array ...$elementAttributes)
+    public function multiParte(array ...$elementAttributes): self
     {
         foreach ($elementAttributes as $attributes) {
             $this->addParte($attributes);
         }
+        return $this;
     }
 }

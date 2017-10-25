@@ -17,10 +17,11 @@ class Retenciones extends AbstractElement
         return $Retencion;
     }
 
-    public function multiRetencion(array ...$elementAttributes)
+    public function multiRetencion(array ...$elementAttributes): self
     {
         foreach ($elementAttributes as $attributes) {
             $this->addRetencion($attributes);
         }
+        return $this;
     }
 }

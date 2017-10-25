@@ -17,10 +17,11 @@ class Traslados extends AbstractElement
         return $traslado;
     }
 
-    public function multiTraslado(array ...$elementAttributes)
+    public function multiTraslado(array ...$elementAttributes): self
     {
         foreach ($elementAttributes as $attributes) {
             $this->addTraslado($attributes);
         }
+        return $this;
     }
 }
