@@ -1,7 +1,7 @@
 <?php
 namespace CfdiUtils\SumasConceptos;
 
-use CfdiUtils\Nodes\Node;
+use CfdiUtils\Nodes\NodeInterface;
 
 class SumasConceptos
 {
@@ -24,7 +24,7 @@ class SumasConceptos
      * Constructors
      */
 
-    public function __construct(Node $comprobante)
+    public function __construct(NodeInterface $comprobante)
     {
         $this->importes = 0.0;
         $this->descuento = 0.0;
@@ -40,7 +40,7 @@ class SumasConceptos
      * Helper functions to populate the object
      */
 
-    private function addComprobante(Node $comprobante)
+    private function addComprobante(NodeInterface $comprobante)
     {
         $conceptos = $comprobante->searchNodes('cfdi:Conceptos', 'cfdi:Concepto');
         foreach ($conceptos as $concepto) {
@@ -51,7 +51,7 @@ class SumasConceptos
         $this->total = $this->importes - $this->descuento + $this->impuestosTrasladados - $this->impuestosRetenidos;
     }
 
-    private function addConcepto(Node $concepto)
+    private function addConcepto(NodeInterface $concepto)
     {
         $this->importes += (float) $concepto->searchAttribute('Importe');
         $this->descuento += (float) $concepto->searchAttribute('Descuento');
@@ -67,7 +67,7 @@ class SumasConceptos
         }
     }
 
-    private function addTraslado(Node $traslado)
+    private function addTraslado(NodeInterface $traslado)
     {
         $key = $this->impuestoKey(
             $traslado->searchAttribute('Impuesto'),
@@ -85,7 +85,7 @@ class SumasConceptos
         $this->traslados[$key]['Importe'] += (float) $traslado->searchAttribute('Importe');
     }
 
-    private function addRetencion(Node $retencion)
+    private function addRetencion(NodeInterface $retencion)
     {
         $key = $this->impuestoKey($retencion->searchAttribute('Impuesto'));
         if (! array_key_exists($key, $this->retenciones)) {

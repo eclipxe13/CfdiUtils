@@ -9,14 +9,14 @@ class Node implements NodeInterface
     /** @var Attributes */
     private $attributes;
 
-    /** @var Nodes|Node[] */
+    /** @var Nodes|NodeInterface[] */
     private $children;
 
     /**
      * Node constructor.
      * @param string $name
      * @param string[] $attributes
-     * @param Node[] $children
+     * @param NodeInterface[] $children
      */
     public function __construct(string $name, array $attributes = [], array $children = [])
     {
@@ -35,14 +35,14 @@ class Node implements NodeInterface
     }
 
     /**
-     * @return Nodes|Node[]
+     * @return Nodes|NodeInterface[]
      */
     public function children(): Nodes
     {
         return $this->children;
     }
 
-    public function addChild(Node $node)
+    public function addChild(NodeInterface $node)
     {
         $this->children->add($node);
         return $node;
@@ -84,7 +84,7 @@ class Node implements NodeInterface
 
     /**
      * @param string[] ...$searchPath
-     * @return Nodes|Node[]
+     * @return Nodes|NodeInterface[]
      */
     public function searchNodes(string ...$searchPath): Nodes
     {
@@ -93,7 +93,7 @@ class Node implements NodeInterface
         $parent = $this->searchNode(...$searchPath);
         if (null !== $parent) {
             /** @var Node $child */
-            foreach ($parent->children as $child) {
+            foreach ($parent->children() as $child) {
                 if ($child->name() === $nodeName) {
                     $nodes->add($child);
                 }
@@ -104,7 +104,7 @@ class Node implements NodeInterface
 
     /**
      * @param string[] ...$searchPath
-     * @return Node|null
+     * @return NodeInterface|null
      */
     public function searchNode(string ...$searchPath)
     {

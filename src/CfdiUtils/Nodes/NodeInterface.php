@@ -7,7 +7,7 @@ interface NodeInterface extends \ArrayAccess, \Countable, \IteratorAggregate
 
     public function children(): Nodes;
 
-    public function addChild(Node $node);
+    public function addChild(NodeInterface $node);
 
     public function attributes(): Attributes;
 

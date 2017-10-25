@@ -4,7 +4,7 @@ namespace CfdiUtils\Validate\Cfdi33\Standard;
 use CfdiUtils\CadenaOrigen\CadenaOrigenBuilder;
 use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\Certificado\NodeCertificado;
-use CfdiUtils\Nodes\Node;
+use CfdiUtils\Nodes\NodeInterface;
 use CfdiUtils\Validate\Asserts;
 use CfdiUtils\Validate\Cfdi33\Abstracts\AbstractDiscoverableVersion33;
 use CfdiUtils\Validate\Contracts\RequireXmlResolverInterface;
@@ -30,7 +30,7 @@ class SelloDigitalCertificado extends AbstractDiscoverableVersion33 implements
     RequireXmlStringInterface,
     RequireXmlResolverInterface
 {
-    /** @var Node */
+    /** @var NodeInterface */
     private $comprobante;
 
     /** @var Asserts */
@@ -59,7 +59,7 @@ class SelloDigitalCertificado extends AbstractDiscoverableVersion33 implements
         }
     }
 
-    public function validate(Node $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts)
     {
         $this->comprobante = $comprobante;
         $this->asserts = $asserts;

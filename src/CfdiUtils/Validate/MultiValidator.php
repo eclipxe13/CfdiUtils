@@ -1,7 +1,7 @@
 <?php
 namespace CfdiUtils\Validate;
 
-use CfdiUtils\Nodes\Node;
+use CfdiUtils\Nodes\NodeInterface;
 use CfdiUtils\Validate\Contracts\ValidatorInterface;
 
 class MultiValidator implements ValidatorInterface, \Countable, \IteratorAggregate
@@ -22,7 +22,7 @@ class MultiValidator implements ValidatorInterface, \Countable, \IteratorAggrega
         return $this->version;
     }
 
-    public function validate(Node $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts)
     {
         foreach ($this->validators as $validator) {
             if (! $validator->canValidateCfdiVersion($this->getVersion())) {

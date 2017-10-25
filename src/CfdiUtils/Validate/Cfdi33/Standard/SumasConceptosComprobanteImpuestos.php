@@ -1,7 +1,7 @@
 <?php
 namespace CfdiUtils\Validate\Cfdi33\Standard;
 
-use CfdiUtils\Nodes\Node;
+use CfdiUtils\Nodes\NodeInterface;
 use CfdiUtils\SumasConceptos\SumasConceptos;
 use CfdiUtils\Validate\Asserts;
 use CfdiUtils\Validate\Cfdi33\Abstracts\AbstractDiscoverableVersion33;
@@ -37,7 +37,7 @@ use CfdiUtils\Validate\Status;
  */
 class SumasConceptosComprobanteImpuestos extends AbstractDiscoverableVersion33
 {
-    /** @var Node */
+    /** @var NodeInterface */
     private $comprobante;
 
     /** @var Asserts */
@@ -66,7 +66,7 @@ class SumasConceptosComprobanteImpuestos extends AbstractDiscoverableVersion33
         }
     }
 
-    public function validate(Node $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts)
     {
         $this->asserts = $asserts;
         $this->comprobante = $comprobante;

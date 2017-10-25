@@ -19,7 +19,7 @@ class XmlNodeExporter
         $this->document = $document;
     }
 
-    public function export(Node $node): DOMElement
+    public function export(NodeInterface $node): DOMElement
     {
         $element = $this->document->createElement($node->name());
 

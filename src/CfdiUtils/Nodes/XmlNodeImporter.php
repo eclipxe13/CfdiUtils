@@ -11,7 +11,7 @@ class XmlNodeImporter
      */
     private $registeredNamespaces = [];
 
-    public function import($element): Node
+    public function import($element): NodeInterface
     {
         $node = new Node($element->tagName);
         if ('' !== $element->prefix) {

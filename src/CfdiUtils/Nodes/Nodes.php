@@ -3,15 +3,19 @@ namespace CfdiUtils\Nodes;
 
 class Nodes implements \Countable, \IteratorAggregate
 {
-    /** @var Node[] */
+    /** @var NodeInterface[] */
     private $nodes = [];
 
+    /**
+     * Nodes constructor.
+     * @param NodeInterface[] $nodes
+     */
     public function __construct(array $nodes = [])
     {
         $this->importFromArray($nodes);
     }
 
-    public function add(Node ...$nodes): self
+    public function add(NodeInterface ...$nodes): self
     {
         foreach ($nodes as $node) {
             if (! $this->exists($node)) {
@@ -21,7 +25,7 @@ class Nodes implements \Countable, \IteratorAggregate
         return $this;
     }
 
-    public function indexOf(Node $node): int
+    public function indexOf(NodeInterface $node): int
     {
         if (false === $index = array_search($node, $this->nodes, true)) {
             $index = -1;
@@ -29,7 +33,7 @@ class Nodes implements \Countable, \IteratorAggregate
         return $index;
     }
 
-    public function remove(Node $node): self
+    public function remove(NodeInterface $node): self
     {
         $index = $this->indexOf($node);
         if ($index >= 0) {
@@ -44,13 +48,13 @@ class Nodes implements \Countable, \IteratorAggregate
         return $this;
     }
 
-    public function exists(Node $node): bool
+    public function exists(NodeInterface $node): bool
     {
         return ($this->indexOf($node) >= 0);
     }
 
     /**
-     * @return Node|null
+     * @return NodeInterface|null
      */
     public function first()
     {
@@ -62,18 +66,18 @@ class Nodes implements \Countable, \IteratorAggregate
 
     /**
      * @param int $index
-     * @return Node|null
+     * @return NodeInterface|null
      */
     public function get(int $index)
     {
-        /** @var Node[] $nodesByPosition */
+        /** @var NodeInterface[] $nodesByPosition */
         $nodesByPosition = array_values($this->nodes);
         return (array_key_exists($index, $nodesByPosition)) ? $nodesByPosition[$index] : null;
     }
 
     /**
      * @param string $nodeName
-     * @return Node|null
+     * @return NodeInterface|null
      */
     public function firstNodeWithName(string $nodeName)
     {
@@ -96,11 +100,15 @@ class Nodes implements \Countable, \IteratorAggregate
         return $nodes;
     }
 
+    /**
+     * @param NodeInterface[] $nodes
+     * @return Nodes
+     */
     public function importFromArray(array $nodes): self
     {
         foreach ($nodes as $index => $node) {
-            if (! ($node instanceof Node)) {
-                throw new \InvalidArgumentException("The element index $index is not a Node class");
+            if (! ($node instanceof NodeInterface)) {
+                throw new \InvalidArgumentException("The element index $index is not a NodeInterface object");
             }
             $this->add($node);
         }
