@@ -7,10 +7,7 @@ use CfdiUtils\Elements\Cfdi33\Comprobante;
 use CfdiUtils\Elements\Cfdi33\Concepto;
 use CfdiUtils\Elements\Cfdi33\Conceptos;
 use CfdiUtils\Elements\Cfdi33\Emisor;
-use CfdiUtils\Elements\Cfdi33\Impuestos;
 use CfdiUtils\Elements\Cfdi33\Receptor;
-use CfdiUtils\Elements\Cfdi33\Retencion;
-use CfdiUtils\Elements\Cfdi33\Traslado;
 use PHPUnit\Framework\TestCase;
 
 class ComprobanteTest extends TestCase
