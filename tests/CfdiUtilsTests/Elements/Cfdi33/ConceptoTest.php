@@ -68,27 +68,6 @@ class ConceptoTest extends TestCase
         $this->assertSame('first', $parent->searchAttribute('cfdi:Retencion', 'id'));
     }
 
-    public function testAddInformacionAduanera()
-    {
-        $parent = $this->element;
-        $this->assertCount(0, $parent);
-        $this->element->addInformacionAduanera(['id' => 'first']);
-        $this->assertCount(1, $parent);
-        $this->assertSame('first', $parent->searchAttribute('cfdi:InformacionAduanera', 'id'));
-    }
-
-    public function testMultiInformacionAduanera()
-    {
-        $parent = $this->element;
-        $this->assertCount(0, $parent);
-        $this->element->multiInformacionAduanera(
-            ['id' => 'first'],
-            ['id' => 'second']
-        );
-        $this->assertCount(2, $parent);
-        $this->assertSame('first', $parent->searchAttribute('cfdi:InformacionAduanera', 'id'));
-    }
-
     public function testGetCuentaPredial()
     {
         $this->assertNull($this->element->searchNode('cfdi:CuentaPredial'));
