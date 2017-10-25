@@ -117,6 +117,9 @@ class CfdiCreator33
         );
     }
 
+    /**
+     * @return Asserts|\CfdiUtils\Validate\Assert[]
+     */
     public function validate(): Asserts
     {
         $asserts = new Asserts();
