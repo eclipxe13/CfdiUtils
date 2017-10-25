@@ -1,10 +1,13 @@
 <?php
 namespace CfdiUtils\Elements\Cfdi33;
 
+use CfdiUtils\Elements\Cfdi33\Traits\InformacionAduaneraTrait;
 use CfdiUtils\Elements\Common\AbstractElement;
 
 class Concepto extends AbstractElement
 {
+    use InformacionAduaneraTrait;
+
     public function getElementName(): string
     {
         return 'cfdi:Concepto';
@@ -33,20 +36,6 @@ class Concepto extends AbstractElement
     public function multiRetencion(array ...$elementAttributes)
     {
         return $this->getImpuestos()->getRetenciones()->multiRetencion(...$elementAttributes);
-    }
-
-    public function addInformacionAduanera(array $attributes = []): InformacionAduanera
-    {
-        $informacionAduanera = new InformacionAduanera($attributes);
-        $this->addChild($informacionAduanera);
-        return $informacionAduanera;
-    }
-
-    public function multiInformacionAduanera(array ...$elementAttributes)
-    {
-        foreach ($elementAttributes as $attributes) {
-            $this->addInformacionAduanera($attributes);
-        }
     }
 
     public function getCuentaPredial(): CuentaPredial
