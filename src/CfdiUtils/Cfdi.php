@@ -1,7 +1,7 @@
 <?php
 namespace CfdiUtils;
 
-use CfdiUtils\Nodes\Node;
+use CfdiUtils\Nodes\NodeInterface;
 use CfdiUtils\Nodes\XmlNodeImporter;
 use DOMDocument;
 
@@ -31,7 +31,7 @@ class Cfdi
     /** @var string */
     private $source;
 
-    /** @var Node */
+    /** @var NodeInterface */
     private $node;
 
     const CFDI_NAMESPACE = 'http://www.sat.gob.mx/cfd/3';
@@ -93,7 +93,7 @@ class Cfdi
         return $this->source;
     }
 
-    public function getNode(): Node
+    public function getNode(): NodeInterface
     {
         if (null === $this->node) {
             $importer = new XmlNodeImporter();

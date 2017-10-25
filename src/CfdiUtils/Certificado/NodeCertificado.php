@@ -1,14 +1,14 @@
 <?php
 namespace CfdiUtils\Certificado;
 
-use CfdiUtils\Nodes\Node;
+use CfdiUtils\Nodes\NodeInterface;
 
 class NodeCertificado
 {
-    /** @var Node */
+    /** @var NodeInterface */
     private $comprobante;
 
-    public function __construct(Node $comprobante)
+    public function __construct(NodeInterface $comprobante)
     {
         $this->comprobante = $comprobante;
     }

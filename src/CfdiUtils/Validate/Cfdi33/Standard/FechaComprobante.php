@@ -1,7 +1,7 @@
 <?php
 namespace CfdiUtils\Validate\Cfdi33\Standard;
 
-use CfdiUtils\Nodes\Node;
+use CfdiUtils\Nodes\NodeInterface;
 use CfdiUtils\Validate\Asserts;
 use CfdiUtils\Validate\Cfdi33\Abstracts\AbstractDiscoverableVersion33;
 use CfdiUtils\Validate\Cfdi33\Utils\AssertFechaFormat;
@@ -59,7 +59,7 @@ class FechaComprobante extends AbstractDiscoverableVersion33
         $this->tolerance = $tolerance;
     }
 
-    public function validate(Node $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts)
     {
         $fechaSource = $comprobante['Fecha'];
         $hasFormat = AssertFechaFormat::assertFormat($asserts, 'FECHA01', 'del comprobante', $fechaSource);

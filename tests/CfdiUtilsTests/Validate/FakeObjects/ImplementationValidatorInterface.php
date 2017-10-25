@@ -1,7 +1,7 @@
 <?php
 namespace CfdiUtilsTests\Validate\FakeObjects;
 
-use CfdiUtils\Nodes\Node;
+use CfdiUtils\Nodes\NodeInterface;
 use CfdiUtils\Validate\Asserts;
 use CfdiUtils\Validate\Contracts\ValidatorInterface;
 
@@ -17,7 +17,7 @@ class ImplementationValidatorInterface implements ValidatorInterface
     /** @var Asserts|null */
     public $assertsToImport = null;
 
-    public function validate(Node $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts)
     {
         if ($this->assertsToImport instanceof Asserts) {
             $asserts->import($this->assertsToImport);

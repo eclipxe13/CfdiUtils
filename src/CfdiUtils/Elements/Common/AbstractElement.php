@@ -15,7 +15,7 @@ abstract class AbstractElement extends Node implements ElementInterface
         return [];
     }
 
-    protected function helperGetOrAdd(AbstractElement $element)
+    protected function helperGetOrAdd(ElementInterface $element)
     {
         $retrieved = $this->searchNode($element->getElementName());
         if (null !== $retrieved) {

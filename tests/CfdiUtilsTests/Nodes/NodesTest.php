@@ -2,6 +2,7 @@
 namespace CfdiUtilsTests\Nodes;
 
 use CfdiUtils\Nodes\Node;
+use CfdiUtils\Nodes\NodeInterface;
 use CfdiUtils\Nodes\Nodes;
 use CfdiUtilsTests\TestCase;
 
@@ -105,8 +106,10 @@ class NodesTest extends TestCase
         $nodes = new Nodes();
 
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('The element index 0 is not a Node class');
-        $nodes->importFromArray([new \stdClass()]);
+        $this->expectExceptionMessage('The element index 0 is not a NodeInterface object');
+        /** @var NodeInterface $specimen Override type to avoid problems with static analyser */
+        $specimen = new \stdClass();
+        $nodes->importFromArray([$specimen]);
     }
 
     public function testGetNodesByName()

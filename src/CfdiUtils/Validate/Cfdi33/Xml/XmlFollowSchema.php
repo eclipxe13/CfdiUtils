@@ -1,7 +1,7 @@
 <?php
 namespace CfdiUtils\Validate\Cfdi33\Xml;
 
-use CfdiUtils\Nodes\Node;
+use CfdiUtils\Nodes\NodeInterface;
 use CfdiUtils\Nodes\XmlNodeUtils;
 use CfdiUtils\Validate\Asserts;
 use CfdiUtils\Validate\Cfdi33\Abstracts\AbstractVersion33;
@@ -36,7 +36,7 @@ class XmlFollowSchema extends AbstractVersion33 implements
     use XmlStringPropertyTrait;
     use XmlResolverPropertyTrait;
 
-    public function validate(Node $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts)
     {
         $assert = $asserts->put('XDS01', 'El contenido XML sigue los esquemas XSD');
 
