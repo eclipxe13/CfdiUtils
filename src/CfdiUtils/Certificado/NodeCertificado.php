@@ -102,11 +102,11 @@ class NodeCertificado
         try {
             $this->save($tempfile);
             $certificado = new Certificado($tempfile);
+            return $certificado;
         } finally {
             if (file_exists($tempfile)) {
                 unlink($tempfile);
             }
         }
-        return $certificado;
     }
 }
