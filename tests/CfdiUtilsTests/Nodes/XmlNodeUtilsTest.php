@@ -2,8 +2,8 @@
 namespace CfdiUtilsTests\Nodes;
 
 use CfdiUtils\Nodes\XmlNodeUtils;
+use CfdiUtils\Utils\Xml;
 use CfdiUtilsTests\TestCase;
-use DOMDocument;
 
 class XmlNodeUtilsTest extends TestCase
 {
@@ -23,8 +23,7 @@ class XmlNodeUtilsTest extends TestCase
     {
         $source = file_get_contents($filename);
 
-        $document = new DOMDocument();
-        $document->loadXML($source);
+        $document = Xml::newDocumentContent($source);
 
         // create node from element
         $node = XmlNodeUtils::nodeFromXmlElement($document->documentElement);

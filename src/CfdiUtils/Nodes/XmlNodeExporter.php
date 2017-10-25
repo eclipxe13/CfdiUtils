@@ -1,6 +1,7 @@
 <?php
 namespace CfdiUtils\Nodes;
 
+use CfdiUtils\Utils\Xml;
 use DOMDocument;
 use DOMElement;
 
@@ -12,9 +13,7 @@ class XmlNodeExporter
     public function __construct(DOMDocument $document = null)
     {
         if ($document === null) {
-            $document = new DOMDocument();
-            $document->formatOutput = true;
-            $document->preserveWhiteSpace = false;
+            $document = Xml::newDocument();
         }
         $this->document = $document;
     }

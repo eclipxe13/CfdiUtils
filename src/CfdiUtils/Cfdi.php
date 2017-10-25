@@ -3,6 +3,7 @@ namespace CfdiUtils;
 
 use CfdiUtils\Nodes\NodeInterface;
 use CfdiUtils\Nodes\XmlNodeImporter;
+use CfdiUtils\Utils\Xml;
 use DOMDocument;
 
 /**
@@ -62,17 +63,7 @@ class Cfdi
      */
     public static function newFromString(string $content)
     {
-        if ('' === $content) {
-            throw new \UnexpectedValueException('Content is empty');
-        }
-        $document = new DOMDocument();
-        $document->formatOutput = true;
-        $document->preserveWhiteSpace = false;
-        // this error silenced call is intentional, no need to alter libxml_use_internal_errors
-        if (false === @$document->loadXML($content)) {
-            throw new \UnexpectedValueException('Cannot create a DOM Document from content');
-        }
-
+        $document = Xml::newDocumentContent($content);
         // populate source since it is already available
         // in this way we avoid the conversion from document to string
         $cfdi = new static($document);

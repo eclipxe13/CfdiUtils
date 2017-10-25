@@ -1,6 +1,7 @@
 <?php
 namespace CfdiUtils\Nodes;
 
+use CfdiUtils\Utils\Xml;
 use DOMDocument;
 use DOMElement;
 use SimpleXMLElement;
@@ -35,16 +36,7 @@ class XmlNodeUtils
 
     public static function nodeFromXmlString(string $content): NodeInterface
     {
-        if ('' == $content) {
-            throw new \UnexpectedValueException('Content argument cannot be empty');
-        }
-        $document = new DOMDocument();
-        $document->formatOutput = true;
-        $document->preserveWhiteSpace = false;
-        // this error silenced call is intentional, no need to alter libxml_use_internal_errors
-        if (false === @$document->loadXML($content)) {
-            throw new \UnexpectedValueException('Cannot create a DOM Document from content');
-        }
+        $document = Xml::newDocumentContent($content);
         return static::nodeFromXmlElement($document->documentElement);
     }
 
