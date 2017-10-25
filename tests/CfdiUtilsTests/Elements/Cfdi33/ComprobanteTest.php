@@ -101,33 +101,6 @@ class ComprobanteTest extends TestCase
         $this->assertCount(1, $this->element);
     }
 
-    public function testGetImpuestos()
-    {
-        $this->assertNull($this->element->searchNode('cfdi:Impuestos'));
-        $child = $this->element->getImpuestos();
-        $this->assertInstanceOf(Impuestos::class, $child);
-        $this->assertSame($child, $this->element->searchNode('cfdi:Impuestos'));
-    }
-
-    public function testAddTraslado()
-    {
-        $this->assertCount(0, $this->element);
-
-        $first = $this->element->getImpuestos()->getTraslados()->addTraslado(['name' => 'FOO']);
-        $this->assertInstanceOf(Traslado::class, $first);
-        $this->assertSame('FOO', $first['name']);
-        $this->assertCount(1, $this->element);
-    }
-
-    public function testAddRetencion()
-    {
-        $this->assertNull($this->element->searchNode('cfdi:Impuestos', 'cfdi:Retenciones', 'cfdi:Retencion'));
-        $first = $this->element->addRetencion(['name' => 'first']);
-        $this->assertInstanceOf(Retencion::class, $first);
-        $this->assertSame('first', $first['name']);
-        $this->assertSame($first, $this->element->searchNode('cfdi:Impuestos', 'cfdi:Retenciones', 'cfdi:Retencion'));
-    }
-
     public function testHasFixedAttributes()
     {
         $this->assertSame('3.3', $this->element['Version']);

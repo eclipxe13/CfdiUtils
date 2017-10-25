@@ -1,52 +1,18 @@
 <?php
 namespace CfdiUtils\Elements\Cfdi33;
 
+use CfdiUtils\Elements\Cfdi33\Traits\ImpuestosTrait;
+use CfdiUtils\Elements\Cfdi33\Traits\InformacionAduaneraTrait;
 use CfdiUtils\Elements\Common\AbstractElement;
 
 class Concepto extends AbstractElement
 {
+    use ImpuestosTrait;
+    use InformacionAduaneraTrait;
+
     public function getElementName(): string
     {
         return 'cfdi:Concepto';
-    }
-
-    public function getImpuestos(): Impuestos
-    {
-        return $this->helperGetOrAdd(new Impuestos());
-    }
-
-    public function addTraslado(array $attributes = []): Traslado
-    {
-        return $this->getImpuestos()->getTraslados()->addTraslado($attributes);
-    }
-
-    public function multiTraslado(array ...$elementAttributes)
-    {
-        return $this->getImpuestos()->getTraslados()->multiTraslado(...$elementAttributes);
-    }
-
-    public function addRetencion(array $attributes = []): Retencion
-    {
-        return $this->getImpuestos()->getRetenciones()->addRetencion($attributes);
-    }
-
-    public function multiRetencion(array ...$elementAttributes)
-    {
-        return $this->getImpuestos()->getRetenciones()->multiRetencion(...$elementAttributes);
-    }
-
-    public function addInformacionAduanera(array $attributes = []): InformacionAduanera
-    {
-        $informacionAduanera = new InformacionAduanera($attributes);
-        $this->addChild($informacionAduanera);
-        return $informacionAduanera;
-    }
-
-    public function multiInformacionAduanera(array ...$elementAttributes)
-    {
-        foreach ($elementAttributes as $attributes) {
-            $this->addInformacionAduanera($attributes);
-        }
     }
 
     public function getCuentaPredial(): CuentaPredial
@@ -81,10 +47,11 @@ class Concepto extends AbstractElement
         return $parte;
     }
 
-    public function multiParte(array ...$elementAttributes)
+    public function multiParte(array ...$elementAttributes): self
     {
         foreach ($elementAttributes as $attributes) {
             $this->addParte($attributes);
         }
+        return $this;
     }
 }
