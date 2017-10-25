@@ -30,9 +30,6 @@ class SelloDigitalCertificado extends AbstractDiscoverableVersion33 implements
     RequireXmlStringInterface,
     RequireXmlResolverInterface
 {
-    /** @var NodeInterface */
-    private $comprobante;
-
     /** @var Asserts */
     private $asserts;
 
@@ -61,7 +58,6 @@ class SelloDigitalCertificado extends AbstractDiscoverableVersion33 implements
 
     public function validate(NodeInterface $comprobante, Asserts $asserts)
     {
-        $this->comprobante = $comprobante;
         $this->asserts = $asserts;
         $this->registerAsserts();
 
