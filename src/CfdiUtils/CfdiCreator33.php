@@ -122,22 +122,17 @@ class CfdiCreator33
      */
     public function validate(): Asserts
     {
-        $asserts = new Asserts();
-        $hydrator = $this->newHydrater();
-
-        // validate against discovered
         $factory = new MultiValidatorFactory();
         $validator = $factory->newCreated33();
-        $validator->hydrate($hydrator);
-        $validator->validate($this->comprobante(), $asserts);
-        return $asserts;
-    }
 
-    public function newHydrater(): Hydrater
-    {
-        $hydrator = new Hydrater();
-        $hydrator->setXmlString($this->asXml());
-        $hydrator->setXmlResolver(($this->hasXmlResolver()) ? $this->getXmlResolver() : null);
-        return $hydrator;
+        $hydrater = new Hydrater();
+        $hydrater->setXmlString($this->asXml());
+        $hydrater->setXmlResolver(($this->hasXmlResolver()) ? $this->getXmlResolver() : null);
+        $validator->hydrate($hydrater);
+
+        $asserts = new Asserts();
+        $validator->validate($this->comprobante(), $asserts);
+
+        return $asserts;
     }
 }
