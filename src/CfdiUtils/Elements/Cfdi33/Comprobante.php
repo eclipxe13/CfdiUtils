@@ -1,10 +1,13 @@
 <?php
 namespace CfdiUtils\Elements\Cfdi33;
 
+use CfdiUtils\Elements\Cfdi33\Traits\ImpuestosTrait;
 use CfdiUtils\Elements\Common\AbstractElement;
 
 class Comprobante extends AbstractElement
 {
+    use ImpuestosTrait;
+
     public function getElementName(): string
     {
         return 'cfdi:Comprobante';
@@ -52,21 +55,6 @@ class Comprobante extends AbstractElement
     public function addConcepto(array $attributes = [], array $children = []): Concepto
     {
         return $this->getConceptos()->addConcepto($attributes, $children);
-    }
-
-    public function getImpuestos(): Impuestos
-    {
-        return $this->helperGetOrAdd(new Impuestos());
-    }
-
-    public function addTraslado(array $attributes = []): Traslado
-    {
-        return $this->getImpuestos()->getTraslados()->addTraslado($attributes);
-    }
-
-    public function addRetencion(array $attributes = []): Retencion
-    {
-        return $this->getImpuestos()->getRetenciones()->addRetencion($attributes);
     }
 
     public function getFixedAttributes(): array
