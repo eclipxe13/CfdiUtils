@@ -21,8 +21,11 @@ class PemPrivateKey
     public function __construct(string $key)
     {
         if (0 === strpos($key, 'file://')) {
-            // this error is intentionally silenced
-            $contents = (string) @file_get_contents(substr($key, 7));
+            $contents = '';
+            $filename = substr($key, 7);
+            if ('' !== $filename && '' === (string) parse_url($filename, PHP_URL_SCHEME) && file_exists($filename)) {
+                $contents = file_get_contents($filename);
+            }
         } else {
             $contents = $key;
         }

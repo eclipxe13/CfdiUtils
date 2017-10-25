@@ -20,6 +20,7 @@ class PemPrivateKeyTest extends TestCase
             'cer file' => ['file://' . static::utilAsset('certs/CSD01_AAA010101AAA.cer')],
             'key not pem file' => ['file://' . static::utilAsset('certs/CSD01_AAA010101AAA.key')],
             'no footer' => ['-----BEGIN PRIVATE KEY-----XXXXX'],
+            'hidden url' => ['file://https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.13.9.tar.xz'],
         ];
     }
 
