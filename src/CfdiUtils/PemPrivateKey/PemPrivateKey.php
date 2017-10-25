@@ -38,13 +38,12 @@ class PemPrivateKey
 
     public function __clone()
     {
-        $clone = clone $this;
-        $clone->privatekey = null;
+        $this->privatekey = null;
     }
 
-    public function __wakeup()
+    public function __sleep()
     {
-        $this->privatekey = null;
+        return ['contents'];
     }
 
     public function open(string $passPhrase): bool
