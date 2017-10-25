@@ -46,8 +46,8 @@ class SumasConceptos
         foreach ($conceptos as $concepto) {
             $this->addConcepto($concepto);
         }
-        $this->impuestosTrasladados = array_sum(array_column($this->traslados, 'Importe'));
-        $this->impuestosRetenidos = array_sum(array_column($this->retenciones, 'Importe'));
+        $this->impuestosTrasladados = (float) array_sum(array_column($this->traslados, 'Importe'));
+        $this->impuestosRetenidos = (float) array_sum(array_column($this->retenciones, 'Importe'));
         $this->total = $this->importes - $this->descuento + $this->impuestosTrasladados - $this->impuestosRetenidos;
     }
 
