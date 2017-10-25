@@ -1,8 +1,8 @@
 <?php
 namespace CfdiUtilsTests\Elements\Cfdi33;
 
-use CfdiUtils\Elements\Cfdi33\Conceptos;
 use CfdiUtils\Elements\Cfdi33\Concepto;
+use CfdiUtils\Elements\Cfdi33\Conceptos;
 use PHPUnit\Framework\TestCase;
 
 class ConceptosTest extends TestCase
@@ -13,7 +13,7 @@ class ConceptosTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->element = new Conceptos;
+        $this->element = new Conceptos();
     }
 
     public function testGetElementName()
