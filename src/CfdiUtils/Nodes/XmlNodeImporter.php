@@ -1,7 +1,7 @@
 <?php
 namespace CfdiUtils\Nodes;
 
-use DOMElement;
+use \DOMElement;
 
 class XmlNodeImporter
 {
@@ -11,7 +11,7 @@ class XmlNodeImporter
      */
     private $registeredNamespaces = [];
 
-    public function import($element): NodeInterface
+    public function import(DOMElement $element): NodeInterface
     {
         $node = new Node($element->tagName);
         if ('' !== $element->prefix) {
