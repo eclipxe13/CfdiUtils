@@ -21,7 +21,8 @@ class PemPrivateKey
     public function __construct(string $key)
     {
         if (0 === strpos($key, 'file://')) {
-            $contents = file_get_contents(substr($key, 7));
+            // this error is intentionally silenced
+            $contents = (string) @file_get_contents(substr($key, 7));
         } else {
             $contents = $key;
         }
