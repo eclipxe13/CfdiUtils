@@ -5,7 +5,7 @@ use CfdiUtils\XmlResolver\XmlResolver;
 
 class TestCase extends \PHPUnit\Framework\TestCase
 {
-    public function utilAsset(string $file)
+    public static function utilAsset(string $file)
     {
         return dirname(__DIR__) . '/assets/' . $file;
     }
