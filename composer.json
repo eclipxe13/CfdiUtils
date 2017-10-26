@@ -36,5 +36,30 @@
         "psr-4": {
             "CfdiUtilsTests\\": "tests/CfdiUtilsTests/"
         }
+    },
+    "scripts": {
+        "build": [
+            "@fix-style",
+            "@qa"
+        ],
+        "check-style": [
+            "vendor/bin/php-cs-fixer fix --dry-run --verbose",
+            "vendor/bin/phpcs --colors -sp src/ tests/"
+        ],
+        "fix-style": [
+            "vendor/bin/php-cs-fixer fix --verbose",
+            "vendor/bin/phpcbf --colors -sp src/ tests/"
+        ],
+        "qa": [
+            "vendor/bin/phpstan.phar analyse --level max src/ tests/",
+            "@test"
+        ],
+        "test": [
+            "vendor/bin/parallel-lint src/ tests/",
+            "vendor/bin/phpunit"
+        ],
+        "coverage": [
+            "@php -dzend_extension=xdebug.so vendor/bin/phpunit --coverage-text --coverage-html build/coverage/html/"
+        ]
     }
 }
