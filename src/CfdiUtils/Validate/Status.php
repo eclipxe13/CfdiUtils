@@ -51,6 +51,26 @@ class Status
         return new self(self::STATUS_NONE);
     }
 
+    public function isError(): bool
+    {
+        return $this->status === self::STATUS_ERROR;
+    }
+
+    public function isWarning(): bool
+    {
+        return $this->status === self::STATUS_WARNING;
+    }
+
+    public function isOk(): bool
+    {
+        return $this->status === self::STATUS_OK;
+    }
+
+    public function isNone(): bool
+    {
+        return $this->status === self::STATUS_NONE;
+    }
+
     public static function when(bool $condition, Status $errorStatus = null): Status
     {
         return ($condition) ? self::ok() : ($errorStatus ? : self::error());

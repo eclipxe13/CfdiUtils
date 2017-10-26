@@ -17,6 +17,7 @@ class StatusTest extends TestCase
         $statusOne = new Status(Status::STATUS_OK);
         $statusTwo = Status::ok();
         $this->assertEquals($statusOne, $statusTwo);
+        $this->assertTrue($statusOne->isOk());
         $this->assertTrue($statusOne->equalsTo($statusTwo));
         $this->assertFalse($statusOne->equalsTo(Status::none()));
     }
@@ -26,6 +27,7 @@ class StatusTest extends TestCase
         $statusOne = new Status(Status::STATUS_ERROR);
         $statusTwo = Status::error();
         $this->assertEquals($statusOne, $statusTwo);
+        $this->assertTrue($statusOne->isError());
         $this->assertTrue($statusOne->equalsTo($statusTwo));
         $this->assertFalse($statusOne->equalsTo(Status::none()));
     }
@@ -35,6 +37,7 @@ class StatusTest extends TestCase
         $statusOne = new Status(Status::STATUS_WARNING);
         $statusTwo = Status::warn();
         $this->assertEquals($statusOne, $statusTwo);
+        $this->assertTrue($statusOne->isWarning());
         $this->assertTrue($statusOne->equalsTo($statusTwo));
         $this->assertFalse($statusOne->equalsTo(Status::none()));
     }
@@ -44,6 +47,7 @@ class StatusTest extends TestCase
         $statusOne = new Status(Status::STATUS_NONE);
         $statusTwo = Status::none();
         $this->assertEquals($statusOne, $statusTwo);
+        $this->assertTrue($statusOne->isNone());
         $this->assertTrue($statusOne->equalsTo($statusTwo));
         $this->assertFalse($statusOne->equalsTo(Status::ok()));
     }
