@@ -7,35 +7,24 @@ use DOMElement;
 
 class XmlNodeExporter
 {
-    /** @var DOMDocument */
-    private $document;
-
-    public function __construct(DOMDocument $document = null)
-    {
-        if ($document === null) {
-            $document = Xml::newDocument();
-        }
-        $this->document = $document;
-    }
-
     public function export(NodeInterface $node): DOMElement
     {
-        $element = $this->document->createElement($node->name());
+        return $this->exportRecursive(Xml::newDocument(), $node);
+    }
+
+    public function exportRecursive(DOMDocument $document, NodeInterface $node): DOMElement
+    {
+        $element = $document->createElement($node->name());
 
         foreach ($node->attributes() as $name => $value) {
             $element->setAttribute($name, $value);
         }
 
         foreach ($node->children() as $child) {
-            $childElement = $this->export($child);
+            $childElement = $this->exportRecursive($document, $child);
             $element->appendChild($childElement);
         }
 
         return $element;
-    }
-
-    public function getDocument(): DOMDocument
-    {
-        return $this->document;
     }
 }

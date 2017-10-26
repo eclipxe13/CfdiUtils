@@ -2,26 +2,25 @@
 namespace CfdiUtils\Nodes;
 
 use CfdiUtils\Utils\Xml;
-use DOMDocument;
 use DOMElement;
 use SimpleXMLElement;
 
 class XmlNodeUtils
 {
-    public static function nodeToXmlElement(NodeInterface $node, DOMDocument $document = null): DOMElement
+    public static function nodeToXmlElement(NodeInterface $node): DOMElement
     {
-        return (new XmlNodeExporter($document))->export($node);
+        return (new XmlNodeExporter())->export($node);
     }
 
-    public static function nodeToXmlString(NodeInterface $node, DOMDocument $document = null): string
+    public static function nodeToXmlString(NodeInterface $node): string
     {
-        $element = static::nodeToXmlElement($node, $document);
+        $element = static::nodeToXmlElement($node);
         return $element->ownerDocument->saveXML($element);
     }
 
-    public static function nodeToSimpleXmlElement(NodeInterface $node, DOMDocument $document = null): SimpleXMLElement
+    public static function nodeToSimpleXmlElement(NodeInterface $node): SimpleXMLElement
     {
-        $element = static::nodeToXmlElement($node, $document);
+        $element = static::nodeToXmlElement($node);
         $simpleXmlElement = simplexml_import_dom($element);
         if (false === $simpleXmlElement) {
             throw new \InvalidArgumentException('Cannot convert to SimpleXmlElement');
