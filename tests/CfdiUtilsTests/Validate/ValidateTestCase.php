@@ -47,11 +47,21 @@ abstract class ValidateTestCase extends TestCase
             return;
         }
         $actualAssert = $this->asserts->get($code);
-        $actual = $actualAssert->getStatus();
+        $this->assertStatusEqualsAssert($expected, $actualAssert);
+    }
+
+    public function assertStatusEqualsAssert(Status $expected, Assert $assert)
+    {
+        $actual = $assert->getStatus();
         $this->assertTrue(
             $expected->equalsTo($actual),
-            "Status $actual for code $code does not match with status $expected"
+            "Status $actual for code {$assert->getCode()} does not match with status $expected"
         );
+    }
+
+    public function assertStatusEqualsStatus(Status $expected, Status $current)
+    {
+        $this->assertEquals($expected, $current, "Status $current does not match with status $expected");
     }
 
     protected function setupCfdiFile($cfdifile)
@@ -70,6 +80,7 @@ abstract class ValidateTestCase extends TestCase
      */
     protected function printrAsserts()
     {
+        echo "\nAsserts count: " . $this->asserts->count();
         foreach ($this->asserts as $assert) {
             vprintf("\n%-10s %-8s %s => %s", [
                 $assert->getCode(),
@@ -78,5 +89,6 @@ abstract class ValidateTestCase extends TestCase
                 $assert->getExplanation(),
             ]);
         }
+        echo "\n";
     }
 }
