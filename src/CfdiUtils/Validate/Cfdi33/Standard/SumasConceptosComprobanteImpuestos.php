@@ -29,6 +29,8 @@ use CfdiUtils\Validate\Status;
  * - SUMAS10: Todos los valores de los impuestos retenidos conciden con el comprobante
  * - SUMAS11: No existen más nodos de impuestos trasladados en el comprobante de los que se han calculado
  *
+ * - SUMAS12: El cálculo del descuento debe ser menor o igual al cálculo del subtotal
+ *
  * - Adicionalmente, para SUMAS06 y SUMAS10 se generan: SUMASxx:yyy donde
  *      - xx puede ser 06 o 10
  *      - yyy es el consecutivo de la línea del impuesto
@@ -60,6 +62,7 @@ class SumasConceptosComprobanteImpuestos extends AbstractDiscoverableVersion33
             'SUMAS09' => 'Todos los impuestos retenidos existen en el comprobante',
             'SUMAS10' => 'Todos los valores de los impuestos retenidos conciden con el comprobante',
             'SUMAS11' => 'No existen más nodos de impuestos trasladados en el comprobante de los que se han calculado',
+            'SUMAS12' => 'El cálculo del descuento debe ser menor o igual al cálculo del subtotal',
         ];
         foreach ($asserts as $code => $title) {
             $this->asserts->put($code, $title);
@@ -81,6 +84,7 @@ class SumasConceptosComprobanteImpuestos extends AbstractDiscoverableVersion33
         $this->validateTrasladosMatch();
         $this->validateImpuestosRetenidos();
         $this->validateRetencionesMatch();
+        $this->validateDescuentoLessOrEqualThanSubTotal();
     }
 
     private function validateSubTotal()
@@ -102,6 +106,17 @@ class SumasConceptosComprobanteImpuestos extends AbstractDiscoverableVersion33
             $this->sumasConceptos->getDescuento(),
             'Comprobante',
             (float) $this->comprobante['Descuento']
+        );
+    }
+
+    private function validateDescuentoLessOrEqualThanSubTotal()
+    {
+        $subtotal = (float) $this->comprobante['SubTotal'];
+        $descuento = (float) $this->comprobante['Descuento'];
+        $this->asserts->putStatus(
+            'SUMAS12',
+            Status::when($subtotal >= $descuento),
+            vsprintf('SubTotal: %s, Descuento: %s', [$this->comprobante['SubTotal'], $this->comprobante['Descuento']])
         );
     }
 

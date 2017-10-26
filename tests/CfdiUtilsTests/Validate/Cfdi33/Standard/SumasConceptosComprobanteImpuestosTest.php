@@ -28,15 +28,12 @@ class SumasConceptosComprobanteImpuestosTest extends ValidateTestCase
     {
         $this->setupCfdiFile('cfdi33-valid.xml');
         $this->runValidate();
-        // regular asserts
-        foreach (range(1, 11) as $i) {
-            $this->assertStatusEqualsCode(Status::ok(), sprintf('SUMAS%02d', $i));
+        // all asserts
+        foreach ($this->asserts as $assert) {
+            $this->assertStatusEqualsAssert(Status::ok(), $assert);
         }
-        // extra asserts
-        $this->assertStatusEqualsCode(Status::ok(), sprintf('SUMAS06:001'));
-        $this->assertStatusEqualsCode(Status::ok(), sprintf('SUMAS10:001'));
-        // total expected count: 11 regular + 2 extras
-        $this->assertCount(13, $this->asserts, 'All 13 expected asserts were are tested');
+        // total expected count: 12 regular + 2 extras
+        $this->assertCount(14, $this->asserts, 'All 14 expected asserts were are tested');
     }
 
     public function testValidateBadSubtotal()
@@ -206,5 +203,32 @@ class SumasConceptosComprobanteImpuestosTest extends ValidateTestCase
         }
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::error(), 'SUMAS11');
+    }
+
+    public function providerValidateDescuentoLessOrEqualThanSubTotal()
+    {
+        return [
+            'greater' => ['12345.679', '12345.678', Status::error()],
+            'equal' => ['12345.678', '12345.678', Status::ok()],
+            'less' => ['12345.677', '12345.678', Status::ok()],
+            'empty' => ['', '12345.678', Status::ok()],
+            'zeros' => ['0.00', '0.00', Status::ok()],
+        ];
+    }
+
+    /**
+     * @param string $descuento
+     * @param string $subtotal
+     * @param Status $expected
+     * @dataProvider providerValidateDescuentoLessOrEqualThanSubTotal
+     */
+    public function testValidateDescuentoLessOrEqualThanSubTotal(string $descuento, string $subtotal, Status $expected)
+    {
+        $this->comprobante->addAttributes([
+            'SubTotal' => $subtotal,
+            'Descuento' => $descuento,
+        ]);
+        $this->runValidate();
+        $this->assertStatusEqualsCode($expected, 'SUMAS12');
     }
 }
