@@ -6,9 +6,9 @@ use CfdiUtils\Nodes\NodeInterface;
 class SumasConceptos
 {
     /** @var float */
-    private $importes;
+    private $importes = 0.0;
     /** @var float */
-    private $descuento;
+    private $descuento = 0.0;
     /** @var float */
     private $total;
     /** @var float */
@@ -16,9 +16,9 @@ class SumasConceptos
     /** @var float */
     private $impuestosRetenidos;
     /** @var array */
-    private $traslados;
+    private $traslados = [];
     /** @var array */
-    private $retenciones;
+    private $retenciones = [];
 
     /*
      * Constructors
@@ -26,13 +26,6 @@ class SumasConceptos
 
     public function __construct(NodeInterface $comprobante)
     {
-        $this->importes = 0.0;
-        $this->descuento = 0.0;
-        $this->total = 0.0;
-        $this->impuestosTrasladados = 0.0;
-        $this->impuestosRetenidos = 0.0;
-        $this->traslados = [];
-        $this->retenciones = [];
         $this->addComprobante($comprobante);
     }
 
