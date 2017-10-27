@@ -165,6 +165,7 @@ class Certificado
     /**
      * @param string $filename
      * @throws \UnexpectedValueException when the file does not exists or is not readable
+     * @return void
      */
     protected function assertFileExists(string $filename)
     {
