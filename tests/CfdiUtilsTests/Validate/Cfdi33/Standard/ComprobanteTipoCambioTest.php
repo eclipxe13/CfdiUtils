@@ -23,6 +23,10 @@ class ComprobanteTipoCambioTest extends ValidateTestCase
             ['MXN', null, 'TIPOCAMBIO02', ['TIPOCAMBIO03', 'TIPOCAMBIO04']],
             ['XXX', null, 'TIPOCAMBIO03', ['TIPOCAMBIO02', 'TIPOCAMBIO04']],
             ['USD', '10.0', 'TIPOCAMBIO04', ['TIPOCAMBIO02', 'TIPOCAMBIO03']],
+            ['USD', '20', 'TIPOCAMBIO04', ['TIPOCAMBIO02', 'TIPOCAMBIO03']],
+            ['USD', '0005.10000', 'TIPOCAMBIO04', ['TIPOCAMBIO02', 'TIPOCAMBIO03']],
+            ['USD', '123456789012345678.0', 'TIPOCAMBIO04', ['TIPOCAMBIO02', 'TIPOCAMBIO03']],
+            ['USD', '0.123456', 'TIPOCAMBIO04', ['TIPOCAMBIO02', 'TIPOCAMBIO03']],
         ];
     }
 
@@ -88,6 +92,13 @@ class ComprobanteTipoCambioTest extends ValidateTestCase
             ['XXX', '10.0', 'TIPOCAMBIO03', ['TIPOCAMBIO02', 'TIPOCAMBIO04']],
             ['USD', null, 'TIPOCAMBIO04', ['TIPOCAMBIO02', 'TIPOCAMBIO03']],
             ['USD', '', 'TIPOCAMBIO04', ['TIPOCAMBIO02', 'TIPOCAMBIO03']],
+            ['USD', 'abc', 'TIPOCAMBIO04', ['TIPOCAMBIO02', 'TIPOCAMBIO03']],
+            ['USD', '1234567890123456789.0', 'TIPOCAMBIO04', ['TIPOCAMBIO02', 'TIPOCAMBIO03']],
+            ['USD', '0.1234567', 'TIPOCAMBIO04', ['TIPOCAMBIO02', 'TIPOCAMBIO03']],
+            ['USD', '0.', 'TIPOCAMBIO04', ['TIPOCAMBIO02', 'TIPOCAMBIO03']],
+            ['USD', '.0', 'TIPOCAMBIO04', ['TIPOCAMBIO02', 'TIPOCAMBIO03']],
+            ['USD', '0..0', 'TIPOCAMBIO04', ['TIPOCAMBIO02', 'TIPOCAMBIO03']],
+            ['USD', '0.0.0', 'TIPOCAMBIO04', ['TIPOCAMBIO02', 'TIPOCAMBIO03']],
         ];
     }
 
