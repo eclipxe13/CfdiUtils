@@ -119,4 +119,26 @@ class AttributesTest extends TestCase
         }
         $this->assertEquals($data, $created);
     }
+
+    public function testSetToNullPerformRemove()
+    {
+        $attributes = new Attributes([
+            'foo' => 'bar',
+        ]);
+        $this->assertTrue($attributes->exists('foo'));
+        $attributes['foo'] = null;
+        $this->assertFalse($attributes->exists('foo'));
+    }
+
+    public function testImportWithNullPerformRemove()
+    {
+        $attributes = new Attributes([
+            'foo' => 'bar',
+        ]);
+        $this->assertTrue($attributes->exists('foo'));
+        $attributes->importArray([
+            'foo' => null,
+        ]);
+        $this->assertFalse($attributes->exists('foo'));
+    }
 }

@@ -49,7 +49,7 @@ class Attributes implements \Countable, \IteratorAggregate, \ArrayAccess
     public function importArray(array $attributes): self
     {
         foreach ($attributes as $key => $value) {
-            $this->set((string) $key, $this->castValueToString($value));
+            $this[$key] = $value;
         }
         return $this;
     }
@@ -79,7 +79,11 @@ class Attributes implements \Countable, \IteratorAggregate, \ArrayAccess
 
     public function offsetSet($offset, $value)
     {
-        $this->set((string) $offset, $this->castValueToString($value));
+        if (null === $value) {
+            $this->remove((string) $offset);
+        } else {
+            $this->set((string) $offset, $this->castValueToString($value));
+        }
     }
 
     public function offsetUnset($offset)
