@@ -42,7 +42,11 @@ class CfdiValidator33Test extends TestCase
 
         $validator = new CfdiValidator33();
         $asserts = $validator->validate($cfdi->getSource(), $cfdi->getNode());
-        $this->assertFalse($asserts->hasErrors());
+        $this->assertFalse(
+            $asserts->hasErrors(),
+            'The validation of an expected cfdi33 valid file fails,'
+                . ' maybe you are creating a new discoverable standard validator that found a bug. Excelent!'
+        );
     }
 
     public function testValidateThrowsExceptionIfEmptyContent()
