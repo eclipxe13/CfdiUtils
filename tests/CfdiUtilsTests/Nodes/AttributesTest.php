@@ -133,12 +133,49 @@ class AttributesTest extends TestCase
     public function testImportWithNullPerformRemove()
     {
         $attributes = new Attributes([
-            'foo' => 'bar',
+            'set' => '1',
+            'importArray' => '1',
+            'offsetSet' => '1',
+            'constructor' => null,
         ]);
-        $this->assertTrue($attributes->exists('foo'));
-        $attributes->importArray([
-            'foo' => null,
-        ]);
-        $this->assertFalse($attributes->exists('foo'));
+        $this->assertFalse($attributes->exists('constructor'));
+        $this->assertCount(3, $attributes);
+
+        $attributes->set('set', null);
+        $this->assertFalse($attributes->exists('set'));
+        $this->assertCount(2, $attributes);
+
+        $attributes->importArray(['importArray' => null]);
+        $this->assertFalse($attributes->exists('importArray'));
+        $this->assertCount(1, $attributes);
+
+        $attributes['offsetSet'] = null;
+        $this->assertFalse($attributes->exists('offsetSet'));
+        $this->assertCount(0, $attributes);
+    }
+
+    public function testSetWithObjectToString()
+    {
+        $expectedValue = 'foo';
+        $toStringObject = new class('foo') {
+            /** @var string */
+            private $value;
+            public function __construct(string $value)
+            {
+                $this->value = $value;
+            }
+            public function __toString()
+            {
+                return $this->value;
+            }
+        };
+        $attributes = new Attributes(['constructor' => $toStringObject]);
+        $attributes['offsetSet'] = $toStringObject;
+        $attributes->set('set', $toStringObject);
+        $attributes->importArray(['importArray' => $toStringObject]);
+        $this->assertEquals($expectedValue, $attributes->get('constructor'));
+        $this->assertEquals($expectedValue, $attributes->get('offsetSet'));
+        $this->assertEquals($expectedValue, $attributes->get('set'));
+        $this->assertEquals($expectedValue, $attributes->get('importArray'));
     }
 }

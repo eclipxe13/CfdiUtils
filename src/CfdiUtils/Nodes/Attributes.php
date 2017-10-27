@@ -19,8 +19,19 @@ class Attributes implements \Countable, \IteratorAggregate, \ArrayAccess
         return $this->attributes[$name];
     }
 
-    public function set(string $name, string $value): self
+    /**
+     * Set a value in the collection
+     *
+     * @param string $name
+     * @param string|null $value If null then it will remove the value instead of setting to empty string
+     * @return self
+     */
+    public function set(string $name, string $value = null): self
     {
+        if (null === $value) {
+            $this->remove($name);
+            return $this;
+        }
         $name = trim($name);
         if ('' === $name) {
             throw new \UnexpectedValueException('Cannot set an attribute without name');
@@ -49,13 +60,20 @@ class Attributes implements \Countable, \IteratorAggregate, \ArrayAccess
     public function importArray(array $attributes): self
     {
         foreach ($attributes as $key => $value) {
-            $this[$key] = $value;
+            $this->set($key, $this->castValueToString($value));
         }
         return $this;
     }
 
-    private function castValueToString($value): string
+    /**
+     * @param $value
+     * @return string|null
+     */
+    private function castValueToString($value)
     {
+        if (null === $value) {
+            return null;
+        }
         if (is_scalar($value) || is_object($value) && is_callable([$value, '__toString'])) {
             return (string) $value;
         }
@@ -79,11 +97,7 @@ class Attributes implements \Countable, \IteratorAggregate, \ArrayAccess
 
     public function offsetSet($offset, $value)
     {
-        if (null === $value) {
-            $this->remove((string) $offset);
-        } else {
-            $this->set((string) $offset, $this->castValueToString($value));
-        }
+        $this->set((string) $offset, $this->castValueToString($value));
     }
 
     public function offsetUnset($offset)
