@@ -53,7 +53,7 @@ class CfdiValidator33Test extends TestCase
 
     /**
      * Developer: Use this procedure to change the cfdi on the file 'asserts/cfdi33-valid.xml'
-     * and show io screen the value of the Sello again
+     * and show in screen the value of the Sello again
      * @ test
      */
     public function procedureCreateSelloAgainOnValidCdfi33()
