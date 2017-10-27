@@ -98,8 +98,8 @@ class NodeCertificado
      */
     public function obtain(): Certificado
     {
-        $tempfile = tempnam(sys_get_temp_dir(), '');
         try {
+            $tempfile = (string) tempnam(sys_get_temp_dir(), '');
             $this->save($tempfile);
             $certificado = new Certificado($tempfile);
             return $certificado;
