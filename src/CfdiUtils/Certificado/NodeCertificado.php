@@ -45,7 +45,7 @@ class NodeCertificado
         return $certificateBin;
     }
 
-    private function getVersion()
+    private function getVersion(): string
     {
         if ('3.2' === $this->comprobante->searchAttribute('version')) {
             return '3.2';
