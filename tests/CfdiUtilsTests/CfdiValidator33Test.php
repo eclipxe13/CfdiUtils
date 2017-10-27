@@ -2,8 +2,10 @@
 namespace CfdiUtilsTests;
 
 use CfdiUtils\Cfdi;
+use CfdiUtils\CfdiCreator33;
 use CfdiUtils\CfdiValidator33;
 use CfdiUtils\Nodes\Node;
+use CfdiUtils\Nodes\XmlNodeUtils;
 use CfdiUtils\XmlResolver\XmlResolver;
 
 class CfdiValidator33Test extends TestCase
@@ -47,6 +49,32 @@ class CfdiValidator33Test extends TestCase
             'The validation of an expected cfdi33 valid file fails,'
                 . ' maybe you are creating a new discoverable standard validator that found a bug. Excelent!'
         );
+    }
+
+    /**
+     * Developer: Use this procedure to change the cfdi on the file 'asserts/cfdi33-valid.xml'
+     * and show io screen the value of the Sello again
+     * @ test
+     */
+    public function procedureCreateSelloAgainOnValidCdfi33()
+    {
+        $cfdiFile = $this->utilAsset('cfdi33-valid.xml');
+        $pemKeyFile = $this->utilAsset('certs/CSD01_AAA010101AAA.key.pem');
+        $node = XmlNodeUtils::nodeFromXmlString(file_get_contents($cfdiFile));
+        $creator = CfdiCreator33::newUsingNode($node);
+        $comprobante = $creator->comprobante();
+        $previous = $comprobante['Sello'];
+
+        // developer: change here what you need
+        $comprobante['TipoCambio'] = '1';
+
+        $creator->addSello('file://' . $pemKeyFile);
+        print_r([
+            'old' => $previous,
+            'new' => $comprobante['Sello'],
+        ]);
+        // echo $creator->asXml();
+        $this->assertTrue(false, 'This procedure must not run in real testing');
     }
 
     public function testValidateThrowsExceptionIfEmptyContent()
