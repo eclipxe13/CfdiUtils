@@ -80,7 +80,8 @@ class Certificado
     public function belongsTo(string $pemKeyFile, string $passPhrase = ''): bool
     {
         $this->assertFileExists($pemKeyFile);
-        $keyContents = file_get_contents($pemKeyFile);
+        // intentionally silence this error, if return false cast to string
+        $keyContents = (string) @file_get_contents($pemKeyFile);
         if (0 !== strpos($keyContents, '-----BEGIN PRIVATE KEY-----')
             && 0 !== strpos($keyContents, '-----BEGIN RSA PRIVATE KEY-----')) {
             throw new \UnexpectedValueException("The file $pemKeyFile is not a PEM private key");
