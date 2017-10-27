@@ -6,6 +6,7 @@ use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\Certificado\CertificadoPropertyTrait;
 use CfdiUtils\Elements\Cfdi33\Comprobante;
 use CfdiUtils\Elements\Cfdi33\Helpers\SumasConceptosWriter;
+use CfdiUtils\Nodes\NodeInterface;
 use CfdiUtils\Nodes\XmlNodeUtils;
 use CfdiUtils\PemPrivateKey\PemPrivateKey;
 use CfdiUtils\SumasConceptos\SumasConceptos;
@@ -39,6 +40,19 @@ class CfdiCreator33
         if (null !== $certificado) {
             $this->putCertificado($certificado);
         }
+    }
+
+    public static function newUsingNode(
+        NodeInterface $node,
+        Certificado $certificado = null,
+        XmlResolver $xmlResolver = null
+    ): self {
+        $new = new self($node->attributes()->exportArray(), $certificado, $xmlResolver);
+        $comprobante = $new->comprobante();
+        foreach ($node as $child) {
+            $comprobante->addChild($child);
+        }
+        return $new;
     }
 
     public function comprobante(): Comprobante
