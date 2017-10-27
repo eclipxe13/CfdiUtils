@@ -47,6 +47,9 @@ class Certificado
         $pubkey = openssl_get_publickey($contents);
         try {
             $pubData = openssl_pkey_get_details($pubkey);
+            if (false === $pubData) {
+                $pubData = ['key' => ''];
+            }
         } finally {
             openssl_free_key($pubkey);
         }
