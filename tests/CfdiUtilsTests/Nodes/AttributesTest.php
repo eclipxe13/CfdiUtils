@@ -178,4 +178,12 @@ class AttributesTest extends TestCase
         $this->assertEquals($expectedValue, $attributes->get('set'));
         $this->assertEquals($expectedValue, $attributes->get('importArray'));
     }
+
+    public function testExportArray()
+    {
+        $attributes = new Attributes();
+        $attributes->set('foo', 'bar');
+
+        $this->assertEquals(['foo' => 'bar'], $attributes->exportArray());
+    }
 }

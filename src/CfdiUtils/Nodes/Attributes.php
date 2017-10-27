@@ -65,6 +65,11 @@ class Attributes implements \Countable, \IteratorAggregate, \ArrayAccess
         return $this;
     }
 
+    public function exportArray(): array
+    {
+        return $this->attributes;
+    }
+
     /**
      * @param $value
      * @return string|null
