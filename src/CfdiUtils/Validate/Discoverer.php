@@ -1,7 +1,7 @@
 <?php
 namespace CfdiUtils\Validate;
 
-use CfdiUtils\Validate\Contracts\DiscoverableCreateInterface;
+use CfdiUtils\Validate\Contracts\DiscoverableCreateInterface as Discoverable;
 use CfdiUtils\Validate\Contracts\ValidatorInterface;
 
 class Discoverer
@@ -37,12 +37,10 @@ class Discoverer
     {
         $basename = basename($filename);
         $classname = $this->castNamespacePrefix($namespacePrefix) . substr($basename, 0, strlen($basename) - 4);
-        if (class_exists($classname)) {
-            if (in_array(DiscoverableCreateInterface::class, class_implements($classname), true)) {
-                $object = call_user_func([$classname, 'createDiscovered']);
-                if ($object instanceof ValidatorInterface) {
-                    return $object;
-                }
+        if (class_exists($classname) && in_array(Discoverable::class, class_implements($classname), true)) {
+            $object = call_user_func([$classname, 'createDiscovered']);
+            if ($object instanceof ValidatorInterface) {
+                return $object;
             }
         }
         return null;
