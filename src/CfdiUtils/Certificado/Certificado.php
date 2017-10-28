@@ -47,12 +47,15 @@ class Certificado
         $pubkey = openssl_get_publickey($contents);
         try {
             $pubData = openssl_pkey_get_details($pubkey);
+            if (false === $pubData) {
+                $pubData = ['key' => ''];
+            }
         } finally {
             openssl_free_key($pubkey);
         }
 
         // set all the values
-        $this->rfc = strstr($data['subject']['x500UniqueIdentifier'] . ' ', ' ', true);
+        $this->rfc = (string) strstr($data['subject']['x500UniqueIdentifier'] . ' ', ' ', true);
         $this->name = $data['subject']['name'];
         $this->serial = $this->serialHexToAscii($data['serialNumberHex']);
         $this->validFrom = $data['validFrom_time_t'];
@@ -77,7 +80,8 @@ class Certificado
     public function belongsTo(string $pemKeyFile, string $passPhrase = ''): bool
     {
         $this->assertFileExists($pemKeyFile);
-        $keyContents = file_get_contents($pemKeyFile);
+        // intentionally silence this error, if return false cast to string
+        $keyContents = (string) @file_get_contents($pemKeyFile);
         if (0 !== strpos($keyContents, '-----BEGIN PRIVATE KEY-----')
             && 0 !== strpos($keyContents, '-----BEGIN RSA PRIVATE KEY-----')) {
             throw new \UnexpectedValueException("The file $pemKeyFile is not a PEM private key");
@@ -161,6 +165,7 @@ class Certificado
     /**
      * @param string $filename
      * @throws \UnexpectedValueException when the file does not exists or is not readable
+     * @return void
      */
     protected function assertFileExists(string $filename)
     {

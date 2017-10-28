@@ -11,6 +11,10 @@ use CfdiUtils\CfdiVersion;
  */
 class CadenaOrigenLocations
 {
+    /**
+     * Private array containing urls for xlst versions
+     * @var string[]
+     */
     private $xsltLocations = [
         '3.2' => DefaultLocations::XSLT_32,
         '3.3' => DefaultLocations::XSLT_33,
