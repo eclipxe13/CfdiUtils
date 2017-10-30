@@ -3,6 +3,7 @@ namespace CfdiUtils\Elements\Cfdi33;
 
 use CfdiUtils\Elements\Cfdi33\Traits\ImpuestosTrait;
 use CfdiUtils\Elements\Common\AbstractElement;
+use CfdiUtils\Nodes\NodeInterface;
 
 class Comprobante extends AbstractElement
 {
@@ -55,6 +56,17 @@ class Comprobante extends AbstractElement
     public function addConcepto(array $attributes = [], array $children = []): Concepto
     {
         return $this->getConceptos()->addConcepto($attributes, $children);
+    }
+
+    public function getComplemento(): Complemento
+    {
+        return $this->helperGetOrAdd(new Complemento());
+    }
+
+    public function addComplemento(NodeInterface $children): self
+    {
+        $this->getComplemento()->add($children);
+        return $this;
     }
 
     public function getFixedAttributes(): array

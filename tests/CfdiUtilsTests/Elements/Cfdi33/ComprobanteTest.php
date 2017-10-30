@@ -3,11 +3,13 @@ namespace CfdiUtilsTests\Elements\Cfdi33;
 
 use CfdiUtils\Elements\Cfdi33\CfdiRelacionado;
 use CfdiUtils\Elements\Cfdi33\CfdiRelacionados;
+use CfdiUtils\Elements\Cfdi33\Complemento;
 use CfdiUtils\Elements\Cfdi33\Comprobante;
 use CfdiUtils\Elements\Cfdi33\Concepto;
 use CfdiUtils\Elements\Cfdi33\Conceptos;
 use CfdiUtils\Elements\Cfdi33\Emisor;
 use CfdiUtils\Elements\Cfdi33\Receptor;
+use CfdiUtils\Nodes\Node;
 use PHPUnit\Framework\TestCase;
 
 class ComprobanteTest extends TestCase
@@ -96,6 +98,25 @@ class ComprobanteTest extends TestCase
         $this->assertInstanceOf(Concepto::class, $first);
         $this->assertSame('FOO', $first['name']);
         $this->assertCount(1, $this->element);
+    }
+
+    public function testGetComplemento()
+    {
+        $this->assertNull($this->element->searchNode('cfdi:Complemento'));
+        $child = $this->element->getComplemento();
+        $this->assertInstanceOf(Complemento::class, $child);
+        $this->assertSame($child, $this->element->searchNode('cfdi:Complemento'));
+    }
+
+    public function testAddComplemento()
+    {
+        $this->assertCount(0, $this->element);
+
+        $child = new Node('first');
+        $addReturn = $this->element->addComplemento($child);
+        $this->assertCount(1, $this->element);
+        $this->assertSame($child, $this->element->searchNode('cfdi:Complemento', 'first'));
+        $this->assertSame($addReturn, $this->element);
     }
 
     public function testHasFixedAttributes()
