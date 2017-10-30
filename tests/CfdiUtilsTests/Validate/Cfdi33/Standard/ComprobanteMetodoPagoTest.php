@@ -1,9 +1,9 @@
 <?php
 namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
+use CfdiUtils\Validate\Cfdi33\Standard\ComprobanteMetodoPago;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
-use CfdiUtils\Validate\Cfdi33\Standard\ComprobanteMetodoPago;
 
 class ComprobanteMetodoPagoTest extends ValidateTestCase
 {
