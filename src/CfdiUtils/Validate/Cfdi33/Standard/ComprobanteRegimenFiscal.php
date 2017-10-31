@@ -14,20 +14,8 @@ use CfdiUtils\Validate\Status;
  */
 class ComprobanteRegimenFiscal extends AbstractDiscoverableVersion33
 {
-    private function registerAsserts(Asserts $asserts)
-    {
-        $assertDescriptions = [
-            'REGFIS01' => 'El régimen fiscal contenga un valor apropiado según el tipo de RFC emisor'
-            . '(CFDI33130 y CFDI33131)',
-        ];
-        foreach ($assertDescriptions as $code => $title) {
-            $asserts->put($code, $title);
-        }
-    }
-
     public function validate(NodeInterface $comprobante, Asserts $asserts)
     {
-        $this->registerAsserts($asserts);
         $regimenFiscal = $comprobante->searchAttribute('cfdi:Emisor', 'RegimenFiscal');
         $emisorRfc = $comprobante->searchAttribute('cfdi:Emisor', 'Rfc');
 
@@ -41,8 +29,10 @@ class ComprobanteRegimenFiscal extends AbstractDiscoverableVersion33
         $length = strlen($emisorRfc);
         $validation = ($length === 12 && in_array($regimenFiscal, $validMoralCodes, true))
             || ($length === 13 && in_array($regimenFiscal, $validFisicaCodes, true));
-        $asserts->putStatus(
+
+        $asserts->put(
             'REGFIS01',
+            'El régimen fiscal contenga un valor apropiado según el tipo de RFC emisor (CFDI33130 y CFDI33131)',
             Status::when($validation),
             sprintf('Rfc: "%s", Regimen Fiscal: "%s"', $emisorRfc, $regimenFiscal)
         );
