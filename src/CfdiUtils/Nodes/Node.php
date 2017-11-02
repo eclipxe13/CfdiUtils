@@ -15,7 +15,7 @@ class Node implements NodeInterface
     /**
      * Node constructor.
      * @param string $name
-     * @param string[] $attributes
+     * @param array $attributes
      * @param NodeInterface[] $children
      */
     public function __construct(string $name, array $attributes = [], array $children = [])
@@ -62,10 +62,6 @@ class Node implements NodeInterface
         $this->children()->removeAll();
     }
 
-    /**
-     * @param string[] $attributes
-     * @return void
-     */
     public function addAttributes(array $attributes)
     {
         $this->attributes->importArray($attributes);
