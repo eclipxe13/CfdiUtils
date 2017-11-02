@@ -2,19 +2,19 @@
 namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Nodes\Node;
-use CfdiUtils\Validate\Cfdi33\Standard\ComprobanteResidenciaFiscal;
+use CfdiUtils\Validate\Cfdi33\Standard\ReceptorResidenciaFiscal;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class ComprobanteResidenciaFiscalTest extends ValidateTestCase
+class ReceptorResidenciaFiscalTest extends ValidateTestCase
 {
-    /** @var  ComprobanteResidenciaFiscal */
+    /** @var  ReceptorResidenciaFiscal */
     protected $validator;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->validator = new ComprobanteResidenciaFiscal();
+        $this->validator = new ReceptorResidenciaFiscal();
     }
 
     public function providerValidCases()

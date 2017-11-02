@@ -17,7 +17,7 @@ use CfdiUtils\Validate\Status;
  * - RESFISC03: Si el RFC sí es XEXX010101000 y se registró el número de registro de identificación fiscal
  *              entonces la residencia fiscal debe establecerse y no puede ser "MEX"
  */
-class ComprobanteResidenciaFiscal extends AbstractDiscoverableVersion33
+class ReceptorResidenciaFiscal extends AbstractDiscoverableVersion33
 {
     private function registerAsserts(Asserts $asserts)
     {
