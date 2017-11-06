@@ -2,19 +2,19 @@
 namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Nodes\Node;
-use CfdiUtils\Validate\Cfdi33\Standard\ComprobanteRegimenFiscal;
+use CfdiUtils\Validate\Cfdi33\Standard\EmisorRegimenFiscal;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class ComprobanteRegimenFiscalTest extends ValidateTestCase
+class EmisorRegimenFiscalTest extends ValidateTestCase
 {
-    /** @var  ComprobanteRegimenFiscal */
+    /** @var  EmisorRegimenFiscal */
     protected $validator;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->validator = new ComprobanteRegimenFiscal();
+        $this->validator = new EmisorRegimenFiscal();
     }
 
     public function providerValidCases()
