@@ -89,7 +89,7 @@ class Nodes implements \Countable, \IteratorAggregate
         return null;
     }
 
-    public function getNodesByName(string $nodeName): self
+    public function getNodesByName(string $nodeName): Nodes
     {
         $nodes = new self();
         foreach ($this->nodes as $node) {

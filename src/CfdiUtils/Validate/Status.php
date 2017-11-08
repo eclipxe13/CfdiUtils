@@ -31,22 +31,22 @@ class Status
         $this->status = $value;
     }
 
-    public static function ok(): self
+    public static function ok(): Status
     {
         return new self(self::STATUS_OK);
     }
 
-    public static function error(): self
+    public static function error(): Status
     {
         return new self(self::STATUS_ERROR);
     }
 
-    public static function warn(): self
+    public static function warn(): Status
     {
         return new self(self::STATUS_WARNING);
     }
 
-    public static function none(): self
+    public static function none(): Status
     {
         return new self(self::STATUS_NONE);
     }
@@ -71,22 +71,22 @@ class Status
         return $this->status === self::STATUS_NONE;
     }
 
-    public static function when(bool $condition, self $errorStatus = null): self
+    public static function when(bool $condition, Status $errorStatus = null): Status
     {
         return ($condition) ? self::ok() : ($errorStatus ? : self::error());
     }
 
-    public function equalsTo(self $status): bool
+    public function equalsTo(Status $status): bool
     {
         return ($status->status === $this->status);
     }
 
-    public function compareTo(self $status): int
+    public function compareTo(Status $status): int
     {
         return $this->comparableValue($this) <=> $this->comparableValue($status);
     }
 
-    public static function comparableValue(self $status)
+    public static function comparableValue(Status $status)
     {
         return self::ORDER_MAP[$status->status];
     }

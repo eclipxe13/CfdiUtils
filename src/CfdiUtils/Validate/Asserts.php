@@ -189,7 +189,7 @@ class Asserts implements \Countable, \IteratorAggregate
         $this->asserts = [];
     }
 
-    public function import(self $asserts)
+    public function import(Asserts $asserts)
     {
         foreach ($asserts as $assert) {
             $this->add(clone $assert);
