@@ -17,7 +17,7 @@ class ConceptoImpuestosTest extends ValidateTestCase
         $this->validator = new ConceptoImpuestos();
     }
 
-    public function testValidCase()
+    public function testValidCaseNoRetencionOrTraslado()
     {
         $this->comprobante->addChild(
             new Node('cfdi:Conceptos', [], [
@@ -25,7 +25,7 @@ class ConceptoImpuestosTest extends ValidateTestCase
                 new Node('cfdi:Concepto', [], [
                     new Node('cfdi:Impuestos', [], [
                         new Node('cfdi:Traslados', [], [
-                            new Node('cfdi:Traslado'),
+                            new Node('cfdi:Traslado', ['Base' => '1']),
                         ]),
                         new Node('cfdi:Retenciones', [], [
                             new Node('cfdi:Retencion'),
@@ -53,5 +53,63 @@ class ConceptoImpuestosTest extends ValidateTestCase
         );
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::error(), 'CONCEPIMPC01');
+    }
+
+    public function testTrasladosValidCase()
+    {
+        $this->comprobante->addChild(
+            new Node('cfdi:Conceptos', [], [
+                new Node('cfdi:Concepto'),
+                new Node('cfdi:Concepto', [], [
+                    new Node('cfdi:Impuestos', [], [
+                        new Node('cfdi:Traslados', [], [
+                            new Node('cfdi:Traslado', ['Base' => '0.000001']),
+                        ]),
+                    ]),
+                ]),
+                new Node('cfdi:Concepto', [], [
+                    new Node('cfdi:Impuestos', [], [
+                        new Node('cfdi:Traslados', [], [
+                            new Node('cfdi:Traslado', ['Base' => '1']),
+                        ]),
+                    ]),
+                ]),
+            ])
+        );
+        $this->runValidate();
+        $this->assertStatusEqualsCode(Status::ok(), 'CONCEPIMPC02');
+    }
+
+    public function providerInvalidTraslado()
+    {
+        return[
+            ['0'],
+            ['0.0000001'],
+            ['-1'],
+            ['foo'],
+            ['0.0.0.0'],
+        ];
+    }
+
+    /**
+     * @param $base
+     * @dataProvider providerInvalidTraslado
+     */
+    public function testInvalidTraslado($base)
+    {
+        $this->comprobante->addChild(
+            new Node('cfdi:Conceptos', [], [
+                new Node('cfdi:Concepto'),
+                new Node('cfdi:Concepto', [], [
+                    new Node('cfdi:Impuestos', [], [
+                        new Node('cfdi:Traslados', [], [
+                            new Node('cfdi:Traslado', ['Base' => $base]),
+                        ]),
+                    ]),
+                ]),
+            ])
+        );
+        $this->runValidate();
+        $this->assertStatusEqualsCode(Status::error(), 'CONCEPIMPC02');
     }
 }
