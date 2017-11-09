@@ -12,7 +12,7 @@ use CfdiUtils\Validate\Status;
  * Valida que:
  *  - REGFIS01: El régimen fiscal contenga un valor apropiado según el tipo de RFC emisor (CFDI33130 y CFDI33131)
  */
-class ComprobanteRegimenFiscal extends AbstractDiscoverableVersion33
+class EmisorRegimenFiscal extends AbstractDiscoverableVersion33
 {
     public function validate(NodeInterface $comprobante, Asserts $asserts)
     {
