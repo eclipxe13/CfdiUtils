@@ -2,7 +2,6 @@
 namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Elements\Cfdi33\Comprobante;
-use CfdiUtils\Nodes\Node;
 use CfdiUtils\Validate\Cfdi33\Standard\ConceptoImpuestos;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
@@ -66,12 +65,11 @@ class ConceptoImpuestosTest extends ValidateTestCase
     public function testTrasladosTipoFactorInvalidCase($tasaOCuota, $importe)
     {
         $comprobante = $this->validComprobante();
-        $t = $comprobante->addConcepto()->addTraslado([
+        $comprobante->addConcepto()->addTraslado([
             'TipoFactor' => 'Exento',
             'TasaOCuota' => $tasaOCuota,
             'Importe' => $importe,
         ]);
-        print_r($t);
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::error(), 'CONCEPIMPC03');
     }
