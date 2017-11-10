@@ -21,7 +21,7 @@ class ConceptoImpuestosTest extends ValidateTestCase
     public function testInvalidCaseNoRetencionOrTraslado()
     {
         $comprobante = $this->validComprobante();
-        $comprobante->addConcepto()->addChild(new Node('cfdi:Impuestos'));
+        $comprobante->addConcepto()->getImpuestos();
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::error(), 'CONCEPIMPC01');
     }
@@ -49,13 +49,29 @@ class ConceptoImpuestosTest extends ValidateTestCase
         $this->assertStatusEqualsCode(Status::error(), 'CONCEPIMPC02');
     }
 
-    public function testTrasladosTipoFactorInvalidCase()
+    public function providerTrasladoTipoFactorExento()
+    {
+        return[
+            ['1', '1'],
+            [null, '1'],
+            ['1', null],
+        ];
+    }
+
+    /**
+     * @param $tasaOCuota
+     * @param $importe
+     * @dataProvider providerTrasladoTipoFactorExento
+     */
+    public function testTrasladosTipoFactorInvalidCase($tasaOCuota, $importe)
     {
         $comprobante = $this->validComprobante();
-        $comprobante->addConcepto()->addTraslado([
+        $t = $comprobante->addConcepto()->addTraslado([
             'TipoFactor' => 'Exento',
-            'TasaOCuota' => '1',
+            'TasaOCuota' => $tasaOCuota,
+            'Importe' => $importe,
         ]);
+        print_r($t);
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::error(), 'CONCEPIMPC03');
     }
