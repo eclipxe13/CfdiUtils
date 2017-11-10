@@ -7,17 +7,75 @@ use CfdiUtilsTests\TestCase;
 
 class CadenaOrigenBuilderTest extends TestCase
 {
-    public function testBuildWithLocalResource()
+    /**
+     * The file cfdi33-valid-cadenaorigen.txt was created using the command line util saxonb-xslt
+     * available in debian in the package libsaxonb-java.
+     * To recreate these files use the method procedureCreateCadenaOrigenExpectedContent
+     *
+     * @see procedureCreateCadenaOrigenExpectedContent
+     * @return array
+     */
+    public function providerCfdiToCadenaOrigen()
     {
-        $local = $this->downloadResourceIfNotExists(DefaultLocations::XSLT_32);
+        return [
+            ['cfdi32-real.xml', 'cfdi32-real-cadenaorigen.txt', DefaultLocations::XSLT_32],
+            ['cfdi33-valid.xml', 'cfdi33-valid-cadenaorigen.txt', DefaultLocations::XSLT_33],
+        ];
+    }
+
+    /**
+     * @param $xmlLocation
+     * @param $expectedCadenaOrigen
+     * @param $xsltLocation
+     * @dataProvider providerCfdiToCadenaOrigen
+     */
+    public function testCfdiToCadenaOrigen($xmlLocation, $expectedCadenaOrigen, $xsltLocation)
+    {
+        $xsltLocation = $this->downloadResourceIfNotExists($xsltLocation);
+
+        $xmlLocation = $this->utilAsset($xmlLocation);
+        $expectedCadenaOrigen = $this->utilAsset($expectedCadenaOrigen);
+        $expected = rtrim(file_get_contents($expectedCadenaOrigen));
 
         $co = new CadenaOrigenBuilder();
+        $cadenaOrigen = $co->build(file_get_contents($xmlLocation), $xsltLocation);
+        $this->assertEquals($expected, $cadenaOrigen);
+    }
 
-        $fileCfdi = $this->utilAsset('cfdi32-real.xml');
-        $fileExpectedCadenaOrigen = $this->utilAsset('cfdi32-real-cadenaorigen.txt');
+    /**
+     * Use this procedure to recreate the expected files using saxonb-xslt.
+     * It will not download anything, it will use internet locations
+     *
+     * NOTE: This procedure will not run unless you add the "test" annotation.
+     * @ test
+     *
+     * @param $xmlLocation
+     * @param $expectedCadenaOrigen
+     * @param $xsltLocation
+     * @dataProvider providerCfdiToCadenaOrigen
+     */
+    public function procedureCreateCadenaOrigenExpectedContent($xmlLocation, $expectedCadenaOrigen, $xsltLocation)
+    {
+        $xmlLocation = $this->utilAsset($xmlLocation);
+        $expectedCadenaOrigen = $this->utilAsset($expectedCadenaOrigen);
+        // uncomment the following line if you want to use local resources instead of internet
+        // $xsltLocation = $this->downloadResourceIfNotExists($xsltLocation);
 
-        $cadenaOrigen = $co->build(file_get_contents($fileCfdi), $local);
-        $this->assertStringEqualsFile($fileExpectedCadenaOrigen, $cadenaOrigen . "\n");
+        $saxonb = shell_exec('which saxonb-xslt');
+        if ('' === $saxonb) {
+            $this->markTestSkipped('There is no saxonb-xslt installed');
+            return;
+        }
+        $command = implode(' ', [
+            escapeshellcmd($saxonb),
+            escapeshellarg('-s:' . $xmlLocation),
+            escapeshellarg('-xsl:' . $xsltLocation),
+            '2>/dev/null',
+        ]);
+        $cadenaOrigen = shell_exec($command);
+
+        file_put_contents($expectedCadenaOrigen, $cadenaOrigen . PHP_EOL);
+        $this->assertFileExists($expectedCadenaOrigen);
     }
 
     /**
