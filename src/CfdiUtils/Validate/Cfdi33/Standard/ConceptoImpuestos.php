@@ -112,7 +112,7 @@ class ConceptoImpuestos extends AbstractDiscoverableVersion33
     private function impuestoHasBaseGreaterThanZero(NodeInterface $impuesto): bool
     {
         if (! isset($impuesto['Base'])) {
-            return $allTrasladosHasBaseGreaterThanZero = false;
+            return false;
         }
         if (! is_numeric($impuesto['Base'])) {
             return false;
