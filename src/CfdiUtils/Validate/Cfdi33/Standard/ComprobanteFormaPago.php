@@ -10,7 +10,8 @@ use CfdiUtils\Validate\Status;
  * ComprobanteFormaPago
  *
  * Valida que:
- * - FORMAPAGO01: Si existe el complemento para recepción de pagos el campo FormaPago no debe existir
+ * - FORMAPAGO01: Si existe el complemento para recepción de pagos entonces el campo FormaPago no debe existir
+ *                (CFDI33103)
  *
  * Nota: Aunque no es específica la documentación, se considera un error que no existan
  * el atributo FormaPago y tampoco el complemento para la recepción de pagos.
@@ -24,7 +25,7 @@ class ComprobanteFormaPago extends AbstractDiscoverableVersion33
 
         $asserts->put(
             'FORMAPAGO01',
-            'Si existe el complemento para recepción de pagos el campo FormaPago no debe existir',
+            'Si existe el complemento para recepción de pagos entonces el campo FormaPago no debe existir (CFDI33103)',
             Status::when($existsComplementoPagos xor $existsFormaPago)
         );
     }
