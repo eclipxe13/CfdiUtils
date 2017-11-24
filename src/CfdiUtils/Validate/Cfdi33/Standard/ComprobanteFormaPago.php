@@ -10,7 +10,7 @@ use CfdiUtils\Validate\Status;
  * ComprobanteFormaPago
  *
  * Valida que:
- * - FORMAPAGO01: Si existe el complemento para recepción de pagos entonces el campo FormaPago no debe existir
+ * - FORMAPAGO01: El campo forma de pago no debe existir cuando existe el complemento para recepción de pagos
  *                (CFDI33103)
  *
  * Nota: Aunque no es específica la documentación, se considera un error que no existan
