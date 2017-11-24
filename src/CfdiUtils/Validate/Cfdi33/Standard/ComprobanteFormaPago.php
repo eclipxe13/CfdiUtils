@@ -25,7 +25,7 @@ class ComprobanteFormaPago extends AbstractDiscoverableVersion33
 
         $asserts->put(
             'FORMAPAGO01',
-            'Si existe el complemento para recepción de pagos entonces el campo FormaPago no debe existir (CFDI33103)',
+            'El campo forma de pago no debe existir cuando existe el complemento para recepción de pagos (CFDI33103)',
             Status::when($existsComplementoPagos xor $existsFormaPago)
         );
     }
