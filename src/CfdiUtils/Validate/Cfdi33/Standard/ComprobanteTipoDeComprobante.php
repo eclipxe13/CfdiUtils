@@ -10,37 +10,42 @@ use CfdiUtils\Validate\Status;
  * ConceptoValorUnitario.php
  *
  * Valida que:
- * - TIPOCOMP01: Si el tipo de comprobante es T, P ó N entonces no debe existir las condiciones de pago
- * - TIPOCOMP02: Si el tipo de comprobante es T, P ó N entonces no debe existir la definición de impuestos
- * - TIPOCOMP03: Si el tipo de comprobante es T, P ó N entonces no debe existir la forma de pago
- * - TIPOCOMP04: Si el tipo de comprobante es T, P ó N entonces no debe existir el método de pago
- * - TIPOCOMP05: Si el tipo de comprobante es T ó P entonces no debe existir el descuento del comprobante
- * - TIPOCOMP06: Si el tipo de comprobante es T ó P entonces no debe existir el descuento de los conceptos
- * - TIPOCOMP07: Si el tipo de comprobante es T ó P entonces el subtotal debe ser cero
- * - TIPOCOMP08: Si el tipo de comprobante es T ó P entonces el total debe ser cero
- * - TIPOCOMP09: Si el tipo de comprobante es I, E ó N entonces el valor unitario de todos los conceptos
+ * - TIPOCOMP01: Si el tipo de comprobante es T, P ó N, entonces no debe existir las condiciones de pago
+ * - TIPOCOMP02: Si el tipo de comprobante es T, P ó N, entonces no debe existir la definición de impuestos (CFDI33179)
+ * - TIPOCOMP03: Si el tipo de comprobante es T, P ó N, entonces no debe existir la forma de pago
+ * - TIPOCOMP04: Si el tipo de comprobante es T, P ó N, entonces no debe existir el método de pago (CFDI33123)
+ * - TIPOCOMP05: Si el tipo de comprobante es T ó P, entonces no debe existir el descuento del comprobante (CFDI33110)
+ * - TIPOCOMP06: Si el tipo de comprobante es T ó P, entonces no debe existir el descuento de los conceptos (CFDI33179)
+ * - TIPOCOMP07: Si el tipo de comprobante es T ó P, entonces el subtotal debe ser cero (CFDI33108)
+ * - TIPOCOMP08: Si el tipo de comprobante es T ó P, entonces el total debe ser cero
+ * - TIPOCOMP09: Si el tipo de comprobante es I, E ó N, entonces el valor unitario de todos los conceptos
  *               debe ser mayor que cero
- * - TIPOCOMP010: Si el tipo de comprobante es N entonces la moneda debe ser MXN
+ * - TIPOCOMP010: Si el tipo de comprobante es N, entonces la moneda debe ser MXN
  */
 class ComprobanteTipoDeComprobante extends AbstractDiscoverableVersion33
 {
     private function registerAsserts(Asserts $asserts)
     {
         $assertsDescriptions = [
-            'TIPOCOMP01' => 'Si el tipo de comprobante es T, P ó N entonces no debe existir las condiciones de pago',
-            'TIPOCOMP02' => 'Si el tipo de comprobante es T, P ó N entonces no debe existir la definición de impuestos',
-            'TIPOCOMP03' => 'Si el tipo de comprobante es T, P ó N entonces no debe existir la forma de pago',
-            'TIPOCOMP04' => 'Si el tipo de comprobante es T, P ó N entonces no debe existir el método de pago',
+            'TIPOCOMP01' => 'Si el tipo de comprobante es T, P ó N,'
+                         . ' entonces no debe existir las condiciones de pago',
+            'TIPOCOMP02' => 'Si el tipo de comprobante es T, P ó N,'
+                         . ' entonces no debe existir la definición de impuestos (CFDI33179)',
+            'TIPOCOMP03' => 'Si el tipo de comprobante es T, P ó N, entonces no debe existir la forma de pago',
+            'TIPOCOMP04' => 'Si el tipo de comprobante es T, P ó N,'
+                         . ' entonces no debe existir el método de pago (CFDI33123)',
 
-            'TIPOCOMP05' => 'Si el tipo de comprobante es T ó P entonces no debe existir el descuento del comprobante',
-            'TIPOCOMP06' => 'Si el tipo de comprobante es T ó P entonces no debe existir el descuento de los conceptos',
-            'TIPOCOMP07' => 'Si el tipo de comprobante es T ó P entonces el subtotal debe ser cero',
+            'TIPOCOMP05' => 'Si el tipo de comprobante es T ó P,'
+                         . ' entonces no debe existir el descuento del comprobante (CFDI33110)',
+            'TIPOCOMP06' => 'Si el tipo de comprobante es T ó P,'
+                         . ' entonces no debe existir el descuento de los conceptos (CFDI33179)',
+            'TIPOCOMP07' => 'Si el tipo de comprobante es T ó P, entonces el subtotal debe ser cero (CFDI33108)',
             'TIPOCOMP08' => 'Si el tipo de comprobante es T ó P entonces el total debe ser cero',
 
-            'TIPOCOMP09' => 'Si el tipo de comprobante es I, E ó N'
-                . ' entonces el valor unitario de todos los conceptos debe ser mayor que cero',
+            'TIPOCOMP09' => 'Si el tipo de comprobante es I, E ó N,'
+                         . ' entonces el valor unitario de todos los conceptos debe ser mayor que cero',
 
-            'TIPOCOMP10' => 'Si el tipo de comprobante es N entonces la moneda debe ser MXN',
+            'TIPOCOMP10' => 'Si el tipo de comprobante es N entonces, la moneda debe ser MXN',
         ];
         foreach ($assertsDescriptions as $code => $title) {
             $asserts->put($code, $title);
