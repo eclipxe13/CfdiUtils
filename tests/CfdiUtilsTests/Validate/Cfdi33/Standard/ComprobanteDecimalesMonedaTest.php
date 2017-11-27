@@ -73,8 +73,6 @@ class ComprobanteDecimalesMonedaTest extends ValidateTestCase
         $this->assertStatusEqualsCode(Status::error(), 'MONDEC03');
         $this->assertStatusEqualsCode(Status::ok(), 'MONDEC04');
         $this->assertStatusEqualsCode(Status::ok(), 'MONDEC05');
-        $this->assertStatusEqualsCode(Status::error(), 'MONDEC06');
-        $this->assertStatusEqualsCode(Status::error(), 'MONDEC07');
     }
 
     public function testAllAssertAreError()
