@@ -23,7 +23,7 @@ class ComprobanteMetodoPago extends AbstractDiscoverableVersion33
             'METPAG01' => 'Si el tipo de documento es T, P ó N, entonces el metodo de pago'
                        . ' no debe existir(CFDI33123, CFDI33124)',
             'METPAG02' => 'Si el tipo de documento es I ó E, entonces el metodo de pago'
-                       .  ' debe ser "PUE" o "PPD" (CFDI33121, CFDI33122)',
+                       . ' debe ser "PUE" o "PPD" (CFDI33121, CFDI33122)',
         ];
         foreach ($assertDescriptions as $code => $title) {
             $asserts->put($code, $title);
