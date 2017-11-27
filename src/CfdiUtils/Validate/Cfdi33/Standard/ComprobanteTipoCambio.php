@@ -11,9 +11,9 @@ use CfdiUtils\Validate\Status;
  *
  * Valida que:
  * - TIPOCAMBIO01: La moneda exista y no tenga un valor vacío
- * - TIPOCAMBIO02: Si la moneda es MXN entonces el tipo de cambio debe ser "1" o no debe existir (CFDI33113)
- * - TIPOCAMBIO03: Si la moneda es XXX entonces el tipo de cambio no debe existir (CFDI33115)
- * - TIPOCAMBIO04: Si la moneda no es MXN ni XXX entonces el tipo de cambio entonces
+ * - TIPOCAMBIO02: Si la moneda es "MXN", entonces el tipo de cambio debe ser "1" o no debe existir (CFDI33113)
+ * - TIPOCAMBIO03: Si la moneda es "XXX", entonces el tipo de cambio no debe existir (CFDI33115)
+ * - TIPOCAMBIO04: Si la moneda no es "MXN" ni "XXX", entonces el tipo de cambio entonces
  *                 el tipo de cambio debe seguir el patrón [0-9]{1,18}(.[0-9]{1,6})? (CFDI33114, CFDI33117)
  */
 class ComprobanteTipoCambio extends AbstractDiscoverableVersion33
@@ -22,11 +22,11 @@ class ComprobanteTipoCambio extends AbstractDiscoverableVersion33
     {
         $assertDescriptions = [
             'TIPOCAMBIO01' => 'La moneda exista y no tenga un valor vacío',
-            'TIPOCAMBIO02' => 'Si la moneda es MXN entonces el tipo de cambio debe ser "1"'
-                . ' o no debe existir (CFDI33113)',
-            'TIPOCAMBIO03' => 'Si la moneda es XXX entonces el tipo de cambio no debe existir (CFDI33115)',
-            'TIPOCAMBIO04' => 'Si la moneda no es MXN ni XXX entonces el tipo de cambio'
-                . ' debe seguir el patrón [0-9]{1,18}(.[0-9]{1,6}?) (CFDI33114, CFDI33117)',
+            'TIPOCAMBIO02' => 'Si la moneda es "MXN", entonces el tipo de cambio debe ser "1"'
+                            . ' o no debe existir (CFDI33113)',
+            'TIPOCAMBIO03' => 'Si la moneda es "XXX", entonces el tipo de cambio no debe existir (CFDI33115)',
+            'TIPOCAMBIO04' => 'Si la moneda no es "MXN" ni "XXX", entonces el tipo de cambio'
+                            . ' debe seguir el patrón [0-9]{1,18}(.[0-9]{1,6}?) (CFDI33114, CFDI33117)',
         ];
         foreach ($assertDescriptions as $code => $title) {
             $asserts->put($code, $title);
