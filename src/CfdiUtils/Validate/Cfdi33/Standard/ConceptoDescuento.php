@@ -10,8 +10,8 @@ use CfdiUtils\Validate\Status;
  * ConceptoDescuento.php
  *
  * Valida que:
- * - CONCEPDESC01: Si existe el atributo descuento entonces debe ser menor o igual que el subtotal
- *                 y mayor o igual que cero
+ * - CONCEPDESC01: Si existe el atributo descuento, entonces debe ser menor o igual que el subtotal
+ *                 y mayor o igual que cero (CFDI33109)
  */
 class ConceptoDescuento extends AbstractDiscoverableVersion33
 {
@@ -19,7 +19,8 @@ class ConceptoDescuento extends AbstractDiscoverableVersion33
     {
         $asserts->put(
             'CONCEPDESC01',
-            'Si existe el atributo descuento entonces debe ser menor o igual que el subtotal y mayor o igual que cero'
+            'Si existe el atributo descuento,'
+              . ' entonces debe ser menor o igual que el subtotal y mayor o igual que cero (CFDI33109)'
         );
         if (isset($comprobante['Descuento'])) {
             $descuento = (float) $comprobante['Descuento'];
