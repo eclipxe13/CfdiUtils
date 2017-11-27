@@ -11,13 +11,11 @@ use CfdiUtils\Validate\Status;
  * ComprobanteDecimalesMoneda
  *
  * Valida que:
- * - MONDEC01: El subtotal del comprobante no contiene más de los decimales de la moneda (req)
- * - MONDEC02: El descuento del comprobante no contiene más de los decimales de la moneda
- * - MONDEC03: El total del comprobante no contiene más de los decimales de la moneda  (req)
- * - MONDEC04: El total de impuestos trasladados no contiene más de los decimales de la moneda
- * - MONDEC05: El total de impuestos retenidos no contiene más de los decimales de la moneda
- * - MONDEC06: Todos los importes de los traslados no contienen más de los decimales de la moneda (req)
- * - MONDEC07: Todos los importes de las retenciones no contienen más de los decimales de la moneda (req)
+ * - MONDEC01: El subtotal del comprobante no contiene más de los decimales de la moneda (CFDI33106)
+ * - MONDEC02: El descuento del comprobante no contiene más de los decimales de la moneda (CFDI33111)
+ * - MONDEC03: El total del comprobante no contiene más de los decimales de la moneda
+ * - MONDEC04: El total de impuestos trasladados no contiene más de los decimales de la moneda (CFDI33182)
+ * - MONDEC05: El total de impuestos retenidos no contiene más de los decimales de la moneda (CFDI33180)
  */
 class ComprobanteDecimalesMoneda extends AbstractDiscoverableVersion33
 {
@@ -33,13 +31,11 @@ class ComprobanteDecimalesMoneda extends AbstractDiscoverableVersion33
     private function registerAsserts()
     {
         $asserts = [
-            'MONDEC01' => 'El subtotal del comprobante no contiene más de los decimales de la moneda (req)',
-            'MONDEC02' => 'El descuento del comprobante no contiene más de los decimales de la moneda',
-            'MONDEC03' => 'El total del comprobante no contiene más de los decimales de la moneda (req)',
-            'MONDEC04' => 'El total de impuestos trasladados no contiene más de los decimales de la moneda',
-            'MONDEC05' => 'El total de impuestos retenidos no contiene más de los decimales de la moneda',
-            'MONDEC06' => 'Todos los importes de los traslados no contienen más de los decimales de la moneda (req)',
-            'MONDEC07' => 'Todos los importes de las retenciones no contienen más de los decimales de la moneda (req)',
+            'MONDEC01' => 'El subtotal del comprobante no contiene más de los decimales de la moneda (CFDI33106)',
+            'MONDEC02' => 'El descuento del comprobante no contiene más de los decimales de la moneda (CFDI33111)',
+            'MONDEC03' => 'El total del comprobante no contiene más de los decimales de la moneda',
+            'MONDEC04' => 'El total de impuestos trasladados no contiene más de los decimales de la moneda (CFDI33182)',
+            'MONDEC05' => 'El total de impuestos retenidos no contiene más de los decimales de la moneda (CFDI33180)',
         ];
         foreach ($asserts as $code => $title) {
             $this->asserts->put($code, $title);
@@ -67,16 +63,6 @@ class ComprobanteDecimalesMoneda extends AbstractDiscoverableVersion33
         if (null !== $impuestos) {
             $this->validateValue('MONDEC04', $impuestos, 'TotalImpuestosTrasladados');
             $this->validateValue('MONDEC05', $impuestos, 'TotalImpuestosRetenidos');
-            foreach ($impuestos->searchNodes('cfdi:Traslados', 'cfdi:Traslado') as $impuesto) {
-                if ($this->validateValue('MONDEC06', $impuesto, 'Importe', true)->getStatus()->isError()) {
-                    break;
-                }
-            }
-            foreach ($impuestos->searchNodes('cfdi:Retenciones', 'cfdi:Retencion') as $impuesto) {
-                if ($this->validateValue('MONDEC07', $impuesto, 'Importe', true)->getStatus()->isError()) {
-                    break;
-                }
-            }
         }
     }
 
