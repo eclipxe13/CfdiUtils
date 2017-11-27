@@ -11,22 +11,22 @@ use CfdiUtils\Validate\Status;
  * ComprobanteResidenciaFiscal
  *
  * Valida que:
- * - RESFISC01: Si el RFC no es XEXX010101000 entonces la residencia fiscal no debe existir
- * - RESFISC02: Si el RFC sí es XEXX010101000 y existe el complemento de comercio exterior
- *              entonces la residencia fiscal debe establecerse y no puede ser "MEX"
- * - RESFISC03: Si el RFC sí es XEXX010101000 y se registró el número de registro de identificación fiscal
- *              entonces la residencia fiscal debe establecerse y no puede ser "MEX"
+ * - RESFISC01: Si el RFC no es XEXX010101000, entonces la residencia fiscal no debe existir (CFDI33134)
+ * - RESFISC02: Si el RFC sí es XEXX010101000 y existe el complemento de comercio exterior,
+ *              entonces la residencia fiscal debe establecerse y no puede ser "MEX" (CFDI33135 y CFDI33136)
+ * - RESFISC03: Si el RFC sí es XEXX010101000 y se registró el número de registro de identificación fiscal,
+ *              entonces la residencia fiscal debe establecerse y no puede ser "MEX" (CFDI33135 y CFDI33136)
  */
 class ReceptorResidenciaFiscal extends AbstractDiscoverableVersion33
 {
     private function registerAsserts(Asserts $asserts)
     {
         $assertDescriptions = [
-            'RESFISC01' => 'Si el RFC no es XEXX010101000 entonces la residencia fiscal no debe existir',
-            'RESFISC02' => 'Si el RFC sí es XEXX010101000 y existe el complemento de comercio exterior'
-                        . ' entonces la residencia fiscal debe establecerse y no puede ser "MEX"',
-            'RESFISC03' => 'Si el RFC sí es XEXX010101000 y se registró el número de registro de identificación fiscal'
-                         . ' entonces la residencia fiscal debe establecerse y no puede ser "MEX"',
+            'RESFISC01' => 'Si el RFC no es XEXX010101000, entonces la residencia fiscal no debe existir (CFDI33134)',
+            'RESFISC02' => 'Si el RFC sí es XEXX010101000 y existe el complemento de comercio exterior,'
+                . ' entonces la residencia fiscal debe establecerse y no puede ser "MEX" (CFDI33135 y CFDI33136)',
+            'RESFISC03' => 'Si el RFC sí es XEXX010101000 y se registró el número de registro de identificación fiscal,'
+                . ' entonces la residencia fiscal debe establecerse y no puede ser "MEX" (CFDI33135 y CFDI33136)',
         ];
         foreach ($assertDescriptions as $code => $title) {
             $asserts->put($code, $title);
