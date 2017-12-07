@@ -42,6 +42,8 @@ class SumasConceptos
         foreach ($conceptos as $concepto) {
             $this->addConcepto($concepto);
         }
+        $this->traslados = $this->roundImpuestosGroup($this->traslados);
+        $this->retenciones = $this->roundImpuestosGroup($this->retenciones);
         $this->impuestosTrasladados = (float) array_sum(array_column($this->traslados, 'Importe'));
         $this->impuestosRetenidos = (float) array_sum(array_column($this->retenciones, 'Importe'));
 
@@ -67,6 +69,14 @@ class SumasConceptos
         foreach ($retenciones as $retencion) {
             $this->addRetencion($retencion);
         }
+    }
+
+    private function roundImpuestosGroup(array $group): array
+    {
+        foreach (array_keys($group) as $key) {
+            $group[$key]['Importe'] = round($group[$key]['Importe'], $this->getPrecision());
+        }
+        return $group;
     }
 
     private function addTraslado(NodeInterface $traslado)
