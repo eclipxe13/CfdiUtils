@@ -19,13 +19,16 @@ class SumasConceptos
     private $traslados = [];
     /** @var array */
     private $retenciones = [];
+    /** @var int */
+    private $precision;
 
     /*
      * Constructors
      */
 
-    public function __construct(NodeInterface $comprobante)
+    public function __construct(NodeInterface $comprobante, int $precision = 2)
     {
+        $this->precision = $precision;
         $this->addComprobante($comprobante);
     }
 
@@ -39,15 +42,23 @@ class SumasConceptos
         foreach ($conceptos as $concepto) {
             $this->addConcepto($concepto);
         }
+        $this->traslados = $this->roundImpuestosGroup($this->traslados);
+        $this->retenciones = $this->roundImpuestosGroup($this->retenciones);
         $this->impuestosTrasladados = (float) array_sum(array_column($this->traslados, 'Importe'));
         $this->impuestosRetenidos = (float) array_sum(array_column($this->retenciones, 'Importe'));
+
+        $this->impuestosTrasladados = round($this->impuestosTrasladados, $this->precision);
+        $this->impuestosRetenidos = round($this->impuestosRetenidos, $this->precision);
+        $this->importes = round($this->importes, $this->precision);
+        $this->descuento = round($this->descuento, $this->precision);
+
         $this->total = $this->importes - $this->descuento + $this->impuestosTrasladados - $this->impuestosRetenidos;
     }
 
     private function addConcepto(NodeInterface $concepto)
     {
-        $this->importes += (float) $concepto->searchAttribute('Importe');
-        $this->descuento += (float) $concepto->searchAttribute('Descuento');
+        $this->importes += (float) $concepto['Importe'];
+        $this->descuento += (float) $concepto['Descuento'];
 
         $traslados = $concepto->searchNodes('cfdi:Impuestos', 'cfdi:Traslados', 'cfdi:Traslado');
         foreach ($traslados as $traslado) {
@@ -60,34 +71,42 @@ class SumasConceptos
         }
     }
 
+    private function roundImpuestosGroup(array $group): array
+    {
+        foreach (array_keys($group) as $key) {
+            $group[$key]['Importe'] = round($group[$key]['Importe'], $this->getPrecision());
+        }
+        return $group;
+    }
+
     private function addTraslado(NodeInterface $traslado)
     {
         $key = $this->impuestoKey(
-            $traslado->searchAttribute('Impuesto'),
-            $traslado->searchAttribute('TipoFactor'),
-            $traslado->searchAttribute('TasaOCuota')
+            $traslado['Impuesto'],
+            $traslado['TipoFactor'],
+            $traslado['TasaOCuota']
         );
         if (! array_key_exists($key, $this->traslados)) {
             $this->traslados[$key] = [
-                'Impuesto' => $traslado->searchAttribute('Impuesto'),
-                'TipoFactor' => $traslado->searchAttribute('TipoFactor'),
-                'TasaOCuota' => $traslado->searchAttribute('TasaOCuota'),
+                'Impuesto' => $traslado['Impuesto'],
+                'TipoFactor' => $traslado['TipoFactor'],
+                'TasaOCuota' => $traslado['TasaOCuota'],
                 'Importe' => 0.0,
             ];
         }
-        $this->traslados[$key]['Importe'] += (float) $traslado->searchAttribute('Importe');
+        $this->traslados[$key]['Importe'] += (float) $traslado['Importe'];
     }
 
     private function addRetencion(NodeInterface $retencion)
     {
-        $key = $this->impuestoKey($retencion->searchAttribute('Impuesto'));
+        $key = $this->impuestoKey($retencion['Impuesto']);
         if (! array_key_exists($key, $this->retenciones)) {
             $this->retenciones[$key] = [
-                'Impuesto' => $retencion->searchAttribute('Impuesto'),
+                'Impuesto' => $retencion['Impuesto'],
                 'Importe' => 0.0,
             ];
         }
-        $this->retenciones[$key]['Importe'] += (float) $retencion->searchAttribute('Importe');
+        $this->retenciones[$key]['Importe'] += (float) $retencion['Importe'];
     }
 
     public static function impuestoKey(string $impuesto, string $tipoFactor = '', string $tasaOCuota = ''): string
@@ -142,5 +161,10 @@ class SumasConceptos
     public function getImpuestosRetenidos(): float
     {
         return $this->impuestosRetenidos;
+    }
+
+    public function getPrecision(): int
+    {
+        return $this->precision;
     }
 }
