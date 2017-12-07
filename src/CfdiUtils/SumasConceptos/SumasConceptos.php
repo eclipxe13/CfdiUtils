@@ -46,8 +46,8 @@ class SumasConceptos
 
     private function addConcepto(NodeInterface $concepto)
     {
-        $this->importes += (float) $concepto->searchAttribute('Importe');
-        $this->descuento += (float) $concepto->searchAttribute('Descuento');
+        $this->importes += (float) $concepto['Importe'];
+        $this->descuento += (float) $concepto['Descuento'];
 
         $traslados = $concepto->searchNodes('cfdi:Impuestos', 'cfdi:Traslados', 'cfdi:Traslado');
         foreach ($traslados as $traslado) {
@@ -63,31 +63,31 @@ class SumasConceptos
     private function addTraslado(NodeInterface $traslado)
     {
         $key = $this->impuestoKey(
-            $traslado->searchAttribute('Impuesto'),
-            $traslado->searchAttribute('TipoFactor'),
-            $traslado->searchAttribute('TasaOCuota')
+            $traslado['Impuesto'],
+            $traslado['TipoFactor'],
+            $traslado['TasaOCuota']
         );
         if (! array_key_exists($key, $this->traslados)) {
             $this->traslados[$key] = [
-                'Impuesto' => $traslado->searchAttribute('Impuesto'),
-                'TipoFactor' => $traslado->searchAttribute('TipoFactor'),
-                'TasaOCuota' => $traslado->searchAttribute('TasaOCuota'),
+                'Impuesto' => $traslado['Impuesto'],
+                'TipoFactor' => $traslado['TipoFactor'],
+                'TasaOCuota' => $traslado['TasaOCuota'],
                 'Importe' => 0.0,
             ];
         }
-        $this->traslados[$key]['Importe'] += (float) $traslado->searchAttribute('Importe');
+        $this->traslados[$key]['Importe'] += (float) $traslado['Importe'];
     }
 
     private function addRetencion(NodeInterface $retencion)
     {
-        $key = $this->impuestoKey($retencion->searchAttribute('Impuesto'));
+        $key = $this->impuestoKey($retencion['Impuesto']);
         if (! array_key_exists($key, $this->retenciones)) {
             $this->retenciones[$key] = [
-                'Impuesto' => $retencion->searchAttribute('Impuesto'),
+                'Impuesto' => $retencion['Impuesto'],
                 'Importe' => 0.0,
             ];
         }
-        $this->retenciones[$key]['Importe'] += (float) $retencion->searchAttribute('Importe');
+        $this->retenciones[$key]['Importe'] += (float) $retencion['Importe'];
     }
 
     public static function impuestoKey(string $impuesto, string $tipoFactor = '', string $tasaOCuota = ''): string
