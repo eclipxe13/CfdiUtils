@@ -98,15 +98,15 @@ class CfdiCreator33
         return $builder->build($this->asXml(), $xsltLocation);
     }
 
-    public function buildSumasConceptos(): SumasConceptos
+    public function buildSumasConceptos(int $precision = 2): SumasConceptos
     {
-        return new SumasConceptos($this->comprobante);
+        return new SumasConceptos($this->comprobante, $precision);
     }
 
-    public function addSumasConceptos(SumasConceptos $sumasConceptos = null, int $decimals = 2)
+    public function addSumasConceptos(SumasConceptos $sumasConceptos = null, int $precision = 2)
     {
-        $sumasConceptos = $sumasConceptos ? : $this->buildSumasConceptos();
-        $writer = new SumasConceptosWriter($this->comprobante, $sumasConceptos, $decimals);
+        $sumasConceptos = $sumasConceptos ? : $this->buildSumasConceptos($precision);
+        $writer = new SumasConceptosWriter($this->comprobante, $sumasConceptos, $precision);
         $writer->put();
     }
 
