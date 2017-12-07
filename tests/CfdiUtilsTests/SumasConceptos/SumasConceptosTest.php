@@ -22,7 +22,6 @@ class SumasConceptosTest extends TestCase
         $this->assertCount(0, $sc->getTraslados());
     }
 
-
     public function providerWithConceptsDecimals()
     {
         /*
