@@ -44,6 +44,12 @@ class SumasConceptos
         }
         $this->impuestosTrasladados = (float) array_sum(array_column($this->traslados, 'Importe'));
         $this->impuestosRetenidos = (float) array_sum(array_column($this->retenciones, 'Importe'));
+
+        $this->impuestosTrasladados = round($this->impuestosTrasladados, $this->precision);
+        $this->impuestosRetenidos = round($this->impuestosRetenidos, $this->precision);
+        $this->importes = round($this->importes, $this->precision);
+        $this->descuento = round($this->descuento, $this->precision);
+
         $this->total = $this->importes - $this->descuento + $this->impuestosTrasladados - $this->impuestosRetenidos;
     }
 
