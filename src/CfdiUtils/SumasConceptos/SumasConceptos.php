@@ -19,13 +19,16 @@ class SumasConceptos
     private $traslados = [];
     /** @var array */
     private $retenciones = [];
+    /** @var int */
+    private $precision;
 
     /*
      * Constructors
      */
 
-    public function __construct(NodeInterface $comprobante)
+    public function __construct(NodeInterface $comprobante, int $precision = 2)
     {
+        $this->precision = $precision;
         $this->addComprobante($comprobante);
     }
 
@@ -142,5 +145,10 @@ class SumasConceptos
     public function getImpuestosRetenidos(): float
     {
         return $this->impuestosRetenidos;
+    }
+
+    public function getPrecision(): int
+    {
+        return $this->precision;
     }
 }
