@@ -33,11 +33,13 @@ class TimbreFiscalDigitalVersionTest extends ValidateTestCase
     {
         return[
             ['1.0'],
-            ['0.1'],
             ['1.2'],
+            ['0.1'],
+            ['1.10'],
             ['ASD'],
             [''],
             ['0'],
+            [null],
         ];
     }
 
