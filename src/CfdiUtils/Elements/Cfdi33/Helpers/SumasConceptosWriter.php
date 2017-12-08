@@ -13,54 +13,58 @@ class SumasConceptosWriter
     private $sumas;
 
     /** @var int */
-    private $decimals;
+    private $precision;
 
     /**
      * Writer constructor.
      * @param Comprobante $comprobante
      * @param \CfdiUtils\SumasConceptos\SumasConceptos $sumas
-     * @param int $decimals
+     * @param int $precision
      */
-    public function __construct(Comprobante $comprobante, SumasConceptos $sumas, int $decimals = 6)
+    public function __construct(Comprobante $comprobante, SumasConceptos $sumas, int $precision = 6)
     {
         $this->comprobante = $comprobante;
         $this->sumas = $sumas;
-        $this->decimals = $decimals;
+        $this->precision = $precision;
     }
 
     public function put()
     {
         $this->putComprobanteSumas();
-        $this->putImpuestosSumas();
+        $this->putImpuestosNode();
     }
 
-    public function putComprobanteSumas()
+    private function putComprobanteSumas()
     {
-        unset($this->comprobante['Descuento']);
         $this->comprobante['SubTotal'] = $this->format($this->sumas->getSubTotal());
         $this->comprobante['Total'] = $this->format($this->sumas->getTotal());
-        if ($this->valueGreaterThanZero($this->sumas->getDescuento())) {
-            $this->comprobante['Descuento'] = $this->format($this->sumas->getDescuento());
+        $this->comprobante['Descuento'] = $this->format($this->sumas->getDescuento());
+        if (! $this->valueGreaterThanZero($this->sumas->getDescuento())) {
+            unset($this->comprobante['Descuento']);
         }
     }
 
-    public function putImpuestosSumas()
+    private function putImpuestosNode()
     {
+        // obtain node reference
         $impuestos = $this->comprobante->getImpuestos();
+        // if there is nothing to write then remove the children and exit
+        if (! $this->sumas->hasTraslados() && ! $this->sumas->hasRetenciones()) {
+            $this->comprobante->children()->remove($impuestos);
+            return;
+        }
+        // clear previous values
         $impuestos->clear();
-
-        if ($this->valueGreaterThanZero($this->sumas->getImpuestosTrasladados())) {
-            $impuestos['TotalImpuestosTrasladados'] = $this->format($this->sumas->getImpuestosTrasladados());
-        }
-        if ($this->valueGreaterThanZero($this->sumas->getImpuestosRetenidos())) {
-            $impuestos['TotalImpuestosRetenidos'] = $this->format($this->sumas->getImpuestosRetenidos());
-        }
+        // add traslados when needed
         if ($this->sumas->hasTraslados()) {
+            $impuestos['TotalImpuestosTrasladados'] = $this->format($this->sumas->getImpuestosTrasladados());
             $impuestos->getTraslados()->multiTraslado(
                 ...$this->getImpuestosContents($this->sumas->getTraslados())
             );
         }
+        // add retenciones when needed
         if ($this->sumas->hasRetenciones()) {
+            $impuestos['TotalImpuestosRetenidos'] = $this->format($this->sumas->getImpuestosRetenidos());
             $impuestos->getRetenciones()->multiRetencion(
                 ...$this->getImpuestosContents($this->sumas->getRetenciones())
             );
@@ -79,11 +83,26 @@ class SumasConceptosWriter
 
     private function valueGreaterThanZero(float $value)
     {
-        return (round($value, $this->decimals) > 0);
+        return (round($value, $this->precision) > 0);
     }
 
     public function format(float $number): string
     {
-        return number_format($number, $this->decimals, '.', '');
+        return number_format($number, $this->precision, '.', '');
+    }
+
+    public function getComprobante(): Comprobante
+    {
+        return $this->comprobante;
+    }
+
+    public function getSumasConceptos(): SumasConceptos
+    {
+        return $this->sumas;
+    }
+
+    public function getPrecision(): int
+    {
+        return $this->precision;
     }
 }
