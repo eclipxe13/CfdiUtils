@@ -1,6 +1,8 @@
 <?php
 namespace CfdiUtils\Nodes;
 
+use CfdiUtils\Utils\Xml;
+
 class Node implements NodeInterface
 {
     /** @var string */
@@ -20,9 +22,8 @@ class Node implements NodeInterface
      */
     public function __construct(string $name, array $attributes = [], array $children = [])
     {
-        $name = trim($name);
-        if ('' === $name) {
-            throw new \UnexpectedValueException('Node name cannot be empty');
+        if (! Xml::isValidXmlName($name)) {
+            throw new \UnexpectedValueException(sprintf('Cannot create a node with an invalid xml name: "%s"', $name));
         }
         $this->name = $name;
         $this->attributes = new Attributes($attributes);

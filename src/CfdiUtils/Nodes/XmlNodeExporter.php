@@ -12,7 +12,7 @@ class XmlNodeExporter
         return $this->exportRecursive(Xml::newDocument(), $node);
     }
 
-    public function exportRecursive(DOMDocument $document, NodeInterface $node): DOMElement
+    private function exportRecursive(DOMDocument $document, NodeInterface $node): DOMElement
     {
         $element = $document->createElement($node->name());
 

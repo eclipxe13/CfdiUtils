@@ -60,11 +60,33 @@ class AttributesTest extends TestCase
         $attributes->set('foo', 'BAR');
         $this->assertCount(2, $attributes);
         $this->assertSame('BAR', $attributes->get('foo'));
+    }
 
-        // with spaces
-        $attributes->set('  foo  ', 'foo with spaces');
-        $this->assertCount(2, $attributes);
-        $this->assertSame('foo with spaces', $attributes->get('foo'));
+    public function providerSetWithInvalidNames()
+    {
+        return [
+            'empty' => [''],
+            'white space' => [' '],
+            'digit' => ['0'],
+            'digit hyphen text' => ['0-foo'],
+            'hyphen' => ['-'],
+            'hyphen text' => ['-x'],
+            'inner space' => ['foo bar'],
+        ];
+    }
+
+    /**
+     * @param $name
+     * @dataProvider providerSetWithInvalidNames
+     */
+    public function testSetWithInvalidNames($name)
+    {
+        $attributes = new Attributes();
+
+        $this->expectException(\UnexpectedValueException::class);
+        $this->expectExceptionMessage('invalid xml name');
+
+        $attributes->set($name, '');
     }
 
     public function testGetMethodOnNonExistent()

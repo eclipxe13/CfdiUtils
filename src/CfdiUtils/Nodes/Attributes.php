@@ -1,6 +1,8 @@
 <?php
 namespace CfdiUtils\Nodes;
 
+use CfdiUtils\Utils\Xml;
+
 class Attributes implements \Countable, \IteratorAggregate, \ArrayAccess
 {
     /** @var string[] */
@@ -32,9 +34,8 @@ class Attributes implements \Countable, \IteratorAggregate, \ArrayAccess
             $this->remove($name);
             return $this;
         }
-        $name = trim($name);
-        if ('' === $name) {
-            throw new \UnexpectedValueException('Cannot set an attribute without name');
+        if (! Xml::isValidXmlName($name)) {
+            throw new \UnexpectedValueException(sprintf('Cannot set attribute with an invalid xml name: "%s"', $name));
         }
         $this->attributes[$name] = $value;
         return $this;

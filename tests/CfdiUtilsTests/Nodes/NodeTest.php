@@ -27,21 +27,23 @@ class NodeTest extends TestCase
     public function testConstructWithEmptyName()
     {
         $this->expectException(\UnexpectedValueException::class);
-        $this->expectExceptionMessage('Node name cannot be empty');
+        $this->expectExceptionMessage('invalid xml name');
         new Node('');
     }
 
     public function testConstructWithUntrimmedEmptyName()
     {
         $this->expectException(\UnexpectedValueException::class);
-        $this->expectExceptionMessage('Node name cannot be empty');
+        $this->expectExceptionMessage('invalid xml name');
         new Node("\n  \t  \n");
     }
 
     public function testConstructWithUntrimmedName()
     {
-        $node = new Node(' x ');
-        $this->assertSame('x', $node->name());
+        $this->expectException(\UnexpectedValueException::class);
+        $this->expectExceptionMessage('invalid xml name');
+
+        new Node(' x ');
     }
 
     public function testSearchAttribute()
