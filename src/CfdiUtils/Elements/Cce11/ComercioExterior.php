@@ -68,7 +68,7 @@ class ComercioExterior extends AbstractElement
     public function getFixedAttributes(): array
     {
         return [
-            'xmlns:cfdi' => 'http://www.sat.gob.mx/ComercioExterior11',
+            'xmlns:cce11' => 'http://www.sat.gob.mx/ComercioExterior11',
             'xsi:schemaLocation' => 'http://www.sat.gob.mx/ComercioExterior11'
                 . ' http://www.sat.gob.mx/sitio_internet/cfd/ComercioExterior11/ComercioExterior11.xsd',
             'Version' => '1.1',
