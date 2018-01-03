@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\Abstracts\AbstractDiscoverableVersion33;
 use CfdiUtils\Validate\Status;
 
 /**
- * ConceptoImpuestos.php
+ * ConceptoImpuestos
  *
  * Valida que:
  * - CONCEPIMPC01: El nodo impuestos de un concepto debe incluir traslados y/o retenciones (CFDI33152)

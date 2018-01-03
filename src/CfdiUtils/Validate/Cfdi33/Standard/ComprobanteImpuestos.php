@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\Abstracts\AbstractDiscoverableVersion33;
 use CfdiUtils\Validate\Status;
 
 /**
- * ConceptoImpuestos.php
+ * ConceptoImpuestos
  *
  * Valida que:
  * - COMPIMPUESTOSC01: Si existe el nodo impuestos entonces debe incluir el total de traslados
