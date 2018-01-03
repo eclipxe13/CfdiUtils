@@ -20,10 +20,9 @@ script:
   - vendor/bin/phpcs -sp src/ tests/
   - vendor/bin/php-cs-fixer fix --using-cache=no --dry-run --verbose
   - vendor/bin/phpunit --coverage-text --coverage-clover=build/tests/coverage.xml
+  - vendor/bin/phpstan.phar analyse --level max src/ tests/
 
 after_script:
-  # check using phpstan
-  - vendor/bin/phpstan.phar analyse --level max src/ tests/
   # upload to scrutinizer
   - |
     if [[ $TRAVIS_PHP_VERSION == '7.0' ]]; then
