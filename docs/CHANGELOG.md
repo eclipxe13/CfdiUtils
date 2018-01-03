@@ -1,10 +1,21 @@
+# Version 2.0.0 2018-01-01
+- This library has been changed deeply.
+- It can write CFDI version 3.3 using `CfdiUtils\Elements\Cfdi33` and helper class `CfdiUtils\CfdiCreator33`
+- It can read CFDI files version 3.2 and 3.3 using `CfdiUtils\Cfdi`
+- It can validate a CFDI
+- Rely on `CfdiUtils\Nodes` to perform most operations.
+- `CadenaOrigen` object have been split into two different objects: `CadenaOrigenLocation` and `CadenaOrigenBuilder`.
+- New object helpers like `Elements`, `Certificado`, `PemPrivateKey` & `TimbreFiscalDigital`
+- Include wiki for documentation
+
+
 # Version 1.0.3 2017-10-09
 - Fix a bug to read the RFC when a certificate does not contain the pattern RFC / CURP but only RFC in the
   subject x500UniqueIdentifier field 
 
 
 # Version 1.0.2 2017-09-28 - Thanks phpstan!
-- After using `phpstan/phpstan` change the execution plan on `CadenaOrigen`.
+- After using `phpstan/phpstan` change the execution plan on `CadenaOrigenLocations`.
   The function previous function `throwLibXmlErrorOrMessage(string $message)` always
   throw an exception but it was not clear in the flow of `build` method.
   Now it returns a \RuntimeException and that is thrown. So it is easy for an analysis tool

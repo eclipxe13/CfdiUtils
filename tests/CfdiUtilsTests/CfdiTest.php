@@ -8,14 +8,14 @@ class CfdiTest extends TestCase
     public function testNewFromStringWithEmptyXml()
     {
         $this->expectException(\UnexpectedValueException::class);
-        $this->expectExceptionMessage('Content is empty');
+        $this->expectExceptionMessage('empty');
         Cfdi::newFromString('');
     }
 
     public function testNewFromStringWithInvalidXml()
     {
         $this->expectException(\UnexpectedValueException::class);
-        $this->expectExceptionMessage('Cannot create a DOM Document from content');
+        $this->expectExceptionMessage('Cannot create a DOM Document');
         Cfdi::newFromString(' ');
     }
 

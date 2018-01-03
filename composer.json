@@ -1,8 +1,12 @@
 {
     "name": "eclipxe/cfdiutils",
     "description": "PHP Common utilities for Mexican CFDI 3.2 & 3.3",
-    "keywords": ["cfdi", "utility", "helper"],
+    "keywords": ["cfdi", "cfdi33", "mexico", "electronic invoice"],
     "homepage": "https://github.com/eclipxe13/CfdiUtils",
+    "support": {
+        "wiki": "https://github.com/eclipxe13/CfdiUtils/wiki",
+        "issues": "https://github.com/eclipxe13/CfdiUtils/issues"
+    },
     "license": "MIT",
     "authors": [
         {
@@ -12,14 +16,16 @@
         }
     ],
     "require": {
-        "php": ">=7.0"
+        "php": ">=7.0",
+        "eclipxe/xmlresourceretriever": "^1.0",
+        "eclipxe/xmlschemavalidator": "^2.0"
     },
     "require-dev": {
-        "eclipxe/xmlresourceretriever": "^1.0",
         "phpunit/phpunit": "^6.2",
         "jakub-onderka/php-parallel-lint": "^0.9",
         "squizlabs/php_codesniffer": "^3.0",
-        "friendsofphp/php-cs-fixer": "^2.4"
+        "friendsofphp/php-cs-fixer": "^2.4",
+        "phpstan/phpstan-shim": "^0.8.5"
     },
     "autoload": {
         "psr-4": {
@@ -30,5 +36,30 @@
         "psr-4": {
             "CfdiUtilsTests\\": "tests/CfdiUtilsTests/"
         }
+    },
+    "scripts": {
+        "build": [
+            "@fix-style",
+            "@qa"
+        ],
+        "check-style": [
+            "vendor/bin/php-cs-fixer fix --dry-run --verbose",
+            "vendor/bin/phpcs --colors -sp src/ tests/"
+        ],
+        "fix-style": [
+            "vendor/bin/php-cs-fixer fix --verbose",
+            "vendor/bin/phpcbf --colors -sp src/ tests/"
+        ],
+        "qa": [
+            "vendor/bin/phpstan.phar analyse --level max src/ tests/",
+            "@test"
+        ],
+        "test": [
+            "vendor/bin/parallel-lint src/ tests/",
+            "vendor/bin/phpunit"
+        ],
+        "coverage": [
+            "@php -dzend_extension=xdebug.so vendor/bin/phpunit --coverage-text --coverage-html build/coverage/html/"
+        ]
     }
 }
