@@ -1,3 +1,8 @@
+# Version 2.0.1 2018-01-03
+- Small bugfixes thanks to scrutinizer-ci.com
+- Fix some docblocks
+- Travis: Build also with PHP 7.2 
+
 # Version 2.0.0 2018-01-01
 - This library has been changed deeply.
 - It can write CFDI version 3.3 using `CfdiUtils\Elements\Cfdi33` and helper class `CfdiUtils\CfdiCreator33`
