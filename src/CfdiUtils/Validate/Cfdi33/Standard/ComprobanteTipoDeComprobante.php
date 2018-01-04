@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\Abstracts\AbstractDiscoverableVersion33;
 use CfdiUtils\Validate\Status;
 
 /**
- * ConceptoValorUnitario.php
+ * ComprobanteTipoDeComprobante
  *
  * Valida que:
  * - TIPOCOMP01: Si el tipo de comprobante es T, P ó N, entonces no debe existir las condiciones de pago

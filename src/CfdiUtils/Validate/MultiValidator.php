@@ -73,7 +73,7 @@ class MultiValidator implements ValidatorInterface, \Countable, \IteratorAggrega
     private function indexOf(ValidatorInterface $validator): int
     {
         $index = array_search($validator, $this->validators, true);
-        return ($index === false) ? -1 : $index;
+        return ($index === false) ? -1 : (int) $index;
     }
 
     public function remove(ValidatorInterface $validator)

@@ -8,7 +8,7 @@ use CfdiUtils\Validate\Cfdi33\Abstracts\AbstractDiscoverableVersion33;
 use CfdiUtils\Validate\Status;
 
 /**
- * ComprobanteResidenciaFiscal
+ * ReceptorResidenciaFiscal
  *
  * Valida que:
  * - RESFISC01: Si el RFC no es XEXX010101000, entonces la residencia fiscal no debe existir (CFDI33134)

@@ -30,7 +30,7 @@ class Nodes implements \Countable, \IteratorAggregate
         if (false === $index = array_search($node, $this->nodes, true)) {
             $index = -1;
         }
-        return $index;
+        return (int) $index;
     }
 
     public function remove(NodeInterface $node): self

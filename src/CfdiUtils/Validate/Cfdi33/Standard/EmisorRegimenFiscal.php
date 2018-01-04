@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\Abstracts\AbstractDiscoverableVersion33;
 use CfdiUtils\Validate\Status;
 
 /**
- * ComprobanteRegimenFiscal
+ * EmisorRegimenFiscal
  *
  * Valida que:
  *  - REGFIS01: El régimen fiscal contenga un valor apropiado según el tipo de RFC emisor (CFDI33130 y CFDI33131)

@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\Abstracts\AbstractDiscoverableVersion33;
 use CfdiUtils\Validate\Status;
 
 /**
- * ConceptoDescuento.php
+ * ConceptoDescuento
  *
  * Valida que:
  * - CONCEPDESC01: Si existe el atributo descuento, entonces debe ser menor o igual que el subtotal

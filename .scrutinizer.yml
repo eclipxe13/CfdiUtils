@@ -9,7 +9,11 @@ checks:
         duplication: true
 
 tools:
-    php_code_sniffer:
-        config:
-            standard: "PSR2"
     external_code_coverage: true
+
+build:
+    nodes:
+        analysis:
+            tests:
+                override:
+                    - php-scrutinizer-run
