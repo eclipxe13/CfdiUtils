@@ -35,7 +35,7 @@ class MultiValidatorFactory
 
     public function addDiscovered(MultiValidator $multiValidator, string $namespacePrefix, string $directory)
     {
-        return $multiValidator->addMulti(
+        $multiValidator->addMulti(
             ...$this->discoverer->discoverInFolder($namespacePrefix, $directory)
         );
     }
