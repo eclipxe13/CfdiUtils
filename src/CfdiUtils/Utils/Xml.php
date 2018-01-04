@@ -15,7 +15,7 @@ class Xml
 
     public static function newDocumentContent(string $content): DOMDocument
     {
-        if ('' == $content) {
+        if ('' === $content) {
             throw new \UnexpectedValueException('Received xml string argument is empty');
         }
         $document = static::newDocument();
