@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": ">=7.0",
-        "eclipxe/xmlresourceretriever": "^1.0",
+        "eclipxe/xmlresourceretriever": "^1.2",
         "eclipxe/xmlschemavalidator": "^2.0"
     },
     "require-dev": {
