@@ -1,6 +1,7 @@
 <?php
 namespace CfdiUtilsTests;
 
+use CfdiUtils\Certificado\SatCertificateNumber;
 use CfdiUtils\XmlResolver\XmlResolver;
 
 class TestCase extends \PHPUnit\Framework\TestCase
@@ -10,10 +11,14 @@ class TestCase extends \PHPUnit\Framework\TestCase
         return dirname(__DIR__) . '/assets/' . $file;
     }
 
+    protected function newResolver()
+    {
+        return new XmlResolver();
+    }
+
     protected function downloadResourceIfNotExists(string $remote): string
     {
-        $xmlResolver = new XmlResolver();
-        return $xmlResolver->resolve($remote);
+        return $this->newResolver()->resolve($remote);
     }
 
     public function providerFullJoin(array $first, array ...$next): array
@@ -32,5 +37,32 @@ class TestCase extends \PHPUnit\Framework\TestCase
             return $this->providerFullJoin($combine, ...$next);
         }
         return $combine;
+    }
+
+    protected function installCertificate(string $cerfile): string
+    {
+        $certificateNumber = substr(basename($cerfile), 0, 20);
+        $satCertificateNumber = new SatCertificateNumber($certificateNumber);
+
+        $cerRetriever = $this->newResolver()->newCerRetriever();
+
+        $installationPath = $cerRetriever->buildPath($satCertificateNumber->remoteUrl());
+        if (file_exists($installationPath)) {
+            return $installationPath;
+        }
+
+        $installationDir = dirname($installationPath);
+        if (! file_exists($installationDir)) {
+            mkdir($installationDir, 0774, true);
+        }
+        if (! is_dir($installationDir)) {
+            throw new \RuntimeException("Cannot create installation dir $installationDir");
+        }
+
+        if (! copy($cerfile, $installationPath)) {
+            throw new \RuntimeException("Cannot install $cerfile into $installationPath");
+        }
+
+        return $installationPath;
     }
 }
