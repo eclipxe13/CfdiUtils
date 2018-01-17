@@ -84,4 +84,17 @@ class CfdiValidator33Test extends TestCase
         $this->expectExceptionMessage('empty');
         $validator->validate('', new Node('root'));
     }
+
+    public function testValidateCfdi33Real()
+    {
+        $cfdiFile = $this->utilAsset('cfdi33-real.xml');
+        $cfdi = Cfdi::newFromString(file_get_contents($cfdiFile));
+
+        $validator = new CfdiValidator33();
+        $asserts = $validator->validate($cfdi->getSource(), $cfdi->getNode());
+        $this->assertFalse(
+            $asserts->hasErrors(),
+            'The validation of an expected cfdi33 real file fails'
+        );
+    }
 }
