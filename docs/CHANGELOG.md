@@ -1,3 +1,14 @@
+# Version 2.1.0 2018-01-17
+- Fix `SumasConceptos` to work also with "ImpuestosLocales"
+- Add elements helpers `CfdiUtils\Elements\ImpLocal10\ImpuestosLocales` to work with "ImpuestosLocales"
+- Add `CfdiUtils\Certificado\CerRetriever` that works with `CfdiUtils\XmlResolver\XmlResolver` to download
+  a certificate from the SAT repository
+- Add a new validator `CfdiUtils\Validate\Cfdi33\Standard\TimbreFiscalDigitalSello` to validate that the SelloSAT
+  is actually the signature of the Timbre Fiscal Digital. If not then the CFDI was modified
+- Add a new real and valid CFDI to test, this allow `TimbreFiscalDigitalSello` to check real data and pass
+- Update test with `cfdi33-valid.xml` to allow fail `TimbreFiscalDigitalSello`
+- Travis: Remove xdebug for all but PHP 7.0
+
 # Version 2.0.1 2018-01-03
 - Small bugfixes thanks to scrutinizer-ci.com
 - Fix some docblocks

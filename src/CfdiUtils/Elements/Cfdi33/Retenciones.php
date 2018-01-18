@@ -12,9 +12,9 @@ class Retenciones extends AbstractElement
 
     public function addRetencion(array $attributes = []): Retencion
     {
-        $Retencion = new Retencion($attributes);
-        $this->addChild($Retencion);
-        return $Retencion;
+        $retencion = new Retencion($attributes);
+        $this->addChild($retencion);
+        return $retencion;
     }
 
     public function multiRetencion(array ...$elementAttributes): self

@@ -12,8 +12,9 @@
  */
 namespace CfdiUtilsTests\XmlResolver;
 
+use CfdiUtils\Certificado\SatCertificateNumber;
 use CfdiUtils\XmlResolver\XmlResolver;
-use PHPUnit\Framework\TestCase;
+use CfdiUtilsTests\TestCase;
 use XmlResourceRetriever\Downloader\DownloaderInterface;
 
 class XmlResolverTest extends TestCase
@@ -94,6 +95,7 @@ class XmlResolverTest extends TestCase
         return [
             'xsd' => ['http://example.com/resource.xsd', XmlResolver::TYPE_XSD],
             'xlst' => ['http://example.com/resource.xslt', XmlResolver::TYPE_XSLT],
+            'cer' => ['http://example.com/resource.cer', XmlResolver::TYPE_CER],
             'unknown' => ['http://example.com/resource.xml', ''],
             'empty' => ['', ''],
             'end with xml but no extension' => ['http://example.com/xml', ''],
@@ -109,5 +111,32 @@ class XmlResolverTest extends TestCase
     {
         $resolver = new XmlResolver();
         $this->assertEquals($expectedType, $resolver->obtainTypeFromUrl($url));
+    }
+
+    public function testResolveCerFileWithExistentFile()
+    {
+        // preinstall certificate to avoid the download
+        $localPath = $this->installCertificate($this->utilAsset('certs/20001000000300022779.cer'));
+
+        $certificateId = '20001000000300022779';
+        $cerNumber = new SatCertificateNumber($certificateId);
+        $resolver = new XmlResolver();
+        $remoteUrl = $cerNumber->remoteUrl();
+
+        // this downloader will throw an exception if downloadTo is called
+        $nullDownloader = new class() implements DownloaderInterface {
+            public function downloadTo(string $source, string $destination)
+            {
+                throw new \RuntimeException("$source will not be downloaded to $destination");
+            }
+        };
+
+        // set the downloader into the resolver
+        $resolver->setDownloader($nullDownloader);
+
+        // call to resolve, it must not throw an exception
+        $resolvedPath = $resolver->resolve($remoteUrl, $resolver::TYPE_CER);
+
+        $this->assertSame($localPath, $resolvedPath);
     }
 }

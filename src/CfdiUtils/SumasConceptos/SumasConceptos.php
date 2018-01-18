@@ -19,6 +19,14 @@ class SumasConceptos
     private $traslados = [];
     /** @var array */
     private $retenciones = [];
+    /** @var float */
+    private $localesImpuestosTrasladados;
+    /** @var float */
+    private $localesImpuestosRetenidos;
+    /** @var array */
+    private $localesTraslados = [];
+    /** @var array */
+    private $localesRetenciones = [];
     /** @var int */
     private $precision;
 
@@ -42,6 +50,12 @@ class SumasConceptos
         foreach ($conceptos as $concepto) {
             $this->addConcepto($concepto);
         }
+
+        $this->localesTraslados = $this->populateImpuestosLocales($comprobante, 'TrasladosLocales', 'Traslado');
+        $this->localesImpuestosTrasladados = array_sum(array_column($this->localesTraslados, 'Importe'));
+        $this->localesRetenciones = $this->populateImpuestosLocales($comprobante, 'RetencionesLocales', 'Retenido');
+        $this->localesImpuestosRetenidos = array_sum(array_column($this->localesRetenciones, 'Importe'));
+
         $this->traslados = $this->roundImpuestosGroup($this->traslados);
         $this->retenciones = $this->roundImpuestosGroup($this->retenciones);
         $this->impuestosTrasladados = (float) array_sum(array_column($this->traslados, 'Importe'));
@@ -52,7 +66,14 @@ class SumasConceptos
         $this->importes = round($this->importes, $this->precision);
         $this->descuento = round($this->descuento, $this->precision);
 
-        $this->total = $this->importes - $this->descuento + $this->impuestosTrasladados - $this->impuestosRetenidos;
+        $this->total = round(array_sum([
+            $this->importes,
+            - $this->descuento,
+            $this->impuestosTrasladados,
+            - $this->impuestosRetenidos,
+            $this->localesImpuestosTrasladados,
+            - $this->localesImpuestosRetenidos,
+        ]), $this->precision);
     }
 
     private function addConcepto(NodeInterface $concepto)
@@ -69,6 +90,20 @@ class SumasConceptos
         foreach ($retenciones as $retencion) {
             $this->addRetencion($retencion);
         }
+    }
+
+    private function populateImpuestosLocales(NodeInterface $comprobante, string $plural, string $singular): array
+    {
+        $locales = $comprobante->searchNodes('cfdi:Complemento', 'implocal:ImpuestosLocales', 'implocal:' . $plural);
+        $list = [];
+        foreach ($locales as $local) {
+            $list[] = [
+                'Impuesto' => $local['ImpLoc' . $singular],
+                'Tasa' => (float) $local['Tasade' . $singular],
+                'Importe' => (float) $local['Importe'],
+            ];
+        }
+        return $list;
     }
 
     private function roundImpuestosGroup(array $group): array
@@ -166,5 +201,35 @@ class SumasConceptos
     public function getPrecision(): int
     {
         return $this->precision;
+    }
+
+    public function getLocalesImpuestosTrasladados(): float
+    {
+        return $this->localesImpuestosTrasladados;
+    }
+
+    public function getLocalesImpuestosRetenidos(): float
+    {
+        return $this->localesImpuestosRetenidos;
+    }
+
+    public function getLocalesTraslados(): array
+    {
+        return $this->localesTraslados;
+    }
+
+    public function getLocalesRetenciones(): array
+    {
+        return $this->localesRetenciones;
+    }
+
+    public function hasLocalesTraslados(): bool
+    {
+        return (count($this->localesTraslados) > 0);
+    }
+
+    public function hasLocalesRetenciones(): bool
+    {
+        return (count($this->localesRetenciones) > 0);
     }
 }

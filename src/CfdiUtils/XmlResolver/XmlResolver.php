@@ -2,6 +2,7 @@
 namespace CfdiUtils\XmlResolver;
 
 use CfdiUtils\CadenaOrigen\DefaultLocations;
+use CfdiUtils\Certificado\CerRetriever;
 use XmlResourceRetriever\Downloader\DownloaderInterface;
 use XmlResourceRetriever\Downloader\PhpDownloader;
 use XmlResourceRetriever\RetrieverInterface;
@@ -21,6 +22,7 @@ class XmlResolver
 
     const TYPE_XSD = 'XSD';
     const TYPE_XSLT = 'XSLT';
+    const TYPE_CER = 'CER';
 
     /**
      * XmlResolver constructor.
@@ -137,6 +139,9 @@ class XmlResolver
         if ($this->isResourceExtension($url, 'xslt')) {
             return static::TYPE_XSLT;
         }
+        if ($this->isResourceExtension($url, 'cer')) {
+            return static::TYPE_CER;
+        }
         return '';
     }
 
@@ -167,6 +172,9 @@ class XmlResolver
         if (static::TYPE_XSD === $type) {
             return $this->newXsdRetriever();
         }
+        if (static::TYPE_CER === $type) {
+            return $this->newCerRetriever();
+        }
         return null;
     }
 
@@ -178,6 +186,11 @@ class XmlResolver
     public function newXsdRetriever(): XsdRetriever
     {
         return new XsdRetriever($this->getLocalPath(), $this->getDownloader());
+    }
+
+    public function newCerRetriever(): CerRetriever
+    {
+        return new CerRetriever($this->getLocalPath(), $this->getDownloader());
     }
 
     public function resolveCadenaOrigenLocation(string $version)

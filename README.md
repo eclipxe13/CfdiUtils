@@ -20,6 +20,8 @@ Main features:
 - Create CFDI version 3.3 based on a friendly extendable non-xml objects (`nodes`)
 - Read CFDI version 3.2 and 3.3
 - Validate CFDI version 3.3 against schemas, cfdi signature (`Sello`) and custom rules
+- Validate that the Timbre Fiscal Digital signature match with the CFDI 3.3,
+  if not then the document was modified after signature. 
 - Helper objects to deal with:
     - `Cadena de origen` generation
     - Extract information from CER files or `Certificado` attribute

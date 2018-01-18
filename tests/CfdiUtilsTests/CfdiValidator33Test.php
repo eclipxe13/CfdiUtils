@@ -44,6 +44,9 @@ class CfdiValidator33Test extends TestCase
 
         $validator = new CfdiValidator33();
         $asserts = $validator->validate($cfdi->getSource(), $cfdi->getNode());
+        // Is already known that TFDSELLO01 is failing.
+        // We are not creating the SelloSAT for cfdi33-valid.xml file
+        $asserts->removeByCode('TFDSELLO01');
         $this->assertFalse(
             $asserts->hasErrors(),
             'The validation of an expected cfdi33 valid file fails,'
@@ -83,5 +86,18 @@ class CfdiValidator33Test extends TestCase
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('empty');
         $validator->validate('', new Node('root'));
+    }
+
+    public function testValidateCfdi33Real()
+    {
+        $cfdiFile = $this->utilAsset('cfdi33-real.xml');
+        $cfdi = Cfdi::newFromString(file_get_contents($cfdiFile));
+
+        $validator = new CfdiValidator33();
+        $asserts = $validator->validate($cfdi->getSource(), $cfdi->getNode());
+        $this->assertFalse(
+            $asserts->hasErrors(),
+            'The validation of an expected cfdi33 real file fails'
+        );
     }
 }
