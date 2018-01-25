@@ -44,7 +44,7 @@ class TimbreFiscalDigitalVersionTest extends ValidateTestCase
     }
 
     /**
-     * @param $version
+     * @param string|null $version
      * @dataProvider providerInvalidVersion
      */
     public function testInvalidCase($version)

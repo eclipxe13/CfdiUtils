@@ -28,8 +28,8 @@ class ConceptoDescuentoTest extends ValidateTestCase
     }
 
     /**
-     * @param $descuento
-     * @param $subtotal
+     * @param string $descuento
+     * @param string $subtotal
      * @dataProvider providerValidCases
      */
     public function testValidCases($descuento, $subtotal)
@@ -54,8 +54,8 @@ class ConceptoDescuentoTest extends ValidateTestCase
         ];
     }
     /**
-     * @param $descuento
-     * @param $subtotal
+     * @param string $descuento
+     * @param string $subtotal
      * @dataProvider providerInvalidCases
      */
     public function testInvalidCases($descuento, $subtotal)

@@ -34,11 +34,11 @@ class ReceptorResidenciaFiscalTest extends ValidateTestCase
     }
 
     /**
-     * @param $receptorRfc
-     * @param $residenciaFiscal
-     * @param $numRegIdTrib
-     * @param $putComercioExterior
-     * @param $ok
+     * @param mixed $receptorRfc
+     * @param mixed $residenciaFiscal
+     * @param mixed $numRegIdTrib
+     * @param mixed $putComercioExterior
+     * @param string $ok
      * @dataProvider providerValidCases
      */
     public function testValidCase($receptorRfc, $residenciaFiscal, $numRegIdTrib, $putComercioExterior, $ok)
@@ -82,11 +82,11 @@ class ReceptorResidenciaFiscalTest extends ValidateTestCase
     }
 
     /**
-     * @param $receptorRfc
-     * @param $residenciaFiscal
-     * @param $numRegIdTrib
-     * @param $putComercioExterior
-     * @param $error
+     * @param mixed $receptorRfc
+     * @param mixed $residenciaFiscal
+     * @param mixed $numRegIdTrib
+     * @param bool $putComercioExterior
+     * @param string $error
      * @dataProvider providerinValidCases
      */
     public function testInvalidCase($receptorRfc, $residenciaFiscal, $numRegIdTrib, $putComercioExterior, $error)

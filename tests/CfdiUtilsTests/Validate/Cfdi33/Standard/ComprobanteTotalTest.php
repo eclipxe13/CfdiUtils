@@ -32,7 +32,7 @@ class ComprobanteTotalTest extends ValidateTestCase
     }
 
     /**
-     * @param $value
+     * @param string|null $value
      * @dataProvider providerTotalWithInvalidValue
      */
     public function testTotalWithInvalidValue($value)
@@ -55,7 +55,7 @@ class ComprobanteTotalTest extends ValidateTestCase
     }
 
     /**
-     * @param $value
+     * @param string|null $value
      * @dataProvider providerTotalWithValidValues
      */
     public function testTotalWithCorrectValues($value)

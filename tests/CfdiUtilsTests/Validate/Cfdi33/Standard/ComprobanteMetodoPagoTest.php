@@ -30,9 +30,9 @@ class ComprobanteMetodoPagoTest extends ValidateTestCase
     }
 
     /**
-     * @param $tipoDeComprobante
-     * @param $metodoDePago
-     * @param $ok
+     * @param string $tipoDeComprobante
+     * @param mixed $metodoDePago
+     * @param string $ok
      * @dataProvider providerValidCases
      */
     public function testValidCases($tipoDeComprobante, $metodoDePago, $ok)
@@ -63,9 +63,9 @@ class ComprobanteMetodoPagoTest extends ValidateTestCase
     }
 
     /**
-     * @param $tipoDeComprobante
-     * @param $metodoDePago
-     * @param $error
+     * @param string $tipoDeComprobante
+     * @param mixed $metodoDePago
+     * @param string $error
      * @dataProvider providerInvalidCases
      */
     public function testInvalidCases($tipoDeComprobante, $metodoDePago, $error)
@@ -88,8 +88,8 @@ class ComprobanteMetodoPagoTest extends ValidateTestCase
         ];
     }
     /**
-     * @param $tipoDeComprobante
-     * @param $metodoDePago
+     * @param mixed $tipoDeComprobante
+     * @param string $metodoDePago
      * @dataProvider providerNoneCases
      */
     public function testNoneCases($tipoDeComprobante, $metodoDePago)

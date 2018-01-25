@@ -72,7 +72,7 @@ class Attributes implements \Countable, \IteratorAggregate, \ArrayAccess
     }
 
     /**
-     * @param $value
+     * @param mixed $value
      * @return string|null
      */
     private function castValueToString($value)

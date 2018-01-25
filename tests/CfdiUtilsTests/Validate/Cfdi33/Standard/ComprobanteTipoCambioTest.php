@@ -31,10 +31,10 @@ class ComprobanteTipoCambioTest extends ValidateTestCase
     }
 
     /**
-     * @param $moneda
-     * @param $tipoCambio
-     * @param $ok
-     * @param $nones
+     * @param string $moneda
+     * @param mixed $tipoCambio
+     * @param string $ok
+     * @param string[] $nones
      * @dataProvider providerMonedaWithValidValues
      */
     public function testMonedaWithValidValues($moneda, $tipoCambio, $ok, $nones)
@@ -65,8 +65,8 @@ class ComprobanteTipoCambioTest extends ValidateTestCase
     }
 
     /**
-     * @param $moneda
-     * @param $tipoCambio
+     * @param string $moneda
+     * @param string|null $tipoCambio
      * @dataProvider providerNoMonedaOrEmpty
      */
     public function testNoMonedaOrEmpty($moneda, $tipoCambio)
@@ -103,10 +103,10 @@ class ComprobanteTipoCambioTest extends ValidateTestCase
     }
 
     /**
-     * @param $moneda
-     * @param $tipoCambio
-     * @param $error
-     * @param $nones
+     * @param string $moneda
+     * @param string|null $tipoCambio
+     * @param string $error
+     * @param string[] $nones
      * @dataProvider providerMonedaWithInvalidValues
      */
     public function testMonedaWithInvalidValues($moneda, $tipoCambio, $error, $nones)
