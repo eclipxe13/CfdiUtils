@@ -9,7 +9,11 @@ class SaxonbCliBuilderTest extends GenericBuilderTestCase
 {
     protected function createBuilder(): XsltBuilderInterface
     {
-        return new SaxonbCliBuilder('/usr/bin/saxonb-xslt');
+        $executable = '/usr/bin/saxonb-xslt';
+        if (! is_executable($executable)) {
+            $this->markTestIncomplete("Cannot test since $executable is missing");
+        }
+        return new SaxonbCliBuilder($executable);
     }
 
     public function testConstructorWithEmptyExecutable()
