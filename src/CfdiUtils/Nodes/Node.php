@@ -106,7 +106,7 @@ class Node implements NodeInterface
     {
         $node = $this;
         foreach ($searchPath as $searchName) {
-            $node = $node->children->firstNodeWithName($searchName);
+            $node = $node->children()->firstNodeWithName($searchName);
             if (null === $node) {
                 break;
             }
