@@ -38,6 +38,16 @@ composer require eclipxe/cfdiutils
 ```
 
 
+## Major versions
+
+- Version 1.x **deprecated** was deprecated time ago, that version didn't do much anyway
+- Version 2.x **current** has a lot of features and helper objects
+- Version 3.x **future** will be released with the following backward compatibility breaks:
+    - Rename `\CfdiUtils\CadenaOrigen\CadenaOrigenBuilder` to `\CfdiUtils\CadenaOrigen\DOMBuilder`
+    - Rename `\CfdiUtils\CadenaOrigen\DefaultLocations` to `\CfdiUtils\CadenaOrigen\CfdiDefaultLocations`
+    - Remove `\CfdiUtils\CadenaOrigen\CadenaOrigenLocations`
+
+
 ## PHP Support
 
 This library is compatible with PHP versions 7.0 and above.
