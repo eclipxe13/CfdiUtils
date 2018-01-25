@@ -25,6 +25,10 @@ class SumasConceptosTest extends TestCase
         $this->assertCount(0, $sc->getTraslados());
         $this->assertCount(0, $sc->getLocalesRetenciones());
         $this->assertCount(0, $sc->getLocalesTraslados());
+        $this->assertFalse($sc->hasRetenciones());
+        $this->assertFalse($sc->hasTraslados());
+        $this->assertFalse($sc->hasLocalesRetenciones());
+        $this->assertFalse($sc->hasLocalesTraslados());
     }
 
     public function providerWithConceptsDecimals()
@@ -107,6 +111,7 @@ class SumasConceptosTest extends TestCase
         $sc = new SumasConceptos($comprobante, 2);
 
         $this->assertCount(1, $sc->getTraslados());
+        $this->assertTrue($sc->hasTraslados());
         $this->assertCount(1, $sc->getLocalesTraslados());
 
         $this->assertEquals(333.33, $sc->getSubTotal(), '', $maxDiff);
