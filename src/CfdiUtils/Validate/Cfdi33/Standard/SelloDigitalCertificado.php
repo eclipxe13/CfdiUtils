@@ -1,7 +1,7 @@
 <?php
 namespace CfdiUtils\Validate\Cfdi33\Standard;
 
-use CfdiUtils\CadenaOrigen\CadenaOrigenBuilder;
+use CfdiUtils\CadenaOrigen\XsltBuilderPropertyTrait;
 use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\Certificado\NodeCertificado;
 use CfdiUtils\Nodes\NodeInterface;
@@ -9,6 +9,7 @@ use CfdiUtils\Validate\Asserts;
 use CfdiUtils\Validate\Cfdi33\Abstracts\AbstractDiscoverableVersion33;
 use CfdiUtils\Validate\Contracts\RequireXmlResolverInterface;
 use CfdiUtils\Validate\Contracts\RequireXmlStringInterface;
+use CfdiUtils\Validate\Contracts\RequireXsltBuilderInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtils\Validate\Traits\XmlStringPropertyTrait;
 use CfdiUtils\XmlResolver\XmlResolverPropertyTrait;
@@ -28,7 +29,8 @@ use CfdiUtils\XmlResolver\XmlResolverPropertyTrait;
  */
 class SelloDigitalCertificado extends AbstractDiscoverableVersion33 implements
     RequireXmlStringInterface,
-    RequireXmlResolverInterface
+    RequireXmlResolverInterface,
+    RequireXsltBuilderInterface
 {
     /** @var Asserts */
     private $asserts;
@@ -38,6 +40,7 @@ class SelloDigitalCertificado extends AbstractDiscoverableVersion33 implements
 
     use XmlResolverPropertyTrait;
     use XmlStringPropertyTrait;
+    use XsltBuilderPropertyTrait;
 
     private function registerAsserts()
     {
@@ -88,8 +91,7 @@ class SelloDigitalCertificado extends AbstractDiscoverableVersion33 implements
     private function buildCadenaOrigen(): string
     {
         $xsltLocation = $this->getXmlResolver()->resolveCadenaOrigenLocation('3.3');
-        $builder = new CadenaOrigenBuilder();
-        return $builder->build($this->getXmlString(), $xsltLocation);
+        return $this->getXsltBuilder()->build($this->getXmlString(), $xsltLocation);
     }
 
     private function validateNoCertificado(string $noCertificado)

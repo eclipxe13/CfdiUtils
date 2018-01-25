@@ -10,12 +10,12 @@ trait XmlResolverPropertyTrait
 
     public function hasXmlResolver(): bool
     {
-        return (null !== $this->xmlResolver);
+        return ($this->xmlResolver instanceof XmlResolver);
     }
 
     public function getXmlResolver(): XmlResolver
     {
-        if (null === $this->xmlResolver) {
+        if (! $this->xmlResolver instanceof XmlResolver) {
             throw new \LogicException('There is no current xmlResolver');
         }
         return $this->xmlResolver;

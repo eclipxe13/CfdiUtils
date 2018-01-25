@@ -1,8 +1,12 @@
 <?php
 namespace CfdiUtils;
 
-use CfdiUtils\CadenaOrigen\CadenaOrigenBuilder;
+use CfdiUtils\CadenaOrigen\DOMBuilder;
+use CfdiUtils\CadenaOrigen\XsltBuilderInterface;
+use CfdiUtils\CadenaOrigen\XsltBuilderPropertyInterface;
+use CfdiUtils\CadenaOrigen\XsltBuilderPropertyTrait;
 use CfdiUtils\Certificado\Certificado;
+use CfdiUtils\Certificado\CertificadoPropertyInterface;
 use CfdiUtils\Certificado\CertificadoPropertyTrait;
 use CfdiUtils\Elements\Cfdi33\Comprobante;
 use CfdiUtils\Elements\Cfdi33\Helpers\SumasConceptosWriter;
@@ -14,12 +18,17 @@ use CfdiUtils\Validate\Asserts;
 use CfdiUtils\Validate\Hydrater;
 use CfdiUtils\Validate\MultiValidatorFactory;
 use CfdiUtils\XmlResolver\XmlResolver;
+use CfdiUtils\XmlResolver\XmlResolverPropertyInterface;
 use CfdiUtils\XmlResolver\XmlResolverPropertyTrait;
 
-class CfdiCreator33
+class CfdiCreator33 implements
+    CertificadoPropertyInterface,
+    XmlResolverPropertyInterface,
+    XsltBuilderPropertyInterface
 {
     use CertificadoPropertyTrait;
     use XmlResolverPropertyTrait;
+    use XsltBuilderPropertyTrait;
 
     /** @var Comprobante */
     private $comprobante;
@@ -29,17 +38,20 @@ class CfdiCreator33
      * @param string[] $complementoAttributes
      * @param Certificado|null $certificado
      * @param XmlResolver|null $xmlResolver
+     * @param XsltBuilderInterface|null $xsltBuilder
      */
     public function __construct(
         array $complementoAttributes = [],
         Certificado $certificado = null,
-        XmlResolver $xmlResolver = null
+        XmlResolver $xmlResolver = null,
+        XsltBuilderInterface $xsltBuilder = null
     ) {
         $this->comprobante = new Comprobante($complementoAttributes);
         $this->setXmlResolver($xmlResolver ? : new XmlResolver());
         if (null !== $certificado) {
             $this->putCertificado($certificado);
         }
+        $this->setXsltBuilder($xsltBuilder ? : new DOMBuilder());
     }
 
     public static function newUsingNode(
@@ -94,8 +106,7 @@ class CfdiCreator33
             );
         }
         $xsltLocation = $this->getXmlResolver()->resolveCadenaOrigenLocation('3.3');
-        $builder = new CadenaOrigenBuilder();
-        return $builder->build($this->asXml(), $xsltLocation);
+        return $this->getXsltBuilder()->build($this->asXml(), $xsltLocation);
     }
 
     public function buildSumasConceptos(int $precision = 2): SumasConceptos
@@ -142,6 +153,7 @@ class CfdiCreator33
         $hydrater = new Hydrater();
         $hydrater->setXmlString($this->asXml());
         $hydrater->setXmlResolver(($this->hasXmlResolver()) ? $this->getXmlResolver() : null);
+        $hydrater->setXsltBuilder($this->getXsltBuilder());
         $validator->hydrate($hydrater);
 
         $asserts = new Asserts();

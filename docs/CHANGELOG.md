@@ -1,3 +1,24 @@
+# Version 2.2.0 2018-01-24
+- Refactor namespace `\CfdiUtils\CadenaOrigen` (backwards compatible):
+    - Instead of one only xslt builder now it includes:
+        - `DOMBuilder`: Uses the regular PHP based method
+        - `GenkgoXslBuilder`: Uses the library genkgo/xsl xslt version 2 library
+        - `SaxonbCliBuilder`: Uses the command line saxonb-xslt command
+    - Build process implementations must return `XsltBuildException` (before they return `RuntimeException`)
+    - All builders must implement `XsltBuilderInterface`
+    - Add `XsltBuilderPropertyInterface` and `XsltBuilderPropertyTrait`.
+      It does not have `hasXsltBuilderProperty`method.
+    - `DefaultLocations` has been deprecated in favor of `CfdiDefaultLocations`
+    - `CadenaOrigenBuilder` has been deprecated in favor of `DOMBuilder`
+    - `CadenaOrigenLocations` has been deprecated, will not be replaced
+- Implement `XsltBuilderPropertyInterface` and `XsltBuilderPropertyTrait` in objects that use
+  to create `CadenaOrigenBuilder` objects.
+- For `CfdiCreator33` and `CfdiValidator33` will create a default DOMBuilder object if none set.
+- Hydrator also receive and hydrates this by using `RequireXsltBuilderInterface`.
+- `CertificadoPropertyInterface` and `CertificadoPropertyTrait` has been created.
+- Improve the tests.
+
+
 # Version 2.1.0 2018-01-17
 - Fix `SumasConceptos` to work also with "ImpuestosLocales"
 - Add elements helpers `CfdiUtils\Elements\ImpLocal10\ImpuestosLocales` to work with "ImpuestosLocales"

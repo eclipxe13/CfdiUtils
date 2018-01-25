@@ -7,12 +7,12 @@ trait CertificadoPropertyTrait
 
     public function hasCertificado(): bool
     {
-        return (null !== $this->certificado);
+        return ($this->certificado instanceof Certificado);
     }
 
     public function getCertificado(): Certificado
     {
-        if (null === $this->certificado) {
+        if (! $this->certificado instanceof Certificado) {
             throw new \LogicException('There is no current certificado');
         }
         return $this->certificado;

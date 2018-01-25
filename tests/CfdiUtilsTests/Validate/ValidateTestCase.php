@@ -1,6 +1,7 @@
 <?php
 namespace CfdiUtilsTests\Validate;
 
+use CfdiUtils\CadenaOrigen\DOMBuilder;
 use CfdiUtils\Cfdi;
 use CfdiUtils\Elements\Cfdi33\Comprobante;
 use CfdiUtils\Nodes\NodeInterface;
@@ -33,6 +34,7 @@ abstract class ValidateTestCase extends TestCase
         $this->asserts = new Asserts();
         $this->hydrater = new Hydrater();
         $this->hydrater->setXmlResolver(new XmlResolver());
+        $this->hydrater->setXsltBuilder(new DOMBuilder());
     }
 
     protected function runValidate()
