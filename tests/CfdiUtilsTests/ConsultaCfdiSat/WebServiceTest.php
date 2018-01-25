@@ -2,16 +2,16 @@
 namespace CfdiUtilsTests\ConsultaCfdiSat;
 
 use CfdiUtils\ConsultaCfdiSat\Config;
-use CfdiUtils\ConsultaCfdiSat\ConsultaCfdiWebService;
 use CfdiUtils\ConsultaCfdiSat\RequestParameters;
+use CfdiUtils\ConsultaCfdiSat\WebService;
 use CfdiUtilsTests\TestCase;
 
-class ConsultaCfdiWebServiceTest extends TestCase
+class WebServiceTest extends TestCase
 {
     public function testConstructWithNoConfig()
     {
         $config = new Config();
-        $ws = new ConsultaCfdiWebService();
+        $ws = new WebService();
         $this->assertEquals($config, $ws->getConfig());
         $this->assertNotSame($config, $ws->getConfig());
     }
@@ -19,14 +19,14 @@ class ConsultaCfdiWebServiceTest extends TestCase
     public function testConstructWithConfig()
     {
         $config = new Config(60, false);
-        $ws = new ConsultaCfdiWebService($config);
+        $ws = new WebService($config);
         $this->assertSame($config, $ws->getConfig());
     }
 
     public function testGetSoapClient()
     {
         $config = new Config(60, false);
-        $ws = new ConsultaCfdiWebService($config);
+        $ws = new WebService($config);
 
         $soapClient = $ws->getSoapClient();
         $this->assertSame($soapClient, $ws->getSoapClient());
@@ -38,7 +38,7 @@ class ConsultaCfdiWebServiceTest extends TestCase
     public function testSoapClientHasSettings()
     {
         $config = new Config(60, false);
-        $ws = new ConsultaCfdiWebService($config);
+        $ws = new WebService($config);
 
         $soapClient = $ws->getSoapClient();
 
@@ -62,7 +62,7 @@ class ConsultaCfdiWebServiceTest extends TestCase
             '/OAgdg=='
         );
 
-        $ws = new ConsultaCfdiWebService();
+        $ws = new WebService();
         $return = $ws->request($validCfdi33Request);
 
         $this->assertTrue($return->responseWasOk());
@@ -79,7 +79,7 @@ class ConsultaCfdiWebServiceTest extends TestCase
             '80824F3B-323E-407B-8F8E-40D83FE2E69F'
         );
 
-        $ws = new ConsultaCfdiWebService();
+        $ws = new WebService();
         $return = $ws->request($validCfdi32Request);
 
         $this->assertTrue($return->responseWasOk());
@@ -97,7 +97,7 @@ class ConsultaCfdiWebServiceTest extends TestCase
             '/OAgdg=='
         );
 
-        $ws = new ConsultaCfdiWebService();
+        $ws = new WebService();
         $return = $ws->request($invalidCfdi33Request);
 
         // N - 601: La expresión impresa proporcionada no es válida.
@@ -118,7 +118,7 @@ class ConsultaCfdiWebServiceTest extends TestCase
             '...3f86Og=='
         );
 
-        $ws = new ConsultaCfdiWebService();
+        $ws = new WebService();
         $return = $ws->request($invalidCfdi33Request);
 
         $this->assertTrue($return->responseWasOk());

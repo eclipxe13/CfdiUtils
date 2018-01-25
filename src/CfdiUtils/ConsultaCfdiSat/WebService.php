@@ -3,7 +3,7 @@ namespace CfdiUtils\ConsultaCfdiSat;
 
 use SoapClient;
 
-class ConsultaCfdiWebService
+class WebService
 {
     /** @var SoapClient|null */
     private $soapClient;
