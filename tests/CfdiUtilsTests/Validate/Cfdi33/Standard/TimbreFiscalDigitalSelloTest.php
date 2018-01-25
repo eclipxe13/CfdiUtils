@@ -15,9 +15,8 @@ class TimbreFiscalDigitalSelloTest extends ValidateTestCase
     protected function setUp()
     {
         parent::setUp();
-        $timbreFiscalDigitalSello = new TimbreFiscalDigitalSello();
-        $timbreFiscalDigitalSello->setXmlResolver($this->newResolver());
-        $this->validator = $timbreFiscalDigitalSello;
+        $this->validator = new TimbreFiscalDigitalSello();
+        $this->hydrater->hydrate($this->validator);
     }
 
     public function testValidCase()
