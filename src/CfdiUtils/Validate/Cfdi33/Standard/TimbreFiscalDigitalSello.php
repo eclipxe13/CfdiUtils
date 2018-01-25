@@ -1,6 +1,7 @@
 <?php
 namespace CfdiUtils\Validate\Cfdi33\Standard;
 
+use CfdiUtils\CadenaOrigen\XsltBuilderPropertyTrait;
 use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\Certificado\SatCertificateNumber;
 use CfdiUtils\Nodes\NodeInterface;
@@ -9,6 +10,7 @@ use CfdiUtils\TimbreFiscalDigital\TfdCadenaDeOrigen;
 use CfdiUtils\Validate\Asserts;
 use CfdiUtils\Validate\Cfdi33\Abstracts\AbstractDiscoverableVersion33;
 use CfdiUtils\Validate\Contracts\RequireXmlResolverInterface;
+use CfdiUtils\Validate\Contracts\RequireXsltBuilderInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtils\XmlResolver\XmlResolverPropertyTrait;
 
@@ -16,17 +18,20 @@ use CfdiUtils\XmlResolver\XmlResolverPropertyTrait;
  * TimbreFiscalDigitalSello
  *
  * Valida que:
- * - TFDSELLO01: El Sello SAT del Timbre Fiscal Digital corresponde al certificado
+ * - TFDSELLO01: El Sello SAT del Timbre Fiscal Digital corresponde al certificado SAT
  */
-class TimbreFiscalDigitalSello extends AbstractDiscoverableVersion33 implements RequireXmlResolverInterface
+class TimbreFiscalDigitalSello extends AbstractDiscoverableVersion33 implements
+    RequireXmlResolverInterface,
+    RequireXsltBuilderInterface
 {
     use XmlResolverPropertyTrait;
+    use XsltBuilderPropertyTrait;
 
     public function validate(NodeInterface $comprobante, Asserts $asserts)
     {
         $assert = $asserts->put(
             'TFDSELLO01',
-            'En el timbre fiscal digital el sello pertenece al certificado'
+            'El Sello SAT del Timbre Fiscal Digital corresponde al certificado SAT'
         );
 
         if (! $this->hasXmlResolver()) {
@@ -78,7 +83,7 @@ class TimbreFiscalDigitalSello extends AbstractDiscoverableVersion33 implements 
             return;
         }
 
-        $tfdCadenaOrigen = new TfdCadenaDeOrigen($this->getXmlResolver());
+        $tfdCadenaOrigen = new TfdCadenaDeOrigen($this->getXmlResolver(), $this->getXsltBuilder());
         $source = $tfdCadenaOrigen->build(XmlNodeUtils::nodeToXmlString($tfd), $tfd['Version']);
         $signature = base64_decode($tfd['SelloSAT']);
 

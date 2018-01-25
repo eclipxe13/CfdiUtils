@@ -1,29 +1,33 @@
 <?php
 namespace CfdiUtils\TimbreFiscalDigital;
 
-use CfdiUtils\CadenaOrigen\CadenaOrigenBuilder;
+use CfdiUtils\CadenaOrigen\DOMBuilder;
+use CfdiUtils\CadenaOrigen\XsltBuilderInterface;
+use CfdiUtils\CadenaOrigen\XsltBuilderPropertyInterface;
+use CfdiUtils\CadenaOrigen\XsltBuilderPropertyTrait;
 use CfdiUtils\XmlResolver\XmlResolver;
 use CfdiUtils\XmlResolver\XmlResolverPropertyInterface;
 use CfdiUtils\XmlResolver\XmlResolverPropertyTrait;
 
-class TfdCadenaDeOrigen implements XmlResolverPropertyInterface
+class TfdCadenaDeOrigen implements XmlResolverPropertyInterface, XsltBuilderPropertyInterface
 {
     use XmlResolverPropertyTrait;
-
-    /** @var CadenaOrigenBuilder */
-    private $builder;
+    use XsltBuilderPropertyTrait;
 
     const TFD_10 = 'http://www.sat.gob.mx/sitio_internet/timbrefiscaldigital/cadenaoriginal_TFD_1_0.xslt';
     const TFD_11 = 'http://www.sat.gob.mx/sitio_internet/cfd/timbrefiscaldigital/cadenaoriginal_TFD_1_1.xslt';
 
-    public function __construct(XmlResolver $xmlResolver = null)
+    public function __construct(XmlResolver $xmlResolver = null, XsltBuilderInterface $xsltBuilder = null)
     {
         $this->setXmlResolver($xmlResolver ? : new XmlResolver());
-        $this->builder = new CadenaOrigenBuilder();
+        $this->setXsltBuilder($xsltBuilder ? : new DOMBuilder());
     }
 
     public function build(string $tdfXmlString, string $version = ''): string
     {
+        // this will throw an exception if no resolver is set
+        $resolver = $this->getXmlResolver();
+
         // obtain version if it was not set
         if ('' === $version) {
             $version = TfdVersion::fromXmlString($tdfXmlString);
@@ -33,10 +37,10 @@ class TfdCadenaDeOrigen implements XmlResolverPropertyInterface
         $defaultXslt = $this->xsltLocation($version);
 
         // get local xslt
-        $localXsd = $this->getXmlResolver()->resolve($defaultXslt);
+        $localXsd = $resolver->resolve($defaultXslt);
 
         // return transformation
-        return $this->builder->build($tdfXmlString, $localXsd);
+        return $this->getXsltBuilder()->build($tdfXmlString, $localXsd);
     }
 
     public static function xsltLocation(string $version): string

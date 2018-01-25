@@ -1,27 +1,35 @@
 <?php
 namespace CfdiUtils;
 
+use CfdiUtils\CadenaOrigen\DOMBuilder;
+use CfdiUtils\CadenaOrigen\XsltBuilderInterface;
+use CfdiUtils\CadenaOrigen\XsltBuilderPropertyInterface;
+use CfdiUtils\CadenaOrigen\XsltBuilderPropertyTrait;
 use CfdiUtils\Nodes\NodeInterface;
 use CfdiUtils\Nodes\XmlNodeUtils;
 use CfdiUtils\Validate\Asserts;
 use CfdiUtils\Validate\Hydrater;
 use CfdiUtils\Validate\MultiValidatorFactory;
 use CfdiUtils\XmlResolver\XmlResolver;
+use CfdiUtils\XmlResolver\XmlResolverPropertyInterface;
 use CfdiUtils\XmlResolver\XmlResolverPropertyTrait;
 
-class CfdiValidator33
+class CfdiValidator33 implements XmlResolverPropertyInterface, XsltBuilderPropertyInterface
 {
     use XmlResolverPropertyTrait;
+    use XsltBuilderPropertyTrait;
 
     /**
      * This class uses a default XmlResolver if not provided or null.
      * If you really want to remove the XmlResolver then use the method setXmlResolver after construction.
      *
      * @param XmlResolver|null $xmlResolver
+     * @param XsltBuilderInterface|null $xsltBuilder
      */
-    public function __construct(XmlResolver $xmlResolver = null)
+    public function __construct(XmlResolver $xmlResolver = null, XsltBuilderInterface $xsltBuilder = null)
     {
         $this->setXmlResolver($xmlResolver ? : new XmlResolver());
+        $this->setXsltBuilder($xsltBuilder ? : new DOMBuilder());
     }
 
     /**
@@ -45,6 +53,7 @@ class CfdiValidator33
         $hydrater = new Hydrater();
         $hydrater->setXmlString($xmlString);
         $hydrater->setXmlResolver(($this->hasXmlResolver()) ? $this->getXmlResolver() : null);
+        $hydrater->setXsltBuilder($this->getXsltBuilder());
         $validator->hydrate($hydrater);
 
         $asserts = new Asserts();
