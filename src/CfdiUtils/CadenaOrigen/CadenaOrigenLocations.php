@@ -18,8 +18,8 @@ class CadenaOrigenLocations
      * @var string[]
      */
     private $xsltLocations = [
-        '3.2' => DefaultLocations::XSLT_32,
-        '3.3' => DefaultLocations::XSLT_33,
+        '3.2' => CfdiDefaultLocations::XSLT_32,
+        '3.3' => CfdiDefaultLocations::XSLT_33,
     ];
 
     /**
@@ -85,7 +85,7 @@ class CadenaOrigenLocations
     public function build(string $cfdiContent): string
     {
         $xsltLocation = $this->getXsltLocationFromXml($cfdiContent);
-        $builder = new CadenaOrigenBuilder();
+        $builder = new DOMBuilder();
         return $builder->build($cfdiContent, $xsltLocation);
     }
 }
