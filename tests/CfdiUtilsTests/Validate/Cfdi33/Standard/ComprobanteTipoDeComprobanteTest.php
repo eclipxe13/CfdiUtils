@@ -39,7 +39,7 @@ class ComprobanteTipoDeComprobanteTest extends ValidateTestCase
     }
 
     /**
-     * @param $tipoDeComprobante
+     * @param string $tipoDeComprobante
      * @dataProvider providerTPN
      */
     public function testInvalidTPN($tipoDeComprobante)
@@ -118,7 +118,7 @@ class ComprobanteTipoDeComprobanteTest extends ValidateTestCase
 
     /**
      * @param string $tipoDeComprobante
-     * @param $subtotal
+     * @param string|null $subtotal
      * @dataProvider providerTPNonZero
      */
     public function testInvalidSubTotal($tipoDeComprobante, $subtotal)
@@ -133,7 +133,7 @@ class ComprobanteTipoDeComprobanteTest extends ValidateTestCase
 
     /**
      * @param string $tipoDeComprobante
-     * @param $total
+     * @param string|null $total
      * @dataProvider providerTPNonZero
      */
     public function testInvalidTotal($tipoDeComprobante, $total)
@@ -178,7 +178,7 @@ class ComprobanteTipoDeComprobanteTest extends ValidateTestCase
 
     /**
      * @param string $tipoDeComprobante
-     * @param $wrongUnitValue
+     * @param string|null $wrongUnitValue
      * @dataProvider providerIENWrongValue
      */
     public function testInvalidIENValorUnitarioGreaterThanZero($tipoDeComprobante, $wrongUnitValue)

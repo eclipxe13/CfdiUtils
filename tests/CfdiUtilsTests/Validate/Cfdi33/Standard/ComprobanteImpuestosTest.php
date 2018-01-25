@@ -27,8 +27,8 @@ class ComprobanteImpuestosTest extends ValidateTestCase
     }
 
     /**
-     * @param $putTraslados
-     * @param $putRetenciones
+     * @param bool $putTraslados
+     * @param bool $putRetenciones
      * @dataProvider providerValidImpuestos
      */
     public function testValidImpuestos($putTraslados, $putRetenciones)

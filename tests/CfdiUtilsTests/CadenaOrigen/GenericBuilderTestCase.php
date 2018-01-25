@@ -27,9 +27,9 @@ abstract class GenericBuilderTestCase extends TestCase
     }
 
     /**
-     * @param $xmlLocation
-     * @param $expectedTransformation
-     * @param $xsltLocation
+     * @param string $xmlLocation
+     * @param string $expectedTransformation
+     * @param string $xsltLocation
      * @dataProvider providerCfdiToCadenaOrigen
      */
     public function testCfdiToCadenaOrigen($xmlLocation, $expectedTransformation, $xsltLocation)

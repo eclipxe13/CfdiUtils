@@ -1,6 +1,7 @@
 # eclipxe/CfdiUtils
 
 [![Source Code][badge-source]][source]
+[![Gitter][badge-gitter]][gitter]
 [![Latest Version][badge-release]][release]
 [![Software License][badge-license]][license]
 [![Build Status][badge-build]][build]
@@ -28,7 +29,7 @@ Main features:
     - Calculate `Comprobante` sums based on the list of `Conceptos`
     - Retrieve the CFDI version information
 - Keep a local copy of the three of XSD and XSLT file dependences from SAT
-
+- Check the SAT WebService to get the status of a CDI ('Activo', 'Candelado' & 'No encontrado') 
 
 ## Installation
 
@@ -72,6 +73,7 @@ and licensed for use under the MIT License (MIT). Please see [LICENSE][] for mor
 [documentation]: https://github.com/eclipxe13/CfdiUtils/wiki
 
 [source]: https://github.com/eclipxe13/CfdiUtils
+[gitter]: https://gitter.im/eclipxe13/php-cfdi
 [release]: https://github.com/eclipxe13/CfdiUtils/releases
 [license]: https://github.com/eclipxe13/CfdiUtils/blob/master/LICENSE
 [build]: https://travis-ci.org/eclipxe13/CfdiUtils?branch=master
@@ -81,6 +83,7 @@ and licensed for use under the MIT License (MIT). Please see [LICENSE][] for mor
 [downloads]: https://packagist.org/packages/eclipxe/CfdiUtils
 
 [badge-source]: http://img.shields.io/badge/source-eclipxe13/CfdiUtils-blue.svg?style=flat-square
+[badge-gitter]: https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat-square
 [badge-release]: https://img.shields.io/github/release/eclipxe13/CfdiUtils.svg?style=flat-square
 [badge-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [badge-build]: https://img.shields.io/travis/eclipxe13/CfdiUtils/master.svg?style=flat-square

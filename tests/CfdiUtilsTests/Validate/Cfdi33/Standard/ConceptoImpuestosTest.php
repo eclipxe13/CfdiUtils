@@ -37,7 +37,7 @@ class ConceptoImpuestosTest extends ValidateTestCase
     }
 
     /**
-     * @param $base
+     * @param string $base
      * @dataProvider providerInvalidBaseTraslado
      */
     public function testTrasladoHasBaseGreaterThanZeroInvalidCase($base)
@@ -58,8 +58,8 @@ class ConceptoImpuestosTest extends ValidateTestCase
     }
 
     /**
-     * @param $tasaOCuota
-     * @param $importe
+     * @param string|null $tasaOCuota
+     * @param string|null $importe
      * @dataProvider providerTrasladoTipoFactorExento
      */
     public function testTrasladosTipoFactorInvalidCase($tasaOCuota, $importe)
@@ -84,9 +84,9 @@ class ConceptoImpuestosTest extends ValidateTestCase
     }
 
     /**
-     * @param $tipoFactor
-     * @param $tasaOCuota
-     * @param $importe
+     * @param string $tipoFactor
+     * @param string|null $tasaOCuota
+     * @param string|null $importe
      * @dataProvider providerTrasladosTipoFactorTasaOCuotaInvalidCase
      */
     public function testTrasladosTipoFactorTasaOCuotaInvalidCase($tipoFactor, $tasaOCuota, $importe)
@@ -113,7 +113,7 @@ class ConceptoImpuestosTest extends ValidateTestCase
     }
 
     /**
-     * @param $base
+     * @param string $base
      * @dataProvider providerInvalidBaseTraslado
      */
     public function testRetencionesHasBaseGreaterThanZeroInvalidCase($base)

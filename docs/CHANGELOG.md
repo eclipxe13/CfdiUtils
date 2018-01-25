@@ -1,3 +1,15 @@
+# Version 2.3.0 2018-01-25
+- Add a client `\CfdiUtils\ConsultaCfdiSat\WebService` for the SAT WebService
+  https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc?singleWsdl
+- Fix bug, must use `children()` method instead of `children` property.
+  Did not appears before because the variable using the property was always
+  a `Node` but other implementation of `NodeInterface` would cause this to break.
+- Add a lot of fixes in docblocks to move `@param $var` to `@param type $var`.
+- Add extensions requirements to composer.json: libxml, openssl & soap.
+- Upgrade `phpstan/phpstan-shim` to version 0.9.1, the not-simple-to-see bug fixed
+  in this version was found by `phpstan` - https://github.com/phpstan/phpstan  
+
+
 # Version 2.2.0 2018-01-24
 - Refactor namespace `\CfdiUtils\CadenaOrigen` (backwards compatible):
     - Instead of one only xslt builder now it includes:

@@ -76,7 +76,7 @@ class AttributesTest extends TestCase
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @dataProvider providerSetWithInvalidNames
      */
     public function testSetWithInvalidNames($name)

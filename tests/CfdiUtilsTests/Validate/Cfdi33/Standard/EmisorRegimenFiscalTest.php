@@ -49,8 +49,8 @@ class EmisorRegimenFiscalTest extends ValidateTestCase
     }
 
     /**
-     * @param $emisorRfc
-     * @param $regimenFiscal
+     * @param string $emisorRfc
+     * @param string $regimenFiscal
      * @dataProvider providerValidCases
      */
     public function testValidCases($emisorRfc, $regimenFiscal)
@@ -76,8 +76,8 @@ class EmisorRegimenFiscalTest extends ValidateTestCase
         ];
     }
     /**
-     * @param $emisorRfc
-     * @param $regimenFiscal
+     * @param string $emisorRfc
+     * @param string $regimenFiscal
      * @dataProvider providerInvalidCases
      */
     public function testInvalidCases($emisorRfc, $regimenFiscal)
