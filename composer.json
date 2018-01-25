@@ -17,6 +17,9 @@
     ],
     "require": {
         "php": ">=7.0",
+        "ext-libxml": "*",
+        "ext-openssl": "*",
+        "ext-soap": "*",
         "eclipxe/xmlresourceretriever": "^1.2",
         "eclipxe/xmlschemavalidator": "^2.0"
     },
