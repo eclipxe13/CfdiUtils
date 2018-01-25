@@ -8,6 +8,8 @@ use CfdiUtils\CfdiVersion;
  * using the XSLT utilities provided by SAT.
  *
  * This class is a helps override or set the location of the clst resource.
+ *
+ * @deprecated Will be removed in release 3.0
  */
 class CadenaOrigenLocations
 {
