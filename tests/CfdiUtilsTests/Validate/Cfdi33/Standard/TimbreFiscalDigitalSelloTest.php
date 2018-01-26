@@ -1,6 +1,7 @@
 <?php
 namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
+use CfdiUtils\Elements\Tfd11\TimbreFiscalDigital;
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Nodes\NodeInterface;
 use CfdiUtils\Validate\Cfdi33\Standard\TimbreFiscalDigitalSello;
@@ -152,14 +153,7 @@ class TimbreFiscalDigitalSelloTest extends ValidateTestCase
 
     private function newTimbreFiscalDigital(array $attributes = []): NodeInterface
     {
-        $tfd = new Node('tfd:TimbreFiscalDigital', [
-            'xmlns:tfd' => 'http://www.sat.gob.mx/TimbreFiscalDigital',
-            'xsi:schemaLocation' => 'http://www.sat.gob.mx/TimbreFiscalDigital'
-                . ' http://www.sat.gob.mx/sitio_internet/cfd/timbrefiscaldigital/TimbreFiscalDigitalv11.xsd',
-            'Version' => '1.1',
-        ]);
-        $tfd->addAttributes($attributes);
-        return $tfd;
+        return new TimbreFiscalDigital($attributes);
     }
 
     private function validCertificadoSAT()

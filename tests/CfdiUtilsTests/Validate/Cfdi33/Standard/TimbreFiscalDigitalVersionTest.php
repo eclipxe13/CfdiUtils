@@ -1,6 +1,7 @@
 <?php
 namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
+use CfdiUtils\Elements\Tfd11\TimbreFiscalDigital;
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Validate\Cfdi33\Standard\TimbreFiscalDigitalVersion;
 use CfdiUtils\Validate\Status;
@@ -8,6 +9,9 @@ use CfdiUtilsTests\Validate\ValidateTestCase;
 
 class TimbreFiscalDigitalVersionTest extends ValidateTestCase
 {
+    /* @var \CfdiUtils\Elements\Cfdi33\Comprobante */
+    protected $comprobante;
+
     /** @var  TimbreFiscalDigitalVersion */
     protected $validator;
 
@@ -19,11 +23,7 @@ class TimbreFiscalDigitalVersionTest extends ValidateTestCase
 
     public function testValidCase()
     {
-        $this->comprobante->addChild(new Node('cfdi:Complemento', [], [
-            new Node('tfd:TimbreFiscalDigital', [
-                'Version' => '1.1',
-            ]),
-        ]));
+        $this->comprobante->addComplemento(new TimbreFiscalDigital());
 
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::ok(), 'TFDVERSION01');
@@ -49,11 +49,9 @@ class TimbreFiscalDigitalVersionTest extends ValidateTestCase
      */
     public function testInvalidCase($version)
     {
-        $this->comprobante->addChild(new Node('cfdi:Complemento', [], [
-            new Node('tfd:TimbreFiscalDigital', [
-                'Version' => $version,
-            ]),
-        ]));
+        $tfd = new TimbreFiscalDigital();
+        $tfd->addAttributes(['Version' => $version]); // override version
+        $this->comprobante->addComplemento($tfd);
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::error(), 'TFDVERSION01');
     }
