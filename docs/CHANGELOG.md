@@ -1,3 +1,6 @@
+# Version 2.3.1 2018-01-25
+- Add elements helpers `CfdiUtils\Elements\Tfd11\TimbreFiscalDigital` to work with "TimbreFiscalDigital"
+
 # Version 2.3.0 2018-01-25
 - Add a client `\CfdiUtils\ConsultaCfdiSat\WebService` for the SAT WebService
   https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc?singleWsdl
