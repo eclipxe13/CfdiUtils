@@ -121,9 +121,10 @@ class ComprobanteTest extends TestCase
 
     public function testHasFixedAttributes()
     {
+        $namespace = 'http://www.sat.gob.mx/cfd/3';
         $this->assertSame('3.3', $this->element['Version']);
-        $this->assertSame('http://www.sat.gob.mx/cfd/3', $this->element['xmlns:cfdi']);
+        $this->assertSame($namespace, $this->element['xmlns:cfdi']);
+        $this->assertStringStartsWith($namespace . ' http://', $this->element['xsi:schemaLocation']);
         $this->assertNotEmpty($this->element['xmlns:xsi']);
-        $this->assertNotEmpty($this->element['xsi:schemaLocation']);
     }
 }
