@@ -1,3 +1,10 @@
+# Version 2.3.2 2018-01-29
+- Fix how total is formatted in the expression of `\CfdiUtils\ConsultaCfdiSat\RequestParameters`
+    - Version 3.2 was removing zero trailing decimals instead of using 6 fixed chars
+    - Version 3.3 was not using 1 leading zero (for integers) and 1 trailing zero (for decimals) 
+- On method `\CfdiUtils\Certificado\NodeCertificado::obtain()` change logic
+  and throw exception if temporary file cannot be created
+
 # Version 2.3.1 2018-01-25
 - Add elements helpers `CfdiUtils\Elements\Tfd11\TimbreFiscalDigital` to work with "TimbreFiscalDigital"
 

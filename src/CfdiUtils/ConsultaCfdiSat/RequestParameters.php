@@ -100,18 +100,22 @@ class RequestParameters
         return '?' . implode('&', [
             're=' . strval($this->rfcEmisor),
             'rr=' . strval($this->rfcReceptor),
-            'tt=' . str_pad(trim(number_format($this->totalFloat, 6, '.', ''), '0'), 17, '0', STR_PAD_LEFT),
+            'tt=' . str_pad(number_format($this->totalFloat, 6, '.', ''), 17, '0', STR_PAD_LEFT),
             'id=' . strval($this->uuid),
         ]);
     }
 
     public function expressionVersion33(): string
     {
+        $total = rtrim(number_format($this->totalFloat, 6, '.', ''), '0');
+        if ('.' === substr($total, -1, 1)) {
+            $total = $total . '0'; // add trailing zero
+        }
         return 'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?' . implode('&', [
             'id=' . strval($this->uuid),
             're=' . strval($this->rfcEmisor),
             'rr=' . strval($this->rfcReceptor),
-            'tt=' . trim(number_format($this->totalFloat, 6, '.', ''), '0'),
+            'tt=' . $total,
             'fe=' . substr($this->sello, -8),
         ]);
     }

@@ -36,7 +36,7 @@ class RequestParametersTest extends TestCase
         $expected32 = ''
             . '?re=AAA010101AAA'
             . '&rr=COSC8001137NA'
-            . '&tt=000000001234.5678'
+            . '&tt=0000001234.567800'
             . '&id=CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC';
         $parameters->setVersion('3.2');
         $this->assertSame($expected32, $parameters->expression());
@@ -55,5 +55,32 @@ class RequestParametersTest extends TestCase
             'CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC',
             '0123456789'
         );
+    }
+
+    /**
+     * @param string $total
+     * @param string $expected
+     *
+     * @testWith ["9.123456", "9.123456"]
+     *           ["0.123456", "0.123456"]
+     *           ["1", "1.0"]
+     *           ["0.1", "0.1"]
+     *           ["1.1", "1.1"]
+     *           ["0", "0.0"]
+     *           ["0.1234567", "0.123457"]
+     *
+     */
+    public function testExpressionTotalExamples($total, $expected)
+    {
+        $parameters = new RequestParameters(
+            '3.3',
+            'AAA010101AAA',
+            'COSC8001137NA',
+            $total,
+            'CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC',
+            '0123456789'
+        );
+
+        $this->assertContains('&tt=' . $expected . '&', $parameters->expression());
     }
 }
