@@ -36,7 +36,7 @@ class RequestParametersTest extends TestCase
         $expected32 = ''
             . '?re=AAA010101AAA'
             . '&rr=COSC8001137NA'
-            . '&tt=000000001234.5678'
+            . '&tt=0000001234.567800'
             . '&id=CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC';
         $parameters->setVersion('3.2');
         $this->assertSame($expected32, $parameters->expression());

@@ -100,7 +100,7 @@ class RequestParameters
         return '?' . implode('&', [
             're=' . strval($this->rfcEmisor),
             'rr=' . strval($this->rfcReceptor),
-            'tt=' . str_pad(trim(number_format($this->totalFloat, 6, '.', ''), '0'), 17, '0', STR_PAD_LEFT),
+            'tt=' . str_pad(number_format($this->totalFloat, 6, '.', ''), 17, '0', STR_PAD_LEFT),
             'id=' . strval($this->uuid),
         ]);
     }
