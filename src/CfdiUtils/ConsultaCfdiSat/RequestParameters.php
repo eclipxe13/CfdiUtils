@@ -107,11 +107,15 @@ class RequestParameters
 
     public function expressionVersion33(): string
     {
+        $total = rtrim(number_format($this->totalFloat, 6, '.', ''), '0');
+        if ('.' === substr($total, -1, 1)) {
+            $total = $total . '0'; // add trailing zero
+        }
         return 'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?' . implode('&', [
             'id=' . strval($this->uuid),
             're=' . strval($this->rfcEmisor),
             'rr=' . strval($this->rfcReceptor),
-            'tt=' . trim(number_format($this->totalFloat, 6, '.', ''), '0'),
+            'tt=' . $total,
             'fe=' . substr($this->sello, -8),
         ]);
     }

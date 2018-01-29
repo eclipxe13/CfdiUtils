@@ -56,4 +56,31 @@ class RequestParametersTest extends TestCase
             '0123456789'
         );
     }
+
+    /**
+     * @param string $total
+     * @param string $expected
+     *
+     * @testWith ["9.123456", "9.123456"]
+     *           ["0.123456", "0.123456"]
+     *           ["1", "1.0"]
+     *           ["0.1", "0.1"]
+     *           ["1.1", "1.1"]
+     *           ["0", "0.0"]
+     *           ["0.1234567", "0.123457"]
+     *
+     */
+    public function testExpressionTotalExamples($total, $expected)
+    {
+        $parameters = new RequestParameters(
+            '3.3',
+            'AAA010101AAA',
+            'COSC8001137NA',
+            $total,
+            'CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC',
+            '0123456789'
+        );
+
+        $this->assertContains('&tt=' . $expected . '&', $parameters->expression());
+    }
 }
