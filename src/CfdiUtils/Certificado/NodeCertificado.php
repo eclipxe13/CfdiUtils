@@ -98,12 +98,18 @@ class NodeCertificado
      */
     public function obtain(): Certificado
     {
+        // this error silence operation is intentional, expect false and then throw an exception
+        $tempfile = (string) @tempnam(sys_get_temp_dir(), '');
+        if ('' === $tempfile) {
+            throw new \RuntimeException('Unable to create a temporary file to save the certificado contents');
+        }
+        // the temporary name was created
         try {
-            $tempfile = (string) tempnam(sys_get_temp_dir(), '');
             $this->save($tempfile);
             $certificado = new Certificado($tempfile);
             return $certificado;
         } finally {
+            // remove the temporary file
             if (file_exists($tempfile)) {
                 unlink($tempfile);
             }
