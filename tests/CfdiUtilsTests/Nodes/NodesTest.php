@@ -169,7 +169,7 @@ class NodesTest extends TestCase
         );
 
         // sort previous values
-        $nodes->setOrder(['baz', '', 0, 'foo', null, 'bar', 'baz']);
+        $nodes->setOrder(['baz', '', '0', 'foo', '', 'bar', 'baz']);
         $this->assertEquals(['baz', 'foo', 'bar'], $nodes->getOrder());
         $this->assertEquals(
             ['baz', 'foo', 'bar'],

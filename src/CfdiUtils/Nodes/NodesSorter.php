@@ -7,7 +7,7 @@ namespace CfdiUtils\Nodes;
  */
 class NodesSorter
 {
-    /** @var string[] array of key (string) value (int) representing the naming order */
+    /** @var array<string, int> array of key (string) value (int) representing the naming order */
     private $order;
 
     /** @var int */
