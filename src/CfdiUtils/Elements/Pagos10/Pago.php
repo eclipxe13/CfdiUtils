@@ -39,4 +39,9 @@ class Pago extends AbstractElement
     {
         return 'pagos10:Pago';
     }
+
+    public function getChildrenOrder(): array
+    {
+        return ['pagos10:DoctoRelacionado', 'pagos10:Impuestos'];
+    }
 }

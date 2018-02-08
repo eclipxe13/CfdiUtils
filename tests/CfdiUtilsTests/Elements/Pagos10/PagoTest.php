@@ -57,4 +57,15 @@ class PagoTest extends TestCase
         $this->assertCount(2, $this->element);
         $this->assertNotSame($first, $second);
     }
+
+    public function testChildrenOrder()
+    {
+        // add in inverse order
+        $this->element->addImpuestos();
+        $this->element->addDoctoRelacionado();
+
+        // retrieve in correct order
+        $this->assertInstanceOf(DoctoRelacionado::class, $this->element->children()->get(0));
+        $this->assertInstanceOf(Impuestos::class, $this->element->children()->get(1));
+    }
 }
