@@ -10,6 +10,11 @@ class Impuestos extends AbstractElement
         return 'pagos10:Impuestos';
     }
 
+    public function getChildrenOrder(): array
+    {
+        return ['pagos10:Retenciones', 'pagos10:Traslados'];
+    }
+
     public function getTraslados(): Traslados
     {
         return $this->helperGetOrAdd(new Traslados());

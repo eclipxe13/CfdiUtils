@@ -37,4 +37,15 @@ class ImpuestosTest extends TestCase
         $this->assertInstanceOf(Retenciones::class, $child);
         $this->assertSame($child, $this->element->searchNode('pagos10:Retenciones'));
     }
+
+    public function testChildrenOrder()
+    {
+        // add in inverse order
+        $this->element->getTraslados();
+        $this->element->getRetenciones();
+
+        // retrieve in correct order
+        $this->assertInstanceOf(Retenciones::class, $this->element->children()->get(0));
+        $this->assertInstanceOf(Traslados::class, $this->element->children()->get(1));
+    }
 }
