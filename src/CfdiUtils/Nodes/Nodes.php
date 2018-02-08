@@ -5,6 +5,8 @@ class Nodes implements \Countable, \IteratorAggregate
 {
     /** @var NodeInterface[] */
     private $nodes = [];
+    /** @var NodesSorter */
+    private $sorter;
 
     /**
      * Nodes constructor.
@@ -12,17 +14,45 @@ class Nodes implements \Countable, \IteratorAggregate
      */
     public function __construct(array $nodes = [])
     {
+        $this->sorter = new NodesSorter();
         $this->importFromArray($nodes);
     }
 
     public function add(NodeInterface ...$nodes): self
     {
+        $somethingChange = false;
         foreach ($nodes as $node) {
             if (! $this->exists($node)) {
                 $this->nodes[] = $node;
+                $somethingChange = true;
             }
         }
+        if ($somethingChange) {
+            $this->order();
+        }
         return $this;
+    }
+
+    public function order()
+    {
+        $this->nodes = $this->sorter->sort($this->nodes);
+    }
+
+    /**
+     * It takes only the unique string names and sort using the order of appearance
+     * @param string[] $names
+     */
+    public function setOrder(array $names)
+    {
+        if ($this->sorter->setOrder($names)) {
+            $this->order();
+        }
+    }
+
+    /** @return string[] */
+    public function getOrder(): array
+    {
+        return $this->sorter->getOrder();
     }
 
     public function indexOf(NodeInterface $node): int
@@ -108,8 +138,8 @@ class Nodes implements \Countable, \IteratorAggregate
             if (! ($node instanceof NodeInterface)) {
                 throw new \InvalidArgumentException("The element index $index is not a NodeInterface object");
             }
-            $this->add($node);
         }
+        $this->add(...$nodes);
         return $this;
     }
 

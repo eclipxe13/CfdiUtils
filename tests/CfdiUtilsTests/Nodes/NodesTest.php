@@ -154,4 +154,39 @@ class NodesTest extends TestCase
         $this->assertTrue($byName->exists($second));
         $this->assertTrue($byName->exists($third));
     }
+
+    public function testOrderedChildren()
+    {
+        $nodes = new Nodes([
+            new Node('foo'),
+            new Node('bar'),
+            new Node('baz'),
+        ]);
+        // test initial order
+        $this->assertEquals(
+            ['foo', 'bar', 'baz'],
+            [$nodes->get(0)->name(), $nodes->get(1)->name(), $nodes->get(2)->name()]
+        );
+
+        // sort previous values
+        $nodes->setOrder(['baz', '', 0, 'foo', null, 'bar', 'baz']);
+        $this->assertEquals(['baz', 'foo', 'bar'], $nodes->getOrder());
+        $this->assertEquals(
+            ['baz', 'foo', 'bar'],
+            [$nodes->get(0)->name(), $nodes->get(1)->name(), $nodes->get(2)->name()]
+        );
+
+        // add other baz (inserted at the bottom)
+        $nodes->add(new Node('baz', ['id' => 'second']));
+        $this->assertEquals(
+            ['baz', 'baz', 'foo'],
+            [$nodes->get(0)->name(), $nodes->get(1)->name(), $nodes->get(2)->name()]
+        );
+        $this->assertEquals('second', $nodes->get(1)['id']);
+
+        // add other not listed
+        $notListed = new Node('yyy');
+        $nodes->add($notListed);
+        $this->assertSame($notListed, $nodes->get(4));
+    }
 }
