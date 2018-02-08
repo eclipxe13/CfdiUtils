@@ -112,6 +112,28 @@ class NodesTest extends TestCase
         $nodes->importFromArray([$specimen]);
     }
 
+    public function testGetThrowsExceptionWhenNotFound()
+    {
+        $nodes = new Nodes();
+        $this->expectException(\OutOfRangeException::class);
+        $this->expectExceptionMessage('The index 0 does not exists');
+        $nodes->get(0);
+    }
+
+    public function testGetWithExistentElements()
+    {
+        $foo = new Node('foo');
+        $bar = new Node('bar');
+        $nodes = new Nodes([$foo, $bar]);
+
+        $this->assertSame($foo, $nodes->get(0));
+        $this->assertSame($bar, $nodes->get(1));
+
+        // get after remove
+        $nodes->remove($foo);
+        $this->assertSame($bar, $nodes->get(0));
+    }
+
     public function testGetNodesByName()
     {
         $nodes = new Nodes();

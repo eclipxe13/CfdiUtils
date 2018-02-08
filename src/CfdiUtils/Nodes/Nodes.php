@@ -64,15 +64,13 @@ class Nodes implements \Countable, \IteratorAggregate
         return null;
     }
 
-    /**
-     * @param int $index
-     * @return NodeInterface|null
-     */
-    public function get(int $index)
+    public function get(int $position): NodeInterface
     {
-        /** @var NodeInterface[] $nodesByPosition */
-        $nodesByPosition = array_values($this->nodes);
-        return (array_key_exists($index, $nodesByPosition)) ? $nodesByPosition[$index] : null;
+        $indexedNodes = array_values($this->nodes);
+        if (! array_key_exists($position, $indexedNodes)) {
+            throw new \OutOfRangeException("The index $position does not exists");
+        }
+        return $indexedNodes[$position];
     }
 
     /**
