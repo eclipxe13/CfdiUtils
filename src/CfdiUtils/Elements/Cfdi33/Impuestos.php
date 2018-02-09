@@ -10,6 +10,14 @@ class Impuestos extends AbstractElement
         return 'cfdi:Impuestos';
     }
 
+    public function getChildrenOrder(): array
+    {
+        return [
+            'cfdi:Traslados',
+            'cfdi:Retenciones',
+        ];
+    }
+
     public function getTraslados(): Traslados
     {
         return $this->helperGetOrAdd(new Traslados());

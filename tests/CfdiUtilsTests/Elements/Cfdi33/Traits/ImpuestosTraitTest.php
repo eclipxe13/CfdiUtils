@@ -3,7 +3,9 @@ namespace CfdiUtilsTests\Elements\Cfdi33\Traits;
 
 use CfdiUtils\Elements\Cfdi33\Impuestos;
 use CfdiUtils\Elements\Cfdi33\Retencion;
+use CfdiUtils\Elements\Cfdi33\Retenciones;
 use CfdiUtils\Elements\Cfdi33\Traslado;
+use CfdiUtils\Elements\Cfdi33\Traslados;
 use PHPUnit\Framework\TestCase;
 
 class ImpuestosTraitTest extends TestCase
@@ -66,5 +68,18 @@ class ImpuestosTraitTest extends TestCase
         $this->assertSame($multiReturn, $this->element);
         $this->assertCount(2, $parent);
         $this->assertSame('first', $parent->searchAttribute('cfdi:Retencion', 'id'));
+    }
+
+
+    public function testChildrenOrder()
+    {
+        // add in inverse order
+        $this->element->addRetencion();
+        $this->element->addTraslado();
+
+        // retrieve in correct order
+        $impuestos = $this->element->getImpuestos();
+        $this->assertInstanceOf(Traslados::class, $impuestos->children()->get(0));
+        $this->assertInstanceOf(Retenciones::class, $impuestos->children()->get(1));
     }
 }
