@@ -9,6 +9,7 @@ use CfdiUtils\Elements\Cfdi33\Comprobante;
 use CfdiUtils\Elements\Cfdi33\Concepto;
 use CfdiUtils\Elements\Cfdi33\Conceptos;
 use CfdiUtils\Elements\Cfdi33\Emisor;
+use CfdiUtils\Elements\Cfdi33\Impuestos;
 use CfdiUtils\Elements\Cfdi33\Receptor;
 use CfdiUtils\Nodes\Node;
 use PHPUnit\Framework\TestCase;
@@ -146,5 +147,26 @@ class ComprobanteTest extends TestCase
         $this->assertSame($namespace, $this->element['xmlns:cfdi']);
         $this->assertStringStartsWith($namespace . ' http://', $this->element['xsi:schemaLocation']);
         $this->assertNotEmpty($this->element['xmlns:xsi']);
+    }
+
+    public function testChildrenOrder()
+    {
+        // add in inverse order
+        $this->element->getAddenda();
+        $this->element->getComplemento();
+        $this->element->getImpuestos();
+        $this->element->getConceptos();
+        $this->element->getReceptor();
+        $this->element->getEmisor();
+        $this->element->getCfdiRelacionados();
+
+        // retrieve in correct order
+        $this->assertInstanceOf(CfdiRelacionados::class, $this->element->children()->get(0));
+        $this->assertInstanceOf(Emisor::class, $this->element->children()->get(1));
+        $this->assertInstanceOf(Receptor::class, $this->element->children()->get(2));
+        $this->assertInstanceOf(Conceptos::class, $this->element->children()->get(3));
+        $this->assertInstanceOf(Impuestos::class, $this->element->children()->get(4));
+        $this->assertInstanceOf(Complemento::class, $this->element->children()->get(5));
+        $this->assertInstanceOf(Addenda::class, $this->element->children()->get(6));
     }
 }
