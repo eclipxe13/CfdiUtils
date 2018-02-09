@@ -69,6 +69,17 @@ class Comprobante extends AbstractElement
         return $this;
     }
 
+    public function getAddenda(): Addenda
+    {
+        return $this->helperGetOrAdd(new Addenda());
+    }
+
+    public function addAddenda(NodeInterface $children): self
+    {
+        $this->getAddenda()->add($children);
+        return $this;
+    }
+
     public function getFixedAttributes(): array
     {
         return [

@@ -1,6 +1,7 @@
 <?php
 namespace CfdiUtilsTests\Elements\Cfdi33;
 
+use CfdiUtils\Elements\Cfdi33\Addenda;
 use CfdiUtils\Elements\Cfdi33\CfdiRelacionado;
 use CfdiUtils\Elements\Cfdi33\CfdiRelacionados;
 use CfdiUtils\Elements\Cfdi33\Complemento;
@@ -116,6 +117,25 @@ class ComprobanteTest extends TestCase
         $addReturn = $this->element->addComplemento($child);
         $this->assertCount(1, $this->element);
         $this->assertSame($child, $this->element->searchNode('cfdi:Complemento', 'first'));
+        $this->assertSame($addReturn, $this->element);
+    }
+
+    public function testGetAddenda()
+    {
+        $this->assertNull($this->element->searchNode('cfdi:Addenda'));
+        $child = $this->element->getAddenda();
+        $this->assertInstanceOf(Addenda::class, $child);
+        $this->assertSame($child, $this->element->searchNode('cfdi:Addenda'));
+    }
+
+    public function testAddAddenda()
+    {
+        $this->assertCount(0, $this->element);
+
+        $child = new Node('first');
+        $addReturn = $this->element->addAddenda($child);
+        $this->assertCount(1, $this->element);
+        $this->assertSame($child, $this->element->searchNode('cfdi:Addenda', 'first'));
         $this->assertSame($addReturn, $this->element);
     }
 
