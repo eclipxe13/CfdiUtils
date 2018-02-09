@@ -57,4 +57,15 @@ class ImpuestosLocalesTest extends TestCase
         $this->assertCount(2, $this->element);
         $this->assertNotSame($first, $second);
     }
+
+    public function testChildrenOrder()
+    {
+        // add in inverse order
+        $this->element->addTrasladoLocal();
+        $this->element->addRetencionLocal();
+
+        // retrieve in correct order
+        $this->assertInstanceOf(RetencionesLocales::class, $this->element->children()->get(0));
+        $this->assertInstanceOf(TrasladosLocales::class, $this->element->children()->get(1));
+    }
 }
