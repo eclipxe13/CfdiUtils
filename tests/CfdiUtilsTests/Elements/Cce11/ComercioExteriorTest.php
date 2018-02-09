@@ -143,4 +143,21 @@ class ComercioExteriorTest extends TestCase
         $this->assertNotSame($first, $second);
         $this->assertSame($second, $mercancias->children()->get(1));
     }
+
+    public function testChildrenOrder()
+    {
+        // add in inverse order
+        $this->element->getMercancias();
+        $this->element->addDestinatario();
+        $this->element->getReceptor();
+        $this->element->addPropietario();
+        $this->element->getEmisor();
+
+        // retrieve in correct order
+        $this->assertInstanceOf(Emisor::class, $this->element->children()->get(0));
+        $this->assertInstanceOf(Propietario::class, $this->element->children()->get(1));
+        $this->assertInstanceOf(Receptor::class, $this->element->children()->get(2));
+        $this->assertInstanceOf(Destinatario::class, $this->element->children()->get(3));
+        $this->assertInstanceOf(Mercancias::class, $this->element->children()->get(4));
+    }
 }
