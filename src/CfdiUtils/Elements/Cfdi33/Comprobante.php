@@ -69,6 +69,30 @@ class Comprobante extends AbstractElement
         return $this;
     }
 
+    public function getAddenda(): Addenda
+    {
+        return $this->helperGetOrAdd(new Addenda());
+    }
+
+    public function addAddenda(NodeInterface $children): self
+    {
+        $this->getAddenda()->add($children);
+        return $this;
+    }
+
+    public function getChildrenOrder(): array
+    {
+        return [
+            'cfdi:CfdiRelacionados',
+            'cfdi:Emisor',
+            'cfdi:Receptor',
+            'cfdi:Conceptos',
+            'cfdi:Impuestos',
+            'cfdi:Complemento',
+            'cfdi:Addenda',
+        ];
+    }
+
     public function getFixedAttributes(): array
     {
         return [

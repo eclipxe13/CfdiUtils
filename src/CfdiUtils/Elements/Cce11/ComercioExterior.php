@@ -65,6 +65,17 @@ class ComercioExterior extends AbstractElement
         return 'cce11:ComercioExterior';
     }
 
+    public function getChildrenOrder(): array
+    {
+        return [
+            'cce11:Emisor',
+            'cce11:Propietario',
+            'cce11:Receptor',
+            'cce11:Destinatario',
+            'cce11:Mercancias',
+        ];
+    }
+
     public function getFixedAttributes(): array
     {
         return [

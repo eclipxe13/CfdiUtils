@@ -1,3 +1,14 @@
+# Version 2.4.0 2018-02-08
+- Add the feature to order the children nodes for a `CfdiUtils\Nodes\Nodes` object.
+  This feature is used in the namespace `CfdiUtils\Elements` to set the correct order of the
+  children nodes without worry about the creation order.
+- Add `CfdiUtils\Elements\Addenda` helper class.
+- Add `CfdiUtils\Elements\Pagos10` namespace for "complemento de pagos 1.0".
+- Add `CfdiUtils\Cleaner\Cleaner` utility class that allows to remove `cfdi:Addenda`,
+  non SAT nodes, non SAT namespaces and unused namespaces.
+- Build: The project no longer depends on `jakub-onderka/php-parallel-lint`,
+  now uses `overtrue/phplint` that does the same task but stores a cache.
+
 # Version 2.3.2 2018-01-29
 - Fix how total is formatted in the expression of `\CfdiUtils\ConsultaCfdiSat\RequestParameters`
     - Version 3.2 was removing zero trailing decimals instead of using 6 fixed chars

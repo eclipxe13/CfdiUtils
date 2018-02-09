@@ -1,5 +1,5 @@
 <?php
-namespace CfdiUtils\Elements\Cfdi33;
+namespace CfdiUtils\Elements\Pagos10;
 
 use CfdiUtils\Elements\Common\AbstractElement;
 
@@ -7,15 +7,12 @@ class Impuestos extends AbstractElement
 {
     public function getElementName(): string
     {
-        return 'cfdi:Impuestos';
+        return 'pagos10:Impuestos';
     }
 
     public function getChildrenOrder(): array
     {
-        return [
-            'cfdi:Traslados',
-            'cfdi:Retenciones',
-        ];
+        return ['pagos10:Retenciones', 'pagos10:Traslados'];
     }
 
     public function getTraslados(): Traslados

@@ -15,6 +15,17 @@ class Concepto extends AbstractElement
         return 'cfdi:Concepto';
     }
 
+    public function getChildrenOrder(): array
+    {
+        return [
+            'cfdi:Impuestos',
+            'cfdi:InformacionAduanera',
+            'cfdi:CuentaPredial',
+            'cfdi:ComplementoConcepto',
+            'cfdi:Parte',
+        ];
+    }
+
     public function getCuentaPredial(): CuentaPredial
     {
         return $this->helperGetOrAdd(new CuentaPredial());

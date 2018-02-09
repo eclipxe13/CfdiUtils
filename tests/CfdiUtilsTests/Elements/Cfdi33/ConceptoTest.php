@@ -4,6 +4,8 @@ namespace CfdiUtilsTests\Elements\Cfdi33;
 use CfdiUtils\Elements\Cfdi33\ComplementoConcepto;
 use CfdiUtils\Elements\Cfdi33\Concepto;
 use CfdiUtils\Elements\Cfdi33\CuentaPredial;
+use CfdiUtils\Elements\Cfdi33\Impuestos;
+use CfdiUtils\Elements\Cfdi33\InformacionAduanera;
 use CfdiUtils\Elements\Cfdi33\Parte;
 use PHPUnit\Framework\TestCase;
 
@@ -92,5 +94,22 @@ class ConceptoTest extends TestCase
         $this->assertSame($multiReturn, $node);
         $this->assertCount(2, $node);
         $this->assertSame('first', $node->searchAttribute('cfdi:Parte', 'id'));
+    }
+
+    public function testChildrenOrder()
+    {
+        // add in inverse order
+        $this->element->addParte();
+        $this->element->getComplementoConcepto();
+        $this->element->getCuentaPredial();
+        $this->element->addInformacionAduanera();
+        $this->element->getImpuestos();
+
+        // retrieve in correct order
+        $this->assertInstanceOf(Impuestos::class, $this->element->children()->get(0));
+        $this->assertInstanceOf(InformacionAduanera::class, $this->element->children()->get(1));
+        $this->assertInstanceOf(CuentaPredial::class, $this->element->children()->get(2));
+        $this->assertInstanceOf(ComplementoConcepto::class, $this->element->children()->get(3));
+        $this->assertInstanceOf(Parte::class, $this->element->children()->get(4));
     }
 }

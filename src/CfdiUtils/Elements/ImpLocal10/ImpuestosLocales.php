@@ -24,6 +24,11 @@ class ImpuestosLocales extends AbstractElement
         return 'implocal:ImpuestosLocales';
     }
 
+    public function getChildrenOrder(): array
+    {
+        return ['implocal:RetencionesLocales', 'implocal:TrasladosLocales'];
+    }
+
     public function getFixedAttributes(): array
     {
         return [

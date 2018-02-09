@@ -29,7 +29,7 @@
     "require-dev": {
         "genkgo/xsl": "^0.5.20",
         "phpunit/phpunit": "^6.2",
-        "jakub-onderka/php-parallel-lint": "^0.9",
+        "overtrue/phplint": "^1.0",
         "squizlabs/php_codesniffer": "^3.0",
         "friendsofphp/php-cs-fixer": "^2.4",
         "phpstan/phpstan-shim": "^0.9.1"
@@ -62,7 +62,7 @@
             "@test"
         ],
         "test": [
-            "vendor/bin/parallel-lint src/ tests/",
+            "vendor/bin/phplint --cache=build/phplint.cache",
             "vendor/bin/phpunit"
         ],
         "coverage": [
