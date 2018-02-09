@@ -70,7 +70,6 @@ class ImpuestosTraitTest extends TestCase
         $this->assertSame('first', $parent->searchAttribute('cfdi:Retencion', 'id'));
     }
 
-
     public function testChildrenOrder()
     {
         // add in inverse order
