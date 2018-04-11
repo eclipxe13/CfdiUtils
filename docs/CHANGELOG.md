@@ -1,7 +1,6 @@
 # Version 2.4.1 2018-04-11
 - Fix `\CfdiUtils\Certificado\Certificado` when reading serial number.
-  - Use `serialNumber` instead of `serialNumberHex`
-  - Remove leading `0x` if present
+  - Use `serialNumberHex` if available, if not then use `serialNumber` and convert to hex using bcdechex
   - Add test to this condition. 
 
 # Version 2.4.0 2018-02-08

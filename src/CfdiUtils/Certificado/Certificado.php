@@ -56,8 +56,15 @@ class Certificado
 
         // set all the values
         $this->rfc = (string) strstr($data['subject']['x500UniqueIdentifier'] . ' ', ' ', true);
+        $this->rfc = (string) strstr($data['subject']['x500UniqueIdentifier'] . ' ', ' ', true);
         $this->name = $data['subject']['name'];
-        $this->serial = $this->serialHexToAscii($data['serialNumber'] ?? '');
+        if (isset($data['serialNumberHex'])) {
+            $this->serial = $this->serialHexToAscii($data['serialNumberHex']);
+        } elseif (isset($data['serialNumber'])) {
+            $this->serial = $this->serialHexToAscii($this->bcdechex($data['serialNumber'] ?? ''));
+        } else {
+            throw new \RuntimeException('Cannot get serialNumber or serialNumberHex from certificate');
+        }
         $this->validFrom = $data['validFrom_time_t'];
         $this->validTo = $data['validTo_time_t'];
         $this->pubkey = $pubData['key'];
@@ -183,14 +190,35 @@ class Certificado
 
     protected function serialHexToAscii(string $input): string
     {
-        if (0 === strpos($input, '0x')) {
-            $input = substr($input, 2);
-        }
         $ascii = '';
         $length = strlen($input);
         for ($i = 0; $i < $length; $i = $i + 2) {
             $ascii = $ascii . chr(hexdec(substr($input, $i, 2)));
         }
         return $ascii;
+    }
+
+    /**
+     * Return a big decimal to hexadecimal
+     *
+     * source: https://stackoverflow.com/questions/14539727/how-to-convert-a-huge-integer-to-hex-in-php
+     * author: https://stackoverflow.com/users/1341059/lafor
+     *
+     * @param string $dec
+     * @return string
+     */
+    protected function bcdechex(string $dec): string
+    {
+        if (0 === strpos($dec, '0x')) {
+            return substr($dec, 2);
+        }
+
+        $hex = '';
+        do {
+            $last = bcmod($dec, 16);
+            $hex = dechex($last) . $hex;
+            $dec = bcdiv(bcsub($dec, $last), 16);
+        } while ($dec > 0);
+        return $hex;
     }
 }
