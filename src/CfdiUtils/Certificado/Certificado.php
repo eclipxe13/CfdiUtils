@@ -57,7 +57,7 @@ class Certificado
         // set all the values
         $this->rfc = (string) strstr($data['subject']['x500UniqueIdentifier'] . ' ', ' ', true);
         $this->name = $data['subject']['name'];
-        $this->serial = $this->serialHexToAscii($data['serialNumberHex']);
+        $this->serial = $this->serialHexToAscii($data['serialNumber'] ?? '');
         $this->validFrom = $data['validFrom_time_t'];
         $this->validTo = $data['validTo_time_t'];
         $this->pubkey = $pubData['key'];
@@ -183,6 +183,9 @@ class Certificado
 
     protected function serialHexToAscii(string $input): string
     {
+        if (0 === strpos($input, '0x')) {
+            $input = substr($input, 2);
+        }
         $ascii = '';
         $length = strlen($input);
         for ($i = 0; $i < $length; $i = $i + 2) {

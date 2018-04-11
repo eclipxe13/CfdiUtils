@@ -162,4 +162,27 @@ EOD;
         $certificate = new Certificado($certificateFile);
         $this->assertEquals('SOMG790807J57', $certificate->getRfc());
     }
+
+    /**
+     * This test extends the base class to expose the visibility of serialHexToAscii method.
+     *
+     * @param string $input
+     * @param string $expected
+     * @testWith ["3330303031303030303030333030303233373038", "30001000000300023708"]
+     *           ["0x3330303031303030303030333030303233373038", "30001000000300023708"]
+     */
+    public function testSerialHexToAscii(string $input, string $expected)
+    {
+        $exposed = new class() extends Certificado {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct()
+            {
+            }
+            public function publicSerialHexToAscii(string $input): string
+            {
+                return parent::serialHexToAscii($input);
+            }
+        };
+        $this->assertSame($expected, $exposed->publicSerialHexToAscii($input));
+    }
 }
