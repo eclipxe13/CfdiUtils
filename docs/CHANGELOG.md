@@ -1,3 +1,9 @@
+# Version 2.4.1 2018-04-11
+- Fix `\CfdiUtils\Certificado\Certificado` when reading serial number.
+  - Use `serialNumber` instead of `serialNumberHex`
+  - Remove leading `0x` if present
+  - Add test to this condition. 
+
 # Version 2.4.0 2018-02-08
 - Add the feature to order the children nodes for a `CfdiUtils\Nodes\Nodes` object.
   This feature is used in the namespace `CfdiUtils\Elements` to set the correct order of the
