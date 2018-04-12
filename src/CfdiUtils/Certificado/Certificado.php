@@ -209,14 +209,16 @@ class Certificado
      */
     protected function bcdechex(string $dec): string
     {
+        // is string is already an hex string (prefixed with 0x)
         if (0 === strpos($dec, '0x')) {
             return substr($dec, 2);
         }
 
+        // convert to hex (non-recursive)
         $hex = '';
         do {
             $last = bcmod($dec, 16);
-            $hex = dechex($last) . $hex;
+            $hex = dechex((int) $last) . $hex;
             $dec = bcdiv(bcsub($dec, $last), 16);
         } while ($dec > 0);
         return $hex;
