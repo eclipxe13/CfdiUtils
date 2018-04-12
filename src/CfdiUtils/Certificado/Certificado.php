@@ -58,13 +58,15 @@ class Certificado
         $this->rfc = (string) strstr($data['subject']['x500UniqueIdentifier'] . ' ', ' ', true);
         $this->rfc = (string) strstr($data['subject']['x500UniqueIdentifier'] . ' ', ' ', true);
         $this->name = $data['subject']['name'];
+        $serial = new SerialNumber('');
         if (isset($data['serialNumberHex'])) {
-            $this->serial = $this->serialHexToAscii($data['serialNumberHex']);
+            $serial->loadHexadecimal($data['serialNumberHex']);
         } elseif (isset($data['serialNumber'])) {
-            $this->serial = $this->serialHexToAscii($this->bcdechex($data['serialNumber'] ?? ''));
+            $serial->loadDecimal($data['serialNumber']);
         } else {
-            throw new \RuntimeException('Cannot get serialNumber or serialNumberHex from certificate');
+            throw new \RuntimeException('Cannot get serialNumberHex or serialNumber from certificate');
         }
+        $this->serial = $serial->asAscii();
         $this->validFrom = $data['validFrom_time_t'];
         $this->validTo = $data['validTo_time_t'];
         $this->pubkey = $pubData['key'];
@@ -186,38 +188,5 @@ class Certificado
         return '-----BEGIN CERTIFICATE-----' . PHP_EOL
             . chunk_split(base64_encode($contents), 64, PHP_EOL)
             . '-----END CERTIFICATE-----' . PHP_EOL;
-    }
-
-    protected function serialHexToAscii(string $input): string
-    {
-        return (string) array_reduce(str_split($input, 2), function (string $carry, string $value): string {
-            return $carry . chr(hexdec($value));
-        }, '');
-    }
-
-    /**
-     * Return a big decimal to hexadecimal
-     *
-     * source: https://stackoverflow.com/questions/14539727/how-to-convert-a-huge-integer-to-hex-in-php
-     * author: https://stackoverflow.com/users/1341059/lafor
-     *
-     * @param string $dec
-     * @return string
-     */
-    protected function bcdechex(string $dec): string
-    {
-        // is string is already an hex string (prefixed with 0x)
-        if (0 === strpos($dec, '0x')) {
-            return substr($dec, 2);
-        }
-
-        // convert to hex (non-recursive)
-        $hex = '';
-        do {
-            $last = bcmod($dec, 16);
-            $hex = dechex((int) $last) . $hex;
-            $dec = bcdiv(bcsub($dec, $last), 16);
-        } while ($dec > 0);
-        return $hex;
     }
 }
