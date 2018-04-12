@@ -190,12 +190,9 @@ class Certificado
 
     protected function serialHexToAscii(string $input): string
     {
-        $ascii = '';
-        $length = strlen($input);
-        for ($i = 0; $i < $length; $i = $i + 2) {
-            $ascii = $ascii . chr(hexdec(substr($input, $i, 2)));
-        }
-        return $ascii;
+        return (string) array_reduce(str_split($input, 2), function (string $carry, string $value): string {
+            return $carry . chr(hexdec($value));
+        }, '');
     }
 
     /**
