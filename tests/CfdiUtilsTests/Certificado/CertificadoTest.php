@@ -6,7 +6,7 @@ use CfdiUtilsTests\TestCase;
 
 class CertificadoTest extends TestCase
 {
-    public function testLConstructWithValidExample()
+    public function testConstructWithValidExample()
     {
         // information checked using
         // openssl x509 -nameopt utf8,sep_multiline,lname -inform DER -noout -dates -serial -subject \

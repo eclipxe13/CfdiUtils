@@ -29,7 +29,7 @@ class SerialNumberTest extends TestCase
      * @testWith ["0x3330303031303030303030333030303233373038", "30001000000300023708"]
      *           ["292233162870206001759766198425879490508935868472", "30001000000300023708"]
      */
-    public function testSerialHexToAsciiDecimal(string $input, string $expected)
+    public function testLoadDecimal(string $input, string $expected)
     {
         $serial = new SerialNumber('');
         $serial->loadDecimal($input);
