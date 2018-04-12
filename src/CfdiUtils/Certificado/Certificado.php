@@ -56,8 +56,17 @@ class Certificado
 
         // set all the values
         $this->rfc = (string) strstr($data['subject']['x500UniqueIdentifier'] . ' ', ' ', true);
+        $this->rfc = (string) strstr($data['subject']['x500UniqueIdentifier'] . ' ', ' ', true);
         $this->name = $data['subject']['name'];
-        $this->serial = $this->serialHexToAscii($data['serialNumberHex']);
+        $serial = new SerialNumber('');
+        if (isset($data['serialNumberHex'])) {
+            $serial->loadHexadecimal($data['serialNumberHex']);
+        } elseif (isset($data['serialNumber'])) {
+            $serial->loadDecimal($data['serialNumber']);
+        } else {
+            throw new \RuntimeException('Cannot get serialNumberHex or serialNumber from certificate');
+        }
+        $this->serial = $serial->asAscii();
         $this->validFrom = $data['validFrom_time_t'];
         $this->validTo = $data['validTo_time_t'];
         $this->pubkey = $pubData['key'];
@@ -179,15 +188,5 @@ class Certificado
         return '-----BEGIN CERTIFICATE-----' . PHP_EOL
             . chunk_split(base64_encode($contents), 64, PHP_EOL)
             . '-----END CERTIFICATE-----' . PHP_EOL;
-    }
-
-    protected function serialHexToAscii(string $input): string
-    {
-        $ascii = '';
-        $length = strlen($input);
-        for ($i = 0; $i < $length; $i = $i + 2) {
-            $ascii = $ascii . chr(hexdec(substr($input, $i, 2)));
-        }
-        return $ascii;
     }
 }
