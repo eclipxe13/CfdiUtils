@@ -1,6 +1,11 @@
 <?php
 namespace CfdiUtils\Certificado;
 
+/**
+ * This class is used to load hexadecimal or decimal data as a certificate serial number.
+ * It have its own class because SOLID and is easy to test in this way.
+ * It is not intented to use in general.
+ */
 class SerialNumber
 {
     /** @var string Hexadecimal representation */
