@@ -68,6 +68,16 @@ class CfdiTest extends TestCase
         $this->assertEquals('3.3', $checker->getVersion());
     }
 
+    public function testValid33WithXmlHeader()
+    {
+        $checker = Cfdi::newFromString(
+            '<?xml version="1.0" encoding="UTF-8" ?>'
+            . '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version="3.3"' . '/>'
+        );
+
+        $this->assertEquals('3.3', $checker->getVersion());
+    }
+
     public function testVersion1980ReturnEmpty()
     {
         $checker = Cfdi::newFromString(
