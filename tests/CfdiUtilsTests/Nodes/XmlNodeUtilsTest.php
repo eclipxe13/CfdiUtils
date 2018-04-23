@@ -1,6 +1,7 @@
 <?php
 namespace CfdiUtilsTests\Nodes;
 
+use CfdiUtils\Nodes\Node;
 use CfdiUtils\Nodes\XmlNodeUtils;
 use CfdiUtils\Utils\Xml;
 use CfdiUtilsTests\TestCase;
@@ -13,6 +14,20 @@ class XmlNodeUtilsTest extends TestCase
             'simple-xml' => [$this->utilAsset('nodes/sample.xml')],
             'cfdi' => [$this->utilAsset('cfdi33-valid.xml')],
         ];
+    }
+
+    public function testNodeToXmlStringXmlHeader()
+    {
+        $node = new Node('book', [], [
+            new Node('chapter', ['toc' => '1']),
+            new Node('chapter', ['toc' => '2']),
+        ]);
+
+        $xmlString = XmlNodeUtils::nodeToXmlString($node, true);
+        $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', $xmlString);
+
+        $xmlString = XmlNodeUtils::nodeToXmlString($node, false);
+        $this->assertStringStartsWith('<book>', $xmlString);
     }
 
     /**
