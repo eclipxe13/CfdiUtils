@@ -1,3 +1,11 @@
+# Version 2.4.2 2018-04-23
+- Fix `\CfdiUtils\Nodes\XmlNodeExporter::export`, it was not appending root element to xml document.
+- Allow `\CfdiUtils\Nodes\XmlNodeUtils::nodeToXmlString` to export including xml header `<?xml ... ?>`.
+  Default behavior is to not include xml header, it remains unchanged.
+- Explicitly `\CfdiUtils\CfdiCreator33::asXml()` returns the string with xml header.
+- By default, `\DOMDocument` objects are created with version 1.0 and encoding UTF-8.
+- Add tests to validate previous changes.
+
 # Version 2.4.1 2018-04-11
 - Fix `\CfdiUtils\Certificado\Certificado` when reading serial number.
   - Use `serialNumberHex` if available, if not then use `serialNumber` and convert to hex.
