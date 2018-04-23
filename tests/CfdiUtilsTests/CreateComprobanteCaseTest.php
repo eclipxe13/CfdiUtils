@@ -115,6 +115,8 @@ class CreateComprobanteCaseTest extends TestCase
 
         // check the xml
         $expectedFileContents = $this->utilAsset('created-with-discounts.xml');
-        $this->assertXmlStringEqualsXmlFile($expectedFileContents, $creator->asXml());
+        $xmlContents = $creator->asXml();
+        $this->assertXmlStringEqualsXmlFile($expectedFileContents, $xmlContents);
+        $this->assertStringStartsWith('<?xml', $xmlContents);
     }
 }

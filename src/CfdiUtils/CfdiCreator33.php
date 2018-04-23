@@ -90,7 +90,7 @@ class CfdiCreator33 implements
 
     public function asXml(): string
     {
-        return XmlNodeUtils::nodeToXmlString($this->comprobante);
+        return XmlNodeUtils::nodeToXmlString($this->comprobante, true);
     }
 
     public function saveXml(string $filename): bool
