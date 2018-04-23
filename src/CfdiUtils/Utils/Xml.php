@@ -7,7 +7,7 @@ class Xml
 {
     public static function newDocument(): DOMDocument
     {
-        $document = new DOMDocument();
+        $document = new DOMDocument('1.0', 'UTF-8');
         $document->formatOutput = true;
         $document->preserveWhiteSpace = false;
         return $document;
