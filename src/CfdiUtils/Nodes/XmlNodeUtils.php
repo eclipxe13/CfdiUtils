@@ -12,9 +12,12 @@ class XmlNodeUtils
         return (new XmlNodeExporter())->export($node);
     }
 
-    public static function nodeToXmlString(NodeInterface $node): string
+    public static function nodeToXmlString(NodeInterface $node, $withXmlHeader = false): string
     {
         $element = static::nodeToXmlElement($node);
+        if ($withXmlHeader) {
+            return $element->ownerDocument->saveXML();
+        }
         return $element->ownerDocument->saveXML($element);
     }
 
