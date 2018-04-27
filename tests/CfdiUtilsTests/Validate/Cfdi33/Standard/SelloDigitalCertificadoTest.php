@@ -75,6 +75,19 @@ class SelloDigitalCertificadoTest extends ValidateTestCase
         $this->assertStatusEqualsCode(Status::error(), 'SELLO04');
     }
 
+    public function testValidateWithEqualButNotIdenticalName()
+    {
+        $this->setUpCertificado();
+        $emisor = $this->comprobante->searchNode('cfdi:Emisor');
+        //    add acentos, change case, and punctuation to original name
+        //                   ACCEM SERVICIOS EMPRESARIALES SC
+        $emisor['Nombre'] = 'ACCÉM - SERVICIOS Empresariales, S.C.';
+
+        $this->runValidate();
+
+        $this->assertStatusEqualsCode(Status::ok(), 'SELLO04');
+    }
+
     public function testValidateBadLowerFecha()
     {
         $validLowerDate = strtotime('2017-05-18 03:54:56');
