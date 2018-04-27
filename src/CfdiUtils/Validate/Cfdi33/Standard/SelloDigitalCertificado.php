@@ -175,6 +175,6 @@ class SelloDigitalCertificado extends AbstractDiscoverableVersion33 implements
 
     private function castNombre(string $nombre): string
     {
-        return str_replace([' ', '.', '#', '&'], '', $nombre);
+        return str_replace([' ', '-', ',', '.', '#', '&'], '', iconv('UTF-8', 'ASCII//TRANSLIT', $nombre));
     }
 }
