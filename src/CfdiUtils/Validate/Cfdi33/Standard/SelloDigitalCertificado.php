@@ -123,7 +123,7 @@ class SelloDigitalCertificado extends AbstractDiscoverableVersion33 implements
         $this->asserts->putStatus(
             'SELLO04',
             Status::when($this->compareNames($this->certificado->getName(), $emisorNombre)),
-            sprintf('Rfc certificado: %s, Rfc comprobante: %s', $this->certificado->getName(), $emisorNombre)
+            sprintf('Nombre certificado: %s, Nombre comprobante: %s', $this->certificado->getName(), $emisorNombre)
         );
     }
 
@@ -175,6 +175,6 @@ class SelloDigitalCertificado extends AbstractDiscoverableVersion33 implements
 
     private function castNombre(string $nombre): string
     {
-        return str_replace([' ', '.', '#', '&'], '', $nombre);
+        return str_replace([' ', '-', ',', '.', '#', '&'], '', iconv('UTF-8', 'ASCII//TRANSLIT', $nombre));
     }
 }

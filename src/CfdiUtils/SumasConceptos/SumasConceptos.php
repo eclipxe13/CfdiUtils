@@ -29,6 +29,8 @@ class SumasConceptos
     private $localesRetenciones = [];
     /** @var int */
     private $precision;
+    /** @var bool */
+    private $foundAnyConceptWithDiscount = false;
 
     /*
      * Constructors
@@ -79,6 +81,9 @@ class SumasConceptos
     private function addConcepto(NodeInterface $concepto)
     {
         $this->importes += (float) $concepto['Importe'];
+        if (isset($concepto['Descuento'])) {
+            $this->foundAnyConceptWithDiscount = true;
+        }
         $this->descuento += (float) $concepto['Descuento'];
 
         $traslados = $concepto->searchNodes('cfdi:Impuestos', 'cfdi:Traslados', 'cfdi:Traslado');
@@ -231,5 +236,10 @@ class SumasConceptos
     public function hasLocalesRetenciones(): bool
     {
         return (count($this->localesRetenciones) > 0);
+    }
+
+    public function foundAnyConceptWithDiscount(): bool
+    {
+        return $this->foundAnyConceptWithDiscount;
     }
 }

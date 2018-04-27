@@ -39,7 +39,8 @@ class SumasConceptosWriter
         $this->comprobante['SubTotal'] = $this->format($this->sumas->getSubTotal());
         $this->comprobante['Total'] = $this->format($this->sumas->getTotal());
         $this->comprobante['Descuento'] = $this->format($this->sumas->getDescuento());
-        if (! $this->valueGreaterThanZero($this->sumas->getDescuento())) {
+        if (! $this->sumas->foundAnyConceptWithDiscount()
+            && ! $this->valueGreaterThanZero($this->sumas->getDescuento())) {
             unset($this->comprobante['Descuento']);
         }
     }

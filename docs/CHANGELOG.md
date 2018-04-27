@@ -1,3 +1,11 @@
+# Version 2.4.3 2018-04-26
+- FIX: The attribute `cfdi:Comprobante@Descuento` must not be deleted if any attribute
+  `cfdi:Comprobante/cfdi:Conceptos/cfdi:Concepto@Descuento` exists. (Closes: #50)
+- FIX: When validating a CFDI, the validator `CfdiUtils\Validate\Cfdi33\Standard\SelloDigitalCertificado`
+  was too hard. In common practice, must allow `-`, `-` and compare without special chars like `ü`. (Closes #51)
+- Add a **development** script `tests/validate.php` to validate existing files.
+  WARNING: This can change at any time! Do not depend on this file or its results!
+
 # Version 2.4.2 2018-04-23
 - Fix `\CfdiUtils\Nodes\XmlNodeExporter::export`, it was not appending root element to xml document.
 - Allow `\CfdiUtils\Nodes\XmlNodeUtils::nodeToXmlString` to export including xml header `<?xml ... ?>`.
