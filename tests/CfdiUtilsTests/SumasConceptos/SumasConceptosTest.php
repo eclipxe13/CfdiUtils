@@ -125,4 +125,16 @@ class SumasConceptosTest extends TestCase
         $this->assertEquals(0, $sc->getLocalesImpuestosRetenidos(), '', $maxDiff);
         $this->assertCount(0, $sc->getLocalesRetenciones());
     }
+
+    public function testFoundAnyConceptWithDiscount()
+    {
+        $comprobante = new Comprobante();
+        $comprobante->addConcepto(['Importe' => '111.11']);
+        $comprobante->addConcepto(['Importe' => '222.22']);
+        $this->assertFalse((new SumasConceptos($comprobante))->foundAnyConceptWithDiscount());
+
+        // now add the attribute Descuento
+        $comprobante->addConcepto(['Importe' => '333.33', 'Descuento' => '']);
+        $this->assertTrue((new SumasConceptos($comprobante))->foundAnyConceptWithDiscount());
+    }
 }
