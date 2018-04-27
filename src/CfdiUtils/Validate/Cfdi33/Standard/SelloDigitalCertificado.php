@@ -123,7 +123,7 @@ class SelloDigitalCertificado extends AbstractDiscoverableVersion33 implements
         $this->asserts->putStatus(
             'SELLO04',
             Status::when($this->compareNames($this->certificado->getName(), $emisorNombre)),
-            sprintf('Rfc certificado: %s, Rfc comprobante: %s', $this->certificado->getName(), $emisorNombre)
+            sprintf('Nombre certificado: %s, Nombre comprobante: %s', $this->certificado->getName(), $emisorNombre)
         );
     }
 
