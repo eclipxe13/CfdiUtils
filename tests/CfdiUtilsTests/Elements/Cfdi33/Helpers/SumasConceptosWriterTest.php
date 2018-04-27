@@ -147,6 +147,20 @@ class SumasConceptosWriterTest extends TestCase
         $this->assertFalse(isset($impuestos['TotalImpuestosRetenidos']));
     }
 
+    public function testDescuentoWithValueZeroExistsIfAConceptoHasDescuento()
+    {
+        $comprobante = new Comprobante();
+        $comprobante->addConcepto([]); // first concepto does not have Descuento
+        $comprobante->addConcepto(['Descuento' => '']); // second concepto has Descuento
+
+        $precision = 2;
+        $sumasConceptos = new SumasConceptos($comprobante, $precision);
+        $writer = new SumasConceptosWriter($comprobante, $sumasConceptos, $precision);
+        $writer->put();
+
+        $this->assertSame('0.00', $comprobante['Descuento']);
+    }
+
     public function testDescuentoNotSetIfAllConceptosDoesNotHaveDescuento()
     {
         $comprobante = new Comprobante(['Descuento' => '']); // set value with discount
