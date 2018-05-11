@@ -23,7 +23,7 @@ class PemPrivateKey
         if (0 === strpos($key, 'file://')) {
             $contents = '';
             $filename = substr($key, 7);
-            if ('' !== $filename && '' === (string) parse_url($filename, PHP_URL_SCHEME) && file_exists($filename)) {
+            if ('' !== $filename && file_exists($filename)) {
                 $contents = file_get_contents($filename);
             }
         } else {

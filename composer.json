@@ -20,7 +20,6 @@
         "ext-libxml": "*",
         "ext-openssl": "*",
         "ext-soap": "*",
-        "ext-bcmath": "*",
         "eclipxe/xmlresourceretriever": "^1.2",
         "eclipxe/xmlschemavalidator": "^2.0"
     },
