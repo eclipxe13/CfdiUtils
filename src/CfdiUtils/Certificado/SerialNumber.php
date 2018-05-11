@@ -13,17 +13,25 @@ class SerialNumber
 
     public function __construct(string $hexString)
     {
-        $this->hexString = $hexString;
+        $this->loadHexadecimal($hexString);
     }
 
     public function loadHexadecimal(string $hexString)
     {
+        if (! (bool) preg_match('/^[0-9a-f]*$/', $hexString)) {
+            throw new \UnexpectedValueException("The hexadecimal string contains invalid chars");
+        }
         $this->hexString = $hexString;
     }
 
     public function loadDecimal(string $decString)
     {
-        $this->loadHexadecimal($this->bcDectoHex($decString));
+        if (0 === strpos($decString, '0x') || 0 === strpos($decString, '0X')) {
+            $hexString = substr($decString, 2);
+        } else {
+            $hexString = $this->baseConvert($decString, 10, 16);
+        }
+        $this->loadHexadecimal($hexString);
     }
 
     public function getHexadecimal(): string
@@ -44,28 +52,64 @@ class SerialNumber
     }
 
     /**
-     * Return a big decimal to hexadecimal
+     * Converts any string of any base to any other base without PHP native method
+     * base_convert's double and float limitations.
      *
-     * source: https://stackoverflow.com/questions/14539727/how-to-convert-a-huge-integer-to-hex-in-php
-     * author: https://stackoverflow.com/users/1341059/lafor
-     *
-     * @param string $dec
+     * @param string $numstring
+     * @param int $frombase
+     * @param int $tobase
      * @return string
+     * @source https://github.com/credomane/php_baseconvert
      */
-    protected function bcDectoHex(string $dec): string
+    public function baseConvert(string $numstring, int $frombase, int $tobase): string
     {
-        // is string is already an hex string (prefixed with 0x)
-        if (0 === strpos($dec, '0x')) {
-            return substr($dec, 2);
+        $numstring = strtolower($numstring);
+        if (1 !== preg_match('/^[0-9a-z]+$/', $numstring)) {
+            throw new \UnexpectedValueException('The number to convert is not valid alphanumeric');
         }
+        if ($frombase < 2 || $frombase > 36) {
+            throw new \UnexpectedValueException('Invalid base to convert from');
+        }
+        if ($tobase < 2 || $tobase > 36) {
+            throw new \UnexpectedValueException('Invalid base to convert to');
+        }
+        if ($tobase === $frombase) {
+            return $numstring;
+        }
+        $chars = "0123456789abcdefghijklmnopqrstuvwxyz";
+        $fromstring = substr($chars, 0, $frombase);
+        $tostring = substr($chars, 0, $tobase);
+        $length = strlen($numstring);
+        $values = array_map(function ($char) use ($frombase, $fromstring) {
+            if (false === $number = strpos($fromstring, $char)) {
+                throw new \UnexpectedValueException(sprintf(
+                    'The number to convert contains a character %s that is out of base %d',
+                    $char,
+                    $frombase
+                ));
+            }
+            return $number;
+        }, str_split($numstring));
 
-        // convert to hex (non-recursive)
-        $hex = '';
+        $result = '';
         do {
-            $last = bcmod($dec, 16);
-            $hex = dechex((int) $last) . $hex;
-            $dec = bcdiv(bcsub($dec, $last), 16);
-        } while ($dec > 0);
-        return $hex;
+            $divide = 0;
+            $newlen = 0;
+            for ($i = 0; $i < $length; $i++) {
+                $divide = $divide * $frombase + $values[$i];
+                if ($divide >= $tobase) {
+                    $values[$newlen] = (int) ($divide / $tobase);
+                    $divide = $divide % $tobase;
+                    $newlen = $newlen + 1;
+                } elseif ($newlen > 0) {
+                    $values[$newlen] = 0;
+                    $newlen = $newlen + 1;
+                }
+            }
+            $length = $newlen;
+            $result = $tostring{$divide} . $result;
+        } while ($newlen > 0);
+
+        return $result;
     }
 }
