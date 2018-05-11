@@ -1,3 +1,7 @@
+# Version 2.4.4 2018-05-11
+- FIX: Unable to load a PEM file using filename on windows (Closes #33)
+- Do not use bcmath function to convert from decimal to hexadecimal the serial number of a certificate
+
 # Version 2.4.3 2018-04-26
 - FIX: The attribute `cfdi:Comprobante@Descuento` must not be deleted if any attribute
   `cfdi:Comprobante/cfdi:Conceptos/cfdi:Concepto@Descuento` exists. (Closes: #50)
