@@ -7,6 +7,7 @@
 - Do not use `CfdiUtils\CadenaOrigen\DefaultLocations` at any place of the project
 - Add util `\CfdiUtils\Utils\CurrencyDecimals`, help to work with decimals by currency
 - Improve `CfdiUtils\Validate\Cfdi33\Standard\ComprobanteDecimalesMoneda` with previous class
+- Add util `\CfdiUtils\Utils\Rfc`, help to work with strict RFC validations
 - Add docblocks to `CfdiUtils\Cfdi`
 - Building:
     - Add .phplint.yml to export-ignore (standard line)
