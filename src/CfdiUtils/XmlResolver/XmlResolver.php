@@ -1,7 +1,7 @@
 <?php
 namespace CfdiUtils\XmlResolver;
 
-use CfdiUtils\CadenaOrigen\DefaultLocations;
+use CfdiUtils\CadenaOrigen\CfdiDefaultLocations;
 use CfdiUtils\Certificado\CerRetriever;
 use XmlResourceRetriever\Downloader\DownloaderInterface;
 use XmlResourceRetriever\Downloader\PhpDownloader;
@@ -28,7 +28,7 @@ class XmlResolver
      * XmlResolver constructor.
      * @see setLocalPath
      * @see setDownloaderInterface
-     * @param string|null $localPath values: '' => no reolve, null => default path, anything else is the path
+     * @param string|null $localPath values: '' => no resolve, null => use default path, anything else is the path
      * @param DownloaderInterface|null $downloader
      */
     public function __construct(string $localPath = null, DownloaderInterface $downloader = null)
@@ -195,6 +195,6 @@ class XmlResolver
 
     public function resolveCadenaOrigenLocation(string $version)
     {
-        return $this->resolve(DefaultLocations::location($version), self::TYPE_XSLT);
+        return $this->resolve(CfdiDefaultLocations::location($version), self::TYPE_XSLT);
     }
 }
