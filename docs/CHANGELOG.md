@@ -8,7 +8,10 @@
 - Add util `\CfdiUtils\Utils\CurrencyDecimals`, help to work with decimals by currency
 - Improve `CfdiUtils\Validate\Cfdi33\Standard\ComprobanteDecimalesMoneda` with previous class
 - Add util `\CfdiUtils\Utils\Rfc`, help to work with strict RFC validations
-    - Add validator `\CfdiUtils\Validate\Cfdi33\Standard\ReceptorRfc`
+- Add `\CfdiUtils\Validate\Cfdi33\Standard\ReceptorRfc` to validate the RFC of the CFDI receiver
+- Add `\CfdiUtils\Validate\Cfdi33\Standard\EmisorRfc` to validate the RFC of the CFDI emitter
+    - Fix `CfdiUtilsTests\CfdiValidator33Test::testValidateWithCorrectData` since used RFC is not valid
+    - Fix `CfdiUtilsTests\CreateComprobanteCaseTest::testCreateCfdiUsingComprobanteElement` since used RFC is not valid
 - Add docblocks to `CfdiUtils\Cfdi`
 - Building:
     - Add .phplint.yml to export-ignore (standard line)
