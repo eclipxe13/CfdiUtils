@@ -1,7 +1,7 @@
 <?php
 namespace CfdiUtilsTests\CadenaOrigen;
 
-use CfdiUtils\CadenaOrigen\DefaultLocations;
+use CfdiUtils\CadenaOrigen\CfdiDefaultLocations;
 use CfdiUtils\CadenaOrigen\XsltBuilderInterface;
 use CfdiUtils\CadenaOrigen\XsltBuildException;
 use CfdiUtilsTests\TestCase;
@@ -21,8 +21,8 @@ abstract class GenericBuilderTestCase extends TestCase
     public function providerCfdiToCadenaOrigen()
     {
         return [
-            ['cfdi32-real.xml', 'cfdi32-real-cadenaorigen.txt', DefaultLocations::XSLT_32],
-            ['cfdi33-valid.xml', 'cfdi33-valid-cadenaorigen.txt', DefaultLocations::XSLT_33],
+            ['cfdi32-real.xml', 'cfdi32-real-cadenaorigen.txt', CfdiDefaultLocations::XSLT_32],
+            ['cfdi33-valid.xml', 'cfdi33-valid-cadenaorigen.txt', CfdiDefaultLocations::XSLT_33],
         ];
     }
 
@@ -112,7 +112,7 @@ abstract class GenericBuilderTestCase extends TestCase
         $fileExpectedCadenaOrigen = $this->utilAsset('cfdi32-real-cadenaorigen.txt');
 
         $builder = $this->createBuilder();
-        $cadenaOrigen = $builder->build(file_get_contents($fileCfdi), DefaultLocations::XSLT_32);
+        $cadenaOrigen = $builder->build(file_get_contents($fileCfdi), CfdiDefaultLocations::XSLT_32);
         $this->assertStringEqualsFile($fileExpectedCadenaOrigen, $cadenaOrigen . PHP_EOL);
     }
 }
