@@ -20,7 +20,7 @@ use DOMXPath;
  */
 class Cleaner
 {
-    /** @var DOMDocument */
+    /** @var DOMDocument|null */
     protected $dom;
 
     public function __construct(string $content)
@@ -121,11 +121,22 @@ class Cleaner
 
     /**
      * Get the XML content of the CFDI
+     *
      * @return string
      */
     public function retrieveXml(): string
     {
-        return $this->dom->saveXML();
+        return $this->dom()->saveXML();
+    }
+
+    /**
+     * Get a clone of the XML DOM Docoment of the CFDI
+     *
+     * @return DOMDocument
+     */
+    public function retrieveDocument(): DOMDocument
+    {
+        return clone $this->dom();
     }
 
     /**
@@ -155,7 +166,7 @@ class Cleaner
     public function removeNonSatNSschemaLocations()
     {
         // is weird, but xsi namespace can be declared with other prefix
-        $xsi = $this->dom->lookupPrefix('http://www.w3.org/2001/XMLSchema-instance');
+        $xsi = $this->dom()->lookupPrefix('http://www.w3.org/2001/XMLSchema-instance');
         if (! $xsi) {
             return;
         }
@@ -230,7 +241,7 @@ class Cleaner
      */
     private function removeNonSatNSNode(string $namespace)
     {
-        foreach ($this->dom->getElementsByTagNameNS($namespace, '*') as $children) {
+        foreach ($this->dom()->getElementsByTagNameNS($namespace, '*') as $children) {
             $children->parentNode->removeChild($children);
         }
     }
@@ -242,17 +253,18 @@ class Cleaner
     public function removeUnusedNamespaces()
     {
         $nss = [];
+        $dom = $this->dom();
         foreach ($this->xpathQuery('//namespace::*') as $node) {
             $namespace = $node->nodeValue;
             if (! $namespace || $this->isNameSpaceAllowed($namespace)) {
                 continue;
             }
-            $prefix = $this->dom->lookupPrefix($namespace);
+            $prefix = $dom->lookupPrefix($namespace);
             $nss[$prefix] = $namespace;
         }
         $nss = array_unique($nss);
         foreach ($nss as $prefix => $namespace) {
-            $this->dom->documentElement->removeAttributeNS($namespace, $prefix);
+            $dom->documentElement->removeAttributeNS($namespace, $prefix);
         }
     }
 
@@ -264,11 +276,19 @@ class Cleaner
      */
     private function xpathQuery(string $query, DOMNode $element = null): DOMNodeList
     {
-        $element = $element ?: $this->dom->documentElement;
+        $element = $element ?: $this->dom()->documentElement;
         $nodelist = (new DOMXPath($element->ownerDocument))->query($query, $element);
         if (false === $nodelist) {
             $nodelist = new DOMNodeList();
         }
         return $nodelist;
+    }
+
+    private function dom(): DOMDocument
+    {
+        if (null === $this->dom) {
+            throw new \LogicException('No document has been loaded');
+        }
+        return $this->dom;
     }
 }
