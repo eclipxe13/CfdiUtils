@@ -5,6 +5,7 @@
 - Fix `CfdiUtils\Cleaner\Cleaner` since internal `DOMDocument` can be null
 - Allow attributes `CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados`
 - Do not use `CfdiUtils\CadenaOrigen\DefaultLocations` at any place of the project
+- Add docblocks to `CfdiUtils\Cfdi`
 
 # Version 2.4.4 2018-05-11
 - FIX: Unable to load a PEM file using filename on windows (Closes #33)

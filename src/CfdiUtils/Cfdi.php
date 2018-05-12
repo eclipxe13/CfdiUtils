@@ -57,11 +57,13 @@ class Cfdi
     }
 
     /**
+     * Create a Cfdi object from a xml string
+     *
      * @param string $content
      *
      * @return static
      */
-    public static function newFromString(string $content)
+    public static function newFromString(string $content): self
     {
         $document = Xml::newDocumentContent($content);
         // populate source since it is already available
@@ -71,16 +73,27 @@ class Cfdi
         return $cfdi;
     }
 
+    /**
+     * Obtain the version from the CFDI, it is compatible with 3.2 and 3.3
+     */
     public function getVersion(): string
     {
         return $this->version;
     }
 
+    /**
+     * Get a clone of the local DOM document
+     *
+     * @return DOMDocument
+     */
     public function getDocument(): DOMDocument
     {
         return clone $this->document;
     }
 
+    /**
+     * Get the xml string source
+     */
     public function getSource(): string
     {
         if (null === $this->source) {
@@ -89,6 +102,9 @@ class Cfdi
         return $this->source;
     }
 
+    /**
+     * Get the node object to iterate in the CFDI
+     */
     public function getNode(): NodeInterface
     {
         if (null === $this->node) {
