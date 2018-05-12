@@ -6,6 +6,10 @@
 - Allow attributes `CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados`
 - Do not use `CfdiUtils\CadenaOrigen\DefaultLocations` at any place of the project
 - Add docblocks to `CfdiUtils\Cfdi`
+- Building:
+    - Add .phplint.yml to export-ignore (standard line)
+    - Travis-CI: Declare `FULL_BUILD_PHP_VERSION` for easy understanding
+- Add more dependences: `ext-dom`, `ext-xsl`, `ext-simplexml`, `ext-mbstring`
 
 # Version 2.4.4 2018-05-11
 - FIX: Unable to load a PEM file using filename on windows (Closes #33)

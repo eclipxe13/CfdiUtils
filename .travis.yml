@@ -15,10 +15,13 @@ addons:
     packages:
       - libsaxonb-java
 
+env:
+  - FULL_BUILD_PHP_VERSION="7.0"
+
 before_script:
   - travis_retry composer install --no-interaction --prefer-dist
   - |
-    if [[ $TRAVIS_PHP_VERSION != '7.0' ]]; then
+    if [[ $TRAVIS_PHP_VERSION != $FULL_BUILD_PHP_VERSION ]]; then
         phpenv config-rm xdebug.ini
     fi
 
@@ -27,13 +30,18 @@ script:
   - vendor/bin/phplint
   - vendor/bin/phpcs -sp src/ tests/
   - vendor/bin/php-cs-fixer fix --using-cache=no --dry-run --verbose
-  - vendor/bin/phpunit --coverage-text --coverage-clover=build/tests/coverage.xml
-  - vendor/bin/phpstan.phar analyse --level max src/ tests/
+  - |
+    if [[ $TRAVIS_PHP_VERSION == $FULL_BUILD_PHP_VERSION ]]; then
+      vendor/bin/phpunit --coverage-text --coverage-clover=build/tests/coverage.xml
+    else
+      vendor/bin/phpunit
+    fi
+  - vendor/bin/phpstan.phar --no-progress analyse --level max src/ tests/
 
 after_script:
-  # upload to scrutinizer
+  # upload test covegare to scrutinizer
   - |
-    if [[ $TRAVIS_PHP_VERSION == '7.0' ]]; then
+    if [[ $TRAVIS_PHP_VERSION == $FULL_BUILD_PHP_VERSION ]]; then
       wget https://scrutinizer-ci.com/ocular.phar
       php ocular.phar code-coverage:upload --format=php-clover build/tests/coverage.xml
     fi

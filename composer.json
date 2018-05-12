@@ -15,9 +15,19 @@
             "homepage": "http://eclipxe.com.mx/"
         }
     ],
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
+        "optimize-autoloader": true
+    },
     "require": {
         "php": ">=7.0",
         "ext-libxml": "*",
+        "ext-dom": "*",
+        "ext-xsl": "*",
+        "ext-simplexml": "*",
+        "ext-mbstring": "*",
         "ext-openssl": "*",
         "ext-soap": "*",
         "eclipxe/xmlresourceretriever": "^1.2",
@@ -58,11 +68,11 @@
             "vendor/bin/phpcbf --colors -sp src/ tests/"
         ],
         "qa": [
-            "vendor/bin/phpstan.phar analyse --level max src/ tests/",
+            "vendor/bin/phpstan.phar analyse --no-progress --level max src/ tests/",
             "@test"
         ],
         "test": [
-            "vendor/bin/phplint --cache=build/phplint.cache",
+            "vendor/bin/phplint",
             "vendor/bin/phpunit"
         ],
         "coverage": [
