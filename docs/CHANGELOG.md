@@ -5,6 +5,8 @@
 - Fix `CfdiUtils\Cleaner\Cleaner` since internal `DOMDocument` can be null
 - Allow attributes `CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados`
 - Do not use `CfdiUtils\CadenaOrigen\DefaultLocations` at any place of the project
+- Add util `\CfdiUtils\Utils\CurrencyDecimals`, help to work with decimals by currency
+- Improve `CfdiUtils\Validate\Cfdi33\Standard\ComprobanteDecimalesMoneda` with previous class
 - Add docblocks to `CfdiUtils\Cfdi`
 - Building:
     - Add .phplint.yml to export-ignore (standard line)

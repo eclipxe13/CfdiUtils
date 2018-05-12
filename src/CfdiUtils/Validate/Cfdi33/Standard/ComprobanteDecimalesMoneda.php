@@ -2,6 +2,7 @@
 namespace CfdiUtils\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Nodes\NodeInterface;
+use CfdiUtils\Utils\CurrencyDecimals;
 use CfdiUtils\Validate\Assert;
 use CfdiUtils\Validate\Asserts;
 use CfdiUtils\Validate\Cfdi33\Abstracts\AbstractDiscoverableVersion33;
@@ -22,10 +23,7 @@ class ComprobanteDecimalesMoneda extends AbstractDiscoverableVersion33
     /** @var Asserts */
     private $asserts;
 
-    /** @var int */
-    private $precision;
-
-    /** @var string */
+    /** @var \CfdiUtils\Utils\CurrencyDecimals */
     private $currency;
 
     private function registerAsserts()
@@ -47,12 +45,12 @@ class ComprobanteDecimalesMoneda extends AbstractDiscoverableVersion33
         $this->asserts = $asserts;
         $this->registerAsserts();
 
-        $this->currency = $comprobante['Moneda'];
-        $precision = $this->knownCurrencyDecimals();
-        if (null === $precision) {
+        try {
+            $this->currency = CurrencyDecimals::newFromKnownCurrencies($comprobante['Moneda']);
+        } catch (\OutOfBoundsException $exception) {
+            $this->asserts->get('MONDEC01')->setExplanation($exception->getMessage());
             return;
         }
-        $this->precision = $precision;
 
         // SubTotal, Descuento, Total
         $this->validateValue('MONDEC01', $comprobante, 'SubTotal', true);
@@ -71,7 +69,11 @@ class ComprobanteDecimalesMoneda extends AbstractDiscoverableVersion33
         return $this->asserts->putStatus(
             $code,
             Status::when($this->checkValue($node, $attribute, $required)),
-            vsprintf('Valor: "%s", Moneda: "%s - %d decimales"', [$node[$attribute], $this->currency, $this->precision])
+            vsprintf('Valor: "%s", Moneda: "%s - %d decimales"', [
+                $node[$attribute],
+                $this->currency->currency(),
+                $this->currency->decimals(),
+            ])
         );
     }
 
@@ -80,21 +82,6 @@ class ComprobanteDecimalesMoneda extends AbstractDiscoverableVersion33
         if ($required && ! isset($node[$attribute])) {
             return false;
         }
-        $decimals = pathinfo($node[$attribute] ? : '0', PATHINFO_EXTENSION);
-        return (strlen($decimals) <= $this->precision);
-    }
-
-    /**
-     * @return int|null
-     */
-    private function knownCurrencyDecimals()
-    {
-        $map = [
-            'MXN' => 2,
-            'EUR' => 2,
-            'USD' => 2,
-            'XXX' => 0,
-        ];
-        return array_key_exists($this->currency, $map) ? $map[$this->currency] : null;
+        return $this->currency->doesNotExceedDecimals($node[$attribute]);
     }
 }
