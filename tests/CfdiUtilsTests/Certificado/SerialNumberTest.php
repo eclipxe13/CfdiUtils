@@ -6,6 +6,16 @@ use PHPUnit\Framework\TestCase;
 
 class SerialNumberTest extends TestCase
 {
+    public function testAsDecimalAsAscii()
+    {
+        $input = '3330303031303030303030333030303233373038';
+        $expectedDecimal = '292233162870206001759766198425879490508935868472';
+        $expectedAscii = '30001000000300023708';
+        $serial = new SerialNumber($input);
+        $this->assertSame($expectedDecimal, $serial->asDecimal());
+        $this->assertSame($expectedAscii, $serial->asAscii());
+    }
+
     /**
      * This test extends the base class to expose the visibility of serialHexToAscii method.
      *

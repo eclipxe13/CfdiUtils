@@ -44,6 +44,11 @@ class SerialNumber
         return $this->hexToAscii($this->getHexadecimal());
     }
 
+    public function asDecimal(): string
+    {
+        return $this->baseConvert($this->getHexadecimal(), 16, 10);
+    }
+
     protected function hexToAscii(string $input): string
     {
         return array_reduce(str_split($input, 2), function (string $carry, string $value): string {
@@ -52,19 +57,21 @@ class SerialNumber
     }
 
     /**
-     * Converts any string of any base to any other base without PHP native method
-     * base_convert's double and float limitations.
+     * Converts any string of any base to any other base without
+     * PHP native method base_convert's double and float limitations.
      *
-     * @param string $numstring
-     * @param int $frombase
-     * @param int $tobase
+     * @param string $number The number to convert
+     * @param int $frombase The base number is in
+     * @param int $tobase The base to convert number to
      * @return string
-     * @source https://github.com/credomane/php_baseconvert
+     * @see https://php.net/base_convert
+     * Original author: https://github.com/credomane/php_baseconvert
      */
-    public function baseConvert(string $numstring, int $frombase, int $tobase): string
+    public function baseConvert(string $number, int $frombase, int $tobase): string
     {
-        $numstring = strtolower($numstring);
-        if (1 !== preg_match('/^[0-9a-z]+$/', $numstring)) {
+        $chars = '0123456789abcdefghijklmnopqrstuvwxyz';
+
+        if (1 !== preg_match('/^[0-9a-zA-Z]+$/', $number)) {
             throw new \UnexpectedValueException('The number to convert is not valid alphanumeric');
         }
         if ($frombase < 2 || $frombase > 36) {
@@ -73,21 +80,22 @@ class SerialNumber
         if ($tobase < 2 || $tobase > 36) {
             throw new \UnexpectedValueException('Invalid base to convert to');
         }
-        if ($tobase === $frombase) {
-            return $numstring;
-        }
-        $chars = '0123456789abcdefghijklmnopqrstuvwxyz';
+
         $fromstring = substr($chars, 0, $frombase);
-        $tostring = substr($chars, 0, $tobase);
-        $length = strlen($numstring);
-        $values = array_map(function ($char) use ($frombase, $fromstring) {
-            if (false === $number = strpos($fromstring, $char)) {
-                throw new \UnexpectedValueException(
-                    sprintf('The number to convert contains a character %s that is out of base %d', $char, $frombase)
-                );
-            }
+        if (1 !== preg_match("/^[$fromstring]+$/", $number)) {
+            throw new \UnexpectedValueException('The number to convert contains invalid chars of base ' . $fromstring);
+        }
+
+        // early exit
+        if ($tobase === $frombase) {
             return $number;
-        }, str_split($numstring));
+        }
+
+        $length = strlen($number);
+        $values = [];
+        for ($i = 0; $i < $length; $i++) {
+            $values[] = (int) stripos($fromstring, $number{$i});
+        }
 
         $result = '';
         do {
@@ -105,7 +113,7 @@ class SerialNumber
                 }
             }
             $length = $newlen;
-            $result = $tostring{$divide} . $result;
+            $result = $chars{$divide} . $result;
         } while ($newlen > 0);
 
         return $result;

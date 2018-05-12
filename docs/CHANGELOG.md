@@ -1,5 +1,7 @@
 # Version 2.4.5 2018-05-12
 - Fix: change xml namespace prefix `pagos10` to `pago10`
+- Refactor `CfdiUtils\Certificado\SerialNumber::baseConvert`
+- Add `CfdiUtils\Certificado\SerialNumber::asDecimal()`
 
 
 # Version 2.4.4 2018-05-11
