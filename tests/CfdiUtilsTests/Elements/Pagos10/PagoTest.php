@@ -19,7 +19,7 @@ class PagoTest extends TestCase
 
     public function testConstructedObject()
     {
-        $this->assertSame('pagos10:Pago', $this->element->getElementName());
+        $this->assertSame('pago10:Pago', $this->element->getElementName());
     }
 
     public function testDoctoRelacionado()

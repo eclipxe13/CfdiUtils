@@ -17,6 +17,6 @@ class DoctoRelacionadoTest extends TestCase
 
     public function testConstructedObject()
     {
-        $this->assertSame('pagos10:DoctoRelacionado', $this->element->getElementName());
+        $this->assertSame('pago10:DoctoRelacionado', $this->element->getElementName());
     }
 }

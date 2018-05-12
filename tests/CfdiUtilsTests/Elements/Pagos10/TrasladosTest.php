@@ -18,7 +18,7 @@ class TrasladosTest extends TestCase
 
     public function testGetElementName()
     {
-        $this->assertSame('pagos10:Traslados', $this->element->getElementName());
+        $this->assertSame('pago10:Traslados', $this->element->getElementName());
     }
 
     public function testAddTraslado()
@@ -52,6 +52,6 @@ class TrasladosTest extends TestCase
         );
         $this->assertSame($multiReturn, $node);
         $this->assertCount(2, $node);
-        $this->assertSame('first', $node->searchAttribute('pagos10:Traslado', 'id'));
+        $this->assertSame('first', $node->searchAttribute('pago10:Traslado', 'id'));
     }
 }

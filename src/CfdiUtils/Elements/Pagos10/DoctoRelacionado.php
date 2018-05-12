@@ -7,6 +7,6 @@ class DoctoRelacionado extends AbstractElement
 {
     public function getElementName(): string
     {
-        return 'pagos10:DoctoRelacionado';
+        return 'pago10:DoctoRelacionado';
     }
 }

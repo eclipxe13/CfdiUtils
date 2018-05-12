@@ -17,6 +17,6 @@ class TrasladoTest extends TestCase
 
     public function testGetElementName()
     {
-        $this->assertSame('pagos10:Traslado', $this->element->getElementName());
+        $this->assertSame('pago10:Traslado', $this->element->getElementName());
     }
 }

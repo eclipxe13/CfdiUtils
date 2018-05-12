@@ -7,12 +7,12 @@ class Impuestos extends AbstractElement
 {
     public function getElementName(): string
     {
-        return 'pagos10:Impuestos';
+        return 'pago10:Impuestos';
     }
 
     public function getChildrenOrder(): array
     {
-        return ['pagos10:Retenciones', 'pagos10:Traslados'];
+        return ['pago10:Retenciones', 'pago10:Traslados'];
     }
 
     public function getTraslados(): Traslados

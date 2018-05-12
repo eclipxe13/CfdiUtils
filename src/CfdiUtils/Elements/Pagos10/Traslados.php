@@ -7,7 +7,7 @@ class Traslados extends AbstractElement
 {
     public function getElementName(): string
     {
-        return 'pagos10:Traslados';
+        return 'pago10:Traslados';
     }
 
     public function addTraslado(array $attributes = []): Traslado

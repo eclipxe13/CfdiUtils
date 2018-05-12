@@ -19,23 +19,23 @@ class ImpuestosTest extends TestCase
 
     public function testConstructedObject()
     {
-        $this->assertSame('pagos10:Impuestos', $this->element->getElementName());
+        $this->assertSame('pago10:Impuestos', $this->element->getElementName());
     }
 
     public function testGetTraslados()
     {
-        $this->assertNull($this->element->searchNode('pagos10:Traslados'));
+        $this->assertNull($this->element->searchNode('pago10:Traslados'));
         $child = $this->element->getTraslados();
         $this->assertInstanceOf(Traslados::class, $child);
-        $this->assertSame($child, $this->element->searchNode('pagos10:Traslados'));
+        $this->assertSame($child, $this->element->searchNode('pago10:Traslados'));
     }
 
     public function testGetRetenciones()
     {
-        $this->assertNull($this->element->searchNode('pagos10:Retenciones'));
+        $this->assertNull($this->element->searchNode('pago10:Retenciones'));
         $child = $this->element->getRetenciones();
         $this->assertInstanceOf(Retenciones::class, $child);
-        $this->assertSame($child, $this->element->searchNode('pagos10:Retenciones'));
+        $this->assertSame($child, $this->element->searchNode('pago10:Retenciones'));
     }
 
     public function testChildrenOrder()

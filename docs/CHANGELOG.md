@@ -1,3 +1,7 @@
+# Version 2.4.5 2018-05-12
+- Fix: change xml namespace prefix `pagos10` to `pago10`
+
+
 # Version 2.4.4 2018-05-11
 - FIX: Unable to load a PEM file using filename on windows (Closes #33)
 - Do not use bcmath function to convert from decimal to hexadecimal the serial number of a certificate
@@ -38,7 +42,7 @@
 # Version 2.3.2 2018-01-29
 - Fix how total is formatted in the expression of `\CfdiUtils\ConsultaCfdiSat\RequestParameters`
     - Version 3.2 was removing zero trailing decimals instead of using 6 fixed chars
-    - Version 3.3 was not using 1 leading zero (for integers) and 1 trailing zero (for decimals) 
+    - Version 3.3 was not using 1 leading zero (for integers) and 1 trailing zero (for decimals)
 - On method `\CfdiUtils\Certificado\NodeCertificado::obtain()` change logic
   and throw exception if temporary file cannot be created
 
@@ -92,7 +96,7 @@
 # Version 2.0.1 2018-01-03
 - Small bugfixes thanks to scrutinizer-ci.com
 - Fix some docblocks
-- Travis: Build also with PHP 7.2 
+- Travis: Build also with PHP 7.2
 
 # Version 2.0.0 2018-01-01
 - This library has been changed deeply.
@@ -107,7 +111,7 @@
 
 # Version 1.0.3 2017-10-09
 - Fix a bug to read the RFC when a certificate does not contain the pattern RFC / CURP but only RFC in the
-  subject x500UniqueIdentifier field 
+  subject x500UniqueIdentifier field
 
 
 # Version 1.0.2 2017-09-28 - Thanks phpstan!
@@ -115,7 +119,7 @@
   The function previous function `throwLibXmlErrorOrMessage(string $message)` always
   throw an exception but it was not clear in the flow of `build` method.
   Now it returns a \RuntimeException and that is thrown. So it is easy for an analysis tool
-  to know that the flow has been stopped. 
+  to know that the flow has been stopped.
 - Also fix case of calls `XSLTProcessor::importStylesheet` and `XSLTProcessor::transformToXml`
 - Check with `isset` that `LibXMLError::$message` exists, phpstan was failing for this.
 

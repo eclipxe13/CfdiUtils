@@ -18,7 +18,7 @@ class PagosTest extends TestCase
 
     public function testConstructedObject()
     {
-        $this->assertSame('pagos10:Pagos', $this->element->getElementName());
+        $this->assertSame('pago10:Pagos', $this->element->getElementName());
     }
 
     public function testPagos()

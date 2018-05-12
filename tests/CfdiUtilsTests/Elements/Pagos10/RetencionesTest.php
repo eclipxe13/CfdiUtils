@@ -18,7 +18,7 @@ class RetencionesTest extends TestCase
 
     public function testGetElementName()
     {
-        $this->assertSame('pagos10:Retenciones', $this->element->getElementName());
+        $this->assertSame('pago10:Retenciones', $this->element->getElementName());
     }
 
     public function testAddRetencion()
@@ -52,6 +52,6 @@ class RetencionesTest extends TestCase
         );
         $this->assertSame($multiReturn, $node);
         $this->assertCount(2, $node);
-        $this->assertSame('first', $node->searchAttribute('pagos10:Retencion', 'id'));
+        $this->assertSame('first', $node->searchAttribute('pago10:Retencion', 'id'));
     }
 }

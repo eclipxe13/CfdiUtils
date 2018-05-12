@@ -17,6 +17,6 @@ class RetencionTest extends TestCase
 
     public function testGetElementName()
     {
-        $this->assertSame('pagos10:Retencion', $this->element->getElementName());
+        $this->assertSame('pago10:Retencion', $this->element->getElementName());
     }
 }
