@@ -3,6 +3,7 @@
 - Refactor `CfdiUtils\Certificado\SerialNumber::baseConvert`
 - Add `CfdiUtils\Certificado\SerialNumber::asDecimal()`
 - Fix `CfdiUtils\Cleaner\Cleaner` since internal `DOMDocument` can be null
+- Allow attributes `CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados`
 
 
 # Version 2.4.4 2018-05-11
