@@ -27,14 +27,6 @@ class Pago extends AbstractElement
         return $impuestos;
     }
 
-    public function multiImpuestos(array ...$elementAttributes): self
-    {
-        foreach ($elementAttributes as $attributes) {
-            $this->addImpuestos($attributes);
-        }
-        return $this;
-    }
-
     public function getElementName(): string
     {
         return 'pago10:Pago';
