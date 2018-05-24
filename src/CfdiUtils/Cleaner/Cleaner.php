@@ -148,9 +148,6 @@ class Cleaner
     {
         $query = '/cfdi:Comprobante/cfdi:Addenda';
         $addendas = $this->xpathQuery($query);
-        if ($addendas->length == 0) {
-            return;
-        }
         for ($i = 0; $i < $addendas->length; $i++) {
             $addenda = $addendas->item($i);
             $addenda->parentNode->removeChild($addenda);
@@ -171,9 +168,6 @@ class Cleaner
             return;
         }
         $schemaLocations = $this->xpathQuery("//@$xsi:schemaLocation");
-        if ($schemaLocations->length === 0) {
-            return;
-        }
         for ($s = 0; $s < $schemaLocations->length; $s++) {
             $this->removeNonSatNSschemaLocation($schemaLocations->item($s));
         }
@@ -225,9 +219,6 @@ class Cleaner
                 continue;
             }
             $nss[] = $namespace;
-        }
-        if (! count($nss)) {
-            return;
         }
         foreach ($nss as $namespace) {
             $this->removeNonSatNSNode($namespace);
