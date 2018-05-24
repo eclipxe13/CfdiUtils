@@ -29,10 +29,10 @@ class Cfdi
     /** @var string */
     private $version;
 
-    /** @var string */
+    /** @var string|null */
     private $source;
 
-    /** @var NodeInterface */
+    /** @var NodeInterface|null */
     private $node;
 
     const CFDI_NAMESPACE = 'http://www.sat.gob.mx/cfd/3';
@@ -97,6 +97,7 @@ class Cfdi
     public function getSource(): string
     {
         if (null === $this->source) {
+            // pass the document element to avoid xml header
             $this->source = $this->document->saveXML($this->document->documentElement);
         }
         return $this->source;
