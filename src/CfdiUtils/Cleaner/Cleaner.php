@@ -199,10 +199,10 @@ class Cleaner
         if ('' !== $modified) {
             $schemaLocation->nodeValue = $modified;
         } else {
-            $schemaLocation->parentNode->attributes->removeNamedItemNS(
-                $schemaLocation->namespaceURI,
-                $schemaLocation->nodeName
-            );
+            $parentElement = $schemaLocation->parentNode;
+            if ($parentElement instanceof \DOMElement) {
+                $parentElement->removeAttributeNS($schemaLocation->namespaceURI, $schemaLocation->localName);
+            }
         }
     }
 
