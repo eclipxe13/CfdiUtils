@@ -130,7 +130,7 @@ class Cleaner
     }
 
     /**
-     * Get a clone of the XML DOM Docoment of the CFDI
+     * Get a clone of the XML DOM Document of the CFDI
      *
      * @return DOMDocument
      */
@@ -162,7 +162,7 @@ class Cleaner
      */
     public function removeNonSatNSschemaLocations()
     {
-        // is weird, but xsi namespace can be declared with other prefix
+        // Do not assume that prefix for http://www.w3.org/2001/XMLSchema-instance is "xsi"
         $xsi = $this->dom()->lookupPrefix('http://www.w3.org/2001/XMLSchema-instance');
         if (! $xsi) {
             return;
