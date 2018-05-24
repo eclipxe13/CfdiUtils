@@ -1,3 +1,27 @@
+# Version 2.4.6 2018-05-24
+- Fix validation of TIPOCOMP06, it was not checking correctly.
+- Fix bug in validators that does not respect when the resolver does not have local path:
+    - `CfdiUtils\Validate\Cfdi33\Standard\TimbreFiscalDigitalSello`
+    - `CfdiUtils\Validate\Cfdi33\Xml\XmlFollowSchema`
+- Fix bug when removing a `schemaLocation` attribute in `CfdiUtils\Cleaner\Cleaner`
+- Refactor `CfdiUtils\ConsultaCfdiSat\WebService::request` and move the SOAP call
+  to a protected method, this allow better testing of the class by mocking the call
+- In `CfdiUtils\PemPrivateKey\PemPrivateKey` deprecate `isOpened` and add `isOpen`
+- In `CfdiUtils\Cfdi::getNode` use `XmlNodeUtils` instead of `XmlNodeImporter`
+- In `CfdiUtils\Cfdi::newFromString` create `new self` instead of `new static`.
+  If using `new static` the constructor might be different and it would fail.
+- In `CfdiUtils\CfdiVersion::fromXmlString` it no longer create a Cfdi object,
+  it will just create a `DOMObject` and delegate to
+  `fromDOMDocument` as in `TfdVersion`.
+- Remove `CfdiUtils\Elements\Pagos10\Pago::multiImpuestos`,
+  it should never exists and must not have any use case.
+- Improve testing on:
+    - `CfdiUtils\Elements\Pagos10\Pagos`
+    - `CfdiUtils\Validate\Cfdi33\Standard\ConceptoImpuestos`
+- Improve docblocks and fix typos in several files
+- Add new parameter to development script `tests/validate.php`:
+  `--no-cache` that tell resolver to not use local cache.
+
 # Version 2.4.5 2018-05-12
 - Fix: change xml namespace prefix `pagos10` to `pago10`
 - Refactor `CfdiUtils\Certificado\SerialNumber::baseConvert`
