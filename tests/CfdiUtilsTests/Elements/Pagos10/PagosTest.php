@@ -38,4 +38,17 @@ class PagosTest extends TestCase
         $this->assertCount(2, $this->element);
         $this->assertNotSame($first, $second);
     }
+
+    public function testMultiPago()
+    {
+        $node = $this->element;
+        $this->assertCount(0, $node);
+        $multiReturn = $node->multiPago(
+            ['id' => 'first'],
+            ['id' => 'second']
+        );
+        $this->assertSame($multiReturn, $node);
+        $this->assertCount(2, $node);
+        $this->assertSame('first', $node->searchAttribute('pago10:Pago', 'id'));
+    }
 }
