@@ -45,9 +45,9 @@ class XmlResolver
 
     /**
      * Set the localPath to the specified value.
-     * If $locapPath null then the value of defaultLocalPath is used.
+     * If $localPath is null then the value of defaultLocalPath is used.
      *
-     * @param string|null $localPath values: '' => no reolve, null => default path, anything else is the path
+     * @param string|null $localPath values: '' => no resolve, null => default path, anything else is the path
      */
     public function setLocalPath(string $localPath = null)
     {
@@ -107,7 +107,7 @@ class XmlResolver
      * If it does not have a localPath then it will return the exact same resource
      *
      * @param string $resource The url
-     * @param string $type Allows XSD and XSLT
+     * @param string $type Allows XSD, XSLT and CER
      * @return string
      */
     public function resolve(string $resource, string $type = ''): string

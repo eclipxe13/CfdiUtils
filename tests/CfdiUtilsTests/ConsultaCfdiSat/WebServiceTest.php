@@ -124,4 +124,62 @@ class WebServiceTest extends TestCase
         $this->assertTrue($return->responseWasOk());
         $this->assertTrue($return->isCancelled());
     }
+
+    public function providerRequestWithBadRawResponse()
+    {
+        return [
+            'response invalid' => [
+                null,
+                'The consulta web service did not return any result',
+            ],
+            'ConsultaResult missing' => [
+                (object) [],
+                'The consulta web service did not have expected ConsultaResult',
+            ],
+            'ConsultaResult:CodigoEstatus missing' => [
+                (object) ['ConsultaResult' => []],
+                'The consulta web service did not have expected ConsultaResult:CodigoEstatus',
+            ],
+            'ConsultaResult:Estado missing' => [
+                (object) ['ConsultaResult' => ['CodigoEstatus' => '']],
+                'The consulta web service did not have expected ConsultaResult:Estado',
+            ],
+            'No exception' => [
+                (object) ['ConsultaResult' => ['CodigoEstatus' => '', 'Estado' => '']],
+                '',
+            ],
+        ];
+    }
+
+    /**
+     * @param \stdClass|null $rawResponse
+     * @param string $expectedMessage
+     * @dataProvider providerRequestWithBadRawResponse
+     */
+    public function testRequestWithBadRawResponse($rawResponse, string $expectedMessage)
+    {
+        /** @var WebService|\PHPUnit\Framework\MockObject\MockObject $webService */
+        $webService = $this->getMockBuilder(WebService::class)
+            ->setMethodsExcept(['request'])
+            ->setMethods(['doRequestConsulta'])
+            ->getMock();
+        // expects once as constraint because maybe $expectedMessage is empty
+        $webService->expects($this->once())->method('doRequestConsulta')->willReturn($rawResponse);
+
+        $validCfdi33Request = new RequestParameters(
+            '3.3',
+            'POT9207213D6',
+            'DIM8701081LA',
+            '2010.01',
+            'CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC',
+            '/OAgdg=='
+        );
+
+        if ('' !== $expectedMessage) {
+            $this->expectException(\RuntimeException::class);
+            $this->expectExceptionMessage($expectedMessage);
+        }
+
+        $webService->request($validCfdi33Request);
+    }
 }

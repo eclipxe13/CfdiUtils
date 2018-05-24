@@ -53,11 +53,11 @@ class PemPrivateKeyTest extends TestCase
         $passPhrase = '';
         $keyfile = $this->utilAsset('certs/CSD01_AAA010101AAA.key.pem');
         $privateKey = new PemPrivateKey(file_get_contents($keyfile));
-        $this->assertFalse($privateKey->isOpened());
+        $this->assertFalse($privateKey->isOpen());
         $this->assertTrue($privateKey->open($passPhrase));
-        $this->assertTrue($privateKey->isOpened());
+        $this->assertTrue($privateKey->isOpen());
         $privateKey->close();
-        $this->assertFalse($privateKey->isOpened());
+        $this->assertFalse($privateKey->isOpen());
     }
 
     public function testOpenWithBadKey()
@@ -73,7 +73,7 @@ class PemPrivateKeyTest extends TestCase
         $keyfile = $this->utilAsset('certs/CSD01_AAA010101AAA_password.key.pem');
         $privateKey = new PemPrivateKey(file_get_contents($keyfile));
         $this->assertFalse($privateKey->open($passPhrase));
-        $this->assertFalse($privateKey->isOpened());
+        $this->assertFalse($privateKey->isOpen());
     }
 
     public function testOpenWithCorrectPassPhrase()
@@ -82,28 +82,29 @@ class PemPrivateKeyTest extends TestCase
         $keyfile = $this->utilAsset('certs/CSD01_AAA010101AAA_password.key.pem');
         $privateKey = new PemPrivateKey(file_get_contents($keyfile));
         $this->assertTrue($privateKey->open($passPhrase));
-        $this->assertTrue($privateKey->isOpened());
+        $this->assertTrue($privateKey->isOpen());
     }
 
-    public function testCloneOpenedKey()
+    public function testCloneOpenKey()
     {
         $keyfile = $this->utilAsset('certs/CSD01_AAA010101AAA.key.pem');
         $privateKey = new PemPrivateKey(file_get_contents($keyfile));
         $this->assertTrue($privateKey->open(''));
 
         $cloned = clone $privateKey;
-        $this->assertFalse($cloned->isOpened());
+        $this->assertFalse($cloned->isOpen());
         $this->assertTrue($cloned->open(''));
     }
 
-    public function testSerializeOpenedKey()
+    public function testSerializeOpenKey()
     {
         $keyfile = $this->utilAsset('certs/CSD01_AAA010101AAA.key.pem');
         $privateKey = new PemPrivateKey(file_get_contents($keyfile));
         $this->assertTrue($privateKey->open(''));
 
+        /** @var PemPrivateKey $serialized */
         $serialized = unserialize(serialize($privateKey));
-        $this->assertFalse($serialized->isOpened());
+        $this->assertFalse($serialized->isOpen());
         $this->assertTrue($serialized->open(''));
     }
 
@@ -113,7 +114,7 @@ class PemPrivateKeyTest extends TestCase
         $privateKey = new PemPrivateKey(file_get_contents($keyfile));
 
         $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('The private key is not opened');
+        $this->expectExceptionMessage('The private key is not open');
         $privateKey->sign('');
     }
 
@@ -141,7 +142,7 @@ EOC;
         $privateKey = new PemPrivateKey(file_get_contents($keyfile));
 
         $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('The private key is not opened');
+        $this->expectExceptionMessage('The private key is not open');
         $privateKey->belongsTo('');
     }
 

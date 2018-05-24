@@ -115,4 +115,50 @@ class CleanerTest extends TestCase
             'Check static method for cleaning is giving the same results as detailed execution'
         );
     }
+
+    public function testRetrieveDocumentReturnDifferentInstances()
+    {
+        $cleaner = new Cleaner('<?xml version="1.0" encoding="UTF-8"?>
+            <' . 'cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version="3.3" />
+        ');
+
+        $domFirst = $cleaner->retrieveDocument();
+        $domSecond = $cleaner->retrieveDocument();
+        $this->assertNotSame($domFirst, $domSecond);
+        $this->assertXmlStringEqualsXmlString($domFirst, $domSecond);
+    }
+
+    public function testRemoveNonSatNSschemaLocationsWithNotEvenSchemaLocationContents()
+    {
+        $xmlContent = '<?xml version="1.0" encoding="UTF-8"?>
+            <' . 'cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version="3.3"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://example.com/foo http://example.com/foo.xsd http://example.com/bar"
+            />
+        ';
+        $cleaner = new Cleaner($xmlContent);
+
+        $this->expectException(CleanerException::class);
+        $this->expectExceptionMessage('must have even number of URIs');
+        $cleaner->removeNonSatNSschemaLocations();
+    }
+
+    public function testRemoveNonSatNSschemaLocationsRemoveEmptySchemaLocation()
+    {
+        $xmlContent = '<?xml version="1.0" encoding="UTF-8"?>
+            <' . 'cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version="3.3"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://example.com/foo http://example.com/foo.xsd"
+            />
+        ';
+        $xmlExpectedContent = '<?xml version="1.0" encoding="UTF-8"?>
+            <' . 'cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version="3.3"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            />
+        ';
+        $cleaner = new Cleaner($xmlContent);
+
+        $cleaner->removeNonSatNSschemaLocations();
+        $this->assertXmlStringEqualsXmlString($xmlExpectedContent, $cleaner->retrieveXml());
+    }
 }

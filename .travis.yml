@@ -20,10 +20,7 @@ env:
 
 before_script:
   - travis_retry composer install --no-interaction --prefer-dist
-  - |
-    if [[ $TRAVIS_PHP_VERSION != $FULL_BUILD_PHP_VERSION ]]; then
-        phpenv config-rm xdebug.ini
-    fi
+  - phpenv config-rm xdebug.ini
 
 script:
   - mkdir -p build/tests/
@@ -32,7 +29,7 @@ script:
   - vendor/bin/php-cs-fixer fix --using-cache=no --dry-run --verbose
   - |
     if [[ $TRAVIS_PHP_VERSION == $FULL_BUILD_PHP_VERSION ]]; then
-      vendor/bin/phpunit --coverage-text --coverage-clover=build/tests/coverage.xml
+      php -dzend_extension=xdebug.so vendor/bin/phpunit --coverage-text --coverage-clover=build/tests/coverage.xml
     else
       vendor/bin/phpunit
     fi

@@ -69,23 +69,33 @@ class PemPrivateKey
         }
     }
 
+    /**
+     * @see isOpen
+     * @return bool
+     * @deprecated :3.0.0 use isOpen instead
+     */
     public function isOpened(): bool
+    {
+        return $this->isOpen();
+    }
+
+    public function isOpen(): bool
     {
         return (null !== $this->privatekey);
     }
 
-    /** @return resource|null */
-    private function getOpenedPrivateKey()
+    /** @return resource */
+    private function getOpenPrivateKey()
     {
-        if (null === $this->privatekey) {
-            throw new \RuntimeException('The private key is not opened');
+        if (! is_resource($this->privatekey)) {
+            throw new \RuntimeException('The private key is not open');
         }
         return $this->privatekey;
     }
 
     public function sign(string $data, int $algorithm = OPENSSL_ALGO_SHA256): string
     {
-        if (false === openssl_sign($data, $signature, $this->getOpenedPrivateKey(), $algorithm)) {
+        if (false === openssl_sign($data, $signature, $this->getOpenPrivateKey(), $algorithm)) {
             $signature = '';
         }
         if ('' === $signature) {
@@ -96,7 +106,7 @@ class PemPrivateKey
 
     public function belongsTo(string $pemContents): bool
     {
-        return openssl_x509_check_private_key($pemContents, $this->getOpenedPrivateKey());
+        return openssl_x509_check_private_key($pemContents, $this->getOpenPrivateKey());
     }
 
     /**

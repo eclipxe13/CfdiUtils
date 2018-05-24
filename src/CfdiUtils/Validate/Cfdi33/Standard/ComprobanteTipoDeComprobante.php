@@ -112,7 +112,7 @@ class ComprobanteTipoDeComprobante extends AbstractDiscoverableVersion33
     private function checkConceptosDoesNotHaveDescuento(NodeInterface $comprobante): bool
     {
         foreach ($comprobante->searchNodes('cfdi:Conceptos', 'cfdi:Concepto') as $concepto) {
-            if (! isset($concepto['Descuento'])) {
+            if (isset($concepto['Descuento'])) {
                 return false;
             }
         }

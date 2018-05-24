@@ -2,7 +2,7 @@
 namespace CfdiUtils;
 
 use CfdiUtils\Nodes\NodeInterface;
-use CfdiUtils\Nodes\XmlNodeImporter;
+use CfdiUtils\Nodes\XmlNodeUtils;
 use CfdiUtils\Utils\Xml;
 use DOMDocument;
 
@@ -29,10 +29,10 @@ class Cfdi
     /** @var string */
     private $version;
 
-    /** @var string */
+    /** @var string|null */
     private $source;
 
-    /** @var NodeInterface */
+    /** @var NodeInterface|null */
     private $node;
 
     const CFDI_NAMESPACE = 'http://www.sat.gob.mx/cfd/3';
@@ -68,7 +68,7 @@ class Cfdi
         $document = Xml::newDocumentContent($content);
         // populate source since it is already available
         // in this way we avoid the conversion from document to string
-        $cfdi = new static($document);
+        $cfdi = new self($document);
         $cfdi->source = $content;
         return $cfdi;
     }
@@ -97,6 +97,7 @@ class Cfdi
     public function getSource(): string
     {
         if (null === $this->source) {
+            // pass the document element to avoid xml header
             $this->source = $this->document->saveXML($this->document->documentElement);
         }
         return $this->source;
@@ -108,8 +109,7 @@ class Cfdi
     public function getNode(): NodeInterface
     {
         if (null === $this->node) {
-            $importer = new XmlNodeImporter();
-            $this->node = $importer->import($this->document->documentElement);
+            $this->node = XmlNodeUtils::nodeFromXmlElement($this->document->documentElement);
         }
         return $this->node;
     }

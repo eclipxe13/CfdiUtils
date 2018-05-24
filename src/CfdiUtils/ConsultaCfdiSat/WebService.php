@@ -58,15 +58,10 @@ class WebService
         $parameters = (object) [
             'expresionImpresa' => $requestParameters->expression(),
         ];
-        $rawResponse = $this->getSoapClient()->{'Consulta'}($parameters);
-        if (! $rawResponse instanceof \stdClass) {
+        $rawResponse = $this->doRequestConsulta($parameters);
+        if (! ($rawResponse instanceof \stdClass)) {
             throw new \RuntimeException('The consulta web service did not return any result');
         }
-        return $this->rawResultToConsultaResponse($rawResponse);
-    }
-
-    protected function rawResultToConsultaResponse(\stdClass $rawResponse): StatusResponse
-    {
         if (! isset($rawResponse->{'ConsultaResult'})) {
             throw new \RuntimeException('The consulta web service did not have expected ConsultaResult');
         }
@@ -78,5 +73,14 @@ class WebService
             throw new \RuntimeException('The consulta web service did not have expected ConsultaResult:Estado');
         }
         return new StatusResponse($result['CodigoEstatus'], $result['Estado']);
+    }
+
+    /**
+     * @param \stdClass $parameters
+     * @return null|\stdClass
+     */
+    protected function doRequestConsulta(\stdClass $parameters)
+    {
+        return $this->getSoapClient()->{'Consulta'}($parameters);
     }
 }

@@ -21,7 +21,7 @@ class PagosTest extends TestCase
         $this->assertSame('pago10:Pagos', $this->element->getElementName());
     }
 
-    public function testPagos()
+    public function testAddPago()
     {
         // object is empty
         $this->assertCount(0, $this->element);
@@ -37,5 +37,18 @@ class PagosTest extends TestCase
         $this->assertSame('second', $second['id']);
         $this->assertCount(2, $this->element);
         $this->assertNotSame($first, $second);
+    }
+
+    public function testMultiPago()
+    {
+        $node = $this->element;
+        $this->assertCount(0, $node);
+        $multiReturn = $node->multiPago(
+            ['id' => 'first'],
+            ['id' => 'second']
+        );
+        $this->assertSame($multiReturn, $node);
+        $this->assertCount(2, $node);
+        $this->assertSame('first', $node->searchAttribute('pago10:Pago', 'id'));
     }
 }
