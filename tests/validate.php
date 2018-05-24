@@ -40,7 +40,7 @@ exit(call_user_func(function (string $command, string ...$arguments): int {
             'file' => $file,
             'asserts' => $asserts->count(),
             'hasErrors' => $asserts->hasErrors() ? 'yes' : 'no',
-            'errors' => $asserts->hasErrors() ? $asserts->errors() : null,
+            'errors' => ($asserts->hasErrors()) ? $asserts->errors() : null,
             'hasWarnings' => $asserts->hasWarnings() ? 'yes' : 'no',
             'warnings' => ($asserts->hasWarnings()) ? $asserts->warnings() : null,
         ]));
