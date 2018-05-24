@@ -4,9 +4,13 @@ namespace CfdiUtils;
 use \DOMDocument;
 use \DOMElement;
 use CfdiUtils\Nodes\NodeInterface;
+use CfdiUtils\Utils\Xml;
 
 /**
  * This class provides static methods to retrieve the version attribute from a cfdi.
+ * It will not check anything but the value of the correct attribute
+ * It will not care if the cfdi is following an schema or root element's name
+ *
  * Possible values are always 3.2, 3.3 or empty string
  */
 class CfdiVersion
@@ -28,7 +32,8 @@ class CfdiVersion
 
     public static function fromXmlString(string $contents): string
     {
-        return Cfdi::newFromString($contents)->getVersion();
+        $document = Xml::newDocumentContent($contents);
+        return static::fromDOMDocument($document);
     }
 
     private static function evaluate(string $v32, string $v33): string
