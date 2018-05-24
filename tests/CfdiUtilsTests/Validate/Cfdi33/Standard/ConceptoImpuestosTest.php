@@ -62,7 +62,7 @@ class ConceptoImpuestosTest extends ValidateTestCase
      * @param string|null $importe
      * @dataProvider providerTrasladoTipoFactorExento
      */
-    public function testTrasladosTipoFactorInvalidCase($tasaOCuota, $importe)
+    public function testTrasladoTipoFactorExentoInvalidCase($tasaOCuota, $importe)
     {
         $comprobante = $this->validComprobante();
         $comprobante->addConcepto()->addTraslado([
@@ -77,9 +77,9 @@ class ConceptoImpuestosTest extends ValidateTestCase
     public function providerTrasladosTipoFactorTasaOCuotaInvalidCase()
     {
         return $this->providerFullJoin(
-            [['Tasa'], ['Cuota']],
-            [[''], [null]],
-            [[''], [null]]
+            [['Tasa'], ['Cuota']], // tipoFactor
+            [['1'], [''], [null]], // tasaOCuota
+            [[''], [null]]  // importe
         );
     }
 
