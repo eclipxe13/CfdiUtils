@@ -50,7 +50,7 @@ class XmlFollowSchema extends AbstractVersion33 implements
 
         // validate using resolver->retriever or using the simple method
         try {
-            if ($this->hasXmlResolver()) {
+            if ($this->hasXmlResolver() && $this->getXmlResolver()->hasLocalPath()) {
                 $this->validateUsingRetriever($schemaValidator);
             } else {
                 if (! $schemaValidator->validate()) {
