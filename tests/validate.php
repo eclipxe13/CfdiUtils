@@ -20,8 +20,13 @@ exit(call_user_func(function (string $command, string ...$arguments): int {
     $files = array_filter($files);
 
     if ($askForHelp || ! count($files)) {
-        echo basename($command) . ' [-h|--help] file_1.xml, file_2.xml, file_n.xml', PHP_EOL;
-        echo '  WARNING: This can change at any time! Do not depend on this file or its results!', PHP_EOL;
+        echo implode(PHP_EOL, [
+            basename($command) . ' [-h|--help] [--no-cache] cfdi.xml...',
+            '  -h, --help   Show this help',
+            '  --no-cache   Tell resolver to not use local cache',
+            "  cfdi.xml     Files to check, as many as needed, don't allow wilcards",
+            '  WARNING: This program can change at any time! Do not depend on this file or its results!',
+        ]), PHP_EOL;
         return 0;
     }
 
