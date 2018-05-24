@@ -38,6 +38,7 @@ exit(call_user_func(function (string $command, string ...$arguments): int {
         $asserts = $validator->validateXml(file_get_contents($file));
         print_r(array_filter([
             'file' => $file,
+            'asserts' => $asserts->count(),
             'hasErrors' => $asserts->hasErrors() ? 'yes' : 'no',
             'errors' => $asserts->hasErrors() ? $asserts->errors() : null,
             'hasWarnings' => $asserts->hasWarnings() ? 'yes' : 'no',
