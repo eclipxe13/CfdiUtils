@@ -5,10 +5,15 @@ require __DIR__ . '/bootstrap.php';
 exit(call_user_func(function (string $command, string ...$arguments): int {
     $files = [];
     $askForHelp = false;
+    $noCache = false;
     foreach ($arguments as $argument) {
         if (in_array($argument, ['-h', '--help'])) {
             $askForHelp = true;
             break; // no need to continue with other arguments
+        }
+        if ($argument === '--no-cache') {
+            $noCache = true;
+            break;
         }
         $files[] = $argument;
     }
@@ -21,6 +26,9 @@ exit(call_user_func(function (string $command, string ...$arguments): int {
     }
 
     $validator = new \CfdiUtils\CfdiValidator33();
+    if ($noCache) {
+        $validator->getXmlResolver()->setLocalPath('');
+    }
     foreach ($files as $file) {
         $asserts = $validator->validateXml(file_get_contents($file));
         print_r(array_filter([
