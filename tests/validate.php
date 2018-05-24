@@ -27,8 +27,8 @@ exit(call_user_func(function (string $command, string ...$arguments): int {
             'file' => $file,
             'hasErrors' => $asserts->hasErrors() ? 'yes' : 'no',
             'errors' => $asserts->hasErrors() ? $asserts->errors() : null,
-            'hasWarnings' => $asserts->hasErrors() ? 'yes' : 'no',
-            'warnings' => $asserts->hasErrors() ? $asserts->warnings() : null,
+            'hasWarnings' => $asserts->hasWarnings() ? 'yes' : 'no',
+            'warnings' => ($asserts->hasWarnings()) ? $asserts->warnings() : null,
         ]));
     }
 
