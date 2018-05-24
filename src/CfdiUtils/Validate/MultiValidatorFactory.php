@@ -28,9 +28,7 @@ class MultiValidatorFactory
 
     public function newReceived33(): MultiValidator
     {
-        $multiValidator = $this->newCreated33();
-        $this->addDiscovered($multiValidator, __NAMESPACE__ . '\Cfdi33\Timbre', __DIR__ . '/Cfdi33/Timbre');
-        return $multiValidator;
+        return $this->newCreated33();
     }
 
     public function addDiscovered(MultiValidator $multiValidator, string $namespacePrefix, string $directory)
