@@ -15,21 +15,29 @@
 This library provides helper objects to work with Mexican CFDI (Comprobante Fiscal Digital por Internet).
 
 The [documentation] related to this library and its API is documented inside the [GutHub Wiki][documentation]
-and is written in **spanish language** since is the language if the user.
+and is written in **spanish language** since is the language of the intented audience.
 
-Main features:
+**Warning: this project will be migrated to `phpcfdi/cfdiutils`, don't a date yet**
+
+**Atención: este proyecto se migrará a `phpcfdi/cfdiutils`, aun no hay fecha planeada**
+
+## Main features:
+
 - Create CFDI version 3.3 based on a friendly extendable non-xml objects (`nodes`)
 - Read CFDI version 3.2 and 3.3
 - Validate CFDI version 3.3 against schemas, cfdi signature (`Sello`) and custom rules
 - Validate that the Timbre Fiscal Digital signature match with the CFDI 3.3,
-  if not then the document was modified after signature. 
+  if not then the document was modified after signature.
+- Validate the "Complemento de recepción de pagos"
 - Helper objects to deal with:
     - `Cadena de origen` generation
     - Extract information from CER files or `Certificado` attribute
     - Calculate `Comprobante` sums based on the list of `Conceptos`
     - Retrieve the CFDI version information
-- Keep a local copy of the three of XSD and XSLT file dependences from SAT
-- Check the SAT WebService to get the status of a CDI ('Activo', 'Candelado' & 'No encontrado') 
+- Keep a local copy of the tree of XSD and XSLT file dependences from SAT
+- Keep a local copy of certificates to avoid download them each time
+- Check the SAT WebService to get the status of a CDI ('Activo', 'Cancelado' & 'No encontrado') 
+
 
 ## Installation
 
@@ -47,6 +55,9 @@ composer require eclipxe/cfdiutils
     - Rename `\CfdiUtils\CadenaOrigen\CadenaOrigenBuilder` to `\CfdiUtils\CadenaOrigen\DOMBuilder`
     - Rename `\CfdiUtils\CadenaOrigen\DefaultLocations` to `\CfdiUtils\CadenaOrigen\CfdiDefaultLocations`
     - Remove `\CfdiUtils\CadenaOrigen\CadenaOrigenLocations`
+    - Remove `\CfdiUtils\PemPrivateKey\PemPrivateKey::isOpened` to `\CfdiUtils\PemPrivateKey\PemPrivateKey::isOpen`
+    
+It could be possible that version 3 will be migrated to a different project under the group [PhpCfdi]
 
 
 ## PHP Support
@@ -71,6 +82,7 @@ and licensed for use under the MIT License (MIT). Please see [LICENSE][] for mor
 [changelog]: https://github.com/eclipxe13/CfdiUtils/blob/master/docs/CHANGELOG.md
 [todo]: https://github.com/eclipxe13/CfdiUtils/blob/master/docs/TODO.md
 [documentation]: https://github.com/eclipxe13/CfdiUtils/wiki
+[phpcfdi]: https://github.com/phpCfdi
 
 [source]: https://github.com/eclipxe13/CfdiUtils
 [gitter]: https://gitter.im/eclipxe13/php-cfdi
