@@ -24,6 +24,15 @@ class Certificado
      */
     private $pemContents;
 
+    /**
+     * Certificado constructor.
+     *
+     * @param string $filename
+     * @throws \UnexpectedValueException when the file does not exists or is not readable
+     * @throws \UnexpectedValueException when cannot read the certificate file or is empty
+     * @throws \RuntimeException when cannot parse the certificate file or is empty
+     * @throws \RuntimeException when cannot get serialNumberHex or serialNumber from certificate
+     */
     public function __construct(string $filename)
     {
         $this->assertFileExists($filename);
