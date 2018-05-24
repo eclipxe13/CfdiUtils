@@ -21,7 +21,7 @@ class PagosTest extends TestCase
         $this->assertSame('pago10:Pagos', $this->element->getElementName());
     }
 
-    public function testPagos()
+    public function testAddPago()
     {
         // object is empty
         $this->assertCount(0, $this->element);
