@@ -158,13 +158,13 @@ class WebServiceTest extends TestCase
      */
     public function testRequestWithBadRawResponse($rawResponse, string $expectedMessage)
     {
-        /** @var WebService|\PHPUnit\Framework\MockObject\MockObject $mock */
-        $mock = $this->getMockBuilder(WebService::class)
+        /** @var WebService|\PHPUnit\Framework\MockObject\MockObject $webService */
+        $webService = $this->getMockBuilder(WebService::class)
             ->setMethodsExcept(['request'])
             ->setMethods(['doRequestConsulta'])
             ->getMock();
         // expects once as constraint because maybe $expectedMessage is empty
-        $mock->expects($this->once())->method('doRequestConsulta')->willReturn($rawResponse);
+        $webService->expects($this->once())->method('doRequestConsulta')->willReturn($rawResponse);
 
         $validCfdi33Request = new RequestParameters(
             '3.3',
@@ -180,6 +180,6 @@ class WebServiceTest extends TestCase
             $this->expectExceptionMessage($expectedMessage);
         }
 
-        $mock->request($validCfdi33Request);
+        $webService->request($validCfdi33Request);
     }
 }
