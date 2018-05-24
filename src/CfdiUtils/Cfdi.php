@@ -68,7 +68,7 @@ class Cfdi
         $document = Xml::newDocumentContent($content);
         // populate source since it is already available
         // in this way we avoid the conversion from document to string
-        $cfdi = new static($document);
+        $cfdi = new self($document);
         $cfdi->source = $content;
         return $cfdi;
     }
