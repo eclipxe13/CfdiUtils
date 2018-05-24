@@ -21,6 +21,7 @@
 - Improve docblocks and fix typos in several files
 - Add new parameter to development script `tests/validate.php`:
   `--no-cache` that tell resolver to not use local cache.
+- Improve travis disabling xdebug always and only use it in phpunit code coverage
 
 # Version 2.4.5 2018-05-12
 - Fix: change xml namespace prefix `pagos10` to `pago10`
