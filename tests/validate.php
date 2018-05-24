@@ -7,7 +7,7 @@ exit(call_user_func(function (string $command, string ...$arguments): int {
     $askForHelp = false;
     $noCache = false;
     foreach ($arguments as $argument) {
-        if (in_array($argument, ['-h', '--help'])) {
+        if (in_array($argument, ['-h', '--help'], true)) {
             $askForHelp = true;
             break; // no need to continue with other arguments
         }
