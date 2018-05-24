@@ -2,7 +2,7 @@
 namespace CfdiUtils;
 
 use CfdiUtils\Nodes\NodeInterface;
-use CfdiUtils\Nodes\XmlNodeImporter;
+use CfdiUtils\Nodes\XmlNodeUtils;
 use CfdiUtils\Utils\Xml;
 use DOMDocument;
 
@@ -108,8 +108,7 @@ class Cfdi
     public function getNode(): NodeInterface
     {
         if (null === $this->node) {
-            $importer = new XmlNodeImporter();
-            $this->node = $importer->import($this->document->documentElement);
+            $this->node = XmlNodeUtils::nodeFromXmlElement($this->document->documentElement);
         }
         return $this->node;
     }
