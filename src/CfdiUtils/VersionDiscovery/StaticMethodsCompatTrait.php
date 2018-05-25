@@ -4,7 +4,6 @@ namespace CfdiUtils\VersionDiscovery;
 use \DOMDocument;
 use \DOMElement;
 use CfdiUtils\Nodes\NodeInterface;
-use CfdiUtils\Utils\Xml;
 
 /**
  * @internal Use for compatibility
@@ -20,7 +19,7 @@ trait StaticMethodsCompatTrait
      */
     public static function fromDOMElement(DOMElement $element): string
     {
-        return static::createDiscoverer()->discover(new DomElementContainer($element));
+        return static::createDiscoverer()->getFromDOMElement($element);
     }
 
     /**
@@ -30,7 +29,7 @@ trait StaticMethodsCompatTrait
      */
     public static function fromDOMDocument(DOMDocument $document): string
     {
-        return static::fromDOMElement($document->documentElement);
+        return static::createDiscoverer()->getFromDOMDocument($document);
     }
 
     /**
@@ -40,7 +39,7 @@ trait StaticMethodsCompatTrait
      */
     public static function fromNode(NodeInterface $node): string
     {
-        return static::createDiscoverer()->discover(new NodeContainer($node));
+        return static::createDiscoverer()->getFromNode($node);
     }
 
     /**
@@ -50,6 +49,6 @@ trait StaticMethodsCompatTrait
      */
     public static function fromXmlString(string $contents): string
     {
-        return static::fromDOMDocument(Xml::newDocumentContent($contents));
+        return static::createDiscoverer()->getFromXmlString($contents);
     }
 }
