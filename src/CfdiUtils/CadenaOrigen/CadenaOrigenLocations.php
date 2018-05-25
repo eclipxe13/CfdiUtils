@@ -61,7 +61,7 @@ class CadenaOrigenLocations
 
     public function getXsltLocationFromXml(string $cfdiContent): string
     {
-        $cfdiVersion = CfdiVersion::fromXmlString($cfdiContent);
+        $cfdiVersion = (new CfdiVersion())->getFromXmlString($cfdiContent);
         $xsltLocation = $this->getXsltLocation($cfdiVersion);
         if ('' === $xsltLocation) {
             throw new \RuntimeException('Cannot get a xslt location from the document');

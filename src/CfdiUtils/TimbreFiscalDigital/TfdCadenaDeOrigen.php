@@ -30,7 +30,7 @@ class TfdCadenaDeOrigen implements XmlResolverPropertyInterface, XsltBuilderProp
 
         // obtain version if it was not set
         if ('' === $version) {
-            $version = TfdVersion::fromXmlString($tdfXmlString);
+            $version = (new TfdVersion())->getFromXmlString($tdfXmlString);
         }
 
         // get remote location of the xslt
