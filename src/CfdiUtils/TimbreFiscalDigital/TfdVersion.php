@@ -1,42 +1,32 @@
 <?php
 namespace CfdiUtils\TimbreFiscalDigital;
 
-use CfdiUtils\Nodes\NodeInterface;
-use CfdiUtils\Utils\Xml;
-use DOMDocument;
-use DOMElement;
+use CfdiUtils\VersionDiscovery\StaticMethodsCompatTrait;
+use CfdiUtils\VersionDiscovery\VersionDiscoverer;
 
-class TfdVersion
+/**
+ * This class provides static methods to retrieve the version attribute from a
+ * Timbre Fiscal Digital (TFD)
+ *
+ * It will not check anything but the value of the correct attribute
+ * It will not care if the cfdi is following an schema or element's name
+ *
+ * Possible values are always 1.0, 1.1 or empty string
+ */
+class TfdVersion extends VersionDiscoverer
 {
-    public static function fromDOMElement(DOMElement $element): string
+    use StaticMethodsCompatTrait;
+
+    protected static function createDiscoverer(): VersionDiscoverer
     {
-        return self::evaluate($element->getAttribute('version'), $element->getAttribute('Version'));
+        return new self();
     }
 
-    public static function fromDOMDocument(DOMDocument $document): string
+    public function rules(): array
     {
-        return static::fromDOMElement($document->documentElement);
-    }
-
-    public static function fromNode(NodeInterface $node): string
-    {
-        return self::evaluate($node['version'], $node['Version']);
-    }
-
-    public static function fromXmlString(string $contents): string
-    {
-        $document = Xml::newDocumentContent($contents);
-        return static::fromDOMDocument($document);
-    }
-
-    private static function evaluate(string $v10, string $v11): string
-    {
-        if ('1.1' === $v11) {
-            return '1.1';
-        }
-        if ('1.0' === $v10) {
-            return '1.0';
-        }
-        return '';
+        return [
+            '1.1' => 'Version',
+            '1.0' => 'version',
+        ];
     }
 }
