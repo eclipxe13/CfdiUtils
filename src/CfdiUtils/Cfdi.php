@@ -52,7 +52,7 @@ class Cfdi
             throw new \UnexpectedValueException('Root element is not Comprobante');
         }
 
-        $this->version = CfdiVersion::fromDOMDocument($document);
+        $this->version = (new CfdiVersion())->getFromDOMDocument($document);
         $this->document = clone $document;
     }
 

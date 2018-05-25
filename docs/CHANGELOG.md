@@ -1,3 +1,27 @@
+# Backward compatibility breaks (not released yet), plan for version 3.0
+- Remove deprecated classes:
+    - `\CfdiUtils\CadenaOrigen\CadenaOrigenBuilder`
+    - `\CfdiUtils\CadenaOrigen\DefaultLocations`
+    - `\CfdiUtils\CadenaOrigen\CadenaOrigenLocations`
+- Remove `\CfdiUtils\PemPrivateKey\PemPrivateKey::isOpened` to `\CfdiUtils\PemPrivateKey\PemPrivateKey::isOpen`
+- Remove `static` methods from `\CfdiUtils\CfdiVersion`, instead  create an instance of the class  
+- Remove `static` methods from `\CfdiUtils\TimbreFiscalDigital\TfdVersion`, instead create an instance of the class  
+
+
+# Version 2.5.0 2018-05-24
+- Add validations for `http://www.sat.gob.mx/Pagos` at namespace `\CfdiUtils\Validate\Cfdi33\RecepcionPagos`
+    This is a big change that includes more than 50 validators that work in cascade.
+    It implements almost all of the validations from the SAT "Matriz de errores".
+- Append it to `\CfdiUtils\Validate\MultiValidatorFactory`
+- Remove non existent validators discovery `Cfdi33/Timbre`
+- Move logic of version discovery to a new class, change `CfdiVersion` and `TfdVersion` to implement this logic
+- Deprecate `static` methods from `\CfdiUtils\CfdiVersion`, instead create an instance of the class
+- Deprecate `static` methods from `\CfdiUtils\TimbreFiscalDigital\TfdVersion`, instead create an instance of the class  
+- Fix deprecation notices existent docblocks
+- Update deprecation notice to README
+- Replace TODO with a more explained version
+
+
 # Version 2.4.6 2018-05-24
 - Fix validation of TIPOCOMP06, it was not checking correctly.
 - Fix bug in validators that does not respect when the resolver does not have local path:

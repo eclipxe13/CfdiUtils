@@ -52,7 +52,7 @@ class NodesSorter
      */
     public function getOrder(): array
     {
-        return array_flip($this->order);
+        return (array) array_flip($this->order);
     }
 
     /**

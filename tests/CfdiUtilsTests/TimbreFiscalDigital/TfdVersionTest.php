@@ -33,7 +33,8 @@ class TfdVersionTest extends TestCase
     public function testTfdVersion($expected, $attribute, $value)
     {
         $node = new Node('tfd', [$attribute => $value]);
-        $this->assertSame($expected, TfdVersion::fromNode($node));
-        $this->assertSame($expected, TfdVersion::fromXmlString(XmlNodeUtils::nodeToXmlString($node)));
+        $tfdVersion = new TfdVersion();
+        $this->assertSame($expected, $tfdVersion->getFromNode($node));
+        $this->assertSame($expected, $tfdVersion->getFromXmlString(XmlNodeUtils::nodeToXmlString($node)));
     }
 }

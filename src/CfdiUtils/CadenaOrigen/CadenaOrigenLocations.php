@@ -4,12 +4,12 @@ namespace CfdiUtils\CadenaOrigen;
 use CfdiUtils\CfdiVersion;
 
 /**
- * The class CadenaOrigenLocations create the CadenaOrigenLocations by transforming the XML contents
+ * The class CadenaOrigenLocations create the cadena de origen by transforming the XML contents
  * using the XSLT utilities provided by SAT.
  *
  * This class is a helps override or set the location of the xslt resource.
  *
- * @deprecated Will be removed in release 3.0
+ * @deprecated :3.0.0 it does not have any replacement
  */
 class CadenaOrigenLocations
 {
@@ -61,7 +61,7 @@ class CadenaOrigenLocations
 
     public function getXsltLocationFromXml(string $cfdiContent): string
     {
-        $cfdiVersion = CfdiVersion::fromXmlString($cfdiContent);
+        $cfdiVersion = (new CfdiVersion())->getFromXmlString($cfdiContent);
         $xsltLocation = $this->getXsltLocation($cfdiVersion);
         if ('' === $xsltLocation) {
             throw new \RuntimeException('Cannot get a xslt location from the document');

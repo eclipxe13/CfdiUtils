@@ -2,8 +2,8 @@
 namespace CfdiUtils\CadenaOrigen;
 
 /**
- * @deprecated Will be removed in release 3.0
  * @see CfdiDefaultLocations
+ * @deprecated :3.0.0 in favor of CfdiDefaultLocations
  */
 class DefaultLocations extends CfdiDefaultLocations
 {

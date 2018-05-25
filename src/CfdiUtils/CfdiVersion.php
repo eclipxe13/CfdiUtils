@@ -1,49 +1,32 @@
 <?php
 namespace CfdiUtils;
 
-use \DOMDocument;
-use \DOMElement;
-use CfdiUtils\Nodes\NodeInterface;
-use CfdiUtils\Utils\Xml;
+use CfdiUtils\VersionDiscovery\StaticMethodsCompatTrait;
+use CfdiUtils\VersionDiscovery\VersionDiscoverer;
 
 /**
- * This class provides static methods to retrieve the version attribute from a cfdi.
+ * This class provides static methods to retrieve the version attribute from a
+ * Comprobante Fiscal Digital por Internet (CFDI)
+ *
  * It will not check anything but the value of the correct attribute
- * It will not care if the cfdi is following an schema or root element's name
+ * It will not care if the cfdi is following an schema or element's name
  *
  * Possible values are always 3.2, 3.3 or empty string
  */
-class CfdiVersion
+class CfdiVersion extends VersionDiscoverer
 {
-    public static function fromDOMElement(DOMElement $element): string
+    use StaticMethodsCompatTrait;
+
+    protected static function createDiscoverer(): VersionDiscoverer
     {
-        return self::evaluate($element->getAttribute('version'), $element->getAttribute('Version'));
+        return new self();
     }
 
-    public static function fromDOMDocument(DOMDocument $document): string
+    public function rules(): array
     {
-        return static::fromDOMElement($document->documentElement);
-    }
-
-    public static function fromNode(NodeInterface $node): string
-    {
-        return self::evaluate($node['version'], $node['Version']);
-    }
-
-    public static function fromXmlString(string $contents): string
-    {
-        $document = Xml::newDocumentContent($contents);
-        return static::fromDOMDocument($document);
-    }
-
-    private static function evaluate(string $v32, string $v33): string
-    {
-        if ('3.3' === $v33) {
-            return '3.3';
-        }
-        if ('3.2' === $v32) {
-            return '3.2';
-        }
-        return '';
+        return [
+            '3.3' => 'Version',
+            '3.2' => 'version',
+        ];
     }
 }

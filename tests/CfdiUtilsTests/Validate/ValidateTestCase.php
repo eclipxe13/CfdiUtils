@@ -37,18 +37,44 @@ abstract class ValidateTestCase extends TestCase
         $this->hydrater->setXsltBuilder(new DOMBuilder());
     }
 
+    /**
+     * Use this function to allow code analisys tools to perform correctly
+     * @return Comprobante
+     */
+    protected function getComprobante(): Comprobante
+    {
+        /** @var Comprobante $comprobante */
+        $comprobante = $this->comprobante;
+        return $comprobante;
+    }
+
     protected function runValidate()
     {
         $this->validator->validate($this->comprobante, $this->asserts);
     }
 
-    public function assertStatusEqualsCode(Status $expected, string $code)
+    public function assertExplanationContainedInCode(string $expected, string $code)
     {
         if (! $this->asserts->exists($code)) {
             $this->fail("Did not receive actual status for code '$code', it may not exists");
             return;
         }
         $actualAssert = $this->asserts->get($code);
+        $this->assertContains($expected, $actualAssert->getExplanation());
+    }
+
+    protected function getAssertByCodeOrFail(string $code): Assert
+    {
+        if (! $this->asserts->exists($code)) {
+            $this->fail("Did not receive actual status for code '$code', it may not exists");
+            throw new \LogicException("Code $code did not exists");
+        }
+        return $this->asserts->get($code);
+    }
+
+    public function assertStatusEqualsCode(Status $expected, string $code)
+    {
+        $actualAssert = $this->getAssertByCodeOrFail($code);
         $this->assertStatusEqualsAssert($expected, $actualAssert);
     }
 
@@ -64,6 +90,16 @@ abstract class ValidateTestCase extends TestCase
     public function assertStatusEqualsStatus(Status $expected, Status $current)
     {
         $this->assertEquals($expected, $current, "Status $current does not match with status $expected");
+    }
+
+    public function assertContainsCode(string $code)
+    {
+        $this->assertTrue($this->asserts->exists($code));
+    }
+
+    public function assertNotContainsCode(string $code)
+    {
+        $this->assertFalse($this->asserts->exists($code));
     }
 
     protected function setupCfdiFile($cfdifile)
