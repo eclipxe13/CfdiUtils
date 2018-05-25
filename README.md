@@ -56,6 +56,8 @@ composer require eclipxe/cfdiutils
     - Rename `\CfdiUtils\CadenaOrigen\DefaultLocations` to `\CfdiUtils\CadenaOrigen\CfdiDefaultLocations`
     - Remove `\CfdiUtils\CadenaOrigen\CadenaOrigenLocations`
     - Remove `\CfdiUtils\PemPrivateKey\PemPrivateKey::isOpened` to `\CfdiUtils\PemPrivateKey\PemPrivateKey::isOpen`
+    - Remove `static` methods from `\CfdiUtils\CfdiVersion`, create an instance of the class  
+    - Remove `static` methods from `\CfdiUtils\TimbreFiscalDigital\TfdVersion`, create an instance of the class  
     
 It could be possible that version 3 will be migrated to a different project under the group [PhpCfdi]
 
