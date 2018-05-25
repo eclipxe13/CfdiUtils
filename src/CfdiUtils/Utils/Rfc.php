@@ -136,7 +136,7 @@ class Rfc
         $strdate = (string) mb_substr($rfc, $begin, 6);
         $parts = str_split($strdate, 2);
         // year 2000 is leap year (%4 & %100 & %400)
-        $date = mktime(0, 0, 0, $parts[1], $parts[2], '20' . $parts[0]);
+        $date = mktime(0, 0, 0, (int) $parts[1], (int) $parts[2], (int) ('20' . $parts[0]));
         if (false === $date) {
             return 0;
         }
