@@ -14,7 +14,7 @@
 
 This library provides helper objects to work with Mexican CFDI (Comprobante Fiscal Digital por Internet).
 
-The [documentation] related to this library and its API is documented inside the [GutHub Wiki][documentation]
+The [documentation] related to this library and its API is documented inside the [GitHub Wiki][documentation]
 and is written in **spanish language** since is the language of the intented audience.
 
 **Warning: this project will be migrated to `phpcfdi/cfdiutils`, don't a date yet**
