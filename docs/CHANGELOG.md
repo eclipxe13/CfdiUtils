@@ -8,6 +8,15 @@
 - Remove `static` methods from `\CfdiUtils\TimbreFiscalDigital\TfdVersion`, instead create an instance of the class  
 
 
+# Version 2.5.1 2018-06-26
+- Fix edge case for validations `SELLO03` and `SELLO04` on `SelloDigitalCertificado`.
+  In some cases, the authority does not require a certificate from emisor and uses one certificate for its own.
+  Therefore, the `Rfc` and `Nombre` of the `Emisor` does not match with the certificate. This produces a false error.
+  To avoid this issue, the validation of `Rfc` and `Nombre` matching with the certificate data must not perform when:
+    * The `cfdi:Comprobante@NoCertificado` is the same as the `tfd:TimbreFiscalDigital@NoCertificadoSAT`
+    * The "complemento" `registrofiscal:CFDIRegistroFiscal` exists
+
+
 # Version 2.5.0 2018-05-24
 - Add validations for `http://www.sat.gob.mx/Pagos` at namespace `\CfdiUtils\Validate\Cfdi33\RecepcionPagos`
     This is a big change that includes more than 50 validators that work in cascade.
