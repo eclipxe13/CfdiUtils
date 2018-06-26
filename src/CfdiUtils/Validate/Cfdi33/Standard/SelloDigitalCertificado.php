@@ -77,11 +77,20 @@ class SelloDigitalCertificado extends AbstractDiscoverableVersion33 implements
 
         // start validations
         $this->validateNoCertificado($comprobante['NoCertificado']);
-        $this->validateRfc($comprobante->searchAttribute('cfdi:Emisor', 'Rfc'));
-        if (null !== $emisor = $comprobante->searchNode('cfdi:Emisor')) {
-            if (isset($emisor['Nombre'])) {
-                $this->validateNombre($emisor['Nombre']);
-            }
+        $hasRegistroFiscal = $comprobante->searchNodes(
+            'cfdi:Complemento',
+            'registrofiscal:CFDIRegistroFiscal'
+        )->count() > 0;
+        $noCertificadoSAT = $comprobante->searchAttribute(
+            'cfdi:Complemento',
+            'tfd:TimbreFiscalDigital',
+            'NoCertificadoSAT'
+        );
+        if (! $hasRegistroFiscal || $comprobante['NoCertificado'] !== $noCertificadoSAT) {
+            // validate emisor rfc
+            $this->validateRfc($comprobante->searchAttribute('cfdi:Emisor', 'Rfc'));
+            // validate emisor nombre
+            $this->validateNombre($comprobante->searchAttribute('cfdi:Emisor', 'Nombre'));
         }
         $this->validateFecha($comprobante['Fecha']);
 
