@@ -21,13 +21,13 @@ interface NodeInterface extends \ArrayAccess, \Countable, \IteratorAggregate
     public function searchAttribute(string ...$searchPath): string;
 
     /**
-     * @param string[] ...$searchPath
-     * @return Nodes|NodeInterface[]
+     * @param string ...$searchPath
+     * @return Nodes
      */
     public function searchNodes(string ...$searchPath): Nodes;
 
     /**
-     * @param string[] ...$searchPath
+     * @param string ...$searchPath
      * @return NodeInterface|null
      */
     public function searchNode(string ...$searchPath);
