@@ -9,9 +9,10 @@ class CfdiCreatorToStringTest extends TestCase
     public function testWhenCastingToStringWithExceptionOnlyReturnsAnEmptyString()
     {
         /** @var CfdiCreator33|\PHPunit\Framework\MockObject\MockObject $cfdiCreator */
-        $cfdiCreator = $this->$this->getMockBuilder(CfdiCreator33::class)
+        $cfdiCreator = $this->getMockBuilder(CfdiCreator33::class)
             ->setMethods(['asXml'])
             ->getMock();
+
 
         $cfdiCreator->method('asXml')->willThrowException(new \RuntimeException('exception'));
 
