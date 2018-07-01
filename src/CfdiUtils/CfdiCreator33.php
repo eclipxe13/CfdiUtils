@@ -161,4 +161,16 @@ class CfdiCreator33 implements
 
         return $asserts;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        try {
+            return $this->asXml();
+        } catch (\Throwable $ex) {
+            return '';
+        }
+    }
 }
