@@ -3,6 +3,8 @@ namespace CfdiUtils;
 
 use CfdiUtils\Nodes\NodeInterface;
 use CfdiUtils\Nodes\XmlNodeUtils;
+use CfdiUtils\QuickReader\QuickReader;
+use CfdiUtils\QuickReader\QuickReaderImporter;
 use CfdiUtils\Utils\Xml;
 use DOMDocument;
 
@@ -34,6 +36,9 @@ class Cfdi
 
     /** @var NodeInterface|null */
     private $node;
+
+    /** @var QuickReader|null */
+    private $quickReader;
 
     const CFDI_NAMESPACE = 'http://www.sat.gob.mx/cfd/3';
 
@@ -112,5 +117,14 @@ class Cfdi
             $this->node = XmlNodeUtils::nodeFromXmlElement($this->document->documentElement);
         }
         return $this->node;
+    }
+
+    public function getQuickReader(): QuickReader
+    {
+        if (null === $this->quickReader) {
+            $this->quickReader = (new QuickReaderImporter())->importDocument($this->document);
+        }
+
+        return $this->quickReader;
     }
 }
