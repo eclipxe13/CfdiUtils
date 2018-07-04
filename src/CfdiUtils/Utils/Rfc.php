@@ -15,11 +15,19 @@ class Rfc
     /** @var int */
     private $length;
 
+    /** @var string contains calculated checksum */
+    private $checkSum;
+
+    /** @var bool */
+    private $checkSumMatch;
+
     public function __construct(string $rfc, int $flags = 0)
     {
         $this->checkIsValid($rfc, $flags);
         $this->rfc = $rfc;
-        $this->length = mb_strlen($this->rfc);
+        $this->length = mb_strlen($rfc);
+        $this->checkSum = static::obtainCheckSum($rfc);
+        $this->checkSumMatch = ($this->checkSum === (string) substr($rfc, -1));
     }
 
     public function rfc(): string
@@ -45,6 +53,16 @@ class Rfc
     public function isForeign(): bool
     {
         return (static::RFC_FOREIGN === $this->rfc);
+    }
+
+    public function checkSum(): string
+    {
+        return $this->checkSum;
+    }
+
+    public function checkSumMatch(): bool
+    {
+        return $this->checkSumMatch;
     }
 
     public function __toString(): string
@@ -90,13 +108,6 @@ class Rfc
         }
         if (0 === static::obtainDate($value)) {
             throw new \UnexpectedValueException('La fecha obtenida no es lógica');
-        }
-        if (! in_array($value, [static::RFC_FOREIGN, static::RFC_GENERIC], true)) {
-            $last = substr($value, -1);
-            $expected = static::obtainCheckSum($value);
-            if ($last !== $expected) {
-                throw new \UnexpectedValueException("El dígito verificador no coincide, debería ser $expected");
-            }
         }
     }
 
