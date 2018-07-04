@@ -9,14 +9,14 @@ class QuickReader extends \stdClass implements \ArrayAccess
     /** @var string[] */
     protected $attributes;
 
-    /** @var self[] */
+    /** @var static[] */
     protected $children;
 
     /**
      * QuickReader constructor.
      * @param string $name
      * @param string[] $attributes
-     * @param self[] $children
+     * @param static[] $children
      */
     public function __construct(string $name, array $attributes = [], array $children = [])
     {
@@ -48,7 +48,7 @@ class QuickReader extends \stdClass implements \ArrayAccess
 
     /**
      * @param string $name
-     * @return self[]
+     * @return static[]
      */
     public function __invoke(string $name = ''): array
     {
@@ -60,7 +60,11 @@ class QuickReader extends \stdClass implements \ArrayAccess
         });
     }
 
-    public function __get(string $name): self
+    /**
+     * @param string $name
+     * @return static|null
+     */
+    public function __get(string $name)
     {
         $child = $this->getChildByName($name);
         if (null === $child) {
@@ -77,7 +81,7 @@ class QuickReader extends \stdClass implements \ArrayAccess
 
     /**
      * @param string $name
-     * @return self|null
+     * @return static|null
      */
     protected function getChildByName(string $name)
     {
@@ -92,7 +96,7 @@ class QuickReader extends \stdClass implements \ArrayAccess
 
     public function __isset(string $name): bool
     {
-        return $this->getChildByName($name) instanceof self;
+        return $this->getChildByName($name) instanceof static;
     }
 
     /**
