@@ -164,14 +164,15 @@ class SumasConceptosWriterTest extends TestCase
     public function testDescuentoNotSetIfAllConceptosDoesNotHaveDescuento()
     {
         $comprobante = new Comprobante(['Descuento' => '']); // set value with discount
-        $comprobante->addConcepto([]); // first concepto does not have Descuento
-        $comprobante->addConcepto(); // second concepto has Descuento
+        $comprobante->addConcepto(); // first concepto does not have Descuento
+        $comprobante->addConcepto(); // second concepto does not have Descuento neither
 
         $precision = 2;
         $sumasConceptos = new SumasConceptos($comprobante, $precision);
         $writer = new SumasConceptosWriter($comprobante, $sumasConceptos, $precision);
         $writer->put();
 
+        // the Comprobante@Descuento attribute must not exists since there is no Descuento in concepts
         $this->assertFalse(isset($comprobante['Descuento']));
     }
 }
