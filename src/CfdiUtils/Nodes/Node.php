@@ -79,10 +79,6 @@ class Node implements NodeInterface
         return (null !== $node) ? $node[$attribute] : '';
     }
 
-    /**
-     * @param string[] ...$searchPath
-     * @return Nodes|NodeInterface[]
-     */
     public function searchNodes(string ...$searchPath): Nodes
     {
         $nodes = new Nodes();
@@ -98,10 +94,6 @@ class Node implements NodeInterface
         return $nodes;
     }
 
-    /**
-     * @param string[] ...$searchPath
-     * @return NodeInterface|null
-     */
     public function searchNode(string ...$searchPath)
     {
         $node = $this;
