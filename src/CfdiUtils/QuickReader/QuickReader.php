@@ -20,9 +20,22 @@ class QuickReader extends \stdClass implements \ArrayAccess
      */
     public function __construct(string $name, array $attributes = [], array $children = [])
     {
-        // TODO: validate name
-        // TODO: validate children
-        // TODO: validate attributes
+        if ('' === $name) {
+            throw new \LogicException('Property name cannot be empty');
+        }
+        foreach ($attributes as $key => $value) {
+            if (! is_string($key) || $key === '') {
+                throw new \LogicException('There is an attibute with empty or non string name');
+            }
+            if (! is_string($value)) {
+                throw new \LogicException("The attribute '$key' has a non string value");
+            }
+        }
+        foreach ($children as $index => $child) {
+            if (! $child instanceof static) {
+                throw new \LogicException("The child $index is not an instance of " . static::class);
+            }
+        }
         $this->name = $name;
         $this->attributes = $attributes;
         $this->children = $children;
@@ -55,6 +68,11 @@ class QuickReader extends \stdClass implements \ArrayAccess
         }
 
         return $child;
+    }
+
+    public function __set($name, $value)
+    {
+        throw new \LogicException('Cannot change children');
     }
 
     /**
@@ -94,14 +112,12 @@ class QuickReader extends \stdClass implements \ArrayAccess
 
     public function offsetExists($name): bool
     {
-        // TODO: validar que sea name string
-        return (null !== $this->getAttributeByName($name));
+        return (null !== $this->getAttributeByName((string) $name));
     }
 
     public function offsetGet($name): string
     {
-        // TODO: validar que sea name string
-        return $this->getAttributeByName($name) ?: '';
+        return $this->getAttributeByName((string) $name) ?: '';
     }
 
     public function offsetSet($offset, $value)

@@ -10,9 +10,7 @@ class QuickReaderTest extends TestCase
     public function testMinimalInstance()
     {
         $tree = new QuickReader('foo');
-
         $this->assertSame('foo', (string) $tree);
-
         $this->assertCount(0, $tree());
     }
 
@@ -136,5 +134,44 @@ class QuickReaderTest extends TestCase
         $root = new QuickReader('root', [], [$fooA, $fooB, $fooC]);
 
         $this->assertCount(3, $root('fOO'));
+    }
+
+    public function testConstructThrowExceptionOnEmptyName()
+    {
+        $this->expectException(\LogicException::class);
+        $this->expectExceptionMessage('Property name cannot be empty');
+        new QuickReader('');
+    }
+
+    public function testConstructThrowExceptionOnInvalidAttributeName()
+    {
+        $this->expectException(\LogicException::class);
+        $this->expectExceptionMessage('There is an attibute with empty or non string name');
+        new QuickReader('foo', ['x' => 'y', '' => 'bar']);
+    }
+
+    public function testConstructThrowExceptionOnInvalidAttributeValue()
+    {
+        $this->expectException(\LogicException::class);
+        $this->expectExceptionMessage("The attribute 'bar' has a non string value");
+        /** @var string $fakeString */
+        $fakeString = new \stdClass();
+        new QuickReader('foo', ['x' => 'y', 'bar' => $fakeString]);
+    }
+
+    public function testConstructThrowExceptionOnInvalidChildren()
+    {
+        $this->expectException(\LogicException::class);
+        $this->expectExceptionMessage('The child 1 is not an instance');
+        /** @var QuickReader $fakeQuickReader */
+        $fakeQuickReader = new \stdClass();
+        new QuickReader('foo', [], [new QuickReader('1'), $fakeQuickReader]);
+    }
+
+    public function testCannotSetNewProperties()
+    {
+        $quickReader = new QuickReader('foo');
+        $this->expectException(\LogicException::class);
+        $quickReader->foo = null;
     }
 }
