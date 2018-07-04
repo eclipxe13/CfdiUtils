@@ -26,7 +26,7 @@ class BancoOrdenanteRfcCorrectoTest extends TestCase
 
     /**
      * @param string|null $rfc
-     * @testWith ["COSC8001137N1"]
+     * @testWith ["COSC8099137N1"]
      *           ["XAXX010101000"]
      *           [""]
      */

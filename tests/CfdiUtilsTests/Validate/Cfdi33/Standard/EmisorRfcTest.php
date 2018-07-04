@@ -45,10 +45,9 @@ class EmisorRfcTest extends ValidateTestCase
         return [
             'none' => [null],
             'empty' => [''],
-            'wrong' => ['COSC8001137N0'],
+            'wrong' => ['COSC8099137NA'],
             'generic' => [Rfc::RFC_GENERIC],
             'foreign' => [Rfc::RFC_FOREIGN],
-            'testing' => ['AAA010101AAA'],
         ];
     }
 

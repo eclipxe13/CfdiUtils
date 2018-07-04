@@ -47,7 +47,7 @@ class ReceptorRfcTest extends ValidateTestCase
         return [
             'none' => [null],
             'empty' => [''],
-            'wrong' => ['COSC8001137N0'],
+            'wrong' => ['COSC8099137NA'],
         ];
     }
 

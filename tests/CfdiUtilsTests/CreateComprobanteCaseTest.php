@@ -111,9 +111,6 @@ class CreateComprobanteCaseTest extends TestCase
         // validate the comprobante and check it has no errors or warnings
         $asserts = $creator->validate();
 
-        // EMISORRFC01 - The RFC AAA010101AAA used for testing is not valid !
-        $asserts->removeByCode('EMISORRFC01');
-
         $this->assertFalse($asserts->hasErrors());
         $this->assertFalse($asserts->hasStatus(Status::warn()));
 
