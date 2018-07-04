@@ -2,7 +2,6 @@
 namespace CfdiUtilsTests;
 
 use CfdiUtils\Cfdi;
-use CfdiUtils\Nodes\Node;
 use CfdiUtils\QuickReader\QuickReader;
 
 class CfdiQuickReaderTest extends TestCase
