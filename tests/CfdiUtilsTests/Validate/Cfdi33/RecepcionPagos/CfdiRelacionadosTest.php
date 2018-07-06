@@ -18,7 +18,7 @@ class CfdiRelacionadosTest extends ValidateComplementoPagosTestCase
     public function testValidTipoRelacion()
     {
         $comprobante = $this->getComprobante();
-        $comprobante->getCfdiRelacionados(['TipoRelacion' => '04']);
+        $comprobante->addCfdiRelacionados(['TipoRelacion' => '04']);
 
         $this->runValidate();
 
@@ -28,7 +28,7 @@ class CfdiRelacionadosTest extends ValidateComplementoPagosTestCase
     public function testInvalidTipoRelacion()
     {
         $comprobante = $this->getComprobante();
-        $comprobante->getCfdiRelacionados(['TipoRelacion' => 'XX']);
+        $comprobante->addCfdiRelacionados(['TipoRelacion' => 'XX']);
 
         $this->runValidate();
 
