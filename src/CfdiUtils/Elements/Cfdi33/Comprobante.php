@@ -24,6 +24,12 @@ class Comprobante extends AbstractElement
         return $this->getCfdiRelacionados()->addCfdiRelacionado($attributes);
     }
 
+    public function multiCfdiRelacionado(array ...$elementAttributes): self
+    {
+        $this->getCfdiRelacionados()->multiCfdiRelacionado($elementAttributes);
+        return $this;
+    }
+
     public function getEmisor(): Emisor
     {
         return $this->helperGetOrAdd(new Emisor());
