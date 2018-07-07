@@ -57,7 +57,8 @@
     "scripts": {
         "build": [
             "@fix-style",
-            "@qa"
+            "@qa",
+            "@docs"
         ],
         "check-style": [
             "vendor/bin/php-cs-fixer fix --dry-run --verbose",
@@ -70,6 +71,10 @@
         "qa": [
             "vendor/bin/phpstan.phar analyse --no-progress --level max src/ tests/",
             "@test"
+        ],
+        "docs": [
+            "node_modules/markdownlint-cli/markdownlint.js *.md docs/",
+            "mkdocs build --strict --site-dir build/docs"
         ],
         "test": [
             "vendor/bin/phplint",
