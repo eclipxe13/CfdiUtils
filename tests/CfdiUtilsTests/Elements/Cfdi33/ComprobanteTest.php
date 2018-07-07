@@ -46,6 +46,18 @@ class ComprobanteTest extends TestCase
         $this->assertCount(1, $this->element->getCfdiRelacionados());
     }
 
+    public function testMultiRelacionado()
+    {
+        $self = $this->element->multiCfdiRelacionado(
+            ['UUID' => 'FOO'],
+            ['UUID' => 'BAR']
+        );
+        $this->assertSame($this->element, $self);
+        $this->assertCount(2, $this->element->getCfdiRelacionados());
+        $this->assertSame('FOO', $this->element->getCfdiRelacionados()->children()->get(0)['UUID']);
+        $this->assertSame('BAR', $this->element->getCfdiRelacionados()->children()->get(1)['UUID']);
+    }
+
     public function testGetEmisor()
     {
         $this->assertNull($this->element->searchNode('cfdi:Emisor'));
