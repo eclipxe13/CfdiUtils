@@ -4,8 +4,9 @@
 # Do not put this files on a distribution package (by .gitignore)
 /vendor              export-ignore
 /build               export-ignore
-/wiki                export-ignore
 /composer.lock       export-ignore
+/node_modules        export-ignore
+/package-lock.json   export-ignore
 
 # Do not put this files on a distribution package
 /docs/               export-ignore
@@ -18,3 +19,6 @@
 /.travis.yml         export-ignore
 /phpcs.xml.dist      export-ignore
 /phpunit.xml.dist    export-ignore
+/mkdocs.yml          export-ignore
+/.markdownlint.json  export-ignore
+
