@@ -9,7 +9,6 @@
 /package-lock.json   export-ignore
 
 # Do not put this files on a distribution package
-/docs/               export-ignore
 /tests/              export-ignore
 /.gitattributes      export-ignore
 /.gitignore          export-ignore
