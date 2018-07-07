@@ -11,7 +11,27 @@
 - Remove `static` methods from `\CfdiUtils\TimbreFiscalDigital\TfdVersion`, instead create an instance of the class
 - Remove `trigger_error` on `\CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados` when called with arguments.
 
-## Version 2.6.0
+
+## Version 2.6.0 2018-07-06 - bugfixes, quickreader & welcome readthedocs & mkdocs
+
+- Create `QuickReader`, utility for easy navigate and extract information from a CFDI
+- Fix `Rfc` to don't throw an exception if checksum fails, SAT is not following its own standard
+- Add `Rfc::checkSum()` and `Rfc::checkSumMatch()` to know if the Rfc is following the checksum
+- Fix tests that expect Rfc checksum failure
+- Fix tests comments on `testDescuentoNotSetIfAllConceptosDoesNotHaveDescuento`
+- Fix `CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados` to don't receive a parameter.
+  - For backwards compatibility when it receive a parameter do the same thing but trigger a E_USER_NOTICE
+  - Create an special test case `ComprobanteGetCfdiRelacionadosTest` that catched the E_USER_NOTICE error
+- Add `CfdiUtils\Elements\Cfdi33\Comprobante::addCfdiRelacionados(array $attributes)`
+- Add `CfdiUtils\Elements\Cfdi33\Comprobante::multiCfdiRelacionado(array $attributes)`
+- Add tests to assert that `Comprobante/Impuestos/(Traslados/Traslado|Retenciones/Retencion)@Impuesto` is rounded
+- Minor fix at docblocks for packed arguments
+- Change all documentation to move from GitHub Wiki to ReadTheDocs <https://cfdiutils.readthedocs.io/>
+  - More documentation pages & a lot of fixes
+  - Add `.markdownlint.json` to run with `markdownlint-cli` (`node`), add to travis build process
+  - Add `mkdocs.yml` to run with `mkdocs` (`python`), add to travis build process
+  - Fix markdown files according to markdownlint
+  - Add `composer docs` and append to general `composer build`
 
 
 ## Version 2.5.1 2018-06-26
