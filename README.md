@@ -5,6 +5,7 @@
 [![Latest Version][badge-release]][release]
 [![Software License][badge-license]][license]
 [![Build Status][badge-build]][build]
+[![Source Code][badge-documentation]][documentation]
 [![Scrutinizer][badge-quality]][quality]
 [![Coverage Status][badge-coverage]][coverage]
 [![Total Downloads][badge-downloads]][downloads]
@@ -14,12 +15,11 @@
 
 This library provides helper objects to work with Mexican CFDI (Comprobante Fiscal Digital por Internet).
 
-The [documentation] related to this library and its API is documented inside the [GitHub Wiki][documentation]
+The [documentation] related to this library and its API is documented in [Read the docs][documentation]
 and is written in **spanish language** since is the language of the intented audience.
 
 **Warning: this project will be migrated to `phpcfdi/cfdiutils`, don't a date yet**
 
-**Atención: este proyecto se migrará a `phpcfdi/cfdiutils`, aun no hay fecha planeada**
 
 ## Main features
 
@@ -55,7 +55,7 @@ composer require eclipxe/cfdiutils
 - Version 3.x **future** will be released with backward compatibility breaks.
   - See [docs/CHANGELOG.md](docs/CHANGELOG.md) for backward compatibility breaks.
   - It may change to PHP 7.1
-  - It could be possible to migrate to phpcfdi/cfiutils under [phpCfdi](https://github.com/phpCfdi) organization
+  - It could be possible to migrate to phpcfdi/cfiutils under [phpCfdi][] organization
 
 
 ## PHP Support
@@ -79,10 +79,10 @@ and licensed for use under the MIT License (MIT). Please see [LICENSE][] for mor
 [contributing]: https://github.com/eclipxe13/CfdiUtils/blob/master/CONTRIBUTING.md
 [changelog]: https://github.com/eclipxe13/CfdiUtils/blob/master/docs/CHANGELOG.md
 [todo]: https://github.com/eclipxe13/CfdiUtils/blob/master/docs/TODO.md
-[documentation]: https://github.com/eclipxe13/CfdiUtils/wiki
 [phpcfdi]: https://github.com/phpCfdi
 
 [source]: https://github.com/eclipxe13/CfdiUtils
+[documentation]: https://cfdiutils.readthedocs.io/
 [gitter]: https://gitter.im/eclipxe13/php-cfdi
 [release]: https://github.com/eclipxe13/CfdiUtils/releases
 [license]: https://github.com/eclipxe13/CfdiUtils/blob/master/LICENSE
@@ -93,6 +93,7 @@ and licensed for use under the MIT License (MIT). Please see [LICENSE][] for mor
 [downloads]: https://packagist.org/packages/eclipxe/CfdiUtils
 
 [badge-source]: http://img.shields.io/badge/source-eclipxe13/CfdiUtils-blue.svg?style=flat-square
+[badge-documentation]: https://img.shields.io/readthedocs/cfdiutils/stable.svg
 [badge-gitter]: https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat-square
 [badge-release]: https://img.shields.io/github/release/eclipxe13/CfdiUtils.svg?style=flat-square
 [badge-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
