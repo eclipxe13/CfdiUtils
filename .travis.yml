@@ -6,6 +6,9 @@ php:
   - 7.1
   - 7.2
 
+before_install:
+  - nvm install 8
+
 # This triggers builds to run on the new TravisCI infrastructure.
 # See: http://docs.travis-ci.com/user/workers/container-based-infrastructure/
 sudo: false
@@ -20,6 +23,8 @@ env:
 
 before_script:
   - travis_retry composer install --no-interaction --prefer-dist
+  - travis_retry npm install
+  - travis_retry pip install --user mkdocs
   - phpenv config-rm xdebug.ini
 
 script:
@@ -34,6 +39,8 @@ script:
       vendor/bin/phpunit
     fi
   - vendor/bin/phpstan.phar --no-progress analyse --level max src/ tests/
+  - node node_modules/markdownlint-cli/markdownlint.js *.md docs/
+  - ~/.local/bin/mkdocs build --strict --site-dir build/docs
 
 after_script:
   # upload test covegare to scrutinizer

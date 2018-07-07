@@ -164,14 +164,37 @@ class SumasConceptosWriterTest extends TestCase
     public function testDescuentoNotSetIfAllConceptosDoesNotHaveDescuento()
     {
         $comprobante = new Comprobante(['Descuento' => '']); // set value with discount
-        $comprobante->addConcepto([]); // first concepto does not have Descuento
-        $comprobante->addConcepto(); // second concepto has Descuento
+        $comprobante->addConcepto(); // first concepto does not have Descuento
+        $comprobante->addConcepto(); // second concepto does not have Descuento neither
 
         $precision = 2;
         $sumasConceptos = new SumasConceptos($comprobante, $precision);
         $writer = new SumasConceptosWriter($comprobante, $sumasConceptos, $precision);
         $writer->put();
 
+        // the Comprobante@Descuento attribute must not exists since there is no Descuento in concepts
         $this->assertFalse(isset($comprobante['Descuento']));
+    }
+
+    public function testOnComplementoImpuestosImporteSumIsRounded()
+    {
+        $comprobante = new Comprobante();
+        $comprobante->addConcepto()->addTraslado(
+            ['Importe' => '7.777777', 'Impuesto' => '002', 'TipoFactor' => 'Tasa', 'TasaOCuota' => '0.160000']
+        );
+        $comprobante->addConcepto()->addTraslado(
+            ['Importe' => '2.222222', 'Impuesto' => '002', 'TipoFactor' => 'Tasa', 'TasaOCuota' => '0.160000']
+        );
+
+        $precision = 3;
+        $sumasConceptos = new SumasConceptos($comprobante, $precision);
+        $writer = new SumasConceptosWriter($comprobante, $sumasConceptos, $precision);
+        $writer->put();
+
+        $this->assertSame('10.000', $comprobante->searchAttribute('cfdi:Impuestos', 'TotalImpuestosTrasladados'));
+        $this->assertSame(
+            '10.000',
+            $comprobante->searchAttribute('cfdi:Impuestos', 'cfdi:Traslados', 'cfdi:Traslado', 'Importe')
+        );
     }
 }

@@ -16,4 +16,12 @@ class CfdiRelacionados extends AbstractElement
         $this->addChild($cfdiRelacionado);
         return $cfdiRelacionado;
     }
+
+    public function multiCfdiRelacionado(array $elementAttributes = []): self
+    {
+        foreach ($elementAttributes as $attributes) {
+            $this->addCfdiRelacionado($attributes);
+        }
+        return $this;
+    }
 }

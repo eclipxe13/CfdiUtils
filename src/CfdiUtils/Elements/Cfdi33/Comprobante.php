@@ -14,14 +14,39 @@ class Comprobante extends AbstractElement
         return 'cfdi:Comprobante';
     }
 
-    public function getCfdiRelacionados(array $attributes = []): CfdiRelacionados
+    /**
+     * @todo Remove this deprecation error on version 3.0.0
+     * @return CfdiRelacionados
+     */
+    public function getCfdiRelacionados(): CfdiRelacionados
     {
-        return $this->helperGetOrAdd(new CfdiRelacionados($attributes));
+        $arguments = func_get_args();
+        if (count($arguments) > 0) {
+            trigger_error(
+                'El método getCfdiRelacionados ya no admite atributos, use addCfdiRelacionados en su lugar',
+                E_USER_NOTICE
+            );
+            return $this->addCfdiRelacionados($arguments[0]);
+        }
+        return $this->helperGetOrAdd(new CfdiRelacionados());
+    }
+
+    public function addCfdiRelacionados(array $attributes = []): CfdiRelacionados
+    {
+        $cfdiRelacionados = $this->getCfdiRelacionados();
+        $cfdiRelacionados->addAttributes($attributes);
+        return $cfdiRelacionados;
     }
 
     public function addCfdiRelacionado(array $attributes = []): CfdiRelacionado
     {
         return $this->getCfdiRelacionados()->addCfdiRelacionado($attributes);
+    }
+
+    public function multiCfdiRelacionado(array ...$elementAttributes): self
+    {
+        $this->getCfdiRelacionados()->multiCfdiRelacionado($elementAttributes);
+        return $this;
     }
 
     public function getEmisor(): Emisor

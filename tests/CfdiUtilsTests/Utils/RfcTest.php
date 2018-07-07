@@ -15,6 +15,8 @@ class RfcTest extends TestCase
         $this->assertFalse($rfc->isForeign());
         $this->assertFalse($rfc->isMoral());
         $this->assertTrue($rfc->isPerson());
+        $this->assertSame('A', $rfc->checkSum());
+        $this->assertTrue($rfc->checkSumMatch());
     }
 
     public function testCreateRfcMoral()
@@ -76,9 +78,9 @@ class RfcTest extends TestCase
 
     public function testCreateBadDigit()
     {
-        $this->expectException(\UnexpectedValueException::class);
-        $this->expectExceptionMessage('dígito verificador');
-        new Rfc('COSC8001137N9');
+        $rfc = new Rfc('COSC8001137N9');
+        $this->assertSame('A', $rfc->checkSum());
+        $this->assertFalse($rfc->checkSumMatch());
     }
 
     public function testIsValid()
@@ -88,7 +90,7 @@ class RfcTest extends TestCase
 
     public function testIsNotValid()
     {
-        $this->assertFalse(Rfc::isValid('COSC8001137N9'));
+        $this->assertFalse(Rfc::isValid('COSC8099137NA'));
     }
 
     public function testWithMultiByte()

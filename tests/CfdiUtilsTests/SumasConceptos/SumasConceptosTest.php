@@ -137,4 +137,21 @@ class SumasConceptosTest extends TestCase
         $comprobante->addConcepto(['Importe' => '333.33', 'Descuento' => '']);
         $this->assertTrue((new SumasConceptos($comprobante))->foundAnyConceptWithDiscount());
     }
+
+    public function testImpuestoImporteWithMoreDecimalsThanThePrecisionIsRounded()
+    {
+        $comprobante = new Comprobante();
+        $comprobante->addConcepto()->addTraslado(
+            ['Importe' => '7.777777', 'Impuesto' => '002', 'TipoFactor' => 'Tasa', 'TasaOCuota' => '0.160000']
+        );
+        $comprobante->addConcepto()->addTraslado(
+            ['Importe' => '2.222222', 'Impuesto' => '002', 'TipoFactor' => 'Tasa', 'TasaOCuota' => '0.160000']
+        );
+
+        $sumas = new SumasConceptos($comprobante, 3);
+
+        $this->assertTrue($sumas->hasTraslados());
+        $this->assertEquals(10.0, $sumas->getImpuestosTrasladados(), '', 0.0001);
+        $this->assertEquals(10.0, $sumas->getTraslados()['002:Tasa:0.160000']['Importe'], '', 0.0000001);
+    }
 }
