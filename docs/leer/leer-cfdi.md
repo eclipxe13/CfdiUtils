@@ -4,15 +4,16 @@ El problema de leer un CFDI es que la información entre versiones 3.3, 3.2
 y previas no es compatible. Por ello es necesario necesario primero
 averiguar la versión del archivo que deseamos interpretar.
 
-Como recomendación, si estás implementando esta librería para leer CFDI
--por ejemplo para procesar los CFDI recibidos- decide qué información deseas recopilar y qué hacer en caso de que no exista, después crea clases específicas que trabajen con los diferentes tipos de versiones y que entreguen un resultado homologado con el que sí puedas trabajar.
+En esta sección se describe la lectura formal de la librería para leer nodos.
+Si tu intensión es solamente leer CFDI entonces te convendría brincar a la
+[lectura rápida usando `QuickReader`](quickreader.md).
 
 
 ## Procesar un CFDI
 
 Esta librería almacena la información de un CFDI en una estructura interna llamada
-[`Nodes`](Nodes). Por lo que, al leer un CFDI lo que en realidad sucede es que se
-convierte el contenido XML a esta estructura interna de nodos.
+[`Nodes`](../componentes/nodes.md). Por lo que, al leer un CFDI lo que en realidad sucede es
+una conversión del contenido XML a esta estructura interna.
 
 
 ### El objeto `CfdiUtils\Cfdi`
@@ -28,7 +29,7 @@ el método `CfdiUtils\Cfdi::getNode` que devuelve la instancia del objeto de tip
 ```php
 <?php
 $xmlContents = '<cfdi:Comprobante Version="3.3">...</cfdi:Comprobante>';
-$cfdi = CfdiUtils\Cfdi::newFromString($xmlContents);
+$cfdi = \CfdiUtils\Cfdi::newFromString($xmlContents);
 $cfdi->getVersion(); // (string) 3.3
 $cfdi->getDocument(); // clon del objeto DOMDocument
 $cfdi->getSource(); // (string) <cfdi:Comprobante...
@@ -41,7 +42,7 @@ $comprobante = $cfdi->getNode(); // Nodo de trabajo del nodo cfdi:Comprobante
 El método estático `CfdiUtils\Cfdi::newFromString` verifica que el contenido XML
 no esté vacío y no contenga errores (se pueda crear un `DOMDocument` a partir
 de este contenido).
-Posteriormente invoca la creación de un objeto de tipo `CfdiUtils\Cfdi` pasando 
+Posteriormente invoca la creación de un objeto de tipo `CfdiUtils\Cfdi` pasando
 el objeto `DOMDocument` como parámetro.
 
 
@@ -59,21 +60,21 @@ No realiza ninguna validación. La validación de un CFDI está fuera de los lí
 
 #### Ejemplos básicos de uso de `NodeInterface`
 
-Para obtener el atributo `Serie` de un complemento, esté o no definido el atributo
-originalmente, si no está definido entonces devolverá una cadena de caracteres vacía.
+Para obtener el atributo `Serie` de un complemento, sin importar que el atributo fuera definido
+originalmente, si no se definió entonces devolverá una cadena de caracteres vacía.
 
 ```php
 <?php
-/** @var CfdiUtils\Cfdi $cfdi */
+/** @var \CfdiUtils\Cfdi $cfdi */
 $complemento = $cfdi->getNode();
-echo $complemento['Serie']; 
+echo $complemento['Serie'];
 ```
 
 Para verificar si está especificado el atributo `MetodoPago`
 
 ```php
 <?php
-/** @var CfdiUtils\Cfdi $cfdi */
+/** @var \CfdiUtils\Cfdi $cfdi */
 $complemento = $cfdi->getNode();
 if (isset($complemento['MetodoPago']) {
     // ...
@@ -86,7 +87,7 @@ una colección de nodos iterable (que se puede utilizar dentro de un `foreach`).
 
 ```php
 <?php
-/** @var CfdiUtils\Cfdi $cfdi */
+/** @var \CfdiUtils\Cfdi $cfdi */
 $complemento = $cfdi->getNode();
 $conceptos = $complemento->searchNodes('cfdi:Conceptos', 'cfdi:Concepto');
 foreach ($conceptos as $concepto) {
@@ -102,7 +103,7 @@ No confundir con el método anterior que devuelve una colección de nodos.
 
 ```php
 <?php
-/** @var CfdiUtils\Cfdi $cfdi */
+/** @var \CfdiUtils\Cfdi $cfdi */
 $complemento = $cfdi->getNode();
 $tfd = $complemento->searchNodes('cfdi:Complemento', 'tfd:TimbreFiscalDigital');
 if (null === $tfd) {
@@ -112,7 +113,7 @@ if (null === $tfd) {
 }
 ```
 
-Recuerde consultar la entrada completa relacionada con la [Estructura de datos `Nodes`](Nodes).
+Recuerde consultar la entrada completa relacionada con la [Estructura de datos `Nodes`](../componentes/nodes.md).
 
 
 ## Obteniendo la versión de un CFDI sin la clase `CfdiUtils\Cfdi`
@@ -121,6 +122,7 @@ Obtener la versión de un CFDI es sencillo con la clase `CfdiUtils\CfdiVersion`.
 
 El método que usarás para obtener la versión depende de la información que ya
 tengas instanciada:
+
 - `getFromXmlString()`: Cuando ya tienes el contenido del XML en una variable
 - `getFromNode()`: Cuando tienes el nodo principal en un objeto de tipo `CfdiUtils\Nodes\NodeInterface`
 - `getFromDOMDocument()` y `getFromDOMElement()`: Cuando tienes el contenido XML
@@ -132,7 +134,7 @@ caso de no encontrarse un número de versión compatible.
 ```php
 <?php
 $xmlContents = file_get_contents($cfdiFile);
-$cfdiVersion = new CfdiUtils\CfdiVersion();
+$cfdiVersion = new \CfdiUtils\CfdiVersion();
 $version = $cfdiVersion->getFromXmlString($xmlContents);
 ```
 
@@ -142,10 +144,10 @@ duplicar el trabajo de averiguar la versión.
 
 ## Limpieza de CFDI
 
-Es frecuente que los archivos CFDI contengan errores. Para entender más el tema
-vea el artículo de [Limpieza de un CFDI 3.2 y 3.3](Limpieza-de-Cfdi).
+Es frecuente que los archivos CFDI contengan errores.
+Para entender más el tema vea el artículo de [Limpieza de un CFDI](limpieza-cfdi-md).
 
-Si está leyendo un CFDI recibido este es un ejemplo de cómo limpiar y crear el objeto CFDI:
+Si está leyendo un CFDI recibido o no confiable este es un ejemplo de cómo limpiar y crear el objeto CFDI:
 
 ```php
 <?php
@@ -154,10 +156,10 @@ $cfdiFile = '/cfdi/recibidos/2018/FEI-456823.xml';
 $xmlContents = file_get_contents($cfdiFile);
 
 // limpiar el cfdi
-$xmlContents = CfdiUtils\Cleaner\Cleaner::staticClean($xmlContents);
+$xmlContents = \CfdiUtils\Cleaner\Cleaner::staticClean($xmlContents);
 
 // crear la instancia del objeto CFDI
-$cfdi = CfdiUtils\Cfdi::newFromString($xmlContents);
+$cfdi = \CfdiUtils\Cfdi::newFromString($xmlContents);
 ```
 
 
@@ -165,4 +167,4 @@ $cfdi = CfdiUtils\Cfdi::newFromString($xmlContents);
 
 Ve la documentación del lector rápido, si tu intensión no es editar el documento
 y confías en el contenido (no te importa si está bien escrito el XML) entonces puedes
-usar el [lector rápido](QuickReader).
+usar el [lector rápido](quickreader.md).

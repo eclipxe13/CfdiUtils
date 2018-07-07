@@ -1,3 +1,5 @@
+# Cadena de origen
+
 El SAT utiliza este método de generar cadenas originales para agrupar
 en una forma y orden determinados información que no debería ser alterada.
 
@@ -16,7 +18,7 @@ o errores sintácticos como poner un número par de rutas en el `xsi:schemaLocat
 o eliminar espacios de nombres no utilizados.
 
 
-### Método del SAT para generar cadenas de origen
+## Método del SAT para generar cadenas de origen
 
 El método que utiliza el SAT es convertir archivos XML (o parte de los archivos)
 a texto simple utilizando la tecnología XSLT.
@@ -24,11 +26,12 @@ a texto simple utilizando la tecnología XSLT.
 Nota: Este no es el único método, siguiendo la especificación del Anexo 20
 y todas y cada una de las especificaciones de los complementos se podría
 hacer un generador de cadenas de origen.
+
 Yo ya lo hice antes y es mucho código para fabricar y testear, además de
 que deberá cambiar conforme cambien las especificaciones.
 
 
-### Generar una cadena de origen
+## Generar una cadena de origen
 
 Para generar cadenas de origen tenemos diferentes implementaciones de
 la interfaz `\CfdiUtils\CadenaOrigen\XsltBuilderInterface`.
@@ -40,19 +43,19 @@ ubicación del archivo XSLT (local o remoto).
 Las implementaciones son:
 
 - `DOMBuilder`: Genera la transformación usando PHP, aunque no existe
-soporte nativo para Xslt versión 2, la transformación es compatible
-y genera el resultado esperado.
+  soporte nativo para Xslt versión 2, la transformación es compatible
+  y genera el resultado esperado.
 - `GenkgoXslBuilder`: Funciona igual que `DOMBuilder` pero al momento de hacer
-la transformación utiliza la librería [genkgo/xsl](https://github.com/genkgo/xsl)
-que es una implementación de Xslt versión 2 en PHP.
-Para usarla debes hacer algo como `composer require genkgo/xsl`.
+  la transformación utiliza la librería [genkgo/xsl](https://github.com/genkgo/xsl)
+  que es una implementación de Xslt versión 2 en PHP.
+  Para usarla debes hacer algo como `composer require genkgo/xsl`.
 - `SaxonbCliBuilder`: Utiliza la herramienta
-[Saxon-B XSLT Processor](https://en.wikipedia.org/wiki/Saxon_XSLT) desde la
-ejecución por línea de comandos. Esta utilería presume la implementación de Xslt versión 2.
-Para usarla debes hacer algo como `apt-get install libsaxonb-java`.
+  [Saxon-B XSLT Processor](https://en.wikipedia.org/wiki/Saxon_XSLT) desde la
+  ejecución por línea de comandos. Esta utilería presume la implementación de Xslt versión 2.
+  Para usarla debes hacer algo como `apt-get install libsaxonb-java`.
 
 
-#### Generar la cadena de origen de un Comprobante
+### Generar la cadena de origen de un Comprobante
 
 Se puede seguir esta receta:
 
@@ -81,7 +84,7 @@ Básicamente porque si estás creando un CFDI esta será generada automáticamen
 Si estás leyendo o validando también será generada automáticamente por los validadores.
 
 
-#### Generar la cadena de origen de un Timbre Fiscal Digital
+### Generar la cadena de origen de un Timbre Fiscal Digital
 
 A diferencia de la cadena de origen del Comprobante, la cadena de origen del Timbre Fiscal Digital
 sí se necesita al menos para mostrarla en la representación impresa del CFDI.
@@ -105,7 +108,7 @@ $builder->setXmlResolver(new XmlResolver());
 $tfdCadenaOrigen = $builder->build($tfdXmlString);
 ```
 
-### PHP y XLST versión 2
+## PHP y XLST versión 2
 
 Es importante notar que hasta el momento (enero/2018) no es posible en PHP
 procesar XSLT versión 2.0. Sin embargo el procesador que sí tiene PHP genera

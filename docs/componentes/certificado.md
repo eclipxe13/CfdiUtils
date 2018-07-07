@@ -6,6 +6,7 @@ El archivo puede ser un archivo en formato PEM o en formato CER.
 En este último caso es convertido a PEM y luego interpretado.
 
 Una vez cargado el certificado permite obtener los siguientes datos:
+
 - RFC
 - Nombre
 - Número de serie
@@ -14,11 +15,15 @@ Una vez cargado el certificado permite obtener los siguientes datos:
 - Nombre del archivo cargado
 
 Adicionalmente cuenta con los métodos:
-- `belongsTo(string $pemKeyFile, string $passPhrase = ''): bool`
-  Permite verificar si una llave privada corresponde a este certificado.
-- `verify(string $data, string $signature, int $algorithm = OPENSSL_ALGO_SHA256): bool`
-  Permite verificar si una firma dada corresponde a los datos, como por ejemplo,
+
+- Permite verificar si una llave privada corresponde a este certificado:
+
+    `belongsTo(string $pemKeyFile, string $passPhrase = ''): bool`
+
+- Permite verificar si una firma dada corresponde a los datos, como por ejemplo,
   si el sello corresponde con  la cadena de origen.
+
+    `verify(string $data, string $signature, int $algorithm = OPENSSL_ALGO_SHA256): bool`
 
 
 ## Relación con `\CfdiUtils\Certificado\NodeCertificado`
@@ -36,16 +41,27 @@ para ser correctamente interpretado por esta clase (en realidad por PHP).
 
 ## Comandos útiles de openssl
 
+- Obtener información del certificado:
+
 ```shell
-# obtener información del certificado:
-openssl x509 -nameopt utf8,sep_multiline,lname -inform DER -noout -dates -serial -subject -fingerprint -pubkey -in CSD01_AAA010101AAA.cer
+openssl x509 -nameopt utf8,sep_multiline,lname -inform DER -noout -dates -serial \
+  -subject -fingerprint -pubkey -in CSD01_AAA010101AAA.cer
+```
 
-# Convertir la llave privada a un archivo PEM sin contraseña:
+- Convertir la llave privada a un archivo PEM sin contraseña:
+
+```shell
 openssl pkcs8 -inform DER -in CSD01_AAA010101AAA.key -out CSD01_AAA010101AAA.key.pem
+```
 
-# Establecer la contraseña a un archivo PEM:
+- Establecer la contraseña a un archivo PEM:
+
+```shell
 openssl rsa -in CSD01_AAA010101AAA.key.pem -des3 -out CSD01_AAA010101AAA_password.key.pem
+```
 
-# convertir el certificado a formato PEM:
+- Convertir el certificado a formato PEM:
+
+```shell
 openssl x509 -inform DER -outform PEM -in CSD01_AAA010101AAA.cer -pubkey -out CSD01_AAA010101AAA.cer.pem
 ```

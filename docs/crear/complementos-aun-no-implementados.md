@@ -1,18 +1,20 @@
+# Complementos que no están implementados
+
 No todos los complementos están disponibles para utilizarse con las clases
 de ayuda `CfdiUtils\Elements`. Sin embargo, este no es motivo para no poder
 agregar el nodo a la estructura del CFDI.
 
 Recuerda que en realidad, la forma en como esta librería almacena la
-información es utilizando [nodos](Nodes) `CfdiUtils\Nodes\Node`.
+información es utilizando [nodos](../componentes/nodes.md) `CfdiUtils\Nodes\Node`.
 Por lo que usando esta estructura será muy fácil agregar la información.
 
 Nodos de `<Complemento/>` y `<ComplementoConcepto/>`:
-http://www.sat.gob.mx/informacion_fiscal/factura_electronica/Paginas/complementos_factura_cfdi.aspx
+<http://www.sat.gob.mx/informacion_fiscal/factura_electronica/Paginas/complementos_factura_cfdi.aspx>
 
 En el siguiente ejemplo voy a agregar la información necesaria del complemento de
 [leyenda fiscal](http://www.sat.gob.mx/informacion_fiscal/factura_electronica/Documents/Complementoscfdi/leyendasFisc.pdf)
 
-Y voy a partir de la **suposición, no real** de que al facturar consultoría en
+Y voy a partir de la **suposición** (**no real**) de que al facturar consultoría en
 desarrollo de software tengo que poner una leyenda fiscal con la licencia
 del software desarrollado.
 
@@ -52,6 +54,7 @@ $creator->saveXml('archivo_con_complemento.xml');
 ```
 
 Dado el ejemplo anterior, el comprobante contendrá la siguiente información:
+
 ```xml
 <Comprobante>
     <!-- ... nodos del comprobante ... -->
@@ -68,5 +71,4 @@ Dado el ejemplo anterior, el comprobante contendrá la siguiente información:
         </leyendasFisc:LeyendasFiscales>
     </Complemento>
 </Comprobante>
-
 ```

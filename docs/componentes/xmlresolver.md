@@ -3,14 +3,14 @@
 El SAT publica diferentes recursos para diferentes tareas,
 los recursos más usuales son:
 
-* Archivos XSD: Son archivos de esquemas XML y sirven para comprobar que
-un archivo es correcto con respecto a ciertas reglas.
-* Archivos XSLT: Son archivos de transformaciones XML y sirven para transformar
-el contenido de un archivo XML en otro contenido.
-El SAT los utiliza para generar cadenas de origen.
-* Archivos CER: Son archivos de certificado comúnmente utilizados para verificar
-que una firma es válida con respecto a un emisor.
-La firma es lo que el sat llama sello y el emisor se distingue por un certificado.
+- Archivos XSD: Son archivos de esquemas XML y sirven para comprobar que
+  un archivo es correcto con respecto a ciertas reglas.
+- Archivos XSLT: Son archivos de transformaciones XML y sirven para transformar
+  el contenido de un archivo XML en otro contenido.
+  El SAT los utiliza para generar cadenas de origen.
+- Archivos CER: Son archivos de certificado comúnmente utilizados para verificar
+  que una firma es válida con respecto a un emisor.
+  La firma es lo que el sat llama sello y el emisor se distingue por un certificado.
 
 Estos recursos están disponibles en internet, pero son grandes  y tienen cambios esporádicos. Por ejemplo, el archivo de catálogos del SAT mide 6.3 MB.
 Por ello es conveniente tener una copia local de los recursos.
@@ -25,8 +25,8 @@ Internamente, cuando se solicita un recurso, la librería busca la mejor opción
 
 - Si no se ha configurado un repositorio local entonces devuelve la ruta del recurso remoto.
 - Si se ha configurado un repositorio local entonces busca si existe.
-    - Si existe devuelve la ruta del recurso local.
-    - Si no existe lo descarga y devuelve la ruta del recurso local.
+  - Si existe devuelve la ruta del recurso local.
+  - Si no existe lo descarga y devuelve la ruta del recurso local.
 
 
 ## Repositorio local por defecto
@@ -44,8 +44,9 @@ o bien con el método `setLocalPath(string $localPath = null)`.
 En ambos casos (constructor o método) se aplican las siguientes reglas:
 
 - Si se pasa una cadena de caracteres vacía se desconfigura el repositorio local,
-por lo que no se almacenarán recursos localmente.
-- Si se pasa `null` el valor se establece a `defaultLocalPath()`, es decir `<project-folder>/build/resources/`.
+  por lo que no se almacenarán recursos localmente.
+- Si se pasa `null` el valor se establece a `defaultLocalPath()`,
+  es decir `<project-folder>/build/resources/`.
 - Si se pasa otro valor entonces será usado, por ejemplo `/tmp/sat/`.
 
 Después, es necesario que ese objeto se utilice en los otros objetos que estamos usando, por ejemplo:
@@ -70,10 +71,9 @@ el objeto configurado tal y como lo necesitas.
 
 ## Cómo invalidar el caché del almacenamiento local
 
+**En corto: Simplemente bórralos.**
 
-En corto: Simplemente bórralos.
-
-Bueno, no se trata de un caché, porque no hay fechas de caducidad de los recursos.
+No se trata de un caché, porque no hay fechas de caducidad de los recursos.
 
 Cuando descargas algún recurso este podría descargar hijos y a su vez estos podrían descargar nuevos hijos.
 De igual forma, no solo se descargan recursos del SAT, también podrían descargarse recursos de terceros.

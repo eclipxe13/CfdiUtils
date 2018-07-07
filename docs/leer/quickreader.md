@@ -10,7 +10,7 @@ las mayúsculas y minúsculas y también omite la información del namespace XML
 * Elementos (primero): Se accede al primer elemento usando propiedades.
 * Elementos (varios): Se accede a un conjunto de elementos *ejecutando* el objeto.
 
-El QuickReader es un objeto de solo lectura, inmutable, cualquier intento de modificación
+`QuickReader` es un objeto de solo lectura, inmutable, cualquier intento de modificación
 resultará en una excepción.
 
 Si accedes a una propiedad o elemento que no existe **no habrá ningún error**.
@@ -39,16 +39,16 @@ $comprobante = $cfdi->getQuickReader();
 
 Utiliza el objeto como un arreglo usando la notación de corchetes.
 
-Puedes averiguar si un atributo existe usando `isset`.
+Puedes averiguar si un atributo existe usando `isset()`.
 
 ```php
 <?php
 $comprobante = \CfdiUtils\Cfdi::newFromString(file_get_contents('cfdi.xml'))
     ->getQuickReader();
 
-echo $comprobante['version']; // 3.3
-echo $comprobante['Version']; // 3.3
-echo $comprobante['vErSiOn']; // 3.3
+echo $comprobante['version']; // (string) "3.3"
+echo $comprobante['Version']; // (string) "3.3"
+echo $comprobante['vErSiOn']; // (string) "3.3"
 var_dump(isset($comprobante['version'])); // (bool) true
 
 
@@ -57,14 +57,14 @@ var_dump(isset($comprobante['no-existe'])); // (bool) false
 ```
 
 
-## Acceder a el primer elemento hijo
+## Acceder al primer elemento hijo
 
 Puedes acceder al primer elemento hijo (exista o no) usando la notación de propiedades.
 
 Al acceder por medio de propiedades siempre devuelve un objeto de tipo `QuickReader`
 aun cuando no exista. Si existe devolverá el primero.
 
-Puedes averiguar si existe al menos un elemento usando `isset`.
+Puedes averiguar si existe al menos un elemento usando `isset()`.
 
 ```php
 <?php
@@ -76,7 +76,7 @@ $comprobante = \CfdiUtils\Cfdi::newFromString(file_get_contents('cfdi.xml'))
  *     <cfdi:Impuestos TotalImpuestosTrasladados="123.45">...</cfdi:Impuestos>
  * </cfdi:Comprobante>
  */
-echo $comprobante->impuestos['totalImpuestosTrasladados']; // 123.45
+echo $comprobante->impuestos['totalImpuestosTrasladados']; // (string) "123.45"
 
 /*
  * <cfdi:Comprobante ...>
@@ -87,7 +87,7 @@ echo $comprobante->impuestos['totalImpuestosTrasladados']; // 123.45
  */
 echo $comprobante->complemento->timbreFiscalDigital['fechatimbrado']; // 2017-03-21T08:18:08
 
-// aun si no existe un elemento no obtendrás una excepción
+// aun si no existe un elemento no generará una excepción
 var_dump(isset($comprobante->foo)); // (bool) false
 echo $comprobante->foo->bar->baz->xee['info']; // (string) ""
 ```
@@ -120,12 +120,12 @@ Por ejemplo, para acceder a todos los hijos del nodo `Conceptos` **no se puede h
 Hay dos alternativas para poder hacer esta llamada:
 
 * Asignar a una variable y luego hacer la invocación:
-  
-  `$conceptos = $comprobante->conceptos; $conceptos();`
+
+    `$conceptos = $comprobante->conceptos; $conceptos();`
 
 * Usar paréntesis para separar la propiedad, y luego invocarla:
-  
-  `($comprobante->conceptos)()`
+
+    `($comprobante->conceptos)()`
 
 Si uso dependerá de tu preferencia, aquí dos formas que ejemplifican lo mismo,
 primero una variable para acceder a los hijos (conceptos), luego se hace una invocación de la propiedad (traslado).
@@ -159,6 +159,7 @@ $comprobante = \CfdiUtils\Cfdi::newFromString(file_get_contents('cfdi.xml'))
 // $hijos es un arreglo que contiene solo aquellos hijos llamados "concepto"
 $hijos = ($comprobante->conceptos)('concepto');
 ```
+
 
 ## Nombre del nodo
 
