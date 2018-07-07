@@ -1,0 +1,11 @@
+{
+  "line-length": false,
+  "no-inline-html": true,
+  "blank_lines": {
+      "maximum": 2
+  },
+  "no-trailing-punctuation": {
+      "punctuation": ".,;:"
+  }
+}
+
