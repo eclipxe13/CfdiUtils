@@ -28,7 +28,7 @@ El lector rápido es una transformación con pérdida de datos, para empezar se 
 <?php
 // crear el objeto CFDI
 $cfdi = \CfdiUtils\Cfdi::newFromString(
-    file_get_contents('cfdi.xml');
+    file_get_contents('cfdi.xml')
 );
 // obtener el QuickReader con el método dedicado
 $comprobante = $cfdi->getQuickReader();

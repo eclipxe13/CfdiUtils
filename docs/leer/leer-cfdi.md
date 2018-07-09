@@ -76,8 +76,8 @@ Para verificar si está especificado el atributo `MetodoPago`
 <?php
 /** @var \CfdiUtils\Cfdi $cfdi */
 $complemento = $cfdi->getNode();
-if (isset($complemento['MetodoPago']) {
-    // ...
+if (isset($complemento['MetodoPago'])) {
+    echo $complemento['MetodoPago'];
 }
 ```
 
@@ -133,6 +133,7 @@ caso de no encontrarse un número de versión compatible.
 
 ```php
 <?php
+$cfdiFile = '/cfdi/archivo-cfdi.xml';
 $xmlContents = file_get_contents($cfdiFile);
 $cfdiVersion = new \CfdiUtils\CfdiVersion();
 $version = $cfdiVersion->getFromXmlString($xmlContents);
@@ -145,7 +146,7 @@ duplicar el trabajo de averiguar la versión.
 ## Limpieza de CFDI
 
 Es frecuente que los archivos CFDI contengan errores.
-Para entender más el tema vea el artículo de [Limpieza de un CFDI](limpieza-cfdi-md).
+Para entender más el tema vea el artículo de [Limpieza de un CFDI](limpieza-cfdi.md).
 
 Si está leyendo un CFDI recibido o no confiable este es un ejemplo de cómo limpiar y crear el objeto CFDI:
 

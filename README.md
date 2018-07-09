@@ -18,7 +18,7 @@ This library provides helper objects to work with Mexican CFDI (Comprobante Fisc
 The [documentation] related to this library and its API is documented in [Read the docs][documentation]
 and is written in **spanish language** since is the language of the intented audience.
 
-**Warning: this project will be migrated to `phpcfdi/cfdiutils`, don't a date yet**
+**Warning: this project will be migrated to `phpcfdi/cfdiutils`, don't have a date yet**
 
 
 ## Main features
