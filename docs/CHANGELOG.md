@@ -3,9 +3,9 @@
 ## Backward compatibility breaks (not released yet), plan for version 3.0
 
 - Remove deprecated classes:
-  - `\CfdiUtils\CadenaOrigen\CadenaOrigenBuilder`
-  - `\CfdiUtils\CadenaOrigen\DefaultLocations`
-  - `\CfdiUtils\CadenaOrigen\CadenaOrigenLocations`
+    - `\CfdiUtils\CadenaOrigen\CadenaOrigenBuilder`
+    - `\CfdiUtils\CadenaOrigen\DefaultLocations`
+    - `\CfdiUtils\CadenaOrigen\CadenaOrigenLocations`
 - Remove `\CfdiUtils\PemPrivateKey\PemPrivateKey::isOpened` to `\CfdiUtils\PemPrivateKey\PemPrivateKey::isOpen`
 - Remove `static` methods from `\CfdiUtils\CfdiVersion`, instead create an instance of the class
 - Remove `static` methods from `\CfdiUtils\TimbreFiscalDigital\TfdVersion`, instead create an instance of the class
@@ -20,18 +20,18 @@
 - Fix tests that expect Rfc checksum failure
 - Fix tests comments on `testDescuentoNotSetIfAllConceptosDoesNotHaveDescuento`
 - Fix `CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados` to don't receive a parameter.
-  - For backwards compatibility when it receive a parameter do the same thing but trigger a E_USER_NOTICE
-  - Create an special test case `ComprobanteGetCfdiRelacionadosTest` that catched the E_USER_NOTICE error
+    - For backwards compatibility when it receive a parameter do the same thing but trigger a E_USER_NOTICE
+    - Create an special test case `ComprobanteGetCfdiRelacionadosTest` that catched the E_USER_NOTICE error
 - Add `CfdiUtils\Elements\Cfdi33\Comprobante::addCfdiRelacionados(array $attributes)`
 - Add `CfdiUtils\Elements\Cfdi33\Comprobante::multiCfdiRelacionado(array $attributes)`
 - Add tests to assert that `Comprobante/Impuestos/(Traslados/Traslado|Retenciones/Retencion)@Impuesto` is rounded
 - Minor fix at docblocks for packed arguments
 - Change all documentation to move from GitHub Wiki to ReadTheDocs <https://cfdiutils.readthedocs.io/>
-  - More documentation pages & a lot of fixes
-  - Add `.markdownlint.json` to run with `markdownlint-cli` (`node`), add to travis build process
-  - Add `mkdocs.yml` to run with `mkdocs` (`python`), add to travis build process
-  - Fix markdown files according to markdownlint
-  - Add `composer docs` and append to general `composer build`
+    - More documentation pages & a lot of fixes
+    - Add `.markdownlint.json` to run with `markdownlint-cli` (`node`), add to travis build process
+    - Add `mkdocs.yml` to run with `mkdocs` (`python`), add to travis build process
+    - Fix markdown files according to markdownlint
+    - Add `composer docs` and append to general `composer build`
 
 
 ## Version 2.5.1 2018-06-26
@@ -40,8 +40,8 @@
   In some cases, the authority does not require a certificate from emisor and uses one certificate for its own.
   Therefore, the `Rfc` and `Nombre` of the `Emisor` does not match with the certificate. This produces a false error.
   To avoid this issue, the validation of `Rfc` and `Nombre` matching with the certificate data must not perform when:
-  - The `cfdi:Comprobante@NoCertificado` is the same as the `tfd:TimbreFiscalDigital@NoCertificadoSAT`
-  - The "complemento" `registrofiscal:CFDIRegistroFiscal` exists
+    - The `cfdi:Comprobante@NoCertificado` is the same as the `tfd:TimbreFiscalDigital@NoCertificadoSAT`
+    - The "complemento" `registrofiscal:CFDIRegistroFiscal` exists
 
 
 ## Version 2.5.0 2018-05-24
@@ -63,8 +63,8 @@
 
 - Fix validation of TIPOCOMP06, it was not checking correctly.
 - Fix bug in validators that does not respect when the resolver does not have local path:
-  - `CfdiUtils\Validate\Cfdi33\Standard\TimbreFiscalDigitalSello`
-  - `CfdiUtils\Validate\Cfdi33\Xml\XmlFollowSchema`
+    - `CfdiUtils\Validate\Cfdi33\Standard\TimbreFiscalDigitalSello`
+    - `CfdiUtils\Validate\Cfdi33\Xml\XmlFollowSchema`
 - Fix bug when removing a `schemaLocation` attribute in `CfdiUtils\Cleaner\Cleaner`
 - Refactor `CfdiUtils\ConsultaCfdiSat\WebService::request` and move the SOAP call
   to a protected method, this allow better testing of the class by mocking the call
@@ -78,8 +78,8 @@
 - Remove `CfdiUtils\Elements\Pagos10\Pago::multiImpuestos`,
   it should never exists and must not have any use case.
 - Improve testing on:
-  - `CfdiUtils\Elements\Pagos10\Pagos`
-  - `CfdiUtils\Validate\Cfdi33\Standard\ConceptoImpuestos`
+    - `CfdiUtils\Elements\Pagos10\Pagos`
+    - `CfdiUtils\Validate\Cfdi33\Standard\ConceptoImpuestos`
 - Improve docblocks and fix typos in several files
 - Add new parameter to development script `tests/validate.php`:
   `--no-cache` that tell resolver to not use local cache.
@@ -98,12 +98,12 @@
 - Add util `\CfdiUtils\Utils\Rfc`, help to work with strict RFC validations
 - Add `\CfdiUtils\Validate\Cfdi33\Standard\ReceptorRfc` to validate the RFC of the CFDI receiver
 - Add `\CfdiUtils\Validate\Cfdi33\Standard\EmisorRfc` to validate the RFC of the CFDI emitter
-  - Fix `CfdiUtilsTests\CfdiValidator33Test::testValidateWithCorrectData` since used RFC is not valid
-  - Fix `CfdiUtilsTests\CreateComprobanteCaseTest::testCreateCfdiUsingComprobanteElement` since used RFC is not valid
+    - Fix `CfdiUtilsTests\CfdiValidator33Test::testValidateWithCorrectData` since used RFC is not valid
+    - Fix `CfdiUtilsTests\CreateComprobanteCaseTest::testCreateCfdiUsingComprobanteElement` since used RFC is not valid
 - Add docblocks to `CfdiUtils\Cfdi`
 - Building:
-  - Add .phplint.yml to export-ignore (standard line)
-  - Travis-CI: Declare `FULL_BUILD_PHP_VERSION` for easy understanding
+    - Add .phplint.yml to export-ignore (standard line)
+    - Travis-CI: Declare `FULL_BUILD_PHP_VERSION` for easy understanding
 - Add more dependences: `ext-dom`, `ext-xsl`, `ext-simplexml`, `ext-mbstring`
 
 ## Version 2.4.4 2018-05-11
@@ -132,7 +132,7 @@
 ## Version 2.4.1 2018-04-11
 
 - Fix `\CfdiUtils\Certificado\Certificado` when reading serial number.
-  - Use `serialNumberHex` if available, if not then use `serialNumber` and convert to hex.
+    - Use `serialNumberHex` if available, if not then use `serialNumber` and convert to hex.
 - Move serial number string conversion to class `\CfdiUtils\Certificado\SerialNumber`.
   This class is not for public use but for use inside `Certificate`.
 
@@ -150,8 +150,8 @@
 ## Version 2.3.2 2018-01-29
 
 - Fix how total is formatted in the expression of `\CfdiUtils\ConsultaCfdiSat\RequestParameters`
-  - Version 3.2 was removing zero trailing decimals instead of using 6 fixed chars
-  - Version 3.3 was not using 1 leading zero (for integers) and 1 trailing zero (for decimals)
+    - Version 3.2 was removing zero trailing decimals instead of using 6 fixed chars
+    - Version 3.3 was not using 1 leading zero (for integers) and 1 trailing zero (for decimals)
 - On method `\CfdiUtils\Certificado\NodeCertificado::obtain()` change logic
   and throw exception if temporary file cannot be created
 
@@ -176,17 +176,17 @@
 ## Version 2.2.0 2018-01-24
 
 - Refactor namespace `\CfdiUtils\CadenaOrigen` (backwards compatible):
-  - Instead of one only xslt builder now it includes:
+    - Instead of one only xslt builder now it includes:
     - `DOMBuilder`: Uses the regular PHP based method
     - `GenkgoXslBuilder`: Uses the library genkgo/xsl xslt version 2 library
     - `SaxonbCliBuilder`: Uses the command line saxonb-xslt command
-  - Build process implementations must return `XsltBuildException` (before they return `RuntimeException`)
-  - All builders must implement `XsltBuilderInterface`
-  - Add `XsltBuilderPropertyInterface` and `XsltBuilderPropertyTrait`.
+    - Build process implementations must return `XsltBuildException` (before they return `RuntimeException`)
+    - All builders must implement `XsltBuilderInterface`
+    - Add `XsltBuilderPropertyInterface` and `XsltBuilderPropertyTrait`.
     It does not have `hasXsltBuilderProperty`method.
-  - `DefaultLocations` has been deprecated in favor of `CfdiDefaultLocations`
-  - `CadenaOrigenBuilder` has been deprecated in favor of `DOMBuilder`
-  - `CadenaOrigenLocations` has been deprecated, will not be replaced
+    - `DefaultLocations` has been deprecated in favor of `CfdiDefaultLocations`
+    - `CadenaOrigenBuilder` has been deprecated in favor of `DOMBuilder`
+    - `CadenaOrigenLocations` has been deprecated, will not be replaced
 - Implement `XsltBuilderPropertyInterface` and `XsltBuilderPropertyTrait` in objects that use
   to create `CadenaOrigenBuilder` objects.
 - For `CfdiCreator33` and `CfdiValidator33` will create a default DOMBuilder object if none set.

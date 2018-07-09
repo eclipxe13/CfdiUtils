@@ -110,9 +110,9 @@ Valida que la fecha del comprobante:
 
 - FECHA01: La fecha del comprobante cumple con el formato
 - FECHA02: La fecha existe en el comprobante y es mayor que 2017-07-01 y menor que el futuro
-  - La fecha en el futuro se puede configurar a un valor determinado
-  - La fecha en el futuro es por defecto el momento de validación más una tolerancia
-  - La tolerancia puede ser configurada y es por defecto 300 segundos
+    - La fecha en el futuro se puede configurar a un valor determinado
+    - La fecha en el futuro es por defecto el momento de validación más una tolerancia
+    - La tolerancia puede ser configurada y es por defecto 300 segundos
 
 
 ## ReceptorResidenciaFiscal

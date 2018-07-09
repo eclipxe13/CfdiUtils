@@ -30,10 +30,10 @@ and is written in **spanish language** since is the language of the intented aud
   if not then the document was modified after signature.
 - Validate the "Complemento de recepción de pagos"
 - Helper objects to deal with:
-  - `Cadena de origen` generation
-  - Extract information from CER files or `Certificado` attribute
-  - Calculate `Comprobante` sums based on the list of `Conceptos`
-  - Retrieve the CFDI version information
+    - `Cadena de origen` generation
+    - Extract information from CER files or `Certificado` attribute
+    - Calculate `Comprobante` sums based on the list of `Conceptos`
+    - Retrieve the CFDI version information
 - Keep a local copy of the tree of XSD and XSLT file dependences from SAT
 - Keep a local copy of certificates to avoid download them each time
 - Check the SAT WebService to get the status of a CDI ('Activo', 'Cancelado' & 'No encontrado')
@@ -53,9 +53,9 @@ composer require eclipxe/cfdiutils
 - Version 1.x **deprecated** was deprecated time ago, that version didn't do much anyway.
 - Version 2.x **current** has a lot of features and helper objects.
 - Version 3.x **future** will be released with backward compatibility breaks.
-  - See [docs/CHANGELOG.md](docs/CHANGELOG.md) for backward compatibility breaks.
-  - It may change to PHP 7.1
-  - It could be possible to migrate to phpcfdi/cfiutils under [phpCfdi][] organization
+    - See [docs/CHANGELOG.md](docs/CHANGELOG.md) for backward compatibility breaks.
+    - It may change to PHP 7.1
+    - It could be possible to migrate to phpcfdi/cfiutils under [phpCfdi][] organization
 
 
 ## PHP Support

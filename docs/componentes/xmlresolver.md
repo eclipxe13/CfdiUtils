@@ -25,8 +25,8 @@ Internamente, cuando se solicita un recurso, la librería busca la mejor opción
 
 - Si no se ha configurado un repositorio local entonces devuelve la ruta del recurso remoto.
 - Si se ha configurado un repositorio local entonces busca si existe.
-  - Si existe devuelve la ruta del recurso local.
-  - Si no existe lo descarga y devuelve la ruta del recurso local.
+    - Si existe devuelve la ruta del recurso local.
+    - Si no existe lo descarga y devuelve la ruta del recurso local.
 
 
 ## Repositorio local por defecto

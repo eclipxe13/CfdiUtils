@@ -16,7 +16,8 @@ es una librería de PHP para leer, validar y crear CFDI 3.3.
 
 Mira el archivo [README][] para información rápida (en inglés).
 
-**Este proyecto se migrará eventualmente a `phpcfdi/cfdiutils`, aun no hay fecha planeada.**
+!!! note ""
+    Este proyecto se migrará eventualmente a `phpcfdi/cfdiutils`, aun no hay fecha planeada.
 
 La motivación de crear esta librería es contar con una herramienta flexible, rápida y
 confiable para trabajar con CFDI. Se pretende que sea utilizada por la comunidad de PHP
