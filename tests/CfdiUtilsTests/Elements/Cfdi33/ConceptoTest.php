@@ -3,6 +3,7 @@ namespace CfdiUtilsTests\Elements\Cfdi33;
 
 use CfdiUtils\Elements\Cfdi33\ComplementoConcepto;
 use CfdiUtils\Elements\Cfdi33\Concepto;
+use CfdiUtils\Elements\Cfdi33\ConceptoImpuestos;
 use CfdiUtils\Elements\Cfdi33\CuentaPredial;
 use CfdiUtils\Elements\Cfdi33\Impuestos;
 use CfdiUtils\Elements\Cfdi33\InformacionAduanera;
@@ -18,6 +19,14 @@ class ConceptoTest extends TestCase
     {
         parent::setUp();
         $this->element = new Concepto();
+    }
+
+    public function testGetImpuestos()
+    {
+        $this->assertNull($this->element->searchNode('cfdi:Impuestos'));
+        $child = $this->element->getImpuestos();
+        $this->assertInstanceOf(ConceptoImpuestos::class, $child);
+        $this->assertSame($child, $this->element->searchNode('cfdi:Impuestos'));
     }
 
     public function testGetCuentaPredial()

@@ -22,6 +22,7 @@ Contiene los siguientes métodos de ayuda:
 - `getConceptos(): Conceptos`: Crea (si no existe) y obtiene el nodo único Conceptos
 - `addConcepto(array $attributes = [], array $children = []): Concepto`: Agrega y devuelve un nuevo nodo Concepto
 - `getImpuestos(): Impuestos`: Crea (si no existe) y obtiene el nodo único Impuestos
+- `addImpuestos(array $attributes = []): Impuestos`: Agrega y devuelve el único nodo Impuestos
 - `addTraslado(array $attributes = []): Traslado`: Agrega y devuelve un nuevo nodo Traslado (en Impuestos / Traslados)
 - `multiTraslado(array ...$elementAttributes): Comprobante`: Agrega nuevos nodo Traslado, es una forma rápida de llamar al método `addTraslado` múltiples veces
 - `addRetencion(array $attributes = []): Retencion`:  Agrega y devuelve un nuevo nodo Retencion (en Impuestos / Retenciones)
@@ -65,7 +66,7 @@ Representa el nodo Comprobante / Conceptos.
 
 Representa el nodo Comprobante / Conceptos / Concepto.
 
-- `getImpuestos(): Impuestos`: Crea (si no existe) y obtiene el nodo único Impuestos
+- `getImpuestos(): ConceptoImpuestos`: Crea (si no existe) y obtiene el nodo único ConceptoImpuestos
 - `addTraslado(array $attributes = []): Traslado`: Agrega y devuelve un nuevo nodo Traslado (en Impuestos / Traslados)
 - `multiTraslado(array ...$elementAttributes): Concepto`: Agrega nuevos nodo Traslado, es una forma rápida de llamar al método `addTraslado` múltiples veces
 - `addRetencion(array $attributes = []): Retencion`:  Agrega y devuelve un nuevo nodo Retencion (en Impuestos / Retenciones)
@@ -77,6 +78,26 @@ Representa el nodo Comprobante / Conceptos / Concepto.
 - `addComplementoConcepto(array $attributes = [], array $children = []): ComplementoConcepto`: Agrega y devuelve el único nodo Complementoconcepto
 - `addParte(array $attributes = [], array $children = []): Parte`: Agrega y devuelve un nuevo nodo Parte
 - `multiParte(array ...$elementAttributes)`:  Agrega nuevos nodo Parte, es una forma rápida de llamar al método `addParte` múltiples veces
+
+
+### ConceptoImpuestos
+
+La clase `ConceptoImpuestos` es igual a la clase `Impuestos` con la única diferencia de orden:
+
+El primer nodo de `Impuestos` dentro de `Concepto` debe ser `Traslados`.
+Mientras que el primer nodo de `Impuestos` dentro de `Comprobante` debe ser `Retenciones`.
+
+- Comprobante
+    - Conceptos
+        - Impuestos
+            - Traslados
+            - Retenciones
+    - Impuestos
+        - Retenciones
+        - Traslados
+
+También puedes notar que no existe el método `Concepto::addImpuestos(array $attributes = [])`
+porque este nodo por definición no tiene atributos propios y por lo tanto no es necesario.
 
 
 ## InformacionAduanera `cfdi:InformacionAduanera`

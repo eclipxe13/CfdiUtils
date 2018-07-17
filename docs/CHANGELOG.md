@@ -12,6 +12,17 @@
 - Remove `trigger_error` on `\CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados` when called with arguments.
 
 
+## Version 2.6.1 2018-07-16
+
+- Fix order of `Impuestos` children (thanks @aldolinares):
+    - When is inside `Comprobante` the order is `Retenciones` then `Traslados`
+    - When is inside `Concepto` the order is `Traslados` then `Retenciones`
+- Add `testMultiRelacionado` in `ComprobanteTest`
+- Fix markdown syntax errors in a lot of documents
+- Use self instead of static in docblocks, static is not standard
+- Add badges to `docs/index.md`
+
+
 ## Version 2.6.0 2018-07-06 - bugfixes, quickreader & welcome readthedocs & mkdocs
 
 - Create `QuickReader`, utility for easy navigate and extract information from a CFDI

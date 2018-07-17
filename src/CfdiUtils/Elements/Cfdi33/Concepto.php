@@ -26,6 +26,11 @@ class Concepto extends AbstractElement
         ];
     }
 
+    public function getImpuestos(): ConceptoImpuestos
+    {
+        return $this->helperGetOrAdd(new ConceptoImpuestos());
+    }
+
     public function getCuentaPredial(): CuentaPredial
     {
         return $this->helperGetOrAdd(new CuentaPredial());

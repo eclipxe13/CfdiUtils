@@ -14,6 +14,7 @@ que es una extensión de `CfdiUtils\Nodes\NodeInterface` y agrega:
 
 - `getElementName(): string`: Devuelve el nombre del elemento, como `cfdi:Complemento`
 - `getFixedAttributes(): array`: Establece la lista de nodos predefinidos al crearse (útil para Complementos y Comprobante)
+- `getChildrenOrder(): array`: establece el orden de los nodos hijos
 
 En última instancia, un *elemento* (`ElementInterface`) es un *nodo* (`NodeInterface`)
 por lo que puedes utilizar a bajo nivel todo el poder de los nodos para trabajar con esta estructura de datos.
