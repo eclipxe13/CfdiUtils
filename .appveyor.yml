@@ -42,6 +42,8 @@ install:
             # Add-Content php.ini "`n extension=php_pdo_sqlite.dll"
             # Add-Content php.ini "`n extension=php_sqlite3.dll"
             Add-Content php.ini "`n extension=php_curl.dll"
+            Add-Content php.ini "`n extension=php_xsl.dll"
+            Add-Content php.ini "`n extension=php_soap.dll"
         }
     # composer
     - ps: |
