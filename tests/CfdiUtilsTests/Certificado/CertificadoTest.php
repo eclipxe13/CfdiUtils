@@ -68,17 +68,17 @@ EOD;
 
     public function testConstructWithUnreadableFile()
     {
-        $badCertificateFile = $this->utilAsset('/');
+        $badCertificateFile = $this->utilAsset('');
 
         $this->expectException(\UnexpectedValueException::class);
-        $this->expectExceptionMessage('Cannot read the certificate file');
+        $this->expectExceptionMessage('does not exists');
 
         new Certificado($badCertificateFile);
     }
 
     public function testConstructWithEmptyFile()
     {
-        $badCertificateFile = $this->utilAsset('/');
+        $badCertificateFile = $this->utilAsset('empty.bin');
 
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('empty');
