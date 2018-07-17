@@ -4,16 +4,19 @@ platform: x64
 clone_folder: c:\projects\project
 clone_depth: 1
 
+cache:
+    - C:\ProgramData\chocolatey\bin -> .appveyor.yml
+    - C:\ProgramData\chocolatey\lib -> .appveyor.yml
+    - C:\tools\php -> .appveyor.yml
+    - C:\tools\composer -> .appveyor.yml
+    - '%LOCALAPPDATA%\Composer\files -> composer.json'
+
 ## Build matrix for lowest and highest possible targets
 environment:
     matrix:
         - php: 7.0
         - php: 7.1
         - php: 7.2
-
-cache:
-    - C:\ProgramData\chocolatey\bin -> .appveyor.yml
-    - C:\ProgramData\chocolatey\lib -> .appveyor.yml
 
 init:
     - SET PATH=C:\Program Files\OpenSSL;c:\tools\php;C:\tools\composer;%PATH%
@@ -57,14 +60,15 @@ install:
         }
     # install composer dependences
     - cd c:\projects\project
-    - appveyor-retry composer install --no-interaction --prefer-dist
+    - appveyor-retry composer self-update --no-progress --no-interaction
+    - appveyor-retry composer install --no-progress --no-interaction --prefer-dist
 
 ## Run the actual test
 test_script:
     - cd c:\projects\project
     - mkdir build
-    - php vendor\bin\phplint
-    - php vendor\bin\phpcs -sp src tests
-    - php vendor\bin\php-cs-fixer fix --using-cache=no --dry-run --verbose
-    - php vendor\bin\phpunit
-    - php vendor\bin\phpstan.phar --no-progress analyse --level max src tests
+    - vendor\bin\phplint
+    - vendor\bin\phpcs -sp src tests
+    - vendor\bin\php-cs-fixer fix --using-cache=no --dry-run --verbose
+    - vendor\bin\phpunit
+    - vendor\bin\phpstan.phar --no-progress analyse --level max src tests
