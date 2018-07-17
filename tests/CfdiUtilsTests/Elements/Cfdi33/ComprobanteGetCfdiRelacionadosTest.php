@@ -22,7 +22,16 @@ class ComprobanteGetCfdiRelacionadosTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        set_error_handler([$this, 'errorHandler'], E_USER_ERROR | E_USER_WARNING | E_USER_NOTICE | E_USER_DEPRECATED);
+        set_error_handler(
+            [$this, 'errorHandler'],
+            E_USER_ERROR | E_USER_WARNING | E_USER_NOTICE | E_USER_DEPRECATED
+        );
+    }
+
+    protected function tearDown()
+    {
+        restore_error_handler();
+        parent::tearDown();
     }
 
     public function errorHandler($errno, $errstr, $errfile, $errline, $errcontext)
