@@ -83,6 +83,18 @@ class Comprobante extends AbstractElement
         return $this->getConceptos()->addConcepto($attributes, $children);
     }
 
+    public function getImpuestos(): Impuestos
+    {
+        return $this->helperGetOrAdd(new Impuestos());
+    }
+
+    public function addImpuestos(array $attributes = []): Impuestos
+    {
+        $impuestos = $this->getImpuestos();
+        $impuestos->addAttributes($attributes);
+        return $impuestos;
+    }
+
     public function getComplemento(): Complemento
     {
         return $this->helperGetOrAdd(new Complemento());

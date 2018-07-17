@@ -104,6 +104,25 @@ class ComprobanteTest extends TestCase
         $this->assertSame($child, $this->element->searchNode('cfdi:Conceptos'));
     }
 
+    public function testGetImpuestos()
+    {
+        $this->assertNull($this->element->searchNode('cfdi:Impuestos'));
+        $child = $this->element->getImpuestos();
+        $this->assertInstanceOf(Impuestos::class, $child);
+        $this->assertSame($child, $this->element->searchNode('cfdi:Impuestos'));
+    }
+
+    public function testAddImpuestos()
+    {
+        $first = $this->element->addImpuestos(['Foo' => 'Bar']);
+        $this->assertInstanceOf(Impuestos::class, $first);
+        $this->assertSame('Bar', $first['Foo']);
+
+        $second = $this->element->addImpuestos(['Foo' => 'BAR']);
+        $this->assertSame($first, $second);
+        $this->assertSame('BAR', $first['Foo']);
+    }
+
     public function testAddConcepto()
     {
         $this->assertCount(0, $this->element);

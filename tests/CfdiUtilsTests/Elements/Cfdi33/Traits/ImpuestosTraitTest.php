@@ -18,6 +18,7 @@ class ImpuestosTraitTest extends TestCase
         parent::setUp();
         $this->element = new UseImpuestos();
     }
+
     public function testGetImpuestos()
     {
         $this->assertNull($this->element->searchNode('cfdi:Impuestos'));
@@ -78,7 +79,7 @@ class ImpuestosTraitTest extends TestCase
 
         // retrieve in correct order
         $impuestos = $this->element->getImpuestos();
-        $this->assertInstanceOf(Traslados::class, $impuestos->children()->get(0));
-        $this->assertInstanceOf(Retenciones::class, $impuestos->children()->get(1));
+        $this->assertInstanceOf(Retenciones::class, $impuestos->children()->get(0));
+        $this->assertInstanceOf(Traslados::class, $impuestos->children()->get(1));
     }
 }

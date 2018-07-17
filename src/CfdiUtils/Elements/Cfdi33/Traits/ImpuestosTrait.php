@@ -4,17 +4,14 @@ namespace CfdiUtils\Elements\Cfdi33\Traits;
 use CfdiUtils\Elements\Cfdi33\Impuestos;
 use CfdiUtils\Elements\Cfdi33\Retencion;
 use CfdiUtils\Elements\Cfdi33\Traslado;
-use CfdiUtils\Elements\Common\ElementInterface;
 
 trait ImpuestosTrait
 {
-    /* This method comes from AbstractElement */
-    abstract protected function helperGetOrAdd(ElementInterface $element);
-
-    public function getImpuestos(): Impuestos
-    {
-        return $this->helperGetOrAdd(new Impuestos());
-    }
+    /*
+     * This method is required for all the shortcut methods included here
+     * The returned instance must be Impuestos or an extended class
+     */
+    abstract public function getImpuestos(): Impuestos;
 
     public function addTraslado(array $attributes = []): Traslado
     {
