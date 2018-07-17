@@ -3,9 +3,7 @@ namespace CfdiUtils\CadenaOrigen;
 
 trait XsltBuilderPropertyTrait
 {
-    /**
-     * @var XsltBuilderInterface
-     */
+    /** @var XsltBuilderInterface|null */
     private $xsltBuilder;
 
     public function getXsltBuilder(): XsltBuilderInterface
@@ -14,6 +12,11 @@ trait XsltBuilderPropertyTrait
             throw new \LogicException('There is no current xsltBuilder');
         }
         return $this->xsltBuilder;
+    }
+
+    public function hasXsltBuilder(): bool
+    {
+        return ($this->xsltBuilder instanceof XsltBuilderInterface);
     }
 
     public function setXsltBuilder(XsltBuilderInterface $xsltBuilder)
