@@ -21,7 +21,7 @@
 - Make sure that input file on `PemPrivateKey` is not a directory and is readable
 - On MS Windows send to `NUL` instead of `/dev/null`
 - Convert from `UTF-8` to `ASCII//TRANSLIT` can add single quotes, remove it.
-- Add [AppVeyor](https://ci.appveyor.com/project/eclipxe13/cfdiutils) continious integration
+- Add [AppVeyor](https://ci.appveyor.com/project/eclipxe13/cfdiutils) continuous integration
 - Add documentation about developing this library on windows
 - Allow to set `saxonb` path using environment variable `saxonb-path`
 
