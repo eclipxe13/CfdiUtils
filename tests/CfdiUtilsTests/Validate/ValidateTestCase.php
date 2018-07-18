@@ -120,7 +120,7 @@ abstract class ValidateTestCase extends TestCase
     {
         echo PHP_EOL, 'Asserts count: ', $this->asserts->count();
         foreach ($this->asserts as $assert) {
-            echo PHP_EOL, vsprintf("%-10s %-8s %s => %s", [
+            echo PHP_EOL, vsprintf('%-10s %-8s %s => %s', [
                 $assert->getCode(),
                 $assert->getStatus(),
                 $assert->getTitle(),
