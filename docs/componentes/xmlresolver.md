@@ -114,3 +114,13 @@ $myResolver->setDownloader($myDownloader);
 // establecer el descargador a un descargador simple (ver PhpDownloader)
 $myResolver->setDownloader(null);
 ```
+
+En el creador de CFDI, aun cuando no se especifique, por defecto se crea un resolvedor.
+Puedes utilizar este resolvedor y simplemente configurarlo con otro descargador:
+
+```php
+<?php
+/** @var \XmlResourceRetriever\Downloader\DownloaderInterface $myDownloader */
+$creator = new \CfdiUtils\CfdiCreator33();
+$creator->getXmlResolver()->setDownloader($myDownloader);
+```
