@@ -132,7 +132,7 @@ duiejZMJ/4En5VvjGaJoBltjEe4ANBzdCyqm49KlwRiGvOZGGeBBBFM1ks6N3zHDhPnzT17TgqiZMMY6
 UB0oPiKxPEhhXFw18T2omx/oFfDI/gmD0LgRQfJ+fxYoKoPZL/g9ushPxq9vzQiik6DpJqY6uVWbBxmZ
 NbLxnrVqMcDx4CpFhIaMKQ==
 EOC;
-        $sign = chunk_split(base64_encode($privateKey->sign($content, OPENSSL_ALGO_MD5)), 80, PHP_EOL);
+        $sign = chunk_split(base64_encode($privateKey->sign($content, OPENSSL_ALGO_MD5)), 80, "\n");
         $this->assertEquals($expectedSign, rtrim($sign));
     }
 
