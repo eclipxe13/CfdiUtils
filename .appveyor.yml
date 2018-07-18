@@ -71,4 +71,4 @@ test_script:
     - vendor\bin\phpcs -sp src tests
     - vendor\bin\php-cs-fixer fix --using-cache=no --dry-run --verbose
     - vendor\bin\phpunit
-    - vendor\bin\phpstan.phar --no-progress analyse --level max src tests
+    - vendor\bin\phpstan.phar.bat --no-progress analyse --level max src tests
