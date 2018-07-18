@@ -118,15 +118,15 @@ abstract class ValidateTestCase extends TestCase
      */
     protected function printrAsserts()
     {
-        echo "\nAsserts count: " . $this->asserts->count();
+        echo PHP_EOL, 'Asserts count: ', $this->asserts->count();
         foreach ($this->asserts as $assert) {
-            vprintf("\n%-10s %-8s %s => %s", [
+            echo PHP_EOL, vsprintf("%-10s %-8s %s => %s", [
                 $assert->getCode(),
                 $assert->getStatus(),
                 $assert->getTitle(),
                 $assert->getExplanation(),
             ]);
         }
-        echo "\n";
+        echo PHP_EOL;
     }
 }

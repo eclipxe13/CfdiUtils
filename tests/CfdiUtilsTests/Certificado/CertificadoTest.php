@@ -44,7 +44,7 @@ EOD;
 
         $certificado = new Certificado($certificadoFile);
         $verify = $certificado->verify(
-            file_get_contents($dataFile),
+            str_replace("\r\n", "\n", file_get_contents($dataFile)),
             file_get_contents($signatureFile)
         );
 

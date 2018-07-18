@@ -30,7 +30,7 @@ class SamplesTest extends TestCase
         $asserts->removeByCode('EMISORRFC01');
         /* // Developer, use this to check what fail
         foreach ($asserts->errors() as $error) {
-            echo sprintf("\t%s: %s => %s\n", $error->getCode(), $error->getTitle(), $error->getExplanation());
+            echo sprintf("\t%s: %s => %s" . PHP_EOL, $error->getCode(), $error->getTitle(), $error->getExplanation());
         }
         // */
         $this->assertFalse($asserts->hasErrors());

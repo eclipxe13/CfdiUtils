@@ -92,6 +92,6 @@ escribir un `Assert` con el mismo código entonces el previo es sobre escrito.
 /** @var \CfdiUtils\CfdiCreator33 $creator */
 $asserts = $creator->validate();
 foreach ($asserts as $assert) {
-    echo $assert, "\n";
+    echo $assert, PHP_EOL;
 }
 ```
