@@ -44,7 +44,7 @@ EOD;
 
         $certificado = new Certificado($certificadoFile);
         $verify = $certificado->verify(
-            file_get_contents($dataFile),
+            str_replace("\r\n", "\n", file_get_contents($dataFile)),
             file_get_contents($signatureFile)
         );
 
@@ -68,17 +68,17 @@ EOD;
 
     public function testConstructWithUnreadableFile()
     {
-        $badCertificateFile = $this->utilAsset('/');
+        $badCertificateFile = $this->utilAsset('');
 
         $this->expectException(\UnexpectedValueException::class);
-        $this->expectExceptionMessage('Cannot read the certificate file');
+        $this->expectExceptionMessage('does not exists');
 
         new Certificado($badCertificateFile);
     }
 
     public function testConstructWithEmptyFile()
     {
-        $badCertificateFile = $this->utilAsset('/');
+        $badCertificateFile = $this->utilAsset('empty.bin');
 
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('empty');

@@ -41,7 +41,11 @@ abstract class GenericBuilderTestCase extends TestCase
 
         $builder = $this->createBuilder();
         $cadenaOrigen = $builder->build(file_get_contents($xmlLocation), $xsltLocation);
-        $this->assertStringEqualsFile($expectedTransformation, $cadenaOrigen . PHP_EOL);
+        $this->assertSame(
+            rtrim(file_get_contents($expectedTransformation)),
+            $cadenaOrigen,
+            'Xslt transformation returns an unexpected value'
+        );
     }
 
     public function testBuildWithEmptyXml()

@@ -38,7 +38,7 @@ class Certificado
         $this->assertFileExists($filename);
         // read contents, cast to string to avoid FALSE
         if ('' === $contents = (string) file_get_contents($filename)) {
-            throw new \UnexpectedValueException("Cannot read the certificate file $filename or is empty");
+            throw new \UnexpectedValueException("File $filename is empty");
         }
 
         // change to PEM format if it is not already
@@ -73,7 +73,7 @@ class Certificado
         } elseif (isset($data['serialNumber'])) {
             $serial->loadDecimal($data['serialNumber']);
         } else {
-            throw new \RuntimeException('Cannot get serialNumberHex or serialNumber from certificate');
+            throw new \RuntimeException("Cannot get serialNumberHex or serialNumber from certificate file $filename");
         }
         $this->serial = $serial->asAscii();
         $this->validFrom = $data['validFrom_time_t'];
@@ -187,7 +187,7 @@ class Certificado
      */
     protected function assertFileExists(string $filename)
     {
-        if (! file_exists($filename) || ! is_readable($filename)) {
+        if (! file_exists($filename) || ! is_readable($filename) || is_dir($filename)) {
             throw new \UnexpectedValueException("File $filename does not exists or is not readable");
         }
     }

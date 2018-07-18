@@ -23,7 +23,7 @@ class PemPrivateKey
         if (0 === strpos($key, 'file://')) {
             $contents = '';
             $filename = substr($key, 7);
-            if ('' !== $filename && file_exists($filename)) {
+            if ('' !== $filename && file_exists($filename) && is_readable($filename) && ! is_dir($filename)) {
                 $contents = file_get_contents($filename);
             }
         } else {

@@ -9,9 +9,12 @@ class SaxonbCliBuilderTest extends GenericBuilderTestCase
 {
     protected function createBuilder(): XsltBuilderInterface
     {
-        $executable = '/usr/bin/saxonb-xslt';
+        $executable = (string) getenv('saxonb-path');
+        if ('' === $executable) {
+            $executable = '/usr/bin/saxonb-xslt';
+        }
         if (! is_executable($executable)) {
-            $this->markTestIncomplete("Cannot test since $executable is missing");
+            $this->markTestSkipped("Cannot test since saxonb ($executable) is missing");
         }
         return new SaxonbCliBuilder($executable);
     }
@@ -45,8 +48,12 @@ class SaxonbCliBuilderTest extends GenericBuilderTestCase
     {
         $builder = new SaxonbCliBuilder(__FILE__);
         $this->expectException(XsltBuildException::class);
-        $this->expectExceptionMessage('executable');
-
+        // this file could have executable permissions (because users!)... then change message
+        if (is_executable(__FILE__)) {
+            $this->expectExceptionMessage('Transformation error');
+        } else {
+            $this->expectExceptionMessage('executable');
+        }
         $builder->build('x', 'y');
     }
 }

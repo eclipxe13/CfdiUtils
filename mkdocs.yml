@@ -28,6 +28,7 @@ pages:
     - "Contribuir":
         - contribuir/guia-desarrollador.md
         - contribuir/guia-documentador.md
+        - contribuir/guia-windows.md
     - "Acerca de":
         - "To Do List": "TODO.md"
         - "Changelog": "CHANGELOG.md"

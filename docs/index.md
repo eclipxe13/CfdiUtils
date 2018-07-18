@@ -5,6 +5,7 @@
 [![Latest Version][badge-release]][release]
 [![Software License][badge-license]][license]
 [![Build Status][badge-build]][build]
+[![AppVeyor Status][badge-appveyor]][appveyor]
 [![Source Code][badge-documentation]][documentation]
 [![Scrutinizer][badge-quality]][quality]
 [![Coverage Status][badge-coverage]][coverage]
@@ -69,6 +70,7 @@ Solo hay métodos específicos para CFDI 3.3.
 - [Listado de tareas pendientes e ideas](TODO.md)
 - [Guía de contribución para desarrolladores](contribuir/guia-desarrollador.md)
 - [Guía de contribución para documentadores](contribuir/guia-documentador.md)
+- [Guía de contribución para MS Windows](contribuir/guia-windows.md)
 - Reportar un problema
 
 
@@ -96,18 +98,20 @@ Consulte el archivo [LICENSE][] para más información.
 [release]: https://github.com/eclipxe13/CfdiUtils/releases
 [license]: https://github.com/eclipxe13/CfdiUtils/blob/master/LICENSE
 [build]: https://travis-ci.org/eclipxe13/CfdiUtils?branch=master
+[appveyor]: https://ci.appveyor.com/project/eclipxe13/cfdiutils
 [quality]: https://scrutinizer-ci.com/g/eclipxe13/CfdiUtils/
 [sensiolabs]: https://insight.sensiolabs.com/projects/87975c73-2f3b-480a-8cce-e78b15986d7b
 [coverage]: https://scrutinizer-ci.com/g/eclipxe13/CfdiUtils/code-structure/master/code-coverage
 [downloads]: https://packagist.org/packages/eclipxe/CfdiUtils
 
-[badge-source]: http://img.shields.io/badge/source-eclipxe13/CfdiUtils-blue.svg?style=flat-square
-[badge-documentation]: https://img.shields.io/readthedocs/cfdiutils/stable.svg
+[badge-source]: http://img.shields.io/badge/source-eclipxe13/CfdiUtils-blue.svg?logo=github&style=flat-square
+[badge-documentation]: https://img.shields.io/readthedocs/cfdiutils/stable.svg?style=flat-square
 [badge-gitter]: https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat-square
 [badge-release]: https://img.shields.io/github/release/eclipxe13/CfdiUtils.svg?style=flat-square
 [badge-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[badge-build]: https://img.shields.io/travis/eclipxe13/CfdiUtils/master.svg?style=flat-square
-[badge-quality]: https://img.shields.io/scrutinizer/g/eclipxe13/CfdiUtils/master.svg?style=flat-square
+[badge-build]: https://img.shields.io/travis/eclipxe13/CfdiUtils/master.svg?logo=travis&style=flat-square
+[badge-appveyor]: https://img.shields.io/appveyor/ci/eclipxe13/cfdiutils/master.svg?logo=appveyor&style=flat-square
+[badge-quality]: https://img.shields.io/scrutinizer/g/eclipxe13/CfdiUtils/master.svg?logo=scrutinizer&style=flat-square
 [badge-sensiolabs]: https://insight.sensiolabs.com/projects/87975c73-2f3b-480a-8cce-e78b15986d7b/mini.png
 [badge-coverage]: https://img.shields.io/scrutinizer/coverage/g/eclipxe13/CfdiUtils/master.svg?style=flat-square
 [badge-downloads]: https://img.shields.io/packagist/dt/eclipxe/CfdiUtils.svg?style=flat-square

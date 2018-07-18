@@ -1,5 +1,9 @@
 # Auto detect text files and perform LF normalization
-* text=auto
+* text=auto eol=lf
+*.cer binary
+*.pem binary
+*.key binary
+*.bin binary
 
 # Do not put this files on a distribution package (by .gitignore)
 /vendor              export-ignore

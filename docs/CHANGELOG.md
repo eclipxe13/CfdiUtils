@@ -12,6 +12,20 @@
 - Remove `trigger_error` on `\CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados` when called with arguments.
 
 
+## Version 2.6.2 2018-07-17
+
+- Dependence on <https://github.com/eclipxe13/XmlSchemaValidator> has been set to `^2.0.1`
+  to fix validation using XSD local repository on MS Windows.
+- Improve docblocks in property traits
+- Restore previous error handler on `ComprobanteGetCfdiRelacionadosTest`
+- Make sure that input file on `PemPrivateKey` is not a directory and is readable
+- On MS Windows send to `NUL` instead of `/dev/null`
+- Convert from `UTF-8` to `ASCII//TRANSLIT` can add single quotes, remove it.
+- Add [AppVeyor](https://ci.appveyor.com/project/eclipxe13/cfdiutils) continious integration
+- Add documentation about developing this library on windows
+- Allow to set `saxonb` path using environment variable `saxonb-path`
+
+
 ## Version 2.6.1 2018-07-16
 
 - Fix order of `Impuestos` children (thanks @aldolinares):

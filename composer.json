@@ -31,7 +31,7 @@
         "ext-openssl": "*",
         "ext-soap": "*",
         "eclipxe/xmlresourceretriever": "^1.2",
-        "eclipxe/xmlschemavalidator": "^2.0"
+        "eclipxe/xmlschemavalidator": "^2.0.1"
     },
     "suggest": {
         "genkgo/xsl": "^0.5.20"
