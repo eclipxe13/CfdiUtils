@@ -28,36 +28,35 @@ init:
 install:
     # php
     - ps: |
-        # Check if installation is cached
-        if (!(Test-Path c:\tools\php)) {
-            appveyor-retry cinst --params '""/InstallDir:C:\tools\php""' --ignore-checksums -y php --version ((choco search php --exact --all-versions -r | select-string -pattern $env:php | sort { [version]($_ -split '\|' | select -last 1) } -Descending | Select-Object -first 1) -replace '[php|]','')
-            Get-ChildItem -Path c:\tools\php
-            cd c:\tools\php
-            copy php.ini-production php.ini
-            Add-Content php.ini "`n date.timezone=UTC"
-            Add-Content php.ini "`n extension_dir=ext"
-            Add-Content php.ini "`n memory_limit=1G"
-            Add-Content php.ini "`n extension=php_openssl.dll"
-            Add-Content php.ini "`n extension=php_mbstring.dll"
-            Add-Content php.ini "`n extension=php_fileinfo.dll"
-            Add-Content php.ini "`n extension=php_curl.dll"
-            Add-Content php.ini "`n extension=php_xsl.dll"
-            Add-Content php.ini "`n extension=php_soap.dll"
-        }
+          if (!(Test-Path c:\tools\php)) {
+              appveyor-retry cinst --params '""/InstallDir:C:\tools\php""' --ignore-checksums -y php --version ((choco search php --exact --all-versions -r | select-string -pattern $env:php | sort { [version]($_ -split '\|' | select -last 1) } -Descending | Select-Object -first 1) -replace '[php|]','')
+              Get-ChildItem -Path c:\tools\php
+              cd c:\tools\php
+              copy php.ini-production php.ini
+              Add-Content php.ini "`n date.timezone=UTC"
+              Add-Content php.ini "`n extension_dir=ext"
+              Add-Content php.ini "`n memory_limit=1G"
+              Add-Content php.ini "`n extension=php_openssl.dll"
+              Add-Content php.ini "`n extension=php_mbstring.dll"
+              Add-Content php.ini "`n extension=php_fileinfo.dll"
+              Add-Content php.ini "`n extension=php_curl.dll"
+              Add-Content php.ini "`n extension=php_xsl.dll"
+              Add-Content php.ini "`n extension=php_soap.dll"
+          }
     # composer
     - ps: |
-        if (!(Test-Path C:\tools\composer)) {
-            New-Item -path c:\tools -name composer -itemtype directory
-        }
-        if (!(Test-Path c:\tools\composer\composer.phar)) {
-            appveyor-retry appveyor DownloadFile https://getcomposer.org/composer.phar -Filename C:\tools\composer\composer.phar
-            Set-Content -path 'C:\tools\composer\composer.bat' -Value ('@php C:\tools\composer\composer.phar %*')
-        }
+          if (!(Test-Path C:\tools\composer)) {
+              New-Item -path c:\tools -name composer -itemtype directory
+          }
+          if (!(Test-Path c:\tools\composer\composer.phar)) {
+              appveyor-retry appveyor DownloadFile https://getcomposer.org/composer.phar -Filename C:\tools\composer\composer.phar
+              Set-Content -path 'C:\tools\composer\composer.bat' -Value ('@php C:\tools\composer\composer.phar %*')
+          }
     # saxonb
     - ps: |
-        if (!(Test-Path C:\ProgramData\chocolatey\bin\SaxonHE\bin\Transform.exe)) {
-            appveyor-retry cinst --ignore-checksums -y saxonhe
-        }
+          if (!(Test-Path C:\ProgramData\chocolatey\bin\SaxonHE\bin\Transform.exe)) {
+              appveyor-retry cinst --ignore-checksums -y saxonhe
+          }
     # install composer dependences
     - cd c:\projects\project
     - appveyor-retry composer self-update --no-progress --no-interaction
