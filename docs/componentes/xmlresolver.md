@@ -78,7 +78,7 @@ No se trata de un caché, porque no hay fechas de caducidad de los recursos.
 Cuando descargas algún recurso este podría descargar hijos y a su vez estos podrían descargar nuevos hijos.
 De igual forma, no solo se descargan recursos del SAT, también podrían descargarse recursos de terceros.
 Por eso te recomiendo que, si hubo algún cambio en los archivos XSD del SAT elimines entonces cualquier archivo
-de tipo `*.xsd` dentro de la carpeta `<repositorio>/www/www.sat.gob.mx`.
+de tipo `*.xsd` dentro de la carpeta `<repositorio>/www.sat.gob.mx`.
 
 
 ## Configurando el objeto que se encarga de la descarga de archivos
