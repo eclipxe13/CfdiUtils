@@ -22,7 +22,7 @@ init:
     - SET PATH=C:\Program Files\OpenSSL;c:\tools\php;C:\tools\composer;%PATH%
     - SET COMPOSER_NO_INTERACTION=1
     - SET ANSICON=121x90 (121x90)
-    - SET saxonb-path=c:\tools\saxonb\bin\transform.exe
+    - SET saxonb-path=C:\ProgramData\chocolatey\bin\SaxonHE\bin\Transform.exe
 
 ## Install PHP and composer, and run the appropriate composer command
 install:
@@ -55,11 +55,8 @@ install:
         }
     # saxonb
     - ps: |
-        if (!(Test-Path C:\tools\saxonb)) {
-            New-Item -path c:\tools -name saxonb -itemtype directory
-        }
-        if (!(Test-Path C:\tools\saxonb\bin\transform.exe)) {
-            appveyor-retry cinst --params '""/InstallDir:C:\tools\saxonb""' --ignore-checksums -y saxonhe
+        if (!(Test-Path C:\ProgramData\chocolatey\bin\SaxonHE\bin\Transform.exe)) {
+            appveyor-retry cinst --ignore-checksums -y saxonhe
         }
     # install composer dependences
     - cd c:\projects\project
