@@ -17,19 +17,12 @@ class ComprobanteImpuestosTest extends ValidateTestCase
         $this->validator = new ComprobanteImpuestos();
     }
 
-    public function providerValidImpuestos()
-    {
-        return [
-            [true, false],
-            [false, true],
-            [true, true],
-        ];
-    }
-
     /**
      * @param bool $putTraslados
      * @param bool $putRetenciones
-     * @dataProvider providerValidImpuestos
+     * @testWith [true, false]
+     *           [false, true]
+     *           [true, true]
      */
     public function testValidImpuestos($putTraslados, $putRetenciones)
     {
@@ -70,7 +63,7 @@ class ComprobanteImpuestosTest extends ValidateTestCase
         $this->assertStatusEqualsCode(Status::error(), 'COMPIMPUESTOSC02');
     }
 
-    public function testInvalidTotalTrasladosWithoutTrasladosNodes()
+    public function testValidTotalTrasladosWithoutTrasladosNodes()
     {
         $this->comprobante->addChild(new Node(
             'cfdi:Impuestos',
@@ -78,7 +71,7 @@ class ComprobanteImpuestosTest extends ValidateTestCase
         ));
 
         $this->runValidate();
-        $this->assertStatusEqualsCode(Status::error(), 'COMPIMPUESTOSC02');
+        $this->assertStatusEqualsCode(Status::ok(), 'COMPIMPUESTOSC02');
     }
 
     public function testInvalidRetencionesNodesWithoutTotalRetenciones()
@@ -93,7 +86,7 @@ class ComprobanteImpuestosTest extends ValidateTestCase
         $this->assertStatusEqualsCode(Status::error(), 'COMPIMPUESTOSC03');
     }
 
-    public function testInvalidTotalRetencionesWithoutRetencionesNodes()
+    public function testValidTotalRetencionesWithoutRetencionesNodes()
     {
         $this->comprobante->addChild(new Node(
             'cfdi:Impuestos',
@@ -101,7 +94,7 @@ class ComprobanteImpuestosTest extends ValidateTestCase
         ));
 
         $this->runValidate();
-        $this->assertStatusEqualsCode(Status::error(), 'COMPIMPUESTOSC03');
+        $this->assertStatusEqualsCode(Status::ok(), 'COMPIMPUESTOSC03');
     }
 
     public function testWithoutNodeImpuestos()
