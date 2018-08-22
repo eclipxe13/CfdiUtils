@@ -50,13 +50,13 @@ class ComprobanteImpuestos extends AbstractDiscoverableVersion33
         $hasTraslados = (null !== $nodeImpuestos->searchNode('cfdi:Traslados', 'cfdi:Traslado'));
         $asserts->putStatus(
             'COMPIMPUESTOSC02',
-            Status::when(! ($hasTraslados xor $existsTotalTrasladados))
+            Status::when(! ($hasTraslados and ! $existsTotalTrasladados))
         );
 
         $hasRetenciones = (null !== $nodeImpuestos->searchNode('cfdi:Retenciones', 'cfdi:Retencion'));
         $asserts->putStatus(
             'COMPIMPUESTOSC03',
-            Status::when(! ($hasRetenciones xor $existsTotalRetenidos))
+            Status::when(! ($hasRetenciones and ! $existsTotalRetenidos))
         );
     }
 }

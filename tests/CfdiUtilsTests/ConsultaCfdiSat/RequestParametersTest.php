@@ -1,6 +1,7 @@
 <?php
 namespace CfdiUtilsTests\ConsultaCfdiSat;
 
+use CfdiUtils\Cfdi;
 use CfdiUtils\ConsultaCfdiSat\RequestParameters;
 use CfdiUtilsTests\TestCase;
 
@@ -55,6 +56,32 @@ class RequestParametersTest extends TestCase
             'CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC',
             '0123456789'
         );
+    }
+
+    public function testCreateFromCfdiVersion32()
+    {
+        $cfdi = Cfdi::newFromString(file_get_contents($this->utilAsset('cfdi32-real.xml')));
+        $parameters = RequestParameters::createFromCfdi($cfdi);
+
+        $this->assertSame('3.2', $parameters->getVersion());
+        $this->assertSame('CTO021007DZ8', $parameters->getRfcEmisor());
+        $this->assertSame('XAXX010101000', $parameters->getRfcReceptor());
+        $this->assertSame('80824F3B-323E-407B-8F8E-40D83FE2E69F', $parameters->getUuid());
+        $this->assertStringEndsWith('YRbgmmVYiA==', $parameters->getSello());
+        $this->assertEquals(4685.00, $parameters->getTotalFloat(), '', 0.001);
+    }
+
+    public function testCreateFromCfdiVersion33()
+    {
+        $cfdi = Cfdi::newFromString(file_get_contents($this->utilAsset('cfdi33-real.xml')));
+        $parameters = RequestParameters::createFromCfdi($cfdi);
+
+        $this->assertSame('3.3', $parameters->getVersion());
+        $this->assertSame('POT9207213D6', $parameters->getRfcEmisor());
+        $this->assertSame('DIM8701081LA', $parameters->getRfcReceptor());
+        $this->assertSame('CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC', $parameters->getUuid());
+        $this->assertStringEndsWith('XmE4/OAgdg==', $parameters->getSello());
+        $this->assertEquals(2010.01, $parameters->getTotalFloat(), '', 0.001);
     }
 
     /**

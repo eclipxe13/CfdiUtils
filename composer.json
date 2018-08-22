@@ -30,6 +30,7 @@
         "ext-mbstring": "*",
         "ext-openssl": "*",
         "ext-soap": "*",
+        "ext-iconv": "*",
         "eclipxe/xmlresourceretriever": "^1.2",
         "eclipxe/xmlschemavalidator": "^2.0.1"
     },

@@ -148,4 +148,23 @@ class SelloDigitalCertificadoTest extends ValidateTestCase
         }
         $this->assertCount(8, $this->asserts, 'All 8 were are tested');
     }
+
+    /**
+     * @param bool $expected
+     * @param string $first
+     * @param string $second
+     * @testWith [true, "ABC", "ABC"]
+     *           [true, "Empresa \"Equis\"", "Empresa Equis"]
+     *           [false, "Empresa Equis Sa de Cv", "Empresa Equis SA CV"]
+     */
+    public function testCompareNames(bool $expected, string $first, string $second)
+    {
+        $validator = new class() extends SelloDigitalCertificado {
+            public function testCompareNames(string $first, string $second): bool
+            {
+                return $this->compareNames($first, $second);
+            }
+        };
+        $this->assertSame($expected, $validator->testCompareNames($first, $second));
+    }
 }
