@@ -12,6 +12,12 @@
 - Remove `trigger_error` on `\CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados` when called with arguments.
 
 
+## Version To be released
+
+- Fix scrutinizer issue in `Validate/Cfdi33/Standard/ComprobanteImpuestos.php`:
+  Using logical operators such as and instead of && is generally not recommended. 
+
+
 ## Version 2.6.3 2018-08-21
 
 - Fix validations `COMPIMPUESTOSC02` and `COMPIMPUESTOSC03`
