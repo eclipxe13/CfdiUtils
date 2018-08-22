@@ -1,6 +1,8 @@
 <?php
 namespace CfdiUtils\ConsultaCfdiSat;
 
+use CfdiUtils\Cfdi;
+
 class RequestParameters
 {
     /** @var string */
@@ -39,6 +41,19 @@ class RequestParameters
         $this->totalFloat = (float) trim(str_replace(',', '', $this->total));
         $this->uuid = $uuid;
         $this->sello = $sello;
+    }
+
+    public static function createFromCfdi(Cfdi $cfdi): self
+    {
+        $qr = $cfdi->getQuickReader();
+        return new self(
+            $qr['version'],
+            $qr->{'emisor'}['rfc'],
+            $qr->{'receptor'}['rfc'],
+            $qr['total'],
+            $qr->{'complemento'}->{'timbrefiscaldigital'}['uuid'],
+            $qr['sello']
+        );
     }
 
     public function getVersion(): string

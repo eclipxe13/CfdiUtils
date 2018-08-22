@@ -89,8 +89,24 @@ N - 602  | No Encontrado | La consulta fue hecha pero el CFDI no existe
 El problema que encontré es que alterando solo 1 dato (el total) esperaba encontrar un estado de `N - 602`
 pero el estado devuelto fue `N - 601`.
 
+## Ejemplo de uso a partir de un archivo
 
-## Ejemplo de uso
+```php
+<?php
+
+use \CfdiUtils\Cfdi;
+use \CfdiUtils\ConsultaCfdiSat\WebService;
+use \CfdiUtils\ConsultaCfdiSat\RequestParameters;
+
+// los datos del cfdi que se van a consultar
+$cfdi = Cfdi::newFromString(file_get_contents('cfdi.xml'));
+$request = RequestParameters::createFromCfdi($cfdi);
+
+$service = new WebService();
+$response = $service->request($request); // $response contiene toda la información
+```
+
+## Ejemplo de uso a partir de datos conocidos
 
 ```php
 <?php
