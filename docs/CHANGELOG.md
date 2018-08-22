@@ -12,6 +12,19 @@
 - Remove `trigger_error` on `\CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados` when called with arguments.
 
 
+## Version 2.6.3 2018-08-21
+
+- Fix validations `COMPIMPUESTOSC02` and `COMPIMPUESTOSC03`
+    Previously both or any should exists (`xnor`): nodes `Traslado|Retencion` and attributes `TotalImpuestosTrasladados|TotalImpuestosRetenidos`
+    Now it allows to have `Impuestos` totals even when related nodes does not exists
+    This is because is not mandatory by Anexo 20
+    What is mandatory is that if nodes exists then totals must exists
+- Add helper method to create a `RequestParameters` from a `Cfdi`
+- Fix: add missing dependence `ext-iconv` into `composer.json`
+- Testing: add helper development script `tests/estadosat.php`
+- Testing: Change compareNames & castNombre visibility for direct testing
+
+
 ## Version 2.6.2 2018-07-17
 
 - Dependence on <https://github.com/eclipxe13/XmlSchemaValidator> has been set to `^2.0.1`
