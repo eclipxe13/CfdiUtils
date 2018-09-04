@@ -25,6 +25,9 @@
     The test that are consuming <https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc?singleWsdl>
     was moved to a different test case class `WebServiceConsumingTest` and are marked as skipped when `\SoapFault`
     is thrown instead of fail
+- Fix `xmlns:xsi` definition case to `XMLSchema`
+- 
+
 
 ## Version 2.6.3 2018-08-21
 
