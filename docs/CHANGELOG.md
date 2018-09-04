@@ -26,7 +26,8 @@
     was moved to a different test case class `WebServiceConsumingTest` and are marked as skipped when `\SoapFault`
     is thrown instead of fail
 - Fix `xmlns:xsi` definition case to `XMLSchema`
-- 
+- Allow install phpunit 7 if php >= 7.1
+- Fix `phpunit.xml.dist` configuration file removing redundant options and setting missing options
 
 
 ## Version 2.6.3 2018-08-21
