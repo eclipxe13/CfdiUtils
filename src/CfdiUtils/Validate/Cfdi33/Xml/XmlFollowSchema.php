@@ -12,7 +12,9 @@ use CfdiUtils\Validate\Traits\XmlStringPropertyTrait;
 use CfdiUtils\XmlResolver\XmlResolverPropertyInterface;
 use CfdiUtils\XmlResolver\XmlResolverPropertyTrait;
 use XmlSchemaValidator\Schema;
+use XmlSchemaValidator\Schemas;
 use XmlSchemaValidator\SchemaValidator;
+use XmlSchemaValidator\SchemaValidatorException;
 
 /**
  * XmlFollowSchema
@@ -50,14 +52,12 @@ class XmlFollowSchema extends AbstractVersion33 implements
 
         // validate using resolver->retriever or using the simple method
         try {
+            $schemas = $schemaValidator->buildSchemas();
             if ($this->hasXmlResolver() && $this->getXmlResolver()->hasLocalPath()) {
-                $this->validateUsingRetriever($schemaValidator);
-            } else {
-                if (! $schemaValidator->validate()) {
-                    throw new \Exception($schemaValidator->getLastError());
-                }
+                $schemas = $this->changeSchemasUsingRetriever($schemas);
             }
-        } catch (\Exception $exception) {
+            $schemaValidator->validateWithSchemas($schemas);
+        } catch (SchemaValidatorException $exception) {
             // validate failure
             $assert->setStatus(Status::error(), $exception->getMessage());
             $asserts->mustStop(true);
@@ -68,13 +68,10 @@ class XmlFollowSchema extends AbstractVersion33 implements
         $assert->setStatus(Status::ok());
     }
 
-    private function validateUsingRetriever(SchemaValidator $schemaValidator)
+    private function changeSchemasUsingRetriever(Schemas $schemas): Schemas
     {
         // obtain the retriever, throw its own exception if non set
         $retriever = $this->getXmlResolver()->newXsdRetriever();
-
-        // obtain the list of schemas
-        $schemas = $schemaValidator->buildSchemas();
 
         // replace the schemas locations with the retrieved local path
         /** @var Schema $schema */
@@ -88,7 +85,6 @@ class XmlFollowSchema extends AbstractVersion33 implements
             $schemas->insert(new Schema($schema->getNamespace(), $localPath));
         }
 
-        // validate using the modified schemas
-        $schemaValidator->validateWithSchemas($schemas);
+        return $schemas;
     }
 }

@@ -16,7 +16,7 @@ class XmlNodeImporter
         $node = new Node($element->tagName);
         if ('' !== $element->prefix) {
             $this->registerNamespace($node, 'xmlns:' . $element->prefix, $element->namespaceURI);
-            $this->registerNamespace($node, 'xmlns:xsi', 'http://www.w3.org/2001/xmlschema-instance');
+            $this->registerNamespace($node, 'xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
         }
 
         /** @var \DOMNode $attribute */

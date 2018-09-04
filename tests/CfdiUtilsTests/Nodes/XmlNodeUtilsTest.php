@@ -62,7 +62,11 @@ class XmlNodeUtilsTest extends TestCase
         $this->assertCount(1, $node);
         $this->assertSame('1', $node['id']);
         $child = $node->children()->firstNodeWithName('child');
-        $this->assertSame('2', $child['id']);
-        $this->assertCount(0, $child);
+        if (null === $child) {
+            $this->fail('firstNodeWithName did not return a Node');
+        } else {
+            $this->assertSame('2', $child['id']);
+            $this->assertCount(0, $child);
+        }
     }
 }

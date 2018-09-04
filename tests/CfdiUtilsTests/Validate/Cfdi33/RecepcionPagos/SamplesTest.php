@@ -25,14 +25,14 @@ class SamplesTest extends TestCase
 
         $validator = new CfdiValidator33();
         $asserts = $validator->validateXml(file_get_contents($sampleFile));
-        // Remove this tests! we are using manipulated cfdi
+        // Remove this assertions because we are using manipulated cfdi
         $asserts->removeByCode('SELLO08');
-        $asserts->removeByCode('EMISORRFC01');
-        /* // Developer, use this to check what fail
-        foreach ($asserts->errors() as $error) {
-            echo sprintf("\t%s: %s => %s" . PHP_EOL, $error->getCode(), $error->getTitle(), $error->getExplanation());
+        $errors = $asserts->errors();
+        if (count($errors)) { // display errors!
+            foreach ($asserts->errors() as $error) {
+                echo PHP_EOL, ' *** ', strval($error), ' => ', $error->getExplanation();
+            }
         }
-        // */
         $this->assertFalse($asserts->hasErrors());
     }
 

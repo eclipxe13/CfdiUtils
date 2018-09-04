@@ -25,6 +25,11 @@
     The test that are consuming <https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc?singleWsdl>
     was moved to a different test case class `WebServiceConsumingTest` and are marked as skipped when `\SoapFault`
     is thrown instead of fail
+- Fix `xmlns:xsi` definition case to `XMLSchema`
+- Allow install phpunit 7 if php >= 7.1
+- Fix `phpunit.xml.dist` configuration file removing redundant options and setting missing options
+- Solve phpstan 0.10.x issues, not yet upgraded since it contains several bugfixes
+
 
 ## Version 2.6.3 2018-08-21
 
