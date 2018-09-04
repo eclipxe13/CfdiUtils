@@ -31,15 +31,15 @@
         "ext-openssl": "*",
         "ext-soap": "*",
         "ext-iconv": "*",
-        "eclipxe/xmlresourceretriever": "^1.2",
-        "eclipxe/xmlschemavalidator": "^2.0.1"
+        "eclipxe/xmlresourceretriever": "^1.2.1",
+        "eclipxe/xmlschemavalidator": "^2.0.2"
     },
     "suggest": {
         "genkgo/xsl": "^0.5.20"
     },
     "require-dev": {
         "genkgo/xsl": "^0.5.20",
-        "phpunit/phpunit": "^6.2|^7.3",
+        "phpunit/phpunit": "^6.2",
         "overtrue/phplint": "^1.0",
         "squizlabs/php_codesniffer": "^3.0",
         "friendsofphp/php-cs-fixer": "^2.4",
