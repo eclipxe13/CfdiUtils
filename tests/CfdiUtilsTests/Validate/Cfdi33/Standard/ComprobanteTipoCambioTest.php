@@ -20,6 +20,7 @@ class ComprobanteTipoCambioTest extends ValidateTestCase
     {
         return [
             ['MXN', '1', 'TIPOCAMBIO02', ['TIPOCAMBIO03', 'TIPOCAMBIO04']],
+            ['MXN', '1.000000', 'TIPOCAMBIO02', ['TIPOCAMBIO03', 'TIPOCAMBIO04']],
             ['MXN', null, 'TIPOCAMBIO02', ['TIPOCAMBIO03', 'TIPOCAMBIO04']],
             ['XXX', null, 'TIPOCAMBIO03', ['TIPOCAMBIO02', 'TIPOCAMBIO04']],
             ['USD', '10.0', 'TIPOCAMBIO04', ['TIPOCAMBIO02', 'TIPOCAMBIO03']],
@@ -87,6 +88,8 @@ class ComprobanteTipoCambioTest extends ValidateTestCase
     {
         return [
             ['MXN', '', 'TIPOCAMBIO02', ['TIPOCAMBIO03', 'TIPOCAMBIO04']],
+            ['MXN', '1.000001', 'TIPOCAMBIO02', ['TIPOCAMBIO03', 'TIPOCAMBIO04']],
+            ['MXN', '0.999999', 'TIPOCAMBIO02', ['TIPOCAMBIO03', 'TIPOCAMBIO04']],
             ['MXN', '10.0', 'TIPOCAMBIO02', ['TIPOCAMBIO03', 'TIPOCAMBIO04']],
             ['XXX', '', 'TIPOCAMBIO03', ['TIPOCAMBIO02', 'TIPOCAMBIO04']],
             ['XXX', '10.0', 'TIPOCAMBIO03', ['TIPOCAMBIO02', 'TIPOCAMBIO04']],
