@@ -12,10 +12,15 @@
 - Remove `trigger_error` on `\CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados` when called with arguments.
 
 
-## Version To be released
+## Version 2.6.4 2018-09-04
 
+- Fix validation `TIPOCAMBIO02`:
+    - Previous validation only allows value `"1"` if currency `MXN`.
+      Now it allows any value equals to `1` considering 6 decimal numbers, so the following values
+      are valid: `"1"`, `"1.00"`, `"1.000000"`
+    - Change description from `... debe ser "1"...` to `... debe tener el valor "1"...`
 - Fix scrutinizer issue in `Validate/Cfdi33/Standard/ComprobanteImpuestos.php`:
-  Using logical operators such as and instead of && is generally not recommended. 
+  *Using logical operators such as and instead of && is generally not recommended*
 
 
 ## Version 2.6.3 2018-08-21
