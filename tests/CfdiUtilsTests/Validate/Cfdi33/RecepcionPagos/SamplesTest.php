@@ -30,7 +30,7 @@ class SamplesTest extends TestCase
         $errors = $asserts->errors();
         if (count($errors)) { // display errors!
             foreach ($asserts->errors() as $error) {
-                echo PHP_EOL, ' *** ', $error;
+                echo PHP_EOL, ' *** ', strval($error), ' => ', $error->getExplanation();
             }
         }
         $this->assertFalse($asserts->hasErrors());
