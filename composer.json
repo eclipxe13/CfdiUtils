@@ -39,7 +39,7 @@
     },
     "require-dev": {
         "genkgo/xsl": "^0.5.20",
-        "phpunit/phpunit": "^6.2",
+        "phpunit/phpunit": "^6.2|^7.3",
         "overtrue/phplint": "^1.0",
         "squizlabs/php_codesniffer": "^3.0",
         "friendsofphp/php-cs-fixer": "^2.4",
