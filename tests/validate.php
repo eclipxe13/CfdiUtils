@@ -35,7 +35,7 @@ exit(call_user_func(function (string $command, string ...$arguments): int {
         $validator->getXmlResolver()->setLocalPath('');
     }
     foreach ($files as $file) {
-        $asserts = $validator->validateXml(file_get_contents($file));
+        $asserts = $validator->validateXml((string) file_get_contents($file));
         print_r(array_filter([
             'file' => $file,
             'asserts' => $asserts->count(),

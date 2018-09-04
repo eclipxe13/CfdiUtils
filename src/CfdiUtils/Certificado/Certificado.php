@@ -53,14 +53,20 @@ class Certificado
         }
 
         // get the public key
-        $pubkey = openssl_get_publickey($contents);
+        $pubkey = false;
+        $pubData = false;
         try {
-            $pubData = openssl_pkey_get_details($pubkey);
-            if (false === $pubData) {
-                $pubData = ['key' => ''];
+            $pubkey = openssl_get_publickey($contents);
+            if (is_resource($pubkey)) {
+                $pubData = openssl_pkey_get_details($pubkey);
             }
         } finally {
-            openssl_free_key($pubkey);
+            if (is_resource($pubkey)) {
+                openssl_free_key($pubkey);
+            }
+        }
+        if (false === $pubData) {
+            $pubData = ['key' => ''];
         }
 
         // set all the values
@@ -104,7 +110,8 @@ class Certificado
             && 0 !== strpos($keyContents, '-----BEGIN RSA PRIVATE KEY-----')) {
             throw new \UnexpectedValueException("The file $pemKeyFile is not a PEM private key");
         }
-        if (false === $privateKey = openssl_get_privatekey($keyContents, $passPhrase)) {
+        $privateKey = openssl_get_privatekey($keyContents, $passPhrase);
+        if (false === $privateKey) {
             throw new \RuntimeException("Cannot open the private key file $pemKeyFile");
         }
         $belongs = openssl_x509_check_private_key($this->getPemContents(), $privateKey);
@@ -166,7 +173,8 @@ class Certificado
      */
     public function verify(string $data, string $signature, int $algorithm = OPENSSL_ALGO_SHA256): bool
     {
-        if (false === $pubKey = openssl_get_publickey($this->getPubkey())) {
+        $pubKey = openssl_get_publickey($this->getPubkey());
+        if (false === $pubKey) {
             throw new \RuntimeException('Cannot open public key from certificate');
         }
         try {

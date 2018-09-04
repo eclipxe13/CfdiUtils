@@ -29,7 +29,7 @@ exit(call_user_func(function (string $command, string ...$arguments): int {
     $webService = new WebService();
 
     foreach ($files as $file) {
-        $cfdi = \CfdiUtils\Cfdi::newFromString(file_get_contents($file));
+        $cfdi = \CfdiUtils\Cfdi::newFromString((string) file_get_contents($file));
         $request = \CfdiUtils\ConsultaCfdiSat\RequestParameters::createFromCfdi($cfdi);
         $response = $webService->request($request);
 

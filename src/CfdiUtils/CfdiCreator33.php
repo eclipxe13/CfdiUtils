@@ -78,7 +78,7 @@ class CfdiCreator33 implements
         $cerfile = $certificado->getFilename();
         $this->comprobante['NoCertificado'] = $certificado->getSerial();
         if (file_exists($cerfile)) {
-            $this->comprobante['Certificado'] = base64_encode(file_get_contents($cerfile));
+            $this->comprobante['Certificado'] = base64_encode((string) file_get_contents($cerfile));
         }
         if ($putEmisorRfcNombre) {
             $this->comprobante->addEmisor([

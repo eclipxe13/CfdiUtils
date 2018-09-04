@@ -150,6 +150,9 @@ class Cleaner
         $addendas = $this->xpathQuery($query);
         for ($i = 0; $i < $addendas->length; $i++) {
             $addenda = $addendas->item($i);
+            if (null === $addenda) {
+                continue;
+            }
             $addenda->parentNode->removeChild($addenda);
         }
     }
@@ -169,7 +172,10 @@ class Cleaner
         }
         $schemaLocations = $this->xpathQuery("//@$xsi:schemaLocation");
         for ($s = 0; $s < $schemaLocations->length; $s++) {
-            $this->removeNonSatNSschemaLocation($schemaLocations->item($s));
+            $element = $schemaLocations->item($s);
+            if (null !== $element) {
+                $this->removeNonSatNSschemaLocation($element);
+            }
         }
     }
 
