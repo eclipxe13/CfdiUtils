@@ -21,7 +21,10 @@
     - Change description from `... debe ser "1"...` to `... debe tener el valor "1"...`
 - Fix scrutinizer issue in `Validate/Cfdi33/Standard/ComprobanteImpuestos.php`:
   *Using logical operators such as and instead of && is generally not recommended*
-
+- `CfdiUtils\ConsultaCfdiSat\WebService` is using SAT Web Service but since 2018-08 it is ramdomly failing.
+    The test that are consuming <https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc?singleWsdl>
+    was moved to a different test case class `WebServiceConsumingTest` and are marked as skipped when `\SoapFault`
+    is thrown instead of fail
 
 ## Version 2.6.3 2018-08-21
 
