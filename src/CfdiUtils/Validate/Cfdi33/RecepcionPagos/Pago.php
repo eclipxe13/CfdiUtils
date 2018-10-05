@@ -47,7 +47,7 @@ class Pago extends AbstractRecepcionPagos10
             new Pagos\TipoCambioValue(), // PAGO6
             new Pagos\MontoGreaterThanZero(), // PAGO07
             new Pagos\MontoDecimals(), // PAGO08
-            new Pagos\MontoGreaterOrEqualThanSumOfDocuments(), // PAGO09
+            new Pagos\MontoBetweenIntervalSumOfDocuments(), // PAGO09
             new Pagos\BancoOrdenanteRfcCorrecto(), // PAGO10
             new Pagos\BancoOrdenanteNombreRequerido(), // PAGO11
             new Pagos\BancoOrdenanteRfcProhibido(), // PAGO12

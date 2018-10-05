@@ -29,6 +29,7 @@ class SamplesTest extends TestCase
         $asserts->removeByCode('SELLO08');
         $errors = $asserts->errors();
         if (count($errors)) { // display errors!
+            echo PHP_EOL, 'source: ', $sampleName;
             foreach ($asserts->errors() as $error) {
                 echo PHP_EOL, ' *** ', strval($error), ' => ', $error->getExplanation();
             }
@@ -47,7 +48,17 @@ class SamplesTest extends TestCase
         $asserts->removeByCode('SELLO08');
         $asserts->removeByCode('EMISORRFC01');
         // Check that this codes are in error state
-        $expectedErrorCodes = ['PAGO17', 'PAGO17-00', 'PAGO18', 'PAGO18-00', 'PAGO28', 'PAGO28-00', 'PAGO28-00-00'];
+        $expectedErrorCodes = [
+            'PAGO09', // MontoBetweenIntervalSumOfDocuments
+            'PAGO09-00',
+            'PAGO17', // CuentaBeneficiariaProhibida
+            'PAGO17-00',
+            'PAGO18',  // CuentaBeneficiariaPatron
+            'PAGO18-00',
+            'PAGO28',  // ImporteSaldoInsolutoValor
+            'PAGO28-00',
+            'PAGO28-00-00',
+        ];
         foreach ($expectedErrorCodes as $expectedErrorCode) {
             $this->assertEquals(Status::error(), $asserts->get($expectedErrorCode)->getStatus());
             $asserts->removeByCode($expectedErrorCode);

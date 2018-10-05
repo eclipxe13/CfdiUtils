@@ -53,21 +53,7 @@ class Certificado
         }
 
         // get the public key
-        $pubkey = false;
-        $pubData = false;
-        try {
-            $pubkey = openssl_get_publickey($contents);
-            if (is_resource($pubkey)) {
-                $pubData = openssl_pkey_get_details($pubkey);
-            }
-        } finally {
-            if (is_resource($pubkey)) {
-                openssl_free_key($pubkey);
-            }
-        }
-        if (false === $pubData) {
-            $pubData = ['key' => ''];
-        }
+        $pubKey = $this->obtainPubKeyFromContents($contents);
 
         // set all the values
         $this->rfc = (string) strstr($data['subject']['x500UniqueIdentifier'] . ' ', ' ', true);
@@ -84,7 +70,7 @@ class Certificado
         $this->serial = $serial->asAscii();
         $this->validFrom = $data['validFrom_time_t'];
         $this->validTo = $data['validTo_time_t'];
-        $this->pubkey = $pubData['key'];
+        $this->pubkey = $pubKey;
         $this->pemContents = $contents;
         $this->filename = $filename;
     }
@@ -205,5 +191,25 @@ class Certificado
         return '-----BEGIN CERTIFICATE-----' . PHP_EOL
             . chunk_split(base64_encode($contents), 64, PHP_EOL)
             . '-----END CERTIFICATE-----' . PHP_EOL;
+    }
+
+    protected function obtainPubKeyFromContents(string $contents): string
+    {
+        try {
+            $pubkey = openssl_get_publickey($contents);
+            if (! is_resource($pubkey)) {
+                return '';
+            }
+            $pubData = openssl_pkey_get_details($pubkey);
+            if (false === $pubData) {
+                return '';
+            }
+            return $pubData['key'] ?? '';
+        } finally {
+            // close public key even if the flow is throw an exception
+            if (isset($pubkey) && is_resource($pubkey)) {
+                openssl_free_key($pubkey);
+            }
+        }
     }
 }
