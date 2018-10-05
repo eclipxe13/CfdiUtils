@@ -16,3 +16,7 @@ Files:
     - http://www.validacfd.com/phpbb3/download/file.php?id=4774&sid=680416f0e92d3a861d2bea1bbf73bd85
     - http://www.validacfd.com/phpbb3/download/file.php?id=4773&sid=680416f0e92d3a861d2bea1bbf73bd85
     - http://www.validacfd.com/phpbb3/download/file.php?id=4772&sid=680416f0e92d3a861d2bea1bbf73bd85
+
+
+From Version 2.6.5 there is no possible to pass `PAGO09` without `pago10:DoctoRelacionado`,
+so change downloaded samples had change again.

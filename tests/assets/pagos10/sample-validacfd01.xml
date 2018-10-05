@@ -13,7 +13,7 @@
     </cfdi:Conceptos>
     <cfdi:Complemento>
         <pago10:Pagos Version="1.0">
-            <pago10:Pago FechaPago="2017-07-14T15:46:55" FormaDePagoP="04" MonedaP="MXN" Monto="322.77"
+            <pago10:Pago FechaPago="2017-07-14T15:46:55" FormaDePagoP="04" MonedaP="MXN" Monto="201.54"
                  NumOperacion="4343434" RfcEmisorCtaOrd="BAF950102JP5" CtaOrdenante="1234567890123456"
                  RfcEmisorCtaBen="BBA830831LJ2" CtaBeneficiario="123456789012345678">
                 <pago10:DoctoRelacionado IdDocumento="31FBF471-DCFD-46A5-B235-CADD520A9CC0" Serie="A" Folio="23205"

@@ -13,7 +13,10 @@
     </cfdi:Conceptos>
     <cfdi:Complemento>
         <pago10:Pagos Version="1.0">
-            <pago10:Pago FechaPago="2017-07-14T16:36:06" FormaDePagoP="01" MonedaP="MXN" Monto="1000.00" NumOperacion="4343"/>
+            <pago10:Pago FechaPago="2017-07-14T16:36:06" FormaDePagoP="01" MonedaP="MXN" Monto="1000.00" NumOperacion="4343">
+                <pago10:DoctoRelacionado IdDocumento="A6F92B41-7FE7-49A5-AA9F-D9AF01625C8D" MonedaDR="MXN"
+                    MetodoDePagoDR="PPD" NumParcialidad="1" ImpSaldoAnt="1000.00" ImpSaldoInsoluto="0.00"/>
+            </pago10:Pago>
         </pago10:Pagos>
     </cfdi:Complemento>
 </cfdi:Comprobante>
