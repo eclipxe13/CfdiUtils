@@ -21,6 +21,7 @@
       recepción de pagos, page 22* it is required that  `pagos10:Pago@Monto` must be in an interval.
     - Fix samples from `tests/assets/pagos/` since new validation make it fail.
     - Rename validation class `MontoGreaterOrEqualThanSumOfDocuments` to `MontoBetweenIntervalSumOfDocuments`
+- Refactor `CfdiUtils\Certificado\Certificado` extracting obtain public key routine to an internal method.
 - Create tests for trait `CalculateDocumentAmountTrait`.
 
 
