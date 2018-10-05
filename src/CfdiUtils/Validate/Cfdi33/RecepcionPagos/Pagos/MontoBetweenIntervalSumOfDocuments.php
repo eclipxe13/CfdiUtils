@@ -2,6 +2,7 @@
 namespace CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos;
 
 use CfdiUtils\Nodes\NodeInterface;
+use CfdiUtils\Utils\CurrencyDecimals;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Helpers\CalculateDocumentAmountTrait;
 
 /**
@@ -20,8 +21,9 @@ class MontoBetweenIntervalSumOfDocuments extends AbstractPagoValidator
     {
         $pagoAmount = floatval($pago['Monto']);
         $bounds = $this->calculateDocumentsAmountBounds($pago);
-        $lower = $bounds['lower'];
-        $upper = $bounds['upper'];
+        $currencyDecimals = CurrencyDecimals::newFromKnownCurrencies($pago['MonedaP'], 2);
+        $lower = $currencyDecimals->round($bounds['lower']);
+        $upper = $currencyDecimals->round($bounds['upper']);
         if ($pagoAmount < $lower || $pagoAmount > $upper) {
             throw new ValidatePagoException(
                 sprintf('Monto del pago: "%s", Suma mínima: "%s", Suma máxima: "%s"', $pagoAmount, $lower, $upper)

@@ -12,6 +12,12 @@
 - Remove `trigger_error` on `\CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados` when called with arguments.
 
 
+## Version 2.6.6 2018-10-04
+
+- After previous update on validation `PAGO09` and more testing found that it requires to round lower and upper limits.
+- Create more 1 case with specific data and 1 test with 20 cases with random data.
+
+
 ## Version 2.6.5 2018-10-04
 
 - Fix validation `PAGO09`:

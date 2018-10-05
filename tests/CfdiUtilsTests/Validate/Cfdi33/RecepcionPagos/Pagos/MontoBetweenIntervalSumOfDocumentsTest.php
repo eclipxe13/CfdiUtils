@@ -27,8 +27,8 @@ class MontoBetweenIntervalSumOfDocumentsTest extends TestCase
     /**
      * This is testing lower bound (122.94) and upper bound (123.97)
      * @param string $monto
-     * @testWith ["122.94"]
-     *           ["123.97"]
+     * @testWith ["122.93"]
+     *           ["123.98"]
      */
     public function testInvalids(string $monto)
     {
@@ -63,6 +63,49 @@ class MontoBetweenIntervalSumOfDocumentsTest extends TestCase
             'ImpPagado' => '5137.42',
         ]);
 
+        $validator = new MontoBetweenIntervalSumOfDocuments();
+        $this->assertTrue($validator->validatePago($pago));
+    }
+
+    public function testValidWithMultiDocuments()
+    {
+        $pago = new Pago([
+            'MonedaP' => 'MXN',
+            'Monto' => '21588.07',
+        ]);
+        $pago->multiDoctoRelacionado(...[
+            ['MonedaDR' => 'MXN', 'ImpPagado' => '6826.60'],
+            ['MonedaDR' => 'MXN', 'ImpPagado' => '2114.52'],
+            ['MonedaDR' => 'MXN', 'ImpPagado' => '11245.04'],
+            ['MonedaDR' => 'MXN', 'ImpPagado' => '1401.91'],
+        ]);
+        $validator = new MontoBetweenIntervalSumOfDocuments();
+        $this->assertTrue($validator->validatePago($pago));
+    }
+
+    public function providerValidWithRandomAmounts(): array
+    {
+        $randomValues = [];
+        for ($i = 0; $i < 20; $i++) {
+            $randomValues[] = [rand(1, 99999999) / 100];
+        }
+        return $randomValues;
+    }
+
+    /**
+     * @param float $amount
+     * @dataProvider providerValidWithRandomAmounts
+     */
+    public function testValidWithRandomAmounts(float $amount)
+    {
+        $pago = new Pago([
+            'MonedaP' => 'MXN',
+            'Monto' => number_format($amount, 2, '.', ''),
+        ]);
+        $pago->multiDoctoRelacionado(...[
+            ['MonedaDR' => 'MXN', 'ImpPagado' => number_format(1 * $amount / 3, 2, '.', '')],
+            ['MonedaDR' => 'MXN', 'ImpPagado' => number_format(2 * $amount / 3, 2, '.', '')],
+        ]);
         $validator = new MontoBetweenIntervalSumOfDocuments();
         $this->assertTrue($validator->validatePago($pago));
     }
