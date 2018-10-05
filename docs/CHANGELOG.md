@@ -12,6 +12,18 @@
 - Remove `trigger_error` on `\CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados` when called with arguments.
 
 
+## Version 2.6.5 2018-10-04
+
+- Fix validation `PAGO09`:
+    - Before 2018-09-01 `pagos10:Pago@Monto` must be less or equal than sum of `pago10:DoctoRelacionado@ImpPagado`
+      in the same currency as `pagos10:Pago`.
+    - Since 2018-09-01 according to *Guía de llenado del comprobante al que se le incorpore el complemento para
+      recepción de pagos, page 22* it is required that  `pagos10:Pago@Monto` must be in an interval.
+    - Fix samples from `tests/assets/pagos/` since new validation make it fail.
+    - Rename validation class `MontoGreaterOrEqualThanSumOfDocuments` to `MontoBetweenIntervalSumOfDocuments`
+- Create tests for trait `CalculateDocumentAmountTrait`.
+
+
 ## Version 2.6.4 2018-09-04
 
 - Fix validation `TIPOCAMBIO02`:
