@@ -1,7 +1,9 @@
 <?php
 namespace CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\DoctoRelacionado;
 
-class ValidateDoctoException extends \Exception
+use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidatePagoException;
+
+class ValidateDoctoException extends ValidatePagoException
 {
     /** @var int */
     private $index;
