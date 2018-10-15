@@ -5,6 +5,7 @@ class Nodes implements \Countable, \IteratorAggregate
 {
     /** @var NodeInterface[] */
     private $nodes = [];
+
     /** @var NodesSorter */
     private $sorter;
 
