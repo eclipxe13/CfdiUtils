@@ -6,7 +6,6 @@ use CfdiUtils\CfdiCreator33;
 use CfdiUtils\CfdiValidator33;
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Nodes\XmlNodeUtils;
-use CfdiUtils\XmlResolver\XmlResolver;
 
 class CfdiValidator33Test extends TestCase
 {
@@ -18,7 +17,7 @@ class CfdiValidator33Test extends TestCase
 
     public function testConstructWithResolver()
     {
-        $xmlResolver = new XmlResolver();
+        $xmlResolver = $this->newResolver();
         $validator = new CfdiValidator33($xmlResolver);
         $this->assertSame($xmlResolver, $validator->getXmlResolver());
     }
@@ -98,6 +97,7 @@ class CfdiValidator33Test extends TestCase
 
         $validator = new CfdiValidator33();
         $asserts = $validator->validate($cfdi->getSource(), $cfdi->getNode());
+        $asserts->hasErrors() && print_r($asserts->errors());
         $this->assertFalse(
             $asserts->hasErrors(),
             'The validation of an expected cfdi33 real file fails'

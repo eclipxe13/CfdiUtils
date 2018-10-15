@@ -2,10 +2,9 @@
 namespace CfdiUtilsTests\Validate;
 
 use CfdiUtils\Validate\Hydrater;
-use CfdiUtils\XmlResolver\XmlResolver;
+use CfdiUtilsTests\TestCase;
 use CfdiUtilsTests\Validate\FakeObjects\ImplementationRequireXmlResolverInterface;
 use CfdiUtilsTests\Validate\FakeObjects\ImplementationRequireXmlStringInterface;
-use PHPUnit\Framework\TestCase;
 
 class HydraterTest extends TestCase
 {
@@ -24,7 +23,7 @@ class HydraterTest extends TestCase
     public function testHydrateXmlResolver()
     {
         $hydrater = new Hydrater();
-        $xmlResolver = new XmlResolver();
+        $xmlResolver = $this->newResolver();
 
         $hydrater->setXmlResolver($xmlResolver);
         $this->assertSame($xmlResolver, $hydrater->getXmlResolver());
