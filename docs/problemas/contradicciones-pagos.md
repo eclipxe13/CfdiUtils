@@ -124,7 +124,7 @@ cambies el estado de la revisión de error a advertencia, este es un ejemplo:
 $asserts = $creator->validate();
 foreach ($asserts->errors() as $error) {
     $code = $error->getCode();
-    if (fnmatch('PAGO09', $code)) {
+    if (fnmatch('PAGO09*', $code)) {
         $error->setStatus(\CfdiUtils\Validate\Status::warn());
     }
 }
