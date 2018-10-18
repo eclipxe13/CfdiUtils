@@ -20,6 +20,7 @@ class PagoTest extends ValidateComplementoPagosTestCase
         foreach (range(2, 22) as $i) {
             $expectedValidators[] = sprintf('PAGO%02d', $i);
         }
+        $expectedValidators[] = 'PAGO30';
 
         $validators = $this->validator->getValidators();
         $validatorsCodes = [];

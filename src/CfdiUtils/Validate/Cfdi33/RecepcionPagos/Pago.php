@@ -62,6 +62,7 @@ class Pago extends AbstractRecepcionPagos10
             new Pagos\TipoCadenaPagoCadena(), // PAGO21
             new Pagos\TipoCadenaPagoSello(), // PAGO22
             new Pagos\DoctoRelacionado(), // PAGO23 ... PAGO29
+            new Pagos\MontoGreaterOrEqualThanSumOfDocuments(), // PAGO30
         ];
     }
 
