@@ -47,6 +47,7 @@ class SamplesTest extends TestCase
         // Remove this tests! we are using manipulated cfdi
         $asserts->removeByCode('SELLO08');
         $asserts->removeByCode('EMISORRFC01');
+
         // Check that this codes are in error state
         $expectedErrorCodes = [
             'PAGO09', // MontoBetweenIntervalSumOfDocuments
@@ -63,7 +64,6 @@ class SamplesTest extends TestCase
             $this->assertEquals(Status::error(), $asserts->get($expectedErrorCode)->getStatus());
             $asserts->removeByCode($expectedErrorCode);
         }
-        // there should not exists errors
-        $this->assertFalse($asserts->hasErrors());
+        $this->assertFalse($asserts->hasErrors(), 'Asserts has more errors than expected');
     }
 }
