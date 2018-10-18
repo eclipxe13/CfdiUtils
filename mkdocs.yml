@@ -29,6 +29,9 @@ pages:
         - contribuir/guia-desarrollador.md
         - contribuir/guia-documentador.md
         - contribuir/guia-windows.md
+    - "Problemas":
+        - problemas/contradicciones-pagos.md
+        - problemas/descarga-certificados.md
     - "Acerca de":
         - "To Do List": "TODO.md"
         - "Changelog": "CHANGELOG.md"
