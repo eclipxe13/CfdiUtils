@@ -12,6 +12,21 @@
 - Remove `trigger_error` on `\CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados` when called with arguments.
 
 
+## Version 2.7.0 2018-10-18
+
+- Reintroduce `MontoGreaterOrEqualThanSumOfDocuments` as `PAGO30`.
+    - There is a legal contradiction in `Pagos` between `Guía de llenado` and `Matriz de errores`
+    - For more information check documentation <https://cfdiutils.readthedocs.io/es/latest/problemas/contradicciones-pagos/>
+- Change `CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidatePagoException` to use status property.
+- Change `CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidateDoctoException` to extends `ValidatePagoException`.
+- Honor status from `ValidatePagoException` or `ValidateDoctoException`
+- Tests use XmlResolver from `CfdiUtilsTests\TestCase` instead of creating a new one
+- Fix `CfdiUtils\Nodes\Nodes::searchNodes` docblock
+- Documentation:
+    - Create `docs/problemas/contradicciones-pagos.md`
+    - Create `docs/problemas/descarga-certificados.md` to document error `TFDSELLO01`
+
+
 ## Version 2.6.6 2018-10-04
 
 - After previous update on validation `PAGO09` and more testing found that it requires to round lower and upper limits.
