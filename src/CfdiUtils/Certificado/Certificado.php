@@ -5,23 +5,26 @@ class Certificado
 {
     /** @var string */
     private $rfc;
+
     /** @var string */
     private $name;
+
     /** @var string */
     private $serial;
+
     /** @var int */
     private $validFrom;
+
     /** @var int */
     private $validTo;
+
     /** @var string */
     private $pubkey;
+
     /** @var string */
     private $filename;
 
-    /**
-     * The contents of the certificate
-     * @var string
-     */
+    /** @var string */
     private $pemContents;
 
     /**
@@ -105,41 +108,73 @@ class Certificado
         return $belongs;
     }
 
+    /**
+     * RFC (Registro Federal de Contribuyentes) set when certificate was created
+     * @return string
+     */
     public function getRfc(): string
     {
         return $this->rfc;
     }
 
+    /**
+     * Name (Razón Social) set when certificate was created
+     * @return string
+     */
     public function getName(): string
     {
         return $this->name;
     }
 
+    /**
+     * Certificate serial number as ASCII, this data is in the format required by CFDI
+     * @return string
+     */
     public function getSerial(): string
     {
         return $this->serial;
     }
 
+    /**
+     * Timestamp since the certificate is valid
+     * @return int
+     */
     public function getValidFrom(): int
     {
         return $this->validFrom;
     }
 
+    /**
+     * Timestamp until the certificate is valid
+     * @return int
+     */
     public function getValidTo(): int
     {
         return $this->validTo;
     }
 
+    /**
+     * String representation of the public key
+     * @return string
+     */
     public function getPubkey(): string
     {
         return $this->pubkey;
     }
 
+    /**
+     * Place where the certificate was when loaded, it might not exists on the file system
+     * @return string
+     */
     public function getFilename(): string
     {
         return $this->filename;
     }
 
+    /**
+     * The contents of the certificate in PEM format
+     * @return string
+     */
     public function getPemContents(): string
     {
         return $this->pemContents;
@@ -200,10 +235,7 @@ class Certificado
             if (! is_resource($pubkey)) {
                 return '';
             }
-            $pubData = openssl_pkey_get_details($pubkey);
-            if (false === $pubData) {
-                return '';
-            }
+            $pubData = openssl_pkey_get_details($pubkey) ?: [];
             return $pubData['key'] ?? '';
         } finally {
             // close public key even if the flow is throw an exception

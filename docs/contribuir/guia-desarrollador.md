@@ -12,7 +12,7 @@ En resumen:
 * Cuando reportes un problema procura documentar lo más posible tu caso.
 * Cuando desees contribuir al código, realiza pruebas.
 * Apégate al estándar de codificación.
-* Usa las herramientas básicas, antes de enviar tu PR ejecuta: `composer build`.
+* Usa las herramientas básicas, antes de enviar tu PR ejecuta: `composer dev:build`.
 
 ## Dependencias de desarrollo
 

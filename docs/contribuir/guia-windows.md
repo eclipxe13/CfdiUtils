@@ -66,7 +66,7 @@ vendor\bin\phpunit
 vendor\bin\phpstan.phar.bat --no-progress analyse --level max src tests
 ```
 
-Lamentablemente no se puede ejecutar `composer build` o alguno de los comandos personalizados
+Lamentablemente no se puede ejecutar `composer dev:build` o alguno de los comandos personalizados
 definidos `composer.json` porque no funcionan correctamente.
 
 

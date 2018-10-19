@@ -80,6 +80,12 @@ Solo hay métodos específicos para CFDI 3.3.
 - [Página del SAT de CFDI](http://omawww.sat.gob.mx/informacion_fiscal/factura_electronica/Paginas/Anexo_20_version3.3.aspx)
 
 
+## Problemas conocidos
+
+- [Contradicciones de CFDI de Pagos](problemas/contradicciones-pagos.md)
+- [Descarga de certificados](problemas/descarga-certificados.md)
+
+
 ## Copyright and License
 
 The `eclipxe/CfdiUtils` library is copyright © [Carlos C Soto](http://eclipxe.com.mx/) and

@@ -62,6 +62,7 @@ class Pago extends AbstractRecepcionPagos10
             new Pagos\TipoCadenaPagoCadena(), // PAGO21
             new Pagos\TipoCadenaPagoSello(), // PAGO22
             new Pagos\DoctoRelacionado(), // PAGO23 ... PAGO29
+            new Pagos\MontoGreaterOrEqualThanSumOfDocuments(), // PAGO30
         ];
     }
 
@@ -96,13 +97,19 @@ class Pago extends AbstractRecepcionPagos10
                             sprintf('The validation of pago %s %s return false', $index, get_class($validator))
                         );
                     }
-                } catch (Pagos\ValidatePagoException $exception) {
-                    $this->setPagoStatus($validator->getCode(), $index, $exception->getMessage());
                 } catch (Pagos\DoctoRelacionado\ValidateDoctoException $exception) {
                     $this->setDoctoRelacionadoStatus(
                         $exception->getValidatorCode(),
                         $index,
                         $exception->getIndex(),
+                        $exception->getStatus(),
+                        $exception->getMessage()
+                    );
+                } catch (Pagos\ValidatePagoException $exception) {
+                    $this->setPagoStatus(
+                        $validator->getCode(),
+                        $index,
+                        $exception->getStatus(),
                         $exception->getMessage()
                     );
                 }
@@ -110,27 +117,32 @@ class Pago extends AbstractRecepcionPagos10
         }
     }
 
-    private function setPagoStatus(string $code, int $index, string $explanation = '')
+    private function setPagoStatus(string $code, int $index, Status $errorStatus, string $explanation = '')
     {
         $assert = $this->asserts->get($code);
-        $assert->setStatus(Status::error());
+        $assert->setStatus($errorStatus);
         $this->asserts->put(
             sprintf('%s-%02d', $assert->getCode(), $index),
             $assert->getTitle(),
-            Status::error(),
+            $errorStatus,
             $explanation
         );
     }
 
-    private function setDoctoRelacionadoStatus(string $code, int $pagoIndex, int $doctoIndex, string $explanation = '')
-    {
+    private function setDoctoRelacionadoStatus(
+        string $code,
+        int $pagoIndex,
+        int $doctoIndex,
+        Status $errorStatus,
+        string $explanation = ''
+    ) {
         $assert = $this->asserts->get($code);
         $doctoCode = sprintf('%s-%02d-%02d', $assert->getCode(), $pagoIndex, $doctoIndex);
-        $this->setPagoStatus($code, $pagoIndex);
+        $this->setPagoStatus($code, $pagoIndex, $errorStatus);
         $this->asserts->put(
             $doctoCode,
             $assert->getTitle(),
-            Status::error(),
+            $errorStatus,
             $explanation
         );
     }

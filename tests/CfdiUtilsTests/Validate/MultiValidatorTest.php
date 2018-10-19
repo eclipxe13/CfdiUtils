@@ -6,11 +6,10 @@ use CfdiUtils\Validate\Asserts;
 use CfdiUtils\Validate\Hydrater;
 use CfdiUtils\Validate\MultiValidator;
 use CfdiUtils\Validate\Status;
-use CfdiUtils\XmlResolver\XmlResolver;
+use CfdiUtilsTests\TestCase;
 use CfdiUtilsTests\Validate\FakeObjects\ImplementationRequireXmlResolverInterface;
 use CfdiUtilsTests\Validate\FakeObjects\ImplementationRequireXmlStringInterface;
 use CfdiUtilsTests\Validate\FakeObjects\ImplementationValidatorInterface;
-use PHPUnit\Framework\TestCase;
 
 class MultiValidatorTest extends TestCase
 {
@@ -93,7 +92,7 @@ class MultiValidatorTest extends TestCase
     {
         $hydrater = new Hydrater();
         $xmlString = '<root />';
-        $xmlResolver = new XmlResolver();
+        $xmlResolver = $this->newResolver();
         $hydrater->setXmlString($xmlString);
         $hydrater->setXmlResolver($xmlResolver);
 

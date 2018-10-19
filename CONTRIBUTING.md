@@ -64,8 +64,8 @@ When you do begin working on your feature, here are some guidelines to consider:
 If you are having issues with coding standars run
 
 ```shell
-composer check-style
-composer fix-style
+composer dev:check-style
+composer dev:fix-style
 ```
 
 ## Running Tests
@@ -75,5 +75,5 @@ If any of these do not pass, it will result in a complete build failure.
 Before you can run these, be sure to `composer install` or `composer update`.
 
 ```shell
-composer build
+composer dev:build
 ```

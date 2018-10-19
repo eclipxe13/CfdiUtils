@@ -12,6 +12,36 @@
 - Remove `trigger_error` on `\CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados` when called with arguments.
 
 
+## Version 2.7.0 2018-10-19
+
+- Reintroduce `MontoGreaterOrEqualThanSumOfDocuments` as `PAGO30`.
+    - There is a legal contradiction in `Pagos` between `Guía de llenado` and `Matriz de errores`
+    - For more information check documentation <https://cfdiutils.readthedocs.io/es/latest/problemas/contradicciones-pagos/>
+- Change `CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidatePagoException` to use status property.
+- Change `CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidateDoctoException` to extends `ValidatePagoException`.
+- Honor status from `ValidatePagoException` or `ValidateDoctoException`
+- Tests use XmlResolver from `CfdiUtilsTests\TestCase` instead of creating a new one
+- Fix docblock `CfdiUtils\Nodes\Nodes::searchNodes`
+- Improve docblocks on `CfdiUtils\Certificado\Certificado`
+- Documentation:
+    - Create `docs/problemas/contradicciones-pagos.md`
+    - Create `docs/problemas/descarga-certificados.md` to document error `TFDSELLO01`
+    - Create examples on `docs/componentes/certificado.md` on object creation
+- Change tests to not ssl verify peer due SAT web server configuration errors (expired certificate)
+    - Add `CfdiUtilsTests\TestCase::newInsecurePhpDownloader(): DownloaderInterface`
+    - Use insecure downlader in `CfdiUtilsTests\CfdiValidator33Test`
+    - Use insecure downlader in `CfdiUtilsTests\Validate\Cfdi33\Standard\TimbreFiscalDigitalSelloTest`
+    - Use insecure downlader in `CfdiUtilsTests\Certificado\CerRetrieverTest`
+    - Also add note to `docs/TODO.md` to remove this insecure downloader when SAT server is fine
+- Change composer scripts and prefix `dev:`, commands are now:
+    - `dev:build`: run dev:fix-style dev:tests and dev:docs, run before pull request
+    - `dev:check-style`: search for code style errors using php-cs-fixer and phpcs
+    - `dev:fix-style`: fix code style errors using php-cs-fixer and phpcbf
+    - `dev:docs`: search for code style errors unsing markdownlint and build docs using mkdocs
+    - `dev:test`: run phplint, phpunit and phpstan
+    - `dev:coverage`: run phpunit with xdebug and storage coverage in build/coverage/html
+
+
 ## Version 2.6.6 2018-10-04
 
 - After previous update on validation `PAGO09` and more testing found that it requires to round lower and upper limits.

@@ -17,7 +17,7 @@ class TfdCadenaDeOrigenTest extends TestCase
 
     public function testConstructorWithXmlResolver()
     {
-        $resolver = new XmlResolver();
+        $resolver = $this->newResolver();
         $tfdCO = new TfdCadenaDeOrigen($resolver);
         $this->assertSame($resolver, $tfdCO->getXmlResolver());
     }

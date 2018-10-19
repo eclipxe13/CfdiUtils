@@ -22,7 +22,7 @@ interface NodeInterface extends \ArrayAccess, \Countable, \IteratorAggregate
 
     /**
      * @param string ...$searchPath
-     * @return Nodes
+     * @return Nodes|NodeInterface[]
      */
     public function searchNodes(string ...$searchPath): Nodes;
 

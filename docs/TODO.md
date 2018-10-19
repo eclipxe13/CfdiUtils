@@ -1,5 +1,18 @@
 # Lista de tareas pendientes e ideas
 
+## Verificar problemas conocidos
+
+### Descarga de certificados desde <https://rdc.sat.gob.mx/rccf/>
+
+La descarga de certificados desde `https://rdc.sat.gob.mx/rccf/` falla por un error de configuración
+en el servidor web del SAT. Por ello se han puesto instancias especiales de descargadores `PhpDownloader`
+que desactivan la verificación de SSL.
+
+Hay que remover esta condición en cuando el sitio del SAT esté correctamente configurado.
+Buscar en el código de pruebas el uso de `CfdiUtilsTests\TestCase::newInsecurePhpDownloader(): DownloaderInterface`
+y remover el método.
+
+
 ## Documentación del proyecto
 
 Documentar los otros helpers de `Elements`:

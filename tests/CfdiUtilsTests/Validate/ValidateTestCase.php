@@ -10,7 +10,6 @@ use CfdiUtils\Validate\Asserts;
 use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Hydrater;
 use CfdiUtils\Validate\Status;
-use CfdiUtils\XmlResolver\XmlResolver;
 use CfdiUtilsTests\TestCase;
 
 abstract class ValidateTestCase extends TestCase
@@ -33,7 +32,7 @@ abstract class ValidateTestCase extends TestCase
         $this->comprobante = new Comprobante();
         $this->asserts = new Asserts();
         $this->hydrater = new Hydrater();
-        $this->hydrater->setXmlResolver(new XmlResolver());
+        $this->hydrater->setXmlResolver($this->newResolver());
         $this->hydrater->setXsltBuilder(new DOMBuilder());
     }
 
