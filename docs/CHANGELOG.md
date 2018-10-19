@@ -12,7 +12,7 @@
 - Remove `trigger_error` on `\CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados` when called with arguments.
 
 
-## Version 2.7.0 2018-10-18
+## Version 2.7.0 2018-10-19
 
 - Reintroduce `MontoGreaterOrEqualThanSumOfDocuments` as `PAGO30`.
     - There is a legal contradiction in `Pagos` between `Guía de llenado` and `Matriz de errores`
@@ -27,6 +27,13 @@
     - Create `docs/problemas/contradicciones-pagos.md`
     - Create `docs/problemas/descarga-certificados.md` to document error `TFDSELLO01`
     - Create examples on `docs/componentes/certificado.md` on object creation
+- Change tests to not ssl verify peer due SAT web server configuration errors (expired certificate)
+    - Add `CfdiUtilsTests\TestCase::newInsecurePhpDownloader(): DownloaderInterface`
+    - Use insecure downlader in `CfdiUtilsTests\CfdiValidator33Test`
+    - Use insecure downlader in `CfdiUtilsTests\Validate\Cfdi33\Standard\TimbreFiscalDigitalSelloTest`
+    - Use insecure downlader in `CfdiUtilsTests\Certificado\CerRetrieverTest`
+    - Also add note to `docs/TODO.md` to remove this insecure downloader when SAT server is fine
+
 
 ## Version 2.6.6 2018-10-04
 

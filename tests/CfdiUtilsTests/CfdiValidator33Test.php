@@ -96,6 +96,7 @@ class CfdiValidator33Test extends TestCase
         $cfdi = Cfdi::newFromString(file_get_contents($cfdiFile));
 
         $validator = new CfdiValidator33();
+        $validator->getXmlResolver()->setDownloader($this->newInsecurePhpDownloader());
         $asserts = $validator->validate($cfdi->getSource(), $cfdi->getNode());
         $asserts->hasErrors() && print_r($asserts->errors());
         $this->assertFalse(

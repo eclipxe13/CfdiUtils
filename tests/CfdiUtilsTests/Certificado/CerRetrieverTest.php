@@ -4,7 +4,6 @@ namespace CfdiUtilsTests\Certificado;
 use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\Certificado\SatCertificateNumber;
 use CfdiUtilsTests\TestCase;
-use XmlResourceRetriever\Downloader\PhpDownloader;
 
 class CerRetrieverTest extends TestCase
 {
@@ -27,9 +26,7 @@ class CerRetrieverTest extends TestCase
         // after this date this test may fail
         $certificateId = '00001000000406258094';
         $cerNumber = new SatCertificateNumber($certificateId);
-        // disable ssl verification connecting to https://rdc.sat.gob.mx/ since web server has config errors
-        $downloader = new PhpDownloader(stream_context_create(['ssl' => ['verify_peer' => false]]));
-        $retriever = $this->newResolver($downloader)->newCerRetriever();
+        $retriever = $this->newResolver($this->newInsecurePhpDownloader())->newCerRetriever();
         $remoteUrl = $cerNumber->remoteUrl();
         $localPath = $retriever->buildPath($remoteUrl);
 
