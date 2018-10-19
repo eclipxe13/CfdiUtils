@@ -49,6 +49,31 @@ do {
 // $asserts podría tener el código 'TFDSELLO01' con estado de error después de haberlo intentado 10 veces
 ```
 
-Otro método podría ser crear un descargador implementando `XmlResourceRetriever\Downloader\DownloaderInterface`
-y en el método implementado `downloadTo` hacer caso omiso de las validaciones SSL.
-Personalmente no recomiendo desabilitar la seguridad del protocolo HTTPS, pero es una solución.
+Personalmente no recomiendo desabilitar la seguridad del protocolo HTTPS, pero es una posible solución.
+
+Se puede desactivar usando el downloader genérico `XmlResourceRetriever\Downloader\PhpDownloader`
+y estableciendo un contexto que desactive la verificación de la siguiente manera.
+
+```php
+<?php
+$context = stream_context_create([
+    'ssl' => ['verify_peer' => false],
+]);
+$downloader = new \XmlResourceRetriever\Downloader\PhpDownloader($context);
+
+/* Establecer en un objeto de tipo xmlResolver */
+/** @var \CfdiUtils\XmlResolver\XmlResolver $xmlResolver */
+$xmlResolver->setDownloader($downloader);
+
+/* Establecer directamente en un objeto validador */
+/** @var \CfdiUtils\CfdiValidator33 $validator */
+$validator->getXmlResolver()->setDownloader($downloader);
+
+/* Establecer directamente en un objeto creador de CFDI 3.3 */
+/** @var \CfdiUtils\CfdiCreator33 $creator */
+$creator->getXmlResolver()->setDownloader($downloader);
+```
+
+También se puede desactivar la verificación de SSL creando un descargador que implemente
+`XmlResourceRetriever\Downloader\DownloaderInterface` y en el método `downloadTo`
+hacer caso omiso de las validaciones.
