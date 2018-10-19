@@ -56,33 +56,38 @@
         }
     },
     "scripts": {
-        "build": [
-            "@fix-style",
-            "@qa",
-            "@docs"
+        "dev:build": [
+            "@dev:fix-style",
+            "@dev:test",
+            "@dev:docs"
         ],
-        "check-style": [
+        "dev:check-style": [
             "vendor/bin/php-cs-fixer fix --dry-run --verbose",
             "vendor/bin/phpcs --colors -sp src/ tests/"
         ],
-        "fix-style": [
+        "dev:fix-style": [
             "vendor/bin/php-cs-fixer fix --verbose",
             "vendor/bin/phpcbf --colors -sp src/ tests/"
         ],
-        "qa": [
-            "vendor/bin/phpstan.phar analyse --no-progress --level max src/ tests/",
-            "@test"
-        ],
-        "docs": [
+        "dev:docs": [
             "node_modules/markdownlint-cli/markdownlint.js *.md docs/",
             "mkdocs build --strict --site-dir build/docs"
         ],
-        "test": [
+        "dev:test": [
             "vendor/bin/phplint",
-            "vendor/bin/phpunit"
+            "vendor/bin/phpunit",
+            "vendor/bin/phpstan.phar analyse --no-progress --level max src/ tests/"
         ],
-        "coverage": [
+        "dev:coverage": [
             "@php -dzend_extension=xdebug.so vendor/bin/phpunit --coverage-text --coverage-html build/coverage/html/"
         ]
+    },
+    "scripts-descriptions": {
+        "dev:build": "DEV: run dev:fix-style dev:tests and dev:docs, run before pull request",
+        "dev:check-style": "DEV: search for code style errors using php-cs-fixer and phpcs",
+        "dev:fix-style": "DEV: fix code style errors using php-cs-fixer and phpcbf",
+        "dev:docs": "DEV: search for code style errors unsing markdownlint and build docs using mkdocs",
+        "dev:test": "DEV: run phplint, phpunit and phpstan",
+        "dev:coverage": "DEV: run phpunit with xdebug and storage coverage in build/coverage/html/"
     }
 }

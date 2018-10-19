@@ -33,6 +33,13 @@
     - Use insecure downlader in `CfdiUtilsTests\Validate\Cfdi33\Standard\TimbreFiscalDigitalSelloTest`
     - Use insecure downlader in `CfdiUtilsTests\Certificado\CerRetrieverTest`
     - Also add note to `docs/TODO.md` to remove this insecure downloader when SAT server is fine
+- Change composer scripts and prefix `dev:`, commands are now:
+    - `dev:build`: run dev:fix-style dev:tests and dev:docs, run before pull request
+    - `dev:check-style`: search for code style errors using php-cs-fixer and phpcs
+    - `dev:fix-style`: fix code style errors using php-cs-fixer and phpcbf
+    - `dev:docs`: search for code style errors unsing markdownlint and build docs using mkdocs
+    - `dev:test`: run phplint, phpunit and phpstan
+    - `dev:coverage`: run phpunit with xdebug and storage coverage in build/coverage/html
 
 
 ## Version 2.6.6 2018-10-04
