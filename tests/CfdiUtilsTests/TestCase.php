@@ -3,6 +3,7 @@ namespace CfdiUtilsTests;
 
 use CfdiUtils\Certificado\SatCertificateNumber;
 use CfdiUtils\XmlResolver\XmlResolver;
+use XmlResourceRetriever\Downloader\DownloaderInterface;
 
 class TestCase extends \PHPUnit\Framework\TestCase
 {
@@ -11,9 +12,13 @@ class TestCase extends \PHPUnit\Framework\TestCase
         return dirname(__DIR__) . '/assets/' . $file;
     }
 
-    protected function newResolver()
+    protected function newResolver(DownloaderInterface $downloader = null)
     {
-        return new XmlResolver();
+        $xmlResolver = new XmlResolver();
+        if (null !== $downloader) {
+            $xmlResolver->setDownloader($downloader);
+        }
+        return $xmlResolver;
     }
 
     protected function downloadResourceIfNotExists(string $remote): string

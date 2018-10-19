@@ -31,7 +31,7 @@
         "ext-openssl": "*",
         "ext-soap": "*",
         "ext-iconv": "*",
-        "eclipxe/xmlresourceretriever": "^1.2.1",
+        "eclipxe/xmlresourceretriever": "^1.3.0",
         "eclipxe/xmlschemavalidator": "^2.0.2"
     },
     "suggest": {
