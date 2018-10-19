@@ -21,11 +21,12 @@
 - Change `CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidateDoctoException` to extends `ValidatePagoException`.
 - Honor status from `ValidatePagoException` or `ValidateDoctoException`
 - Tests use XmlResolver from `CfdiUtilsTests\TestCase` instead of creating a new one
-- Fix `CfdiUtils\Nodes\Nodes::searchNodes` docblock
+- Fix docblock `CfdiUtils\Nodes\Nodes::searchNodes`
+- Improve docblocks on `CfdiUtils\Certificado\Certificado`
 - Documentation:
     - Create `docs/problemas/contradicciones-pagos.md`
     - Create `docs/problemas/descarga-certificados.md` to document error `TFDSELLO01`
-
+    - Create examples on `docs/componentes/certificado.md` on object creation
 
 ## Version 2.6.6 2018-10-04
 

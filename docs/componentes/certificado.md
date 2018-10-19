@@ -3,9 +3,9 @@
 La clase `\CfdiUtils\Certificado\Certificado` obtiene la información de un archivo de tipo certificado.
 
 El archivo puede ser un archivo en formato PEM o en formato CER.
-En este último caso es convertido a PEM y luego interpretado.
+En este último caso es convertido internamente a formato PEM y luego interpretado.
 
-Una vez cargado el certificado permite obtener los siguientes datos:
+Una vez cargado el certificado permite obtener los siguientes datos utilizando *getters* (como `getRfc()`):
 
 - RFC
 - Nombre
@@ -26,10 +26,39 @@ Adicionalmente cuenta con los métodos:
     `verify(string $data, string $signature, int $algorithm = OPENSSL_ALGO_SHA256): bool`
 
 
+## Leer un archivo de certificado
+
+Para leer un archivo de certificado se debe crear el objeto `Certificado` pasando el nombre del archivo.
+
+```php
+<?php
+$cerFile = '/certificates/00001000000406258094.cer';
+$certificate = new \CfdiUtils\Certificado\Certificado($cerFile);
+var_dump($certificate->getRfc()); // algo como COSC8001137NA
+```
+
+
 ## Relación con `\CfdiUtils\Certificado\NodeCertificado`
 
 La clase `\CfdiUtils\Certificado\Certificado` funciona con un archivo previamente almacenado.
 Para extraer un certificado de un CFDI se ofrece la clase `\CfdiUtils\Certificado\NodeCertificado`.
+
+Esta clase puede trabajar con CFDI versión 3.2 y 3.3, toma la información de `cfdi:Comprobante@Certificado`
+utilizando `CfdiUtils\Nodes\NodeInterface` y provee tres métodos para trabajar con el certificado:
+
+- `extract(): string`: obtiene el contenido del certificado acorde a la versión y decodifica desde base 64.
+- `save(string $filename): void`: guarda el contenido extraído a una ruta.
+- `obtain(): Certificado`: obtiene el objeto certificado del archivo extraído.
+
+```php
+<?php
+$certificate = (new \CfdiUtils\Certificado\NodeCertificado(
+    \CfdiUtils\Nodes\XmlNodeUtils::nodeFromXmlString(
+        file_get_contents('/cfdis/FE-00012847.xml')
+    )
+))->obtain();
+var_dump($certificate->getRfc()); // algo como COSC8001137NA
+```
 
 
 ## Acerca de los formatos de archivo
