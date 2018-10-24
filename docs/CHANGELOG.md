@@ -12,6 +12,11 @@
 - Remove `trigger_error` on `\CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados` when called with arguments.
 
 
+## Version 2.7.1 TO BE RELEASED
+
+- Fix wrong use of `escapeshellcmd` replacing with `escapeshellarg`
+
+
 ## Version 2.7.0 2018-10-19
 
 - Reintroduce `MontoGreaterOrEqualThanSumOfDocuments` as `PAGO30`.
