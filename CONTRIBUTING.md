@@ -9,7 +9,7 @@ By participating in this project and its community, you are expected to uphold t
 ## Team members
 
 * [Carlos C Soto](https://github.com/eclipxe13) - original author and maintainer
-* [GitHub constributors](https://github.com/eclipxe13/CfdiUtils/graphs/contributors)
+* [GitHub contributors](https://github.com/eclipxe13/CfdiUtils/graphs/contributors)
 
 ## Communication Channels
 
