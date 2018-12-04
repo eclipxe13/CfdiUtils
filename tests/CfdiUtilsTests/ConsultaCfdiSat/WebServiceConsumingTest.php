@@ -20,9 +20,15 @@ use SoapFault;
  */
 class WebServiceConsumingTest extends TestCase
 {
+    private function createWebServiceObject(): WebService
+    {
+        $config = new Config(5, true, '', Config::getLocalWsdlLocation());
+        return new WebService($config);
+    }
+
     private function tolerantRequest(RequestParameters $request): StatusResponse
     {
-        $ws = new WebService();
+        $ws = $this->createWebServiceObject();
         try {
             return $ws->request($request);
         } catch (SoapFault $exception) {
@@ -43,8 +49,7 @@ class WebServiceConsumingTest extends TestCase
 
     public function testGetSoapClient()
     {
-        $config = new Config(60, false);
-        $ws = new WebService($config);
+        $ws = $this->createWebServiceObject();
 
         $soapClient = $this->tolerantSoapClient($ws);
         $this->assertSame($soapClient, $this->tolerantSoapClient($ws));
@@ -55,7 +60,7 @@ class WebServiceConsumingTest extends TestCase
 
     public function testSoapClientHasSettings()
     {
-        $config = new Config(60, false);
+        $config = new Config(60, false, '', Config::getLocalWsdlLocation());
         $ws = new WebService($config);
 
         $soapClient = $this->tolerantSoapClient($ws);

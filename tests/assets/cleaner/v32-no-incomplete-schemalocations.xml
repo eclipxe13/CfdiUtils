@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:add="http://example.org/add" xmlns:xyz="http://example.org/xyz"
-  xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd"
+  xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd http://example.org/add http://example.org/xsd/add.xsd http://example.org/xyz http://example.org/xsd/xyz.xsd"
   version="3.2">
 
 <cfdi:Complemento>
     <tfd:TimbreFiscalDigital xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" xsi:schemaLocation="http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/sitio_internet/cfd/TimbreFiscalDigital/TimbreFiscalDigital.xsd" version="1.0"/>
-
+    <add:point x="1" y="2" add:removed="Check if this attributte is removed"/>
 </cfdi:Complemento>
 </cfdi:Comprobante>

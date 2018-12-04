@@ -35,18 +35,18 @@ class CfdiCreator33 implements
 
     /**
      * CfdiCreator33 constructor.
-     * @param string[] $complementoAttributes
+     * @param string[] $comprobanteAttributes
      * @param Certificado|null $certificado
      * @param XmlResolver|null $xmlResolver
      * @param XsltBuilderInterface|null $xsltBuilder
      */
     public function __construct(
-        array $complementoAttributes = [],
+        array $comprobanteAttributes = [],
         Certificado $certificado = null,
         XmlResolver $xmlResolver = null,
         XsltBuilderInterface $xsltBuilder = null
     ) {
-        $this->comprobante = new Comprobante($complementoAttributes);
+        $this->comprobante = new Comprobante($comprobanteAttributes);
         $this->setXmlResolver($xmlResolver ? : new XmlResolver());
         if (null !== $certificado) {
             $this->putCertificado($certificado);
@@ -59,8 +59,9 @@ class CfdiCreator33 implements
         Certificado $certificado = null,
         XmlResolver $xmlResolver = null
     ): self {
-        $new = new self($node->attributes()->exportArray(), $certificado, $xmlResolver);
+        $new = new self([], $certificado, $xmlResolver);
         $comprobante = $new->comprobante();
+        $comprobante->addAttributes($node->attributes()->exportArray());
         foreach ($node as $child) {
             $comprobante->addChild($child);
         }
@@ -81,7 +82,11 @@ class CfdiCreator33 implements
             $this->comprobante['Certificado'] = base64_encode((string) file_get_contents($cerfile));
         }
         if ($putEmisorRfcNombre) {
-            $this->comprobante->addEmisor([
+            $emisor = $this->comprobante->searchNode('cfdi:Emisor');
+            if (null === $emisor) {
+                $emisor = $this->comprobante->getEmisor();
+            }
+            $emisor->addAttributes([
                 'Nombre' => $certificado->getName(),
                 'Rfc' => $certificado->getRfc(),
             ]);

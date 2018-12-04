@@ -7,9 +7,28 @@
     - `\CfdiUtils\CadenaOrigen\DefaultLocations`
     - `\CfdiUtils\CadenaOrigen\CadenaOrigenLocations`
 - Remove `\CfdiUtils\PemPrivateKey\PemPrivateKey::isOpened` to `\CfdiUtils\PemPrivateKey\PemPrivateKey::isOpen`
+- Remove `CfdiUtils\ConsultaCfdiSat\Config::getWsdlUrl()`
 - Remove `static` methods from `\CfdiUtils\CfdiVersion`, instead create an instance of the class
 - Remove `static` methods from `\CfdiUtils\TimbreFiscalDigital\TfdVersion`, instead create an instance of the class
 - Remove `trigger_error` on `\CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados` when called with arguments.
+
+
+## Version 2.7.1 2018-12-04
+
+- Fix wrong use of `escapeshellcmd` replacing with `escapeshellarg`
+- Add argument `-c|--clean` to script `tests/validate.php` to perform clean before validate
+- Fix `CfdiCreator33::newUsingNode` since not all attributes where correctly imported (`xsi:schemaLocation`)
+- Fix calling `CfdiCreator33::putCertificado` on imported cfdi (Emisor child is a `NodeInterface` but not `Emisor`)
+- Refactor `CfdiUtils\ConsultaCfdiSat\WebService` to be able to use a local copy of WSDL file since SAT does not
+  allow to download it anymore.
+    - Add `ConsultaCFDIServiceSAT.svc.xml` to namespace folder
+    - Add `Config::wsdlLocation` static method to get `ConsultaCFDIServiceSAT.svc.xml` file path
+    - Deprecate `Config::getWsdlUrl` in favor of `Config::getServiceUrl`
+    - Add `Config::getServiceUrl`
+    - Add `Config::wsdlLocation` property
+- Add `--local-wsdl` parameter to `tests/estadosat.php` script
+- Add a new step on `CfdiUtils\Cleaner\Cleaner` that removes from `xsi:schemaLocations` the namespaces that are
+  not followed by a string that ends on `.xsd`
 
 
 ## Version 2.7.0 2018-10-19

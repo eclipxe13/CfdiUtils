@@ -29,7 +29,7 @@ class SaxonbCliBuilder extends AbstractXsltBuilder
         // if is running on windows then use NUL instead of /dev/null
         $devnull = (0 === stripos(PHP_OS, 'win')) ? 'NUL' : '/dev/null';
         return implode(' ', [
-            escapeshellcmd($this->getExecutablePath()),
+            escapeshellarg($this->getExecutablePath()),
             escapeshellarg('-s:' . $xmlFile),
             escapeshellarg('-xsl:' . $xsltLocation),
             escapeshellarg('-warnings:silent'), // default recover

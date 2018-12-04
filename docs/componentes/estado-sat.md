@@ -2,7 +2,7 @@
 
 El SAT cuenta con un webservice para consultar el estado de un CFDI.
 
-- Servicio: <https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc?singleWsdl>
+- Servicio: <https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc>
 - Documentación: <ftp://ftp2.sat.gob.mx/asistencia_servicio_ftp/publicaciones/cfdi/WS_ConsultaCFDI.pdf>
 
 Para poderlo consumir se han implementado varias clases dentro del espacio de nonbres `\CfdiUtils\ConsultaCfdiSat`.
@@ -135,6 +135,23 @@ $response->isNotFound(); // false
 $response->getCode(); // S - ...
 $response->getCfdi(); // Cancelado
 ```
+
+## Problema con el webservice del SAT
+
+El SAT a partir de octubre 2018 dejó de publicar el archivo de contrato WSL del servicio web ubicado en
+<https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc?singleWsdl>, sin embargo el servicio
+sigue funcionando por lo que ahora es necesario especificar una la copia local del archivo WSDL.
+
+Si no cuenta con el archivo WSDL esta librería contiene una copia que se puede obtener llamando al método
+estático `CfdiUtils\ConsultaCfdiSat\Config::getLocalWsdlLocation()`.
+
+```php
+<?php
+$wsdlLocalCopy = \CfdiUtils\ConsultaCfdiSat\Config::getLocalWsdlLocation();
+$config = new \CfdiUtils\ConsultaCfdiSat\Config(10, true, '', $wsdlLocalCopy);
+$webservice = new \CfdiUtils\ConsultaCfdiSat\WebService($config);
+```
+
 
 ## Posibles futuros cambios
 

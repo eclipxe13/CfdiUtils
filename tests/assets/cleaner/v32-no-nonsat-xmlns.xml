@@ -5,6 +5,6 @@
 
 <cfdi:Complemento>
     <tfd:TimbreFiscalDigital xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" xsi:schemaLocation="http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/sitio_internet/cfd/TimbreFiscalDigital/TimbreFiscalDigital.xsd" version="1.0"/>
-    
+
 </cfdi:Complemento>
 </cfdi:Comprobante>
