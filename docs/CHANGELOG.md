@@ -15,6 +15,7 @@
 ## Version 2.7.1 TO BE RELEASED
 
 - Fix wrong use of `escapeshellcmd` replacing with `escapeshellarg`
+- Add argument `-c|--clean` to script `tests/validate.php` to perform clean before validate
 
 
 ## Version 2.7.0 2018-10-19
