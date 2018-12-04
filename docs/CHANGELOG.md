@@ -7,12 +7,13 @@
     - `\CfdiUtils\CadenaOrigen\DefaultLocations`
     - `\CfdiUtils\CadenaOrigen\CadenaOrigenLocations`
 - Remove `\CfdiUtils\PemPrivateKey\PemPrivateKey::isOpened` to `\CfdiUtils\PemPrivateKey\PemPrivateKey::isOpen`
+- Remove `CfdiUtils\ConsultaCfdiSat\Config::getWsdlUrl()`
 - Remove `static` methods from `\CfdiUtils\CfdiVersion`, instead create an instance of the class
 - Remove `static` methods from `\CfdiUtils\TimbreFiscalDigital\TfdVersion`, instead create an instance of the class
 - Remove `trigger_error` on `\CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados` when called with arguments.
 
 
-## Version 2.7.1 TO BE RELEASED
+## Version 2.7.1 2018-12-03
 
 - Fix wrong use of `escapeshellcmd` replacing with `escapeshellarg`
 - Add argument `-c|--clean` to script `tests/validate.php` to perform clean before validate
