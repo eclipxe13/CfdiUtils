@@ -16,6 +16,8 @@
 
 - Fix wrong use of `escapeshellcmd` replacing with `escapeshellarg`
 - Add argument `-c|--clean` to script `tests/validate.php` to perform clean before validate
+- Fix `CfdiCreator33::newUsingNode` since not all attributes where correctly imported (`xsi:schemaLocation`)
+- Fix calling `CfdiCreator33::putCertificado` on imported cfdi (Emisor child is a `NodeInterface` but not `Emisor`)
 
 
 ## Version 2.7.0 2018-10-19
