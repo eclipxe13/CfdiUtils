@@ -68,10 +68,11 @@ class CleanerTest extends TestCase
     {
         $basefile = $this->utilAsset('cleaner/v32-dirty.xml');
         $step1 = $this->utilAsset('cleaner/v32-no-addenda.xml');
-        $step2 = $this->utilAsset('cleaner/v32-no-nonsat-nodes.xml');
-        $step3 = $this->utilAsset('cleaner/v32-no-nonsat-schemalocations.xml');
-        $step4 = $this->utilAsset('cleaner/v32-no-nonsat-xmlns.xml');
-        foreach ([$basefile, $step1, $step2, $step3, $step4] as $filename) {
+        $step2 = $this->utilAsset('cleaner/v32-no-incomplete-schemalocations.xml');
+        $step3 = $this->utilAsset('cleaner/v32-no-nonsat-nodes.xml');
+        $step4 = $this->utilAsset('cleaner/v32-no-nonsat-schemalocations.xml');
+        $step5 = $this->utilAsset('cleaner/v32-no-nonsat-xmlns.xml');
+        foreach ([$basefile, $step1, $step3, $step2, $step4, $step5] as $filename) {
             $this->assertFileExists($basefile, "The file $filename for testing does not exists");
         }
         $cleaner = new Cleaner(file_get_contents($basefile));
@@ -88,29 +89,36 @@ class CleanerTest extends TestCase
             'Compare that addenda was removed'
         );
 
-        $cleaner->removeNonSatNSNodes();
+        $cleaner->removeIncompleteSchemaLocations();
         $this->assertXmlStringEqualsXmlFile(
             $step2,
+            $cleaner->retrieveXml(),
+            'Compare that incomplete schemaLocations were removed'
+        );
+
+        $cleaner->removeNonSatNSNodes();
+        $this->assertXmlStringEqualsXmlFile(
+            $step3,
             $cleaner->retrieveXml(),
             'Compare that non SAT nodes were removed'
         );
 
         $cleaner->removeNonSatNSschemaLocations();
         $this->assertXmlStringEqualsXmlFile(
-            $step3,
+            $step4,
             $cleaner->retrieveXml(),
             'Compare that non SAT schemaLocations were removed'
         );
 
         $cleaner->removeUnusedNamespaces();
         $this->assertXmlStringEqualsXmlFile(
-            $step4,
+            $step5,
             $cleaner->retrieveXml(),
             'Compare that xmlns definitions were removed'
         );
 
         $this->assertXmlStringEqualsXmlFile(
-            $step4,
+            $step5,
             Cleaner::staticClean(file_get_contents($basefile)),
             'Check static method for cleaning is giving the same results as detailed execution'
         );
@@ -160,5 +168,14 @@ class CleanerTest extends TestCase
 
         $cleaner->removeNonSatNSschemaLocations();
         $this->assertXmlStringEqualsXmlString($xmlExpectedContent, $cleaner->retrieveXml());
+    }
+
+    public function testRemoveIncompleteSchemaLocation()
+    {
+        // source include spaces to ensure that is working properly
+        $source = '  bleh  foo   foo.xsd bar baz      zoo zoo.xsd baa   xee  xee.xsd bah       ';
+        $expected = 'foo foo.xsd zoo zoo.xsd xee xee.xsd';
+        $cleaner = new Cleaner('');
+        $this->assertSame($expected, $cleaner->removeIncompleteSchemaLocation($source));
     }
 }

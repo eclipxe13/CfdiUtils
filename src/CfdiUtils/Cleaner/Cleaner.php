@@ -87,6 +87,7 @@ class Cleaner
     public function clean()
     {
         $this->removeAddenda();
+        $this->removeIncompleteSchemaLocations();
         $this->removeNonSatNSNodes();
         $this->removeNonSatNSschemaLocations();
         $this->removeUnusedNamespaces();
@@ -158,6 +159,37 @@ class Cleaner
     }
 
     /**
+     * Procedure to drop schemaLocations where second part does not ends with '.xsd'
+     *
+     * @return void
+     */
+    public function removeIncompleteSchemaLocations()
+    {
+        $schemaLocations = $this->obtainXsiSchemaLocations();
+        for ($s = 0; $s < $schemaLocations->length; $s++) {
+            $element = $schemaLocations->item($s);
+            if (null !== $element) {
+                $element->nodeValue = $this->removeIncompleteSchemaLocation($element->nodeValue);
+            }
+        }
+    }
+
+    public function removeIncompleteSchemaLocation(string $source): string
+    {
+        $components = array_values(array_filter(array_map('trim', explode(' ', $source))));
+        $length = count($components);
+        for ($c = 0; $c < $length; $c = $c + 1) {
+            $xsd = $components[$c + 1] ?? '';
+            if ((0 === strcasecmp('.xsd', substr($xsd, -4, 4)))) {
+                $c = $c + 1;
+                continue;
+            }
+            $components[$c] = '';
+        }
+        return strval(implode(' ', array_filter($components)));
+    }
+
+    /**
      * Procedure to drop schemaLocations that are not allowed
      * If the schemaLocation is empty then remove the attribute
      *
@@ -165,12 +197,7 @@ class Cleaner
      */
     public function removeNonSatNSschemaLocations()
     {
-        // Do not assume that prefix for http://www.w3.org/2001/XMLSchema-instance is "xsi"
-        $xsi = $this->dom()->lookupPrefix('http://www.w3.org/2001/XMLSchema-instance');
-        if (! $xsi) {
-            return;
-        }
-        $schemaLocations = $this->xpathQuery("//@$xsi:schemaLocation");
+        $schemaLocations = $this->obtainXsiSchemaLocations();
         for ($s = 0; $s < $schemaLocations->length; $s++) {
             $element = $schemaLocations->item($s);
             if (null !== $element) {
@@ -263,6 +290,16 @@ class Cleaner
         foreach ($nss as $prefix => $namespace) {
             $dom->documentElement->removeAttributeNS($namespace, $prefix);
         }
+    }
+
+    private function obtainXsiSchemaLocations(): DOMNodeList
+    {
+        // Do not assume that prefix for http://www.w3.org/2001/XMLSchema-instance is "xsi"
+        $xsi = $this->dom()->lookupPrefix('http://www.w3.org/2001/XMLSchema-instance');
+        if (! $xsi) {
+            return new DOMNodeList();
+        }
+        return $this->xpathQuery("//@$xsi:schemaLocation");
     }
 
     /**

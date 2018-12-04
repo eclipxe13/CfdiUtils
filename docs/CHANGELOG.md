@@ -13,7 +13,7 @@
 - Remove `trigger_error` on `\CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados` when called with arguments.
 
 
-## Version 2.7.1 2018-12-03
+## Version 2.7.1 2018-12-04
 
 - Fix wrong use of `escapeshellcmd` replacing with `escapeshellarg`
 - Add argument `-c|--clean` to script `tests/validate.php` to perform clean before validate
@@ -27,6 +27,8 @@
     - Add `Config::getServiceUrl`
     - Add `Config::wsdlLocation` property
 - Add `--local-wsdl` parameter to `tests/estadosat.php` script
+- Add a new step on `CfdiUtils\Cleaner\Cleaner` that removes from `xsi:schemaLocations` the namespaces that are
+  not followed by a string that ends on `.xsd`
 
 
 ## Version 2.7.0 2018-10-19

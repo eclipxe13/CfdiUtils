@@ -25,6 +25,8 @@ Para evitar estos errores se puede usar el objeto `CfdiUtils\Cleaner\Cleaner`.
 Este objeto requiere una cadena de texto con XML válido. Y limpia el XML siguiendo estos pasos:
 
 1. Remueve el nodo `cfdi:Addenda`.
+1. Remueve dentro de las locaciones de espacios de nombre `xsi:schemaLocation` los namespaces que no tengan
+    a continuación una uri que termine en `.xsd`.
 1. Remueve todos los nodos que no tengan relación con el SAT (los que no contengan `http://www.sat.gob.mx/`).
 1. Remueve todos los pares de espacio de nombre y archivo xsd de los `xsi:schemaLocation` que no tengan relación con el SAT.
 1. Remueve todos los espacios de nombres listados que no están en uso.
@@ -38,3 +40,6 @@ También se puede instanciar un objeto de la clase `CfdiUtils\Cleaner\Cleaner` y
 - `load(string $content)`: Carga un contenido XML "sucio"
 - `clean()`: Realiza la limpieza
 - `retrieveXml()`: Obtiene el contenido XML "limpio"
+
+Si deseas implementar tu propio orden, hacer o agregar nuevos limpiadores puedes extender la clase o sobrescribir
+el método `clean` o bien llamar a cada uno de los pasos de limpieza por tu propia cuenta.
