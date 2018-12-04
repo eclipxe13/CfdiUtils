@@ -38,6 +38,7 @@ class WebService
     {
         $config = $this->getConfig();
         $soapOptions = [
+            'location' => $config->getServiceUrl(),
             'soap_version' => SOAP_1_1,
             'cache_wsdl' => WSDL_CACHE_NONE,
             'exceptions' => 1,
@@ -50,7 +51,7 @@ class WebService
             'trace' => false, // use this setting for development
         ];
 
-        return new SoapClient($config->getWsdlUrl(), $soapOptions);
+        return new SoapClient($config->getWsdlLocation(), $soapOptions);
     }
 
     public function request(RequestParameters $requestParameters): StatusResponse

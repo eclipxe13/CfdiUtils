@@ -12,13 +12,21 @@ class Config
     private $verifyPeer;
 
     /** @var string */
-    private $wsdlUrl;
+    private $serviceUrl;
 
-    public function __construct(int $timeout = 10, bool $verifyPeer = true, string $wsdlUrl = '')
-    {
+    /** @var string */
+    private $wsdlLocation;
+
+    public function __construct(
+        int $timeout = 10,
+        bool $verifyPeer = true,
+        string $serviceUrl = '',
+        string $wsdlLocation = ''
+    ) {
         $this->timeout = $timeout;
         $this->verifyPeer = $verifyPeer;
-        $this->wsdlUrl = $wsdlUrl ? : static::DEFAULT_WSDL_URL;
+        $this->serviceUrl = $serviceUrl ? : static::DEFAULT_WSDL_URL;
+        $this->wsdlLocation = $wsdlLocation ? : $this->serviceUrl;
     }
 
     public function getTimeout(): int
@@ -31,8 +39,28 @@ class Config
         return $this->verifyPeer;
     }
 
+    /**
+     * @deprecated since Version 2.7.1 in favor of getServiceUrl
+     * @see getServiceUrl
+     * @return string
+     */
     public function getWsdlUrl(): string
     {
-        return $this->wsdlUrl;
+        return $this->getServiceUrl();
+    }
+
+    public function getServiceUrl(): string
+    {
+        return $this->serviceUrl;
+    }
+
+    public function getWsdlLocation(): string
+    {
+        return $this->wsdlLocation;
+    }
+
+    public static function getLocalWsdlLocation(): string
+    {
+        return __DIR__ . DIRECTORY_SEPARATOR . 'ConsultaCFDIServiceSAT.svc.xml';
     }
 }

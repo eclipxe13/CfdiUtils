@@ -18,6 +18,14 @@
 - Add argument `-c|--clean` to script `tests/validate.php` to perform clean before validate
 - Fix `CfdiCreator33::newUsingNode` since not all attributes where correctly imported (`xsi:schemaLocation`)
 - Fix calling `CfdiCreator33::putCertificado` on imported cfdi (Emisor child is a `NodeInterface` but not `Emisor`)
+- Refactor `CfdiUtils\ConsultaCfdiSat\WebService` to be able to use a local copy of WSDL file since SAT does not
+  allow to download it anymore.
+    - Add `ConsultaCFDIServiceSAT.svc.xml` to namespace folder
+    - Add `Config::wsdlLocation` static method to get `ConsultaCFDIServiceSAT.svc.xml` file path
+    - Deprecate `Config::getWsdlUrl` in favor of `Config::getServiceUrl`
+    - Add `Config::getServiceUrl`
+    - Add `Config::wsdlLocation` property
+- Add `--local-wsdl` parameter to `tests/estadosat.php` script
 
 
 ## Version 2.7.0 2018-10-19
