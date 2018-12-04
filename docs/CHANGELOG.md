@@ -27,7 +27,6 @@
     - Add `Config::getServiceUrl`
     - Add `Config::wsdlLocation` property
 - Add `--local-wsdl` parameter to `tests/estadosat.php` script
-- Add PHP 7.3 to Travis and AppVeyor
 
 
 ## Version 2.7.0 2018-10-19
