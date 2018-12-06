@@ -7,6 +7,9 @@ class Certificado
     private $rfc;
 
     /** @var string */
+    private $certificateName;
+
+    /** @var string */
     private $name;
 
     /** @var string */
@@ -54,14 +57,17 @@ class Certificado
         if (! is_array($data)) {
             throw new \RuntimeException("Cannot parse the certificate file $filename");
         }
+        if (! isset($data['subject'])) {
+            $data['subject'] = [];
+        }
 
         // get the public key
         $pubKey = $this->obtainPubKeyFromContents($contents);
 
         // set all the values
-        $this->rfc = (string) strstr($data['subject']['x500UniqueIdentifier'] . ' ', ' ', true);
-        $this->rfc = (string) strstr($data['subject']['x500UniqueIdentifier'] . ' ', ' ', true);
-        $this->name = $data['subject']['name'];
+        $this->certificateName = strval($data['name'] ?? '');
+        $this->rfc = (string) strstr(($data['subject']['x500UniqueIdentifier'] ?? '') . ' ', ' ', true);
+        $this->name = strval($data['subject']['name'] ?? '');
         $serial = new SerialNumber('');
         if (isset($data['serialNumberHex'])) {
             $serial->loadHexadecimal($data['serialNumberHex']);
@@ -71,8 +77,8 @@ class Certificado
             throw new \RuntimeException("Cannot get serialNumberHex or serialNumber from certificate file $filename");
         }
         $this->serial = $serial->asAscii();
-        $this->validFrom = $data['validFrom_time_t'];
-        $this->validTo = $data['validTo_time_t'];
+        $this->validFrom = $data['validFrom_time_t'] ?? 0;
+        $this->validTo = $data['validTo_time_t'] ?? 0;
         $this->pubkey = $pubKey;
         $this->pemContents = $contents;
         $this->filename = $filename;
@@ -115,6 +121,11 @@ class Certificado
     public function getRfc(): string
     {
         return $this->rfc;
+    }
+
+    public function getCertificateName(): string
+    {
+        return $this->certificateName;
     }
 
     /**

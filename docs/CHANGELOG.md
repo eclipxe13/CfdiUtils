@@ -13,6 +13,17 @@
 - Remove `trigger_error` on `\CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados` when called with arguments.
 
 
+## Version 2.7.3 2018-12-05
+
+- Fix previous release since it did not publish the changes made on 2.7.2.
+
+
+## Version 2.7.2 2018-12-05
+
+- Add method `CfdiUtils\Certificado\Certificado::getCertificateName(): string` to obtain the certificate
+  name as returned by `openssl_x509_parse`.
+
+
 ## Version 2.7.1 2018-12-04
 
 - Fix wrong use of `escapeshellcmd` replacing with `escapeshellarg`
