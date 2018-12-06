@@ -28,6 +28,15 @@ EOD;
         $certificado = new Certificado($cerfile);
 
         $this->assertEquals($cerfile, $certificado->getFilename());
+        $certificateName = implode('', [
+            '/CN=ACCEM SERVICIOS EMPRESARIALES SC',
+            '/name=ACCEM SERVICIOS EMPRESARIALES SC',
+            '/O=ACCEM SERVICIOS EMPRESARIALES SC',
+            '/x500UniqueIdentifier=AAA010101AAA / HEGT7610034S2',
+            '/serialNumber= / HEGT761003MDFRNN09',
+            '/OU=CSD01_AAA010101AAA'
+        ]);
+        $this->assertEquals($certificateName, $certificado->getCertificateName());
         $this->assertEquals('ACCEM SERVICIOS EMPRESARIALES SC', $certificado->getName());
         $this->assertEquals('AAA010101AAA', $certificado->getRfc());
         $this->assertEquals('30001000000300023708', $certificado->getSerial());

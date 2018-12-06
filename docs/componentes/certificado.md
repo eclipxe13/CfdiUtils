@@ -8,7 +8,8 @@ En este último caso es convertido internamente a formato PEM y luego interpreta
 Una vez cargado el certificado permite obtener los siguientes datos utilizando *getters* (como `getRfc()`):
 
 - RFC
-- Nombre
+- Nombre amigable
+- Nombre del certificado
 - Número de serie
 - Válido desde y hasta
 - Llave pública
