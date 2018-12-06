@@ -34,7 +34,7 @@ EOD;
             '/O=ACCEM SERVICIOS EMPRESARIALES SC',
             '/x500UniqueIdentifier=AAA010101AAA / HEGT7610034S2',
             '/serialNumber= / HEGT761003MDFRNN09',
-            '/OU=CSD01_AAA010101AAA'
+            '/OU=CSD01_AAA010101AAA',
         ]);
         $this->assertEquals($certificateName, $certificado->getCertificateName());
         $this->assertEquals('ACCEM SERVICIOS EMPRESARIALES SC', $certificado->getName());
