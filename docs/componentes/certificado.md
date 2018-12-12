@@ -62,12 +62,30 @@ var_dump($certificate->getRfc()); // algo como COSC8001137NA
 ```
 
 
+## Números de serie del certificado
+
+En el número de serie requerido en los CFDI se utiliza una representación ASCII y no hexadecimal, sin embargo
+en algunas ocasiones se podría necesitar el número en formato hexadecimal de dos dígitos o la representación decimal.
+
+El objeto `Certificado` contiene internamente un objeto de tipo `SerialNumber` que del que se puede obtener **una copia**
+por el método `getSerialObject(): SerialNumber` y dicho objeto puede devolver el número de serie en tres diferentes formatos:
+
+- `SerialNumber::asAscii()`: `30001000000300023708` el mismo que se devuelve en `Certificado::getSerial()`
+- `SerialNumber::getHexadecimal()`: `3330303031303030303030333030303233373038`
+- `SerialNumber::getDecimal()`: `292233162870206001759766198425879490508935868472`
+
+!!! note ""
+    Se obtiene una copia del objeto y no la misma instancia porque el `SerialNumber` es mutable, a partir de la
+    versión 3 el objeto será inmutable y se podrá obtener el objeto de la propia instancia.
+
+
 ## Acerca de los formatos de archivo
 
 El certificado (el archivo extensión CER) puede ser leído directamente.
 
 La llave privada (el archivo extensión KEY) debe ser convertido a tipo PEM
 para ser correctamente interpretado por esta clase (en realidad por PHP).
+
 
 ## Comandos útiles de openssl
 

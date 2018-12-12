@@ -27,7 +27,7 @@ EOD;
 
         $certificado = new Certificado($cerfile);
 
-        $this->assertEquals($cerfile, $certificado->getFilename());
+        $this->assertSame($cerfile, $certificado->getFilename());
         $certificateName = implode('', [
             '/CN=ACCEM SERVICIOS EMPRESARIALES SC',
             '/name=ACCEM SERVICIOS EMPRESARIALES SC',
@@ -36,13 +36,17 @@ EOD;
             '/serialNumber= / HEGT761003MDFRNN09',
             '/OU=CSD01_AAA010101AAA',
         ]);
-        $this->assertEquals($certificateName, $certificado->getCertificateName());
-        $this->assertEquals('ACCEM SERVICIOS EMPRESARIALES SC', $certificado->getName());
-        $this->assertEquals('AAA010101AAA', $certificado->getRfc());
-        $this->assertEquals('30001000000300023708', $certificado->getSerial());
-        $this->assertEquals(strtotime('2017-05-18T03:54:56+00:00'), $certificado->getValidFrom());
-        $this->assertEquals(strtotime('2021-05-18T03:54:56+00:00'), $certificado->getValidTo());
-        $this->assertEquals($expectedPublicKey, $certificado->getPubkey());
+        $this->assertSame($certificateName, $certificado->getCertificateName());
+        $this->assertSame('ACCEM SERVICIOS EMPRESARIALES SC', $certificado->getName());
+        $this->assertSame('AAA010101AAA', $certificado->getRfc());
+        $this->assertSame('30001000000300023708', $certificado->getSerial());
+        $this->assertSame(
+            '3330303031303030303030333030303233373038',
+            $certificado->getSerialObject()->getHexadecimal()
+        );
+        $this->assertSame(strtotime('2017-05-18T03:54:56+00:00'), $certificado->getValidFrom());
+        $this->assertSame(strtotime('2021-05-18T03:54:56+00:00'), $certificado->getValidTo());
+        $this->assertSame($expectedPublicKey, $certificado->getPubkey());
     }
 
     public function testVerifyWithKnownData()
@@ -170,5 +174,17 @@ EOD;
         $certificateFile = $this->utilAsset('certs/00001000000301246267.cer');
         $certificate = new Certificado($certificateFile);
         $this->assertEquals('SOMG790807J57', $certificate->getRfc());
+    }
+
+    public function testGetSerialObjectReturnsACopyOfTheObjectInsteadTheSameObject()
+    {
+        // remove this test on version 3 when the object SerialNumber is immutable
+        $certificateFile = $this->utilAsset('certs/00001000000301246267.cer');
+        $certificate = new Certificado($certificateFile);
+
+        $first = $certificate->getSerialObject();
+        $second = $certificate->getSerialObject();
+        $this->assertEquals($first, $second);
+        $this->assertNotSame($first, $second);
     }
 }
