@@ -34,6 +34,11 @@ class SerialNumber
         $this->loadHexadecimal($hexString);
     }
 
+    public function loadAscii(string $input)
+    {
+        $this->loadHexadecimal($this->asciiToHex($input));
+    }
+
     public function getHexadecimal(): string
     {
         return $this->hexString;
@@ -53,6 +58,13 @@ class SerialNumber
     {
         return array_reduce(str_split($input, 2), function (string $carry, string $value): string {
             return $carry . chr(hexdec($value));
+        }, '');
+    }
+
+    protected function asciiToHex(string $input): string
+    {
+        return array_reduce(str_split($input, 1), function (string $carry, string $value): string {
+            return $carry . dechex(ord($value));
         }, '');
     }
 

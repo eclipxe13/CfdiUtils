@@ -13,6 +13,12 @@
 - Remove `trigger_error` on `\CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados` when called with arguments.
 
 
+## Version 2.7.4 2018-12-12
+
+- Add `CfdiUtils\Certificado\SerialNumber::loadAscii` helper function
+- Fix tests on `SerialNumberTest` to include `loadAscii`
+
+
 ## Version 2.7.3 2018-12-05
 
 - Fix previous release since it did not publish the changes made on 2.7.2.
