@@ -11,12 +11,16 @@
 - Remove `static` methods from `\CfdiUtils\CfdiVersion`, instead create an instance of the class
 - Remove `static` methods from `\CfdiUtils\TimbreFiscalDigital\TfdVersion`, instead create an instance of the class
 - Remove `trigger_error` on `\CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados` when called with arguments.
-
+- Refactor `\CfdiUtils\Certificado\SerialNumber` to be immutable, this change will remove `loadHexadecimal`,
+  `loadDecimal` and `loadAscii`.
 
 ## Version 2.7.4 2018-12-12
 
+- Add `CfdiUtils\Certificado\Certificado::getSerialObject` to return **a copy** of the instance
+  of `CfdiUtils\Certificado\SerialNumber` in case is required.
 - Add `CfdiUtils\Certificado\SerialNumber::loadAscii` helper function
-- Fix tests on `SerialNumberTest` to include `loadAscii`
+- Improve tests on `SerialNumberTest` to include `loadAscii`
+- Improve tests on `CertificadoTest` to include `getSerialObject`
 
 
 ## Version 2.7.3 2018-12-05

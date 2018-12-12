@@ -12,7 +12,7 @@ class Certificado
     /** @var string */
     private $name;
 
-    /** @var string */
+    /** @var SerialNumber */
     private $serial;
 
     /** @var int */
@@ -76,7 +76,7 @@ class Certificado
         } else {
             throw new \RuntimeException("Cannot get serialNumberHex or serialNumber from certificate file $filename");
         }
-        $this->serial = $serial->asAscii();
+        $this->serial = $serial;
         $this->validFrom = $data['validFrom_time_t'] ?? 0;
         $this->validTo = $data['validTo_time_t'] ?? 0;
         $this->pubkey = $pubKey;
@@ -143,7 +143,12 @@ class Certificado
      */
     public function getSerial(): string
     {
-        return $this->serial;
+        return $this->serial->asAscii();
+    }
+
+    public function getSerialObject(): SerialNumber
+    {
+        return clone $this->serial;
     }
 
     /**
