@@ -1,15 +1,15 @@
 # Cadena de origen
 
-El SAT utiliza este método de generar cadenas originales para agrupar
-en una forma y orden determinados información que no debería ser alterada.
+El SAT utiliza el método de generar cadenas originales para agrupar
+en una forma y orden determinados la información que no debería ser alterada de un CFDI.
 
-Una vez que se cuenta con la cadena de origen, se genera una firma con la llave
+Una vez que se cuenta con la *cadena de origen*, se genera una firma con la llave
 privada que puede ser verificada con un certificado (llave pública).
 
-Si algún dato que es un componente para la cadena de origen fue modificado
-entonces producirá un sello diferente o la verificación será negativa.
+Si algún dato (que es parte de la cadena de origen) fue modificado
+entonces producirá un sello diferente o la verificación del sello será negativa.
 
-Esto significa que un CFDI puede ser alterado posteriormente a su elaboración.
+Esto significa que un CFDI *podría* ser alterado posteriormente a su elaboración.
 Por ejemplo, se le puede agregar una adenda o poner/quitar formato al XML,
 pues ni el nodo Addenda ni el "XML Whitespace" forman parte de la cadena de origen.
 
@@ -53,6 +53,15 @@ Las implementaciones son:
   [Saxon-B XSLT Processor](https://en.wikipedia.org/wiki/Saxon_XSLT) desde la
   ejecución por línea de comandos. Esta utilería presume la implementación de Xslt versión 2.
   Para usarla debes hacer algo como `apt-get install libsaxonb-java`.
+
+
+### Generar una cadena de origen de un creador de CFDI 3.3
+
+Si se está utilizando un objeto creador de un CFDI versión 3.3 se puede utilizar el
+método `CfdiUtils\CfdiCreator33::buildCadenaDeOrigen(): string`.
+
+Este método depende de las propiedades [`XmlResolver`](xmlresolver.md) para obtener los archivos XSLT
+y de `XsltBuilder` para hacer la transformación.
 
 
 ### Generar la cadena de origen de un Comprobante
@@ -110,12 +119,12 @@ $tfdCadenaOrigen = $builder->build($tfdXmlString);
 
 ## PHP y XLST versión 2
 
-Es importante notar que hasta el momento (enero/2018) no es posible en PHP
+Es importante notar que hasta el momento (enero/2019) no es posible en PHP
 procesar XSLT versión 2.0. Sin embargo el procesador que sí tiene PHP genera
 las cadenas de origen a pesar de la versión.
 Esto no garantiza que si el SAT modifica los archivos XSLT utilizando
 características incompatibles se producirá el resultado correcto.
 
-En la versión 2.2.0 de la librería se ha implementado Saxon-B y Genkgo Xsl
+En la versión 2.2.0 de la librería se ha implementado **Saxon-B** y **Genkgo Xsl**
 como alternativas al método de PHP. Las tres entregan el mismo resultado en los test.
 La que se usa de forma predeterminada es la de PHP `DOMBuilder`.
