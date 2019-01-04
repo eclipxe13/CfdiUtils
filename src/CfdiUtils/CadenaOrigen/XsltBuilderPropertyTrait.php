@@ -6,6 +6,11 @@ trait XsltBuilderPropertyTrait
     /** @var XsltBuilderInterface|null */
     private $xsltBuilder;
 
+    public function hasXsltBuilder(): bool
+    {
+        return ($this->xsltBuilder instanceof XsltBuilderInterface);
+    }
+
     public function getXsltBuilder(): XsltBuilderInterface
     {
         if (! $this->xsltBuilder instanceof XsltBuilderInterface) {
@@ -14,12 +19,7 @@ trait XsltBuilderPropertyTrait
         return $this->xsltBuilder;
     }
 
-    public function hasXsltBuilder(): bool
-    {
-        return ($this->xsltBuilder instanceof XsltBuilderInterface);
-    }
-
-    public function setXsltBuilder(XsltBuilderInterface $xsltBuilder)
+    public function setXsltBuilder(XsltBuilderInterface $xsltBuilder = null)
     {
         $this->xsltBuilder = $xsltBuilder;
     }

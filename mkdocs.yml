@@ -5,7 +5,7 @@ theme:
     name: "readthedocs"
     language: "es"
 
-pages:
+nav:
     - "CfdiUtils": "index.md"
     - "Lectura":
         - leer/leer-cfdi.md

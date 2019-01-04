@@ -11,6 +11,7 @@ class XsltBuilderPropertyTest extends TestCase
     public function testXsltBuilderPropertyWithoutSet()
     {
         $implementation = $this->createImplementation();
+        $this->assertFalse($implementation->hasXsltBuilder());
 
         $this->expectException(\LogicException::class);
         $this->expectExceptionMessage('current xsltBuilder');
@@ -19,11 +20,15 @@ class XsltBuilderPropertyTest extends TestCase
 
     public function testXsltBuilderProperty()
     {
+        $builder = new DOMBuilder();
         $implementation = $this->createImplementation();
 
-        $builder = new DOMBuilder();
         $implementation->setXsltBuilder($builder);
+        $this->assertTrue($implementation->hasXsltBuilder());
         $this->assertSame($builder, $implementation->getXsltBuilder());
+
+        $implementation->setXsltBuilder(null);
+        $this->assertFalse($implementation->hasXsltBuilder());
     }
 
     protected function createImplementation(): XsltBuilderPropertyInterface
