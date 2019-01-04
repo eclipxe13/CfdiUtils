@@ -14,6 +14,12 @@
 - Refactor `\CfdiUtils\Certificado\SerialNumber` to be immutable, this change will remove `loadHexadecimal`,
   `loadDecimal` and `loadAscii`.
 
+
+## Version 2.7.5 2019-01-04
+
+- Fix `mkdocs.yml` config, `pages` is deprecated, now use `nav`
+
+
 ## Version 2.7.4 2018-12-12
 
 - Add `CfdiUtils\Certificado\Certificado::getSerialObject` to return **a copy** of the instance
