@@ -18,6 +18,7 @@
 ## Version 2.7.5 2019-01-04
 
 - Fix `mkdocs.yml` config, `pages` is deprecated, now use `nav`
+- Make `XsltBuilderPropertyTrait` follow other `*PropertyTrait`
 
 
 ## Version 2.7.4 2018-12-12
