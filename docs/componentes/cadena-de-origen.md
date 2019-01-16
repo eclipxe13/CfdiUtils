@@ -101,21 +101,38 @@ sí se necesita al menos para mostrarla en la representación impresa del CFDI.
 Para ello puedes utilizar la clase `\CfdiUtils\TimbreFiscalDigital\TfdCadenaDeOrigen`.
 Esta clase solo funciona con TFD versiones 1.0 y 1.1. En caso de otra versión genera una excepción.
 
-Esta clase requiere de un `XmlResolver` y puede establecerse
-en el constructor o en el método `setXmlResolver`.
+Esta clase depende de las propiedades [`XmlResolver`](xmlresolver.md) para obtener los archivos XSLT
+y de `XsltBuilder` para hacer la transformación.
 
 ```php
 <?php
 use \CfdiUtils\TimbreFiscalDigital\TfdCadenaDeOrigen;
-use \CfdiUtils\XmlResolver\XmlResolver;
 
 $tfdXmlString = '<tfd:TimbreFiscalDigital xmlns:tfd="..." />';
 
 $builder = new TfdCadenaDeOrigen();
-$builder->setXmlResolver(new XmlResolver());
+
+// para cambiar el XmlResolver (por omisión crea uno nuevo)
+/** @var \CfdiUtils\XmlResolver\XmlResolver $myXmlResolver */
+$builder->setXmlResolver($myXmlResolver);
+
+// para cambiar el XsltBuilder (por omisión crea uno nuevo de tipo DOMBuilder)
+/** @var \CfdiUtils\CadenaOrigen\XsltBuilderInterface $myXsltBuilder */
+$builder->setXsltBuilder($myXsltBuilder);
 
 $tfdCadenaOrigen = $builder->build($tfdXmlString);
 ```
+
+Si no cuentas con el código XML del Timbre Fiscal Digital esta receta te puede ayudar:
+
+```php
+<?php
+$cfdiFile = '/facturas/.../fei-123456.xml';
+$cfdi = \CfdiUtils\Cfdi::newFromString($cfdiFile);
+$tfd = $cfdi->getNode()->searchNode('cfdi:Complemento', 'tfd:TimbreFiscalDigital');
+$tfdXmlString = \CfdiUtils\Nodes\XmlNodeUtils::nodeToXmlString($tfd);
+```
+
 
 ## PHP y XLST versión 2
 
