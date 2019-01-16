@@ -3,6 +3,7 @@ namespace CfdiUtilsTests\Elements\Cfdi33\Helpers;
 
 use CfdiUtils\Elements\Cfdi33\Comprobante;
 use CfdiUtils\Elements\Cfdi33\Helpers\SumasConceptosWriter;
+use CfdiUtils\Nodes\XmlNodeUtils;
 use CfdiUtils\SumasConceptos\SumasConceptos;
 use PHPUnit\Framework\TestCase;
 
@@ -196,5 +197,34 @@ class SumasConceptosWriterTest extends TestCase
             '10.000',
             $comprobante->searchAttribute('cfdi:Impuestos', 'cfdi:Traslados', 'cfdi:Traslado', 'Importe')
         );
+    }
+
+    public function testConceptosOnlyWithTrasladosExentosDoesNotWriteTraslados()
+    {
+        $comprobante = new Comprobante();
+        $concepto = $comprobante->addConcepto();
+        $concepto->addTraslado(['Base' => '1000', 'Impuesto' => '002', 'TipoFactor' => 'Exento']);
+        $concepto->addRetencion([
+            'Base' => '1000.00',
+            'Impuesto' => '001',
+            'TipoFactor' => 'Tasa',
+            'TasaOCuota' => '0.04000',
+            'Importe' => '40.00',
+        ]);
+        $comprobante->addConcepto()->addTraslado(['Base' => '1000', 'Impuesto' => '002', 'TipoFactor' => 'Exento']);
+
+        $precision = 2;
+        $sumasConceptos = new SumasConceptos($comprobante, $precision);
+        $writer = new SumasConceptosWriter($comprobante, $sumasConceptos, $precision);
+        $writer->put();
+
+        $expected = <<<EOT
+            <cfdi:Impuestos TotalImpuestosRetenidos="40.00">
+              <cfdi:Retenciones>
+                <cfdi:Retencion Impuesto="001" Importe="40.00"/>
+              </cfdi:Retenciones>
+            </cfdi:Impuestos>
+EOT;
+        $this->assertXmlStringEqualsXmlString($expected, XmlNodeUtils::nodeToXmlString($comprobante->getImpuestos()));
     }
 }
