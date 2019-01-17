@@ -21,7 +21,7 @@
    when `TipoFactor == Exento`.
 - Add tests on how `SumasConceptos` should work with `TipoFactor == Exento` and how attributes are written.
 - Travis: since `mkdocs` version is old, just change `nav` to `pages` to compile docs.
-- Docs: Improve texts and examples on *Cadena de Origen*. 
+- Docs: Improve texts and examples on *Cadena de Origen*.
 
 
 ## Version 2.7.5 2019-01-04
