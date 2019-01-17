@@ -11,7 +11,7 @@ Este es uno de los validadores más útiles porque revisa la estructura contra e
 Cuando este validador falla regresa un estado `mustStop` que previene la ejecución de futuros
 validadores dentro de un objeto `MultiValidator`.
 
-- XDS01: El contenido XML sigue los esquemas XSD
+- XSD01: El contenido XML sigue los esquemas XSD
 
 
 ## ComprobanteDecimalesMoneda

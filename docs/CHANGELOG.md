@@ -15,8 +15,9 @@
   `loadDecimal` and `loadAscii`.
 
 
-## Version 2.7.6 2019-01-16
+## Version 2.7.6 2019-01-17
 
+- Rename validation code `XDS01` to `XSD01` as reported by `@blacktrue`
 - `SumasConceptos` must ignore `Comprobante/Conceptos/Concepto/Impuestos/Traslados/Traslado`
    when `TipoFactor == Exento`.
 - Add tests on how `SumasConceptos` should work with `TipoFactor == Exento` and how attributes are written.
