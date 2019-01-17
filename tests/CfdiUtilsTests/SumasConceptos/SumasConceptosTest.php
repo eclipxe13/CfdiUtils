@@ -154,4 +154,49 @@ class SumasConceptosTest extends TestCase
         $this->assertEquals(10.0, $sumas->getImpuestosTrasladados(), '', 0.0001);
         $this->assertEquals(10.0, $sumas->getTraslados()['002:Tasa:0.160000']['Importe'], '', 0.0000001);
     }
+
+    public function testImpuestoWithTrasladosTasaAndExento()
+    {
+        $comprobante = new Comprobante();
+        $comprobante->addConcepto()->multiTraslado(...[
+            ['Impuesto' => '002', 'TipoFactor' => 'Exento'],
+            [
+                'Impuesto' => '002',
+                'TipoFactor' => 'Tasa',
+                'TasaOCuota' => '0.160000',
+                'Base' => '1000',
+                'Importe' => '160',
+            ],
+        ]);
+        $comprobante->addConcepto()->multiTraslado(...[
+            [
+                'Impuesto' => '002',
+                'TipoFactor' => 'Tasa',
+                'TasaOCuota' => '0.160000',
+                'Base' => '1000',
+                'Importe' => '160',
+            ],
+        ]);
+
+        $sumas = new SumasConceptos($comprobante, 2);
+        $this->assertTrue($sumas->hasTraslados());
+        $this->assertEquals(320.0, $sumas->getImpuestosTrasladados(), '', 0.001);
+        $this->assertCount(1, $sumas->getTraslados());
+    }
+
+    public function testImpuestoWithTrasladosAndOnlyExento()
+    {
+        $comprobante = new Comprobante();
+        $comprobante->addConcepto()->multiTraslado(...[
+            ['Impuesto' => '002', 'TipoFactor' => 'Exento'],
+        ]);
+        $comprobante->addConcepto()->multiTraslado(...[
+            ['Impuesto' => '002', 'TipoFactor' => 'Exento'],
+        ]);
+
+        $sumas = new SumasConceptos($comprobante, 2);
+        $this->assertFalse($sumas->hasTraslados());
+        $this->assertEquals(0, $sumas->getImpuestosTrasladados(), '', 0.001);
+        $this->assertCount(0, $sumas->getTraslados());
+    }
 }

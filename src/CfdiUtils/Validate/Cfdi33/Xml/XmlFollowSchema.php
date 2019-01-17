@@ -22,7 +22,7 @@ use XmlSchemaValidator\SchemaValidatorException;
  * Si falla el objeto Asserts devuelto tiene la bandera mustStop activa.
  *
  * Valida que:
- * - XDS01: El contenido XML sigue los esquemas XSD
+ * - XSD01: El contenido XML sigue los esquemas XSD
  *
  * Para poder generar la validación se necesita el contenido XML, este puede ser establecido por sus propiedades.
  * En caso de no existir entonces el contenido se generará desde el atributo Node.
@@ -40,7 +40,7 @@ class XmlFollowSchema extends AbstractVersion33 implements
 
     public function validate(NodeInterface $comprobante, Asserts $asserts)
     {
-        $assert = $asserts->put('XDS01', 'El contenido XML sigue los esquemas XSD');
+        $assert = $asserts->put('XSD01', 'El contenido XML sigue los esquemas XSD');
 
         // obtain content
         if ('' === $content = $this->getXmlString()) {

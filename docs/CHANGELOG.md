@@ -15,6 +15,16 @@
   `loadDecimal` and `loadAscii`.
 
 
+## Version 2.7.6 2019-01-17
+
+- Rename validation code `XDS01` to `XSD01` as reported by `@blacktrue`
+- `SumasConceptos` must ignore `Comprobante/Conceptos/Concepto/Impuestos/Traslados/Traslado`
+   when `TipoFactor == Exento`.
+- Add tests on how `SumasConceptos` should work with `TipoFactor == Exento` and how attributes are written.
+- Travis: since `mkdocs` version is old, just change `nav` to `pages` to compile docs.
+- Docs: Improve texts and examples on *Cadena de Origen*.
+
+
 ## Version 2.7.5 2019-01-04
 
 - Make `XsltBuilderPropertyTrait` follow other `*PropertyTrait`

@@ -88,7 +88,9 @@ class SumasConceptos
 
         $traslados = $concepto->searchNodes('cfdi:Impuestos', 'cfdi:Traslados', 'cfdi:Traslado');
         foreach ($traslados as $traslado) {
-            $this->addTraslado($traslado);
+            if ('Exento' !== $traslado['TipoFactor']) {
+                $this->addTraslado($traslado);
+            }
         }
 
         $retenciones = $concepto->searchNodes('cfdi:Impuestos', 'cfdi:Retenciones', 'cfdi:Retencion');

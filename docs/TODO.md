@@ -36,7 +36,7 @@ to a new namespace `PhpCfdi\CfdiUtils`
 ## CfdiVersion & TfdVersion
 
 The classes `CfdiUtils\CfdiVersion` and `CfdiUtils\TimbreFiscalDigital\CfdiVersion`
-share the same logic and methos. They are detected as code smell and it would be better
+share the same logic and methods. They are detected as code smell and it would be better
 to have a single class to implement the logic and extend that class to provide configuration.
 
 
