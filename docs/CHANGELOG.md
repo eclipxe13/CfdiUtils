@@ -15,6 +15,12 @@
   `loadDecimal` and `loadAscii`.
 
 
+## Version DEVELOPMENT
+- `CfdiUtils\CfdiCreator33` constructor docblock was setting type of attributes as array[] when it is false.
+  Values can be strings, any scalar and objects with `__toString()` implemented.
+
+
+
 ## Version 2.7.6 2019-01-17
 
 - Rename validation code `XDS01` to `XSD01` as reported by `@blacktrue`
