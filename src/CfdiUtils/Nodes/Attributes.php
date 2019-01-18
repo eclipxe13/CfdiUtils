@@ -61,7 +61,7 @@ class Attributes implements \Countable, \IteratorAggregate, \ArrayAccess
     public function importArray(array $attributes): self
     {
         foreach ($attributes as $key => $value) {
-            $this->set($key, $this->castValueToString($value));
+            $this->set($key, $this->castValueToString($key, $value));
         }
         return $this;
     }
@@ -72,18 +72,22 @@ class Attributes implements \Countable, \IteratorAggregate, \ArrayAccess
     }
 
     /**
+     * @param string $key
      * @param mixed $value
      * @return string|null
      */
-    private function castValueToString($value)
+    private function castValueToString(string $key, $value)
     {
         if (null === $value) {
             return null;
         }
-        if (is_scalar($value) || is_object($value) && is_callable([$value, '__toString'])) {
-            return (string) $value;
+        if (is_scalar($value)) {
+            return strval($value);
         }
-        throw new \InvalidArgumentException('attribute value cannot be converted to string');
+        if (is_object($value) && is_callable([$value, '__toString'])) {
+            return strval($value);
+        }
+        throw new \InvalidArgumentException(sprintf('Attribute %s value cannot be converted to string', $key));
     }
 
     public function getIterator()
@@ -103,7 +107,8 @@ class Attributes implements \Countable, \IteratorAggregate, \ArrayAccess
 
     public function offsetSet($offset, $value)
     {
-        $this->set((string) $offset, $this->castValueToString($value));
+        $offset = strval($offset);
+        $this->set($offset, $this->castValueToString($offset, $value));
     }
 
     public function offsetUnset($offset)

@@ -18,7 +18,7 @@
 ## Version DEVELOPMENT
 - `CfdiUtils\CfdiCreator33` constructor docblock was setting type of attributes as array[] when it is false.
   Values can be strings, any scalar and objects with `__toString()` implemented.
-
+- When casting an attribute value to string show the attribute name.
 
 
 ## Version 2.7.6 2019-01-17
