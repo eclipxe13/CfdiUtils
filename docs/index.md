@@ -53,7 +53,7 @@ Solo hay métodos específicos para CFDI 3.3.
 - [Crear un CFDI 3.3](crear/crear-cfdi.md)
 - [Elementos de CFDI](crear/elements-cfdi33.md)
 - [Agregar complementos](crear/complementos-aun-no-implementados.md)
-
+- [CFDI Retenciones](crear/cfdi-de-retenciones-e-informacion-de-pagos.md)
 
 ## Componentes comunes
 

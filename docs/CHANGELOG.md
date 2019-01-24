@@ -16,9 +16,15 @@
 
 
 ## Version DEVELOPMENT
-- `CfdiUtils\CfdiCreator33` constructor docblock was setting type of attributes as array[] when it is false.
-  Values can be strings, any scalar and objects with `__toString()` implemented.
-- When casting an attribute value to string show the attribute name.
+
+- Initial attempt to create a *CFDI de retenciones e información de pagos*:
+    - Add namespace `\CfdiUtils\Retenciones`.
+    - Add class `\CfdiUtils\Retenciones\Retenciones33`.
+    - Add test for green path on creating a CFDI without TFD.
+    - Add test to ensure that `validate` method is checking document against schema.
+- `CfdiUtils\CfdiCreator33` constructor docblock was setting type of attributes as string[] when it is false.
+  Values can be scalar and objects with `__toString()` implemented.
+- Inside attributes, when casting an attribute value to string fails then show the attribute name.
 
 
 ## Version 2.7.6 2019-01-17
