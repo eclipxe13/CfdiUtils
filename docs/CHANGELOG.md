@@ -22,7 +22,8 @@
     - Add class `\CfdiUtils\Retenciones\RetencionesCreator10`.
     - Add test for green path on creating a CFDI without TFD.
     - Add test to ensure that `validate` method is checking document against schema.
-    - Add namespace `\Elements\Retenciones10` to add helper elements
+    - Add namespace `\Elements\Retenciones10` to add helper elements for `retenciones:Retenciones`
+    - Add namespace `\Elements\Dividendos10` to add helper elements for `dividendos:Dividendos`
 - `CfdiUtils\CfdiCreator33` constructor docblock was setting type of attributes as string[] when it is false.
   Values can be scalar and objects with `__toString()` implemented.
 - Inside attributes, when casting an attribute value to string fails then show the attribute name.

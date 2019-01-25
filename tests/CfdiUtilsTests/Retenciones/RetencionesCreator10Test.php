@@ -3,7 +3,7 @@ namespace CfdiUtilsTests\Retenciones;
 
 use CfdiUtils\CadenaOrigen\DOMBuilder;
 use CfdiUtils\Certificado\Certificado;
-use CfdiUtils\Nodes\Node;
+use CfdiUtils\Elements\Dividendos10\Dividendos;
 use CfdiUtils\Retenciones\RetencionesCreator10;
 use CfdiUtilsTests\TestCase;
 
@@ -46,27 +46,18 @@ class RetencionesCreator10Test extends TestCase
             'TipoPagoRet' => 'Pago provisional',
         ]);
 
-        $retenciones->addComplemento(
-            new Node('dividendos:Dividendos', [
-                'xmlns:dividendos' => 'http://www.sat.gob.mx/esquemas/retencionpago/1/dividendos',
-                'xsi:schemaLocation' => vsprintf('%s %s', [
-                    'http://www.sat.gob.mx/esquemas/retencionpago/1/dividendos',
-                    'http://www.sat.gob.mx/esquemas/retencionpago/1/dividendos/dividendos.xsd',
-                ]),
-                'Version' => '1.0',
-            ], [
-                new Node('dividendos:DividOUtil', [
-                    'CveTipDivOUtil' => '06', // 06 - Proviene de CUFIN al 31 de diciembre 2013
-                    'MontISRAcredRetMexico' => '0',
-                    'MontISRAcredRetExtranjero' => '0',
-                    'MontRetExtDivExt' => '0',
-                    'TipoSocDistrDiv' => 'Sociedad Nacional',
-                    'MontISRAcredNal' => '0',
-                    'MontDivAcumNal' => '0',
-                    'MontDivAcumExt' => '0',
-                ]),
-            ])
-        );
+        $dividendos = new Dividendos();
+        $dividendos->addDividOUtil([
+            'CveTipDivOUtil' => '06', // 06 - Proviene de CUFIN al 31 de diciembre 2013
+            'MontISRAcredRetMexico' => '0',
+            'MontISRAcredRetExtranjero' => '0',
+            'MontRetExtDivExt' => '0',
+            'TipoSocDistrDiv' => 'Sociedad Nacional',
+            'MontISRAcredNal' => '0',
+            'MontDivAcumNal' => '0',
+            'MontDivAcumExt' => '0',
+        ]);
+        $retenciones->addComplemento($dividendos);
 
         // verify properties
         $this->assertSame($xmlResolver, $creator->getXmlResolver());
