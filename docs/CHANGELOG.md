@@ -11,15 +11,14 @@
 - Remove `static` methods from `\CfdiUtils\CfdiVersion`, instead create an instance of the class
 - Remove `static` methods from `\CfdiUtils\TimbreFiscalDigital\TfdVersion`, instead create an instance of the class
 - Remove `trigger_error` on `\CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados` when called with arguments.
+- Change signature of `CfdiUtils\Elements\Cfdi33\CfdiRelacionados::multiCfdiRelacionado` to receive as paremers
+  `array ...$elementAttributes` instead of `array $elementAttributes`.
 - Refactor `\CfdiUtils\Certificado\SerialNumber` to be immutable, this change will remove `loadHexadecimal`,
   `loadDecimal` and `loadAscii`.
 
 
 ## Version DEVELOPMENT
 
-- Fix `CfdiUtils\Elements\CfdiRelacionados::multiCfdiRelacionado` to receive a list of parameters.
-- Fix `CfdiUtils\Elements\Comprobante::multiCfdiRelacionado` to receive a list of parameters
-  This is an alias for `CfdiUtils\Elements\CfdiRelacionados::multiCfdiRelacionado`.
 - Initial attempt to create a *CFDI de retenciones e información de pagos*:
     - Add namespace `\CfdiUtils\Retenciones`.
     - Add class `\CfdiUtils\Retenciones\RetencionesCreator10`.
