@@ -7,7 +7,7 @@ use CfdiUtils\Nodes\Node;
 use CfdiUtils\Retenciones\RetencionesCreator10;
 use CfdiUtilsTests\TestCase;
 
-class Retenciones10Test extends TestCase
+class RetencionesCreator10Test extends TestCase
 {
     public function testCreatePreCfdiWithAllCorrectValues()
     {
