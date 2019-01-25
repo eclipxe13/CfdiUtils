@@ -19,7 +19,7 @@
 
 - Initial attempt to create a *CFDI de retenciones e información de pagos*:
     - Add namespace `\CfdiUtils\Retenciones`.
-    - Add class `\CfdiUtils\Retenciones\Retenciones33`.
+    - Add class `\CfdiUtils\Retenciones\Retenciones10`.
     - Add test for green path on creating a CFDI without TFD.
     - Add test to ensure that `validate` method is checking document against schema.
     - Add namespace `\Elements\Retenciones10` to add helper elements

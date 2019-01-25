@@ -18,7 +18,7 @@ use CfdiUtils\XmlResolver\XmlResolver;
 use CfdiUtils\XmlResolver\XmlResolverPropertyInterface;
 use CfdiUtils\XmlResolver\XmlResolverPropertyTrait;
 
-class Retenciones33 implements
+class Retenciones10 implements
     CertificadoPropertyInterface,
     XmlResolverPropertyInterface,
     XsltBuilderPropertyInterface
@@ -34,7 +34,7 @@ class Retenciones33 implements
     private $root;
 
     /**
-     * Retenciones33 constructor.
+     * Retenciones10 constructor.
      * @param array $comprobanteAttributes
      * @param NodeInterface[] $children
      * @param XmlResolver|null $xmlResolver

@@ -4,10 +4,10 @@ namespace CfdiUtilsTests\Retenciones;
 use CfdiUtils\CadenaOrigen\DOMBuilder;
 use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\Nodes\Node;
-use CfdiUtils\Retenciones\Retenciones33;
+use CfdiUtils\Retenciones\Retenciones10;
 use CfdiUtilsTests\TestCase;
 
-class Retenciones33Test extends TestCase
+class Retenciones10Test extends TestCase
 {
     public function testCreatePreCfdiWithAllCorrectValues()
     {
@@ -19,7 +19,7 @@ class Retenciones33Test extends TestCase
         $xsltBuilder = new DOMBuilder();
 
         // create object
-        $retencion = new Retenciones33([
+        $retencion = new Retenciones10([
             'FechaExp' => '2019-01-23T08:00:00-06:00',
             'CveRetenc' => '14', // Dividendos o utilidades distribuidos
         ], [
@@ -78,8 +78,8 @@ class Retenciones33Test extends TestCase
 
         // verify root node
         $root = $retencion->rootNode();
-        $this->assertSame(Retenciones33::XMLNS_1_0, $root['xmlns:retenciones']);
-        $this->assertSame(Retenciones33::XMLNS_1_0 . ' ' . Retenciones33::XSD_1_0, $root['xsi:schemaLocation']);
+        $this->assertSame(Retenciones10::XMLNS_1_0, $root['xmlns:retenciones']);
+        $this->assertSame(Retenciones10::XMLNS_1_0 . ' ' . Retenciones10::XSD_1_0, $root['xsi:schemaLocation']);
         $this->assertSame('1.0', $root['Version']);
 
         // put additional content using helpers
@@ -99,7 +99,7 @@ class Retenciones33Test extends TestCase
 
     public function testValidateIsCheckingAgainstXsdViolations()
     {
-        $retencion = new Retenciones33();
+        $retencion = new Retenciones10();
         $retencion->setXmlResolver($this->newResolver());
         $assert = $retencion->validate()->get('XSD01');
         $this->assertTrue($assert->getStatus()->isError());
@@ -110,7 +110,7 @@ class Retenciones33Test extends TestCase
         $pemFile = $this->utilAsset('certs/CSD01_AAA010101AAA_password.key.pem');
         $passPhrase = '_worng_passphrase_';
 
-        $retencion = new Retenciones33();
+        $retencion = new Retenciones10();
         $retencion->setXmlResolver($this->newResolver());
 
         $this->expectException(\RuntimeException::class);
@@ -125,7 +125,7 @@ class Retenciones33Test extends TestCase
         $passPhrase = '';
         $certificado = new Certificado($cerFile);
 
-        $retencion = new Retenciones33();
+        $retencion = new Retenciones10();
         $retencion->setXmlResolver($this->newResolver());
 
         $retencion->putCertificado($certificado);
