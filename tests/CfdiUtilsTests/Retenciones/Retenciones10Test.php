@@ -74,8 +74,6 @@ class Retenciones10Test extends TestCase
 
         // verify root node
         $root = $creator->retenciones();
-        $this->assertSame(RetencionesCreator10::XMLNS_1_0, $root['xmlns:retenciones']);
-        $this->assertSame(RetencionesCreator10::XMLNS_1_0 . ' ' . RetencionesCreator10::XSD_1_0, $root['xsi:schemaLocation']);
         $this->assertSame('1.0', $root['Version']);
 
         // put additional content using helpers
