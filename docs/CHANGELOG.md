@@ -17,6 +17,9 @@
 
 ## Version DEVELOPMENT
 
+- Fix `CfdiUtils\Elements\CfdiRelacionados::multiCfdiRelacionado` to receive a list of parameters.
+- Fix `CfdiUtils\Elements\Comprobante::multiCfdiRelacionado` to receive a list of parameters
+  This is an alias for `CfdiUtils\Elements\CfdiRelacionados::multiCfdiRelacionado`.
 - Initial attempt to create a *CFDI de retenciones e información de pagos*:
     - Add namespace `\CfdiUtils\Retenciones`.
     - Add class `\CfdiUtils\Retenciones\RetencionesCreator10`.
