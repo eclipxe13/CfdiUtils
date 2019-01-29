@@ -50,13 +50,6 @@ ideas than need a solution:
 - Create a cache of the WSDL page (?)
 
 
-## Element helpers for Retenciones
-
-When creating a *CFDI de retenciones e información de pagos* is working directly with
-`NodeInterface` objects instead of `ElementInterface`.
-It would be convenient to have helper elements to facilitate the creation of this kind of CFDI.
-
-
 ## Validation rules for Pagos
 
 The validation rules for "Complemento de Recepción de pagos" are included since version 2.6 but

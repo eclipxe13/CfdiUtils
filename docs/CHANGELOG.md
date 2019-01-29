@@ -17,7 +17,7 @@
   `loadDecimal` and `loadAscii`.
 
 
-## Version DEVELOPMENT
+## Version 2.8.0 2019-01-29
 
 - Initial attempt to create a *CFDI de retenciones e información de pagos*:
     - Add namespace `\CfdiUtils\Retenciones`.
@@ -27,9 +27,9 @@
     - Add namespace `\Elements\Retenciones10` to add helper elements for `retenciones:Retenciones`.
     - Add namespace `\Elements\Dividendos10` to add helper elements for `dividendos:Dividendos`.
     - Add namespace `\Elements\PagosAExtranjeros10` to add helper elements for `pagosaextranjeros:Pagosaextranjeros`.
-- `CfdiUtils\CfdiCreator33` constructor docblock was setting type of attributes as string[] when it is false.
+- `CfdiUtils\CfdiCreator33` constructor docblock was setting type of attributes as `string[]` when it should be `array`.
   Values can be scalar and objects with `__toString()` implemented.
-- Inside attributes, when casting an attribute value to string fails then show the attribute name.
+- Inside attributes, when casting an attribute value to string fails then show the attribute name in exception.
 
 
 ## Version 2.7.6 2019-01-17
