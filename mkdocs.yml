@@ -18,6 +18,7 @@ nav:
         - crear/crear-cfdi.md
         - crear/elements-cfdi33.md
         - crear/complementos-aun-no-implementados.md
+        - crear/cfdi-de-retenciones-e-informacion-de-pagos.md
     - "Componentes":
         - componentes/xmlresolver.md
         - componentes/cadena-de-origen.md

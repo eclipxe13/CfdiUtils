@@ -11,8 +11,25 @@
 - Remove `static` methods from `\CfdiUtils\CfdiVersion`, instead create an instance of the class
 - Remove `static` methods from `\CfdiUtils\TimbreFiscalDigital\TfdVersion`, instead create an instance of the class
 - Remove `trigger_error` on `\CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados` when called with arguments.
+- Change signature of `CfdiUtils\Elements\Cfdi33\CfdiRelacionados::multiCfdiRelacionado` to receive as paremers
+  `array ...$elementAttributes` instead of `array $elementAttributes`.
 - Refactor `\CfdiUtils\Certificado\SerialNumber` to be immutable, this change will remove `loadHexadecimal`,
   `loadDecimal` and `loadAscii`.
+
+
+## Version 2.8.0 2019-01-29
+
+- Initial attempt to create a *CFDI de retenciones e información de pagos*:
+    - Add namespace `\CfdiUtils\Retenciones`.
+    - Add class `\CfdiUtils\Retenciones\RetencionesCreator10`.
+    - Add test for green path on creating a CFDI without TFD.
+    - Add test to ensure that `validate` method is checking document against schema.
+    - Add namespace `\Elements\Retenciones10` to add helper elements for `retenciones:Retenciones`.
+    - Add namespace `\Elements\Dividendos10` to add helper elements for `dividendos:Dividendos`.
+    - Add namespace `\Elements\PagosAExtranjeros10` to add helper elements for `pagosaextranjeros:Pagosaextranjeros`.
+- `CfdiUtils\CfdiCreator33` constructor docblock was setting type of attributes as `string[]` when it should be `array`.
+  Values can be scalar and objects with `__toString()` implemented.
+- Inside attributes, when casting an attribute value to string fails then show the attribute name in exception.
 
 
 ## Version 2.7.6 2019-01-17

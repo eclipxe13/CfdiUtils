@@ -1,0 +1,22 @@
+<?php
+namespace CfdiUtilsTests\Elements\PagosAExtranjeros10;
+
+use CfdiUtils\Elements\PagosAExtranjeros10\NoBeneficiario;
+use PHPUnit\Framework\TestCase;
+
+class NoBeneficiarioTest extends TestCase
+{
+    /** @var NoBeneficiario */
+    public $element;
+
+    public function setUp()
+    {
+        parent::setUp();
+        $this->element = new NoBeneficiario();
+    }
+
+    public function testGetElementName()
+    {
+        $this->assertSame('pagosaextranjeros:NoBeneficiario', $this->element->getElementName());
+    }
+}
