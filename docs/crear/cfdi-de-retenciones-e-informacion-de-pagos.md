@@ -1,11 +1,11 @@
 # CFDI de retenciones e información de pagos
 
-Existen otros tipos de CFDI definidos en el Anexo 20 sección II adicionales los CFDI de tipo
-Comprobante `<cfdi:Comprobante/>` que pueden ser ingresos, egresos, traslados y pagos.
+Existen otro tipo de CFDI definido en el Anexo 20 sección II adicionales los CFDI de tipo
+Comprobante `<cfdi:Comprobante/>` (ingresos, egresos, traslados y pagos).
 
 Este CFDI se llama *CFDI de retenciones e información de pagos* y tiene la misma esencia de
 los comprobantes "tradicionales" (definir en campos requeridos, condicionales y obligatorios)
-pero  cuenta con una estructura totalmente diferente.
+pero cuenta con una estructura totalmente diferente.
 
 Existe poca información alrededor de este tipo de comprobantes porque su generación es mucho
 menor a los CFDI tradicionales.
@@ -31,9 +31,9 @@ Entre las semejanzas están:
 
 ## Herramientas gratuitas
 
-Es importante notar que el SAT no cuenta con una herramienta para elaborar este tipo de comprobantes
-como la tiene para los CFDI tradicionales, en su explicación de esquema operativo explican que se
-requiere utilizar a un PAC para poderlos emitir.
+Es importante notar que **el SAT no cuenta con una herramienta para elaborar CFDI de retenciones e información de pagos**
+como la tiene para los CFDI tradicionales, en su explicación de esquema operativo explican que se requiere utilizar
+a un PAC para poderlos emitir.
 
 Por otro lado, el SAT no les ha exigido a los PAC que cuenten con herramientas gratuitas para elaborarlos,
 por lo que generalmente se requerirá contratar el uso de una aplicación o bien contratar los servicios de timbrado.
@@ -60,3 +60,63 @@ incluyendo el timbre fiscal digital y este es el comprobante legal.
   <https://www.sat.gob.mx/cs/Satellite?blobcol=urldata&blobkey=id&blobtable=MungoBlobs&blobwhere=1461172330889&ssbinary=true>
 - Herramienta de transformación XML para generar la cadena original
   <http://www.sat.gob.mx/esquemas/retencionpago/1/retenciones.xslt>
+
+
+## Ejemplo de creación de un CFDI de retenciones e información de pagos
+
+```php
+<?php
+// creator es un objeto de ayuda, similar a CfdiCreator33
+$creator = new \CfdiUtils\Retenciones\RetencionesCreator10([
+    'FechaExp' => '2019-01-23T08:00:00-06:00',
+    'CveRetenc' => '14', // Dividendos o utilidades distribuidos
+]);
+
+// retenciones es un objeto de ayuda, similar a Comprobante
+$retenciones = $creator->retenciones();
+$retenciones->addEmisor([
+    'RFCEmisor' => 'AAA010101AAA',
+    'NomDenRazSocE' => 'ACCEM SERVICIOS EMPRESARIALES SC',
+]);
+$retenciones->getReceptor()->addExtranjero([
+    'NumRegIdTrib' => '998877665544332211',
+    'NomDenRazSocR' => 'WORLD WIDE COMPANY INC',
+]);
+$retenciones->addPeriodo(['MesIni' => '5', 'MesFin' => '5', 'Ejerc' => '2018']);
+$retenciones->addTotales([
+    'montoTotOperacion' => '55578643',
+    'montoTotGrav' => '0',
+    'montoTotExent' => '55578643',
+    'montoTotRet' => '0',
+]);
+$retenciones->addImpRetenidos([
+    'BaseRet' => '0',
+    'Impuesto' => '01', // 01 - ISR
+    'montoRet' => '0',
+    'TipoPagoRet' => 'Pago provisional',
+]);
+
+// dividendos es un objeto de ayuda para el complemento, similar a Comprobante
+$dividendos = new \CfdiUtils\Elements\Dividendos10\Dividendos();
+$dividendos->addDividOUtil([
+    'CveTipDivOUtil' => '06', // 06 - Proviene de CUFIN al 31 de diciembre 2013
+    'MontISRAcredRetMexico' => '0',
+    'MontISRAcredRetExtranjero' => '0',
+    'MontRetExtDivExt' => '0',
+    'TipoSocDistrDiv' => 'Sociedad Nacional',
+    'MontISRAcredNal' => '0',
+    'MontDivAcumNal' => '0',
+    'MontDivAcumExt' => '0',
+]);
+$retenciones->addComplemento($dividendos);
+
+// poner certificado y sellar el precfdi, después de sellar no debes hacer cambios
+$creator->putCertificado(new \CfdiUtils\Certificado\Certificado('archivo.cer'));
+$creator->addSello('file://archivo.key.pem', 'la contraseña');
+
+// Asserts contendrá el resultado de la validación
+$asserts = $creator->validate();
+
+// guardar el precfdi
+file_put_contents('precfdi.xml', $creator->asXml());
+```
