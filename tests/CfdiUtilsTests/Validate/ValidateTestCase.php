@@ -17,7 +17,7 @@ abstract class ValidateTestCase extends TestCase
     /** @var ValidatorInterface */
     protected $validator;
 
-    /** @var NodeInterface */
+    /** @var Comprobante */
     protected $comprobante;
 
     /** @var Asserts|Assert[] */
