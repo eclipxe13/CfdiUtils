@@ -17,7 +17,7 @@ abstract class ValidateTestCase extends TestCase
     /** @var ValidatorInterface */
     protected $validator;
 
-    /** @var Comprobante */
+    /** @var NodeInterface */
     protected $comprobante;
 
     /** @var Asserts|Assert[] */
@@ -42,9 +42,10 @@ abstract class ValidateTestCase extends TestCase
      */
     protected function getComprobante(): Comprobante
     {
-        /** @var Comprobante $comprobante */
-        $comprobante = $this->comprobante;
-        return $comprobante;
+        if ($this->comprobante instanceof Comprobante) {
+            return $this->comprobante;
+        }
+        throw new \RuntimeException('The current comprobante node is not a ' . Comprobante::class);
     }
 
     protected function runValidate()
