@@ -57,7 +57,7 @@ class SerialNumber
     protected function hexToAscii(string $input): string
     {
         return array_reduce(str_split($input, 2), function (string $carry, string $value): string {
-            return $carry . chr(hexdec($value));
+            return $carry . chr(intval(hexdec($value)));
         }, '');
     }
 
@@ -125,7 +125,8 @@ class SerialNumber
                 }
             }
             $length = $newlen;
-            $result = $chars{$divide} . $result;
+            // $result = $chars{$divide} . $result;
+            $result = substr($chars, $divide, 1) . $result;
         } while ($newlen > 0);
 
         return $result;
