@@ -15,6 +15,36 @@
   `array ...$elementAttributes` instead of `array $elementAttributes`.
 - Refactor `\CfdiUtils\Certificado\SerialNumber` to be immutable, this change will remove `loadHexadecimal`,
   `loadDecimal` and `loadAscii`.
+- Remove `CfdiUtils\Certificado\SerialNumber::baseConvert` method. Should be private or not exists at all.
+- Add a method `NodeInderface::exists` as an alias of `NodeInderface::offsetExists`. Replace usages in code.
+
+
+## Version 2.8.1 2019-02-05
+
+- Extract base convert logic from `CfdiUtils\Certificado\SerialNumber::baseConvert` to new internal classes:
+    - `CfdiUtils\Utils\Internal\BaseConverterSequence` Value object to store the character maps.
+    - `CfdiUtils\Utils\Internal\BaseConverter` Object that perform the convertion.
+- Fix possible bug converting from an inferior to a superior base thanks to new test on `BaseConverter`.
+- Classes inside `CfdiUtils\Utils\Internal\` namespace should not be used outside the library.
+  Changing this will not be considered a backward compatibility break.
+- Deprecate `CfdiUtils\Certificado\SerialNumber::baseConvert`.
+- Create `CfdiUtils\Utils\Internal\TemporaryFile` to aviod using directly `\tempnam` and throw `\RuntimeException`
+- Replace usages of `\tempnam` with `TemporaryFile::create()` on:
+    - `CfdiUtils\CadenaOrigen\SaxonbCliBuilder`
+    - `CfdiUtils\Certificado\NodeCertificado`
+    - `CfdiUtils\Validate\Cfdi33\Standard\TimbreFiscalDigitalSello`
+    - `CfdiUtilsTests\Certificado\NodeCertificadoTest`
+- Fix possible bug on `CfdiUtils\Cleaner\Cleaner` when making an XPath query.
+- Fix docblock on `CfdiUtils\QuickReader\QuickReader` on magic method `__get`.
+- Fix issues on functions expecting a variable of certain type but receiving false instead. Thanks phpstan!
+- Call `NodeInderface::offsetExists($name)` instead of `isset(NodeInderface[$name])`.
+  The reasons behind this change are:
+    - `isset` is not a *function* but a *keyword*, making `phpstan` or other tools to fail on this.
+    - `isset` should be understand as *variable is defined and is not `NULL`*,
+      which in the case of `NodeInderface[$name]` is never `NULL`.
+The previous change does not have to be replicated in the users of this library. It is internal.
+In future version (when BCB are allowed) will introduce a better method for this operation
+`NodeInderface::exists(string $name): bool` and will fix documentation to better use this method instead of `isset`
 
 
 ## Version 2.8.0 2019-01-29
