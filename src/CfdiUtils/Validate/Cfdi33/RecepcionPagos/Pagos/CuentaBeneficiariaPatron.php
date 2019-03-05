@@ -15,7 +15,7 @@ class CuentaBeneficiariaPatron extends AbstractPagoValidator
     public function validatePago(NodeInterface $pago): bool
     {
         // Solo validar si está establecida la cuenta ordenante
-        if (isset($pago['CtaBeneficiario'])) {
+        if ($pago->offsetExists('CtaBeneficiario')) {
             $payment = $this->createPaymentType($pago['FormaDePagoP']);
             $pattern = $payment->receiverAccountPattern();
             if (! (bool) preg_match($pattern, $pago['CtaBeneficiario'])) {

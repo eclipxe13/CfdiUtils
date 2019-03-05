@@ -34,17 +34,17 @@ class ComprobantePagos extends AbstractRecepcionPagos10
         $asserts->put(
             'PAGCOMP02',
             'La forma de pago no debe existir (CRP104)',
-            Status::when(! isset($comprobante['FormaPago']))
+            Status::when(! $comprobante->offsetExists('FormaPago'))
         );
         $asserts->put(
             'PAGCOMP03',
             'Las condiciones de pago no deben existir (CRP106)',
-            Status::when(! isset($comprobante['CondicionesDePago']))
+            Status::when(! $comprobante->offsetExists('CondicionesDePago'))
         );
         $asserts->put(
             'PAGCOMP04',
             'El método de pago no deben existir (CRP105)',
-            Status::when(! isset($comprobante['MetodoPago']))
+            Status::when(! $comprobante->offsetExists('MetodoPago'))
         );
         $asserts->put(
             'PAGCOMP05',
@@ -55,12 +55,12 @@ class ComprobantePagos extends AbstractRecepcionPagos10
         $asserts->put(
             'PAGCOMP06',
             'El tipo de cambio no debe existir (CRP108)',
-            Status::when(! isset($comprobante['TipoCambio']))
+            Status::when(! $comprobante->offsetExists('TipoCambio'))
         );
         $asserts->put(
             'PAGCOMP07',
             'El descuento no debe existir (CRP107)',
-            Status::when(! isset($comprobante['Descuento']))
+            Status::when(! $comprobante->offsetExists('Descuento'))
         );
         $asserts->put(
             'PAGCOMP08',

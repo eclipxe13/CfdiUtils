@@ -16,7 +16,7 @@ class TipoCadenaPagoSello extends AbstractPagoValidator
     public function validatePago(NodeInterface $pago): bool
     {
         if ((('' !== $pago['TipoCadPago']) xor ('' !== $pago['SelloPago']))
-            || (isset($pago['TipoCadPago']) xor isset($pago['SelloPago']))) {
+            || ($pago->offsetExists('TipoCadPago') xor $pago->offsetExists('SelloPago'))) {
             throw new ValidatePagoException(
                 sprintf('Tipo cadena pago: "%s", Sello: "%s"', $pago['TipoCadPago'], $pago['SelloPago'])
             );

@@ -18,7 +18,7 @@ class CuentaBeneficiariaProhibida extends AbstractPagoValidator
         $payment = $this->createPaymentType($pago['FormaDePagoP']);
 
         // si NO es banzarizado y está establecida la cuenta beneficiaria
-        if (! $payment->allowReceiverAccount() && isset($pago['CtaBeneficiario'])) {
+        if (! $payment->allowReceiverAccount() && $pago->offsetExists('CtaBeneficiario')) {
             throw new ValidatePagoException(
                 sprintf('Forma de pago: "%s", Cuenta: "%s"', $pago['FormaDePagoP'], $pago['CtaBeneficiario'])
             );

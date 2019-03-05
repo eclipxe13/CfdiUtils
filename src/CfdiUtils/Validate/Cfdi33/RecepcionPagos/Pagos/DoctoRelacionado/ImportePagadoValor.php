@@ -16,7 +16,7 @@ class ImportePagadoValor extends AbstractDoctoRelacionadoValidator
 
     public function validateDoctoRelacionado(NodeInterface $docto): bool
     {
-        if (isset($docto['ImpPagado'])) {
+        if ($docto->offsetExists('ImpPagado')) {
             $value = (float) $docto['ImpPagado'];
         } else {
             $value = $this->calculateDocumentAmount($docto, $this->getPago());

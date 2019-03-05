@@ -67,7 +67,7 @@ class Conceptos extends AbstractRecepcionPagos10
                 $concepto['ClaveProdServ']
             ));
         }
-        if (isset($concepto['NoIdentificacion'])) {
+        if ($concepto->offsetExists('NoIdentificacion')) {
             throw new \Exception('No debe existir el número de identificación');
         }
         if (static::REQUIRED_CANTIDAD !== $concepto['Cantidad']) {
@@ -84,7 +84,7 @@ class Conceptos extends AbstractRecepcionPagos10
                 $concepto['ClaveUnidad']
             ));
         }
-        if (isset($concepto['Unidad'])) {
+        if ($concepto->offsetExists('Unidad')) {
             throw new \Exception('No debe existir la unidad');
         }
         if (static::REQUIRED_DESCRIPCION !== $concepto['Descripcion']) {
@@ -108,7 +108,7 @@ class Conceptos extends AbstractRecepcionPagos10
                 $concepto['Importe']
             ));
         }
-        if (isset($concepto['Descuento'])) {
+        if ($concepto->offsetExists('Descuento')) {
             throw new \Exception('No debe existir descuento');
         }
     }

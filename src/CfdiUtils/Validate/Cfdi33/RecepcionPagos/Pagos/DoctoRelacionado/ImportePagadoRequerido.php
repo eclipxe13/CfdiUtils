@@ -15,12 +15,12 @@ class ImportePagadoRequerido extends AbstractDoctoRelacionadoValidator
 
     public function validateDoctoRelacionado(NodeInterface $docto): bool
     {
-        if (! isset($docto['ImpPagado'])) {
+        if (! $docto->offsetExists('ImpPagado')) {
             $documentsCount = $this->getPago()->searchNodes('pago10:DoctoRelacionado')->count();
             if ($documentsCount > 1) {
                 throw $this->exception('No hay importe pagado y hay más de 1 documento en el pago');
             }
-            if (isset($docto['TipoCambioDR'])) {
+            if ($docto->offsetExists('TipoCambioDR')) {
                 throw $this->exception('No hay importe pagado y existe el tipo de cambio del documento');
             }
         }

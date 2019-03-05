@@ -16,7 +16,7 @@ class TipoCadenaPagoCertificado extends AbstractPagoValidator
     public function validatePago(NodeInterface $pago): bool
     {
         if ((('' !== $pago['TipoCadPago']) xor ('' !== $pago['CertPago']))
-            || (isset($pago['TipoCadPago']) xor isset($pago['CertPago']))) {
+            || ($pago->offsetExists('TipoCadPago') xor $pago->offsetExists('CertPago'))) {
             throw new ValidatePagoException(
                 sprintf('Tipo cadena pago: "%s", Certificado: "%s"', $pago['TipoCadPago'], $pago['CertPago'])
             );
