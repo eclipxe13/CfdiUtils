@@ -42,9 +42,10 @@
     - `isset` is not a *function* but a *keyword*, making `phpstan` or other tools to fail on this.
     - `isset` should be understand as *variable is defined and is not `NULL`*,
       which in the case of `NodeInderface[$name]` is never `NULL`.
-The previous change does not have to be replicated in the users of this library. It is internal.
-In future version (when BCB are allowed) will introduce a better method for this operation
-`NodeInderface::exists(string $name): bool` and will fix documentation to better use this method instead of `isset`
+  The previous change does not have to be replicated in the users of this library. It is internal.
+  In future version (when BCB are allowed) will introduce a better method for this operation
+  `NodeInderface::exists(string $name): bool` and will fix documentation to better use this method instead of `isset`.
+- Fix documentation on `docs/leer/leer-cfdi.md` about method `NodeInterface::getNode()`. Thanks @ReynerHL.
 
 
 ## Version 2.8.0 2019-01-29

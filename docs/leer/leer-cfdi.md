@@ -81,7 +81,7 @@ if (isset($complemento['MetodoPago'])) {
 }
 ```
 
-Para recorrer todos los nodos `cfdi:Concepto` (que está dentro de `cfdi:Conceptos`)
+Para **obtener todos los nodos** `cfdi:Concepto` (que está dentro de `cfdi:Conceptos`)
 se puede utilizar el método `CfdiUtils\Nodes\NodeInterface::searchNodes` que devuelve
 una colección de nodos iterable (que se puede utilizar dentro de un `foreach`).
 
@@ -95,7 +95,7 @@ foreach ($conceptos as $concepto) {
 }
 ```
 
-Para obtener la primer ocurrencia de un nodo de determinado nombre se puede usar
+Para **obtener la primera ocurrencia de un nodo** de determinado nombre se puede usar
 el método `CfdiUtils\Nodes\NodeInterface::searchNode`. Este método devolverá el nodo
 si fue encontrado o devolverá `null` si no se encontró.
 
@@ -105,7 +105,7 @@ No confundir con el método anterior que devuelve una colección de nodos.
 <?php
 /** @var \CfdiUtils\Cfdi $cfdi */
 $complemento = $cfdi->getNode();
-$tfd = $complemento->searchNodes('cfdi:Complemento', 'tfd:TimbreFiscalDigital');
+$tfd = $complemento->searchNode('cfdi:Complemento', 'tfd:TimbreFiscalDigital');
 if (null === $tfd) {
     echo 'No existe el timbre fiscal digital';
 } else {
