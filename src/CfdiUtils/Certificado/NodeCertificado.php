@@ -2,6 +2,7 @@
 namespace CfdiUtils\Certificado;
 
 use CfdiUtils\Nodes\NodeInterface;
+use CfdiUtils\Utils\Internal\TemporaryFile;
 
 class NodeCertificado
 {
@@ -98,21 +99,14 @@ class NodeCertificado
      */
     public function obtain(): Certificado
     {
-        // this error silence operation is intentional, expect false and then throw an exception
-        $tempfile = (string) @tempnam(sys_get_temp_dir(), '');
-        if ('' === $tempfile) {
-            throw new \RuntimeException('Unable to create a temporary file to save the certificado contents');
-        }
+        $temporaryFile = TemporaryFile::create();
         // the temporary name was created
         try {
-            $this->save($tempfile);
-            $certificado = new Certificado($tempfile);
+            $this->save($temporaryFile->getPath());
+            $certificado = new Certificado($temporaryFile->getPath());
             return $certificado;
         } finally {
-            // remove the temporary file
-            if (file_exists($tempfile)) {
-                unlink($tempfile);
-            }
+            $temporaryFile->remove();
         }
     }
 }

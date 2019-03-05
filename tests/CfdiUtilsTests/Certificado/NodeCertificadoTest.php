@@ -3,6 +3,7 @@ namespace CfdiUtilsTests\Certificado;
 
 use CfdiUtils\Certificado\NodeCertificado;
 use CfdiUtils\Nodes\XmlNodeUtils;
+use CfdiUtils\Utils\Internal\TemporaryFile;
 use CfdiUtilsTests\TestCase;
 
 class NodeCertificadoTest extends TestCase
@@ -93,11 +94,10 @@ class NodeCertificadoTest extends TestCase
             '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version="3.3" Certificado="Zm9v"' . '/>'
         );
 
-        $tempfile = tempnam('', '');
-        $nodeCertificado->save($tempfile);
-        $this->assertFileExists($tempfile);
-        $this->assertStringEqualsFile($tempfile, 'foo');
-        unlink($tempfile);
+        $temporaryFile = TemporaryFile::create();
+        $nodeCertificado->save($temporaryFile->getPath());
+        $this->assertStringEqualsFile($temporaryFile->getPath(), 'foo');
+        $temporaryFile->remove();
     }
 
     public function testObtain()
