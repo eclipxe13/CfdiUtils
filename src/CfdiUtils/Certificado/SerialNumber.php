@@ -31,7 +31,7 @@ class SerialNumber
         if (0 === strpos($decString, '0x') || 0 === strpos($decString, '0X')) {
             $hexString = substr($decString, 2);
         } else {
-            $hexString = $this->baseConvert($decString, 10, 16);
+            $hexString = BaseConverter::createBase36()->convert($decString, 10, 16);
         }
         $this->loadHexadecimal($hexString);
     }
@@ -53,7 +53,7 @@ class SerialNumber
 
     public function asDecimal(): string
     {
-        return $this->baseConvert($this->getHexadecimal(), 16, 10);
+        return BaseConverter::createBase36()->convert($this->getHexadecimal(), 16, 10);
     }
 
     protected function hexToAscii(string $input): string
@@ -70,8 +70,16 @@ class SerialNumber
         }, '');
     }
 
+    /**
+     * @param string $number
+     * @param int $frombase
+     * @param int $tobase
+     * @return string
+     * @deprecated since 2.8.1
+     */
     public function baseConvert(string $number, int $frombase, int $tobase): string
     {
+        trigger_error('This method is deprecated, should not be used from outside this class');
         return BaseConverter::createBase36()->convert($number, $frombase, $tobase);
     }
 }
