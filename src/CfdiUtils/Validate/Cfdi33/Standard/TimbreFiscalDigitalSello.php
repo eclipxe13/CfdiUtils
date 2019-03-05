@@ -73,7 +73,7 @@ class TimbreFiscalDigitalSello extends AbstractDiscoverableVersion33 implements
             $resolver = $this->getXmlResolver();
             $certificadoUrl = (new SatCertificateNumber($certificadoSAT))->remoteUrl();
             if (! $resolver->hasLocalPath()) {
-                $temporaryFile = TemporaryFile::create('sat-cer-');
+                $temporaryFile = TemporaryFile::create();
                 $certificadoFile = $temporaryFile->getPath();
                 $resolver->getDownloader()->downloadTo($certificadoUrl, $certificadoFile);
                 $certificado = new Certificado($certificadoFile);

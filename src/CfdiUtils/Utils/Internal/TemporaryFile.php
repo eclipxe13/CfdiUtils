@@ -19,13 +19,13 @@ final class TemporaryFile
         $this->filename = $filename;
     }
 
-    public static function create(string $prefix = '', string $directory = ''): self
+    public static function create(string $directory = ''): self
     {
         if ('' === $directory) {
             $directory = sys_get_temp_dir();
         }
         $previousErrorLevel = error_reporting(0);
-        $filename = strval(tempnam($directory, $prefix));
+        $filename = strval(tempnam($directory, ''));
         error_reporting($previousErrorLevel);
         if (dirname($filename) !== $directory) {
             unlink($filename);
@@ -33,7 +33,7 @@ final class TemporaryFile
         }
         if ('' === $filename) {
             throw new \RuntimeException(
-                sprintf('Unable to create a temporary file on %s using prefix %s', $directory, $prefix ?: '(none)')
+                sprintf('Unable to create a temporary file on %s', $directory)
             );
         }
         return new static($filename);

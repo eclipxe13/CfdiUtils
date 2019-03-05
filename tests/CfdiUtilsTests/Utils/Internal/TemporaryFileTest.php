@@ -14,22 +14,9 @@ class TemporaryFileTest extends TestCase
         $this->assertFileNotExists($temp->getPath());
     }
 
-    public function testCreateWithPrefix()
-    {
-        $prefix = 'prefix-';
-        $temp = TemporaryFile::create($prefix);
-        try {
-            $path = $temp->getPath();
-            $this->assertStringStartsWith($prefix, basename($path));
-            $this->assertFileExists($path);
-        } finally {
-            $temp->remove(); // cleanup
-        }
-    }
-
     public function testCreateWithDirectory()
     {
-        $temp = TemporaryFile::create('', __DIR__);
+        $temp = TemporaryFile::create(__DIR__);
         try {
             $path = $temp->getPath();
             $this->assertSame(__DIR__, dirname($path));
@@ -44,20 +31,21 @@ class TemporaryFileTest extends TestCase
         $directory = __DIR__ . '/non/existent/directory/';
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Unable to create a temporary file');
-        TemporaryFile::create('', $directory);
+        TemporaryFile::create($directory);
     }
 
     public function testCreateOnReadOnlyFolder()
     {
-        $folder = __DIR__ . '/readonly';
-        mkdir($folder);
-        chmod($folder, 0550);
+        $directory = __DIR__ . '/readonly';
+        mkdir($directory);
+        chmod($directory, 0550);
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Unable to create a temporary file');
         try {
-            TemporaryFile::create('', $folder);
+            TemporaryFile::create($directory);
         } finally {
-            rmdir($folder);
+            chmod($directory, 0770);
+            rmdir($directory);
         }
     }
 }
