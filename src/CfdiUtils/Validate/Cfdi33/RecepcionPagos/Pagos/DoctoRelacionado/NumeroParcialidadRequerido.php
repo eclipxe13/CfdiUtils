@@ -15,7 +15,7 @@ class NumeroParcialidadRequerido extends AbstractDoctoRelacionadoValidator
 
     public function validateDoctoRelacionado(NodeInterface $docto): bool
     {
-        if (! isset($docto['NumParcialidad']) && 'PPD' === $docto['MetodoDePagoDR']) {
+        if (! $docto->offsetExists('NumParcialidad') && 'PPD' === $docto['MetodoDePagoDR']) {
             throw $this->exception('No hay número de parcialidad y el método de pago es PPD');
         }
 

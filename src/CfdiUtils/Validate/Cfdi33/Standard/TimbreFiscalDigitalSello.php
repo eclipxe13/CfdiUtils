@@ -7,6 +7,7 @@ use CfdiUtils\Certificado\SatCertificateNumber;
 use CfdiUtils\Nodes\NodeInterface;
 use CfdiUtils\Nodes\XmlNodeUtils;
 use CfdiUtils\TimbreFiscalDigital\TfdCadenaDeOrigen;
+use CfdiUtils\Utils\Internal\TemporaryFile;
 use CfdiUtils\Validate\Asserts;
 use CfdiUtils\Validate\Cfdi33\Abstracts\AbstractDiscoverableVersion33;
 use CfdiUtils\Validate\Contracts\RequireXmlResolverInterface;
@@ -71,17 +72,15 @@ class TimbreFiscalDigitalSello extends AbstractDiscoverableVersion33 implements
         try {
             $resolver = $this->getXmlResolver();
             $certificadoUrl = (new SatCertificateNumber($certificadoSAT))->remoteUrl();
-            $removeCertificadoFile = false;
             if (! $resolver->hasLocalPath()) {
-                $certificadoFile = tempnam('', 'sat-cer-');
+                $temporaryFile = TemporaryFile::create();
+                $certificadoFile = $temporaryFile->getPath();
                 $resolver->getDownloader()->downloadTo($certificadoUrl, $certificadoFile);
-                $removeCertificadoFile = true;
+                $certificado = new Certificado($certificadoFile);
+                $temporaryFile->remove();
             } else {
                 $certificadoFile = $resolver->resolve($certificadoUrl, $resolver::TYPE_CER);
-            }
-            $certificado = new Certificado($certificadoFile);
-            if ($removeCertificadoFile) {
-                unlink($certificadoFile);
+                $certificado = new Certificado($certificadoFile);
             }
         } catch (\Throwable $ex) {
             $assert->setStatus(
@@ -93,7 +92,7 @@ class TimbreFiscalDigitalSello extends AbstractDiscoverableVersion33 implements
 
         $tfdCadenaOrigen = new TfdCadenaDeOrigen($resolver, $this->getXsltBuilder());
         $source = $tfdCadenaOrigen->build(XmlNodeUtils::nodeToXmlString($tfd), $tfd['Version']);
-        $signature = base64_decode($tfd['SelloSAT']);
+        $signature = strval(base64_decode($tfd['SelloSAT']));
 
         $verification = $certificado->verify($source, $signature, OPENSSL_ALGO_SHA256);
         if (! $verification) {

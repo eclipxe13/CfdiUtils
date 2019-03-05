@@ -39,8 +39,8 @@ class ComprobanteImpuestos extends AbstractDiscoverableVersion33
             return;
         }
 
-        $existsTotalTrasladados = isset($nodeImpuestos['TotalImpuestosTrasladados']);
-        $existsTotalRetenidos = isset($nodeImpuestos['TotalImpuestosRetenidos']);
+        $existsTotalTrasladados = $nodeImpuestos->offsetExists('TotalImpuestosTrasladados');
+        $existsTotalRetenidos = $nodeImpuestos->offsetExists('TotalImpuestosRetenidos');
 
         $asserts->putStatus(
             'COMPIMPUESTOSC01',

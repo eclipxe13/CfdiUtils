@@ -27,7 +27,7 @@ class Rfc
         $this->rfc = $rfc;
         $this->length = mb_strlen($rfc);
         $this->checkSum = static::obtainCheckSum($rfc);
-        $this->checkSumMatch = ($this->checkSum === (string) substr($rfc, -1));
+        $this->checkSumMatch = ($this->checkSum === strval(substr($rfc, -1)));
     }
 
     public function rfc(): string
@@ -113,17 +113,17 @@ class Rfc
 
     public static function obtainCheckSum(string $rfc): string
     {
-        // 'Ñ' translated to '#' due bad transformation on str_split
+        // 'Ñ' translated to '#' due it is multibyte 0xC3 0xB1
         $dictionary = array_flip(str_split('0123456789ABCDEFGHIJKLMN&OPQRSTUVWXYZ #', 1));
         $chars = str_split(str_replace('Ñ', '#', $rfc), 1);
-        array_pop($chars);
+        array_pop($chars); // remove predefined checksum
         $length = count($chars);
         $sum = (11 === $length) ? 481 : 0; // 481 para morales, 0 para físicas
         $j = $length + 1;
         foreach ($chars as $i => $char) {
             $sum += ($dictionary[$char] ?? 0) * ($j - $i);
         }
-        $digit = (string) (11 - $sum % 11);
+        $digit = strval(11 - $sum % 11);
         if ('11' === $digit) {
             $digit = '0';
         } elseif ('10' === $digit) {
@@ -144,16 +144,17 @@ class Rfc
         // rfc is multibyte
         $begin = (mb_strlen($rfc) === 12) ? 3 : 4;
         // strdate is not multibyte
-        $strdate = (string) mb_substr($rfc, $begin, 6);
+        $strdate = strval(mb_substr($rfc, $begin, 6));
         $parts = str_split($strdate, 2);
         // year 2000 is leap year (%4 & %100 & %400)
+        /** @var int|false $date phpstan does not know that mktime can return false */
         $date = mktime(0, 0, 0, (int) $parts[1], (int) $parts[2], (int) ('20' . $parts[0]));
         if (false === $date) {
             return 0;
         }
-        if (date('ymd', $date) === $strdate) {
-            return $date;
+        if (date('ymd', $date) !== $strdate) {
+            return 0;
         }
-        return 0;
+        return $date;
     }
 }

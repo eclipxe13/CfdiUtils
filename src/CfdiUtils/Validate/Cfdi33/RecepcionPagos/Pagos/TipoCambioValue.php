@@ -15,7 +15,7 @@ class TipoCambioValue extends AbstractPagoValidator
 
     public function validatePago(NodeInterface $pago): bool
     {
-        if (! isset($pago['TipoCambioP'])) {
+        if (! $pago->offsetExists('TipoCambioP')) {
             return true;
         }
         $reason = '';

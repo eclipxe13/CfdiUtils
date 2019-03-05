@@ -44,7 +44,7 @@ class ReceptorResidenciaFiscal extends AbstractDiscoverableVersion33
         if ('XEXX010101000' !== $receptor['Rfc']) {
             $asserts->putStatus(
                 'RESFISC01',
-                Status::when(! isset($receptor['ResidenciaFiscal']))
+                Status::when(! $receptor->offsetExists('ResidenciaFiscal'))
             );
             return;
         }
@@ -57,7 +57,7 @@ class ReceptorResidenciaFiscal extends AbstractDiscoverableVersion33
                 Status::when($isValidResidenciaFiscal)
             );
         }
-        if (isset($receptor['NumRegIdTrib'])) {
+        if ($receptor->offsetExists('NumRegIdTrib')) {
             $asserts->putStatus(
                 'RESFISC03',
                 Status::when($isValidResidenciaFiscal)

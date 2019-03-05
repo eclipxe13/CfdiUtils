@@ -42,9 +42,10 @@ abstract class ValidateTestCase extends TestCase
      */
     protected function getComprobante(): Comprobante
     {
-        /** @var Comprobante $comprobante */
-        $comprobante = $this->comprobante;
-        return $comprobante;
+        if ($this->comprobante instanceof Comprobante) {
+            return $this->comprobante;
+        }
+        throw new \RuntimeException('The current comprobante node is not a ' . Comprobante::class);
     }
 
     protected function runValidate()
@@ -104,7 +105,7 @@ abstract class ValidateTestCase extends TestCase
     protected function setupCfdiFile($cfdifile)
     {
         // setup hydrate and re-hydrate the validator
-        $content = file_get_contents($this->utilAsset($cfdifile));
+        $content = strval(file_get_contents($this->utilAsset($cfdifile)));
         $this->hydrater->setXmlString($content);
         $this->hydrater->hydrate($this->validator);
         // setup comprobante

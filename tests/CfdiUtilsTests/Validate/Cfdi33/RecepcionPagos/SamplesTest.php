@@ -24,7 +24,7 @@ class SamplesTest extends TestCase
         $this->assertFileExists($sampleFile);
 
         $validator = new CfdiValidator33();
-        $asserts = $validator->validateXml(file_get_contents($sampleFile));
+        $asserts = $validator->validateXml(strval(file_get_contents($sampleFile)));
         // Remove this assertions because we are using manipulated cfdi
         $asserts->removeByCode('SELLO08');
         $errors = $asserts->errors();
@@ -43,7 +43,7 @@ class SamplesTest extends TestCase
         $this->assertFileExists($sampleFile);
 
         $validator = new CfdiValidator33();
-        $asserts = $validator->validateXml(file_get_contents($sampleFile));
+        $asserts = $validator->validateXml(strval(file_get_contents($sampleFile)));
         // Remove this tests! we are using manipulated cfdi
         $asserts->removeByCode('SELLO08');
         $asserts->removeByCode('EMISORRFC01');

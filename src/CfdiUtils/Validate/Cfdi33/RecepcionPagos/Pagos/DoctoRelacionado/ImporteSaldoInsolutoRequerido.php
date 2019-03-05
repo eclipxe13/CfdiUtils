@@ -15,7 +15,7 @@ class ImporteSaldoInsolutoRequerido extends AbstractDoctoRelacionadoValidator
 
     public function validateDoctoRelacionado(NodeInterface $docto): bool
     {
-        if (! isset($docto['ImpSaldoInsoluto']) && 'PPD' === $docto['MetodoDePagoDR']) {
+        if (! $docto->offsetExists('ImpSaldoInsoluto') && 'PPD' === $docto['MetodoDePagoDR']) {
             throw $this->exception('No hay saldo insoluto y el método de pago es PPD');
         }
 

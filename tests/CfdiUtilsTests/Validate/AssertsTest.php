@@ -161,7 +161,7 @@ class AssertsTest extends TestCase
     {
         $asserts = new Asserts();
         foreach (range(1, 5) as $i) {
-            $asserts->putStatus($i);
+            $asserts->putStatus(strval($i));
         }
         $this->assertCount(5, $asserts);
         $asserts->removeAll();
@@ -173,7 +173,7 @@ class AssertsTest extends TestCase
         $source = new Asserts();
         $source->mustStop(true);
         foreach (range(1, 5) as $i) {
-            $source->putStatus($i);
+            $source->putStatus(strval($i));
         }
 
         $destination = new Asserts();

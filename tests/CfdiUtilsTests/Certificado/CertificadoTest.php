@@ -57,8 +57,8 @@ EOD;
 
         $certificado = new Certificado($certificadoFile);
         $verify = $certificado->verify(
-            str_replace("\r\n", "\n", file_get_contents($dataFile)),
-            file_get_contents($signatureFile)
+            str_replace("\r\n", "\n", strval(file_get_contents($dataFile))),
+            strval(file_get_contents($signatureFile))
         );
 
         $this->assertTrue($verify);
@@ -72,8 +72,8 @@ EOD;
 
         $certificado = new Certificado($certificadoFile);
         $verify = $certificado->verify(
-            file_get_contents($dataFile) . 'THIS IS MORE CONTENT!',
-            file_get_contents($signatureFile)
+            strval(file_get_contents($dataFile)) . 'THIS IS MORE CONTENT!',
+            strval(file_get_contents($signatureFile))
         );
 
         $this->assertFalse($verify);

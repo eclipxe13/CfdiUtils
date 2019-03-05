@@ -24,7 +24,7 @@ class TfdCadenaDeOrigenTest extends TestCase
 
     public function testObtainVersion11WithoutVersionArgument()
     {
-        $cfdi = Cfdi::newFromString(file_get_contents($this->utilAsset('cfdi33-valid.xml')));
+        $cfdi = Cfdi::newFromString(strval(file_get_contents($this->utilAsset('cfdi33-valid.xml'))));
         $tfd = $cfdi->getNode()->searchNode('cfdi:Complemento', 'tfd:TimbreFiscalDigital');
         if (null === $tfd) {
             $this->fail('Cannot get the tfd:TimbreFiscalDigital node');

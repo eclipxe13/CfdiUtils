@@ -40,9 +40,9 @@ abstract class GenericBuilderTestCase extends TestCase
         $expectedTransformation = $this->utilAsset($expectedTransformation);
 
         $builder = $this->createBuilder();
-        $cadenaOrigen = $builder->build(file_get_contents($xmlLocation), $xsltLocation);
+        $cadenaOrigen = $builder->build(strval(file_get_contents($xmlLocation)), $xsltLocation);
         $this->assertSame(
-            rtrim(file_get_contents($expectedTransformation)),
+            rtrim(strval(file_get_contents($expectedTransformation))),
             $cadenaOrigen,
             'Xslt transformation returns an unexpected value'
         );
@@ -116,7 +116,7 @@ abstract class GenericBuilderTestCase extends TestCase
         $fileExpectedCadenaOrigen = $this->utilAsset('cfdi32-real-cadenaorigen.txt');
 
         $builder = $this->createBuilder();
-        $cadenaOrigen = $builder->build(file_get_contents($fileCfdi), CfdiDefaultLocations::XSLT_32);
+        $cadenaOrigen = $builder->build(strval(file_get_contents($fileCfdi)), CfdiDefaultLocations::XSLT_32);
         $this->assertStringEqualsFile($fileExpectedCadenaOrigen, $cadenaOrigen . PHP_EOL);
     }
 }

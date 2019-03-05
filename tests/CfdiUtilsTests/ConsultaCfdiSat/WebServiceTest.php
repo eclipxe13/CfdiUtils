@@ -56,7 +56,7 @@ class WebServiceTest extends TestCase
      */
     public function testRequestWithBadRawResponse($rawResponse, string $expectedMessage)
     {
-        /** @var WebService|\PHPUnit\Framework\MockObject\MockObject $webService */
+        /** @var WebService&\PHPUnit\Framework\MockObject\MockObject $webService */
         $webService = $this->getMockBuilder(WebService::class)
             ->setMethodsExcept(['request'])
             ->setMethods(['doRequestConsulta'])

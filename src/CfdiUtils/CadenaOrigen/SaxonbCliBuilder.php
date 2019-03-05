@@ -1,6 +1,8 @@
 <?php
 namespace CfdiUtils\CadenaOrigen;
 
+use CfdiUtils\Utils\Internal\TemporaryFile;
+
 class SaxonbCliBuilder extends AbstractXsltBuilder
 {
     /** @var string */
@@ -52,10 +54,10 @@ class SaxonbCliBuilder extends AbstractXsltBuilder
             throw new XsltBuildException('The executable path for SabonB is not executable');
         }
 
-        $xmlFile = tempnam('', '');
+        $temporaryFile = TemporaryFile::create();
         try {
-            file_put_contents($xmlFile, $xmlContent);
-            $command = $this->createCommand($xmlFile, $xsltLocation);
+            file_put_contents($temporaryFile->getPath(), $xmlContent);
+            $command = $this->createCommand($temporaryFile->getPath(), $xsltLocation);
             $output = [];
             $return = 0;
             $transform = exec($command, $output, $return);
@@ -69,7 +71,7 @@ class SaxonbCliBuilder extends AbstractXsltBuilder
             }
             return $transform;
         } finally {
-            unlink($xmlFile);
+            $temporaryFile->remove();
         }
     }
 }

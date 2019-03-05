@@ -23,7 +23,7 @@ class TimbreFiscalDigitalVersionTest extends ValidateTestCase
 
     public function testValidCase()
     {
-        $this->comprobante->addComplemento(new TimbreFiscalDigital());
+        $this->getComprobante()->addComplemento(new TimbreFiscalDigital());
 
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::ok(), 'TFDVERSION01');
@@ -51,7 +51,7 @@ class TimbreFiscalDigitalVersionTest extends ValidateTestCase
     {
         $tfd = new TimbreFiscalDigital();
         $tfd->addAttributes(['Version' => $version]); // override version
-        $this->comprobante->addComplemento($tfd);
+        $this->getComprobante()->addComplemento($tfd);
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::error(), 'TFDVERSION01');
     }

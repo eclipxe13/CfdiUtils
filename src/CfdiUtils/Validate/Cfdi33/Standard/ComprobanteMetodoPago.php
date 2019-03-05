@@ -38,7 +38,7 @@ class ComprobanteMetodoPago extends AbstractDiscoverableVersion33
         if ('T' === $tipoDeComprobante || 'P' === $tipoDeComprobante || 'N' === $tipoDeComprobante) {
             $asserts->putStatus(
                 'METPAG01',
-                Status::when(! isset($comprobante['MetodoPago']))
+                Status::when(! $comprobante->offsetExists('MetodoPago'))
             );
         }
 

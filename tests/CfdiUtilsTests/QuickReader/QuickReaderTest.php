@@ -63,12 +63,12 @@ class QuickReaderTest extends TestCase
     public function testAccessInvokeReturnsAnArray()
     {
         $foo = new QuickReader('foo');
-        $this->assertInternalType('array', $foo());
+        $this->assertTrue(is_array($foo()));
 
         $xee = $foo->bar->xee;
-        $this->assertInternalType('array', $xee('zee'));
-        $this->assertInternalType('array', $xee->__invoke('zee'));
-        $this->assertInternalType('array', ($foo->bar->xee)('zee'));
+        $this->assertTrue(is_array($xee('zee')));
+        $this->assertTrue(is_array($xee->__invoke('zee')));
+        $this->assertTrue(is_array(($foo->bar->xee)('zee')));
     }
 
     public function testAccessInvokeReturnsAnArrayOfChildrenWithTheArgumentName()
@@ -172,6 +172,6 @@ class QuickReaderTest extends TestCase
     {
         $quickReader = new QuickReader('foo');
         $this->expectException(\LogicException::class);
-        $quickReader->foo = null;
+        $quickReader->foo = new QuickReader('xee');
     }
 }

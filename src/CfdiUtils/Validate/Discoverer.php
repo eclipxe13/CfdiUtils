@@ -38,7 +38,9 @@ class Discoverer
         $basename = basename($filename);
         $classname = $this->castNamespacePrefix($namespacePrefix) . substr($basename, 0, strlen($basename) - 4);
         if (class_exists($classname) && in_array(Discoverable::class, class_implements($classname), true)) {
-            $object = call_user_func([$classname, 'createDiscovered']);
+            /** @var callable $callable */
+            $callable = [$classname, 'createDiscovered'];
+            $object = call_user_func($callable);
             if ($object instanceof ValidatorInterface) {
                 return $object;
             }

@@ -1,6 +1,8 @@
 <?php
 namespace CfdiUtils\Certificado;
 
+use CfdiUtils\Utils\Internal\BaseConverter;
+
 /**
  * This class is used to load hexadecimal or decimal data as a certificate serial number.
  * It have its own class because SOLID and is easy to test in this way.
@@ -29,7 +31,7 @@ class SerialNumber
         if (0 === strpos($decString, '0x') || 0 === strpos($decString, '0X')) {
             $hexString = substr($decString, 2);
         } else {
-            $hexString = $this->baseConvert($decString, 10, 16);
+            $hexString = BaseConverter::createBase36()->convert($decString, 10, 16);
         }
         $this->loadHexadecimal($hexString);
     }
@@ -51,13 +53,13 @@ class SerialNumber
 
     public function asDecimal(): string
     {
-        return $this->baseConvert($this->getHexadecimal(), 16, 10);
+        return BaseConverter::createBase36()->convert($this->getHexadecimal(), 16, 10);
     }
 
     protected function hexToAscii(string $input): string
     {
         return array_reduce(str_split($input, 2), function (string $carry, string $value): string {
-            return $carry . chr(hexdec($value));
+            return $carry . chr(intval(hexdec($value)));
         }, '');
     }
 
@@ -69,65 +71,15 @@ class SerialNumber
     }
 
     /**
-     * Converts any string of any base to any other base without
-     * PHP native method base_convert's double and float limitations.
-     *
-     * @param string $number The number to convert
-     * @param int $frombase The base number is in
-     * @param int $tobase The base to convert number to
+     * @param string $number
+     * @param int $frombase
+     * @param int $tobase
      * @return string
-     * @see https://php.net/base_convert
-     * Original author: https://github.com/credomane/php_baseconvert
+     * @deprecated since 2.8.1
      */
     public function baseConvert(string $number, int $frombase, int $tobase): string
     {
-        $chars = '0123456789abcdefghijklmnopqrstuvwxyz';
-
-        if (1 !== preg_match('/^[0-9a-zA-Z]+$/', $number)) {
-            throw new \UnexpectedValueException('The number to convert is not valid alphanumeric');
-        }
-        if ($frombase < 2 || $frombase > 36) {
-            throw new \UnexpectedValueException('Invalid base to convert from');
-        }
-        if ($tobase < 2 || $tobase > 36) {
-            throw new \UnexpectedValueException('Invalid base to convert to');
-        }
-
-        $fromstring = substr($chars, 0, $frombase);
-        if (1 !== preg_match("/^[$fromstring]+$/", $number)) {
-            throw new \UnexpectedValueException('The number to convert contains invalid chars of base ' . $fromstring);
-        }
-
-        // early exit
-        if ($tobase === $frombase) {
-            return $number;
-        }
-
-        $length = strlen($number);
-        $values = [];
-        for ($i = 0; $i < $length; $i++) {
-            $values[] = (int) stripos($fromstring, $number{$i});
-        }
-
-        $result = '';
-        do {
-            $divide = 0;
-            $newlen = 0;
-            for ($i = 0; $i < $length; $i++) {
-                $divide = $divide * $frombase + $values[$i];
-                if ($divide >= $tobase) {
-                    $values[$newlen] = (int) ($divide / $tobase);
-                    $divide = $divide % $tobase;
-                    $newlen = $newlen + 1;
-                } elseif ($newlen > 0) {
-                    $values[$newlen] = 0;
-                    $newlen = $newlen + 1;
-                }
-            }
-            $length = $newlen;
-            $result = $chars{$divide} . $result;
-        } while ($newlen > 0);
-
-        return $result;
+        trigger_error('This method is deprecated, should not be used from outside this class');
+        return BaseConverter::createBase36()->convert($number, $frombase, $tobase);
     }
 }

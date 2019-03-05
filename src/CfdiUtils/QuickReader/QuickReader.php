@@ -62,7 +62,7 @@ class QuickReader extends \stdClass implements \ArrayAccess
 
     /**
      * @param string $name
-     * @return self|null
+     * @return self
      */
     public function __get(string $name)
     {

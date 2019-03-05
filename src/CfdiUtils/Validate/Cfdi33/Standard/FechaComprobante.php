@@ -71,7 +71,7 @@ class FechaComprobante extends AbstractDiscoverableVersion33
             return;
         }
 
-        $exists = isset($comprobante['Fecha']);
+        $exists = $comprobante->offsetExists('Fecha');
         $testDate = ('' !== $fechaSource) ? strtotime($fechaSource) : 0;
 
         $minimumDate = $this->getMinimumDate();

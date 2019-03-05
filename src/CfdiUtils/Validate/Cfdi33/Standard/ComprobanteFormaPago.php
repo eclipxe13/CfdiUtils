@@ -21,7 +21,7 @@ class ComprobanteFormaPago extends AbstractDiscoverableVersion33
     public function validate(NodeInterface $comprobante, Asserts $asserts)
     {
         $existsComplementoPagos = (null !== $comprobante->searchNode('cfdi:Complemento', 'pago10:Pagos'));
-        $existsFormaPago = isset($comprobante['FormaPago']);
+        $existsFormaPago = $comprobante->offsetExists('FormaPago');
 
         $asserts->put(
             'FORMAPAGO01',

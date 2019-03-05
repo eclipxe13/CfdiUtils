@@ -310,7 +310,13 @@ class Cleaner
      */
     private function xpathQuery(string $query, DOMNode $element = null): DOMNodeList
     {
-        $element = $element ?: $this->dom()->documentElement;
+        if (null === $element) {
+            $element = $this->dom()->documentElement;
+        }
+        if (null === $element->ownerDocument) {
+            throw new \LogicException('Cannot create a XPath query on an element without document');
+        }
+        /** @var DOMNodeList|false $nodelist phpstan does not know that query can return false */
         $nodelist = (new DOMXPath($element->ownerDocument))->query($query, $element);
         if (false === $nodelist) {
             $nodelist = new DOMNodeList();
