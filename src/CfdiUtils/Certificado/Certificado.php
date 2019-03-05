@@ -43,7 +43,7 @@ class Certificado
     {
         $this->assertFileExists($filename);
         // read contents, cast to string to avoid FALSE
-        if ('' === $contents = (string) file_get_contents($filename)) {
+        if ('' === $contents = strval(file_get_contents($filename))) {
             throw new \UnexpectedValueException("File $filename is empty");
         }
 

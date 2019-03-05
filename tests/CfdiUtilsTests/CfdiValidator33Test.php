@@ -39,7 +39,7 @@ class CfdiValidator33Test extends TestCase
     public function testValidateWithCorrectData()
     {
         $cfdiFile = $this->utilAsset('cfdi33-valid.xml');
-        $cfdi = Cfdi::newFromString(file_get_contents($cfdiFile));
+        $cfdi = Cfdi::newFromString(strval(file_get_contents($cfdiFile)));
 
         $validator = new CfdiValidator33();
         $asserts = $validator->validate($cfdi->getSource(), $cfdi->getNode());
@@ -65,7 +65,7 @@ class CfdiValidator33Test extends TestCase
     {
         $cfdiFile = $this->utilAsset('cfdi33-valid.xml');
         $pemKeyFile = $this->utilAsset('certs/CSD01_AAA010101AAA.key.pem');
-        $node = XmlNodeUtils::nodeFromXmlString(file_get_contents($cfdiFile));
+        $node = XmlNodeUtils::nodeFromXmlString(strval(file_get_contents($cfdiFile)));
         $creator = CfdiCreator33::newUsingNode($node);
         $comprobante = $creator->comprobante();
         $previous = $comprobante['Sello'];
@@ -93,12 +93,12 @@ class CfdiValidator33Test extends TestCase
     public function testValidateCfdi33Real()
     {
         $cfdiFile = $this->utilAsset('cfdi33-real.xml');
-        $cfdi = Cfdi::newFromString(file_get_contents($cfdiFile));
+        $cfdi = Cfdi::newFromString(strval(file_get_contents($cfdiFile)));
 
         $validator = new CfdiValidator33();
         $validator->getXmlResolver()->setDownloader($this->newInsecurePhpDownloader());
         $asserts = $validator->validate($cfdi->getSource(), $cfdi->getNode());
-        $asserts->hasErrors() && print_r($asserts->errors());
+        // $asserts->hasErrors() && print_r($asserts->errors());
         $this->assertFalse(
             $asserts->hasErrors(),
             'The validation of an expected cfdi33 real file fails'

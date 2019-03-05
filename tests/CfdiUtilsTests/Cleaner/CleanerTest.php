@@ -75,7 +75,7 @@ class CleanerTest extends TestCase
         foreach ([$basefile, $step1, $step3, $step2, $step4, $step5] as $filename) {
             $this->assertFileExists($basefile, "The file $filename for testing does not exists");
         }
-        $cleaner = new Cleaner(file_get_contents($basefile));
+        $cleaner = new Cleaner(strval(file_get_contents($basefile)));
         $this->assertXmlStringEqualsXmlFile(
             $basefile,
             $cleaner->retrieveXml(),
@@ -119,7 +119,7 @@ class CleanerTest extends TestCase
 
         $this->assertXmlStringEqualsXmlFile(
             $step5,
-            Cleaner::staticClean(file_get_contents($basefile)),
+            Cleaner::staticClean(strval(file_get_contents($basefile))),
             'Check static method for cleaning is giving the same results as detailed execution'
         );
     }

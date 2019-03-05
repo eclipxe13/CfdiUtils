@@ -44,7 +44,7 @@ class PemPrivateKeyTest extends TestCase
     public function testConstructWithKeyContents()
     {
         $keyfile = $this->utilAsset('certs/CSD01_AAA010101AAA.key.pem');
-        $privateKey = new PemPrivateKey(file_get_contents($keyfile));
+        $privateKey = new PemPrivateKey(strval(file_get_contents($keyfile)));
         $this->assertInstanceOf(PemPrivateKey::class, $privateKey);
     }
 
@@ -52,7 +52,7 @@ class PemPrivateKeyTest extends TestCase
     {
         $passPhrase = '';
         $keyfile = $this->utilAsset('certs/CSD01_AAA010101AAA.key.pem');
-        $privateKey = new PemPrivateKey(file_get_contents($keyfile));
+        $privateKey = new PemPrivateKey(strval(file_get_contents($keyfile)));
         $this->assertFalse($privateKey->isOpen());
         $this->assertTrue($privateKey->open($passPhrase));
         $this->assertTrue($privateKey->isOpen());
@@ -71,7 +71,7 @@ class PemPrivateKeyTest extends TestCase
     {
         $passPhrase = 'dummy password';
         $keyfile = $this->utilAsset('certs/CSD01_AAA010101AAA_password.key.pem');
-        $privateKey = new PemPrivateKey(file_get_contents($keyfile));
+        $privateKey = new PemPrivateKey(strval(file_get_contents($keyfile)));
         $this->assertFalse($privateKey->open($passPhrase));
         $this->assertFalse($privateKey->isOpen());
     }
@@ -80,7 +80,7 @@ class PemPrivateKeyTest extends TestCase
     {
         $passPhrase = '12345678a';
         $keyfile = $this->utilAsset('certs/CSD01_AAA010101AAA_password.key.pem');
-        $privateKey = new PemPrivateKey(file_get_contents($keyfile));
+        $privateKey = new PemPrivateKey(strval(file_get_contents($keyfile)));
         $this->assertTrue($privateKey->open($passPhrase));
         $this->assertTrue($privateKey->isOpen());
     }
@@ -88,7 +88,7 @@ class PemPrivateKeyTest extends TestCase
     public function testCloneOpenKey()
     {
         $keyfile = $this->utilAsset('certs/CSD01_AAA010101AAA.key.pem');
-        $privateKey = new PemPrivateKey(file_get_contents($keyfile));
+        $privateKey = new PemPrivateKey(strval(file_get_contents($keyfile)));
         $this->assertTrue($privateKey->open(''));
 
         $cloned = clone $privateKey;
@@ -99,7 +99,7 @@ class PemPrivateKeyTest extends TestCase
     public function testSerializeOpenKey()
     {
         $keyfile = $this->utilAsset('certs/CSD01_AAA010101AAA.key.pem');
-        $privateKey = new PemPrivateKey(file_get_contents($keyfile));
+        $privateKey = new PemPrivateKey(strval(file_get_contents($keyfile)));
         $this->assertTrue($privateKey->open(''));
 
         /** @var PemPrivateKey $serialized */
@@ -111,7 +111,7 @@ class PemPrivateKeyTest extends TestCase
     public function testSignWithClosedKey()
     {
         $keyfile = $this->utilAsset('certs/CSD01_AAA010101AAA.key.pem');
-        $privateKey = new PemPrivateKey(file_get_contents($keyfile));
+        $privateKey = new PemPrivateKey(strval(file_get_contents($keyfile)));
 
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('The private key is not open');
@@ -121,7 +121,7 @@ class PemPrivateKeyTest extends TestCase
     public function testSign()
     {
         $keyfile = $this->utilAsset('certs/CSD01_AAA010101AAA.key.pem');
-        $privateKey = new PemPrivateKey(file_get_contents($keyfile));
+        $privateKey = new PemPrivateKey(strval(file_get_contents($keyfile)));
         $privateKey->open('');
 
         $content = 'lorem ipsum';
@@ -139,7 +139,7 @@ EOC;
     public function testBelongsToWithClosedKey()
     {
         $keyfile = $this->utilAsset('certs/CSD01_AAA010101AAA.key.pem');
-        $privateKey = new PemPrivateKey(file_get_contents($keyfile));
+        $privateKey = new PemPrivateKey(strval(file_get_contents($keyfile)));
 
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('The private key is not open');
@@ -150,7 +150,7 @@ EOC;
     {
         $cerfile = $this->utilAsset('certs/CSD01_AAA010101AAA.cer');
         $keyfile = $this->utilAsset('certs/CSD01_AAA010101AAA.key.pem');
-        $privateKey = new PemPrivateKey(file_get_contents($keyfile));
+        $privateKey = new PemPrivateKey(strval(file_get_contents($keyfile)));
         $privateKey->open('');
         $certificado = new Certificado($cerfile);
         $this->assertTrue($privateKey->belongsTo($certificado->getPemContents()));

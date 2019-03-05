@@ -92,7 +92,7 @@ class TimbreFiscalDigitalSello extends AbstractDiscoverableVersion33 implements
 
         $tfdCadenaOrigen = new TfdCadenaDeOrigen($resolver, $this->getXsltBuilder());
         $source = $tfdCadenaOrigen->build(XmlNodeUtils::nodeToXmlString($tfd), $tfd['Version']);
-        $signature = base64_decode($tfd['SelloSAT']);
+        $signature = strval(base64_decode($tfd['SelloSAT']));
 
         $verification = $certificado->verify($source, $signature, OPENSSL_ALGO_SHA256);
         if (! $verification) {

@@ -138,7 +138,7 @@ class SelloDigitalCertificado extends AbstractDiscoverableVersion33 implements
 
     private function validateFecha(string $fechaSource)
     {
-        $fecha = ('' === $fechaSource) ? 0 : strtotime($fechaSource);
+        $fecha = ('' === $fechaSource) ? 0 : intval(strtotime($fechaSource));
         if (0 === $fecha) {
             return;
         }
@@ -184,6 +184,10 @@ class SelloDigitalCertificado extends AbstractDiscoverableVersion33 implements
 
     protected function castNombre(string $nombre): string
     {
-        return str_replace([' ', '-', ',', '.', '#', '&', "'", '"'], '', iconv('UTF-8', 'ASCII//TRANSLIT', $nombre));
+        return str_replace(
+            [' ', '-', ',', '.', '#', '&', "'", '"'],
+            '',
+            iconv('UTF-8', 'ASCII//TRANSLIT', $nombre) ?: ''
+        );
     }
 }

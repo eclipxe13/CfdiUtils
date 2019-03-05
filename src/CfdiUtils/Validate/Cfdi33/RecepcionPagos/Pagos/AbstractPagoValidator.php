@@ -32,8 +32,12 @@ abstract class AbstractPagoValidator
     }
 
     /**
+     * In this method is where all validations must occur
+     *
      * @param NodeInterface $pago
-     * @return true
+     * @throws ValidatePagoException then validation fails
+     * @throws \Exception in the implementer if it does not return TRUE
+     * @return true|bool
      */
     abstract public function validatePago(NodeInterface $pago): bool;
 

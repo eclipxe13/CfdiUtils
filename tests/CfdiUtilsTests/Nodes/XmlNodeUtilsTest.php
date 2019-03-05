@@ -36,7 +36,7 @@ class XmlNodeUtilsTest extends TestCase
      */
     public function testExportFromFileAndExportAgain($filename)
     {
-        $source = file_get_contents($filename);
+        $source = strval(file_get_contents($filename));
 
         $document = Xml::newDocumentContent($source);
 

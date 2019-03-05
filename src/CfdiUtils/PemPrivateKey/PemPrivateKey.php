@@ -24,7 +24,7 @@ class PemPrivateKey
             $contents = '';
             $filename = substr($key, 7);
             if ('' !== $filename && file_exists($filename) && is_readable($filename) && ! is_dir($filename)) {
-                $contents = (string) file_get_contents($filename);
+                $contents = strval(file_get_contents($filename));
             }
         } else {
             $contents = $key;

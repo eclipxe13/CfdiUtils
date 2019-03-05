@@ -60,7 +60,7 @@ class RequestParametersTest extends TestCase
 
     public function testCreateFromCfdiVersion32()
     {
-        $cfdi = Cfdi::newFromString(file_get_contents($this->utilAsset('cfdi32-real.xml')));
+        $cfdi = Cfdi::newFromString(strval(file_get_contents($this->utilAsset('cfdi32-real.xml'))));
         $parameters = RequestParameters::createFromCfdi($cfdi);
 
         $this->assertSame('3.2', $parameters->getVersion());
@@ -73,7 +73,7 @@ class RequestParametersTest extends TestCase
 
     public function testCreateFromCfdiVersion33()
     {
-        $cfdi = Cfdi::newFromString(file_get_contents($this->utilAsset('cfdi33-real.xml')));
+        $cfdi = Cfdi::newFromString(strval(file_get_contents($this->utilAsset('cfdi33-real.xml'))));
         $parameters = RequestParameters::createFromCfdi($cfdi);
 
         $this->assertSame('3.3', $parameters->getVersion());

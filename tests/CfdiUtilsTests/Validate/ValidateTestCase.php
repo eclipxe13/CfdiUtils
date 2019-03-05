@@ -105,7 +105,7 @@ abstract class ValidateTestCase extends TestCase
     protected function setupCfdiFile($cfdifile)
     {
         // setup hydrate and re-hydrate the validator
-        $content = file_get_contents($this->utilAsset($cfdifile));
+        $content = strval(file_get_contents($this->utilAsset($cfdifile)));
         $this->hydrater->setXmlString($content);
         $this->hydrater->hydrate($this->validator);
         // setup comprobante

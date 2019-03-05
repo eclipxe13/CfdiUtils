@@ -79,7 +79,7 @@ class CfdiCreator33 implements
         $cerfile = $certificado->getFilename();
         $this->comprobante['NoCertificado'] = $certificado->getSerial();
         if (file_exists($cerfile)) {
-            $this->comprobante['Certificado'] = base64_encode((string) file_get_contents($cerfile));
+            $this->comprobante['Certificado'] = base64_encode(strval(file_get_contents($cerfile)));
         }
         if ($putEmisorRfcNombre) {
             $emisor = $this->comprobante->searchNode('cfdi:Emisor');
@@ -121,7 +121,9 @@ class CfdiCreator33 implements
 
     public function addSumasConceptos(SumasConceptos $sumasConceptos = null, int $precision = 2)
     {
-        $sumasConceptos = $sumasConceptos ? : $this->buildSumasConceptos($precision);
+        if (null === $sumasConceptos) {
+            $sumasConceptos = $this->buildSumasConceptos($precision);
+        }
         $writer = new SumasConceptosWriter($this->comprobante, $sumasConceptos, $precision);
         $writer->put();
     }

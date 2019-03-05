@@ -50,7 +50,7 @@ class RetencionesCreator10 implements
         $cerfile = $certificado->getFilename();
         $this->retenciones['NumCert'] = $certificado->getSerial();
         if (file_exists($cerfile)) {
-            $this->retenciones['Cert'] = base64_encode((string) file_get_contents($cerfile));
+            $this->retenciones['Cert'] = base64_encode(strval(file_get_contents($cerfile)));
         }
     }
 

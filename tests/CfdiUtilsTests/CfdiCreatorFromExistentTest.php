@@ -9,7 +9,7 @@ class CfdiCreatorFromExistentTest extends TestCase
 {
     public function testNewUsingNode()
     {
-        $xmlSource = file_get_contents($this->utilAsset('cfdi33-real.xml'));
+        $xmlSource = strval(file_get_contents($this->utilAsset('cfdi33-real.xml')));
         $nodeSource = XmlNodeUtils::nodeFromXmlString($xmlSource);
         $creator = CfdiCreator33::newUsingNode($nodeSource);
         $this->assertXmlStringEqualsXmlString($xmlSource, $creator->asXml());
@@ -17,7 +17,7 @@ class CfdiCreatorFromExistentTest extends TestCase
 
     public function testNewImportingNode()
     {
-        $xmlSource = file_get_contents($this->utilAsset('cfdi33-real.xml'));
+        $xmlSource = strval(file_get_contents($this->utilAsset('cfdi33-real.xml')));
         $nodeSource = XmlNodeUtils::nodeFromXmlString($xmlSource);
         $creator = CfdiCreator33::newUsingNode($nodeSource);
         $this->assertXmlStringEqualsXmlString($xmlSource, $creator->asXml());
@@ -25,7 +25,7 @@ class CfdiCreatorFromExistentTest extends TestCase
 
     public function testPutCertificadoFromCreatorUsingNode()
     {
-        $xmlSource = file_get_contents($this->utilAsset('cfdi33-real.xml')) ?: '';
+        $xmlSource = strval(file_get_contents($this->utilAsset('cfdi33-real.xml')));
         $nodeSource = XmlNodeUtils::nodeFromXmlString($xmlSource);
         $creator = CfdiCreator33::newUsingNode($nodeSource);
         $creator->putCertificado(new Certificado($this->utilAsset('certs/CSD01_AAA010101AAA.cer')), true);

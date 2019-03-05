@@ -103,9 +103,7 @@ class NodeCertificadoTest extends TestCase
     public function testObtain()
     {
         $cfdiSample = $this->utilAsset('cfdi32-real.xml');
-        $nodeCertificado = $this->createNodeCertificado(
-            file_get_contents($cfdiSample)
-        );
+        $nodeCertificado = $this->createNodeCertificado(strval(file_get_contents($cfdiSample)));
 
         $certificate = $nodeCertificado->obtain();
         $this->assertFileNotExists($certificate->getFilename());
