@@ -1,6 +1,7 @@
 <?php
 namespace CfdiUtils\CadenaOrigen;
 
+use CfdiUtils\Utils\Internal\ShellExec;
 use CfdiUtils\Utils\Internal\TemporaryFile;
 
 class SaxonbCliBuilder extends AbstractXsltBuilder
@@ -29,13 +30,11 @@ class SaxonbCliBuilder extends AbstractXsltBuilder
     public function createCommand(string $xmlFile, string $xsltLocation): string
     {
         // if is running on windows then use NUL instead of /dev/null
-        $devnull = (0 === stripos(PHP_OS, 'win')) ? 'NUL' : '/dev/null';
         return implode(' ', [
             escapeshellarg($this->getExecutablePath()),
-            escapeshellarg('-s:' . $xmlFile),
-            escapeshellarg('-xsl:' . $xsltLocation),
-            escapeshellarg('-warnings:silent'), // default recover
-            "2>$devnull",
+            '-s:' . escapeshellarg($xmlFile),
+            '-xsl:' . escapeshellarg($xsltLocation),
+            '-warnings:silent', // default recover
         ]);
     }
 
@@ -58,18 +57,15 @@ class SaxonbCliBuilder extends AbstractXsltBuilder
         try {
             file_put_contents($temporaryFile->getPath(), $xmlContent);
             $command = $this->createCommand($temporaryFile->getPath(), $xsltLocation);
-            $output = [];
-            $return = 0;
-            $transform = exec($command, $output, $return);
-            // ugly hack for empty xslt
-            if ('<?xml version="1.0" encoding="UTF-8"?>' === $transform && 0 === $return && count($output) == 1) {
-                $transform = '';
-                $return = 2;
-            }
-            if (0 !== $return) {
+            $execution = ShellExec::run($command);
+
+            if (0 !== $execution->exitStatus()) {
                 throw new XsltBuildException('Transformation error');
             }
-            return $transform;
+            if ('<?xml version="1.0" encoding="UTF-8"?>' === trim($execution->lastLine())) {
+                throw new XsltBuildException('Transformation error');
+            }
+            return trim($execution->output());
         } finally {
             $temporaryFile->remove();
         }
