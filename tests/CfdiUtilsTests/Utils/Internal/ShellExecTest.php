@@ -54,4 +54,20 @@ class ShellExecTest extends TestCase
         $this->assertSame('BYE', $execution->output());
         $this->assertSame(2, $execution->exitStatus());
     }
+
+    public function testCanSendEnvinment()
+    {
+        $printer = implode(PHP_EOL, [
+            'echo getenv("FOO"), " ", getenv("BAR");',
+        ]);
+        $command = implode(' ', array_map('escapeshellarg', [PHP_BINARY, '-r', $printer]));
+
+        $environment = [
+            'FOO' => 'foo',
+            'BAR' => 'bar',
+        ];
+        $execution = ShellExec::run($command, $environment);
+
+        $this->assertSame('foo bar', $execution->output());
+    }
 }
