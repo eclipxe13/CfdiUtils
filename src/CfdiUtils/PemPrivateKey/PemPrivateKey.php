@@ -120,6 +120,7 @@ class PemPrivateKey
         $templates = [
             '-----%s PRIVATE KEY-----',
             '-----%s RSA PRIVATE KEY-----',
+            '-----%s ENCRYPTED PRIVATE KEY-----',
         ];
         if (! self::isPEMHasHeader($keyContents, $templates)) {
             return false;
