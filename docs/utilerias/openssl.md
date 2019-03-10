@@ -86,7 +86,16 @@ el archivo temporal siempre es eliminado.
 
 Devuelve una llave privada convertida a PEM **sin contraseña**.
 
-Se espera que el contenido del archivo en `$privateKeyPath` se encuentre en formato DER.
+El método es un alias de `convertPrivateKeyFileDERToFilePEM` que simplemente usa
+un archivo temporal para almacenar la llave convertida, este archivo será eliminado de forma inmediata.
+
+### `convertPrivateKeyFileDERToFilePEM($privateKeyDerPath, $passPhrase, $privateKeyPemPath): string`
+
+Devuelve una llave privada convertida a PEM **sin contraseña**.
+
+Se espera que el contenido del archivo en `$privateKeyDerPath` se encuentre en formato DER.
+
+Se espera que el contenido del archivo en `$privateKeyPemPath` sea diferente a `$privateKeyDerPath`.
 
 Como esta operación no es posible hacerla con PHP, se utiliza la ejecución del comando `openssl`.
 
@@ -97,6 +106,9 @@ Tome en cuenta estas consideraciones de la ejecución que se hace sobre la conve
 - Si `openssl` escribió en `STDERR` estos valores son capturados y no expuestos.
 - Se considera que la conversión falló si el comando devolvió un código de salida diferente de cero.
 - La conversión no es predecible, la ejecución con los mismos parámetros devuelve un resultado diferente.
+
+Nota: Lo mejor sería nunca escribir el archivo de salida, sin embargo, algunas versiones antiguas de openssl
+no permiten enviar la salida a STDOUT, por esto se necesita guardar a un archivo.
 
 ### `protectPrivateKeyPEM($contents, $inPassPhrase, $outPassPhrase): string`
 

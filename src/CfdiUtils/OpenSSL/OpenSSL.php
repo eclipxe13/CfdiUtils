@@ -42,28 +42,6 @@ class OpenSSL
         return '';
     }
 
-    public function convertPrivateKeyFileDERToPEM(string $privateKeyPath, string $passPhrase): string
-    {
-        $opensslPath = $this->getOpenSSLPath() ?: $this->whichOpenSSL();
-        if ('' === $opensslPath) {
-            throw new \RuntimeException('Cannot locate openssl executable');
-        }
-
-        $command = sprintf(
-            '%s pkcs8 -inform DER -passin env:PASSIN -in %s -out -',
-            escapeshellarg($opensslPath),
-            escapeshellarg($privateKeyPath)
-        );
-        $execution = ShellExec::run($command, ['PASSIN' => $passPhrase]);
-        if ($execution->exitStatus() !== 0) {
-            throw new \RuntimeException(
-                sprintf('OpenSSL execution error. Exit status: %d', $execution->exitStatus())
-            );
-        }
-
-        return $execution->output();
-    }
-
     public function convertPrivateKeyContentsDERToPEM(string $contents, string $passPhrase): string
     {
         $tempkey = TemporaryFile::create();
@@ -74,6 +52,57 @@ class OpenSSL
             return $this->convertPrivateKeyFileDERToPEM($tempkey->getPath(), $passPhrase);
         } finally {
             $tempkey->remove();
+        }
+    }
+
+    public function convertPrivateKeyFileDERToPEM(string $privateKeyPath, string $passPhrase): string
+    {
+        $tempfile = TemporaryFile::create();
+        try {
+            $this->convertPrivateKeyFileDERToFilePEM($privateKeyPath, $passPhrase, $tempfile->getPath());
+            $output = strval(file_get_contents($tempfile->getPath()));
+        } finally {
+            $tempfile->remove();
+        }
+
+        if ('' === $output) {
+            throw new \RuntimeException(sprintf('OpenSSL execution error. Cannot capture STDOUT'));
+        }
+
+        return $output;
+    }
+
+    public function convertPrivateKeyFileDERToFilePEM(
+        string $privateKeyDerPath,
+        string $passPhrase,
+        string $privateKeyPemPath
+    ) {
+        $opensslPath = $this->getOpenSSLPath() ?: $this->whichOpenSSL();
+        if ('' === $opensslPath) {
+            throw new \RuntimeException('Cannot locate openssl executable');
+        }
+        if ('' === $privateKeyDerPath) {
+            throw new \RuntimeException('Private key in DER format (input) was not set');
+        }
+        if ('' === $privateKeyPemPath) {
+            throw new \RuntimeException('Private key in PEM format (output) was not set');
+        }
+        if (file_exists($privateKeyPemPath) && filesize($privateKeyPemPath) > 0) {
+            throw new \RuntimeException('Private key in PEM format (output) must not exists or be empty');
+        }
+
+        $command = sprintf(
+            '%s pkcs8 -inform DER -passin env:PASSIN -in %s -out %s',
+            escapeshellarg($opensslPath),
+            escapeshellarg($privateKeyDerPath),
+            escapeshellarg($privateKeyPemPath)
+        );
+        $execution = ShellExec::run($command, ['PASSIN' => $passPhrase]);
+
+        if ($execution->exitStatus() !== 0) {
+            throw new \RuntimeException(
+                sprintf('OpenSSL execution error. Exit status: %d', $execution->exitStatus())
+            );
         }
     }
 
