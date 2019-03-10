@@ -21,7 +21,7 @@ trait OpenSSLPropertyTrait
         return $this->openSSL;
     }
 
-    public function setOpenSSL(OpenSSL $openSSL)
+    protected function setOpenSSL(OpenSSL $openSSL)
     {
         $this->openSSL = $openSSL;
     }
