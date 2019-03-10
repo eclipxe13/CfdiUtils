@@ -1,8 +1,13 @@
 <?php
 namespace CfdiUtils\Certificado;
 
+use CfdiUtils\OpenSSL\OpenSSL;
+use CfdiUtils\OpenSSL\OpenSSLPropertyTrait;
+
 class Certificado
 {
+    use OpenSSLPropertyTrait;
+
     /** @var string */
     private $rfc;
 
@@ -34,22 +39,23 @@ class Certificado
      * Certificado constructor.
      *
      * @param string $filename
+     * @param OpenSSL $openSSL
      * @throws \UnexpectedValueException when the file does not exists or is not readable
      * @throws \UnexpectedValueException when cannot read the certificate file or is empty
      * @throws \RuntimeException when cannot parse the certificate file or is empty
      * @throws \RuntimeException when cannot get serialNumberHex or serialNumber from certificate
      */
-    public function __construct(string $filename)
+    public function __construct(string $filename, OpenSSL $openSSL = null)
     {
         $this->assertFileExists($filename);
         // read contents, cast to string to avoid FALSE
         if ('' === $contents = strval(file_get_contents($filename))) {
             throw new \UnexpectedValueException("File $filename is empty");
         }
-
+        $this->setOpenSSL($openSSL ?: new OpenSSL());
         // change to PEM format if it is not already
-        if (0 !== strpos($contents, '-----BEGIN CERTIFICATE-----')) {
-            $contents = $this->changeCerToPem($contents);
+        if (! $this->getOpenSSL()->certificateIsPEM($contents)) {
+            $contents = $this->getOpenSSL()->convertCertificateToPEM($contents);
         }
 
         // get the certificate data
@@ -99,10 +105,9 @@ class Certificado
     public function belongsTo(string $pemKeyFile, string $passPhrase = ''): bool
     {
         $this->assertFileExists($pemKeyFile);
-        // intentionally silence this error, if return false cast to string
-        $keyContents = (string) @file_get_contents($pemKeyFile);
-        if (0 !== strpos($keyContents, '-----BEGIN PRIVATE KEY-----')
-            && 0 !== strpos($keyContents, '-----BEGIN RSA PRIVATE KEY-----')) {
+        // intentionally silence this error, if return false then cast it to string
+        $keyContents = strval(@file_get_contents($pemKeyFile));
+        if (! $this->getOpenSSL()->privateKeyIsPEM($keyContents)) {
             throw new \UnexpectedValueException("The file $pemKeyFile is not a PEM private key");
         }
         $privateKey = openssl_get_privatekey($keyContents, $passPhrase);
@@ -235,13 +240,6 @@ class Certificado
         if (! file_exists($filename) || ! is_readable($filename) || is_dir($filename)) {
             throw new \UnexpectedValueException("File $filename does not exists or is not readable");
         }
-    }
-
-    protected function changeCerToPem(string $contents): string
-    {
-        return '-----BEGIN CERTIFICATE-----' . PHP_EOL
-            . chunk_split(base64_encode($contents), 64, PHP_EOL)
-            . '-----END CERTIFICATE-----' . PHP_EOL;
     }
 
     protected function obtainPubKeyFromContents(string $contents): string
