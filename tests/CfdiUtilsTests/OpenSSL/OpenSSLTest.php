@@ -36,7 +36,7 @@ class OpenSSLTest extends TestCase
 
     public function testConvertPrivateKeyFileDERToPEMWithEmtyOpensslPath()
     {
-        $openssl = new class extends OpenSSL {
+        $openssl = new class() extends OpenSSL {
             protected function whichOpenSSL(): string
             {
                 return ''; // simulate wich does not found openssl

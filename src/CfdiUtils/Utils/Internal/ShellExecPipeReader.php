@@ -65,7 +65,7 @@ class ShellExecPipeReader
 
     public function fgets(int $length): string
     {
-        return strval(fgets($this->pipe, $length));
+        return fgets($this->pipe, $length) ?: '';
     }
 
     public function buffer(): string
