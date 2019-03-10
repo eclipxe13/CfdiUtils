@@ -26,6 +26,8 @@ nav:
         - componentes/elements.md
         - componentes/nodes.md
         - componentes/certificado.md
+    - "Utilerías":
+        - utilerias/openssl.md
     - "Contribuir":
         - contribuir/guia-desarrollador.md
         - contribuir/guia-documentador.md
