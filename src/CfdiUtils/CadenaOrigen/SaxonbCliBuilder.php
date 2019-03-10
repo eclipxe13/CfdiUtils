@@ -62,7 +62,7 @@ class SaxonbCliBuilder extends AbstractXsltBuilder
             if (0 !== $execution->exitStatus()) {
                 throw new XsltBuildException('Transformation error');
             }
-            if ('<?xml version="1.0" encoding="UTF-8"?>' === trim($execution->lastLine())) {
+            if ('<?xml version="1.0" encoding="UTF-8"?>' === trim($execution->output())) {
                 throw new XsltBuildException('Transformation error');
             }
             return trim($execution->output());
