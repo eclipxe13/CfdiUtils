@@ -14,7 +14,7 @@ class ShellExecTest extends TestCase
         $thisfile = basename(__FILE__);
         // $this->assertSame($command, $execution->command());
         $this->assertSame(0, $execution->exitStatus());
-        $this->assertStringContainsString($thisfile, $execution->output());
+        $this->assertContains($thisfile, $execution->output());
     }
 
     public function testRunExpectingExitStatus()
