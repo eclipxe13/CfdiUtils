@@ -48,15 +48,12 @@ class Certificado
     public function __construct(string $filename, OpenSSL $openSSL = null)
     {
         $this->assertFileExists($filename);
-        // read contents, cast to string to avoid FALSE
-        if ('' === $contents = strval(file_get_contents($filename))) {
+        $contents = strval(file_get_contents($filename));
+        if ('' === $contents) {
             throw new \UnexpectedValueException("File $filename is empty");
         }
         $this->setOpenSSL($openSSL ?: new OpenSSL());
-        // change to PEM format if it is not already
-        if (! $this->getOpenSSL()->certificateIsPEM($contents)) {
-            $contents = $this->getOpenSSL()->convertCertificateToPEM($contents);
-        }
+        $contents = $this->obtainPemCertificate($contents);
 
         // get the certificate data
         $data = openssl_x509_parse($contents, true);
@@ -90,6 +87,16 @@ class Certificado
         $this->filename = $filename;
     }
 
+    private function obtainPemCertificate(string $contents): string
+    {
+        $openssl = $this->getOpenSSL();
+        $extracted = $openssl->extractCertificate($contents);
+        if ('' === $extracted) { // cannot extract, should be PEM
+            $extracted = $openssl->convertCertificateToPEM($contents);
+        }
+        return $extracted;
+    }
+
     /**
      * Check if this certificate belongs to a private key
      *
@@ -105,9 +112,12 @@ class Certificado
     public function belongsTo(string $pemKeyFile, string $passPhrase = ''): bool
     {
         $this->assertFileExists($pemKeyFile);
-        // intentionally silence this error, if return false then cast it to string
-        $keyContents = strval(@file_get_contents($pemKeyFile));
-        if (! $this->getOpenSSL()->privateKeyIsPEM($keyContents)) {
+        $openSSL = $this->getOpenSSL();
+        $keyContents = $openSSL->extractPrivateKey(
+            // intentionally silence this error, if return false then cast it to string
+            strval(@file_get_contents($pemKeyFile))
+        );
+        if ('' === $keyContents) {
             throw new \UnexpectedValueException("The file $pemKeyFile is not a PEM private key");
         }
         $privateKey = openssl_get_privatekey($keyContents, $passPhrase);

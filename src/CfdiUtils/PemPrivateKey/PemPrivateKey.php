@@ -27,19 +27,19 @@ class PemPrivateKey
     public function __construct(string $key, OpenSSL $openSSL = null)
     {
         if (0 === strpos($key, 'file://')) {
-            $contents = '';
             $filename = substr($key, 7);
             if ('' !== $filename && file_exists($filename) && is_readable($filename) && ! is_dir($filename)) {
-                $contents = strval(file_get_contents($filename));
+                $key = strval(file_get_contents($filename));
+            } else {
+                $key = '';
             }
-        } else {
-            $contents = $key;
         }
         $this->setOpenSSL($openSSL ?: new OpenSSL());
-        if (! $this->getOpenSSL()->privateKeyIsPEM($contents)) {
+        $key = $this->getOpenSSL()->extractPrivateKey($key);
+        if ('' === $key) {
             throw new \UnexpectedValueException('The key is not a file or a string PEM format private key');
         }
-        $this->contents = $contents;
+        $this->contents = $key;
     }
 
     public function __destruct()
@@ -124,6 +124,11 @@ class PemPrivateKey
      */
     public static function isPEM(string $keyContents): bool
     {
-        return (new OpenSSL())->privateKeyIsPEM($keyContents);
+        if ('' === $keyContents) {
+            return false;
+        }
+
+        $openSSL = new OpenSSL();
+        return (rtrim($keyContents) === $openSSL->extractPrivateKey($keyContents));
     }
 }

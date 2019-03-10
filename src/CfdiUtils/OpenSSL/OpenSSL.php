@@ -19,71 +19,42 @@ class OpenSSL
         return $this->openSSLPath;
     }
 
-    public function certificateIsPEM(string $contents): bool
+    public function extractCertificate(string $contents)
     {
-        return ('' !== $this->extractPEMContents($contents, 'CERTIFICATE'));
-    }
-
-    public function privateKeyIsPEM(string $contents): bool
-    {
-        return ('' !== $this->extractPEMContents($contents, 'PRIVATE KEY'))
-            || ('' !== $this->extractPEMContents($contents, 'RSA PRIVATE KEY'))
-            || ('' !== $this->extractPEMContents($contents, 'ENCRYPTED PRIVATE KEY'));
-    }
-
-    protected function convertToPEM(string $contents, string $type): string
-    {
-        $allowedTypes = ['CERTIFICATE', 'PRIVATE KEY'];
-        if (! in_array($type, $allowedTypes, true)) {
-            throw new \InvalidArgumentException(sprintf('Invalid type %s', $type));
-        }
-        return sprintf('-----BEGIN %s-----', $type) . PHP_EOL
-            . chunk_split(base64_encode($contents), 64, PHP_EOL)
-            . sprintf('-----END %s-----', $type) . PHP_EOL;
-    }
-
-    public function extractPEMContents(string $contents, string $type): string
-    {
-        $matches = [];
-        $type = preg_quote($type, '/');
-        // : , - are used un RSA PRIVATE KEYS
-        $pattern = '/^-----BEGIN ' . $type . '-----[\sA-Za-z0-9+=\/:,-]+-----END ' . $type . '-----/m';
-        preg_match($pattern, $contents, $matches);
-        return strval($matches[0] ?? '');
+        return $this->extractPEMContents($contents, 'CERTIFICATE');
     }
 
     public function convertCertificateToPEM(string $contents): string
     {
-        return $this->convertToPEM($contents, 'CERTIFICATE');
+        return '-----BEGIN CERTIFICATE-----' . PHP_EOL
+            . chunk_split(base64_encode($contents), 64, PHP_EOL)
+            . '-----END CERTIFICATE-----';
     }
 
-    public function whichOpenSSL(): string
+    public function extractPrivateKey(string $contents)
     {
-        $shellWhich = new ShellWhich();
-        return $shellWhich->search('openssl');
+        foreach (['PRIVATE KEY', 'RSA PRIVATE KEY', 'ENCRYPTED PRIVATE KEY'] as $type) {
+            $extracted = $this->extractPEMContents($contents, $type);
+            if ('' !== $extracted) {
+                return $extracted;
+            }
+        }
+        return '';
     }
 
-    public function convertPrivateKeyDERToPEM(string $contents, string $passphrase): string
+    public function convertPrivateKeyFileDERToPEM(string $privateKeyPath, string $passPhrase): string
     {
         $opensslPath = $this->getOpenSSLPath() ?: $this->whichOpenSSL();
         if ('' === $opensslPath) {
             throw new \RuntimeException('Cannot locate openssl executable');
         }
 
-        $tempkey = TemporaryFile::create();
-        file_put_contents($tempkey->getPath(), $contents);
-        unset($contents);
-
-        try {
-            $command = sprintf(
-                '%s pkcs8 -inform DER -passin env:PASSIN -in %s -out -',
-                escapeshellarg($opensslPath),
-                escapeshellarg($tempkey->getPath())
-            );
-            $execution = ShellExec::run($command, ['PASSIN' => $passphrase]);
-        } finally {
-            $tempkey->remove();
-        }
+        $command = sprintf(
+            '%s pkcs8 -inform DER -passin env:PASSIN -in %s -out -',
+            escapeshellarg($opensslPath),
+            escapeshellarg($privateKeyPath)
+        );
+        $execution = ShellExec::run($command, ['PASSIN' => $passPhrase]);
         if ($execution->exitStatus() !== 0) {
             throw new \RuntimeException(
                 sprintf('OpenSSL execution return with exit status of %d', $execution->exitStatus())
@@ -93,10 +64,27 @@ class OpenSSL
         return $execution->output();
     }
 
-    public function protectPrivateKeyPEM(string $contents, $inPassPrase, string $outPassPhrase): string
+    public function convertPrivateKeyContentsDERToPEM(string $contents, string $passPhrase): string
     {
+        $tempkey = TemporaryFile::create();
+        file_put_contents($tempkey->getPath(), $contents);
+        unset($contents);
+
+        try {
+            return $this->convertPrivateKeyFileDERToPEM($tempkey->getPath(), $passPhrase);
+        } finally {
+            $tempkey->remove();
+        }
+    }
+
+    public function protectPrivateKeyPEM(string $contents, string $inPassPhrase, string $outPassPhrase): string
+    {
+        if ($inPassPhrase === $outPassPhrase) {
+            throw new \RuntimeException('The current pass phrase and the new pass phrase are the same');
+        }
+
         // this error silenced call is intentional, avoid error and evaluate returned value
-        $key = @openssl_pkey_get_private($contents, $inPassPrase);
+        $key = @openssl_pkey_get_private($contents, $inPassPhrase);
         if (! is_resource($key)) {
             throw new \RuntimeException('Unable to open private key');
         }
@@ -119,5 +107,21 @@ class OpenSSL
         }
 
         return $exported;
+    }
+
+    private function whichOpenSSL(): string
+    {
+        $shellWhich = new ShellWhich();
+        return $shellWhich->search('openssl');
+    }
+
+    private function extractPEMContents(string $contents, string $type): string
+    {
+        $matches = [];
+        $type = preg_quote($type, '/');
+        // : , - are used un RSA PRIVATE KEYS
+        $pattern = '/^-----BEGIN ' . $type . '-----[\sA-Za-z0-9+=\/:,-]+-----END ' . $type . '-----/m';
+        preg_match($pattern, $contents, $matches);
+        return strval($matches[0] ?? '');
     }
 }

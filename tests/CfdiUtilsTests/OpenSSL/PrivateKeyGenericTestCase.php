@@ -5,42 +5,20 @@ use CfdiUtils\OpenSSL\OpenSSL;
 use CfdiUtils\PemPrivateKey\PemPrivateKey;
 use CfdiUtilsTests\TestCase;
 
-class OpenSSLPrivateKeyTest extends TestCase
+abstract class PrivateKeyGenericTestCase extends TestCase
 {
-    /** @var string|null */
-    private static $converted = null;
-
-    /** @var OpenSSL|null */
-    private static $openssl;
+    abstract protected function getPrivateKey(): string;
 
     protected function getOpenSSL(): OpenSSL
     {
-        if (null === static::$openssl) {
-            static::$openssl = new OpenSSL();
-        }
-        return static::$openssl;
-    }
-
-    protected function getConverted(): string
-    {
-        if (null === static::$converted) {
-            $derkey = strval(file_get_contents($this->utilAsset('certs/CSD01_AAA010101AAA.key')));
-            static::$converted = $this->getOpenSSL()->convertPrivateKeyDERToPEM($derkey, '12345678a');
-        }
-        return static::$converted;
+        return new OpenSSL();
     }
 
     protected function getCertificate(): string
     {
         $certificate = strval(file_get_contents($this->utilAsset('certs/CSD01_AAA010101AAA.cer.pem')));
-        $certificate = $this->getOpenSSL()->extractPEMContents($certificate, 'CERTIFICATE');
-        $this->assertTrue($this->getOpenSSL()->certificateIsPEM($certificate));
+        $certificate = $this->getOpenSSL()->extractCertificate($certificate);
         return $certificate;
-    }
-
-    public function testIsPEM()
-    {
-        $this->assertTrue($this->getOpenSSL()->privateKeyIsPEM($this->getConverted()));
     }
 
     public function testBelongsToCertificate()
@@ -49,9 +27,9 @@ class OpenSSLPrivateKeyTest extends TestCase
         $certificate = $this->getCertificate();
 
         // when open the private key
-        $privateKey = new PemPrivateKey($this->getConverted());
+        $privateKey = new PemPrivateKey($this->getPrivateKey());
         // converted does not have any password
-        $this->assertTrue($privateKey->open(''), 'Cannot open converted private key using blank password');
+        $this->assertTrue($privateKey->open('12345678a'), 'Cannot open converted private key using blank password');
 
         // then the private key belong to certificate
         $this->assertTrue($privateKey->belongsTo($certificate));
@@ -62,8 +40,7 @@ class OpenSSLPrivateKeyTest extends TestCase
         $newPassPhrase = 'foo$bar#';
         $openssl = $this->getOpenSSL();
 
-        $protected = $openssl->protectPrivateKeyPEM($this->getConverted(), '', $newPassPhrase);
-        $this->assertTrue($openssl->privateKeyIsPEM($protected));
+        $protected = $openssl->protectPrivateKeyPEM($this->getPrivateKey(), '', $newPassPhrase);
 
         $privateKey = new PemPrivateKey($protected);
         $this->assertFalse($privateKey->open(''), 'Open protected private key using blank password expected to fail');
