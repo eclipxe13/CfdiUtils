@@ -1,8 +1,13 @@
 <?php
 namespace CfdiUtils\PemPrivateKey;
 
+use CfdiUtils\OpenSSL\OpenSSL;
+use CfdiUtils\OpenSSL\OpenSSLPropertyTrait;
+
 class PemPrivateKey
 {
+    use OpenSSLPropertyTrait;
+
     /** @var string */
     private $contents;
 
@@ -16,9 +21,10 @@ class PemPrivateKey
      * - file contents
      *
      * @param string $key
+     * @param \CfdiUtils\OpenSSL\OpenSSL $openSSL
      * @throws \UnexpectedValueException if the file is not PEM format
      */
-    public function __construct(string $key)
+    public function __construct(string $key, OpenSSL $openSSL = null)
     {
         if (0 === strpos($key, 'file://')) {
             $contents = '';
@@ -29,7 +35,8 @@ class PemPrivateKey
         } else {
             $contents = $key;
         }
-        if (! $this->isPEM($contents)) {
+        $this->setOpenSSL($openSSL ?: new OpenSSL());
+        if (! $this->getOpenSSL()->privateKeyIsPEM($contents)) {
             throw new \UnexpectedValueException('The key is not a file or a string PEM format private key');
         }
         $this->contents = $contents;
