@@ -116,39 +116,6 @@ class PemPrivateKey
      */
     public static function isPEM(string $keyContents): bool
     {
-        $keyContents = rtrim($keyContents);
-        $templates = [
-            '-----%s PRIVATE KEY-----',
-            '-----%s RSA PRIVATE KEY-----',
-            '-----%s ENCRYPTED PRIVATE KEY-----',
-        ];
-        if (! self::isPEMHasHeader($keyContents, $templates)) {
-            return false;
-        }
-        if (! self::isPEMHasFooter($keyContents, $templates)) {
-            return false;
-        }
-        return true;
-    }
-
-    private static function isPEMHasHeader(string $keyContents, array $templates): bool
-    {
-        foreach ($templates as $template) {
-            if (0 === strpos($keyContents, sprintf($template, 'BEGIN'))) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static function isPEMHasFooter(string $keyContents, array $templates): bool
-    {
-        foreach ($templates as $template) {
-            $search = sprintf($template, 'END');
-            if ($search === substr($keyContents, - strlen($search))) {
-                return true;
-            }
-        }
-        return false;
+        return (new OpenSSL())->privateKeyIsPEM($keyContents);
     }
 }
