@@ -12,6 +12,8 @@ class PrivateKeyConvertedTest extends PrivateKeyGenericTestCase
     protected function getPrivateKey(): string
     {
         $derkey = $this->utilAsset('certs/CSD01_AAA010101AAA.key');
-        return $this->getOpenSSL()->convertPrivateKeyFileDERToPEM($derkey, '12345678a');
+        $openSSL = $this->getOpenSSL();
+        $pemkey = $openSSL->convertPrivateKeyFileDERToPEM($derkey, '12345678a');
+        return $pemkey;
     }
 }

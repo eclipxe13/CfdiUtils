@@ -57,7 +57,7 @@ class OpenSSL
         $execution = ShellExec::run($command, ['PASSIN' => $passPhrase]);
         if ($execution->exitStatus() !== 0) {
             throw new \RuntimeException(
-                sprintf('OpenSSL execution return with exit status of %d', $execution->exitStatus())
+                sprintf('OpenSSL execution error. Exit status: %d', $execution->exitStatus())
             );
         }
 
@@ -109,7 +109,7 @@ class OpenSSL
         return $exported;
     }
 
-    private function whichOpenSSL(): string
+    protected function whichOpenSSL(): string
     {
         $shellWhich = new ShellWhich();
         return $shellWhich->search('openssl');
