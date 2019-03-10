@@ -23,7 +23,7 @@ class ShellExecPipeReader
         }
 
         $this->pipe = $pipe;
-        stream_set_blocking($pipe, 0); // set as non-blocking
+        stream_set_blocking($pipe, false); // set as non-blocking
     }
 
     public function continueReading(): bool
@@ -65,7 +65,7 @@ class ShellExecPipeReader
 
     public function fgets(int $length): string
     {
-        return fgets($this->pipe, $length);
+        return strval(fgets($this->pipe, $length));
     }
 
     public function buffer(): string

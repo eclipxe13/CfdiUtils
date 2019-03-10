@@ -1,5 +1,4 @@
 <?php
-
 namespace CfdiUtils\Utils\Internal;
 
 /**
@@ -73,7 +72,8 @@ class ShellExecResult
     {
         if (null === $this->lastLine) {
             $outputLines = $this->outputLines();
-            $this->lastLine = end($outputLines) ?? '';
+            $lineCount = count($outputLines);
+            $this->lastLine = (0 > $lineCount) ? $outputLines[$lineCount - 1] : '';
         }
         return $this->lastLine;
     }

@@ -1,5 +1,4 @@
 <?php
-
 namespace CfdiUtils\Utils\Internal;
 
 /**
@@ -14,7 +13,7 @@ class ShellExec
     /** @var string */
     private $command;
 
-    /** @var string */
+    /** @var array */
     private $environment;
 
     /** @var int */
@@ -89,6 +88,9 @@ class ShellExec
         ];
         $pipes = [];
         $process = proc_open($this->getCommand(), $specs, $pipes, null, $this->getEnvironment());
+        if (false === $process) {
+            return new \RuntimeException(sprintf('Unable to execute: %s', $this->getCommand()));
+        }
         fclose($pipes[0]);
 
         $stdout = new ShellExecPipeReader($pipes[1]);
@@ -98,7 +100,7 @@ class ShellExec
         while ($stdout->continueReading() || $stderr->continueReading()) {
             $anyRead = false;
             if ($stdout->continueReading()) {
-                $anyRead = $stdout->read() || $anyRead;
+                $anyRead = $stdout->read();
             }
             if ($stderr->continueReading()) {
                 $anyRead = $stderr->read() || $anyRead;
