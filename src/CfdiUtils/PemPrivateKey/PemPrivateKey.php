@@ -113,6 +113,7 @@ class PemPrivateKey
      * Check if a string has an obvious signature of a PEM file
      * @param string $keyContents
      * @return bool
+     * @deprecated :3.0.0 Replaced with OpenSSL utility
      */
     public static function isPEM(string $keyContents): bool
     {
