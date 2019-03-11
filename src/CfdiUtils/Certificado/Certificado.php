@@ -263,7 +263,7 @@ class Certificado
             return $pubData['key'] ?? '';
         } finally {
             // close public key even if the flow is throw an exception
-            if (isset($pubkey) && is_resource($pubkey)) {
+            if (is_resource($pubkey)) {
                 openssl_free_key($pubkey);
             }
         }
