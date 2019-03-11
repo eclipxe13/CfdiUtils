@@ -23,19 +23,25 @@ final class TemporaryFile
     {
         if ('' === $directory) {
             $directory = sys_get_temp_dir();
+            if (in_array($directory, ['', '.'], true)) {
+                throw new \RuntimeException('System has an invalid default temp dir');
+            }
         }
+
         $previousErrorLevel = error_reporting(0);
         $filename = strval(tempnam($directory, ''));
         error_reporting($previousErrorLevel);
-        if (dirname($filename) !== $directory) {
+
+        // must check realpath since windows can return different paths for same location
+        if (realpath(dirname($filename)) !== realpath($directory)) {
             unlink($filename);
             $filename = '';
         }
+
         if ('' === $filename) {
-            throw new \RuntimeException(
-                sprintf('Unable to create a temporary file on %s', $directory)
-            );
+            throw new \RuntimeException(sprintf('Unable to create a temporary file'));
         }
+
         return new static($filename);
     }
 

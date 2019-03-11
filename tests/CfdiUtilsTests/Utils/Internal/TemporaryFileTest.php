@@ -2,7 +2,7 @@
 namespace CfdiUtilsTests\Utils\Internal;
 
 use CfdiUtils\Utils\Internal\TemporaryFile;
-use PHPUnit\Framework\TestCase;
+use CfdiUtilsTests\TestCase;
 
 class TemporaryFileTest extends TestCase
 {
@@ -26,7 +26,7 @@ class TemporaryFileTest extends TestCase
         }
     }
 
-    public function testCreateWouldFailIfCannotCreateTheFile()
+    public function testCreateOnNonExistentFolderThrowsException()
     {
         $directory = __DIR__ . '/non/existent/directory/';
         $this->expectException(\RuntimeException::class);
@@ -34,18 +34,36 @@ class TemporaryFileTest extends TestCase
         TemporaryFile::create($directory);
     }
 
-    public function testCreateOnReadOnlyFolder()
+    public function testCreateOnReadOnlyFolderThrowsException()
     {
+        // redirect test to MS Windows case
+        if ($this->isRunningOnWindows()) {
+            $this->windowsTestCreateOnReadOnlyFolderThrowsException();
+            return;
+        }
+
+        // prepare directory
         $directory = __DIR__ . '/readonly';
         mkdir($directory);
-        chmod($directory, 0550);
+        chmod($directory, 0500);
+
+        // setup exception
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Unable to create a temporary file');
         try {
             TemporaryFile::create($directory);
         } finally {
-            chmod($directory, 0770);
+            // cleanup
+            chmod($directory, 0700);
             rmdir($directory);
         }
+    }
+
+    public function windowsTestCreateOnReadOnlyFolderThrowsException()
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Unable to create a temporary file');
+
+        TemporaryFile::create(getenv('WINDIR'));
     }
 }
