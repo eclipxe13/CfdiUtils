@@ -39,7 +39,10 @@ script:
     else
       vendor/bin/phpunit --verbose
     fi
-  - vendor/bin/phpstan.phar --no-progress analyse --level max src/ tests/
+  - |
+    if [[ $TRAVIS_PHP_VERSION == $FULL_BUILD_PHP_VERSION ]]; then
+      vendor/bin/phpstan.phar --no-progress analyse --level max src/ tests/
+    fi
   - node node_modules/markdownlint-cli/markdownlint.js *.md docs/
   - sed -i 's/^nav:/pages:/' mkdocs.yml # change 'nav:' to 'pages:' since mkdocs version is outdated
   - ~/.local/bin/mkdocs build --strict --site-dir build/docs
