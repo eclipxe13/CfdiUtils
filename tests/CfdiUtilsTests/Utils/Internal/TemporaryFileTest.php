@@ -64,6 +64,6 @@ class TemporaryFileTest extends TestCase
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Unable to create a temporary file');
 
-        TemporaryFile::create(getenv('WINDIR'));
+        TemporaryFile::create(strval(getenv('WINDIR')));
     }
 }
