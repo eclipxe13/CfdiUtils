@@ -47,7 +47,7 @@ class ShellExecTest extends TestCase
         ]);
         $command = implode(' ', array_map('escapeshellarg', [PHP_BINARY, '-r', $printer]));
 
-        $execution = ShellExec::run($command, [], true);
+        $execution = ShellExec::run($command, true);
 
         $this->assertSame('Line sent to STDOUT', $execution->output());
         $this->assertSame('Line sent to STDERR', $execution->errors());
@@ -66,21 +66,5 @@ class ShellExecTest extends TestCase
 
         $this->assertSame('BYE', $execution->output());
         $this->assertSame(2, $execution->exitStatus());
-    }
-
-    public function testCanSendEnvironment()
-    {
-        $printer = implode(PHP_EOL, [
-            'echo getenv("FOO"), " ", getenv("BAR");',
-        ]);
-        $command = implode(' ', array_map('escapeshellarg', [PHP_BINARY, '-r', $printer]));
-
-        $environment = [
-            'FOO' => 'f o o',
-            'BAR' => 'b a r',
-        ];
-        $execution = ShellExec::run($command, $environment);
-
-        $this->assertSame('f o o b a r', $execution->output());
     }
 }

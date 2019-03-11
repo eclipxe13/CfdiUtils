@@ -13,38 +13,23 @@ class ShellExec
     /** @var string */
     private $command;
 
-    /** @var array */
-    private $environment;
-
     /** @var bool */
     private $captureErrorsFlag;
 
     public function __construct(
         string $command,
-        array $environment,
         bool $captureErrorsFlag
     ) {
         if ('' === $command) {
             throw new \InvalidArgumentException('Command was not set');
         }
-        foreach ($environment as $key => $value) {
-            if (! boolval(preg_match('/^[a-zA-Z0-9_]+$/', $key))) {
-                throw new \InvalidArgumentException('Environment variable name is not safe');
-            }
-        }
         $this->command = $command;
-        $this->environment = $environment;
         $this->captureErrorsFlag = $captureErrorsFlag;
     }
 
     public function getCommand(): string
     {
         return $this->command;
-    }
-
-    public function getEnvironment(): array
-    {
-        return $this->environment;
     }
 
     public function getCaptureErrorsFlag(): bool
@@ -88,52 +73,21 @@ class ShellExec
         return $this->execUsingErrorsFile($this->nullByOs());
     }
 
-    private function getEnvironmentAsCommand(): string
-    {
-        return ($this->operatingSystemIsWindows()) ? $this->environmentWindows() : $this->environmentPosix();
-    }
-
-    private function environmentWindows(): string
-    {
-        return implode('&&', array_filter(array_map(
-            function (string $key, string $value): string {
-                return 'set ' . escapeshellarg("$key=$value");
-            },
-            array_keys($this->environment),
-            $this->environment
-        ))) . '&&';
-    }
-
-    private function environmentPosix(): string
-    {
-        return implode(' ', array_filter(array_map(
-            function (string $key, string $value): string {
-                return $key . '=' . escapeshellarg($value);
-            },
-            array_keys($this->environment),
-            $this->environment
-        ))) . ' ';
-    }
-
     private function execUsingErrorsFile(string $stdErrFile): ShellExecResult
     {
         $null = $this->nullByOs();
         $output = [];
         $exitCode = -1;
-        $command = $this->getEnvironmentAsCommand() . $this->getCommand();
-        if ($this->operatingSystemIsWindows()) {
-            $command = 'cmd /c ' . escapeshellarg($command);
-        }
+        $command = $this->getCommand();
         @exec($command . " 2> $stdErrFile < $null", $output, $exitCode);
         return new ShellExecResult($exitCode, implode(PHP_EOL, $output), '');
     }
 
     public static function run(
         string $command,
-        array $environment = [],
         bool $captureErrorsFlag = false
     ): ShellExecResult {
-        $shellExec = new self($command, $environment, $captureErrorsFlag);
+        $shellExec = new self($command, $captureErrorsFlag);
         return $shellExec->exec();
     }
 }

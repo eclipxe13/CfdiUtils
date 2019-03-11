@@ -88,12 +88,13 @@ class OpenSSL
         }
 
         $command = sprintf(
-            '%s pkcs8 -inform DER -passin env:PASSIN -in %s -out %s',
+            '%s pkcs8 -inform DER -passin %s -in %s -out %s',
             escapeshellarg($opensslPath),
+            escapeshellarg('pass:' . $passPhrase),
             escapeshellarg($privateKeyDerPath),
             escapeshellarg($privateKeyPemPath)
         );
-        $execution = ShellExec::run($command, ['PASSIN' => $passPhrase]);
+        $execution = ShellExec::run($command);
 
         if ($execution->exitStatus() !== 0) {
             throw new \RuntimeException(
