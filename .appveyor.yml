@@ -9,7 +9,6 @@ cache:
     - C:\ProgramData\chocolatey\lib -> .appveyor.yml
     - C:\tools\php -> .appveyor.yml
     - C:\tools\composer -> .appveyor.yml
-    - C:\tools\openssl -> .appveyor.yml
     - '%LOCALAPPDATA%\Composer\files -> composer.json'
 
 ## Build matrix for lowest and highest possible targets
@@ -21,18 +20,13 @@ environment:
         - php: 7.3
 
 init:
-    - SET PATH=C:\tools\openssl\bin;c:\tools\php;C:\tools\composer;%PATH%
+    - SET PATH=C:\OpenSSL-v111-Win64\bin;c:\tools\php;C:\tools\composer;%PATH%
     - SET COMPOSER_NO_INTERACTION=1
     - SET ANSICON=121x90 (121x90)
     - SET saxonb-path=C:\ProgramData\chocolatey\bin\SaxonHE\bin\Transform.exe
 
 ## Install PHP and composer, and run the appropriate composer command
 install:
-    # openssl
-    - ps: |
-          if (!(Test-Path C:\tools\openssl)) {
-              appveyor-retry cinst --ignore-checksums -y openssl.light --params "/InstallDir:C:\tools\openssl"
-          }
     # php
     - ps: |
           if (!(Test-Path c:\tools\php)) {
