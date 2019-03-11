@@ -2,7 +2,6 @@
 namespace CfdiUtils\OpenSSL;
 
 use CfdiUtils\Utils\Internal\ShellExec;
-use CfdiUtils\Utils\Internal\ShellWhich;
 use CfdiUtils\Utils\Internal\TemporaryFile;
 
 class OpenSSL
@@ -77,10 +76,7 @@ class OpenSSL
         string $passPhrase,
         string $privateKeyPemPath
     ) {
-        $opensslPath = $this->getOpenSSLPath() ?: $this->whichOpenSSL();
-        if ('' === $opensslPath) {
-            throw new \RuntimeException('Cannot locate openssl executable');
-        }
+        $opensslPath = $this->getOpenSSLPath() ?: 'openssl';
         if ('' === $privateKeyDerPath) {
             throw new \RuntimeException('Private key in DER format (input) was not set');
         }
@@ -136,12 +132,6 @@ class OpenSSL
         }
 
         return $exported;
-    }
-
-    protected function whichOpenSSL(): string
-    {
-        $shellWhich = new ShellWhich();
-        return $shellWhich->search('openssl');
     }
 
     private function extractPEMContents(string $contents, string $type): string

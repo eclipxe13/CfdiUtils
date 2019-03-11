@@ -34,21 +34,6 @@ class OpenSSLTest extends TestCase
         $openssl->convertPrivateKeyFileDERToPEM($derPrimaryKeyFile, '12345678a');
     }
 
-    public function testConvertPrivateKeyFileDERToPEMWithEmtyOpensslPath()
-    {
-        $openssl = new class() extends OpenSSL {
-            protected function whichOpenSSL(): string
-            {
-                return ''; // simulate wich does not found openssl
-            }
-        };
-        $derPrimaryKeyFile = $this->utilAsset('certs/CSD01_AAA010101AAA.key');
-
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Cannot locate openssl executable');
-        $openssl->convertPrivateKeyFileDERToPEM($derPrimaryKeyFile, '12345678a');
-    }
-
     public function testConvertPrivateKeyFileDERToPEMWithInvalidInputKey()
     {
         $openssl = new OpenSSL();
