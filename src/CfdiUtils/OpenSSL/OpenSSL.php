@@ -87,14 +87,19 @@ class OpenSSL
             throw new \RuntimeException('Private key in PEM format (output) must not exists or be empty');
         }
 
-        $command = sprintf(
-            '%s pkcs8 -inform DER -passin %s -in %s -out %s',
-            escapeshellarg($opensslPath),
-            escapeshellarg('pass:' . $passPhrase),
-            escapeshellarg($privateKeyDerPath),
-            escapeshellarg($privateKeyPemPath)
-        );
-        $execution = ShellExec::run($command);
+        $command = [
+            $opensslPath,
+            'pkcs8',
+            '-inform',
+            'DER',
+            '-passin',
+            'env:PASSIN',
+            '-in',
+            $privateKeyDerPath,
+            '-out',
+            $privateKeyPemPath,
+        ];
+        $execution = ShellExec::run($command, ['PASSIN' => $passPhrase]);
 
         if ($execution->exitStatus() !== 0) {
             throw new \RuntimeException(

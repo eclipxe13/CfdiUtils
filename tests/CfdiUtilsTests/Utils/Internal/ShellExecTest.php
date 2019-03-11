@@ -6,48 +6,33 @@ use PHPUnit\Framework\TestCase;
 
 class ShellExecTest extends TestCase
 {
-    public function testRun()
+    public function testRunGenericOperatingSystemCommand()
     {
-        $command = sprintf('dir %s', escapeshellcmd(__FILE__));
+        $command = ['dir', '%s', __FILE__];
         $execution = ShellExec::run($command);
 
-        $thisfile = basename(__FILE__);
-        // $this->assertSame($command, $execution->command());
-        $this->assertSame(0, $execution->exitStatus());
-        $this->assertContains($thisfile, $execution->output());
+        $expectedContent = basename(__FILE__);
+        $this->assertContains($expectedContent, $execution->output());
     }
 
     public function testRunExpectingExitStatus()
     {
-        $command = implode(' ', array_map('escapeshellarg', [PHP_BINARY, '-r', 'exit(8);']));
+        $command = [PHP_BINARY, '-r', 'exit(8);'];
 
         $execution = ShellExec::run($command);
 
         $this->assertSame(8, $execution->exitStatus());
     }
 
-    public function testCaptureErrorsDontGoToOutput()
+    public function testCaptureOutputAndErrors()
     {
         $printer = implode(PHP_EOL, [
             'file_put_contents("php://stderr", "Line sent to STDERR", FILE_APPEND);',
             'file_put_contents("php://stdout", "Line sent to STDOUT", FILE_APPEND);',
         ]);
-        $command = implode(' ', array_map('escapeshellarg', [PHP_BINARY, '-r', $printer]));
+        $command = [PHP_BINARY, '-r', $printer];
 
         $execution = ShellExec::run($command);
-
-        $this->assertSame('Line sent to STDOUT', $execution->output());
-    }
-
-    public function testCaptureErrors()
-    {
-        $printer = implode(PHP_EOL, [
-            'file_put_contents("php://stderr", "Line sent to STDERR", FILE_APPEND);',
-            'file_put_contents("php://stdout", "Line sent to STDOUT", FILE_APPEND);',
-        ]);
-        $command = implode(' ', array_map('escapeshellarg', [PHP_BINARY, '-r', $printer]));
-
-        $execution = ShellExec::run($command, true);
 
         $this->assertSame('Line sent to STDOUT', $execution->output());
         $this->assertSame('Line sent to STDERR', $execution->errors());
@@ -60,11 +45,25 @@ class ShellExecTest extends TestCase
             'file_put_contents("php://stdout", "BYE", FILE_APPEND);',
             'exit(2);',
         ]);
-        $command = implode(' ', array_map('escapeshellarg', [PHP_BINARY, '-r', $printer]));
+        $command = [PHP_BINARY, '-r', $printer];
 
         $execution = ShellExec::run($command);
 
         $this->assertSame('BYE', $execution->output());
         $this->assertSame(2, $execution->exitStatus());
+    }
+
+    public function testCanSendEnvironment()
+    {
+        $printer = 'echo getenv("FOO"), " / ", getenv("BAR");';
+        $command = [PHP_BINARY, '-r', $printer];
+
+        $environment = [
+            'FOO' => 'f o o',
+            'BAR' => 'b a r',
+        ];
+        $execution = ShellExec::run($command, $environment);
+
+        $this->assertSame('f o o / b a r', $execution->output());
     }
 }

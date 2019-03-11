@@ -1,6 +1,8 @@
 <?php
 namespace CfdiUtils\Utils\Internal;
 
+use Symfony\Component\Process\Process;
+
 /**
  * Execute a command and retrieve results
  *
@@ -10,31 +12,29 @@ namespace CfdiUtils\Utils\Internal;
  */
 class ShellExec
 {
-    /** @var string */
+    /** @var array */
     private $command;
 
-    /** @var bool */
-    private $captureErrorsFlag;
+    /** @var array */
+    private $environment;
 
-    public function __construct(
-        string $command,
-        bool $captureErrorsFlag
-    ) {
-        if ('' === $command) {
+    public function __construct(array $command, array $environment)
+    {
+        if ([] === $command) {
             throw new \InvalidArgumentException('Command was not set');
         }
         $this->command = $command;
-        $this->captureErrorsFlag = $captureErrorsFlag;
+        $this->environment = $environment;
     }
 
-    public function getCommand(): string
+    public function getCommand(): array
     {
         return $this->command;
     }
 
-    public function getCaptureErrorsFlag(): bool
+    public function getEnvironment(): array
     {
-        return $this->captureErrorsFlag;
+        return $this->environment;
     }
 
     public function operatingSystemIsWindows(): bool
@@ -49,45 +49,15 @@ class ShellExec
 
     public function exec(): ShellExecResult
     {
-        if ($this->getCaptureErrorsFlag()) {
-            return $this->execCapturingErrors();
-        }
-
-        return $this->execIgnoringErrors();
+        $process = new Process($this->getCommand());
+        $process->setEnv($this->getEnvironment());
+        $process->run();
+        return new ShellExecResult($process->getExitCode() ?? -1, $process->getOutput(), $process->getErrorOutput());
     }
 
-    private function execCapturingErrors(): ShellExecResult
+    public static function run(array $command, array $environment = []): ShellExecResult
     {
-        $errFile = TemporaryFile::create();
-        try {
-            $result = $this->execUsingErrorsFile($errFile->getPath());
-            $errors = strval(file_get_contents($errFile->getPath()));
-            return new ShellExecResult($result->exitStatus(), $result->output(), $errors);
-        } finally {
-            $errFile->remove();
-        }
-    }
-
-    private function execIgnoringErrors(): ShellExecResult
-    {
-        return $this->execUsingErrorsFile($this->nullByOs());
-    }
-
-    private function execUsingErrorsFile(string $stdErrFile): ShellExecResult
-    {
-        $null = $this->nullByOs();
-        $output = [];
-        $exitCode = -1;
-        $command = $this->getCommand();
-        @exec($command . " 2> $stdErrFile < $null", $output, $exitCode);
-        return new ShellExecResult($exitCode, implode(PHP_EOL, $output), '');
-    }
-
-    public static function run(
-        string $command,
-        bool $captureErrorsFlag = false
-    ): ShellExecResult {
-        $shellExec = new self($command, $captureErrorsFlag);
+        $shellExec = new self($command, $environment);
         return $shellExec->exec();
     }
 }
