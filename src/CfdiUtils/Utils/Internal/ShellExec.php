@@ -1,6 +1,8 @@
 <?php
 namespace CfdiUtils\Utils\Internal;
 
+use Symfony\Component\Process\Process;
+
 /**
  * Execute a command and retrieve results
  *
@@ -16,42 +18,15 @@ class ShellExec
     /** @var array */
     private $environment;
 
-    /** @var int */
-    private $waitMinimalMs;
-
-    /** @var int */
-    private $waitMaximumMs;
-
-    /** @var int */
-    private $waitIncrementalFactor;
-
     public function __construct(
         string $command,
-        array $environment,
-        int $waitMinimalMs,
-        int $waitMaximumMs,
-        int $waitIncrementalFactor
+        array $environment
     ) {
         if ('' === $command) {
             throw new \InvalidArgumentException('Command was not set');
         }
-        if ($waitMinimalMs < 10) {
-            throw new \InvalidArgumentException('The minimal wait in milliseconds cannot be lower than 10');
-        }
-        if ($waitMaximumMs < $waitMinimalMs) {
-            throw new \InvalidArgumentException('The minimal wait in milliseconds cannot be higher than minimal');
-        }
-        if ($waitMaximumMs > 1000) {
-            throw new \InvalidArgumentException('The minimal wait in milliseconds cannot be higher than 1000');
-        }
-        if ($waitIncrementalFactor < 2) {
-            throw new \InvalidArgumentException('The wait incremental factor cannot be higher than 1000');
-        }
         $this->command = $command;
         $this->environment = $environment;
-        $this->waitMinimalMs = $waitMinimalMs;
-        $this->waitMaximumMs = $waitMaximumMs;
-        $this->waitIncrementalFactor = $waitIncrementalFactor;
     }
 
     public function getCommand(): string
@@ -64,69 +39,18 @@ class ShellExec
         return $this->environment;
     }
 
-    public function getWaitMinimalMs(): int
+    public function exec(): ShellExecResult
     {
-        return $this->waitMinimalMs;
-    }
-
-    public function getWaitMaximumMs(): int
-    {
-        return $this->waitMaximumMs;
-    }
-
-    public function getWaitIncrementalFactor(): int
-    {
-        return $this->waitIncrementalFactor;
-    }
-
-    public function exec()
-    {
-        $specs = [
-            0 => ['pipe', 'r'], // stdin
-            1 => ['pipe', 'w'], // stdout
-            2 => ['pipe', 'w'], // stderr
-        ];
-        $pipes = [];
-        $process = proc_open($this->getCommand(), $specs, $pipes, null, $this->getEnvironment());
-        if (false === $process) {
-            return new \RuntimeException(sprintf('Unable to execute: %s', $this->getCommand()));
-        }
-        fclose($pipes[0]);
-
-        $stdout = new ShellExecPipeReader($pipes[1]);
-        $stderr = new ShellExecPipeReader($pipes[2]);
-
-        $waitMs = $this->getWaitMinimalMs();
-        while ($stdout->continueReading() || $stderr->continueReading()) {
-            $anyRead = false;
-            if ($stdout->continueReading()) {
-                $anyRead = $stdout->read();
-            }
-            if ($stderr->continueReading()) {
-                $anyRead = $stderr->read() || $anyRead;
-            }
-            if ($anyRead) {
-                $waitMs = $this->getWaitMinimalMs();
-            } else {
-                usleep($waitMs);
-                if ($waitMs < $this->getWaitMaximumMs()) {
-                    $waitMs = $waitMs * $this->getWaitIncrementalFactor();
-                }
-            }
-        }
-        $exitStatus = proc_close($process);
-
-        return new ShellExecResult($exitStatus, $stdout->buffer(), $stderr->buffer());
+        $process = Process::fromShellCommandline($this->getCommand(), null, $this->getEnvironment());
+        $process->run();
+        return new ShellExecResult($process->getExitCode(), $process->getOutput(), $process->getErrorOutput());
     }
 
     public static function run(
         string $command,
-        array $environment = [],
-        int $waitMinimalMs = 10,
-        int $waitMaximumMs = 360,
-        int $waitIncrementalFactor = 2
+        array $environment = []
     ): ShellExecResult {
-        $shellExec = new self($command, $environment, $waitMinimalMs, $waitMaximumMs, $waitIncrementalFactor);
+        $shellExec = new self($command, $environment);
         return $shellExec->exec();
     }
 }
