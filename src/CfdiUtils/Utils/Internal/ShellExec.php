@@ -120,8 +120,11 @@ class ShellExec
         $null = $this->nullByOs();
         $output = [];
         $exitCode = -1;
-        $command = $this->getEnvironmentAsCommand() . $this->getCommand() . " 2> $stdErrFile < $null";
-        @exec($command, $output, $exitCode);
+        $command = $this->getEnvironmentAsCommand() . $this->getCommand();
+        if ($this->operatingSystemIsWindows()) {
+            $command = 'cmd /c ' . escapeshellarg($command);
+        }
+        @exec($command . " 2> $stdErrFile < $null", $output, $exitCode);
         return new ShellExecResult($exitCode, implode(PHP_EOL, $output), '');
     }
 
