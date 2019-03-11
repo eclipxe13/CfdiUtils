@@ -20,7 +20,7 @@ addons:
       - libsaxonb-java
 
 env:
-  - FULL_BUILD_PHP_VERSION="7.0"
+  - FULL_BUILD_PHP_VERSION="7.3"
 
 before_script:
   - travis_retry composer install --no-interaction --prefer-dist
