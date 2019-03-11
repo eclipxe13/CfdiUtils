@@ -38,7 +38,10 @@ class TemporaryFileTest extends TestCase
     {
         // redirect test to MS Windows case
         if ($this->isRunningOnWindows()) {
-            $this->windowsTestCreateOnReadOnlyFolderThrowsException();
+            // don't know how to test this on AppVeyor
+            // since MS Windows create file on folder with chmod 0400
+            // and AppVeyor allow write on WINDIR
+            $this->markTestSkipped('Cannot create scenario to perform this test on MS Windows');
             return;
         }
 
@@ -57,13 +60,5 @@ class TemporaryFileTest extends TestCase
             chmod($directory, 0700);
             rmdir($directory);
         }
-    }
-
-    public function windowsTestCreateOnReadOnlyFolderThrowsException()
-    {
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Unable to create a temporary file');
-
-        TemporaryFile::create(strval(getenv('WINDIR')));
     }
 }
