@@ -12,21 +12,25 @@ class OpenSSLTest extends TestCase
         $this->assertSame('foobar', $openssl->getOpenSSLPath());
     }
 
-    public function testConvertCertificateToPEM()
+    public function testConvertCertificateToPem()
     {
         $openssl = new OpenSSL();
         $certificateDer = strval(file_get_contents($this->utilAsset('certs/CSD01_AAA010101AAA.cer')));
         $certificatePem = strval(file_get_contents($this->utilAsset('certs/CSD01_AAA010101AAA.cer.pem')));
         $expected = $openssl->extractCertificate($certificatePem);
+        // windows compat: put this since $certificatePem as LF line endings
+        if ("\n" !== PHP_EOL) {
+            $expected = str_replace("\n", PHP_EOL, $expected);
+        }
 
         $converted = $openssl->convertCertificateToPEM($certificateDer);
 
         $this->assertSame($expected, $converted);
     }
 
-    public function testConvertPrivateKeyFileDERToPEMWithInvalidPathToOpenssl()
+    public function testConvertPrivateKeyFileDerToPemWithInvalidPathToOpenssl()
     {
-        $openssl = new OpenSSL('/invalid/openssl');
+        $openssl = new OpenSSL('invalid-openssl');
         $derPrimaryKeyFile = $this->utilAsset('certs/CSD01_AAA010101AAA.key');
 
         $this->expectException(\RuntimeException::class);
@@ -34,7 +38,7 @@ class OpenSSLTest extends TestCase
         $openssl->convertPrivateKeyFileDERToPEM($derPrimaryKeyFile, '12345678a');
     }
 
-    public function testConvertPrivateKeyFileDERToPEMWithInvalidInputKey()
+    public function testConvertPrivateKeyFileDerToPemWithInvalidInputKey()
     {
         $openssl = new OpenSSL();
         $derPrimaryKeyFile = $this->utilAsset('certs/CSD01_AAA010101AAA.key.notfound');

@@ -110,34 +110,71 @@ class OpenSSL
 
     public function protectPrivateKeyPEM(string $contents, string $inPassPhrase, string $outPassPhrase): string
     {
-        if ($inPassPhrase === $outPassPhrase) {
-            throw new \RuntimeException('The current pass phrase and the new pass phrase are the same');
-        }
-
-        // this error silenced call is intentional, avoid error and evaluate returned value
-        $key = @openssl_pkey_get_private($contents, $inPassPhrase);
-        if (! is_resource($key)) {
-            throw new \RuntimeException('Unable to open private key');
-        }
-
-        $exported = '';
+        $tempfile = TemporaryFile::create();
         try {
-            $exportcall = openssl_pkey_export($key, $exported, $outPassPhrase, [
-                'private_key_type' => OPENSSL_KEYTYPE_RSA,
-                'encrypt_key_cipher' => OPENSSL_CIPHER_3DES,
-            ]);
-            if (! $exportcall) {
-                throw new \RuntimeException('Unable to export private key');
-            }
+            file_put_contents($tempfile->getPath(), $contents);
+            return $this->protectPrivateKeyPEMFileToPEM($tempfile->getPath(), $inPassPhrase, $outPassPhrase);
         } finally {
-            openssl_free_key($key);
+            $tempfile->remove();
+        }
+    }
+
+    public function protectPrivateKeyPEMFileToPEM(
+        string $pemInFile,
+        string $inPassPhrase,
+        string $outPassPhrase
+    ): string {
+        $tempfile = TemporaryFile::create();
+        try {
+            $this->protectPrivateKeyPEMFileToPEMFile($pemInFile, $inPassPhrase, $tempfile->getPath(), $outPassPhrase);
+            $output = strval(file_get_contents($tempfile->getPath()));
+        } finally {
+            $tempfile->remove();
         }
 
-        if ('' === $exported) {
-            throw new \RuntimeException('Unable to export private key');
+        if ('' === $output) {
+            throw new \RuntimeException(sprintf('OpenSSL execution error. Cannot capture STDOUT'));
         }
 
-        return $exported;
+        return $output;
+    }
+
+    public function protectPrivateKeyPEMFileToPEMFile(
+        string $pemInFile,
+        string $inPassPhrase,
+        string $pemOutFile,
+        string $outPassPhrase
+    ) {
+        if ('' === $pemInFile) {
+            throw new \RuntimeException('Private key in PEM format (input) was not set');
+        }
+        if ('' === $pemOutFile) {
+            throw new \RuntimeException('Private key in PEM format (output) was not set');
+        }
+        if (file_exists($pemOutFile) && filesize($pemOutFile) > 0) {
+            throw new \RuntimeException('Private key in PEM format (output) must not exists or be empty');
+        }
+
+        $command = [
+            $this->getOpenSSLPath() ?: 'openssl',
+            'rsa',
+            '-in',
+            $pemInFile,
+            '-passin',
+            'env:PASSIN',
+            '-des3',
+            '-out',
+            $pemOutFile,
+            '-passout',
+            'env:PASSOUT',
+        ];
+        $execution = ShellExec::run($command, ['PASSIN' => $inPassPhrase, 'PASSOUT' => $outPassPhrase]);
+
+        if ($execution->exitStatus() !== 0) {
+            throw new \RuntimeException(
+                sprintf('OpenSSL execution error. Exit status: %d', $execution->exitStatus())
+            );
+        }
     }
 
     private function extractPEMContents(string $contents, string $type): string
