@@ -26,15 +26,28 @@ class ShellExecTest extends TestCase
         $this->assertSame(8, $execution->exitStatus());
     }
 
-    public function testCapturesStdoutStderr()
+    public function testCaptureErrorsDontGoToOutput()
     {
         $printer = implode(PHP_EOL, [
-            'file_put_contents("php://stdout", "Line sent to STDOUT", FILE_APPEND);',
             'file_put_contents("php://stderr", "Line sent to STDERR", FILE_APPEND);',
+            'file_put_contents("php://stdout", "Line sent to STDOUT", FILE_APPEND);',
         ]);
         $command = implode(' ', array_map('escapeshellarg', [PHP_BINARY, '-r', $printer]));
 
         $execution = ShellExec::run($command);
+
+        $this->assertSame('Line sent to STDOUT', $execution->output());
+    }
+
+    public function testCaptureErrors()
+    {
+        $printer = implode(PHP_EOL, [
+            'file_put_contents("php://stderr", "Line sent to STDERR", FILE_APPEND);',
+            'file_put_contents("php://stdout", "Line sent to STDOUT", FILE_APPEND);',
+        ]);
+        $command = implode(' ', array_map('escapeshellarg', [PHP_BINARY, '-r', $printer]));
+
+        $execution = ShellExec::run($command, [], true);
 
         $this->assertSame('Line sent to STDOUT', $execution->output());
         $this->assertSame('Line sent to STDERR', $execution->errors());
@@ -55,7 +68,7 @@ class ShellExecTest extends TestCase
         $this->assertSame(2, $execution->exitStatus());
     }
 
-    public function testCanSendEnvinment()
+    public function testCanSendEnvironment()
     {
         $printer = implode(PHP_EOL, [
             'echo getenv("FOO"), " ", getenv("BAR");',
@@ -63,11 +76,11 @@ class ShellExecTest extends TestCase
         $command = implode(' ', array_map('escapeshellarg', [PHP_BINARY, '-r', $printer]));
 
         $environment = [
-            'FOO' => 'foo',
-            'BAR' => 'bar',
+            'FOO' => 'f o o',
+            'BAR' => 'b a r',
         ];
         $execution = ShellExec::run($command, $environment);
 
-        $this->assertSame('foo bar', $execution->output());
+        $this->assertSame('f o o b a r', $execution->output());
     }
 }

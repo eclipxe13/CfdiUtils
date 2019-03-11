@@ -28,7 +28,7 @@ class ShellExecResult
     /** @var string[]|null */
     private $errorLines;
 
-    public function __construct($exitStatus, $output, $errors)
+    public function __construct(int $exitStatus, string $output, string $errors)
     {
         $this->exitStatus = $exitStatus;
         $this->output = $output;
