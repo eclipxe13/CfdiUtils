@@ -63,6 +63,6 @@ class PemExtractor
 
     protected function fixLineEndings(string $content): string
     {
-        return preg_replace('/\v/', PHP_EOL, $content) ?: '';
+        return str_replace("\n", PHP_EOL, str_replace("\r", '', $content));
     }
 }
