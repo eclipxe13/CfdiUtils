@@ -90,9 +90,9 @@ class Certificado
     private function obtainPemCertificate(string $contents): string
     {
         $openssl = $this->getOpenSSL();
-        $extracted = $openssl->extractCertificate($contents);
+        $extracted = $openssl->readPemContents($contents)->certificate();
         if ('' === $extracted) { // cannot extract, should be PEM
-            $extracted = $openssl->convertCertificateToPEM($contents);
+            $extracted = $openssl->derCerConvertPhp($contents);
         }
         return $extracted;
     }
@@ -113,10 +113,10 @@ class Certificado
     {
         $this->assertFileExists($pemKeyFile);
         $openSSL = $this->getOpenSSL();
-        $keyContents = $openSSL->extractPrivateKey(
+        $keyContents = $openSSL->readPemContents(
             // intentionally silence this error, if return false then cast it to string
             strval(@file_get_contents($pemKeyFile))
-        );
+        )->privateKey();
         if ('' === $keyContents) {
             throw new \UnexpectedValueException("The file $pemKeyFile is not a PEM private key");
         }

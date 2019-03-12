@@ -35,7 +35,7 @@ class PemPrivateKey
             }
         }
         $this->setOpenSSL($openSSL ?: new OpenSSL());
-        $key = $this->getOpenSSL()->extractPrivateKey($key);
+        $key = $this->getOpenSSL()->readPemContents($key)->privateKey();
         if ('' === $key) {
             throw new \UnexpectedValueException('The key is not a file or a string PEM format private key');
         }
@@ -129,6 +129,6 @@ class PemPrivateKey
         }
 
         $openSSL = new OpenSSL();
-        return (rtrim($keyContents) === $openSSL->extractPrivateKey($keyContents));
+        return (rtrim($keyContents) === $openSSL->readPemContents($keyContents)->privateKey());
     }
 }

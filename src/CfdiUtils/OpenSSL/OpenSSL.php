@@ -1,189 +1,133 @@
 <?php
 namespace CfdiUtils\OpenSSL;
 
-use CfdiUtils\Utils\Internal\ShellExec;
 use CfdiUtils\Utils\Internal\TemporaryFile;
 
 class OpenSSL
 {
-    private $openSSLPath;
+    /** @var Caller */
+    private $caller;
 
-    public function __construct(string $openSSLPath = '')
+    public function __construct(Caller $caller = null)
     {
-        $this->openSSLPath = $openSSLPath;
+        $this->caller = $caller ?: new Caller();
     }
 
-    public function getOpenSSLPath(): string
+    public function getCaller(): Caller
     {
-        return $this->openSSLPath;
+        return $this->caller;
     }
 
-    public function extractCertificate(string $contents)
+    public function readPemFile(string $pemFile): PemContainer
     {
-        return $this->extractPEMContents($contents, 'CERTIFICATE');
+        $this->checkInputFile($pemFile);
+        return $this->readPemContents(strval(file_get_contents($pemFile)));
     }
 
-    public function convertCertificateToPEM(string $contents): string
+    public function readPemContents(string $contents): PemContainer
+    {
+        $extractor = new PemExtractor($contents);
+        $pemContainer = $extractor->pemContainer();
+        return $pemContainer;
+    }
+
+    public function derCerConvertPhp(string $derContent): string
     {
         return '-----BEGIN CERTIFICATE-----' . PHP_EOL
-            . chunk_split(base64_encode($contents), 64, PHP_EOL)
+            . chunk_split(base64_encode($derContent), 64, PHP_EOL)
             . '-----END CERTIFICATE-----';
     }
 
-    public function extractPrivateKey(string $contents)
+    public function derCerConvert(string $derInFile, string $pemOutFile)
     {
-        foreach (['PRIVATE KEY', 'RSA PRIVATE KEY', 'ENCRYPTED PRIVATE KEY'] as $type) {
-            $extracted = $this->extractPEMContents($contents, $type);
-            if ('' !== $extracted) {
-                return $extracted;
+        $this->checkInputFile($derInFile);
+        $this->checkOutputFile($pemOutFile);
+        $this->getCaller()->run(
+            'x509 -inform DER -in ? -outform PEM -out ?',
+            [$derInFile, $pemOutFile]
+        );
+    }
+
+    public function derKeyConvert(string $derInFile, string $inPassPhrase, string $pemOutFile)
+    {
+        $this->checkInputFile($derInFile);
+        $this->checkOutputFile($pemOutFile);
+
+        $this->getCaller()->run(
+            'pkcs8 -inform DER -in ? -passin env:PASSIN -out ?',
+            [$derInFile, $pemOutFile],
+            ['PASSIN' => $inPassPhrase]
+        );
+    }
+
+    public function pemKeyProtect(string $pemInFile, string $inPassPhrase, string $pemOutFile, string $outPassPhrase)
+    {
+        if ('' === $outPassPhrase) {
+            $this->pemKeyUnprotect($pemInFile, $inPassPhrase, $pemOutFile);
+            return;
+        }
+
+        $this->checkInputFile($pemInFile);
+        $this->checkOutputFile($pemOutFile);
+
+        $this->getCaller()->run(
+            'rsa -in ? -passin env:PASSIN -des3 -out ? -passout env:PASSOUT',
+            [$pemInFile, $pemOutFile],
+            ['PASSIN' => $inPassPhrase, 'PASSOUT' => $outPassPhrase]
+        );
+    }
+
+    public function pemKeyUnprotect(string $pemInFile, string $inPassPhrase, string $pemOutFile)
+    {
+        $this->checkInputFile($pemInFile);
+        $this->checkOutputFile($pemOutFile);
+
+        $this->getCaller()->run(
+            'rsa -in ? -passin env:PASSIN -out ?',
+            [$pemInFile, $pemOutFile],
+            ['PASSIN' => $inPassPhrase]
+        );
+    }
+
+    public function derKeyProtect(string $derInFile, string $inPassPhrase, string $pemOutFile, string $outPassPhrase)
+    {
+        $tempfile = TemporaryFile::create();
+        try {
+            $this->derKeyConvert($derInFile, $inPassPhrase, $tempfile->getPath());
+            $this->pemKeyProtect($tempfile->getPath(), '', $pemOutFile, $outPassPhrase);
+        } finally {
+            $tempfile->remove();
+        }
+    }
+
+    protected function checkInputFile(string $path)
+    {
+        // file must exists, not a directory and must contain a non-zero size
+        if (! file_exists($path)) {
+            throw new OpenSSLException("File $path does not exists");
+        }
+        if (is_dir($path)) {
+            throw new OpenSSLException("File $path is a directory");
+        }
+        if (filesize($path) === 0) {
+            throw new OpenSSLException("File $path is empty");
+        }
+    }
+
+    protected function checkOutputFile(string $path)
+    {
+        // file should not exists or exists but contain a zero size
+        if (! file_exists($path)) {
+            if (! is_dir(dirname($path))) {
+                throw new OpenSSLException("Directory of $path does not exists");
             }
+            return;
         }
-        return '';
-    }
-
-    public function convertPrivateKeyContentsDERToPEM(string $contents, string $passPhrase): string
-    {
-        $tempkey = TemporaryFile::create();
-        file_put_contents($tempkey->getPath(), $contents);
-        unset($contents);
-
-        try {
-            return $this->convertPrivateKeyFileDERToPEM($tempkey->getPath(), $passPhrase);
-        } finally {
-            $tempkey->remove();
+        if (is_dir($path)) {
+            throw new OpenSSLException("File $path is a directory");
         }
-    }
-
-    public function convertPrivateKeyFileDERToPEM(string $privateKeyPath, string $passPhrase): string
-    {
-        $tempfile = TemporaryFile::create();
-        try {
-            $this->convertPrivateKeyFileDERToFilePEM($privateKeyPath, $passPhrase, $tempfile->getPath());
-            $output = strval(file_get_contents($tempfile->getPath()));
-        } finally {
-            $tempfile->remove();
+        if (filesize($path) > 0) {
+            throw new OpenSSLException("File $path is not empty");
         }
-
-        if ('' === $output) {
-            throw new \RuntimeException(sprintf('OpenSSL execution error. Cannot capture STDOUT'));
-        }
-
-        return $output;
-    }
-
-    public function convertPrivateKeyFileDERToFilePEM(
-        string $privateKeyDerPath,
-        string $passPhrase,
-        string $privateKeyPemPath
-    ) {
-        $opensslPath = $this->getOpenSSLPath() ?: 'openssl';
-        if ('' === $privateKeyDerPath) {
-            throw new \RuntimeException('Private key in DER format (input) was not set');
-        }
-        if ('' === $privateKeyPemPath) {
-            throw new \RuntimeException('Private key in PEM format (output) was not set');
-        }
-        if (file_exists($privateKeyPemPath) && filesize($privateKeyPemPath) > 0) {
-            throw new \RuntimeException('Private key in PEM format (output) must not exists or be empty');
-        }
-
-        $command = [
-            $opensslPath,
-            'pkcs8',
-            '-inform',
-            'DER',
-            '-passin',
-            'env:PASSIN',
-            '-in',
-            $privateKeyDerPath,
-            '-out',
-            $privateKeyPemPath,
-        ];
-        $execution = ShellExec::run($command, ['PASSIN' => $passPhrase]);
-
-        if ($execution->exitStatus() !== 0) {
-            throw new \RuntimeException(
-                sprintf('OpenSSL execution error. Exit status: %d', $execution->exitStatus())
-            );
-        }
-    }
-
-    public function protectPrivateKeyPEM(string $contents, string $inPassPhrase, string $outPassPhrase): string
-    {
-        $tempfile = TemporaryFile::create();
-        try {
-            file_put_contents($tempfile->getPath(), $contents);
-            return $this->protectPrivateKeyPEMFileToPEM($tempfile->getPath(), $inPassPhrase, $outPassPhrase);
-        } finally {
-            $tempfile->remove();
-        }
-    }
-
-    public function protectPrivateKeyPEMFileToPEM(
-        string $pemInFile,
-        string $inPassPhrase,
-        string $outPassPhrase
-    ): string {
-        $tempfile = TemporaryFile::create();
-        try {
-            $this->protectPrivateKeyPEMFileToPEMFile($pemInFile, $inPassPhrase, $tempfile->getPath(), $outPassPhrase);
-            $output = strval(file_get_contents($tempfile->getPath()));
-        } finally {
-            $tempfile->remove();
-        }
-
-        if ('' === $output) {
-            throw new \RuntimeException(sprintf('OpenSSL execution error. Cannot capture STDOUT'));
-        }
-
-        return $output;
-    }
-
-    public function protectPrivateKeyPEMFileToPEMFile(
-        string $pemInFile,
-        string $inPassPhrase,
-        string $pemOutFile,
-        string $outPassPhrase
-    ) {
-        if ('' === $pemInFile) {
-            throw new \RuntimeException('Private key in PEM format (input) was not set');
-        }
-        if ('' === $pemOutFile) {
-            throw new \RuntimeException('Private key in PEM format (output) was not set');
-        }
-        if (file_exists($pemOutFile) && filesize($pemOutFile) > 0) {
-            throw new \RuntimeException('Private key in PEM format (output) must not exists or be empty');
-        }
-
-        $command = [
-            $this->getOpenSSLPath() ?: 'openssl',
-            'rsa',
-            '-in',
-            $pemInFile,
-            '-passin',
-            'env:PASSIN',
-            '-des3',
-            '-out',
-            $pemOutFile,
-            '-passout',
-            'env:PASSOUT',
-        ];
-        $execution = ShellExec::run($command, ['PASSIN' => $inPassPhrase, 'PASSOUT' => $outPassPhrase]);
-
-        if ($execution->exitStatus() !== 0) {
-            throw new \RuntimeException(
-                sprintf('OpenSSL execution error. Exit status: %d', $execution->exitStatus())
-            );
-        }
-    }
-
-    private function extractPEMContents(string $contents, string $type): string
-    {
-        $matches = [];
-        $type = preg_quote($type, '/');
-        // : , - are used un RSA PRIVATE KEYS
-        $pattern = '/^-----BEGIN ' . $type . '-----[\sA-Za-z0-9+=\/:,-]+-----END ' . $type . '-----/m';
-        preg_match($pattern, $contents, $matches);
-        return strval($matches[0] ?? '');
     }
 }

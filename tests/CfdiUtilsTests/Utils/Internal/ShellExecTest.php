@@ -9,7 +9,7 @@ class ShellExecTest extends TestCase
     public function testRunGenericOperatingSystemCommand()
     {
         $command = ['dir', '%s', __FILE__];
-        $execution = ShellExec::run($command);
+        $execution = (new ShellExec($command))->exec();
 
         $expectedContent = basename(__FILE__);
         $this->assertContains($expectedContent, $execution->output());
@@ -19,7 +19,7 @@ class ShellExecTest extends TestCase
     {
         $command = [PHP_BINARY, '-r', 'exit(8);'];
 
-        $execution = ShellExec::run($command);
+        $execution = (new ShellExec($command))->exec();
 
         $this->assertSame(8, $execution->exitStatus());
     }
@@ -32,7 +32,7 @@ class ShellExecTest extends TestCase
         ]);
         $command = [PHP_BINARY, '-r', $printer];
 
-        $execution = ShellExec::run($command);
+        $execution = (new ShellExec($command))->exec();
 
         $this->assertSame('Line sent to STDOUT', $execution->output());
         $this->assertSame('Line sent to STDERR', $execution->errors());
@@ -47,7 +47,7 @@ class ShellExecTest extends TestCase
         ]);
         $command = [PHP_BINARY, '-r', $printer];
 
-        $execution = ShellExec::run($command);
+        $execution = (new ShellExec($command))->exec();
 
         $this->assertSame('BYE', $execution->output());
         $this->assertSame(2, $execution->exitStatus());
@@ -62,7 +62,7 @@ class ShellExecTest extends TestCase
             'FOO' => 'f o o',
             'BAR' => 'b a r',
         ];
-        $execution = ShellExec::run($command, $environment);
+        $execution = (new ShellExec($command, $environment))->exec();
 
         $this->assertSame('f o o / b a r', $execution->output());
     }

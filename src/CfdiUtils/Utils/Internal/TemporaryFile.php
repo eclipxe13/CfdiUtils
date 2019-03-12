@@ -57,4 +57,9 @@ final class TemporaryFile
             unlink($filename);
         }
     }
+
+    public function __toString(): string
+    {
+        return $this->getPath();
+    }
 }
