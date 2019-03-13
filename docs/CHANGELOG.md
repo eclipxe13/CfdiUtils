@@ -23,6 +23,11 @@
 
 - Add `CfdiUtils\OpenSSL`, a library to help working with `openssl` commands
   and CER, KEY and PEM files. Fully tested and [documented](https://cfdiutils.readthedocs.io/es/utilerias/openssl/).
+- Improve other components by depends on `CfdiUtils\OpenSSL`:
+    - `CfdiUtils\Certificado\Certificado`:
+        - Use `OpenSSLPropertyTrait`.
+        - Allow to construct using a `OpenSSL` object, default to create a new one.
+        - Remove protected method `changeCerToPem`.
 - Internal: `TemporaryFile` now is able to cast itself to string, retrieve contents,
   store contents and remove file after run some function even if exception was thrown.
 - Internal: Add `ShellExec` class that works around with `symfony/process` component. Also added:

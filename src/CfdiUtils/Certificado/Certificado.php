@@ -1,8 +1,13 @@
 <?php
 namespace CfdiUtils\Certificado;
 
+use CfdiUtils\OpenSSL\OpenSSL;
+use CfdiUtils\OpenSSL\OpenSSLPropertyTrait;
+
 class Certificado
 {
+    use OpenSSLPropertyTrait;
+
     /** @var string */
     private $rfc;
 
@@ -34,31 +39,26 @@ class Certificado
      * Certificado constructor.
      *
      * @param string $filename
+     * @param OpenSSL $openSSL
      * @throws \UnexpectedValueException when the file does not exists or is not readable
      * @throws \UnexpectedValueException when cannot read the certificate file or is empty
      * @throws \RuntimeException when cannot parse the certificate file or is empty
      * @throws \RuntimeException when cannot get serialNumberHex or serialNumber from certificate
      */
-    public function __construct(string $filename)
+    public function __construct(string $filename, OpenSSL $openSSL = null)
     {
         $this->assertFileExists($filename);
-        // read contents, cast to string to avoid FALSE
-        if ('' === $contents = strval(file_get_contents($filename))) {
+        $contents = strval(file_get_contents($filename));
+        if ('' === $contents) {
             throw new \UnexpectedValueException("File $filename is empty");
         }
-
-        // change to PEM format if it is not already
-        if (0 !== strpos($contents, '-----BEGIN CERTIFICATE-----')) {
-            $contents = $this->changeCerToPem($contents);
-        }
+        $this->setOpenSSL($openSSL ?: new OpenSSL());
+        $contents = $this->obtainPemCertificate($contents);
 
         // get the certificate data
         $data = openssl_x509_parse($contents, true);
         if (! is_array($data)) {
             throw new \RuntimeException("Cannot parse the certificate file $filename");
-        }
-        if (! isset($data['subject'])) {
-            $data['subject'] = [];
         }
 
         // get the public key
@@ -84,6 +84,16 @@ class Certificado
         $this->filename = $filename;
     }
 
+    private function obtainPemCertificate(string $contents): string
+    {
+        $openssl = $this->getOpenSSL();
+        $extracted = $openssl->readPemContents($contents)->certificate();
+        if ('' === $extracted) { // cannot extract, could be on DER format
+            $extracted = $openssl->derCerConvertPhp($contents);
+        }
+        return $extracted;
+    }
+
     /**
      * Check if this certificate belongs to a private key
      *
@@ -99,10 +109,12 @@ class Certificado
     public function belongsTo(string $pemKeyFile, string $passPhrase = ''): bool
     {
         $this->assertFileExists($pemKeyFile);
-        // intentionally silence this error, if return false cast to string
-        $keyContents = (string) @file_get_contents($pemKeyFile);
-        if (0 !== strpos($keyContents, '-----BEGIN PRIVATE KEY-----')
-            && 0 !== strpos($keyContents, '-----BEGIN RSA PRIVATE KEY-----')) {
+        $openSSL = $this->getOpenSSL();
+        $keyContents = $openSSL->readPemContents(
+            // intentionally silence this error, if return false then cast it to string
+            strval(@file_get_contents($pemKeyFile))
+        )->privateKey();
+        if ('' === $keyContents) {
             throw new \UnexpectedValueException("The file $pemKeyFile is not a PEM private key");
         }
         $privateKey = openssl_get_privatekey($keyContents, $passPhrase);
@@ -237,13 +249,6 @@ class Certificado
         }
     }
 
-    protected function changeCerToPem(string $contents): string
-    {
-        return '-----BEGIN CERTIFICATE-----' . PHP_EOL
-            . chunk_split(base64_encode($contents), 64, PHP_EOL)
-            . '-----END CERTIFICATE-----' . PHP_EOL;
-    }
-
     protected function obtainPubKeyFromContents(string $contents): string
     {
         try {
@@ -255,7 +260,7 @@ class Certificado
             return $pubData['key'] ?? '';
         } finally {
             // close public key even if the flow is throw an exception
-            if (isset($pubkey) && is_resource($pubkey)) {
+            if (is_resource($pubkey)) {
                 openssl_free_key($pubkey);
             }
         }
