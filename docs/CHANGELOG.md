@@ -39,6 +39,8 @@
     - Improve compatibility on MS Windows by using `ShellExec`.
     - Deprecate method `createCommand`.
     - Use new features from internal class `TemporaryFile`.
+- Test:
+    - Increase coverage of `XmlResolverPropertyTrait`.
 - Internal: `TemporaryFile` now is able to cast itself to string, retrieve contents,
   store contents and remove file after run some function even if exception was thrown.
 - Internal: Add `ShellExec` class that works around with `symfony/process` component. Also added:
