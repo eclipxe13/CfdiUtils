@@ -15,6 +15,7 @@ class SumasConceptosWriterTest extends TestCase
         $comprobante = new Comprobante();
         $sumasConceptos = new SumasConceptos($comprobante, $precision);
         $writer = new SumasConceptosWriter($comprobante, $sumasConceptos, $precision);
+        $this->assertSame($comprobante, $writer->getComprobante());
 
         $this->assertSame($precision, $writer->getPrecision());
         $this->assertSame($sumasConceptos, $writer->getSumasConceptos());
