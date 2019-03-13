@@ -27,36 +27,51 @@ class PemExtractor
 
     public function extractCertificate(): string
     {
-        return $this->extractFirst(['CERTIFICATE']);
+        return $this->extractBase64('CERTIFICATE');
     }
 
     public function extractPublicKey(): string
     {
-        return $this->extractFirst(['PUBLIC KEY']);
+        return $this->extractBase64('PUBLIC KEY');
     }
 
     public function extractPrivateKey(): string
     {
-        return $this->extractFirst(['PRIVATE KEY', 'RSA PRIVATE KEY', 'ENCRYPTED PRIVATE KEY']);
-    }
-
-    protected function extractFirst(array $types): string
-    {
-        foreach ($types as $type) {
-            $extracted = $this->extract($type);
-            if ('' !== $extracted) {
-                return $extracted;
-            }
+        if ('' !== $extracted = $this->extractBase64('PRIVATE KEY')) {
+            return $extracted;
         }
-        return '';
+        if ('' !== $extracted = $this->extractBase64('RSA PRIVATE KEY')) {
+            return $extracted;
+        }
+        if ('' !== $extracted = $this->extractRsaProtected()) {
+            return $extracted;
+        }
+        return $this->extractBase64('ENCRYPTED PRIVATE KEY');
     }
 
-    protected function extract(string $type): string
+    protected function extractBase64(string $type): string
     {
         $matches = [];
         $type = preg_quote($type, '/');
-        // : , - are used un RSA PRIVATE KEYS
-        $pattern = '/^-----BEGIN ' . $type . '-----[\sA-Za-z0-9+=\/:,-]+-----END ' . $type . '-----/m';
+        $pattern = '/^'
+            . '-----BEGIN ' . $type . '-----\r?\n'
+            . '([A-Za-z0-9+\/=]+\r?\n)+'
+            . '-----END ' . $type . '-----'
+            . '$/m';
+        preg_match($pattern, $this->getContents(), $matches);
+        return $this->fixLineEndings(strval($matches[0] ?? ''));
+    }
+
+    protected function extractRsaProtected(): string
+    {
+        $matches = [];
+        $pattern = '/^'
+            . '-----BEGIN RSA PRIVATE KEY-----\r?\n'
+            . 'Proc-Type: .+\r?\n'
+            . 'DEK-Info: .+\r?\n\r?\n'
+            . '([A-Za-z0-9+\/=]+\r?\n)+'
+            . '-----END RSA PRIVATE KEY-----'
+            . '$/m';
         preg_match($pattern, $this->getContents(), $matches);
         return $this->fixLineEndings(strval($matches[0] ?? ''));
     }

@@ -62,7 +62,7 @@ class PemPrivateKeyTest extends TestCase
 
     public function testOpenWithBadKey()
     {
-        $keyContents = '-----BEGIN PRIVATE KEY-----XXXXX-----END PRIVATE KEY-----';
+        $keyContents = "-----BEGIN PRIVATE KEY-----\nXXXXX\n-----END PRIVATE KEY-----";
         $privateKey = new PemPrivateKey($keyContents);
         $this->assertFalse($privateKey->open(''));
     }
