@@ -23,6 +23,9 @@
 
 - Internal: `TemporaryFile` now is able to cast itself to string, retrieve contents,
   store contents and remove file after run some function even if exception was thrown.
+- Internal: Add `ShellExec` class that works around with `symfony/process` component. Also added:
+    - `ShellExecResponse`: contains the response of ShellExec::run().
+    - `ShellExecTemplate`: basic command array creation from a string template.
 
 
 ## Version 2.8.1 2019-02-05
