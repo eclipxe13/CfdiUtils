@@ -6,6 +6,30 @@ use PHPUnit\Framework\TestCase;
 
 class ShellExecTest extends TestCase
 {
+    public function testConstructWithNoCommand()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Command definition is empty');
+        new ShellExec([]);
+    }
+
+    public function testConstructWithEmptyFirstCommandArgument()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Command executable is empty');
+        new ShellExec(['']);
+    }
+
+    public function testConstructWithValues()
+    {
+        $command = ['foo'];
+        $environment = ['KEY' => 'value'];
+        $shellExec = new ShellExec($command, $environment);
+
+        $this->assertSame($command, $shellExec->getCommand());
+        $this->assertSame($environment, $shellExec->getEnvironment());
+    }
+
     public function testRunGenericOperatingSystemCommand()
     {
         $command = ['dir', '%s', __FILE__];

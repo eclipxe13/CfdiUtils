@@ -21,10 +21,22 @@ class ShellExec
     public function __construct(array $command, array $environment = [])
     {
         if ([] === $command) {
-            throw new \InvalidArgumentException('Command was not set');
+            throw new \InvalidArgumentException('Command definition is empty');
         }
         $this->command = $command;
         $this->environment = $environment;
+
+        if ('' === $this->getExecutable()) {
+            throw new \InvalidArgumentException('Command executable is empty');
+        }
+    }
+
+    public function getExecutable(): string
+    {
+        foreach ($this->command as $argument) {
+            return $argument;
+        }
+        return '';
     }
 
     public function getCommand(): array
