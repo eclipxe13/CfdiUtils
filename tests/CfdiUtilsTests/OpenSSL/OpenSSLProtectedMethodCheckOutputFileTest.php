@@ -35,6 +35,13 @@ class OpenSSLProtectedMethodCheckOutputFileTest extends TestCase
         $this->assertTrue(true, 'No exception thrown');
     }
 
+    public function testThrowExceptionUsingEmptyFileName()
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('argument is empty');
+        $this->openSSL()->checkOutputFile('');
+    }
+
     public function testThrowExceptionUsingNonExistentParentDirectory()
     {
         $this->expectException(\RuntimeException::class);

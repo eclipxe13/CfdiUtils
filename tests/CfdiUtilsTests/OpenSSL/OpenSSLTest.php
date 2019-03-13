@@ -4,7 +4,6 @@ namespace CfdiUtilsTests\OpenSSL;
 use CfdiUtils\OpenSSL\OpenSSL;
 use CfdiUtils\OpenSSL\OpenSSLCallerException;
 use CfdiUtils\PemPrivateKey\PemPrivateKey;
-use CfdiUtils\Utils\Internal\TemporaryFile;
 use CfdiUtilsTests\TestCase;
 
 class OpenSSLTest extends TestCase
@@ -48,16 +47,13 @@ class OpenSSLTest extends TestCase
     {
         $openssl = new OpenSSL();
         $keyFile = $this->utilAsset('certs/CSD01_AAA010101AAA.cer');
+        $cerContents = strval(file_get_contents($keyFile));
         $pemFile = $this->utilAsset('certs/CSD01_AAA010101AAA.cer.pem');
         $expected = $openssl->readPemFile($pemFile)->certificate();
 
-        $outFile = TemporaryFile::create();
-        $openssl->derCerConvert($keyFile, $outFile);
-        $converted = $openssl->readPemFile($outFile)->certificate();
+        $converted = $openssl->derCerConvertInOut($cerContents);
 
         $this->assertSame($expected, $converted);
-
-        $outFile->remove();
     }
 
     public function testPrivateKeyConvertDerToPem()
@@ -67,26 +63,17 @@ class OpenSSLTest extends TestCase
         $pemFile = $this->utilAsset('certs/CSD01_AAA010101AAA.key.pem');
         $expected = $openssl->readPemFile($pemFile)->privateKey();
 
-        $outFile = TemporaryFile::create();
-        $openssl->derKeyConvert($cerFile, '12345678a', $outFile);
-        $converted = $openssl->readPemFile($outFile)->privateKey();
+        $converted = $openssl->derKeyConvertOut($cerFile, '12345678a');
 
         $this->assertSame($expected, $converted, 'Converted key does not match');
-
-        $outFile->remove();
     }
 
     public function testPrivateKeyConvertDerToPemThrowsExceptionUsingInvalidPassPhrase()
     {
         $openssl = new OpenSSL();
         $cerFile = $this->utilAsset('certs/CSD01_AAA010101AAA.key');
-        $outFile = TemporaryFile::create();
         $this->expectException(OpenSSLCallerException::class);
-        try {
-            $openssl->derKeyConvert($cerFile, 'invalid-passphrase', $outFile);
-        } finally {
-            $outFile->remove();
-        }
+        $openssl->derKeyConvertOut($cerFile, 'invalid-passphrase');
     }
 
     public function providerPrivateKeyProtectPem()
@@ -108,11 +95,9 @@ class OpenSSLTest extends TestCase
     {
         $openssl = new OpenSSL();
         $pemFile = $this->utilAsset($pemFile);
+        $pemContents = strval(file_get_contents($pemFile));
 
-        $outFile = TemporaryFile::create();
-        $openssl->pemKeyProtect($pemFile, $inPassPhrase, $outFile, $outPassPhrase);
-        $converted = $openssl->readPemFile($outFile)->privateKey();
-        $outFile->remove();
+        $converted = $openssl->pemKeyProtectInOut($pemContents, $inPassPhrase, $outPassPhrase);
 
         $privateKey = new PemPrivateKey($converted);
         $this->assertTrue($privateKey->open($outPassPhrase), 'Cannot open the generated private Key');
@@ -130,12 +115,22 @@ class OpenSSLTest extends TestCase
         $openssl = new OpenSSL();
         $derFile = $this->utilAsset($derFile);
 
-        $outFile = TemporaryFile::create();
-        $openssl->derKeyProtect($derFile, $inPassPhrase, $outFile, $outPassPhrase);
-        $converted = $openssl->readPemFile($outFile)->privateKey();
-        $outFile->remove();
+        $converted = $openssl->derKeyProtectOut($derFile, $inPassPhrase, $outPassPhrase);
 
         $privateKey = new PemPrivateKey($converted);
         $this->assertTrue($privateKey->open($outPassPhrase), 'Cannot open the generated private Key');
+    }
+
+    public function testPrivateKeyUnprotectPem()
+    {
+        $pemFile = $this->utilAsset('certs/CSD01_AAA010101AAA_password.key.pem');
+        $pemContents = strval(file_get_contents($pemFile));
+        $inPassPhrase = '12345678a';
+        $openssl = new OpenSSL();
+
+        $converted = $openssl->pemKeyUnprotectInOut($pemContents, $inPassPhrase);
+
+        $privateKey = new PemPrivateKey($converted);
+        $this->assertTrue($privateKey->open(''), 'Cannot open the generated private Key');
     }
 }

@@ -53,7 +53,7 @@ class OpenSSL
         $pemOutFile = TemporaryFile::create();
         try {
             $this->derCerConvert($derInFile, $pemOutFile);
-            return $pemOutFile->retriveContents();
+            return rtrim($pemOutFile->retriveContents(), PHP_EOL);
         } finally {
             $pemOutFile->remove();
         }
@@ -87,7 +87,7 @@ class OpenSSL
         $pemOutFile = TemporaryFile::create();
         try {
             $this->derKeyConvert($derInFile, $inPassPhrase, $pemOutFile);
-            return $pemOutFile->retriveContents();
+            return rtrim($pemOutFile->retriveContents(), PHP_EOL);
         } finally {
             $pemOutFile->remove();
         }
@@ -109,7 +109,7 @@ class OpenSSL
         $pemOutFile = TemporaryFile::create();
         try {
             $this->derKeyProtect($pemInFile, $inPassPhrase, $pemOutFile, $outPassPhrase);
-            return $pemOutFile->retriveContents();
+            return rtrim($pemOutFile->retriveContents(), PHP_EOL);
         } finally {
             $pemOutFile->remove();
         }
@@ -137,7 +137,7 @@ class OpenSSL
         $pemOutFile = TemporaryFile::create();
         try {
             $this->pemKeyProtect($pemInFile, $inPassPhrase, $pemOutFile, $outPassPhrase);
-            return $pemOutFile->retriveContents();
+            return rtrim($pemOutFile->retriveContents(), PHP_EOL);
         } finally {
             $pemOutFile->remove();
         }
@@ -171,7 +171,7 @@ class OpenSSL
         $pemOutFile = TemporaryFile::create();
         try {
             $this->pemKeyUnprotect($pemInFile, $inPassPhrase, $pemOutFile);
-            return $pemOutFile->retriveContents();
+            return rtrim($pemOutFile->retriveContents(), PHP_EOL);
         } finally {
             $pemOutFile->remove();
         }
@@ -207,6 +207,9 @@ class OpenSSL
     protected function checkOutputFile(string $path)
     {
         // file should not exists or exists but contain a zero size
+        if ('' === $path) {
+            throw new OpenSSLException('File argument is empty');
+        }
         if (! file_exists($path)) {
             if (! is_dir(dirname($path))) {
                 throw new OpenSSLException("Directory of $path does not exists");

@@ -60,9 +60,6 @@ class Certificado
         if (! is_array($data)) {
             throw new \RuntimeException("Cannot parse the certificate file $filename");
         }
-        if (! isset($data['subject'])) {
-            $data['subject'] = [];
-        }
 
         // get the public key
         $pubKey = $this->obtainPubKeyFromContents($contents);

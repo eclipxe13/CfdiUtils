@@ -4,7 +4,7 @@ namespace CfdiUtils\OpenSSL;
 class CallResponse
 {
     /** @var string */
-    private $command;
+    private $commandLine;
 
     /** @var string */
     private $output;
@@ -13,19 +13,19 @@ class CallResponse
     private $errors;
 
     /** @var int */
-    private $exitCode;
+    private $exitStatus;
 
-    public function __construct(string $command, string $output, string $errors, int $exitCode)
+    public function __construct(string $commandLine, string $output, string $errors, int $exitStatus)
     {
-        $this->command = $command;
+        $this->commandLine = $commandLine;
         $this->output = $output;
         $this->errors = $errors;
-        $this->exitCode = $exitCode;
+        $this->exitStatus = $exitStatus;
     }
 
-    public function command(): string
+    public function commandLine(): string
     {
-        return $this->command;
+        return $this->commandLine;
     }
 
     public function output(): string
@@ -38,8 +38,8 @@ class CallResponse
         return $this->errors;
     }
 
-    public function exitCode(): int
+    public function exitStatus(): int
     {
-        return $this->exitCode;
+        return $this->exitStatus;
     }
 }

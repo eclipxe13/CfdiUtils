@@ -12,7 +12,7 @@ class Caller
 
     public function __construct(string $executable = '')
     {
-        $this->executable = $executable;
+        $this->executable = $executable ?: static::DEFAULT_OPENSSL_EXECUTABLE;
     }
 
     /**
@@ -20,13 +20,13 @@ class Caller
      */
     public function getExecutable(): string
     {
-        return $this->executable ?: static::DEFAULT_OPENSSL_EXECUTABLE;
+        return $this->executable;
     }
 
     public function call(string $template, array $arguments, array $environment = []): CallResponse
     {
         $command = $this->templateCommandToArrayArguments($template, $arguments);
-        $shellExec = new ShellExec($command, $environment);
+        $shellExec = $this->createShellExec($command, $environment);
         $execution = $shellExec->exec();
         $callResponse = new CallResponse(
             $execution->commandLine(),
@@ -40,7 +40,12 @@ class Caller
         return $callResponse;
     }
 
-    protected function templateCommandToArrayArguments($template, array $arguments): array
+    protected function createShellExec(array $command, array $environment): ShellExec
+    {
+        return new ShellExec($command, $environment);
+    }
+
+    protected function templateCommandToArrayArguments(string $template, array $arguments): array
     {
         $parts = explode(' ', trim($template)) ?: [];
         $command = [$this->getExecutable()];

@@ -24,6 +24,13 @@ class OpenSSLProtectedMethodCheckInputFileTest extends TestCase
         $this->assertTrue(true, 'No exception thrown');
     }
 
+    public function testThrowExceptionUsingEmptyFileName()
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('argument is empty');
+        $this->openSSL()->checkInputFile('');
+    }
+
     public function testThrowExceptionUsingFileNonExistent()
     {
         $this->expectException(\RuntimeException::class);

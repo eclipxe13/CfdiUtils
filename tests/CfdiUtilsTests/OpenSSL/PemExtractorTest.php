@@ -14,6 +14,7 @@ class PemExtractorTest extends TestCase
         $this->assertFalse($container->hasCertificate());
         $this->assertFalse($container->hasPublicKey());
         $this->assertFalse($container->hasPrivateKey());
+        $this->assertFalse($container->hasAny());
     }
 
     public function testExtractCertificateWithPublicKey()
@@ -26,8 +27,12 @@ class PemExtractorTest extends TestCase
 
         $container = $extractor->pemContainer();
         $this->assertTrue($container->hasCertificate());
+        $this->assertNotEmpty($container->publicKey());
         $this->assertTrue($container->hasPublicKey());
+        $this->assertNotEmpty($container->certificate());
         $this->assertFalse($container->hasPrivateKey());
+        $this->assertEmpty($container->privateKey());
+        $this->assertTrue($container->hasAny());
     }
 
     public function testExtractPrivateKey()
@@ -41,6 +46,7 @@ class PemExtractorTest extends TestCase
         $this->assertFalse($container->hasCertificate());
         $this->assertFalse($container->hasPublicKey());
         $this->assertTrue($container->hasPrivateKey());
+        $this->assertTrue($container->hasAny());
     }
 
     public function testUsingBinaryFileExtractNothing()
