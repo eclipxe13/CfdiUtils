@@ -57,7 +57,7 @@ class SaxonbCliBuilder extends AbstractXsltBuilder
         try {
             file_put_contents($temporaryFile->getPath(), $xmlContent);
             $command = $this->createCommand($temporaryFile->getPath(), $xsltLocation);
-            $execution = (new ShellExec($command))->exec();
+            $execution = (new ShellExec($command))->run();
 
             if (0 !== $execution->exitStatus()) {
                 throw new XsltBuildException('Transformation error');

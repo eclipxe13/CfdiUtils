@@ -27,7 +27,7 @@ class Caller
     {
         $command = $this->templateCommandToArrayArguments($template, $arguments);
         $shellExec = $this->createShellExec($command, $environment);
-        $execution = $shellExec->exec();
+        $execution = $shellExec->run();
         $callResponse = new CallResponse(
             $execution->commandLine(),
             $execution->output(),

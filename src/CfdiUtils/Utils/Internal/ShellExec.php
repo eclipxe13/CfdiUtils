@@ -49,7 +49,7 @@ class ShellExec
         return $this->environment;
     }
 
-    public function exec(): ShellExecResult
+    public function run(): ShellExecResult
     {
         $process = new Process($this->getCommand());
         $process->setEnv($this->getEnvironment());

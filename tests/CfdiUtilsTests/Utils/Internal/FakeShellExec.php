@@ -31,7 +31,7 @@ class FakeShellExec extends ShellExec
         $this->result = $result;
     }
 
-    public function exec(): ShellExecResult
+    public function run(): ShellExecResult
     {
         return $this->getResult();
     }
