@@ -19,6 +19,10 @@ environment:
         - php: 7.2
         - php: 7.3
 
+matrix:
+    allow_failures:
+        - php: 7.0
+
 init:
     - SET PATH=C:\OpenSSL-v111-Win64\bin;c:\tools\php;C:\tools\composer;%PATH%
     - SET COMPOSER_NO_INTERACTION=1
