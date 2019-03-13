@@ -35,6 +35,10 @@
         - Deprecate static method `isPEM`, use `OpenSSL` instead.
         - Fix test since OpenSSL is stricter on getting contents.
         - Since this version, other private keys are allowed, as the created by PHP `ENCODED PRIVATE KEY`.
+- Improvements on `SaxonbCliBuilder`:
+    - Improve compatibility on MS Windows by using `ShellExec`.
+    - Deprecate method `createCommand`.
+    - Use new features from internal class `TemporaryFile`.
 - Internal: `TemporaryFile` now is able to cast itself to string, retrieve contents,
   store contents and remove file after run some function even if exception was thrown.
 - Internal: Add `ShellExec` class that works around with `symfony/process` component. Also added:
