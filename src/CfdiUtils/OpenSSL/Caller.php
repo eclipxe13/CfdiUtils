@@ -2,6 +2,7 @@
 namespace CfdiUtils\OpenSSL;
 
 use CfdiUtils\Utils\Internal\ShellExec;
+use CfdiUtils\Utils\Internal\ShellExecTemplate;
 
 class Caller
 {
@@ -15,9 +16,6 @@ class Caller
         $this->executable = $executable ?: static::DEFAULT_OPENSSL_EXECUTABLE;
     }
 
-    /**
-     * @return string Configured executable or DEFAULT_OPENSSL_EXECUTABLE
-     */
     public function getExecutable(): string
     {
         return $this->executable;
@@ -25,18 +23,33 @@ class Caller
 
     public function call(string $template, array $arguments, array $environment = []): CallResponse
     {
-        $command = $this->templateCommandToArrayArguments($template, $arguments);
-        $shellExec = $this->createShellExec($command, $environment);
+        try {
+            // build command for shellExec
+            array_unshift($arguments, $this->getExecutable());
+            $command = ($this->createShellExecTemplate())->create('? ' . $template, $arguments);
+
+            // create ShellExec
+            $shellExec = $this->createShellExec($command, $environment);
+        } catch (\Throwable $exception) {
+            throw new OpenSSLException('Unable to build command', 0, $exception);
+        }
+
+        // execute ShellExec
         $execution = $shellExec->run();
+
+        // build response
         $callResponse = new CallResponse(
             $execution->commandLine(),
             $execution->output(),
             $execution->errors(),
             $execution->exitStatus()
         );
-        if ($execution->exitStatus() !== 0) {
+
+        // eval response
+        if ($callResponse->exitStatus() !== 0) {
             throw new OpenSSLCallerException($callResponse);
         }
+
         return $callResponse;
     }
 
@@ -45,23 +58,8 @@ class Caller
         return new ShellExec($command, $environment);
     }
 
-    protected function templateCommandToArrayArguments(string $template, array $arguments): array
+    protected function createShellExecTemplate(): ShellExecTemplate
     {
-        $parts = explode(' ', trim($template)) ?: [];
-        $command = [$this->getExecutable()];
-
-        $argumentPosition = 0;
-        foreach ($parts as $index => $value) {
-            if ('' === $value) { // filter empty strings
-                continue;
-            }
-            if ('?' === $value) { // argument insert
-                $value = $arguments[$argumentPosition] ?? '';
-                $argumentPosition = $argumentPosition + 1;
-            }
-            $command[] = $value;
-        }
-
-        return $command;
+        return new ShellExecTemplate();
     }
 }

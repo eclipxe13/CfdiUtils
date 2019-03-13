@@ -3,6 +3,7 @@ namespace CfdiUtilsTests\OpenSSL;
 
 use CfdiUtils\OpenSSL\Caller;
 use CfdiUtils\OpenSSL\OpenSSLCallerException;
+use CfdiUtils\OpenSSL\OpenSSLException;
 use CfdiUtils\Utils\Internal\ShellExec;
 use CfdiUtils\Utils\Internal\ShellExecResult;
 use CfdiUtilsTests\TestCase;
@@ -22,40 +23,24 @@ class CallerTest extends TestCase
         $this->assertSame('my-openssl', $caller->getExecutable());
     }
 
-    public function providerTemplateCommandToArrayArguments()
+    public function testCallerWithNullCharacterOnTemplate()
     {
-        return [
-            'no argument' => ['foo bar baz', [], ['>', 'foo', 'bar', 'baz']],
-            'replace with 2 replacements' => ['foo ? => ?', ['bar', 'baz'], ['>', 'foo', 'bar', '=>', 'baz']],
-            'replace spaces' => ['foo   ?   => ? x', ['bar', 'baz'], ['>', 'foo', 'bar', '=>', 'baz', 'x']],
-            'more ? than arguments' => ['foo   ?   => ? x', [], ['>', 'foo', '', '=>', '', 'x']],
-            'less ? than arguments' => ['foo ? => ?', ['bar'], ['>', 'foo', 'bar', '=>', '']],
-        ];
+        $caller = new Caller();
+        $this->expectException(OpenSSLException::class);
+        $caller->call('?', ["\0"]);
     }
 
-    /**
-     * @param string $template
-     * @param array $arguments
-     * @param array $expected
-     * @dataProvider providerTemplateCommandToArrayArguments
-     */
-    public function testTemplateCommandToArrayArguments(string $template, array $arguments, array $expected)
+    public function testCallerWithNullCharacterOnEnvironment()
     {
-        $caller = new class('>') extends Caller {
-            public function templateCommandToArrayArguments(string $template, array $arguments): array
-            {
-                $return = parent::templateCommandToArrayArguments($template, $arguments);
-                return $return;
-            }
-        };
-
-        $command = $caller->templateCommandToArrayArguments($template, $arguments);
-        $this->assertSame($expected, $command);
+        $caller = new Caller();
+        $this->expectException(OpenSSLException::class);
+        $caller->call('', [], ['env' => "\0"]);
     }
 
     public function testRunUsingMockedShellExecExpectingError()
     {
         $caller = new class() extends Caller {
+            // change method visibility
             public function createShellExec(array $command, array $environment): ShellExec
             {
                 $result = new ShellExecResult('command', 15, 'output', 'errors');
