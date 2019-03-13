@@ -30,6 +30,14 @@ class SerialNumberTest extends TestCase
         $this->assertSame($expected, $serial->asAscii());
     }
 
+    public function testLoadHexadecimalInvalidInput()
+    {
+        $serial = new SerialNumber('');
+        $this->expectException(\UnexpectedValueException::class);
+        $this->expectExceptionMessage('invalid characters');
+        $serial->loadHexadecimal('X');
+    }
+
     /**
      * @param string $input
      * @param string $expected
