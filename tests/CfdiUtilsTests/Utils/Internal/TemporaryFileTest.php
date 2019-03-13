@@ -61,4 +61,23 @@ class TemporaryFileTest extends TestCase
             rmdir($directory);
         }
     }
+
+    public function testObjectToStringBehavior()
+    {
+        $file = TemporaryFile::create();
+        $this->assertSame($file->getPath(), (string) $file);
+        $file->remove();
+    }
+
+    public function testReadAndWrite()
+    {
+        $content = 'Lorem Ipsum';
+        $file = TemporaryFile::create();
+        $this->assertSame('', $file->retriveContents(), 'Contents should be empty');
+
+        $file->storeContents($content);
+        $this->assertSame($content, $file->retriveContents(), 'Contents should be what we have store');
+
+        $file->remove();
+    }
 }
