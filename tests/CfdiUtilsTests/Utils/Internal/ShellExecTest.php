@@ -6,6 +6,16 @@ use PHPUnit\Framework\TestCase;
 
 class ShellExecTest extends TestCase
 {
+    public function testConstructWithValues()
+    {
+        $command = ['foo'];
+        $environment = ['KEY' => 'value'];
+        $shellExec = new ShellExec($command, $environment);
+
+        $this->assertSame($command, $shellExec->getCommand());
+        $this->assertSame($environment, $shellExec->getEnvironment());
+    }
+
     public function testConstructWithNoCommand()
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -20,14 +30,53 @@ class ShellExecTest extends TestCase
         new ShellExec(['']);
     }
 
-    public function testConstructWithValues()
+    public function testConstructWithCommandWithNotStrings()
     {
-        $command = ['foo'];
-        $environment = ['KEY' => 'value'];
-        $shellExec = new ShellExec($command, $environment);
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Command definition has elements that are invalid');
+        new ShellExec(['foo', null]);
+    }
 
-        $this->assertSame($command, $shellExec->getCommand());
-        $this->assertSame($environment, $shellExec->getEnvironment());
+    public function testConstructWithCommandWithSpecialChars()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Command definition has elements that are invalid');
+        new ShellExec(['foo', "\t"]);
+    }
+
+    public function testConstructWithEnvironmentKeysWithNotStrings()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Environment has keys that are invalid');
+        new ShellExec(['foo'], ['0' => '']);
+    }
+
+    public function testConstructWithEnvironmentKeysWithEmptyStrings()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Environment has keys that are invalid');
+        new ShellExec(['foo'], ['' => '']);
+    }
+
+    public function testConstructWithEnvironmentKeysWithSpecialChars()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Environment has keys that are invalid');
+        new ShellExec(['foo'], ["-\t-" => '']);
+    }
+
+    public function testConstructWithEnvironmentValuesWithNotStrings()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Environment has values that are invalid');
+        new ShellExec(['foo'], ['env' => 3.1416]);
+    }
+
+    public function testConstructWithEnvironmentValuesWithSpecialChars()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Environment has values that are invalid');
+        new ShellExec(['foo'], ['env' => "\t"]);
     }
 
     public function testRunGenericOperatingSystemCommand()
