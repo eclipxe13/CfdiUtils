@@ -21,6 +21,8 @@
 
 ## Version 2.9.0 2019-03-13
 
+- Add `CfdiUtils\OpenSSL`, a library to help working with `openssl` commands
+  and CER, KEY and PEM files. Fully tested and [documented](https://cfdiutils.readthedocs.io/es/utilerias/openssl/).
 - Internal: `TemporaryFile` now is able to cast itself to string, retrieve contents,
   store contents and remove file after run some function even if exception was thrown.
 - Internal: Add `ShellExec` class that works around with `symfony/process` component. Also added:
