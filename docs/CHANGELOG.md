@@ -19,6 +19,12 @@
 - Add a method `NodeInderface::exists` as an alias of `NodeInderface::offsetExists`. Replace usages in code.
 
 
+## Version 2.9.0 2019-03-13
+
+- Internal: `TemporaryFile` now is able to cast itself to string, retrieve contents,
+  store contents and remove file after run some function even if exception was thrown.
+
+
 ## Version 2.8.1 2019-02-05
 
 - Extract base convert logic from `CfdiUtils\Certificado\SerialNumber::baseConvert` to new internal classes:
