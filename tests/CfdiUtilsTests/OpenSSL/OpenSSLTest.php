@@ -1,7 +1,6 @@
 <?php
 namespace CfdiUtilsTests\OpenSSL;
 
-use CfdiUtils\OpenSSL\Caller;
 use CfdiUtils\OpenSSL\OpenSSL;
 use CfdiUtils\OpenSSL\OpenSSLCallerException;
 use CfdiUtils\PemPrivateKey\PemPrivateKey;
@@ -13,14 +12,13 @@ class OpenSSLTest extends TestCase
     public function testCreateInstanceWithoutAnyArguments()
     {
         $openssl = new OpenSSL();
-        $this->assertInstanceOf(Caller::class, $openssl->getCaller());
+        $this->assertSame('openssl', $openssl->getOpenSSLCommand());
     }
 
     public function testCreateInstanceWithCaller()
     {
-        $caller = new Caller();
-        $openssl = new OpenSSL($caller);
-        $this->assertSame($caller, $openssl->getCaller());
+        $openssl = new OpenSSL('my-openssl-executable');
+        $this->assertSame('my-openssl-executable', $openssl->getOpenSSLCommand());
     }
 
     public function testReadPemFile()

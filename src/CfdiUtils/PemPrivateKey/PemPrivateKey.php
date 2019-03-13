@@ -26,20 +26,26 @@ class PemPrivateKey
      */
     public function __construct(string $key, OpenSSL $openSSL = null)
     {
-        if (0 === strpos($key, 'file://')) {
-            $filename = substr($key, 7);
-            if ('' !== $filename && file_exists($filename) && is_readable($filename) && ! is_dir($filename)) {
-                $key = strval(file_get_contents($filename));
-            } else {
-                $key = '';
-            }
-        }
         $this->setOpenSSL($openSSL ?: new OpenSSL());
-        $key = $this->getOpenSSL()->readPemContents($key)->privateKey();
-        if ('' === $key) {
-            throw new \UnexpectedValueException('The key is not a file or a string PEM format private key');
+        try {
+            if (0 === strpos($key, 'file://')) {
+                $filename = substr($key, 7);
+                $contents = $this->getOpenSSL()->readPemFile($filename)->privateKey();
+            } else {
+                $contents = $this->getOpenSSL()->readPemContents($key)->privateKey();
+            }
+            if ('' === $contents) {
+                throw new \RuntimeException('Empty key');
+            }
+        } catch (\Throwable $exception) {
+            throw new \UnexpectedValueException(
+                'The key is not a file or a string PEM format private key',
+                0,
+                $exception
+            );
         }
-        $this->contents = $key;
+
+        $this->contents = $contents;
     }
 
     public function __destruct()
@@ -129,6 +135,6 @@ class PemPrivateKey
         }
 
         $openSSL = new OpenSSL();
-        return (rtrim($keyContents) === $openSSL->readPemContents($keyContents)->privateKey());
+        return $openSSL->readPemContents($keyContents)->hasPrivateKey();
     }
 }

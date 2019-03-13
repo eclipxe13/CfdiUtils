@@ -91,7 +91,7 @@ class Certificado
     {
         $openssl = $this->getOpenSSL();
         $extracted = $openssl->readPemContents($contents)->certificate();
-        if ('' === $extracted) { // cannot extract, should be PEM
+        if ('' === $extracted) { // cannot extract, could be on DER format
             $extracted = $openssl->derCerConvertPhp($contents);
         }
         return $extracted;

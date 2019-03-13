@@ -23,22 +23,24 @@ class Caller
         return $this->executable ?: static::DEFAULT_OPENSSL_EXECUTABLE;
     }
 
-    public function run(string $template, array $arguments, array $environment = [])
+    public function call(string $template, array $arguments, array $environment = []): CallResponse
     {
-        $command = $this->makeCommandArray($template, $arguments);
-        $shellExec = $this->makeShellExec($command, $environment);
+        $command = $this->templateCommandToArrayArguments($template, $arguments);
+        $shellExec = new ShellExec($command, $environment);
         $execution = $shellExec->exec();
+        $callResponse = new CallResponse(
+            $execution->commandLine(),
+            $execution->output(),
+            $execution->errors(),
+            $execution->exitStatus()
+        );
         if ($execution->exitStatus() !== 0) {
-            throw new OpenSSLCallerException($execution);
+            throw new OpenSSLCallerException($callResponse);
         }
+        return $callResponse;
     }
 
-    public function makeShellExec(array $command, array $environment): ShellExec
-    {
-        return new ShellExec($command, $environment);
-    }
-
-    public function makeCommandArray($template, array $arguments): array
+    protected function templateCommandToArrayArguments($template, array $arguments): array
     {
         $parts = explode(' ', trim($template)) ?: [];
         $command = [$this->getExecutable()];

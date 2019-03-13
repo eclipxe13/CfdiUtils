@@ -8,14 +8,14 @@ class OpenSSL
     /** @var Caller */
     private $caller;
 
-    public function __construct(Caller $caller = null)
+    public function __construct(string $opensslCommand = '')
     {
-        $this->caller = $caller ?: new Caller();
+        $this->caller = new Caller($opensslCommand);
     }
 
-    public function getCaller(): Caller
+    public function getOpenSSLCommand(): string
     {
-        return $this->caller;
+        return $this->caller->getExecutable();
     }
 
     public function readPemFile(string $pemFile): PemContainer
@@ -42,10 +42,32 @@ class OpenSSL
     {
         $this->checkInputFile($derInFile);
         $this->checkOutputFile($pemOutFile);
-        $this->getCaller()->run(
+        $this->caller->call(
             'x509 -inform DER -in ? -outform PEM -out ?',
             [$derInFile, $pemOutFile]
         );
+    }
+
+    public function derCerConvertOut(string $derInFile): string
+    {
+        $pemOutFile = TemporaryFile::create();
+        try {
+            $this->derCerConvert($derInFile, $pemOutFile);
+            return $pemOutFile->retriveContents();
+        } finally {
+            $pemOutFile->remove();
+        }
+    }
+
+    public function derCerConvertInOut(string $derContents): string
+    {
+        $derInFile = TemporaryFile::create();
+        $derInFile->storeContents($derContents);
+        try {
+            return $this->derCerConvertOut($derInFile);
+        } finally {
+            $derInFile->remove();
+        }
     }
 
     public function derKeyConvert(string $derInFile, string $inPassPhrase, string $pemOutFile)
@@ -53,40 +75,22 @@ class OpenSSL
         $this->checkInputFile($derInFile);
         $this->checkOutputFile($pemOutFile);
 
-        $this->getCaller()->run(
+        $this->caller->call(
             'pkcs8 -inform DER -in ? -passin env:PASSIN -out ?',
             [$derInFile, $pemOutFile],
             ['PASSIN' => $inPassPhrase]
         );
     }
 
-    public function pemKeyProtect(string $pemInFile, string $inPassPhrase, string $pemOutFile, string $outPassPhrase)
+    public function derKeyConvertOut(string $derInFile, string $inPassPhrase): string
     {
-        if ('' === $outPassPhrase) {
-            $this->pemKeyUnprotect($pemInFile, $inPassPhrase, $pemOutFile);
-            return;
+        $pemOutFile = TemporaryFile::create();
+        try {
+            $this->derKeyConvert($derInFile, $inPassPhrase, $pemOutFile);
+            return $pemOutFile->retriveContents();
+        } finally {
+            $pemOutFile->remove();
         }
-
-        $this->checkInputFile($pemInFile);
-        $this->checkOutputFile($pemOutFile);
-
-        $this->getCaller()->run(
-            'rsa -in ? -passin env:PASSIN -des3 -out ? -passout env:PASSOUT',
-            [$pemInFile, $pemOutFile],
-            ['PASSIN' => $inPassPhrase, 'PASSOUT' => $outPassPhrase]
-        );
-    }
-
-    public function pemKeyUnprotect(string $pemInFile, string $inPassPhrase, string $pemOutFile)
-    {
-        $this->checkInputFile($pemInFile);
-        $this->checkOutputFile($pemOutFile);
-
-        $this->getCaller()->run(
-            'rsa -in ? -passin env:PASSIN -out ?',
-            [$pemInFile, $pemOutFile],
-            ['PASSIN' => $inPassPhrase]
-        );
     }
 
     public function derKeyProtect(string $derInFile, string $inPassPhrase, string $pemOutFile, string $outPassPhrase)
@@ -100,9 +104,95 @@ class OpenSSL
         }
     }
 
+    public function derKeyProtectOut(string $pemInFile, string $inPassPhrase, string $outPassPhrase): string
+    {
+        $pemOutFile = TemporaryFile::create();
+        try {
+            $this->derKeyProtect($pemInFile, $inPassPhrase, $pemOutFile, $outPassPhrase);
+            return $pemOutFile->retriveContents();
+        } finally {
+            $pemOutFile->remove();
+        }
+    }
+
+    public function pemKeyProtect(string $pemInFile, string $inPassPhrase, string $pemOutFile, string $outPassPhrase)
+    {
+        if ('' === $outPassPhrase) {
+            $this->pemKeyUnprotect($pemInFile, $inPassPhrase, $pemOutFile);
+            return;
+        }
+
+        $this->checkInputFile($pemInFile);
+        $this->checkOutputFile($pemOutFile);
+
+        $this->caller->call(
+            'rsa -in ? -passin env:PASSIN -des3 -out ? -passout env:PASSOUT',
+            [$pemInFile, $pemOutFile],
+            ['PASSIN' => $inPassPhrase, 'PASSOUT' => $outPassPhrase]
+        );
+    }
+
+    public function pemKeyProtectOut(string $pemInFile, string $inPassPhrase, string $outPassPhrase): string
+    {
+        $pemOutFile = TemporaryFile::create();
+        try {
+            $this->pemKeyProtect($pemInFile, $inPassPhrase, $pemOutFile, $outPassPhrase);
+            return $pemOutFile->retriveContents();
+        } finally {
+            $pemOutFile->remove();
+        }
+    }
+
+    public function pemKeyProtectInOut(string $pemContents, string $inPassPhrase, string $outPassPhrase): string
+    {
+        $pemInFile = TemporaryFile::create();
+        $pemInFile->storeContents($pemContents);
+        try {
+            return $this->pemKeyProtectOut($pemInFile, $inPassPhrase, $outPassPhrase);
+        } finally {
+            $pemInFile->remove();
+        }
+    }
+
+    public function pemKeyUnprotect(string $pemInFile, string $inPassPhrase, string $pemOutFile)
+    {
+        $this->checkInputFile($pemInFile);
+        $this->checkOutputFile($pemOutFile);
+
+        $this->caller->call(
+            'rsa -in ? -passin env:PASSIN -out ?',
+            [$pemInFile, $pemOutFile],
+            ['PASSIN' => $inPassPhrase]
+        );
+    }
+
+    public function pemKeyUnprotectOut(string $pemInFile, string $inPassPhrase): string
+    {
+        $pemOutFile = TemporaryFile::create();
+        try {
+            $this->pemKeyUnprotect($pemInFile, $inPassPhrase, $pemOutFile);
+            return $pemOutFile->retriveContents();
+        } finally {
+            $pemOutFile->remove();
+        }
+    }
+
+    public function pemKeyUnprotectInOut(string $pemContents, string $inPassPhrase): string
+    {
+        $pemInFile = TemporaryFile::create();
+        $pemInFile->storeContents($pemContents);
+        try {
+            return $this->pemKeyUnprotectOut($pemInFile, $inPassPhrase);
+        } finally {
+            $pemInFile->remove();
+        }
+    }
     protected function checkInputFile(string $path)
     {
         // file must exists, not a directory and must contain a non-zero size
+        if ('' === $path) {
+            throw new OpenSSLException('File argument is empty');
+        }
         if (! file_exists($path)) {
             throw new OpenSSLException("File $path does not exists");
         }

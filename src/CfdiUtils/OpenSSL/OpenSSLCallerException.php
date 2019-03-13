@@ -1,16 +1,15 @@
 <?php
 namespace CfdiUtils\OpenSSL;
 
-use CfdiUtils\Utils\Internal\ShellExecResult;
 use Throwable;
 
 class OpenSSLCallerException extends OpenSSLException
 {
-    /** @var ShellExecResult */
+    /** @var CallResponse */
     private $execResult;
 
     public function __construct(
-        ShellExecResult $execResult,
+        CallResponse $execResult,
         string $message = 'OpenSSL execution error',
         int $code = 0,
         Throwable $previous = null
@@ -19,7 +18,7 @@ class OpenSSLCallerException extends OpenSSLException
         $this->execResult = $execResult;
     }
 
-    public function getExecResult(): ShellExecResult
+    public function getCallResponse(): CallResponse
     {
         return $this->execResult;
     }

@@ -50,6 +50,16 @@ final class TemporaryFile
         return $this->filename;
     }
 
+    public function retriveContents(): string
+    {
+        return strval(file_get_contents($this->filename));
+    }
+
+    public function storeContents(string $contents)
+    {
+        file_put_contents($this->filename, $contents);
+    }
+
     public function remove()
     {
         $filename = $this->getPath();
