@@ -28,7 +28,9 @@
     - `ShellExecTemplate`: basic command array creation from a string template.
 - CI: Allow AppVeyor to fail when testing
     - PHPUnit ends with exit code 2, don't know  exactly why.
-    - Add `--testdox` and `--verbose` to command line
+    - Add `--testdox` and `--verbose` to command line.
+- CI: Change Travis build version to PHP 7.3, only run `phpstan` on build version.
+
 
 ## Version 2.8.1 2019-02-05
 
