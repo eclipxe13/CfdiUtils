@@ -26,7 +26,9 @@
 - Internal: Add `ShellExec` class that works around with `symfony/process` component. Also added:
     - `ShellExecResponse`: contains the response of ShellExec::run().
     - `ShellExecTemplate`: basic command array creation from a string template.
-
+- CI: Allow AppVeyor to fail when testing
+    - PHPUnit ends with exit code 2, don't know  exactly why.
+    - Add `--testdox` and `--verbose` to command line
 
 ## Version 2.8.1 2019-02-05
 
