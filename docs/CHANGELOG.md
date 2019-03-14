@@ -43,6 +43,7 @@
     - Increase coverage of `XmlResolverPropertyTrait`.
     - Cover `SumasConceptosWriter::getComprobante()`.
     - Cover `CfdiUtils\Certificado\SerialNumber::loadHexadecimal` when throw exception.
+    - Cover `CfdiUtils\Nodes\Attributes::import` (and constructor) when throw exception.
 - Genkgo/Xsl upgrated to 0.6 (compatible with PHP 7.0), also fix siggestion on `composer.json` file.
 - Internal: `TemporaryFile` now is able to cast itself to string, retrieve contents,
   store contents and remove file after run some function even if exception was thrown.

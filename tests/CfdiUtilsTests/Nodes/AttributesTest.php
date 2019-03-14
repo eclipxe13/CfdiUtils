@@ -176,6 +176,15 @@ class AttributesTest extends TestCase
         $this->assertCount(0, $attributes);
     }
 
+    public function testImportWithInvalidValue()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Cannot convert value of attribute foo to string');
+        new Attributes([
+            'foo' => [],
+        ]);
+    }
+
     public function testSetWithObjectToString()
     {
         $expectedValue = 'foo';
