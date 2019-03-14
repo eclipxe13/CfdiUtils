@@ -31,6 +31,18 @@ init:
 
 ## Install PHP and composer, and run the appropriate composer command
 install:
+    # openssl
+    - ps: |
+          if (Test-Path C:\OpenSSL-v111-Win64) {
+              Get-ChildItem -Path C:\OpenSSL-v111-Win64
+              Get-ChildItem -Path C:\OpenSSL-v111-Win64\bin
+          } else {
+              appveyor-retry cinst --ignore-checksums -y --params '""/InstallDir:C:\tools\openssl""' openssl.light
+              Get-ChildItem -Path C:\tools\openssl
+          }
+          Write-Host "Locating openssl"
+          Get-Command openssl
+          Exit 4
     # php
     - ps: |
           if (!(Test-Path c:\tools\php)) {
