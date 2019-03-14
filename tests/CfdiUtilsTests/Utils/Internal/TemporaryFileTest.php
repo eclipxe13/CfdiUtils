@@ -91,7 +91,7 @@ class TemporaryFileTest extends TestCase
         });
 
         $this->assertSame($expected, $retrieved, 'Method did not return the expected value');
-        $this->assertFileNotExists($file);
+        $this->assertFileNotExists($file->getPath());
     }
 
     public function testRunAndRemoveWithException()
@@ -108,6 +108,6 @@ class TemporaryFileTest extends TestCase
             }
         }
 
-        $this->assertFileNotExists($file);
+        $this->assertFileNotExists($file->getPath());
     }
 }
