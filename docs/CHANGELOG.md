@@ -54,6 +54,7 @@
     - PHPUnit ends with exit code 2, don't know  exactly why.
     - Add `--testdox` and `--verbose` to command line.
 - CI: Change Travis build version to PHP 7.3, only run `phpstan` on build version.
+- Dev: Add --testdox --verbose and --stop-on-failure on composer dev:build.
 
 
 ## Version 2.8.1 2019-02-05
