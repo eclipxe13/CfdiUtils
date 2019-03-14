@@ -7,6 +7,10 @@ php:
   - 7.2
   - 7.3
 
+branches:
+  except:
+    - appveyor # exclude appveyor branch
+
 before_install:
   - nvm install 8
 
