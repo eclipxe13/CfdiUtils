@@ -2,7 +2,7 @@
 namespace CfdiUtilsTests\Utils\Internal;
 
 use CfdiUtils\Utils\Internal\ShellExec;
-use PHPUnit\Framework\TestCase;
+use CfdiUtilsTests\TestCase;
 
 class ShellExecTest extends TestCase
 {
@@ -113,6 +113,11 @@ class ShellExecTest extends TestCase
 
     public function testStdinDoesNotLockProcess()
     {
+        $currentVersion = sprintf('%s.%s', PHP_MAJOR_VERSION, PHP_MINOR_VERSION);
+        if ($this->isRunningOnWindows() && '7.0' === $currentVersion) {
+            $this->markTestSkipped('This test fail on MS Windows with PHP 7.0');
+        }
+
         $printer = implode(PHP_EOL, [
             'fgets(STDIN);',
             'file_put_contents("php://stdout", "BYE", FILE_APPEND);',
