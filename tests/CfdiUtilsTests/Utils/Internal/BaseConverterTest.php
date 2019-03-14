@@ -60,7 +60,7 @@ class BaseConverterTest extends TestCase
     {
         $converter = BaseConverter::createBase36();
         $this->expectException(\UnexpectedValueException::class);
-        $this->expectExceptionMessage('The number to convert contains invalid chars');
+        $this->expectExceptionMessage('The number to convert contains invalid characters');
         $converter->convert('@', 16, 10);
     }
 

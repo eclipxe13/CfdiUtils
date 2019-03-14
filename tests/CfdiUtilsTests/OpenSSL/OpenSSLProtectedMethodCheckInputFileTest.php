@@ -51,7 +51,7 @@ class OpenSSLProtectedMethodCheckInputFileTest extends TestCase
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('is empty');
         try {
-            $this->openSSL()->checkInputFile($tempfile->getPath());
+            $this->openSSL()->checkInputFile($tempfile);
         } finally {
             $tempfile->remove();
         }

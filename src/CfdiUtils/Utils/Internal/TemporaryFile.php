@@ -72,4 +72,13 @@ final class TemporaryFile
     {
         return $this->getPath();
     }
+
+    public function runAndRemove(\Closure $fn)
+    {
+        try {
+            return $fn();
+        } finally {
+            $this->remove();
+        }
+    }
 }

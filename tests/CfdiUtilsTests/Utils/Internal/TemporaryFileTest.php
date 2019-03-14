@@ -80,4 +80,34 @@ class TemporaryFileTest extends TestCase
 
         $file->remove();
     }
+
+    public function testRunAndRemoveGreenPath()
+    {
+        $file = TemporaryFile::create();
+        $expected = 'foo';
+
+        $retrieved = $file->runAndRemove(function () use ($expected) {
+            return $expected;
+        });
+
+        $this->assertSame($expected, $retrieved, 'Method did not return the expected value');
+        $this->assertFileNotExists($file);
+    }
+
+    public function testRunAndRemoveWithException()
+    {
+        $file = TemporaryFile::create();
+
+        try {
+            $file->runAndRemove(function () {
+                throw new \RuntimeException('DUMMY');
+            });
+        } catch (\RuntimeException $exception) {
+            if ('DUMMY' !== $exception->getMessage()) {
+                throw new \RuntimeException('Expected exception was not thrown', 0, $exception);
+            }
+        }
+
+        $this->assertFileNotExists($file);
+    }
 }

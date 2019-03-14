@@ -37,12 +37,8 @@ class PemPrivateKey
             if ('' === $contents) {
                 throw new \RuntimeException('Empty key');
             }
-        } catch (\Throwable $exception) {
-            throw new \UnexpectedValueException(
-                'The key is not a file or a string PEM format private key',
-                0,
-                $exception
-            );
+        } catch (\Throwable $exc) {
+            throw new \UnexpectedValueException('The key is not a file or a string PEM format private key', 0, $exc);
         }
 
         $this->contents = $contents;
@@ -126,7 +122,8 @@ class PemPrivateKey
      * Check if a string has an obvious signature of a PEM file
      * @param string $keyContents
      * @return bool
-     * @deprecated :3.0.0 Replaced with OpenSSL utility
+     * @deprecated 2.9.0 Replaced with OpenSSL utility
+     * @see OpenSSL
      */
     public static function isPEM(string $keyContents): bool
     {

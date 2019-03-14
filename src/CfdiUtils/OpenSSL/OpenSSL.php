@@ -51,23 +51,23 @@ class OpenSSL
     public function derCerConvertOut(string $derInFile): string
     {
         $pemOutFile = TemporaryFile::create();
-        try {
-            $this->derCerConvert($derInFile, $pemOutFile);
-            return rtrim($pemOutFile->retriveContents(), PHP_EOL);
-        } finally {
-            $pemOutFile->remove();
-        }
+        return $pemOutFile->runAndRemove(
+            function () use ($derInFile, $pemOutFile): string {
+                $this->derCerConvert($derInFile, $pemOutFile);
+                return rtrim($pemOutFile->retriveContents(), PHP_EOL);
+            }
+        );
     }
 
     public function derCerConvertInOut(string $derContents): string
     {
         $derInFile = TemporaryFile::create();
-        $derInFile->storeContents($derContents);
-        try {
-            return $this->derCerConvertOut($derInFile);
-        } finally {
-            $derInFile->remove();
-        }
+        return $derInFile->runAndRemove(
+            function () use ($derInFile, $derContents): string {
+                $derInFile->storeContents($derContents);
+                return $this->derCerConvertOut($derInFile);
+            }
+        );
     }
 
     public function derKeyConvert(string $derInFile, string $inPassPhrase, string $pemOutFile)
@@ -85,34 +85,34 @@ class OpenSSL
     public function derKeyConvertOut(string $derInFile, string $inPassPhrase): string
     {
         $pemOutFile = TemporaryFile::create();
-        try {
-            $this->derKeyConvert($derInFile, $inPassPhrase, $pemOutFile);
-            return rtrim($pemOutFile->retriveContents(), PHP_EOL);
-        } finally {
-            $pemOutFile->remove();
-        }
+        return $pemOutFile->runAndRemove(
+            function () use ($derInFile, $inPassPhrase, $pemOutFile): string {
+                $this->derKeyConvert($derInFile, $inPassPhrase, $pemOutFile);
+                return rtrim($pemOutFile->retriveContents(), PHP_EOL);
+            }
+        );
     }
 
     public function derKeyProtect(string $derInFile, string $inPassPhrase, string $pemOutFile, string $outPassPhrase)
     {
         $tempfile = TemporaryFile::create();
-        try {
-            $this->derKeyConvert($derInFile, $inPassPhrase, $tempfile->getPath());
-            $this->pemKeyProtect($tempfile->getPath(), '', $pemOutFile, $outPassPhrase);
-        } finally {
-            $tempfile->remove();
-        }
+        $tempfile->runAndRemove(
+            function () use ($derInFile, $inPassPhrase, $tempfile, $pemOutFile, $outPassPhrase) {
+                $this->derKeyConvert($derInFile, $inPassPhrase, $tempfile);
+                $this->pemKeyProtect($tempfile, '', $pemOutFile, $outPassPhrase);
+            }
+        );
     }
 
     public function derKeyProtectOut(string $pemInFile, string $inPassPhrase, string $outPassPhrase): string
     {
         $pemOutFile = TemporaryFile::create();
-        try {
-            $this->derKeyProtect($pemInFile, $inPassPhrase, $pemOutFile, $outPassPhrase);
-            return rtrim($pemOutFile->retriveContents(), PHP_EOL);
-        } finally {
-            $pemOutFile->remove();
-        }
+        return $pemOutFile->runAndRemove(
+            function () use ($pemInFile, $inPassPhrase, $pemOutFile, $outPassPhrase): string {
+                $this->derKeyProtect($pemInFile, $inPassPhrase, $pemOutFile, $outPassPhrase);
+                return rtrim($pemOutFile->retriveContents(), PHP_EOL);
+            }
+        );
     }
 
     public function pemKeyProtect(string $pemInFile, string $inPassPhrase, string $pemOutFile, string $outPassPhrase)
@@ -135,23 +135,23 @@ class OpenSSL
     public function pemKeyProtectOut(string $pemInFile, string $inPassPhrase, string $outPassPhrase): string
     {
         $pemOutFile = TemporaryFile::create();
-        try {
-            $this->pemKeyProtect($pemInFile, $inPassPhrase, $pemOutFile, $outPassPhrase);
-            return rtrim($pemOutFile->retriveContents(), PHP_EOL);
-        } finally {
-            $pemOutFile->remove();
-        }
+        return $pemOutFile->runAndRemove(
+            function () use ($pemInFile, $inPassPhrase, $pemOutFile, $outPassPhrase): string {
+                $this->pemKeyProtect($pemInFile, $inPassPhrase, $pemOutFile, $outPassPhrase);
+                return rtrim($pemOutFile->retriveContents(), PHP_EOL);
+            }
+        );
     }
 
     public function pemKeyProtectInOut(string $pemContents, string $inPassPhrase, string $outPassPhrase): string
     {
         $pemInFile = TemporaryFile::create();
-        $pemInFile->storeContents($pemContents);
-        try {
-            return $this->pemKeyProtectOut($pemInFile, $inPassPhrase, $outPassPhrase);
-        } finally {
-            $pemInFile->remove();
-        }
+        return $pemInFile->runAndRemove(
+            function () use ($pemInFile, $pemContents, $inPassPhrase, $outPassPhrase): string {
+                $pemInFile->storeContents($pemContents);
+                return $this->pemKeyProtectOut($pemInFile, $inPassPhrase, $outPassPhrase);
+            }
+        );
     }
 
     public function pemKeyUnprotect(string $pemInFile, string $inPassPhrase, string $pemOutFile)
@@ -169,24 +169,25 @@ class OpenSSL
     public function pemKeyUnprotectOut(string $pemInFile, string $inPassPhrase): string
     {
         $pemOutFile = TemporaryFile::create();
-        try {
-            $this->pemKeyUnprotect($pemInFile, $inPassPhrase, $pemOutFile);
-            return rtrim($pemOutFile->retriveContents(), PHP_EOL);
-        } finally {
-            $pemOutFile->remove();
-        }
+        return $pemOutFile->runAndRemove(
+            function () use ($pemInFile, $inPassPhrase, $pemOutFile): string {
+                $this->pemKeyUnprotect($pemInFile, $inPassPhrase, $pemOutFile);
+                return rtrim($pemOutFile->retriveContents(), PHP_EOL);
+            }
+        );
     }
 
     public function pemKeyUnprotectInOut(string $pemContents, string $inPassPhrase): string
     {
         $pemInFile = TemporaryFile::create();
-        $pemInFile->storeContents($pemContents);
-        try {
-            return $this->pemKeyUnprotectOut($pemInFile, $inPassPhrase);
-        } finally {
-            $pemInFile->remove();
-        }
+        return $pemInFile->runAndRemove(
+            function () use ($pemInFile, $pemContents, $inPassPhrase): string {
+                $pemInFile->storeContents($pemContents);
+                return $this->pemKeyUnprotectOut($pemInFile, $inPassPhrase);
+            }
+        );
     }
+
     protected function checkInputFile(string $path)
     {
         // file must exists, not a directory and must contain a non-zero size

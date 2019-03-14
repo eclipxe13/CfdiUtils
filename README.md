@@ -64,6 +64,9 @@ composer require eclipxe/cfdiutils
 This library is compatible with PHP versions 7.0 and above.
 Please, try to use the full potential of the language like type declarations.
 
+The intented support is to be aligned with oldest *Active support* PHP Branch.
+See <http://php.net/supported-versions.php> for more details.
+
 
 ## Contributing
 
@@ -88,10 +91,10 @@ and licensed for use under the MIT License (MIT). Please see [LICENSE][] for mor
 [release]: https://github.com/eclipxe13/CfdiUtils/releases
 [license]: https://github.com/eclipxe13/CfdiUtils/blob/master/LICENSE
 [build]: https://travis-ci.org/eclipxe13/CfdiUtils?branch=master
-[appveyor]: https://ci.appveyor.com/project/eclipxe13/cfdiutils
-[quality]: https://scrutinizer-ci.com/g/eclipxe13/CfdiUtils/
+[appveyor]: https://ci.appveyor.com/project/eclipxe13/cfdiutils/branch/master
+[quality]: https://scrutinizer-ci.com/g/eclipxe13/CfdiUtils/?branch=master
 [sensiolabs]: https://insight.sensiolabs.com/projects/87975c73-2f3b-480a-8cce-e78b15986d7b
-[coverage]: https://scrutinizer-ci.com/g/eclipxe13/CfdiUtils/code-structure/master/code-coverage
+[coverage]: https://scrutinizer-ci.com/g/eclipxe13/CfdiUtils/code-structure/master/code-coverage/src/CfdiUtils/
 [downloads]: https://packagist.org/packages/eclipxe/CfdiUtils
 
 [badge-source]: http://img.shields.io/badge/source-eclipxe13/CfdiUtils-blue.svg?logo=github&style=flat-square

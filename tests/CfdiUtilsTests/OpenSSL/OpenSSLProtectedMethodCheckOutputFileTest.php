@@ -28,7 +28,7 @@ class OpenSSLProtectedMethodCheckOutputFileTest extends TestCase
     {
         $tempfile = TemporaryFile::create();
         try {
-            $this->openSSL()->checkOutputFile($tempfile->getPath());
+            $this->openSSL()->checkOutputFile($tempfile);
         } finally {
             $tempfile->remove();
         }

@@ -27,7 +27,16 @@ class SaxonbCliBuilder extends AbstractXsltBuilder
         $this->executablePath = $executablePath;
     }
 
-    public function createCommand(string $xmlFile, string $xsltLocation): array
+    /**
+     * SECURITY: This method does not work as expected on non POSIX system (as MS Windows)
+     * It was never intented to be public. It is not used by this class and will be removed on 3.0.0
+     *
+     * @param string $xmlFile
+     * @param string $xsltLocation
+     * @return string
+     * @deprecated 2.9.0 Will be removed with no replacement, never intented to be public
+     */
+    public function createCommand(string $xmlFile, string $xsltLocation): string
     {
         // if is running on windows then use NUL instead of /dev/null
         return [
@@ -54,20 +63,28 @@ class SaxonbCliBuilder extends AbstractXsltBuilder
         }
 
         $temporaryFile = TemporaryFile::create();
-        try {
-            file_put_contents($temporaryFile->getPath(), $xmlContent);
-            $command = $this->createCommand($temporaryFile->getPath(), $xsltLocation);
-            $execution = (new ShellExec($command))->run();
+        return $temporaryFile->runAndRemove(
+            function () use ($temporaryFile, $xmlContent, $xsltLocation) {
+                $temporaryFile->storeContents($xmlContent);
 
-            if (0 !== $execution->exitStatus()) {
-                throw new XsltBuildException('Transformation error');
+                $command = [
+                    $this->getExecutablePath(),
+                    '-s:' . $temporaryFile->getPath(),
+                    '-xsl:' . $xsltLocation,
+                    '-warnings:silent', // default recover
+                ];
+
+                $execution = (new ShellExec($command))->run();
+
+                if (0 !== $execution->exitStatus()) {
+                    throw new XsltBuildException('Transformation error');
+                }
+                $output = trim($execution->output());
+                if ('<?xml version="1.0" encoding="UTF-8"?>' === $output) {
+                    throw new XsltBuildException('Transformation error');
+                }
+                return $output;
             }
-            if ('<?xml version="1.0" encoding="UTF-8"?>' === trim($execution->output())) {
-                throw new XsltBuildException('Transformation error');
-            }
-            return trim($execution->output());
-        } finally {
-            $temporaryFile->remove();
-        }
+        );
     }
 }
