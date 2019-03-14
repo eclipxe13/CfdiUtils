@@ -29,6 +29,7 @@ trabajar con CFDI y también para obtener su ayuda, todo lo que la comunidad pue
 contribuir será bien apreciado. Tenemos una comunidad activa y dinámica, nos puedes
 encontrar en [el canal de gitter](https://gitter.im/eclipxe13/php-cfdi).
 
+
 ## Lectura de CFDI
 
 La librería ofrece métodos para leer CFDI versión 3.2 y 3.3.
@@ -55,6 +56,7 @@ Solo hay métodos específicos para CFDI 3.3.
 - [Agregar complementos](crear/complementos-aun-no-implementados.md)
 - [CFDI Retenciones](crear/cfdi-de-retenciones-e-informacion-de-pagos.md)
 
+
 ## Componentes comunes
 
 - [Estructura de datos `Nodes`](componentes/nodes.md)
@@ -63,6 +65,11 @@ Solo hay métodos específicos para CFDI 3.3.
 - [Certificados](componentes/certificado.md)
 - [Consultar estado de un CFDI](componentes/estado-sat.md)
 - [Generación de cadena original](componentes/cadena-de-origen.md)
+
+
+## Utilerías
+
+- [OpenSSL](utilerias/openssl.md)
 
 
 ## Contribuciones

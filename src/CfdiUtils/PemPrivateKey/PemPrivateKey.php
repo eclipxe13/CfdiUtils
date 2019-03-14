@@ -1,8 +1,13 @@
 <?php
 namespace CfdiUtils\PemPrivateKey;
 
+use CfdiUtils\OpenSSL\OpenSSL;
+use CfdiUtils\OpenSSL\OpenSSLPropertyTrait;
+
 class PemPrivateKey
 {
+    use OpenSSLPropertyTrait;
+
     /** @var string */
     private $contents;
 
@@ -16,22 +21,26 @@ class PemPrivateKey
      * - file contents
      *
      * @param string $key
+     * @param \CfdiUtils\OpenSSL\OpenSSL $openSSL
      * @throws \UnexpectedValueException if the file is not PEM format
      */
-    public function __construct(string $key)
+    public function __construct(string $key, OpenSSL $openSSL = null)
     {
-        if (0 === strpos($key, 'file://')) {
-            $contents = '';
-            $filename = substr($key, 7);
-            if ('' !== $filename && file_exists($filename) && is_readable($filename) && ! is_dir($filename)) {
-                $contents = strval(file_get_contents($filename));
+        $this->setOpenSSL($openSSL ?: new OpenSSL());
+        try {
+            if (0 === strpos($key, 'file://')) {
+                $filename = substr($key, 7);
+                $contents = $this->getOpenSSL()->readPemFile($filename)->privateKey();
+            } else {
+                $contents = $this->getOpenSSL()->readPemContents($key)->privateKey();
             }
-        } else {
-            $contents = $key;
+            if ('' === $contents) {
+                throw new \RuntimeException('Empty key');
+            }
+        } catch (\Throwable $exc) {
+            throw new \UnexpectedValueException('The key is not a file or a string PEM format private key', 0, $exc);
         }
-        if (! $this->isPEM($contents)) {
-            throw new \UnexpectedValueException('The key is not a file or a string PEM format private key');
-        }
+
         $this->contents = $contents;
     }
 
@@ -113,41 +122,16 @@ class PemPrivateKey
      * Check if a string has an obvious signature of a PEM file
      * @param string $keyContents
      * @return bool
+     * @deprecated 2.9.0 Replaced with OpenSSL utility
+     * @see OpenSSL
      */
     public static function isPEM(string $keyContents): bool
     {
-        $keyContents = rtrim($keyContents);
-        $templates = [
-            '-----%s PRIVATE KEY-----',
-            '-----%s RSA PRIVATE KEY-----',
-        ];
-        if (! self::isPEMHasHeader($keyContents, $templates)) {
+        if ('' === $keyContents) {
             return false;
         }
-        if (! self::isPEMHasFooter($keyContents, $templates)) {
-            return false;
-        }
-        return true;
-    }
 
-    private static function isPEMHasHeader(string $keyContents, array $templates): bool
-    {
-        foreach ($templates as $template) {
-            if (0 === strpos($keyContents, sprintf($template, 'BEGIN'))) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static function isPEMHasFooter(string $keyContents, array $templates): bool
-    {
-        foreach ($templates as $template) {
-            $search = sprintf($template, 'END');
-            if ($search === substr($keyContents, - strlen($search))) {
-                return true;
-            }
-        }
-        return false;
+        $openSSL = new OpenSSL();
+        return $openSSL->readPemContents($keyContents)->hasPrivateKey();
     }
 }

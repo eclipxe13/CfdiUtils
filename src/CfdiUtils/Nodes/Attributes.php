@@ -87,7 +87,7 @@ class Attributes implements \Countable, \IteratorAggregate, \ArrayAccess
         if (is_object($value) && is_callable([$value, '__toString'])) {
             return strval($value);
         }
-        throw new \InvalidArgumentException(sprintf('Attribute %s value cannot be converted to string', $key));
+        throw new \InvalidArgumentException(sprintf('Cannot convert value of attribute %s to string', $key));
     }
 
     public function getIterator()

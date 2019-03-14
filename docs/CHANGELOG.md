@@ -17,6 +17,44 @@
   `loadDecimal` and `loadAscii`.
 - Remove `CfdiUtils\Certificado\SerialNumber::baseConvert` method. Should be private or not exists at all.
 - Add a method `NodeInderface::exists` as an alias of `NodeInderface::offsetExists`. Replace usages in code.
+- Remove static `CfdiUtils\PemPrivateKey\PemPrivateKey::isPEM` method.
+
+
+## Version 2.9.0 2019-03-13
+
+- Add `CfdiUtils\OpenSSL`, a library to help working with `openssl` commands and CER, KEY and PEM files.
+  Fully tested and [documented](https://cfdiutils.readthedocs.io/es/utilerias/openssl/).
+- Improve other components by depends on `CfdiUtils\OpenSSL`:
+    - `CfdiUtils\Certificado\Certificado`:
+        - Use `OpenSSLPropertyTrait`.
+        - Allow to construct using a `OpenSSL` object, default to create a new one.
+        - Remove protected method `changeCerToPem`.
+    - `CfdiUtils\PemPrivateKey\PemPrivateKey`:
+        - Use `OpenSSLPropertyTrait`.
+        - Allow to construct using a `OpenSSL` object, default to create a new one.
+        - Deprecate static method `isPEM`, use `OpenSSL` instead.
+        - Fix test since OpenSSL is stricter on getting contents.
+        - Since this version, other private keys are allowed, as the created by PHP `ENCODED PRIVATE KEY`.
+- Improvements on `SaxonbCliBuilder`:
+    - Improve compatibility on MS Windows by using `ShellExec`.
+    - Deprecate method `createCommand`.
+    - Use new features from internal class `TemporaryFile`.
+- Test:
+    - Increase coverage of `XmlResolverPropertyTrait`.
+    - Cover `SumasConceptosWriter::getComprobante()`.
+    - Cover `CfdiUtils\Certificado\SerialNumber::loadHexadecimal` when throw exception.
+    - Cover `CfdiUtils\Nodes\Attributes::import` (and constructor) when throw exception.
+- Genkgo/Xsl upgrated to 0.6 (compatible with PHP 7.0), also fix siggestion on `composer.json` file.
+- Internal: `TemporaryFile` now is able to cast itself to string, retrieve contents,
+  store contents and remove file after run some function even if exception was thrown.
+- Internal: Add `ShellExec` class that works around with `symfony/process` component. Also added:
+    - `ShellExecResponse`: contains the response of ShellExec::run().
+    - `ShellExecTemplate`: basic command array creation from a string template.
+- CI: Allow AppVeyor to fail when testing
+    - PHPUnit ends with exit code 2, don't know  exactly why.
+    - Add `--testdox` and `--verbose` to command line.
+- CI: Change Travis build version to PHP 7.3, only run `phpstan` on build version.
+- Dev: Add --testdox --verbose and --stop-on-failure on composer dev:build.
 
 
 ## Version 2.8.1 2019-02-05

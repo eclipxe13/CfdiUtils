@@ -19,8 +19,12 @@ environment:
         - php: 7.2
         - php: 7.3
 
+matrix:
+    allow_failures:
+        - php: 7.0
+
 init:
-    - SET PATH=C:\Program Files\OpenSSL;c:\tools\php;C:\tools\composer;%PATH%
+    - SET PATH=C:\OpenSSL-v111-Win64\bin;c:\tools\php;C:\tools\composer;%PATH%
     - SET COMPOSER_NO_INTERACTION=1
     - SET ANSICON=121x90 (121x90)
     - SET saxonb-path=C:\ProgramData\chocolatey\bin\SaxonHE\bin\Transform.exe
@@ -70,5 +74,5 @@ test_script:
     - vendor\bin\phplint
     - vendor\bin\phpcs -sp src tests
     - vendor\bin\php-cs-fixer fix --using-cache=no --dry-run --verbose
-    - vendor\bin\phpunit
+    - vendor\bin\phpunit --testdox --verbose
     - vendor\bin\phpstan.phar.bat --no-progress analyse --level max src tests

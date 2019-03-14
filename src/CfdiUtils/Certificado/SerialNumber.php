@@ -21,7 +21,7 @@ class SerialNumber
     public function loadHexadecimal(string $hexString)
     {
         if (! (bool) preg_match('/^[0-9a-f]*$/', $hexString)) {
-            throw new \UnexpectedValueException('The hexadecimal string contains invalid chars');
+            throw new \UnexpectedValueException('The hexadecimal string contains invalid characters');
         }
         $this->hexString = $hexString;
     }

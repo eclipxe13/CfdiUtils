@@ -1,6 +1,7 @@
 <?php
 namespace CfdiUtils\CadenaOrigen;
 
+use CfdiUtils\Utils\Internal\ShellExec;
 use CfdiUtils\Utils\Internal\TemporaryFile;
 
 class SaxonbCliBuilder extends AbstractXsltBuilder
@@ -26,17 +27,24 @@ class SaxonbCliBuilder extends AbstractXsltBuilder
         $this->executablePath = $executablePath;
     }
 
+    /**
+     * SECURITY: This method does not work as expected on non POSIX system (as MS Windows)
+     * It was never intented to be public. It is not used by this class and will be removed on 3.0.0
+     *
+     * @param string $xmlFile
+     * @param string $xsltLocation
+     * @return string
+     * @deprecated 2.9.0 Will be removed with no replacement, never intented to be public
+     */
     public function createCommand(string $xmlFile, string $xsltLocation): string
     {
         // if is running on windows then use NUL instead of /dev/null
-        $devnull = (0 === stripos(PHP_OS, 'win')) ? 'NUL' : '/dev/null';
-        return implode(' ', [
-            escapeshellarg($this->getExecutablePath()),
-            escapeshellarg('-s:' . $xmlFile),
-            escapeshellarg('-xsl:' . $xsltLocation),
-            escapeshellarg('-warnings:silent'), // default recover
-            "2>$devnull",
-        ]);
+        return [
+            $this->getExecutablePath(),
+            '-s:' . $xmlFile,
+            '-xsl:' . $xsltLocation,
+            '-warnings:silent', // default recover
+        ];
     }
 
     public function build(string $xmlContent, string $xsltLocation): string
@@ -55,23 +63,28 @@ class SaxonbCliBuilder extends AbstractXsltBuilder
         }
 
         $temporaryFile = TemporaryFile::create();
-        try {
-            file_put_contents($temporaryFile->getPath(), $xmlContent);
-            $command = $this->createCommand($temporaryFile->getPath(), $xsltLocation);
-            $output = [];
-            $return = 0;
-            $transform = exec($command, $output, $return);
-            // ugly hack for empty xslt
-            if ('<?xml version="1.0" encoding="UTF-8"?>' === $transform && 0 === $return && count($output) == 1) {
-                $transform = '';
-                $return = 2;
+        return $temporaryFile->runAndRemove(
+            function () use ($temporaryFile, $xmlContent, $xsltLocation) {
+                $temporaryFile->storeContents($xmlContent);
+
+                $command = [
+                    $this->getExecutablePath(),
+                    '-s:' . $temporaryFile->getPath(),
+                    '-xsl:' . $xsltLocation,
+                    '-warnings:silent', // default recover
+                ];
+
+                $execution = (new ShellExec($command))->run();
+
+                if (0 !== $execution->exitStatus()) {
+                    throw new XsltBuildException('Transformation error');
+                }
+                $output = trim($execution->output());
+                if ('<?xml version="1.0" encoding="UTF-8"?>' === $output) {
+                    throw new XsltBuildException('Transformation error');
+                }
+                return $output;
             }
-            if (0 !== $return) {
-                throw new XsltBuildException('Transformation error');
-            }
-            return $transform;
-        } finally {
-            $temporaryFile->remove();
-        }
+        );
     }
 }

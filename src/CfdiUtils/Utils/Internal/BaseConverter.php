@@ -52,7 +52,7 @@ class BaseConverter
         }
         $chars = substr($originalSequence, 0, $frombase);
         if (! boolval(preg_match("/^[$chars]+$/", $input))) {
-            throw new \UnexpectedValueException('The number to convert contains invalid chars');
+            throw new \UnexpectedValueException('The number to convert contains invalid characters');
         }
 
         $length = strlen($input);

@@ -13,6 +13,11 @@ class TestCase extends \PHPUnit\Framework\TestCase
         return dirname(__DIR__) . '/assets/' . $file;
     }
 
+    protected function isRunningOnWindows(): bool
+    {
+        return (0 === strpos(strtoupper(PHP_OS), 'WIN'));
+    }
+
     protected function newInsecurePhpDownloader(): DownloaderInterface
     {
         // disable ssl verification connecting to https://rdc.sat.gob.mx/ since SAT web server has config errors
