@@ -69,6 +69,9 @@ class PemExtractor
 
     protected function fixLineEndings(string $content): string
     {
-        return str_replace("\n", PHP_EOL, str_replace("\r", '', $content));
+        // move '\r\n' or '\n' to PHP_EOL
+        // first substitution '\r' -> ''
+        // second substitution '\n' -> PHP_EOL
+        return str_replace(["\r", "\n"], ['', PHP_EOL], $content);
     }
 }
