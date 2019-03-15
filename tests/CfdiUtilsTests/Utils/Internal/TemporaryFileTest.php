@@ -34,25 +34,36 @@ class TemporaryFileTest extends TestCase
         TemporaryFile::create($directory);
     }
 
-    public function testCreateOnReadOnlyFolderThrowsException()
+    public function testCreateOnReadOnlyDirectoryThrowsException()
     {
-        // redirect test to MS Windows case
         if ($this->isRunningOnWindows()) {
-            // don't know how to test this on AppVeyor
-            // since MS Windows create file on folder with chmod 0400
-            // and AppVeyor allow write on WINDIR
-            $this->markTestSkipped('Cannot create scenario to perform this test on MS Windows');
-            return;
+            $this->wintestCreateOnReadOnlyDirectoryOnWindowsThrowsException();
+        } else {
+            $this->posixtestCreateOnReadOnlyDirectoryOnPosixThrowsException();
         }
+    }
 
+    private function wintestCreateOnReadOnlyDirectoryOnWindowsThrowsException()
+    {
+        $directory = strval(getenv('WINDIR'));
+        if ('' === $directory) {
+            $this->markTestSkipped('Cannot get WINDIR directory');
+        }
+        if (is_writable($directory)) {
+            $this->markTestSkipped('Expected WINDIR directory is writable, are you root?');
+        }
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Unable to create a temporary file');
+        TemporaryFile::create($directory);
+    }
+
+    private function posixtestCreateOnReadOnlyDirectoryOnPosixThrowsException()
+    {
         // prepare directory
         $directory = __DIR__ . '/readonly';
         mkdir($directory);
         chmod($directory, 0500);
 
-        // setup exception
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Unable to create a temporary file');
         try {
             TemporaryFile::create($directory);
         } finally {
