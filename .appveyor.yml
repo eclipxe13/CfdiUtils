@@ -84,8 +84,8 @@ install:
 test_script:
     - cd c:\projects\project
     - mkdir build
-    - php vendor\bin\phplint
-    - php vendor\bin\phpcs -sp src tests
-    - php vendor\bin\php-cs-fixer fix --dry-run --verbose
-    - php vendor\bin\phpunit --verbose
-    - php vendor\bin\phpstan.phar --no-progress analyse --level max src tests
+    - vendor\bin\phplint.bat
+    - vendor\bin\phpcs.bat -sp src tests
+    - vendor\bin\php-cs-fixer.bat fix --dry-run --verbose
+    - vendor\bin\phpunit.bat --verbose
+    - vendor\bin\phpstan.phar.bat --no-progress analyse --level max src tests
