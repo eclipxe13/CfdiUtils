@@ -27,7 +27,11 @@ class OpenSSL
     public function readPemContents(string $contents): PemContainer
     {
         $extractor = new PemExtractor($contents);
-        $pemContainer = $extractor->pemContainer();
+        $pemContainer = new PemContainer(
+            $extractor->extractCertificate(),
+            $extractor->extractPublicKey(),
+            $extractor->extractPrivateKey()
+        );
         return $pemContainer;
     }
 

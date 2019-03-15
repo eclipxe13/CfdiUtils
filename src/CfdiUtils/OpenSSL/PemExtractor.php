@@ -16,15 +16,6 @@ class PemExtractor
         return $this->contents;
     }
 
-    public function pemContainer(): PemContainer
-    {
-        return new PemContainer(
-            $this->extractCertificate(),
-            $this->extractPublicKey(),
-            $this->extractPrivateKey()
-        );
-    }
-
     public function extractCertificate(): string
     {
         return $this->extractBase64('CERTIFICATE');
