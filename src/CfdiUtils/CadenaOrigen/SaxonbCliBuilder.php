@@ -39,7 +39,7 @@ class SaxonbCliBuilder extends AbstractXsltBuilder
     public function createCommand(string $xmlFile, string $xsltLocation): string
     {
         // if is running on windows then use NUL instead of /dev/null
-        $devnull = ('/' !== DIRECTORY_SEPARATOR) ? 'NUL' : '/dev/null';
+        $devnull = ('\\' === DIRECTORY_SEPARATOR) ? 'NUL' : '/dev/null';
         return implode(' ', [
             escapeshellarg($this->getExecutablePath()),
             escapeshellarg('-s:' . $xmlFile),

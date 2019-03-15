@@ -5,6 +5,8 @@ use CfdiUtils\Utils\Internal\TemporaryFile;
 
 class OpenSSL
 {
+    use NormalizeLineEndingsTrait;
+
     /** @var Caller */
     private $caller;
 
@@ -58,7 +60,7 @@ class OpenSSL
         return $pemOutFile->runAndRemove(
             function () use ($derInFile, $pemOutFile): string {
                 $this->derCerConvert($derInFile, $pemOutFile);
-                return rtrim($pemOutFile->retriveContents(), PHP_EOL);
+                return $this->normalizeLineEndings($pemOutFile->retriveContents());
             }
         );
     }
@@ -92,7 +94,7 @@ class OpenSSL
         return $pemOutFile->runAndRemove(
             function () use ($derInFile, $inPassPhrase, $pemOutFile): string {
                 $this->derKeyConvert($derInFile, $inPassPhrase, $pemOutFile);
-                return rtrim($pemOutFile->retriveContents(), PHP_EOL);
+                return $this->normalizeLineEndings($pemOutFile->retriveContents());
             }
         );
     }
@@ -114,7 +116,7 @@ class OpenSSL
         return $pemOutFile->runAndRemove(
             function () use ($pemInFile, $inPassPhrase, $pemOutFile, $outPassPhrase): string {
                 $this->derKeyProtect($pemInFile, $inPassPhrase, $pemOutFile, $outPassPhrase);
-                return rtrim($pemOutFile->retriveContents(), PHP_EOL);
+                return $this->normalizeLineEndings($pemOutFile->retriveContents());
             }
         );
     }
@@ -142,7 +144,7 @@ class OpenSSL
         return $pemOutFile->runAndRemove(
             function () use ($pemInFile, $inPassPhrase, $pemOutFile, $outPassPhrase): string {
                 $this->pemKeyProtect($pemInFile, $inPassPhrase, $pemOutFile, $outPassPhrase);
-                return rtrim($pemOutFile->retriveContents(), PHP_EOL);
+                return $this->normalizeLineEndings($pemOutFile->retriveContents());
             }
         );
     }
@@ -176,7 +178,7 @@ class OpenSSL
         return $pemOutFile->runAndRemove(
             function () use ($pemInFile, $inPassPhrase, $pemOutFile): string {
                 $this->pemKeyUnprotect($pemInFile, $inPassPhrase, $pemOutFile);
-                return rtrim($pemOutFile->retriveContents(), PHP_EOL);
+                return $this->normalizeLineEndings($pemOutFile->retriveContents());
             }
         );
     }

@@ -34,30 +34,29 @@ class TemporaryFileTest extends TestCase
         TemporaryFile::create($directory);
     }
 
-    public function testCreateOnReadOnlyFolderThrowsException()
+    public function testCreateOnReadOnlyDirectoryThrowsException()
     {
-        // redirect test to MS Windows case
-        if ($this->isRunningOnWindows()) {
-            // don't know how to test this on AppVeyor
-            // since MS Windows create file on folder with chmod 0400
-            // and AppVeyor allow write on WINDIR
-            $this->markTestSkipped('Cannot create scenario to perform this test on MS Windows');
+        // prepare directory
+        $directory = __DIR__ . '/readonly';
+        mkdir($directory, 0500);
+
+        // skip if it was not writable
+        if (is_writable($directory)) {
+            rmdir($directory);
+            $this->markTestSkipped('Cannot create a read-only directory');
             return;
         }
 
-        // prepare directory
-        $directory = __DIR__ . '/readonly';
-        mkdir($directory);
-        chmod($directory, 0500);
-
-        // setup exception
+        // setup expected exception
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Unable to create a temporary file');
+
+        // enclose on try {} finally {} for directory clean up
         try {
             TemporaryFile::create($directory);
         } finally {
-            // cleanup
-            chmod($directory, 0700);
+            // clean up
+            chmod($directory, 0777);
             rmdir($directory);
         }
     }

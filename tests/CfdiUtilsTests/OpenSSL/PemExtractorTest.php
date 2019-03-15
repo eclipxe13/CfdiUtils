@@ -15,10 +15,26 @@ class PemExtractorTest extends TestCase
         $this->assertSame('', $extractor->extractCertificate());
     }
 
-    public function testExtractorWithFakeContent()
+    public function providerCrLfAndLf()
+    {
+        return [
+            'CRLF' => ["\r\n"],
+            'LF' => ["\n"],
+        ];
+    }
+
+    /**
+     * @param string $eol
+     * @dataProvider providerCrLfAndLf
+     */
+    public function testExtractorWithFakeContent(string $eol)
     {
         // section contents must be base64 valid strings
-        $content = implode(PHP_EOL, [
+        $info = str_replace(["\r", "\n"], ['[CR]', '[LF]'], $eol);
+        $content = implode($eol, [
+            '-----BEGIN OTHER SECTION-----',
+            'OTHER SECTION',
+            '-----END OTHER SECTION-----',
             '-----BEGIN CERTIFICATE-----',
             'FOO+CERTIFICATE',
             '-----END CERTIFICATE-----',
@@ -31,9 +47,21 @@ class PemExtractorTest extends TestCase
         ]);
         $extractor = new PemExtractor($content);
         $this->assertSame($content, $extractor->getContents());
-        $this->assertContains('FOO+CERTIFICATE', $extractor->extractCertificate());
-        $this->assertContains('FOO+PUBLIC+KEY', $extractor->extractPublicKey());
-        $this->assertContains('FOO+PRIVATE+KEY', $extractor->extractPrivateKey());
+        $this->assertContains(
+            'FOO+CERTIFICATE',
+            $extractor->extractCertificate(),
+            "Certificate using EOL $info was not extracted"
+        );
+        $this->assertContains(
+            'FOO+PUBLIC+KEY',
+            $extractor->extractPublicKey(),
+            "Public Key using EOL $info was not extracted"
+        );
+        $this->assertContains(
+            'FOO+PRIVATE+KEY',
+            $extractor->extractPrivateKey(),
+            "Private Key using EOL $info was not extracted"
+        );
     }
 
     public function testExtractCertificateWithPublicKey()

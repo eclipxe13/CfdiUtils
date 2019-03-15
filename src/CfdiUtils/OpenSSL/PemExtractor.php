@@ -3,6 +3,8 @@ namespace CfdiUtils\OpenSSL;
 
 class PemExtractor
 {
+    use NormalizeLineEndingsTrait;
+
     /** @var string */
     private $contents;
 
@@ -47,10 +49,10 @@ class PemExtractor
         $pattern = '/^'
             . '-----BEGIN ' . $type . '-----\r?\n'
             . '([A-Za-z0-9+\/=]+\r?\n)+'
-            . '-----END ' . $type . '-----'
+            . '-----END ' . $type . '-----\r?\n?'
             . '$/m';
         preg_match($pattern, $this->getContents(), $matches);
-        return $this->fixLineEndings(strval($matches[0] ?? ''));
+        return $this->normalizeLineEndings(strval($matches[0] ?? ''));
     }
 
     protected function extractRsaProtected(): string
@@ -61,17 +63,9 @@ class PemExtractor
             . 'Proc-Type: .+\r?\n'
             . 'DEK-Info: .+\r?\n\r?\n'
             . '([A-Za-z0-9+\/=]+\r?\n)+'
-            . '-----END RSA PRIVATE KEY-----'
+            . '-----END RSA PRIVATE KEY-----\r?\n?'
             . '$/m';
         preg_match($pattern, $this->getContents(), $matches);
-        return $this->fixLineEndings(strval($matches[0] ?? ''));
-    }
-
-    protected function fixLineEndings(string $content): string
-    {
-        // move '\r\n' or '\n' to PHP_EOL
-        // first substitution '\r' -> ''
-        // second substitution '\n' -> PHP_EOL
-        return str_replace(["\r", "\n"], ['', PHP_EOL], $content);
+        return $this->normalizeLineEndings(strval($matches[0] ?? ''));
     }
 }
