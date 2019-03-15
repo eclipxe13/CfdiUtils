@@ -76,9 +76,9 @@ class ShellExec
 
     public function run(): ShellExecResult
     {
+        // Set environment on run command for compatibility with symfony/process ^3.4 & php ~ 7.0
         $process = new Process($this->getCommand());
-        $process->setEnv($this->getEnvironment());
-        $process->run();
+        $process->run(null, $this->getEnvironment());
         return new ShellExecResult(
             $process->getCommandLine(),
             $process->getExitCode() ?? -1,
