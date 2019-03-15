@@ -47,7 +47,7 @@ class PemExtractor
         $pattern = '/^'
             . '-----BEGIN ' . $type . '-----\r?\n'
             . '([A-Za-z0-9+\/=]+\r?\n)+'
-            . '-----END ' . $type . '-----'
+            . '-----END ' . $type . '-----\r?'
             . '$/m';
         preg_match($pattern, $this->getContents(), $matches);
         return $this->fixLineEndings(strval($matches[0] ?? ''));
@@ -61,7 +61,7 @@ class PemExtractor
             . 'Proc-Type: .+\r?\n'
             . 'DEK-Info: .+\r?\n\r?\n'
             . '([A-Za-z0-9+\/=]+\r?\n)+'
-            . '-----END RSA PRIVATE KEY-----'
+            . '-----END RSA PRIVATE KEY-----\r?'
             . '$/m';
         preg_match($pattern, $this->getContents(), $matches);
         return $this->fixLineEndings(strval($matches[0] ?? ''));
