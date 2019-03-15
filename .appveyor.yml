@@ -39,9 +39,9 @@ install:
                       | Select-Object -First 1 `
                   ) -Replace '[php|]', '')
 
-              # install using choco (use force Warnings: php v7.0.33 already installed)
-              choco install --ignore-checksums --params='""/InstallDir:C:\tools\php""' `
-                  --force -y php --version $php_install_version
+              # install php on C:\tools\php
+              appveyor-retry choco install --ignore-checksums --params='""/InstallDir:C:\tools\php""' `
+                  -y php --version $php_install_version
 
               # setup c:\tools\php\php.ini
               Copy-Item -Path c:\tools\php\php.ini-production -Destination c:\tools\php\php.ini
@@ -56,6 +56,7 @@ install:
                   + "extension=php_xsl`n" `
                   + "extension=php_soap`n"
           }
+    - php -i
     # composer
     - ps: |
           if (! (Test-Path c:\tools\composer\composer.phar)) {
@@ -80,8 +81,8 @@ install:
 test_script:
     - cd c:\projects\project
     - mkdir build
-    - vendor\bin\phplint
-    - vendor\bin\phpcs -sp src tests
-    - vendor\bin\php-cs-fixer fix --dry-run --verbose
-    - vendor\bin\phpunit --testdox --verbose
-    - vendor\bin\phpstan.phar.bat --no-progress analyse --level max src tests
+    - php vendor\bin\phplint
+    - php vendor\bin\phpcs -sp src tests
+    - php vendor\bin\php-cs-fixer fix --dry-run --verbose
+    - php vendor\bin\phpunit --verbose
+    - php vendor\bin\phpstan.phar --no-progress analyse --level max src tests
