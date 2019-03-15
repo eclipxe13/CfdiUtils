@@ -54,29 +54,30 @@ install:
                   extension=php_mbstring `
                   extension=php_fileinfo `
                   extension=php_curl `
-                  extension=php_xsn `
+                  extension=php_xsl `
                   extension=php_soap `
                   "
           }
     - php -i
+    - dir c:\tools\php\ext
     # composer
     - ps: |
           if (! (Test-Path c:\tools\composer\composer.phar)) {
               New-Item -ItemType Directory -Force -Path c:\tools\composer
-              appveyor DownloadFile https://getcomposer.org/composer.phar -Filename C:\tools\composer\composer.phar
+              appveyor-retry appveyor DownloadFile https://getcomposer.org/composer.phar -Filename C:\tools\composer\composer.phar
               Set-Content -Path 'C:\tools\composer\composer.bat' -Value ('@php C:\tools\composer\composer.phar %*')
           }
     # update composer
-    - composer self-update --no-progress --no-interaction
+    - appveyor-retry composer self-update --no-progress --no-interaction
     # saxonb
     - ps: |
           if (! (Test-Path C:\ProgramData\chocolatey\bin\SaxonHE\bin\Transform.exe)) {
-              choco install --ignore-checksums -y saxonhe
+              appveyor-retry choco install --ignore-checksums -y saxonhe
           }
 
     # install project
     - cd c:\projects\project
-    - composer install --no-progress --no-interaction --prefer-dist
+    - appveyor-retry composer install --no-progress --no-interaction --prefer-dist
     - dir vendor\bin
 
 ## Run the actual test
