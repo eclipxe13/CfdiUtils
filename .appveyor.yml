@@ -45,16 +45,18 @@ install:
 
               # setup c:\tools\php\php.ini
               Copy-Item -Path c:\tools\php\php.ini-production -Destination c:\tools\php\php.ini
-              Add-Content c:\tools\php\php.ini "; PHP Custom config" `
-                  + "date.timezone=UTC`n" `
-                  + "extension_dir=ext`n" `
-                  + "memory_limit=1G`n" `
-                  + "extension=php_openssl`n" `
-                  + "extension=php_mbstring`n" `
-                  + "extension=php_fileinfo`n" `
-                  + "extension=php_curl`n" `
-                  + "extension=php_xsl`n" `
-                  + "extension=php_soap`n"
+              Add-Content c:\tools\php\php.ini "`
+                  `n; PHP Custom config `
+                  date.timezone=UTC `
+                  extension_dir=ext `
+                  memory_limit=1G `
+                  extension=php_openssl `
+                  extension=php_mbstring `
+                  extension=php_fileinfo `
+                  extension=php_curl `
+                  extension=php_xsn `
+                  extension=php_soap `
+                  "
           }
     - php -i
     # composer
