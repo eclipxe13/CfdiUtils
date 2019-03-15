@@ -39,9 +39,9 @@ install:
                       | Select-Object -First 1 `
                   ) -Replace '[php|]', '')
 
-              # install using choco
-              appveyor-retry cinst --ignore-checksums --package-parameters='"/ThreadSafe ""/InstallDir:C:\tools\php"""' `
-                  -y php --version $php_install_version
+              # install using choco (use force Warnings: php v7.0.33 already installed)
+              choco install --ignore-checksums --params='""/InstallDir:C:\tools\php""' `
+                  --force -y php --version $php_install_version
 
               # setup c:\tools\php\php.ini
               Copy-Item -Path c:\tools\php\php.ini-production -Destination c:\tools\php\php.ini
@@ -60,20 +60,20 @@ install:
     - ps: |
           if (! (Test-Path c:\tools\composer\composer.phar)) {
               New-Item -ItemType Directory -Force -Path c:\tools\composer
-              appveyor-retry appveyor DownloadFile https://getcomposer.org/composer.phar -Filename C:\tools\composer\composer.phar
+              appveyor DownloadFile https://getcomposer.org/composer.phar -Filename C:\tools\composer\composer.phar
               Set-Content -Path 'C:\tools\composer\composer.bat' -Value ('@php C:\tools\composer\composer.phar %*')
           }
     # update composer
-    - appveyor-retry composer self-update --no-progress --no-interaction
+    - composer self-update --no-progress --no-interaction
     # saxonb
     - ps: |
           if (! (Test-Path C:\ProgramData\chocolatey\bin\SaxonHE\bin\Transform.exe)) {
-              appveyor-retry cinst --ignore-checksums -y saxonhe
+              choco install --ignore-checksums -y saxonhe
           }
 
     # install project
     - cd c:\projects\project
-    - appveyor-retry composer install --no-progress --no-interaction --prefer-dist
+    - composer install --no-progress --no-interaction --prefer-dist
     - dir vendor\bin
 
 ## Run the actual test
