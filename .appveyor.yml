@@ -7,9 +7,8 @@ clone_depth: 1
 cache:
     - C:\ProgramData\chocolatey\bin -> .appveyor.yml
     - C:\ProgramData\chocolatey\lib -> .appveyor.yml
-    - C:\tools\php -> .appveyor.yml
     - C:\tools\composer -> .appveyor.yml
-    - '%LOCALAPPDATA%\Composer\files -> composer.json'
+    - "%LOCALAPPDATA%\Composer\files -> composer.json"
 
 ## Build matrix for lowest and highest possible targets
 environment:
@@ -19,65 +18,59 @@ environment:
         - php: 7.2
         - php: 7.3
 
-matrix:
-    allow_failures:
-        - php: 7.0
-
 init:
-    - SET PATH=C:\OpenSSL-v111-Win64\bin;c:\tools\php;C:\tools\composer;%PATH%
+    - SET PATH=%PATH%;C:\OpenSSL-v111-Win64\bin;c:\tools\php;C:\tools\composer
     - SET COMPOSER_NO_INTERACTION=1
-    - SET ANSICON=121x90 (121x90)
+    - SET ANSICON="121x90 (121x90)"
     - SET saxonb-path=C:\ProgramData\chocolatey\bin\SaxonHE\bin\Transform.exe
 
 ## Install PHP and composer, and run the appropriate composer command
 install:
-    # openssl
-    - ps: |
-          if (Test-Path C:\OpenSSL-v111-Win64) {
-              Get-ChildItem -Path C:\OpenSSL-v111-Win64
-              Get-ChildItem -Path C:\OpenSSL-v111-Win64\bin
-          } else {
-              appveyor-retry cinst --ignore-checksums -y --params '""/InstallDir:C:\tools\openssl""' openssl.light
-              Get-ChildItem -Path C:\tools\openssl
-          }
-          Write-Host "Locating openssl"
-          Get-Command openssl
-          Exit 4
     # php
     - ps: |
-          if (!(Test-Path c:\tools\php)) {
-              appveyor-retry cinst --params '""/InstallDir:C:\tools\php""' --ignore-checksums -y php --version ((choco search php --exact --all-versions -r | select-string -pattern $env:php | sort { [version]($_ -split '\|' | select -last 1) } -Descending | Select-Object -first 1) -replace '[php|]','')
-              Get-ChildItem -Path c:\tools\php
-              cd c:\tools\php
-              copy php.ini-production php.ini
-              Add-Content php.ini "`n date.timezone=UTC"
-              Add-Content php.ini "`n extension_dir=ext"
-              Add-Content php.ini "`n memory_limit=1G"
-              Add-Content php.ini "`n extension=php_openssl.dll"
-              Add-Content php.ini "`n extension=php_mbstring.dll"
-              Add-Content php.ini "`n extension=php_fileinfo.dll"
-              Add-Content php.ini "`n extension=php_curl.dll"
-              Add-Content php.ini "`n extension=php_xsl.dll"
-              Add-Content php.ini "`n extension=php_soap.dll"
+          if (! (Test-Path c:\tools\php)) {
+              # Retrieve version from choco using php environment variable
+              $php_install_version = (( `
+                  choco search php --exact --all-versions -r `
+                      | Select-String -Pattern $env:php `
+                      | Sort-Object { [version]($_ -Split '\|' | Select-Object -Last 1) } -Descending `
+                      | Select-Object -First 1 `
+                  ) -Replace '[php|]', '')
+
+              # install using choco
+              appveyor-retry choco install -y php --version $php_install_version --package-parameters='"/ThreadSafe ""/InstallDir:C:\tools\php"""'
+
+              # setup c:\tools\php\php.ini
+              Copy-Item -Path c:\tools\php\php.ini-production -Destination c:\tools\php\php.ini
+              Add-Content c:\tools\php\php.ini "; PHP Custom config" `
+                  + "date.timezone=UTC`n" `
+                  + "extension_dir=ext`n" `
+                  + "memory_limit=1G`n" `
+                  + "extension=php_openssl`n" `
+                  + "extension=php_mbstring`n" `
+                  + "extension=php_fileinfo`n" `
+                  + "extension=php_curl`n" `
+                  + "extension=php_xsl`n" `
+                  + "extension=php_soap`n"
           }
     # composer
     - ps: |
-          if (!(Test-Path C:\tools\composer)) {
-              New-Item -path c:\tools -name composer -itemtype directory
-          }
-          if (!(Test-Path c:\tools\composer\composer.phar)) {
+          if (! (Test-Path c:\tools\composer\composer.phar)) {
+              New-Item -ItemType Directory -Force -Path c:\tools\composer
               appveyor-retry appveyor DownloadFile https://getcomposer.org/composer.phar -Filename C:\tools\composer\composer.phar
-              Set-Content -path 'C:\tools\composer\composer.bat' -Value ('@php C:\tools\composer\composer.phar %*')
+              Set-Content -Path 'C:\tools\composer\composer.bat' -Value ('@php C:\tools\composer\composer.phar %*')
           }
     # saxonb
     - ps: |
-          if (!(Test-Path C:\ProgramData\chocolatey\bin\SaxonHE\bin\Transform.exe)) {
-              appveyor-retry cinst --ignore-checksums -y saxonhe
+          if (! (Test-Path C:\ProgramData\chocolatey\bin\SaxonHE\bin\Transform.exe)) {
+              appveyor-retry choco install -y saxonhe
           }
+
     # install composer dependences
     - cd c:\projects\project
     - appveyor-retry composer self-update --no-progress --no-interaction
     - appveyor-retry composer install --no-progress --no-interaction --prefer-dist
+    - dir vendor\bin
 
 ## Run the actual test
 test_script:
@@ -85,6 +78,6 @@ test_script:
     - mkdir build
     - vendor\bin\phplint
     - vendor\bin\phpcs -sp src tests
-    - vendor\bin\php-cs-fixer fix --using-cache=no --dry-run --verbose
+    - vendor\bin\php-cs-fixer fix --dry-run --verbose
     - vendor\bin\phpunit --testdox --verbose
     - vendor\bin\phpstan.phar.bat --no-progress analyse --level max src tests
