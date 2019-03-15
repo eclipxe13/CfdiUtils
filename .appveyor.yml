@@ -26,6 +26,8 @@ init:
 
 ## Install PHP and composer, and run the appropriate composer command
 install:
+    # check openssl exists and run from PATH
+    - openssl version
     # php
     - ps: |
           if (! (Test-Path c:\tools\php)) {
@@ -38,7 +40,8 @@ install:
                   ) -Replace '[php|]', '')
 
               # install using choco
-              appveyor-retry choco install -y php --version $php_install_version --package-parameters='"/ThreadSafe ""/InstallDir:C:\tools\php"""'
+              appveyor-retry cinst --ignore-checksums --package-parameters='"/ThreadSafe ""/InstallDir:C:\tools\php"""' `
+                  -y php --version $php_install_version
 
               # setup c:\tools\php\php.ini
               Copy-Item -Path c:\tools\php\php.ini-production -Destination c:\tools\php\php.ini
@@ -60,15 +63,16 @@ install:
               appveyor-retry appveyor DownloadFile https://getcomposer.org/composer.phar -Filename C:\tools\composer\composer.phar
               Set-Content -Path 'C:\tools\composer\composer.bat' -Value ('@php C:\tools\composer\composer.phar %*')
           }
+    # update composer
+    - appveyor-retry composer self-update --no-progress --no-interaction
     # saxonb
     - ps: |
           if (! (Test-Path C:\ProgramData\chocolatey\bin\SaxonHE\bin\Transform.exe)) {
-              appveyor-retry choco install -y saxonhe
+              appveyor-retry cinst --ignore-checksums -y saxonhe
           }
 
-    # install composer dependences
+    # install project
     - cd c:\projects\project
-    - appveyor-retry composer self-update --no-progress --no-interaction
     - appveyor-retry composer install --no-progress --no-interaction --prefer-dist
     - dir vendor\bin
 
