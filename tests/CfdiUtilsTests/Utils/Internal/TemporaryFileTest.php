@@ -36,39 +36,27 @@ class TemporaryFileTest extends TestCase
 
     public function testCreateOnReadOnlyDirectoryThrowsException()
     {
-        if ($this->isRunningOnWindows()) {
-            $this->wintestCreateOnReadOnlyDirectoryOnWindowsThrowsException();
-        } else {
-            $this->posixtestCreateOnReadOnlyDirectoryOnPosixThrowsException();
-        }
-    }
-
-    private function wintestCreateOnReadOnlyDirectoryOnWindowsThrowsException()
-    {
-        $directory = strval(getenv('WINDIR'));
-        if ('' === $directory) {
-            $this->markTestSkipped('Cannot get WINDIR directory');
-        }
-        if (is_writable($directory)) {
-            $this->markTestSkipped('Expected WINDIR directory is writable, are you root?');
-        }
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Unable to create a temporary file');
-        TemporaryFile::create($directory);
-    }
-
-    private function posixtestCreateOnReadOnlyDirectoryOnPosixThrowsException()
-    {
         // prepare directory
         $directory = __DIR__ . '/readonly';
-        mkdir($directory);
-        chmod($directory, 0500);
+        mkdir($directory, 0500);
 
+        // skip if it was not writable
+        if (is_writable($directory)) {
+            rmdir($directory);
+            $this->markTestSkipped('Cannot create a read-only directory');
+            return;
+        }
+
+        // setup expected exception
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Unable to create a temporary file');
+
+        // enclose on try {} finally {} for directory clean up
         try {
             TemporaryFile::create($directory);
         } finally {
-            // cleanup
-            chmod($directory, 0700);
+            // clean up
+            chmod($directory, 0777);
             rmdir($directory);
         }
     }
