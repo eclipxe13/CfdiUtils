@@ -31,13 +31,14 @@ install:
     - openssl version
     # php is not cached because this script change versions
     - ps: |
+          Write-Host "PHP build version: $php"
           # Get current version of php (if any)
           $current_version = ""
           if (Test-Path c:\tools\php\php.exe) {
-              [string]$current_version = php -r "printf('%s.%s', PHP_MAJOR_VERSION, PHP_MINOR_VERSION);"
-              Write-Host "PHP current version installed: $current_version"
+              [string]$current_version = php -r "printf('%s.%s.%s', PHP_MAJOR_VERSION, PHP_MINOR_VERSION, PHP_RELEASE_VERSION);"
+              Write-Host "PHP current version: $current_version"
           } else {
-              Write-Host "PHP current version installed: (none)"
+              Write-Host "PHP current version: (none)"
           }
 
           # Get latest available version for php environment variable
@@ -47,10 +48,10 @@ install:
                   | Sort-Object { [version]($_ -Split '\|' | Select-Object -Last 1) } -Descending `
                   | Select-Object -First 1 `
               ) -Replace '[php|]', '')
-          Write-Host "PHP version available to install: $php_install_version"
+          Write-Host "PHP available version: $php_install_version"
 
-          # Test if require installation
-          if (! ($current_version -eq $php)) {
+          # Test if require installation (not installed or upgrade available)
+          if (! ($current_version -eq $php_install_version)) {
               # uninstall if previous version exists
               if (! ($current_version -eq "")) {
                   choco uninstall php --yes --force --ignore-package-exit-codes --ignore-autouninstaller-failure
@@ -89,7 +90,7 @@ install:
               appveyor-retry appveyor DownloadFile https://getcomposer.org/composer.phar -Filename C:\tools\composer\composer.phar
               Set-Content -Path 'C:\tools\composer\composer.bat' -Value ('@php C:\tools\composer\composer.phar %*')
           } else {
-              appveyor-retry composer self-update --no-progress --no-interaction
+              appveyor-retry composer self-update --stable --no-progress --no-interaction --ansi
           }
           composer --version
     # saxonb
@@ -100,7 +101,7 @@ install:
 
     # install project dependences and list available tools
     - cd c:\projects\project
-    - appveyor-retry composer install --no-progress --no-interaction --prefer-dist
+    - appveyor-retry composer install --prefer-dist --no-progress --no-interaction --ansi
     - dir vendor\bin
 
 ## Run the actual test
