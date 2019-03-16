@@ -35,23 +35,26 @@ install:
           $current_version = ""
           if (Test-Path c:\tools\php\php.exe) {
               [string]$current_version = php -r "printf('%s.%s', PHP_MAJOR_VERSION, PHP_MINOR_VERSION);"
+              Write-Host "PHP current version installed: $current_version"
+          } else {
+              Write-Host "PHP current version installed: (none)"
           }
+
+          # Get latest available version for php environment variable
+          $php_install_version = (( `
+              choco search php --exact --all-versions -r `
+                  | Select-String -Pattern $env:php `
+                  | Sort-Object { [version]($_ -Split '\|' | Select-Object -Last 1) } -Descending `
+                  | Select-Object -First 1 `
+              ) -Replace '[php|]', '')
+          Write-Host "PHP version available to install: $php_install_version"
+
           # Test if require installation
           if (! ($current_version -eq $php)) {
               # uninstall if previous version exists
-              if ($current_version -eq "") {
+              if (! ($current_version -eq "")) {
                   choco uninstall php --yes --force --ignore-package-exit-codes --ignore-autouninstaller-failure
               }
-
-              # Retrieve version from choco using php environment variable
-              $php_install_version = (( `
-                  choco search php --exact --all-versions -r `
-                      | Select-String -Pattern $env:php `
-                      | Sort-Object { [version]($_ -Split '\|' | Select-Object -Last 1) } -Descending `
-                      | Select-Object -First 1 `
-                  ) -Replace '[php|]', '')
-              Write-Host "Required PHP Version: $php_install_version"
-
               # install php on C:\tools\php
               appveyor-retry choco install --ignore-checksums --params='""/InstallDir:C:\tools\php""' `
                   php --version $php_install_version --yes
