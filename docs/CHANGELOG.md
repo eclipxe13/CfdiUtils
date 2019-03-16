@@ -20,7 +20,7 @@
 - Remove static `CfdiUtils\PemPrivateKey\PemPrivateKey::isPEM` method.
 
 
-## Version 2.9.0 2019-03-13
+## Version 2.9.0 2019-03-15
 
 - Add `CfdiUtils\OpenSSL`, a library to help working with `openssl` commands and CER, KEY and PEM files.
   Fully tested and [documented](https://cfdiutils.readthedocs.io/es/utilerias/openssl/).
@@ -50,10 +50,9 @@
 - Internal: Add `ShellExec` class that works around with `symfony/process` component. Also added:
     - `ShellExecResponse`: contains the response of ShellExec::run().
     - `ShellExecTemplate`: basic command array creation from a string template.
-- CI: Allow AppVeyor to fail when testing
-    - PHPUnit ends with exit code 2, don't know  exactly why.
-    - Add `--testdox` and `--verbose` to command line.
-- CI: Change Travis build version to PHP 7.3, only run `phpstan` on build version.
+- Internal: Move internal to `CfdiUtils\Internal`. Check `@internal` annotation on all elements. Add README.md
+- CI: AppVeyor complete refactory, now uses correctly caches and upgrade php if required.
+- CI: Only run `phpstan` on PHP 7.3.
 - Dev: Add --testdox --verbose and --stop-on-failure on composer dev:build.
 
 

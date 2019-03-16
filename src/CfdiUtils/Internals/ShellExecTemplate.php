@@ -1,11 +1,10 @@
 <?php
-namespace CfdiUtils\Utils\Internal;
+namespace CfdiUtils\Internals;
 
 /**
  * Build a command array from a template
  *
- * NOTE: Changes on this file will not be considering a BC since this utility class is for internal usage only
- *
+ * NOTE: Changes will not be considering a bracking compatibility change since this utility is for internal usage only
  * @internal
  */
 class ShellExecTemplate

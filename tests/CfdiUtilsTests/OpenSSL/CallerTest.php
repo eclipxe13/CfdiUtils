@@ -1,13 +1,13 @@
 <?php
 namespace CfdiUtilsTests\OpenSSL;
 
+use CfdiUtils\Internals\ShellExec;
+use CfdiUtils\Internals\ShellExecResult;
 use CfdiUtils\OpenSSL\Caller;
 use CfdiUtils\OpenSSL\OpenSSLCallerException;
 use CfdiUtils\OpenSSL\OpenSSLException;
-use CfdiUtils\Utils\Internal\ShellExec;
-use CfdiUtils\Utils\Internal\ShellExecResult;
+use CfdiUtilsTests\Internals\FakeShellExec;
 use CfdiUtilsTests\TestCase;
-use CfdiUtilsTests\Utils\Internal\FakeShellExec;
 
 class CallerTest extends TestCase
 {

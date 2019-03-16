@@ -1,8 +1,8 @@
 <?php
-namespace CfdiUtilsTests\Utils\Internal;
+namespace CfdiUtilsTests\Internals;
 
-use CfdiUtils\Utils\Internal\ShellExec;
-use CfdiUtils\Utils\Internal\ShellExecResult;
+use CfdiUtils\Internals\ShellExec;
+use CfdiUtils\Internals\ShellExecResult;
 
 /**
  * Use this class to emulate a ShellExec with predefined result

@@ -1,7 +1,7 @@
 <?php
-namespace CfdiUtilsTests\Utils\Internal;
+namespace CfdiUtilsTests\Internals;
 
-use CfdiUtils\Utils\Internal\BaseConverterSequence;
+use CfdiUtils\Internals\BaseConverterSequence;
 use PHPUnit\Framework\TestCase;
 
 class BaseConverterSequenceTest extends TestCase

@@ -1,10 +1,13 @@
 <?php
 namespace CfdiUtils\OpenSSL;
 
-use CfdiUtils\Utils\Internal\TemporaryFile;
+use CfdiUtils\Internals\NormalizeLineEndingsTrait;
+use CfdiUtils\Internals\TemporaryFile;
 
 class OpenSSL
 {
+    use NormalizeLineEndingsTrait;
+
     /** @var Caller */
     private $caller;
 
@@ -27,7 +30,11 @@ class OpenSSL
     public function readPemContents(string $contents): PemContainer
     {
         $extractor = new PemExtractor($contents);
-        $pemContainer = $extractor->pemContainer();
+        $pemContainer = new PemContainer(
+            $extractor->extractCertificate(),
+            $extractor->extractPublicKey(),
+            $extractor->extractPrivateKey()
+        );
         return $pemContainer;
     }
 
@@ -54,7 +61,7 @@ class OpenSSL
         return $pemOutFile->runAndRemove(
             function () use ($derInFile, $pemOutFile): string {
                 $this->derCerConvert($derInFile, $pemOutFile);
-                return rtrim($pemOutFile->retriveContents(), PHP_EOL);
+                return $this->normalizeLineEndings($pemOutFile->retriveContents());
             }
         );
     }
@@ -88,7 +95,7 @@ class OpenSSL
         return $pemOutFile->runAndRemove(
             function () use ($derInFile, $inPassPhrase, $pemOutFile): string {
                 $this->derKeyConvert($derInFile, $inPassPhrase, $pemOutFile);
-                return rtrim($pemOutFile->retriveContents(), PHP_EOL);
+                return $this->normalizeLineEndings($pemOutFile->retriveContents());
             }
         );
     }
@@ -110,7 +117,7 @@ class OpenSSL
         return $pemOutFile->runAndRemove(
             function () use ($pemInFile, $inPassPhrase, $pemOutFile, $outPassPhrase): string {
                 $this->derKeyProtect($pemInFile, $inPassPhrase, $pemOutFile, $outPassPhrase);
-                return rtrim($pemOutFile->retriveContents(), PHP_EOL);
+                return $this->normalizeLineEndings($pemOutFile->retriveContents());
             }
         );
     }
@@ -138,7 +145,7 @@ class OpenSSL
         return $pemOutFile->runAndRemove(
             function () use ($pemInFile, $inPassPhrase, $pemOutFile, $outPassPhrase): string {
                 $this->pemKeyProtect($pemInFile, $inPassPhrase, $pemOutFile, $outPassPhrase);
-                return rtrim($pemOutFile->retriveContents(), PHP_EOL);
+                return $this->normalizeLineEndings($pemOutFile->retriveContents());
             }
         );
     }
@@ -172,7 +179,7 @@ class OpenSSL
         return $pemOutFile->runAndRemove(
             function () use ($pemInFile, $inPassPhrase, $pemOutFile): string {
                 $this->pemKeyUnprotect($pemInFile, $inPassPhrase, $pemOutFile);
-                return rtrim($pemOutFile->retriveContents(), PHP_EOL);
+                return $this->normalizeLineEndings($pemOutFile->retriveContents());
             }
         );
     }

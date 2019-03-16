@@ -15,7 +15,7 @@ class TestCase extends \PHPUnit\Framework\TestCase
 
     protected function isRunningOnWindows(): bool
     {
-        return (0 === strpos(strtoupper(PHP_OS), 'WIN'));
+        return ('\\' === DIRECTORY_SEPARATOR);
     }
 
     protected function newInsecurePhpDownloader(): DownloaderInterface

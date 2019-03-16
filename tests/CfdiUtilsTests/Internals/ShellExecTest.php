@@ -1,7 +1,7 @@
 <?php
-namespace CfdiUtilsTests\Utils\Internal;
+namespace CfdiUtilsTests\Internals;
 
-use CfdiUtils\Utils\Internal\ShellExec;
+use CfdiUtils\Internals\ShellExec;
 use PHPUnit\Framework\TestCase;
 
 class ShellExecTest extends TestCase
@@ -132,11 +132,35 @@ class ShellExecTest extends TestCase
         $command = [PHP_BINARY, '-r', $printer];
 
         $environment = [
-            'FOO' => 'f o o',
-            'BAR' => 'b a r',
+            'FOO' => 'value of foo',
+            'BAR' => 'value of bar',
         ];
         $execution = (new ShellExec($command, $environment))->run();
 
-        $this->assertSame('f o o / b a r', $execution->output());
+        $this->assertSame('value of foo / value of bar', $execution->output());
+    }
+
+    public function providerEnvironmentVariablePathDoesNotGetLost()
+    {
+        return [
+            'with one environment var' => [['foo' => 'bar']],
+            'with zero environment var' => [[]],
+        ];
+    }
+
+    /**
+     * @param array $environment
+     * @dataProvider providerEnvironmentVariablePathDoesNotGetLost
+     */
+    public function testEnvironmentVariablePathDoesNotGetLost(array $environment)
+    {
+        $printer = 'printf("Environment PATH is %s", (getenv("PATH")) ? "set" : "MISSING");';
+        $command = [PHP_BINARY, '-r', $printer];
+        $execution = (new ShellExec($command, $environment))->run();
+        $this->assertSame(
+            'Environment PATH is set',
+            $execution->output(),
+            sprintf('Execution with %d other environment variables dismiss PATH', count($environment))
+        );
     }
 }

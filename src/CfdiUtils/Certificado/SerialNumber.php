@@ -1,7 +1,7 @@
 <?php
 namespace CfdiUtils\Certificado;
 
-use CfdiUtils\Utils\Internal\BaseConverter;
+use CfdiUtils\Internals\BaseConverter;
 
 /**
  * This class is used to load hexadecimal or decimal data as a certificate serial number.

@@ -2,8 +2,8 @@
 namespace CfdiUtilsTests\Certificado;
 
 use CfdiUtils\Certificado\NodeCertificado;
+use CfdiUtils\Internals\TemporaryFile;
 use CfdiUtils\Nodes\XmlNodeUtils;
-use CfdiUtils\Utils\Internal\TemporaryFile;
 use CfdiUtilsTests\TestCase;
 
 class NodeCertificadoTest extends TestCase

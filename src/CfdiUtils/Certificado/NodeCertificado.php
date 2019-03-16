@@ -1,8 +1,8 @@
 <?php
 namespace CfdiUtils\Certificado;
 
+use CfdiUtils\Internals\TemporaryFile;
 use CfdiUtils\Nodes\NodeInterface;
-use CfdiUtils\Utils\Internal\TemporaryFile;
 
 class NodeCertificado
 {

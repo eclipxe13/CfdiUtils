@@ -1,12 +1,10 @@
 <?php
-namespace CfdiUtils\Utils\Internal;
+namespace CfdiUtils\Internals;
 
 /**
- * Utility to work with temporary the creation of files.
- * Use it instead of \tempnam PHP function
+ * Utility to work with the creation of temporary files.
  *
- * NOTE: Changes on this file will not be considering a BC since this utility class is for internal usage only
- *
+ * NOTE: Changes will not be considering a bracking compatibility change since this utility is for internal usage only
  * @internal
  */
 final class TemporaryFile
