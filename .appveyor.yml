@@ -31,7 +31,7 @@ install:
     - openssl version
     # php is not cached because this script change versions
     - ps: |
-          Write-Host "PHP build version: $php"
+          Write-Host "PHP build version: $Env:php"
           # Get current version of php (if any)
           $current_version = ""
           if (Test-Path c:\tools\php\php.exe) {
