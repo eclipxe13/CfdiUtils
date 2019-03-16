@@ -1,7 +1,7 @@
 <?php
-namespace CfdiUtilsTests\Utils\Internal;
+namespace CfdiUtilsTests\Internals;
 
-use CfdiUtils\Utils\Internal\TemporaryFile;
+use CfdiUtils\Internals\TemporaryFile;
 use CfdiUtilsTests\TestCase;
 
 class TemporaryFileTest extends TestCase

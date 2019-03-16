@@ -1,11 +1,10 @@
 <?php
-namespace CfdiUtils\Utils\Internal;
+namespace CfdiUtils\Internals;
 
 /**
  * This is a value object for BaseConverter containing the sequence
  *
- * NOTE: Changes on this file will not be considering a BC since this utility class is for internal usage only
- *
+ * NOTE: Changes will not be considering a bracking compatibility change since this utility is for internal usage only
  * @internal
  */
 class BaseConverterSequence

@@ -1,6 +1,8 @@
 <?php
 namespace CfdiUtils\OpenSSL;
 
+use CfdiUtils\Internals\NormalizeLineEndingsTrait;
+
 class PemExtractor
 {
     use NormalizeLineEndingsTrait;

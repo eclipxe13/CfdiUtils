@@ -1,7 +1,7 @@
 <?php
-namespace CfdiUtilsTests\Utils\Internal;
+namespace CfdiUtilsTests\Internals;
 
-use CfdiUtils\Utils\Internal\ShellExec;
+use CfdiUtils\Internals\ShellExec;
 use PHPUnit\Framework\TestCase;
 
 class ShellExecTest extends TestCase

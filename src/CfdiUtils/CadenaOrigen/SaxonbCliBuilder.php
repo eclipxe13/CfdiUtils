@@ -1,8 +1,8 @@
 <?php
 namespace CfdiUtils\CadenaOrigen;
 
-use CfdiUtils\Utils\Internal\ShellExec;
-use CfdiUtils\Utils\Internal\TemporaryFile;
+use CfdiUtils\Internals\ShellExec;
+use CfdiUtils\Internals\TemporaryFile;
 
 class SaxonbCliBuilder extends AbstractXsltBuilder
 {

@@ -1,7 +1,8 @@
 <?php
 namespace CfdiUtils\OpenSSL;
 
-use CfdiUtils\Utils\Internal\TemporaryFile;
+use CfdiUtils\Internals\NormalizeLineEndingsTrait;
+use CfdiUtils\Internals\TemporaryFile;
 
 class OpenSSL
 {

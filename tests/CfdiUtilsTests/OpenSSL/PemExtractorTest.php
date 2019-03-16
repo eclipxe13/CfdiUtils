@@ -8,7 +8,7 @@ class PemExtractorTest extends TestCase
 {
     public function testExtractorWithEmptyContent()
     {
-        $extractor = new PemExtractor('');
+        $extractor = new \CfdiUtils\OpenSSL\PemExtractor('');
         $this->assertSame('', $extractor->getContents());
         $this->assertSame('', $extractor->extractCertificate());
         $this->assertSame('', $extractor->extractPublicKey());
@@ -45,7 +45,7 @@ class PemExtractorTest extends TestCase
             'FOO+PRIVATE+KEY',
             '-----END PRIVATE KEY-----',
         ]);
-        $extractor = new PemExtractor($content);
+        $extractor = new \CfdiUtils\OpenSSL\PemExtractor($content);
         $this->assertSame($content, $extractor->getContents());
         $this->assertContains(
             'FOO+CERTIFICATE',
@@ -69,7 +69,7 @@ class PemExtractorTest extends TestCase
         $pemcerpub = $this->utilAsset('certs/CSD01_AAA010101AAA.cer.pem');
         $contents = strval(file_get_contents($pemcerpub));
 
-        $extractor = new PemExtractor($contents);
+        $extractor = new \CfdiUtils\OpenSSL\PemExtractor($contents);
         $this->assertSame($contents, $extractor->getContents());
 
         $this->assertContains('PUBLIC KEY', $extractor->extractPublicKey());
@@ -81,7 +81,7 @@ class PemExtractorTest extends TestCase
         $pemkey = $this->utilAsset('certs/CSD01_AAA010101AAA.key.pem');
         $contents = strval(file_get_contents($pemkey));
 
-        $extractor = new PemExtractor($contents);
+        $extractor = new \CfdiUtils\OpenSSL\PemExtractor($contents);
         $this->assertContains('PRIVATE KEY', $extractor->extractPrivateKey());
     }
 

@@ -1,5 +1,5 @@
 <?php
-namespace CfdiUtils\Utils\Internal;
+namespace CfdiUtils\Internals;
 
 /**
  * Converts any string of any base to any other base without
@@ -8,8 +8,7 @@ namespace CfdiUtils\Utils\Internal;
  * @see https://php.net/base_convert
  * Original author: https://github.com/credomane/php_baseconvert
  *
- * NOTE: Changes on this file will not be considering a BC since this utility class is for internal usage only
- *
+ * NOTE: Changes will not be considering a bracking compatibility change since this utility is for internal usage only
  * @internal
  */
 class BaseConverter

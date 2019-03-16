@@ -1,8 +1,8 @@
 <?php
 namespace CfdiUtils\OpenSSL;
 
-use CfdiUtils\Utils\Internal\ShellExec;
-use CfdiUtils\Utils\Internal\ShellExecTemplate;
+use CfdiUtils\Internals\ShellExec;
+use CfdiUtils\Internals\ShellExecTemplate;
 
 class Caller
 {

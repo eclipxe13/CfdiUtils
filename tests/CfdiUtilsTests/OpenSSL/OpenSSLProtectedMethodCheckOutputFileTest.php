@@ -1,8 +1,8 @@
 <?php
 namespace CfdiUtilsTests\OpenSSL;
 
+use CfdiUtils\Internals\TemporaryFile;
 use CfdiUtils\OpenSSL\OpenSSL;
-use CfdiUtils\Utils\Internal\TemporaryFile;
 use CfdiUtilsTests\TestCase;
 
 class OpenSSLProtectedMethodCheckOutputFileTest extends TestCase
