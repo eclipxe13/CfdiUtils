@@ -7,8 +7,9 @@ clone_depth: 1
 cache:
     - C:\ProgramData\chocolatey\bin -> .appveyor.yml
     - C:\ProgramData\chocolatey\lib -> .appveyor.yml
+    - C:\tools\php -> .appveyor.yml
     - C:\tools\composer -> .appveyor.yml
-    - '%LOCALAPPDATA%\Composer\files -> composer.json'
+    - '%LOCALAPPDATA%\Composer\files' -> .appveyor.yml
 
 ## Build matrix for lowest and highest possible targets
 environment:
@@ -19,31 +20,32 @@ environment:
         - php: 7.3
 
 init:
-    - SET PATH=%PATH%;C:\OpenSSL-v111-Win64\bin;c:\tools\php;C:\tools\composer
+    - SET PATH=c:\tools\php;C:\tools\composer;C:\OpenSSL-v111-Win64\bin;%PATH%
     - SET COMPOSER_NO_INTERACTION=1
     - SET ANSICON="121x90 (121x90)"
     - SET saxonb-path=C:\ProgramData\chocolatey\bin\SaxonHE\bin\Transform.exe
 
-## Install PHP and composer, and run the appropriate composer command
+## Check for openssl, install php using version environment, install
 install:
     # check openssl exists and run from PATH
     - openssl version
-    # php
+    # php is not cached because this script change versions
     - ps: |
-          if (! (Test-Path c:\tools\php)) {
-              # Retrieve version from choco using php environment variable
-              $php_install_version = (( `
-                  choco search php --exact --all-versions -r `
-                      | Select-String -Pattern $env:php `
-                      | Sort-Object { [version]($_ -Split '\|' | Select-Object -Last 1) } -Descending `
-                      | Select-Object -First 1 `
-                  ) -Replace '[php|]', '')
+          # Retrieve version from choco using php environment variable
+          $php_install_version = (( `
+              choco search php --exact --all-versions -r `
+                  | Select-String -Pattern $env:php `
+                  | Sort-Object { [version]($_ -Split '\|' | Select-Object -Last 1) } -Descending `
+                  | Select-Object -First 1 `
+              ) -Replace '[php|]', '')
+          Write-Host "Required PHP Version: $php_install_version"
 
-              # install php on C:\tools\php
-              appveyor-retry choco install --ignore-checksums --params='""/InstallDir:C:\tools\php""' `
-                  -y php --version $php_install_version
+          # install php on C:\tools\php
+          appveyor-retry choco install --ignore-checksums --params='""/InstallDir:C:\tools\php""' `
+              php --version $php_install_version --yes --force
 
-              # setup c:\tools\php\php.ini
+          # setup c:\tools\php\php.ini
+          if (! (Test-Path c:\tools\php\php.ini)) {
               Copy-Item -Path c:\tools\php\php.ini-production -Destination c:\tools\php\php.ini
               Add-Content c:\tools\php\php.ini "`
                   `n; PHP Custom config `
@@ -58,24 +60,29 @@ install:
                   extension=php_soap `
                   "
           }
-    - php -i
-    - dir c:\tools\php\ext
+
+          # show contents of extension directory
+          Get-ChildItem -Path c:\tools\php\ext
+
+          # show php information
+          php -i
     # composer
     - ps: |
           if (! (Test-Path c:\tools\composer\composer.phar)) {
               New-Item -ItemType Directory -Force -Path c:\tools\composer
               appveyor-retry appveyor DownloadFile https://getcomposer.org/composer.phar -Filename C:\tools\composer\composer.phar
               Set-Content -Path 'C:\tools\composer\composer.bat' -Value ('@php C:\tools\composer\composer.phar %*')
+          } else {
+              appveyor-retry composer self-update --no-progress --no-interaction
           }
-    # update composer
-    - appveyor-retry composer self-update --no-progress --no-interaction
+          composer --version
     # saxonb
     - ps: |
-          if (! (Test-Path C:\ProgramData\chocolatey\bin\SaxonHE\bin\Transform.exe)) {
-              appveyor-retry choco install --ignore-checksums -y saxonhe
+          if (! (Test-Path ${Env:saxonb-path})) {
+              appveyor-retry choco install --ignore-checksums --yes saxonhe
           }
 
-    # install project
+    # install project dependences and list available tools
     - cd c:\projects\project
     - appveyor-retry composer install --no-progress --no-interaction --prefer-dist
     - dir vendor\bin
