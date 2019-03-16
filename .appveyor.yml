@@ -9,7 +9,7 @@ cache:
     - C:\ProgramData\chocolatey\lib -> .appveyor.yml
     - C:\tools\php -> .appveyor.yml
     - C:\tools\composer -> .appveyor.yml
-    - '%LOCALAPPDATA%\Composer\files' -> .appveyor.yml
+    - '%LOCALAPPDATA%\Composer\files -> .appveyor.yml'
 
 ## Build matrix for lowest and highest possible targets
 environment:
@@ -31,21 +31,38 @@ install:
     - openssl version
     # php is not cached because this script change versions
     - ps: |
-          # Retrieve version from choco using php environment variable
+          Write-Host "PHP build version: $Env:php"
+          # Get current version of php (if any)
+          $current_version = ""
+          if (Test-Path c:\tools\php\php.exe) {
+              [string]$current_version = php -r "printf('%s.%s.%s', PHP_MAJOR_VERSION, PHP_MINOR_VERSION, PHP_RELEASE_VERSION);"
+              Write-Host "PHP current version: $current_version"
+          } else {
+              Write-Host "PHP current version: (none)"
+          }
+
+          # Get latest available version for php environment variable
           $php_install_version = (( `
               choco search php --exact --all-versions -r `
                   | Select-String -Pattern $env:php `
                   | Sort-Object { [version]($_ -Split '\|' | Select-Object -Last 1) } -Descending `
                   | Select-Object -First 1 `
               ) -Replace '[php|]', '')
-          Write-Host "Required PHP Version: $php_install_version"
+          Write-Host "PHP available version: $php_install_version"
 
-          # install php on C:\tools\php
-          appveyor-retry choco install --ignore-checksums --params='""/InstallDir:C:\tools\php""' `
-              php --version $php_install_version --yes --force
+          # Test if require installation (not installed or upgrade available)
+          if (! ($current_version -eq $php_install_version)) {
+              # uninstall if previous version exists
+              if (! ($current_version -eq "")) {
+                  choco uninstall php --yes --force --ignore-package-exit-codes --ignore-autouninstaller-failure
+              }
+              # install php on C:\tools\php
+              appveyor-retry choco install --ignore-checksums --params='""/InstallDir:C:\tools\php""' `
+                  php --version $php_install_version --yes
+          }
 
           # setup c:\tools\php\php.ini
-          if (! (Test-Path c:\tools\php\php.ini)) {
+          if (Test-Path c:\tools\php\php.ini-production) {
               Copy-Item -Path c:\tools\php\php.ini-production -Destination c:\tools\php\php.ini
               Add-Content c:\tools\php\php.ini "`
                   `n; PHP Custom config `
@@ -73,7 +90,7 @@ install:
               appveyor-retry appveyor DownloadFile https://getcomposer.org/composer.phar -Filename C:\tools\composer\composer.phar
               Set-Content -Path 'C:\tools\composer\composer.bat' -Value ('@php C:\tools\composer\composer.phar %*')
           } else {
-              appveyor-retry composer self-update --no-progress --no-interaction
+              appveyor-retry composer self-update --stable --no-progress --no-interaction --ansi
           }
           composer --version
     # saxonb
@@ -84,7 +101,7 @@ install:
 
     # install project dependences and list available tools
     - cd c:\projects\project
-    - appveyor-retry composer install --no-progress --no-interaction --prefer-dist
+    - appveyor-retry composer install --prefer-dist --no-progress --no-interaction --ansi
     - dir vendor\bin
 
 ## Run the actual test
