@@ -51,9 +51,9 @@ Si el total es por cero entonces la expresión deberá ser `&tt=0.0`
 La consulta se puede configurar enviándole un objeto `Config` al consumidor.
 Las opciones disponibles son:
 
-- `timeout`: Define en segundos el tiempo máximo de espera, por omisión es 10.
-- `verifyPeer`: Define si SSL debe verificar el certificado de conexión.
-- `wsUrl`: Define la ubicación del WSDL.
+- `timeout`: Define en segundos el tiempo máximo de espera, por omisión es `10`.
+- `verifyPeer`: Define si SSL debe verificar el certificado de conexión, por omisión es `true`.
+- `serviceUrl`: Define la ubicación del WSDL, por omisión es `https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc`.
 
 La consulta usa la librería de SOAP de PHP y por el momento no es posible configurarla
 con un contexto o un cliente de conexión, por lo que si estás detrás de un proxy lo mejor
@@ -63,31 +63,59 @@ y cambiar la URL.
 
 ## Datos que entrega la consulta
 
-El servicio entrega dos valores: estado de la consulta y estado del cfdi
+El servicio entrega cuatro valores: estado de la consulta, estado del cfdi,
+estado de cancelabilidad y estado de cancelación.
 
-El estado de la consulta tiene tres posibles respuestas:
+### CodigoEstatus (estado de consulta)
+
+Este estado está relacionado a la solicitud de información al SAT. No al CFDI.
 
 - `S - Comprobante obtenido satisfactoriamente`
 - `N - 601: La expresión impresa proporcionada no es válida`
 - `N - 602: Comprobante no encontrado` de este no he podido encontrar un input que me lo devuelva
 
-El estado del cfdi tiene tres posibles respuestas:
+### Estado (estado del cfdi)
 
-- `Vigente`
-- `No Encontrado`
-- `Cancelado`
+Este estado se debe entender como que el SAT reconoce el CFDI y su estado general.
 
-Dado lo anterior, los estados normales que podría entregar el servicio son:
+- `Vigente`: El comprobante está vigente al momento de la consulta
+- `Cancelado`: El comprobante está cancelado al momento de la consulta
+- `No Encontrado`: El comprobante no se encuentra en la base de datos del SAT
 
-Consulta | CFDI          | Explicación
--------- | ------------- | ---------------------------------------------------------------
-S        | Vigente       | La consulta fue hecha y al momento el CFDI estaba vigente
-S        | Cancelado     | La consulta fue hecha y al momento el CFDI estaba cancelado
-N - 601  | No Encontrado | La consulta fue hecha pero la información impresa es incorrecta
-N - 602  | No Encontrado | La consulta fue hecha pero el CFDI no existe
 
-El problema que encontré es que alterando solo 1 dato (el total) esperaba encontrar un estado de `N - 602`
-pero el estado devuelto fue `N - 601`.
+### EsCancelable (estado de cancelabilidad)
+
+Se refiere a que si en el momento de la consulta el CFDI se puede cancelar.
+
+- `No cancelable`: No se puede cancelar, tal vez ya hay documentos relacionados.
+- `Cancelable sin aceptación`: Se puede cancelar de inmediato
+- `Cancelable con aceptación`: Se puede cancelar pero se va a tener que esperar respuesta.
+
+### EstatusCancelacion (estado de cancelación)
+
+Se refiere al estado de la cancelación solicitada previamente.
+
+- `(ninguno)`: El estado vacío es que no tiene estado de cancelación, porque no fue solicitada.
+- `Cancelado sin aceptación`: Se canceló y no fue necesaria la aceptación
+- `En proceso`: En espera de que el receptor la autorice
+- `Plazo vencido`: Cancelado por vencimiento de plazo en que el receptor podía denegarla
+- `Cancelado con aceptación`: Cancelado con el consentimiento del receptor
+- `Solicitud rechazada`: No cancelada.
+
+## Estados mutuamente excluyentes
+
+CodigoEstatus | Estado        | EsCancelable              | EstatusCancelacion       | Explicación
+------------- | ------------- | ------------------------- | ------------------------ | -----------------------------------------------------
+N - ...       | *             | *                         | *                        | El SAT no sabe del CFDI con los datos ofrecidos
+S - ...       | Cancelado     | *                         | Plazo vencido            | Cancelado por plazo vencido
+S - ...       | Cancelado     | *                         | Cancelado con aceptación | Cancelado con aceptación del receptor
+S - ...       | Cancelado     | *                         | Cancelado sin aceptación | No fue requerido preguntarle al receptor y se canceló
+S - ...       | Vigente       | No cancelable             | *                        | No se puede cancelar
+S - ...       | Vigente       | Cancelable sin aceptación | *                        | Se puede cancelar pero no se ha realizado solicitud
+S - ...       | Vigente       | Cancelable con aceptación | (ninguno)                | Se puede cancelar pero no se ha realizado solicitud
+S - ...       | Vigente       | Cancelable con aceptación | En proceso               | Se hizo la solicitud y se está en espera
+S - ...       | Vigente       | Cancelable con aceptación | Solicitud rechazada      | Se hizo la solicitud y fue rechazada
+
 
 ## Ejemplo de uso a partir de un archivo
 
@@ -127,30 +155,21 @@ $request = new RequestParameters(
 $service = new WebService();
 $response = $service->request($request);
 
-// suponiendo que la consulta fue hecha y el resultado es que el CFDI está cancelado
-$response->responseWasOk(); // true
-$response->isVigente(); // false
-$response->isCancelled(); // true
-$response->isNotFound(); // false
+// obtener las respuestas
 $response->getCode(); // S - ...
-$response->getCfdi(); // Cancelado
+$response->getCfdi(); // Vigente
+$response->getCancellable(); // Cancelable con aceptación
+$response->getCancellationStatus(); // En proceso
 ```
 
 ## Problema con el webservice del SAT
 
 El SAT a partir de octubre 2018 dejó de publicar el archivo de contrato WSL del servicio web ubicado en
-<https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc?singleWsdl>, sin embargo el servicio
-sigue funcionando por lo que ahora es necesario especificar una la copia local del archivo WSDL.
+<https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc>, sin embargo el servicio
+sigue funcionando.
 
-Si no cuenta con el archivo WSDL esta librería contiene una copia que se puede obtener llamando al método
-estático `CfdiUtils\ConsultaCfdiSat\Config::getLocalWsdlLocation()`.
-
-```php
-<?php
-$wsdlLocalCopy = \CfdiUtils\ConsultaCfdiSat\Config::getLocalWsdlLocation();
-$config = new \CfdiUtils\ConsultaCfdiSat\Config(10, true, '', $wsdlLocalCopy);
-$webservice = new \CfdiUtils\ConsultaCfdiSat\WebService($config);
-```
+Hasta antes de la versión 2.10 se necesitaba un archivo WSDL,
+a partir de 2.10 ya no se necesita y la llamada SOAP se hace correctamente.
 
 
 ## Posibles futuros cambios
