@@ -1,12 +1,7 @@
 filter:
     excluded_paths:
-        - 'tests/*'
-        - 'vendor/*'
-
-checks:
-    php:
-        code_rating: true
-        duplication: true
+        - 'tests/'
+        - 'vendor/'
 
 tools:
     external_code_coverage: true
@@ -14,6 +9,8 @@ tools:
 build:
     nodes:
         analysis:
+            project_setup:
+                override: true
             tests:
                 override:
-                    - php-scrutinizer-run
+                    - php-scrutinizer-run --enable-security-analysis
