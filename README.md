@@ -16,28 +16,30 @@
 
 This library provides helper objects to work with Mexican CFDI (Comprobante Fiscal Digital por Internet).
 
-The [documentation] related to this library and its API is documented in [Read the docs][documentation]
-and is written in **spanish language** since is the language of the intented audience.
+:mexico: Visita la **documentación en español** de esta librería en [Read the docs][documentation].
 
-**Warning: this project will be migrated to `phpcfdi/cfdiutils`, don't have a date yet**
+The documentation related to this library and its API is documented in [Read the docs][documentation].
+It is written in **spanish language** since is the language of the intented audience.
+
+**Warning: this project will be migrated to `phpcfdi/cfdiutils`, don't have a release date yet**
 
 
 ## Main features
 
-- Create CFDI version 3.3 based on a friendly extendable non-xml objects (`nodes`)
-- Read CFDI version 3.2 and 3.3
-- Validate CFDI version 3.3 against schemas, cfdi signature (`Sello`) and custom rules
+- Create CFDI version 3.3 based on a friendly extendable non-xml objects (`nodes`).
+- Read CFDI version 3.2 and 3.3.
+- Validate CFDI version 3.3 against schemas, cfdi signature (`Sello`) and custom rules.
 - Validate that the Timbre Fiscal Digital signature match with the CFDI 3.3,
   if not then the document was modified after signature.
-- Validate the "Complemento de recepción de pagos"
+- Validate the "Complemento de recepción de pagos".
 - Helper objects to deal with:
-    - `Cadena de origen` generation
-    - Extract information from CER files or `Certificado` attribute
-    - Calculate `Comprobante` sums based on the list of `Conceptos`
-    - Retrieve the CFDI version information
-- Keep a local copy of the tree of XSD and XSLT file dependences from SAT
-- Keep a local copy of certificates to avoid download them each time
-- Check the SAT WebService to get the status of a CDI ('Activo', 'Cancelado' & 'No encontrado')
+    - `Cadena de origen` generation.
+    - Extract information from CER files or `Certificado` attribute.
+    - Calculate `Comprobante` sums based on the list of `Conceptos`.
+    - Retrieve the CFDI version information.
+- Keep a local copy of the tree of XSD and XSLT file dependences from SAT.
+- Keep a local copy of certificates to avoid download them each time.
+- Check the SAT WebService to get the status of a CFDI (*Estado*, *EsCancelable* y *EstatusCancelacion*) without WSDL.
 
 
 ## Installation
