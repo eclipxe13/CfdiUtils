@@ -18,6 +18,22 @@
 - Remove `CfdiUtils\Certificado\SerialNumber::baseConvert` method. Should be private or not exists at all.
 - Add a method `NodeInderface::exists` as an alias of `NodeInderface::offsetExists`. Replace usages in code.
 - Remove static `CfdiUtils\PemPrivateKey\PemPrivateKey::isPEM` method.
+- Add a method to execute `CfdiUtils\ConsultaCfdiSat\StatusResponse` using an expression instead of `RequestParameters`.
+- Make `CfdiUtils\ConsultaCfdiSat\StatusResponse::__constructor()` third and fourth arguments non-optional.
+  Now they are optional to avoid incompatibility changes.
+- Remove `CfdiUtils\ConsultaCfdiSat\Config::DEFAULT_SERVICE_URL`
+- Remove `CfdiUtils\ConsultaCfdiSat\Config::getWsdlLocation()`, `CfdiUtils\ConsultaCfdiSat\Config::getWsdlLocation()`
+  and fix `CfdiUtils\ConsultaCfdiSat\Config::__construct()`.
+- Remove file `ConsultaCFDIServiceSAT.svc.xml`.
+
+
+## Version 2.10.0 2019-03-26
+
+- Include in `CfdiUtils\ConsultaCfdiSat\StatusResponse` the values of `EsCancelable` and `EstatusCancelacion`.
+- Change SOAP call to avoid WSDL requirement.
+- Deprecate uses of WSDL in `CfdiUtils\ConsultaCfdiSat\Config`.
+- Update *Estado SAT* documentation.
+- SymfonyInsight, add config file `.symfony.insight.yaml`
 
 
 ## Version 2.9.0 2019-03-15
