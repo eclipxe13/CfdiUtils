@@ -30,20 +30,16 @@ class WebServiceTest extends TestCase
                 null,
                 'The consulta web service did not return any result',
             ],
-            'ConsultaResult missing' => [
+            'CodigoEstatus missing' => [
                 (object) [],
-                'The consulta web service did not have expected ConsultaResult',
-            ],
-            'ConsultaResult:CodigoEstatus missing' => [
-                (object) ['ConsultaResult' => []],
                 'The consulta web service did not have expected ConsultaResult:CodigoEstatus',
             ],
             'ConsultaResult:Estado missing' => [
-                (object) ['ConsultaResult' => ['CodigoEstatus' => '']],
+                (object) ['CodigoEstatus' => ''],
                 'The consulta web service did not have expected ConsultaResult:Estado',
             ],
             'No exception' => [
-                (object) ['ConsultaResult' => ['CodigoEstatus' => '', 'Estado' => '']],
+                (object) ['CodigoEstatus' => '', 'Estado' => ''],
                 '',
             ],
         ];

@@ -22,7 +22,7 @@ class WebServiceConsumingTest extends TestCase
 {
     private function createWebServiceObject(): WebService
     {
-        $config = new Config(5, true, '', Config::getLocalWsdlLocation());
+        $config = new Config(5, true, '');
         return new WebService($config);
     }
 
@@ -60,7 +60,7 @@ class WebServiceConsumingTest extends TestCase
 
     public function testSoapClientHasSettings()
     {
-        $config = new Config(60, false, '', Config::getLocalWsdlLocation());
+        $config = new Config(60, false, '');
         $ws = new WebService($config);
 
         $soapClient = $this->tolerantSoapClient($ws);
@@ -87,8 +87,10 @@ class WebServiceConsumingTest extends TestCase
 
         $return = $this->tolerantRequest($validCfdi33Request);
 
-        $this->assertTrue($return->responseWasOk());
-        $this->assertTrue($return->isVigente());
+        $this->assertStringStartsWith('S - ', $return->getCode());
+        $this->assertSame('Vigente', $return->getCfdi());
+        $this->assertSame('Cancelable sin aceptación', $return->getCancellable());
+        $this->assertSame('', $return->getCancellationStatus());
     }
 
     public function testValidDocumentVersion32()

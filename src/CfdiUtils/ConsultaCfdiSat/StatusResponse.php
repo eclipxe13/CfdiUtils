@@ -9,10 +9,22 @@ class StatusResponse
     /** @var string */
     private $cfdi;
 
-    public function __construct(string $statusCode, string $status)
-    {
+    /** @var string */
+    private $cancellable;
+
+    /** @var string */
+    private $cancellationStatus;
+
+    public function __construct(
+        string $statusCode,
+        string $status,
+        string $cancellable = '',
+        string $cancellationStatus = ''
+    ) {
         $this->code = $statusCode;
         $this->cfdi = $status;
+        $this->cancellable = $cancellable;
+        $this->cancellationStatus = $cancellationStatus;
     }
 
     public function getCode(): string
@@ -23,6 +35,16 @@ class StatusResponse
     public function getCfdi(): string
     {
         return $this->cfdi;
+    }
+
+    public function getCancellable(): string
+    {
+        return $this->cancellable;
+    }
+
+    public function getCancellationStatus(): string
+    {
+        return $this->cancellationStatus;
     }
 
     public function responseWasOk(): bool
