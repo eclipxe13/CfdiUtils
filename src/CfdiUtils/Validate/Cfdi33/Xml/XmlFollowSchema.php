@@ -14,7 +14,6 @@ use CfdiUtils\XmlResolver\XmlResolverPropertyTrait;
 use XmlSchemaValidator\Schema;
 use XmlSchemaValidator\Schemas;
 use XmlSchemaValidator\SchemaValidator;
-use XmlSchemaValidator\SchemaValidatorException;
 
 /**
  * XmlFollowSchema
@@ -57,7 +56,7 @@ class XmlFollowSchema extends AbstractVersion33 implements
                 $schemas = $this->changeSchemasUsingRetriever($schemas);
             }
             $schemaValidator->validateWithSchemas($schemas);
-        } catch (SchemaValidatorException $exception) {
+        } catch (\Throwable $exception) {
             // validate failure
             $assert->setStatus(Status::error(), $exception->getMessage());
             $asserts->mustStop(true);
