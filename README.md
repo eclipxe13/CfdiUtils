@@ -101,13 +101,13 @@ and licensed for use under the MIT License (MIT). Please see [LICENSE][] for mor
 [downloads]: https://packagist.org/packages/eclipxe/CfdiUtils
 
 [badge-source]: http://img.shields.io/badge/source-eclipxe13/CfdiUtils-blue.svg?logo=github&style=flat-square
-[badge-documentation]: https://img.shields.io/readthedocs/cfdiutils/stable.svg?style=flat-square
-[badge-discord]: https://img.shields.io/discord/459860554090283019.svg?style=flat-square
+[badge-documentation]: https://img.shields.io/readthedocs/cfdiutils/stable.svg?logo=read-the-docs&style=flat-square
+[badge-discord]: https://img.shields.io/discord/459860554090283019.svg?logo=discord&style=flat-square
 [badge-release]: https://img.shields.io/github/release/eclipxe13/CfdiUtils.svg?style=flat-square
 [badge-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [badge-build]: https://img.shields.io/travis/eclipxe13/CfdiUtils/master.svg?logo=travis&style=flat-square
 [badge-appveyor]: https://img.shields.io/appveyor/ci/eclipxe13/cfdiutils/master.svg?logo=appveyor&style=flat-square
-[badge-quality]: https://img.shields.io/scrutinizer/g/eclipxe13/CfdiUtils/master.svg?logo=scrutinizer&style=flat-square
+[badge-quality]: https://img.shields.io/scrutinizer/g/eclipxe13/CfdiUtils/master.svg?logo=scrutinizer-ci&style=flat-square
 [badge-sensiolabs]: https://insight.sensiolabs.com/projects/87975c73-2f3b-480a-8cce-e78b15986d7b/mini.png
-[badge-coverage]: https://img.shields.io/scrutinizer/coverage/g/eclipxe13/CfdiUtils/master.svg?style=flat-square
+[badge-coverage]: https://img.shields.io/scrutinizer/coverage/g/eclipxe13/CfdiUtils/master.svg?logo=scrutinizer-ci&style=flat-square
 [badge-downloads]: https://img.shields.io/packagist/dt/eclipxe/CfdiUtils.svg?style=flat-square
