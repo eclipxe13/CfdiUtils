@@ -27,7 +27,7 @@
 - Remove file `ConsultaCFDIServiceSAT.svc.xml`.
 
 
-## DEVELOPMENT
+## Version 2.10.1 2019-04-02
 
 - When any `Throwable` is thrown on `XmlFollowSchema` validator fail with error,
   previous behavior was to just catch `SchemaValidatorException`.
