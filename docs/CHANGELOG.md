@@ -32,6 +32,7 @@
 - When any `Throwable` is thrown on `XmlFollowSchema` validator fail with error,
   previous behavior was to just catch `SchemaValidatorException`.
 - Add specific tests for `XmlFollowSchema`.
+- Move community chat from gitter to discord <https://discord.gg/aFGYXvX>
 
 
 ## Version 2.10.0 2019-03-26

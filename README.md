@@ -1,7 +1,7 @@
 # eclipxe/CfdiUtils
 
 [![Source Code][badge-source]][source]
-[![Gitter][badge-gitter]][gitter]
+[![Discord][badge-discord]][discord]
 [![Latest Version][badge-release]][release]
 [![Software License][badge-license]][license]
 [![Build Status][badge-build]][build]
@@ -17,6 +17,7 @@
 This library provides helper objects to work with Mexican CFDI (Comprobante Fiscal Digital por Internet).
 
 :mexico: Visita la **documentación en español** de esta librería en [Read the docs][documentation].
+También te esperamos en el [canal #phpcfdi de discord](https://discord.gg/aFGYXvX).
 
 The documentation related to this library and its API is documented in [Read the docs][documentation].
 It is written in **spanish language** since is the language of the intented audience.
@@ -89,7 +90,7 @@ and licensed for use under the MIT License (MIT). Please see [LICENSE][] for mor
 
 [source]: https://github.com/eclipxe13/CfdiUtils
 [documentation]: https://cfdiutils.readthedocs.io/
-[gitter]: https://gitter.im/eclipxe13/php-cfdi
+[discord]: https://discord.gg/aFGYXvX
 [release]: https://github.com/eclipxe13/CfdiUtils/releases
 [license]: https://github.com/eclipxe13/CfdiUtils/blob/master/LICENSE
 [build]: https://travis-ci.org/eclipxe13/CfdiUtils?branch=master
@@ -101,7 +102,7 @@ and licensed for use under the MIT License (MIT). Please see [LICENSE][] for mor
 
 [badge-source]: http://img.shields.io/badge/source-eclipxe13/CfdiUtils-blue.svg?logo=github&style=flat-square
 [badge-documentation]: https://img.shields.io/readthedocs/cfdiutils/stable.svg?style=flat-square
-[badge-gitter]: https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat-square
+[badge-discord]: https://img.shields.io/discord/459860554090283019.svg?style=flat-square
 [badge-release]: https://img.shields.io/github/release/eclipxe13/CfdiUtils.svg?style=flat-square
 [badge-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [badge-build]: https://img.shields.io/travis/eclipxe13/CfdiUtils/master.svg?logo=travis&style=flat-square

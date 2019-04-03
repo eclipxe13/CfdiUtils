@@ -1,7 +1,7 @@
 # CfdiUtils
 
 [![Source Code][badge-source]][source]
-[![Gitter][badge-gitter]][gitter]
+[![Discord][badge-discord]][discord]
 [![Latest Version][badge-release]][release]
 [![Software License][badge-license]][license]
 [![Build Status][badge-build]][build]
@@ -27,7 +27,7 @@ México, en proyectos privados o proyectos libres como el futuro "BuzonCFDI".
 Esta librería se ha liberado como software libre para ayudar a otros desarrolladores a
 trabajar con CFDI y también para obtener su ayuda, todo lo que la comunidad pueda
 contribuir será bien apreciado. Tenemos una comunidad activa y dinámica, nos puedes
-encontrar en [el canal de gitter](https://gitter.im/eclipxe13/php-cfdi).
+encontrar en el [canal #phpcfdi de discord](https://discord.gg/aFGYXvX).
 
 
 ## Lectura de CFDI
@@ -107,7 +107,7 @@ Consulte el archivo [LICENSE][] para más información.
 
 [source]: https://github.com/eclipxe13/CfdiUtils
 [documentation]: https://cfdiutils.readthedocs.io/
-[gitter]: https://gitter.im/eclipxe13/php-cfdi
+[discord]: https://discord.gg/aFGYXvX
 [release]: https://github.com/eclipxe13/CfdiUtils/releases
 [license]: https://github.com/eclipxe13/CfdiUtils/blob/master/LICENSE
 [build]: https://travis-ci.org/eclipxe13/CfdiUtils?branch=master
@@ -119,7 +119,7 @@ Consulte el archivo [LICENSE][] para más información.
 
 [badge-source]: http://img.shields.io/badge/source-eclipxe13/CfdiUtils-blue.svg?logo=github&style=flat-square
 [badge-documentation]: https://img.shields.io/readthedocs/cfdiutils/stable.svg?style=flat-square
-[badge-gitter]: https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat-square
+[badge-discord]: https://img.shields.io/discord/459860554090283019.svg?style=flat-square
 [badge-release]: https://img.shields.io/github/release/eclipxe13/CfdiUtils.svg?style=flat-square
 [badge-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [badge-build]: https://img.shields.io/travis/eclipxe13/CfdiUtils/master.svg?logo=travis&style=flat-square
