@@ -27,6 +27,13 @@
 - Remove file `ConsultaCFDIServiceSAT.svc.xml`.
 
 
+## DEVELOPMENT
+
+- When any `Throwable` is thrown on `XmlFollowSchema` validator fail with error,
+  previous behavior was to just catch `SchemaValidatorException`.
+- Add specific tests for `XmlFollowSchema`.
+
+
 ## Version 2.10.0 2019-03-26
 
 - Include in `CfdiUtils\ConsultaCfdiSat\StatusResponse` the values of `EsCancelable` and `EstatusCancelacion`.
