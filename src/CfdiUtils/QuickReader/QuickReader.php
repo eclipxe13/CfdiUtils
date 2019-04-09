@@ -121,7 +121,7 @@ class QuickReader extends \stdClass implements \ArrayAccess
 
     public function offsetGet($name): string
     {
-        return $this->getAttributeByName((string) $name) ?: '';
+        return $this->getAttributeByName((string) $name) ?? '';
     }
 
     public function offsetSet($offset, $value)
