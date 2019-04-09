@@ -174,4 +174,29 @@ class QuickReaderTest extends TestCase
         $this->expectException(\LogicException::class);
         $quickReader->foo = new QuickReader('xee');
     }
+
+    public function testReadFalsyAttributes()
+    {
+        $quickReader = new QuickReader('foo', [
+            'zero' => '0',
+            'empty' => '',
+            'space' => ' ',
+            'control' => 'x',
+        ]);
+
+        $this->assertTrue(isset($quickReader['control']));
+        $this->assertSame('x', $quickReader['control']);
+
+        $this->assertTrue(isset($quickReader['zero']));
+        $this->assertSame('0', $quickReader['zero']);
+
+        $this->assertTrue(isset($quickReader['empty']));
+        $this->assertSame('', $quickReader['empty']);
+
+        $this->assertTrue(isset($quickReader['space']));
+        $this->assertSame(' ', $quickReader['space']);
+
+        $this->assertFalse(isset($quickReader['non-existent']));
+        $this->assertSame('', $quickReader['non-existent']);
+    }
 }
