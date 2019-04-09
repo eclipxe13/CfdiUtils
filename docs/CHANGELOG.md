@@ -27,6 +27,12 @@
 - Remove file `ConsultaCFDIServiceSAT.svc.xml`.
 
 
+## Version 2.10.2 2019-04-08
+
+- Fix bug on `QuickReader` getting the content of falsy values (like `"0"`) return an empty string.
+  Thanks @jaimeres. (Closes #48)
+
+
 ## Version 2.10.1 2019-04-02
 
 - When any `Throwable` is thrown on `XmlFollowSchema` validator fail with error,
