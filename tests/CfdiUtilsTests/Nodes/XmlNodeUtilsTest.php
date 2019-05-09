@@ -41,7 +41,7 @@ class XmlNodeUtilsTest extends TestCase
         $document = Xml::newDocumentContent($source);
 
         // create node from element
-        $node = XmlNodeUtils::nodeFromXmlElement($document->documentElement);
+        $node = XmlNodeUtils::nodeFromXmlElement(Xml::documentElement($document));
 
         // create element from node
         $element = XmlNodeUtils::nodeToXmlElement($node);

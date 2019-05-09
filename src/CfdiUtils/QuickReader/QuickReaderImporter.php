@@ -1,6 +1,7 @@
 <?php
 namespace CfdiUtils\QuickReader;
 
+use CfdiUtils\Utils\Xml;
 use DOMDocument;
 use DOMNode;
 
@@ -8,7 +9,7 @@ class QuickReaderImporter
 {
     public function importDocument(DOMDocument $document): QuickReader
     {
-        return $this->importNode($document->documentElement);
+        return $this->importNode(Xml::documentElement($document));
     }
 
     public function importNode(DOMNode $node): QuickReader

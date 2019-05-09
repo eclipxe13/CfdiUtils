@@ -26,6 +26,13 @@ class CfdiTest extends TestCase
         Cfdi::newFromString('<Comprobante version="3.2"' . '/>');
     }
 
+    public function testConstructWithEmptyDomDocument()
+    {
+        $this->expectException(\UnexpectedValueException::class);
+        $this->expectExceptionMessage('DOM Document does not have root element');
+        new Cfdi(new \DOMDocument());
+    }
+
     public function testInvalidCfdiRootIsNotComprobante()
     {
         $this->expectException(\UnexpectedValueException::class);

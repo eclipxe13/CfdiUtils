@@ -38,8 +38,7 @@ class XmlNodeUtils
 
     public static function nodeFromXmlString(string $content): NodeInterface
     {
-        $document = Xml::newDocumentContent($content);
-        return static::nodeFromXmlElement($document->documentElement);
+        return static::nodeFromXmlElement(Xml::documentElement(Xml::newDocumentContent($content)));
     }
 
     public static function nodeFromSimpleXmlElement(SimpleXMLElement $element): NodeInterface
