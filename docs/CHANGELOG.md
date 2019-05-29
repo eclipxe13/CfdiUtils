@@ -27,6 +27,14 @@
 - Remove file `ConsultaCFDIServiceSAT.svc.xml`.
 
 
+## Version 2.10.3 2019-05-29
+
+- Add static methods to `CfdiUtils\Utils\Xml`, this methods are created to help fixing issues found by `phpstan`:
+    - `Xml::documentElement(DOMDocument $document): DOMElement`: Safe helper to get `$document->documentElement`
+    - `Xml::ownerDocument(DOMNode $node): DOMDocument`: Safe helper to get `$node->ownerDocument`
+- Fix [`phpstan`](https://github.com/phpstan/phpstan) 0.11.6 issues, this must solve all travis build
+
+
 ## Version 2.10.2 2019-04-08
 
 - Fix bug on `QuickReader` getting the content of falsy values (like `"0"`) return an empty string.

@@ -19,7 +19,8 @@ class Discoverer
     public function discoverInFolder(string $namespacePrefix, string $directoryPath): array
     {
         $discovered = [];
-        foreach (glob($directoryPath . '/*.php') as $filename) {
+        $filenames = glob($directoryPath . '/*.php') ?: [];
+        foreach ($filenames as $filename) {
             $object = $this->discoverInFile($namespacePrefix, $filename);
             if (null !== $object) {
                 $discovered[] = $object;
