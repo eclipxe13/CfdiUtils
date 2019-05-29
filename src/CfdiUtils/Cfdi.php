@@ -44,6 +44,7 @@ class Cfdi
 
     public function __construct(DOMDocument $document)
     {
+        $rootElement = Xml::documentElement($document);
         // is not docummented: lookupPrefix returns NULL instead of string when not found
         // this is why we are casting the value to string
         $nsPrefix = (string) $document->lookupPrefix(static::CFDI_NAMESPACE);
@@ -53,11 +54,11 @@ class Cfdi
         if ('cfdi' !== $nsPrefix) {
             throw new \UnexpectedValueException('Prefix for namespace ' . static::CFDI_NAMESPACE . ' is not "cfdi"');
         }
-        if ($document->documentElement->tagName !== $nsPrefix . ':Comprobante') {
+        if ($rootElement->tagName !== $nsPrefix . ':Comprobante') {
             throw new \UnexpectedValueException('Root element is not Comprobante');
         }
 
-        $this->version = (new CfdiVersion())->getFromDOMDocument($document);
+        $this->version = (new CfdiVersion())->getFromDOMElement($rootElement);
         $this->document = clone $document;
     }
 
@@ -103,7 +104,7 @@ class Cfdi
     {
         if (null === $this->source) {
             // pass the document element to avoid xml header
-            $this->source = $this->document->saveXML($this->document->documentElement);
+            $this->source = $this->document->saveXML(Xml::documentElement($this->document));
         }
         return $this->source;
     }
@@ -114,7 +115,7 @@ class Cfdi
     public function getNode(): NodeInterface
     {
         if (null === $this->node) {
-            $this->node = XmlNodeUtils::nodeFromXmlElement($this->document->documentElement);
+            $this->node = XmlNodeUtils::nodeFromXmlElement(Xml::documentElement($this->document));
         }
         return $this->node;
     }

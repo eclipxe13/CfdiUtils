@@ -2,6 +2,7 @@
 namespace CfdiUtils\Cleaner;
 
 use CfdiUtils\Cfdi;
+use CfdiUtils\Utils\Xml;
 use DOMDocument;
 use DOMNode;
 use DOMNodeList;
@@ -287,8 +288,9 @@ class Cleaner
             $nss[$prefix] = $namespace;
         }
         $nss = array_unique($nss);
+        $documentElement = Xml::documentElement($dom);
         foreach ($nss as $prefix => $namespace) {
-            $dom->documentElement->removeAttributeNS($namespace, $prefix);
+            $documentElement->removeAttributeNS($namespace, $prefix);
         }
     }
 
@@ -311,13 +313,13 @@ class Cleaner
     private function xpathQuery(string $query, DOMNode $element = null): DOMNodeList
     {
         if (null === $element) {
-            $element = $this->dom()->documentElement;
-        }
-        if (null === $element->ownerDocument) {
-            throw new \LogicException('Cannot create a XPath query on an element without document');
+            $document = $this->dom();
+            $element = Xml::documentElement($document);
+        } else {
+            $document = Xml::ownerDocument($element);
         }
         /** @var DOMNodeList|false $nodelist phpstan does not know that query can return false */
-        $nodelist = (new DOMXPath($element->ownerDocument))->query($query, $element);
+        $nodelist = (new DOMXPath($document))->query($query, $element);
         if (false === $nodelist) {
             $nodelist = new DOMNodeList();
         }

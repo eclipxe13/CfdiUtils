@@ -2,9 +2,32 @@
 namespace CfdiUtils\Utils;
 
 use DOMDocument;
+use DOMElement;
+use DOMNode;
 
 class Xml
 {
+    public static function documentElement(DOMDocument $document): DOMElement
+    {
+        if (! $document->documentElement instanceof DOMElement) {
+            throw new \UnexpectedValueException('DOM Document does not have root element');
+        }
+        return $document->documentElement;
+    }
+
+    public static function ownerDocument(DOMNode $node): DOMDocument
+    {
+        // $node->ownerDocument is NULL if node is a DOMDocument
+        if (null === $node->ownerDocument) {
+            if ($node instanceof DOMDocument) {
+                return $node;
+            }
+            /** @codeCoverageIgnore */
+            throw new \LogicException('node->ownerDocument is null but node is not a DOMDocument');
+        }
+        return $node->ownerDocument;
+    }
+
     public static function newDocument(): DOMDocument
     {
         $document = new DOMDocument('1.0', 'UTF-8');

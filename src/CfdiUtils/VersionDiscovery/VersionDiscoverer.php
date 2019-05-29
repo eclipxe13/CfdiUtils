@@ -36,7 +36,7 @@ abstract class VersionDiscoverer
 
     public function getFromDOMDocument(DOMDocument $document): string
     {
-        return $this->getFromDOMElement($document->documentElement);
+        return $this->getFromDOMElement(Xml::documentElement($document));
     }
 
     public function getFromNode(NodeInterface $node): string
