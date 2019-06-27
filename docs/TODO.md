@@ -1,5 +1,8 @@
 # Lista de tareas pendientes e ideas
 
+- Compatibilidad con PHP 7.4
+- Firma de CfdiUtils\Utils\Format::number el argumento $decimals debe ser entero
+
 ## Verificar problemas conocidos
 
 ### Descarga de certificados desde <https://rdc.sat.gob.mx/rccf/>
