@@ -27,6 +27,13 @@
 - Remove file `ConsultaCFDIServiceSAT.svc.xml`.
 
 
+## Version 2.10.4 2019-06-27
+
+- Add `Xml::createElement` and `Xml::createElementNS` to deal with non scaped ampersand `&`
+  on `DOMDocument::createElement` and `DOMDocument::createElementNS`.
+- Improve `Rfc::obtainDate` with invalid length dates and tests
+
+
 ## Version 2.10.3 2019-05-29
 
 - Add static methods to `CfdiUtils\Utils\Xml`, this methods are created to help fixing issues found by `phpstan`:
