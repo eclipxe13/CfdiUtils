@@ -113,4 +113,22 @@ class RfcTest extends TestCase
         // invalid leap year
         $this->assertSame(0, Rfc::obtainDate('XXX030229XX6'));
     }
+
+    /**
+     * @param string $rfc
+     * @testWith [""]
+     *           ["ABCD010100AAA"]
+     *           ["ABCD010001AAA"]
+     *           ["ABCD010132AAA"]
+     *           ["ABCD010229AAA"]
+     *           ["ABCD000230AAA"]
+     *           ["ABCD0A0101AAA"]
+     *           ["ABCD010A01AAA"]
+     *           ["ABCD01010AAAA"]
+     *           ["ABCD-10123AAA"]
+     */
+    public function testObtainDateWithInvalidInput(string $rfc)
+    {
+        $this->assertSame(0, Rfc::obtainDate($rfc));
+    }
 }
