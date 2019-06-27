@@ -28,6 +28,12 @@ class Xml
         return $node->ownerDocument;
     }
 
+    /**
+     * Creates a DOMDocument object version 1.0 encoding UTF-8
+     * with output formatting and not preserving white spaces
+     *
+     * @return DOMDocument
+     */
     public static function newDocument(): DOMDocument
     {
         $document = new DOMDocument('1.0', 'UTF-8');
@@ -61,6 +67,68 @@ class Xml
             . '\xC0-\xD6\xD8-\xF6\xF8-\x{2FF}\x{370}-\x{37D}\x{37F}-\x{1FFF}\x{200C}-\x{200D}\x{2070}-\x{218F}'
             . '\x{2C00}-\x{2FEF}\x{3001}-\x{D7FF}\x{F900}-\x{FDCF}\x{FDF0}-\x{FFFD}\x{10000}-\x{EFFFF}'
             . '\xB7\x{0300}-\x{036F}\x{203F}-\x{2040}]*$/u';
-        return 1 === preg_match($pattern, $name);
+        return (1 === preg_match($pattern, $name));
+    }
+
+    /**
+     * This is an alias of DOMDocument::createElement that will replace ampersand '&' with '&amp;'
+     * @see https://www.php.net/manual/en/domdocument.createelement.php
+     *
+     * @param DOMDocument $document
+     * @param string $name
+     * @param string $content
+     * @return DOMElement
+     */
+    public static function createElement(DOMDocument $document, string $name, string $content = ''): DOMElement
+    {
+        /** @var DOMElement|false $element */
+        $element = null;
+        $previousException = null;
+        try {
+            $element = $document->createElement($name);
+        } catch (\Throwable $domException) {
+            $previousException = $domException;
+        }
+        if (! $element instanceof DOMElement) {
+            throw new \LogicException(sprintf('Cannot create element with name %s', $name), 0, $previousException);
+        }
+        if ('' !== $content) {
+            $element->appendChild($document->createTextNode($content));
+        }
+        return $element;
+    }
+
+    /**
+     * This is an alias of DOMDocument::createElementNS that will replace ampersand '&' with '&amp;'
+     * @see https://www.php.net/manual/en/domdocument.createelementns.php
+     *
+     * @param DOMDocument $document
+     * @param string $namespaceURI
+     * @param string $name
+     * @param string $content
+     * @return DOMElement
+     */
+    public static function createElementNS(
+        DOMDocument $document,
+        string $namespaceURI,
+        string $name,
+        string $content = ''
+    ): DOMElement {
+        /** @var DOMElement|false $element */
+        $element = null;
+        $previousException = null;
+        try {
+            $element = $document->createElementNS($namespaceURI, $name);
+        } catch (\Throwable $domException) {
+            $previousException = $domException;
+        }
+        if (! $element instanceof DOMElement) {
+            $message = sprintf('Cannot create element with name %s uri %s', $name, $namespaceURI);
+            throw new \LogicException($message, 0, $previousException);
+        }
+        if ('' !== $content) {
+            $element->appendChild($document->createTextNode($content));
+        }
+        return $element;
     }
 }

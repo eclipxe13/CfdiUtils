@@ -1,5 +1,8 @@
 # Lista de tareas pendientes e ideas
 
+- Compatibilidad con PHP 7.4
+- Firma de CfdiUtils\Utils\Format::number el argumento $decimals debe ser entero
+
 ## Verificar problemas conocidos
 
 ### Descarga de certificados desde <https://rdc.sat.gob.mx/rccf/>
@@ -12,6 +15,14 @@ Hay que remover esta condición en cuando el sitio del SAT esté correctamente c
 Buscar en el código de pruebas el uso de `CfdiUtilsTests\TestCase::newInsecurePhpDownloader(): DownloaderInterface`
 y remover el método.
 
+Al correr el siguiente comando correrá 1000 peticiones secuenciales e imprimirá el resultado, si es `0` entonces
+la petición se completó, si es `60` es el error de certificado expirado.
+
+```shell
+for i in {1..1000}; do curl --verbose "https://rdc.sat.gob.mx/rccf/" > /dev/null 2>&1 ; echo $? ; done | sort | uniq -c
+    694 0
+    306 60
+```
 
 ## Documentación del proyecto
 

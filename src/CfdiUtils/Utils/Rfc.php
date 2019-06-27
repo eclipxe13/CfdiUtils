@@ -145,11 +145,15 @@ class Rfc
         $begin = (mb_strlen($rfc) === 12) ? 3 : 4;
         // strdate is not multibyte
         $strdate = strval(mb_substr($rfc, $begin, 6));
+        if (strlen($strdate) !== 6) {
+            return 0;
+        }
         $parts = str_split($strdate, 2);
         // year 2000 is leap year (%4 & %100 & %400)
         /** @var int|false $date phpstan does not know that mktime can return false */
         $date = mktime(0, 0, 0, (int) $parts[1], (int) $parts[2], (int) ('20' . $parts[0]));
         if (false === $date) {
+            /** @codeCoverageIgnore it is unlikely to enter this block */
             return 0;
         }
         if (date('ymd', $date) !== $strdate) {
