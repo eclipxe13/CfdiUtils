@@ -338,8 +338,8 @@ class Cleaner
     {
         $comprobante = Xml::documentElement($this->dom());
         $complementos = $comprobante->getElementsByTagNameNS(Cfdi::CFDI_NAMESPACE, 'Complemento');
-        if ($complementos->length < 1) {
-            return; // nothing to do, there are [0, 1] complemento
+        if ($complementos->length < 2) {
+            return; // nothing to do, there are less than 2 complemento
         }
         /** @var \DOMElement $first */
         $first = $complementos->item(0);
