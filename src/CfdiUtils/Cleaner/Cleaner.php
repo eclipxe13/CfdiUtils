@@ -347,7 +347,10 @@ class Cleaner
             /** @var \DOMElement $extra */
             $extra = $complementos->item($i);
             $comprobante->removeChild($extra); // remove complemento from comprobante
-            foreach ($extra->childNodes as $child) { // add children into first complemento
+            while ($extra->childNodes->length > 0) { // append extra child contents into first child
+                /** @var DOMNode $child */
+                $child = $extra->childNodes->item(0);
+                $extra->removeChild($child);
                 $first->appendChild($child);
             }
         }
