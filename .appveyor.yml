@@ -27,6 +27,8 @@ init:
 
 ## Check for openssl, install php using version environment, install
 install:
+    # check chocolatey sources and version
+    - choco source list
     # check openssl exists and run from PATH
     - openssl version
     # php is not cached because this script change versions
@@ -43,12 +45,17 @@ install:
 
           # Get latest available version for php environment variable
           $php_install_version = (( `
-              choco search php --exact --all-versions -r `
-                  | Select-String -Pattern $env:php `
+              choco search php --all-versions --limit-output `
+                  | Select-String -Pattern "php|$Env:php" -SimpleMatch `
                   | Sort-Object { [version]($_ -Split '\|' | Select-Object -Last 1) } -Descending `
                   | Select-Object -First 1 `
               ) -Replace '[php|]', '')
           Write-Host "PHP available version: $php_install_version"
+          if ($php_install_version -eq "") {
+              Write-Host "Unable to find a chocolatey php package version for PHP $env:php"
+              choco search php --all-versions --limit-output | Select-String -Pattern "php|$Env:php" -SimpleMatch
+              Exit 1
+          }
 
           # Test if require installation (not installed or upgrade available)
           if (! ($current_version -eq $php_install_version)) {
@@ -79,10 +86,11 @@ install:
           }
 
           # show contents of extension directory
-          Get-ChildItem -Path c:\tools\php\ext
-
-          # show php information
-          php -i
+          if ((Test-Path c:\tools\php\ext)) {
+              Get-ChildItem -Path c:\tools\php\ext
+          }
+    # show php information
+    - php -i
     # composer
     - ps: |
           if (! (Test-Path c:\tools\composer\composer.phar)) {
