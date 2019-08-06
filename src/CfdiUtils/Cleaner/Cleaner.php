@@ -337,7 +337,7 @@ class Cleaner
     public function collapseComprobanteComplemento()
     {
         $comprobante = Xml::documentElement($this->dom());
-        $complementos = $comprobante->getElementsByTagNameNS(Cfdi::CFDI_NAMESPACE, 'Complemento');
+        $complementos = $this->xpathQuery('./cfdi:Complemento', $comprobante);
         if ($complementos->length < 2) {
             return; // nothing to do, there are less than 2 complemento
         }
