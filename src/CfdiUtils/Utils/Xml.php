@@ -81,21 +81,13 @@ class Xml
      */
     public static function createElement(DOMDocument $document, string $name, string $content = ''): DOMElement
     {
-        /** @var DOMElement|false $element */
-        $element = null;
-        $previousException = null;
-        try {
-            $element = $document->createElement($name);
-        } catch (\Throwable $domException) {
-            $previousException = $domException;
-        }
-        if (! $element instanceof DOMElement) {
-            throw new \LogicException(sprintf('Cannot create element with name %s', $name), 0, $previousException);
-        }
-        if ('' !== $content) {
-            $element->appendChild($document->createTextNode($content));
-        }
-        return $element;
+        return static::createDOMElement(
+            function () use ($document, $name) {
+                return $document->createElement($name);
+            },
+            sprintf('Cannot create element with name %s', $name),
+            $content
+        );
     }
 
     /**
@@ -114,20 +106,30 @@ class Xml
         string $name,
         string $content = ''
     ): DOMElement {
-        /** @var DOMElement|false $element */
+        return static::createDOMElement(
+            function () use ($document, $namespaceURI, $name) {
+                return $document->createElementNS($namespaceURI, $name);
+            },
+            sprintf('Cannot create element with name %s namespace %s', $name, $namespaceURI),
+            $content
+        );
+    }
+
+    private static function createDOMElement(\Closure $fnCreate, string $errorMessage, string $content): DOMElement
+    {
+        /** @var DOMElement|null $element */
         $element = null;
         $previousException = null;
         try {
-            $element = $document->createElementNS($namespaceURI, $name);
-        } catch (\Throwable $domException) {
-            $previousException = $domException;
+            $element = $fnCreate();
+        } catch (\Throwable $creationException) {
+            $previousException = $creationException;
         }
         if (! $element instanceof DOMElement) {
-            $message = sprintf('Cannot create element with name %s uri %s', $name, $namespaceURI);
-            throw new \LogicException($message, 0, $previousException);
+            throw new \LogicException($errorMessage, 0, $previousException);
         }
         if ('' !== $content) {
-            $element->appendChild($document->createTextNode($content));
+            $element->appendChild(static::ownerDocument($element)->createTextNode($content));
         }
         return $element;
     }

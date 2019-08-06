@@ -333,4 +333,23 @@ class Cleaner
         }
         return $this->dom;
     }
+
+    public function colapseNodesComplemento()
+    {
+        $comprobante = Xml::documentElement($this->dom());
+        $complementos = $comprobante->getElementsByTagNameNS(Cfdi::CFDI_NAMESPACE, 'Complemento');
+        if ($complementos->length < 1) {
+            return; // nothing to do, there are [0, 1] complemento
+        }
+        /** @var \DOMElement $first */
+        $first = $complementos->item(0);
+        for ($i = 1; $i < $complementos->length; $i++) {
+            /** @var \DOMElement $extra */
+            $extra = $complementos->item($i);
+            $comprobante->removeChild($extra); // remove complemento from comprobante
+            foreach ($extra->childNodes as $child) { // add children into first complemento
+                $first->appendChild($child);
+            }
+        }
+    }
 }
