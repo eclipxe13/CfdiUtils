@@ -93,6 +93,7 @@ class Cleaner
         $this->removeNonSatNSNodes();
         $this->removeNonSatNSschemaLocations();
         $this->removeUnusedNamespaces();
+        $this->collapseComprobanteComplemento();
     }
 
     /**
