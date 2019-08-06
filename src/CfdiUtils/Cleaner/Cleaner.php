@@ -341,12 +341,12 @@ class Cleaner
         if ($complementos->length < 2) {
             return; // nothing to do, there are less than 2 complemento
         }
-        /** @var \DOMElement $first */
+        /** @var DOMNode $first */
         $first = $complementos->item(0);
-        for ($i = 1; $i < $complementos->length; $i++) {
-            /** @var \DOMElement $extra */
+        for ($i = 1; $i < $complementos->length; $i++) { // iterate over all extra children
+            /** @var DOMNode $extra */
             $extra = $complementos->item($i);
-            $comprobante->removeChild($extra); // remove complemento from comprobante
+            $comprobante->removeChild($extra); // remove extra child from parent
             while ($extra->childNodes->length > 0) { // append extra child contents into first child
                 /** @var DOMNode $child */
                 $child = $extra->childNodes->item(0);
