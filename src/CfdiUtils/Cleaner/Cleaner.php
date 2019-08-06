@@ -4,6 +4,7 @@ namespace CfdiUtils\Cleaner;
 use CfdiUtils\Cfdi;
 use CfdiUtils\Utils\Xml;
 use DOMDocument;
+use DOMElement;
 use DOMNode;
 use DOMNodeList;
 use DOMXPath;
@@ -234,7 +235,7 @@ class Cleaner
             $schemaLocation->nodeValue = $modified;
         } else {
             $parentElement = $schemaLocation->parentNode;
-            if ($parentElement instanceof \DOMElement) {
+            if ($parentElement instanceof DOMElement) {
                 $parentElement->removeAttributeNS($schemaLocation->namespaceURI, $schemaLocation->localName);
             }
         }
