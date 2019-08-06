@@ -334,7 +334,7 @@ class Cleaner
         return $this->dom;
     }
 
-    public function colapseNodesComplemento()
+    public function collapseNodesComplemento()
     {
         $comprobante = Xml::documentElement($this->dom());
         $complementos = $comprobante->getElementsByTagNameNS(Cfdi::CFDI_NAMESPACE, 'Complemento');

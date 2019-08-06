@@ -39,7 +39,7 @@ class ReadCfdiWithTimbreOnSecondComplementoTest extends TestCase
 
         // perform cleaning
         $cleaner = new Cleaner($dirtyXml);
-        $cleaner->colapseNodesComplemento();
+        $cleaner->collapseNodesComplemento();
         $cleanXml = $cleaner->retrieveXml();
         $cleanSourceString = $this->obtainSourceString($dirtyXml);
         $cleanCfdi = Cfdi::newFromString($cleanXml);
