@@ -20,38 +20,50 @@ class ReadCfdiWithTimbreOnSecondComplementoTest extends TestCase
         $uuid = '11111111-2222-3333-4444-555555555555';
         $dirtyXml = $this->createCfdiForTesting($uuid);
         $dirtySourceString = $this->obtainSourceString($dirtyXml);
-        $cfdi = Cfdi::newFromString($dirtyXml);
-        $this->assertCount(2, $cfdi->getNode()->searchNodes('cfdi:Complemento')); // expected 2 complemento
-        $this->assertEmpty($cfdi->getQuickReader()->complemento->timbreFiscalDigital['UUID']);
-        $this->assertEmpty($cfdi->getNode()->searchAttribute('cfdi:Complemento', 'tfd:TimbreFiscalDigital', 'UUID'));
-        $this->assertEmpty(RequestParameters::createFromCfdi($cfdi)->getUuid());
+        $dirtyCfdi = Cfdi::newFromString($dirtyXml);
+        $this->assertCount(2, $dirtyCfdi->getNode()->searchNodes('cfdi:Complemento')); // expected 2 complemento
 
+        // none of this methods retrieve the correct UUID (verification that the problem exists)
+        $this->assertEmpty(
+            $dirtyCfdi->getQuickReader()->complemento->timbreFiscalDigital['UUID'],
+            'Expected empty UUID from dirty CFDI using QuickReader'
+        );
+        $this->assertEmpty(
+            $dirtyCfdi->getNode()->searchAttribute('cfdi:Complemento', 'tfd:TimbreFiscalDigital', 'UUID'),
+            'Expected empty UUID from dirty CFDI using NodeInterface::searchAttribute'
+        );
+        $this->assertEmpty(
+            RequestParameters::createFromCfdi($dirtyCfdi)->getUuid(),
+            'Expected empty UUID from dirty CFDI using RequestParameters'
+        );
+
+        // perform cleaning
         $cleaner = new Cleaner($dirtyXml);
         $cleaner->colapseNodesComplemento();
         $cleanXml = $cleaner->retrieveXml();
         $cleanSourceString = $this->obtainSourceString($dirtyXml);
-        $cfdi = Cfdi::newFromString($cleanXml);
-        $this->assertCount(1, $cfdi->getNode()->searchNodes('cfdi:Complemento'));  // expected 1 complemento
-        $this->assertSame($dirtySourceString, $cleanSourceString, 'Source string after cleaning is not the same');
+        $cleanCfdi = Cfdi::newFromString($cleanXml);
+        $this->assertCount(1, $cleanCfdi->getNode()->searchNodes('cfdi:Complemento'));  // expected 1 complemento
+        $this->assertSame($dirtySourceString, $cleanSourceString, 'Source string after cleaning must be the same');
 
         // assert that the TimbreFiscalDigital can be read using QuickReader
         $this->assertSame(
             $uuid,
-            $cfdi->getQuickReader()->complemento->timbreFiscalDigital['UUID'],
+            $cleanCfdi->getQuickReader()->complemento->timbreFiscalDigital['UUID'],
             'Cannot get UUID using QuickReader'
         );
 
         // assert that the TimbreFiscalDigital can be read using Node
         $this->assertSame(
             $uuid,
-            $cfdi->getNode()->searchAttribute('cfdi:Complemento', 'tfd:TimbreFiscalDigital', 'UUID'),
+            $cleanCfdi->getNode()->searchAttribute('cfdi:Complemento', 'tfd:TimbreFiscalDigital', 'UUID'),
             'Cannot get UUID using NodeInterface::searchAttribute'
         );
 
         // assert that the TimbreFiscalDigital can be read using RequestParameters
         $this->assertSame(
             $uuid,
-            RequestParameters::createFromCfdi($cfdi)->getUuid(),
+            RequestParameters::createFromCfdi($cleanCfdi)->getUuid(),
             'Cannot get UUID using RequestParameters'
         );
     }
@@ -74,7 +86,7 @@ class ReadCfdiWithTimbreOnSecondComplementoTest extends TestCase
             'Fecha' => Format::datetime($fecha),
             'FormaPago' => '01', // efectivo
             'Moneda' => 'USD',
-            'TipoCambio' => Format::number(18.9008, 4), // taken from banxico
+            'TipoCambio' => Format::number(18.9008, 4),
             'TipoDeComprobante' => 'I', // ingreso
             'LugarExpedicion' => '52000',
         ]);
