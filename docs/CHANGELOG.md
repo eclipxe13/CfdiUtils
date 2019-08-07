@@ -27,6 +27,17 @@
 - Remove file `ConsultaCFDIServiceSAT.svc.xml`.
 
 
+## Version 2.11.0 2019-08-06
+
+- Add `Cleaner::collapseComprobanteComplemento()` to deal with more than one `cfdi:Complemento`.
+- Append call to `Cleaner::collapseComprobanteComplemento()` on `Cleaner::clean()`.
+- Create test that demostrate issues when *`TimbreFiscalDigital`* is on a second `cfdi:Complemento`
+  and that collapsing removes the issues and do not change the *"cadena de origen"*.
+- Document SAT issue with multiple `cfdi:Complemento` (problems and clean).
+- Travis: since `mkdocs` version is newer, there is no need to change `nav` to `pages` to compile docs.
+- phpstan: create `phpstan.neon.dist` with `inferPrivatePropertyTypeFromConstructor`.
+
+
 ## Version 2.10.4 2019-06-27
 
 - Add `Xml::createElement` and `Xml::createElementNS` to deal with non scaped ampersand `&`
