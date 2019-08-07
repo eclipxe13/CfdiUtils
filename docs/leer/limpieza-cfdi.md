@@ -16,6 +16,8 @@ Algunos de estos errores son:
 - Existen espacios de nombres XML definidos que no pertenecen al SAT y no está disponible su archivo XSD
 - La especificación XSD no puede ser obtenida
 - Los datos en el nodo `cfdi:Addenda` no cumplen con la especificación XSD
+- Múltiples nodos `cfdi:Complemento`, en el Anexo 20 está especificado que solo puede haber uno pero
+  en el archivo XSD está especificado que pueden haber muchos.
 
 Estos errores comunes terminan en un error de validación.
 
@@ -30,6 +32,8 @@ Este objeto requiere una cadena de texto con XML válido. Y limpia el XML siguie
 1. Remueve todos los nodos que no tengan relación con el SAT (los que no contengan `http://www.sat.gob.mx/`).
 1. Remueve todos los pares de espacio de nombre y archivo xsd de los `xsi:schemaLocation` que no tengan relación con el SAT.
 1. Remueve todos los espacios de nombres listados que no están en uso.
+1. Colapsa los nodos `cfdi:Complemento` en uno solo, respetando el mismo orden de aparición para que se genere
+   exactamente la misma cadena de origen.
 
 La forma rápida de usar el limpiador es usando el método estático
 `CfdiUtils\Cleaner\Cleaner::staticClean(string $content): string`

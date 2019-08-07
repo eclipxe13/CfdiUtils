@@ -4,6 +4,7 @@ namespace CfdiUtils\Cleaner;
 use CfdiUtils\Cfdi;
 use CfdiUtils\Utils\Xml;
 use DOMDocument;
+use DOMElement;
 use DOMNode;
 use DOMNodeList;
 use DOMXPath;
@@ -92,6 +93,7 @@ class Cleaner
         $this->removeNonSatNSNodes();
         $this->removeNonSatNSschemaLocations();
         $this->removeUnusedNamespaces();
+        $this->collapseComprobanteComplemento();
     }
 
     /**
@@ -234,7 +236,7 @@ class Cleaner
             $schemaLocation->nodeValue = $modified;
         } else {
             $parentElement = $schemaLocation->parentNode;
-            if ($parentElement instanceof \DOMElement) {
+            if ($parentElement instanceof DOMElement) {
                 $parentElement->removeAttributeNS($schemaLocation->namespaceURI, $schemaLocation->localName);
             }
         }
@@ -332,5 +334,27 @@ class Cleaner
             throw new \LogicException('No document has been loaded');
         }
         return $this->dom;
+    }
+
+    public function collapseComprobanteComplemento()
+    {
+        $comprobante = Xml::documentElement($this->dom());
+        $complementos = $this->xpathQuery('./cfdi:Complemento', $comprobante);
+        if ($complementos->length < 2) {
+            return; // nothing to do, there are less than 2 complemento
+        }
+        /** @var DOMNode $first */
+        $first = $complementos->item(0);
+        for ($i = 1; $i < $complementos->length; $i++) { // iterate over all extra children
+            /** @var DOMNode $extra */
+            $extra = $complementos->item($i);
+            $comprobante->removeChild($extra); // remove extra child from parent
+            while ($extra->childNodes->length > 0) { // append extra child contents into first child
+                /** @var DOMNode $child */
+                $child = $extra->childNodes->item(0);
+                $extra->removeChild($child);
+                $first->appendChild($child);
+            }
+        }
     }
 }

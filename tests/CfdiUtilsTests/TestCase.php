@@ -50,7 +50,7 @@ class TestCase extends \PHPUnit\Framework\TestCase
             return $first;
         }
         $combine = [];
-        $second = array_shift($next);
+        $second = array_shift($next) ?: [];
         foreach ($first as $a) {
             foreach ($second as $b) {
                 $combine[] = array_merge($a, $b);
