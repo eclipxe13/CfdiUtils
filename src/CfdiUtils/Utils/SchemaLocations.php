@@ -32,11 +32,7 @@ class SchemaLocations implements Countable, IteratorAggregate
     public static function fromString(string $schemaLocationValue, bool $includeLastUnpairedItem): self
     {
         $schemaLocations = new self();
-        do {
-            $schemaLocationValue = str_replace('  ', ' ', $schemaLocationValue, $replaces);
-        } while ($replaces > 0);
-
-        $components = explode(' ', $schemaLocationValue);
+        $components = array_values(array_filter(explode(' ', $schemaLocationValue)));
         $length = count($components);
         for ($c = 0; $c < $length; $c = $c + 2) {
             $location = $components[$c + 1] ?? '';

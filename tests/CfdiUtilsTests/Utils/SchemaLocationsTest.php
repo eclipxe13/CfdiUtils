@@ -1,6 +1,7 @@
 <?php
 namespace CfdiUtilsTests\Utils;
 
+use CfdiUtils\Cleaner\Cleaner;
 use CfdiUtils\Utils\SchemaLocations;
 use CfdiUtilsTests\TestCase;
 
@@ -96,8 +97,8 @@ class SchemaLocationsTest extends TestCase
 
     public function testConstructFromString()
     {
-        $input = 'http://tempuri.org/my-foo http://tempuri.org/my-foo.xls'
-            . ' http://tempuri.org/my-bar http://tempuri.org/my-bar.xls';
+        $input = '  http://tempuri.org/my-foo   http://tempuri.org/my-foo.xls  '
+            . 'http://tempuri.org/my-bar        http://tempuri.org/my-bar.xls  ';
         $schemaLocations = SchemaLocations::fromString($input, false);
         $expected = [
             'http://tempuri.org/my-foo' => 'http://tempuri.org/my-foo.xls',
