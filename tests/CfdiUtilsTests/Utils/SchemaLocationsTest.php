@@ -1,7 +1,6 @@
 <?php
 namespace CfdiUtilsTests\Utils;
 
-use CfdiUtils\Cleaner\Cleaner;
 use CfdiUtils\Utils\SchemaLocations;
 use CfdiUtilsTests\TestCase;
 

@@ -36,6 +36,7 @@ class Cleaner
     /**
      * Method to clean content and return the result
      * If an error occurs, an exception is thrown
+     *
      * @param string $content
      * @return string
      */
@@ -48,6 +49,7 @@ class Cleaner
 
     /**
      * Check if the CFDI version is complatible to this class
+     *
      * @param string $version
      * @return bool
      */
@@ -72,6 +74,7 @@ class Cleaner
 
     /**
      * Apply all removals (Addenda, Non SAT Nodes and Non SAT namespaces)
+     *
      * @return void
      */
     public function clean()
@@ -207,6 +210,7 @@ class Cleaner
 
     /**
      * Procedure to remove all nodes that are not from an allowed namespace
+     *
      * @return void
      */
     public function removeNonSatNSNodes()
@@ -221,6 +225,7 @@ class Cleaner
 
     /**
      * Procedure to remove all nodes from an specific namespace
+     *
      * @param string $namespace
      * @return void
      */
@@ -233,6 +238,7 @@ class Cleaner
 
     /**
      * Procedure to remove not allowed xmlns definitions
+     *
      * @return void
      */
     public function removeUnusedNamespaces()
@@ -250,6 +256,36 @@ class Cleaner
         $documentElement = Xml::documentElement($dom);
         foreach ($nss as $prefix => $namespace) {
             $documentElement->removeAttributeNS($namespace, $prefix);
+        }
+    }
+
+    /**
+     * Procedure to collapse Complemento elements from Comprobante
+     * Collapse will take its children and put then on the first Complemento found
+     *
+     * @return void
+     */
+    public function collapseComprobanteComplemento()
+    {
+        $comprobante = Xml::documentElement($this->dom());
+        $complementos = $this->xpathQuery('./cfdi:Complemento', $comprobante);
+        if ($complementos->length < 2) {
+            return; // nothing to do, there are less than 2 complemento
+        }
+        $first = null;
+        /** @var DOMNode $extra */
+        foreach ($complementos as $extra) { // iterate over all extra children
+            if (null === $first) {
+                $first = $extra;
+                continue;
+            }
+            $comprobante->removeChild($extra); // remove extra child from parent
+            while ($extra->childNodes->length > 0) { // append extra child contents into first child
+                /** @var DOMNode $child */
+                $child = $extra->childNodes->item(0);
+                $extra->removeChild($child);
+                $first->appendChild($child);
+            }
         }
     }
 
@@ -272,6 +308,7 @@ class Cleaner
 
     /**
      * Helper function to perform a XPath query using an element (or root element)
+     *
      * @param string $query
      * @param DOMNode|null $element
      * @return DOMNodeList
@@ -298,27 +335,5 @@ class Cleaner
             throw new \LogicException('No document has been loaded');
         }
         return $this->dom;
-    }
-
-    public function collapseComprobanteComplemento()
-    {
-        $comprobante = Xml::documentElement($this->dom());
-        $complementos = $this->xpathQuery('./cfdi:Complemento', $comprobante);
-        if ($complementos->length < 2) {
-            return; // nothing to do, there are less than 2 complemento
-        }
-        /** @var DOMNode $first */
-        $first = $complementos->item(0);
-        for ($i = 1; $i < $complementos->length; $i++) { // iterate over all extra children
-            /** @var DOMNode $extra */
-            $extra = $complementos->item($i);
-            $comprobante->removeChild($extra); // remove extra child from parent
-            while ($extra->childNodes->length > 0) { // append extra child contents into first child
-                /** @var DOMNode $child */
-                $child = $extra->childNodes->item(0);
-                $extra->removeChild($child);
-                $first->appendChild($child);
-            }
-        }
     }
 }
