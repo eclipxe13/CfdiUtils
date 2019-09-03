@@ -58,29 +58,16 @@ class Cleaner
 
     /**
      * Check if a given namespace is allowed (must not be removed from CFDI)
+     *
      * @param string $namespace
      * @return bool
      */
     public static function isNameSpaceAllowed(string $namespace): bool
     {
-        $fixedNS = [
-            'http://www.w3.org/2001/XMLSchema-instance',
-            'http://www.w3.org/XML/1998/namespace',
-        ];
-        foreach ($fixedNS as $ns) {
-            if (0 === strcasecmp($ns, $namespace)) {
-                return true;
-            }
-        }
-        $willcardNS = [
-            'http://www.sat.gob.mx/',
-        ];
-        foreach ($willcardNS as $ns) {
-            if (0 === strpos($namespace, $ns)) {
-                return true;
-            }
-        }
-        return false;
+        return (
+            'http://www.w3.org/' === (substr($namespace, 0, 18) ?: '')
+            || 'http://www.sat.gob.mx/' === (substr($namespace, 0, 22) ?: '')
+        );
     }
 
     /**
