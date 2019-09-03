@@ -32,17 +32,38 @@ class SchemaLocations implements Countable, IteratorAggregate
     public static function fromString(string $schemaLocationValue, bool $includeLastUnpairedItem): self
     {
         $schemaLocations = new self();
-        do {
-            $schemaLocationValue = str_replace('  ', ' ', $schemaLocationValue, $replaces);
-        } while ($replaces > 0);
-
-        $components = explode(' ', $schemaLocationValue);
+        $components = array_values(array_filter(explode(' ', $schemaLocationValue)));
         $length = count($components);
         for ($c = 0; $c < $length; $c = $c + 2) {
             $location = $components[$c + 1] ?? '';
-            if ($location != '' || $includeLastUnpairedItem) {
+            if ('' !== $location || $includeLastUnpairedItem) {
                 $schemaLocations->append($components[$c], $location);
             }
+        }
+        return $schemaLocations;
+    }
+
+    /**
+     * Create a collection of namespaces (key) and location (value)
+     * All locations *must* end with '.xsd', If not they are considered namespaces
+     *
+     * @param string $schemaLocationValue
+     * @return self
+     */
+    public static function fromStingStrictXsd(string $schemaLocationValue): self
+    {
+        $schemaLocations = new self();
+        $components = array_values(array_filter(explode(' ', $schemaLocationValue)));
+        $length = count($components);
+        for ($c = 0; $c < $length; $c = $c + 1) {
+            $namespace = $components[$c];
+            $location = $components[$c + 1] ?? '';
+            if ('.xsd' === (substr($location, -4) ?: '')) {
+                $schemaLocations->append($namespace, $location);
+                $c = $c + 1; // skip ns declaration
+                continue;
+            }
+            $schemaLocations->append($namespace, '');
         }
         return $schemaLocations;
     }
@@ -52,6 +73,11 @@ class SchemaLocations implements Countable, IteratorAggregate
         return (0 === count($this->pairs));
     }
 
+    /**
+     * Return an array of pairs using namespace as key and location as value
+     *
+     * @return array<string, string>
+     */
     public function pairs(): array
     {
         return $this->pairs;
@@ -60,6 +86,23 @@ class SchemaLocations implements Countable, IteratorAggregate
     public function has(string $namespace): bool
     {
         return array_key_exists($namespace, $this->pairs);
+    }
+
+    /**
+     * Get an array with namespaces that has empty location
+     *
+     * @return string[]
+     */
+    public function getNamespacesWithoutLocation(): array
+    {
+        return array_keys(array_filter($this->pairs, function (string $location): bool {
+            return ('' === $location);
+        }));
+    }
+
+    public function hasAnyNamespaceWithoutLocation(): bool
+    {
+        return count($this->getNamespacesWithoutLocation()) > 0;
     }
 
     public function append(string $namespace, string $location)
@@ -72,6 +115,11 @@ class SchemaLocations implements Countable, IteratorAggregate
         unset($this->pairs[$namespace]);
     }
 
+    /**
+     * Return the collection of namespace location separated by spaces
+     *
+     * @return string
+     */
     public function asString(): string
     {
         return implode(' ', array_filter(array_map(
@@ -86,9 +134,7 @@ class SchemaLocations implements Countable, IteratorAggregate
         )));
     }
 
-    /**
-     * @return Traversable<string, string>
-     */
+    /** @return Traversable<string, string> */
     public function getIterator()
     {
         /** @var Traversable<string, string> $traversable */

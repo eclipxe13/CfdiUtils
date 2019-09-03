@@ -2,9 +2,10 @@
 namespace CfdiUtils\Cleaner;
 
 use CfdiUtils\Cfdi;
+use CfdiUtils\Utils\SchemaLocations;
 use CfdiUtils\Utils\Xml;
+use DOMAttr;
 use DOMDocument;
-use DOMElement;
 use DOMNode;
 use DOMNodeList;
 use DOMXPath;
@@ -35,6 +36,7 @@ class Cleaner
     /**
      * Method to clean content and return the result
      * If an error occurs, an exception is thrown
+     *
      * @param string $content
      * @return string
      */
@@ -47,6 +49,7 @@ class Cleaner
 
     /**
      * Check if the CFDI version is complatible to this class
+     *
      * @param string $version
      * @return bool
      */
@@ -57,33 +60,21 @@ class Cleaner
 
     /**
      * Check if a given namespace is allowed (must not be removed from CFDI)
+     *
      * @param string $namespace
      * @return bool
      */
     public static function isNameSpaceAllowed(string $namespace): bool
     {
-        $fixedNS = [
-            'http://www.w3.org/2001/XMLSchema-instance',
-            'http://www.w3.org/XML/1998/namespace',
-        ];
-        foreach ($fixedNS as $ns) {
-            if (0 === strcasecmp($ns, $namespace)) {
-                return true;
-            }
-        }
-        $willcardNS = [
-            'http://www.sat.gob.mx/',
-        ];
-        foreach ($willcardNS as $ns) {
-            if (0 === strpos($namespace, $ns)) {
-                return true;
-            }
-        }
-        return false;
+        return (
+            'http://www.w3.org/' === (substr($namespace, 0, 18) ?: '')
+            || 'http://www.sat.gob.mx/' === (substr($namespace, 0, 22) ?: '')
+        );
     }
 
     /**
      * Apply all removals (Addenda, Non SAT Nodes and Non SAT namespaces)
+     *
      * @return void
      */
     public function clean()
@@ -152,11 +143,7 @@ class Cleaner
     {
         $query = '/cfdi:Comprobante/cfdi:Addenda';
         $addendas = $this->xpathQuery($query);
-        for ($i = 0; $i < $addendas->length; $i++) {
-            $addenda = $addendas->item($i);
-            if (null === $addenda) {
-                continue;
-            }
+        foreach ($addendas as $addenda) {
             $addenda->parentNode->removeChild($addenda);
         }
     }
@@ -168,28 +155,18 @@ class Cleaner
      */
     public function removeIncompleteSchemaLocations()
     {
-        $schemaLocations = $this->obtainXsiSchemaLocations();
-        for ($s = 0; $s < $schemaLocations->length; $s++) {
-            $element = $schemaLocations->item($s);
-            if (null !== $element) {
-                $element->nodeValue = $this->removeIncompleteSchemaLocation($element->nodeValue);
-            }
+        foreach ($this->obtainXsiSchemaLocations() as $element) {
+            $element->nodeValue = $this->removeIncompleteSchemaLocation($element->nodeValue);
         }
     }
 
     public function removeIncompleteSchemaLocation(string $source): string
     {
-        $components = array_values(array_filter(array_map('trim', explode(' ', $source))));
-        $length = count($components);
-        for ($c = 0; $c < $length; $c = $c + 1) {
-            $xsd = $components[$c + 1] ?? '';
-            if ((0 === strcasecmp('.xsd', substr($xsd, -4, 4)))) {
-                $c = $c + 1;
-                continue;
-            }
-            $components[$c] = '';
+        $schemaLocations = SchemaLocations::fromStingStrictXsd($source);
+        foreach ($schemaLocations->getNamespacesWithoutLocation() as $namespace) {
+            $schemaLocations->remove($namespace);
         }
-        return strval(implode(' ', array_filter($components)));
+        return $schemaLocations->asString();
     }
 
     /**
@@ -201,68 +178,54 @@ class Cleaner
     public function removeNonSatNSschemaLocations()
     {
         $schemaLocations = $this->obtainXsiSchemaLocations();
-        for ($s = 0; $s < $schemaLocations->length; $s++) {
-            $element = $schemaLocations->item($s);
-            if (null !== $element) {
-                $this->removeNonSatNSschemaLocation($element);
-            }
+        foreach ($schemaLocations as $element) {
+            $this->removeNonSatNSschemaLocation($element);
         }
     }
 
-    /**
-     * @param DOMNode $schemaLocation This is the attribute
-     * @return void
-     */
-    private function removeNonSatNSschemaLocation(DOMNode $schemaLocation)
+    private function removeNonSatNSschemaLocation(DOMAttr $schemaLocation)
     {
         $source = $schemaLocation->nodeValue;
-        $parts = array_values(array_filter(explode(' ', $source)));
-        $partsCount = count($parts);
-        if (0 !== $partsCount % 2) {
-            throw new CleanerException("The schemaLocation value '" . $source . "' must have even number of URIs");
+        // load locations
+        $schemaLocations = SchemaLocations::fromString($source, true);
+        if ($schemaLocations->hasAnyNamespaceWithoutLocation()) {
+            throw new CleanerException(
+                sprintf("The schemaLocation value '%s' must have even number of URIs", $source)
+            );
         }
-        $modified = '';
-        for ($k = 0; $k < $partsCount; $k = $k + 2) {
-            if (! $this->isNameSpaceAllowed($parts[$k])) {
-                continue;
+        // filter
+        foreach ($schemaLocations as $namespace => $location) {
+            if (! $this->isNameSpaceAllowed($namespace)) {
+                $schemaLocations->remove($namespace);
             }
-            $modified .= $parts[$k] . ' ' . $parts[$k + 1] . ' ';
         }
-        $modified = rtrim($modified, ' ');
-        if ($source == $modified) {
-            return;
-        }
-        if ('' !== $modified) {
+        // apply
+        $modified = $schemaLocations->asString();
+        if ($schemaLocations->isEmpty()) { // remove node
+            $schemaLocation->ownerElement->removeAttributeNode($schemaLocation);
+        } elseif ($source !== $modified) { // replace node content and is different
             $schemaLocation->nodeValue = $modified;
-        } else {
-            $parentElement = $schemaLocation->parentNode;
-            if ($parentElement instanceof DOMElement) {
-                $parentElement->removeAttributeNS($schemaLocation->namespaceURI, $schemaLocation->localName);
-            }
         }
     }
 
     /**
      * Procedure to remove all nodes that are not from an allowed namespace
+     *
      * @return void
      */
     public function removeNonSatNSNodes()
     {
-        $nss = [];
-        foreach ($this->xpathQuery('//namespace::*') as $node) {
-            $namespace = $node->nodeValue;
-            if ($this->isNameSpaceAllowed($namespace)) {
-                continue;
-            }
-            $nss[] = $namespace;
-        }
+        $nss = $this->obtainNamespaces();
         foreach ($nss as $namespace) {
-            $this->removeNonSatNSNode($namespace);
+            if (! $this->isNameSpaceAllowed($namespace)) {
+                $this->removeNonSatNSNode($namespace);
+            }
         }
     }
 
     /**
      * Procedure to remove all nodes from an specific namespace
+     *
      * @param string $namespace
      * @return void
      */
@@ -275,27 +238,58 @@ class Cleaner
 
     /**
      * Procedure to remove not allowed xmlns definitions
+     *
      * @return void
      */
     public function removeUnusedNamespaces()
     {
         $nss = [];
         $dom = $this->dom();
-        foreach ($this->xpathQuery('//namespace::*') as $node) {
-            $namespace = $node->nodeValue;
+        $namespaces = $this->obtainNamespaces();
+        foreach ($namespaces as $namespace) {
             if (! $namespace || $this->isNameSpaceAllowed($namespace)) {
                 continue;
             }
             $prefix = $dom->lookupPrefix($namespace);
             $nss[$prefix] = $namespace;
         }
-        $nss = array_unique($nss);
         $documentElement = Xml::documentElement($dom);
         foreach ($nss as $prefix => $namespace) {
             $documentElement->removeAttributeNS($namespace, $prefix);
         }
     }
 
+    /**
+     * Procedure to collapse Complemento elements from Comprobante
+     * Collapse will take its children and put then on the first Complemento found
+     *
+     * @return void
+     */
+    public function collapseComprobanteComplemento()
+    {
+        $comprobante = Xml::documentElement($this->dom());
+        $complementos = $this->xpathQuery('./cfdi:Complemento', $comprobante);
+        if ($complementos->length < 2) {
+            return; // nothing to do, there are less than 2 complemento
+        }
+        $first = null;
+        /** @var DOMNode $extra */
+        foreach ($complementos as $extra) { // iterate over all extra children
+            if (null === $first) {
+                $first = $extra;
+                continue;
+            }
+            $comprobante->removeChild($extra); // remove extra child from parent
+            while ($extra->childNodes->length > 0) { // append extra child contents into first child
+                /** @var DOMNode $child */
+                $child = $extra->childNodes->item(0);
+                $extra->removeChild($child);
+                $first->appendChild($child);
+            }
+        }
+    }
+
+    /** @return DOMNodeList|DOMAttr[] */
     private function obtainXsiSchemaLocations(): DOMNodeList
     {
         // Do not assume that prefix for http://www.w3.org/2001/XMLSchema-instance is "xsi"
@@ -306,8 +300,15 @@ class Cleaner
         return $this->xpathQuery("//@$xsi:schemaLocation");
     }
 
+    /** @return string[] */
+    private function obtainNamespaces(): array
+    {
+        return array_unique(array_column(iterator_to_array($this->xpathQuery('//namespace::*')), 'nodeValue'));
+    }
+
     /**
      * Helper function to perform a XPath query using an element (or root element)
+     *
      * @param string $query
      * @param DOMNode|null $element
      * @return DOMNodeList
@@ -334,27 +335,5 @@ class Cleaner
             throw new \LogicException('No document has been loaded');
         }
         return $this->dom;
-    }
-
-    public function collapseComprobanteComplemento()
-    {
-        $comprobante = Xml::documentElement($this->dom());
-        $complementos = $this->xpathQuery('./cfdi:Complemento', $comprobante);
-        if ($complementos->length < 2) {
-            return; // nothing to do, there are less than 2 complemento
-        }
-        /** @var DOMNode $first */
-        $first = $complementos->item(0);
-        for ($i = 1; $i < $complementos->length; $i++) { // iterate over all extra children
-            /** @var DOMNode $extra */
-            $extra = $complementos->item($i);
-            $comprobante->removeChild($extra); // remove extra child from parent
-            while ($extra->childNodes->length > 0) { // append extra child contents into first child
-                /** @var DOMNode $child */
-                $child = $extra->childNodes->item(0);
-                $extra->removeChild($child);
-                $first->appendChild($child);
-            }
-        }
     }
 }
