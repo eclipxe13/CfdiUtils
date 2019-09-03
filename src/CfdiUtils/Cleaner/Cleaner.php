@@ -295,6 +295,12 @@ class Cleaner
         return $this->xpathQuery("//@$xsi:schemaLocation");
     }
 
+    /** @return string[] */
+    private function obtainNamespaces(): array
+    {
+        return array_unique(array_column(iterator_to_array($this->xpathQuery('//namespace::*')), 'nodeValue'));
+    }
+
     /**
      * Helper function to perform a XPath query using an element (or root element)
      * @param string $query
