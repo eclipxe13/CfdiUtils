@@ -43,6 +43,24 @@ class SchemaLocations implements Countable, IteratorAggregate
         return $schemaLocations;
     }
 
+    public static function fromStingStrictXsd(string $schemaLocationValue): self
+    {
+        $schemaLocations = new self();
+        $components = array_values(array_filter(explode(' ', $schemaLocationValue)));
+        $length = count($components);
+        for ($c = 0; $c < $length; $c = $c + 1) {
+            $namespace = $components[$c];
+            $location = $components[$c + 1] ?? '';
+            if ('.xsd' === (substr($location, -4) ?: '')) {
+                $schemaLocations->append($namespace, $location);
+                $c = $c + 1; // skip ns declaration
+                continue;
+            }
+            $schemaLocations->append($namespace, '');
+        }
+        return $schemaLocations;
+    }
+
     public function isEmpty(): bool
     {
         return (0 === count($this->pairs));
