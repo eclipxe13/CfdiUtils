@@ -23,6 +23,10 @@ class XmlNodeImporter
         foreach ($element->attributes as $attribute) {
             $node[$attribute->nodeName] = $attribute->nodeValue;
         }
+        // element is like <element namespace="uri"/>
+        if ($element->hasAttributeNS('http://www.w3.org/2000/xmlns/', '')) {
+            $node['xmlns'] = $element->getAttributeNS('http://www.w3.org/2000/xmlns/', '');
+        }
 
         /** @var DOMElement $childElement */
         foreach ($element->childNodes as $childElement) {

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<base:Root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:base="http://www.tempuri.org/base"
+  xmlns:ex="http://www.tempuri.org/example" xmlns:other="http://www.tempuri.org/other" xmlns:external="http://external.com/ns"
+  xsi:schemaLocation="http://www.tempuri.org/base http://www.tempuri.org/base.xsd http://www.tempuri.org/example http://www.tempuri.org/example.xsd http://www.tempuri.org/other http://www.tempuri.org/other.xsd http://external.com/ns http://external.com/ns.xsd">
+  <base:First name="some-name"/>
+  <base:Second>
+    <ex:Example>
+      <ex:children name="a"/>
+      <ex:children name="b"/>
+    </ex:Example>
+    <other:Other foo="bar"/>
+  </base:Second>
+  <base:Third>
+    <innerNS xmlns="http://external.com/inner">
+      <innerNsChild value="foo"/>
+    </innerNS>
+    <external:Example />
+  </base:Third>
+</base:Root>

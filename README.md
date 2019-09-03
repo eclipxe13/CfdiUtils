@@ -10,7 +10,6 @@
 [![Scrutinizer][badge-quality]][quality]
 [![Coverage Status][badge-coverage]][coverage]
 [![Total Downloads][badge-downloads]][downloads]
-[![SensioLabsInsight][badge-sensiolabs]][sensiolabs]
 
 > PHP Common utilities for Mexican CFDI 3.2 & 3.3
 
@@ -22,8 +21,10 @@ También te esperamos en el [canal #phpcfdi de discord](https://discord.gg/aFGYX
 The documentation related to this library and its API is documented in [Read the docs][documentation].
 It is written in **spanish language** since is the language of the intented audience.
 
-**Warning: this project will be migrated to `phpcfdi/cfdiutils`, don't have a release date yet**
+**Nota: Este proyecto será migrado a `phpcfdi/cfdiutils`, aún no tenemos fecha planeada**
 
+No olvides visitar <https://www.phpcfdi.com> donde contamos con muchas más librerías relacionadas con
+CFDI y herramientas del SAT. Y próximamente el lugar donde publicaremos la versión `3.y.z`.
 
 ## Main features
 
@@ -96,18 +97,16 @@ and licensed for use under the MIT License (MIT). Please see [LICENSE][] for mor
 [build]: https://travis-ci.org/eclipxe13/CfdiUtils?branch=master
 [appveyor]: https://ci.appveyor.com/project/eclipxe13/cfdiutils/branch/master
 [quality]: https://scrutinizer-ci.com/g/eclipxe13/CfdiUtils/?branch=master
-[sensiolabs]: https://insight.sensiolabs.com/projects/87975c73-2f3b-480a-8cce-e78b15986d7b
 [coverage]: https://scrutinizer-ci.com/g/eclipxe13/CfdiUtils/code-structure/master/code-coverage/src/CfdiUtils/
 [downloads]: https://packagist.org/packages/eclipxe/CfdiUtils
 
-[badge-source]: http://img.shields.io/badge/source-eclipxe13/CfdiUtils-blue.svg?logo=github&style=flat-square
-[badge-documentation]: https://img.shields.io/readthedocs/cfdiutils/stable.svg?logo=read-the-docs&style=flat-square
-[badge-discord]: https://img.shields.io/discord/459860554090283019.svg?logo=discord&style=flat-square
-[badge-release]: https://img.shields.io/github/release/eclipxe13/CfdiUtils.svg?style=flat-square
-[badge-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[badge-build]: https://img.shields.io/travis/eclipxe13/CfdiUtils/master.svg?logo=travis&style=flat-square
-[badge-appveyor]: https://img.shields.io/appveyor/ci/eclipxe13/cfdiutils/master.svg?logo=appveyor&style=flat-square
-[badge-quality]: https://img.shields.io/scrutinizer/g/eclipxe13/CfdiUtils/master.svg?logo=scrutinizer-ci&style=flat-square
-[badge-sensiolabs]: https://insight.sensiolabs.com/projects/87975c73-2f3b-480a-8cce-e78b15986d7b/mini.png
-[badge-coverage]: https://img.shields.io/scrutinizer/coverage/g/eclipxe13/CfdiUtils/master.svg?logo=scrutinizer-ci&style=flat-square
-[badge-downloads]: https://img.shields.io/packagist/dt/eclipxe/CfdiUtils.svg?style=flat-square
+[badge-source]: http://img.shields.io/badge/source-eclipxe13/CfdiUtils-blue?logo=github&style=flat-square
+[badge-documentation]: https://img.shields.io/readthedocs/cfdiutils/stable?logo=read-the-docs&style=flat-square
+[badge-discord]: https://img.shields.io/discord/459860554090283019?logo=discord&style=flat-square
+[badge-release]: https://img.shields.io/github/release/eclipxe13/CfdiUtils?style=flat-square
+[badge-license]: https://img.shields.io/github/license/eclipxe13/CfdiUtils?style=flat-square
+[badge-build]: https://img.shields.io/travis/eclipxe13/CfdiUtils/master?logo=travis&style=flat-square
+[badge-appveyor]: https://img.shields.io/appveyor/ci/eclipxe13/cfdiutils/master?logo=appveyor&style=flat-square
+[badge-quality]: https://img.shields.io/scrutinizer/g/eclipxe13/CfdiUtils/master?logo=scrutinizer-ci&style=flat-square
+[badge-coverage]: https://img.shields.io/scrutinizer/coverage/g/eclipxe13/CfdiUtils/master?logo=scrutinizer-ci&style=flat-square
+[badge-downloads]: https://img.shields.io/packagist/dt/eclipxe/CfdiUtils?style=flat-square

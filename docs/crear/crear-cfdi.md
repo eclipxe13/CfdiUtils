@@ -36,6 +36,8 @@ Esta clase es una especie de pegamento de todas las pequeñas utilerías y estru
    y realiza validaciones adicionales.
    Consulta la [documentación de validaciones](../validar/validacion-cfdi.md) para más información.
 
+- `moveSatDefinitionsToComprobante(): void`: Mueve las declaraciones de espacios de nombres `xmlns:*`
+   y las declaraciones de ubicación de esquemas `xsi:schemaLocation` al nodo raíz.
 
 ## Pasos básicos de creación de un CFDI
 
@@ -73,6 +75,9 @@ $creator->addSumasConceptos(null, 2);
 // método de ayuda para generar el sello (obtener la cadena de origen y firmar con la llave privada)
 $creator->addSello('file:// ... ruta para mi archivo key convertido a PEM ...', 'contraseña de la llave');
 
+// método de ayuda para mover las declaraciones de espacios de nombre al nodo raíz
+$creator->moveSatDefinitionsToComprobante();
+
 // método de ayuda para validar usando las validaciones estándar de creación de la librería
 $asserts = $creator->validate();
 $asserts->hasErrors(); // contiene si hay o no errores
@@ -92,8 +97,53 @@ A diferencia de los nodos, los elementos contienen métodos de ayuda que pemiten
 por ejemplo `CfdiUtils\Elements\Cfdi33\Comprobante` contiene un método llamado `addReceptor()`
 con el que se puede insertar en el lugar correcto el nodo "Receptor" incluyendo un arreglo de atributos.
 
+## Acerca de las definiciones de espacios de nombre
 
-## Formación de el texto de los códigos QR
+A partir de la versión `2.12.0` se agregó el método `moveSatDefinitionsToComprobante()` que ayuda a mover las
+definiciones de espacios de nombres al nodo principal `cfdi:Comprobante`.
+
+Si no se llama a este método, las definciones de espacios de nombres quedarán en el nodo que las utiliza, por
+ejemplo:
+
+```xml
+<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3"
+    xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd">
+    <!-- ... nodos del comprobante ... -->
+    <cfdi:Complemento>
+        <!-- ... otros complementos ... -->
+        <leyendasFisc:LeyendasFiscales version="1.0" xmlns:leyendasFisc="http://www.sat.gob.mx/leyendasFiscales"
+            xsi:schemaLocation = "http://www.sat.gob.mx/leyendasFiscales http://www.sat.gob.mx/sitio_internet/cfd/leyendasFiscales/leyendasFisc.xsd">
+            <leyendasFisc:Leyenda disposicionFiscal="RESDERAUTH" norma = "Artíclo 2. Fracción IV." textoLeyenda = "El software desarrollado se entrega con licencia MIT" />
+        </leyendasFisc:LeyendasFiscales>
+    </cfdi:Complemento>
+</cfdi:Comprobante>
+```
+
+Y si aplica este método las definiciones cambiarán de lugar, quedando como:
+
+```xml
+<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" xmlns:leyendasFisc="http://www.sat.gob.mx/leyendasFiscales"
+    xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd http://www.sat.gob.mx/leyendasFiscales http://www.sat.gob.mx/sitio_internet/cfd/leyendasFiscales/leyendasFisc.xsd">
+    <!-- ... nodos del comprobante ... -->
+    <cfdi:Complemento>
+        <!-- ... otros complementos ... -->
+        <leyendasFisc:LeyendasFiscales version="1.0">
+            <leyendasFisc:Leyenda disposicionFiscal="RESDERAUTH" norma = "Artíclo 2. Fracción IV." textoLeyenda = "El software desarrollado se entrega con licencia MIT" />
+        </leyendasFisc:LeyendasFiscales>
+    </cfdi:Complemento>
+</cfdi:Comprobante>
+```
+
+En realidad, esto no es una regla importarte e incluso se podría decir que sale de la práctica común de XML.
+Sin embargo, en la documentación técnica del SAT lo documenta como *mandatorio*. Es decir, se está obligado
+a seguir esta definición.
+
+Si no creaste tus CFDI con esta estructura malamente requerida por el SAT, no te preocupes, en caso de ser
+necesario podrías hasta modificar tus CFDI anteriores (aun cuando tengan sello) porque la ubicación de las
+definiciones de los espacios de nombres no participan en la formación de la cadena de origen.
+
+
+## Formación del texto de los códigos QR
 
 La formación del texto que se incluye en los códigos QR tiene reglas específicas
 y puede utilizarse el objeto `\CfdiUtils\ConsultaCfdiSat\RequestParameters`

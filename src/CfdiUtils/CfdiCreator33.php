@@ -11,6 +11,7 @@ use CfdiUtils\Certificado\CertificadoPropertyTrait;
 use CfdiUtils\Elements\Cfdi33\Comprobante;
 use CfdiUtils\Elements\Cfdi33\Helpers\SumasConceptosWriter;
 use CfdiUtils\Nodes\NodeInterface;
+use CfdiUtils\Nodes\NodeNsDefinitionsMover;
 use CfdiUtils\Nodes\XmlNodeUtils;
 use CfdiUtils\PemPrivateKey\PemPrivateKey;
 use CfdiUtils\SumasConceptos\SumasConceptos;
@@ -96,6 +97,17 @@ class CfdiCreator33 implements
     public function asXml(): string
     {
         return XmlNodeUtils::nodeToXmlString($this->comprobante, true);
+    }
+
+    public function moveSatDefinitionsToComprobante()
+    {
+        $nodeNsDefinitionsMover = new NodeNsDefinitionsMover();
+        $nodeNsDefinitionsMover->setNamespaceFilter(
+            function (string $namespaceUri): bool {
+                return ('http://www.sat.gob.mx/' === (substr($namespaceUri, 0, 22) ?: ''));
+            }
+        );
+        $nodeNsDefinitionsMover->process($this->comprobante);
     }
 
     public function saveXml(string $filename): bool

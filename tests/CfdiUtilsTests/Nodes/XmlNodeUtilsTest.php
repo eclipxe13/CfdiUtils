@@ -69,4 +69,16 @@ class XmlNodeUtilsTest extends TestCase
             $this->assertCount(0, $child);
         }
     }
+
+    public function testImportXmlWithNamespaceWithoutPrefix()
+    {
+        $file = $this->utilAsset('xml-with-namespace-definitions-at-child-level.xml');
+        $node = XmlNodeUtils::nodeFromXmlString(file_get_contents($file) ?: '');
+        $inspected = $node->searchNode('base:Third', 'innerNS');
+        if ($inspected === null) {
+            $this->fail('The specimen does not have the required test case');
+            return;
+        }
+        $this->assertSame('http://external.com/inner', $inspected['xmlns']);
+    }
 }
