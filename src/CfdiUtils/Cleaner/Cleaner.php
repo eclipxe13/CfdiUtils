@@ -236,16 +236,11 @@ class Cleaner
      */
     public function removeNonSatNSNodes()
     {
-        $nss = [];
-        foreach ($this->xpathQuery('//namespace::*') as $node) {
-            $namespace = $node->nodeValue;
-            if ($this->isNameSpaceAllowed($namespace)) {
-                continue;
-            }
-            $nss[] = $namespace;
-        }
+        $nss = $this->obtainNamespaces();
         foreach ($nss as $namespace) {
-            $this->removeNonSatNSNode($namespace);
+            if (! $this->isNameSpaceAllowed($namespace)) {
+                $this->removeNonSatNSNode($namespace);
+            }
         }
     }
 
