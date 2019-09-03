@@ -160,6 +160,12 @@ class Cleaner
         }
     }
 
+    /**
+     * @param string $source
+     * @return string
+     * @deprecated 2.12.0: This function is internal and visibility should be private, use SchemaLocations
+     * @internal
+     */
     public function removeIncompleteSchemaLocation(string $source): string
     {
         $schemaLocations = SchemaLocations::fromStingStrictXsd($source);
