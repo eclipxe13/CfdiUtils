@@ -170,15 +170,6 @@ class CleanerTest extends TestCase
         $this->assertXmlStringEqualsXmlString($xmlExpectedContent, $cleaner->retrieveXml());
     }
 
-    public function testRemoveIncompleteSchemaLocation()
-    {
-        // source include spaces to ensure that is working properly
-        $source = '  bleh  foo   foo.xsd bar baz      zoo zoo.xsd baa   xee  xee.xsd bah       ';
-        $expected = 'foo foo.xsd zoo zoo.xsd xee xee.xsd';
-        $cleaner = new Cleaner('');
-        $this->assertSame($expected, $cleaner->removeIncompleteSchemaLocation($source));
-    }
-
     public function testCollapseComprobanteComplemento()
     {
         $source = <<<'EOT'

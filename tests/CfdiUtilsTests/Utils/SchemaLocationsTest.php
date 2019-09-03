@@ -134,4 +134,13 @@ class SchemaLocationsTest extends TestCase
         ];
         $this->assertSame($expected, $schemaLocations->pairs());
     }
+
+    public function testConstructFromStringStrictXsd()
+    {
+        // source include spaces to ensure that is working properly
+        $source = '  bleh  foo  foo.xsd  bar  baz  zoo  zoo.xsd  baa  xee  xee.xsd  bah  ';
+        $schemaLocations = SchemaLocations::fromStingStrictXsd($source);
+        $this->assertSame(['bleh', 'bar', 'baz', 'baa', 'bah'], $schemaLocations->getNamespacesWithoutLocation());
+        $this->assertSame('foo foo.xsd zoo zoo.xsd xee xee.xsd', $schemaLocations->asString());
+    }
 }
