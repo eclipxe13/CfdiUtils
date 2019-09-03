@@ -159,14 +159,16 @@ class Cleaner
 
     public function removeIncompleteSchemaLocation(string $source): string
     {
-        $components = array_values(array_filter(array_map('trim', explode(' ', $source))));
+        $components = array_values(array_filter(explode(' ', $source)));
         $length = count($components);
         for ($c = 0; $c < $length; $c = $c + 1) {
-            $xsd = $components[$c + 1] ?? '';
-            if ((0 === strcasecmp('.xsd', substr($xsd, -4, 4)))) {
+            $location = $components[$c + 1] ?? '';
+            if ('.xsd' === (substr($location, -4) ?: '')) {
+                // the location ends with '.xsd', move to next pair
                 $c = $c + 1;
                 continue;
             }
+            // set as empty current component (later with array_filter will be removed)
             $components[$c] = '';
         }
         return strval(implode(' ', array_filter($components)));
