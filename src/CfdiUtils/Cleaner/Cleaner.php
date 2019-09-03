@@ -281,8 +281,8 @@ class Cleaner
     {
         $nss = [];
         $dom = $this->dom();
-        foreach ($this->xpathQuery('//namespace::*') as $node) {
-            $namespace = $node->nodeValue;
+        $namespaces = array_unique(array_column(iterator_to_array($this->xpathQuery('//namespace::*')), 'nodeValue'));
+        foreach ($namespaces as $namespace) {
             if (! $namespace || $this->isNameSpaceAllowed($namespace)) {
                 continue;
             }
