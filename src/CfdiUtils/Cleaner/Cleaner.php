@@ -140,11 +140,7 @@ class Cleaner
     {
         $query = '/cfdi:Comprobante/cfdi:Addenda';
         $addendas = $this->xpathQuery($query);
-        for ($i = 0; $i < $addendas->length; $i++) {
-            $addenda = $addendas->item($i);
-            if (null === $addenda) {
-                continue;
-            }
+        foreach ($addendas as $addenda) {
             $addenda->parentNode->removeChild($addenda);
         }
     }
