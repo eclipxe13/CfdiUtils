@@ -4,8 +4,8 @@
     "keywords": ["cfdi", "cfdi33", "mexico", "electronic invoice"],
     "homepage": "https://github.com/eclipxe13/CfdiUtils",
     "support": {
-        "wiki": "https://github.com/eclipxe13/CfdiUtils/wiki",
-        "issues": "https://github.com/eclipxe13/CfdiUtils/issues"
+        "issues": "https://github.com/eclipxe13/CfdiUtils/issues",
+        "docs": "https://cfdiutils.readthedocs.io/"
     },
     "license": "MIT",
     "authors": [
@@ -31,6 +31,7 @@
         "ext-openssl": "*",
         "ext-soap": "*",
         "ext-iconv": "*",
+        "ext-json": "*",
         "symfony/process": "^3.4|^4.2",
         "eclipxe/xmlresourceretriever": "^1.3.0",
         "eclipxe/xmlschemavalidator": "^2.0.2"
