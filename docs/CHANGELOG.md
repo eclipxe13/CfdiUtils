@@ -25,6 +25,20 @@
 - Remove `CfdiUtils\ConsultaCfdiSat\Config::getWsdlLocation()`, `CfdiUtils\ConsultaCfdiSat\Config::getWsdlLocation()`
   and fix `CfdiUtils\ConsultaCfdiSat\Config::__construct()`.
 - Remove file `ConsultaCFDIServiceSAT.svc.xml`.
+- Change visibility of `CfdiUtils\Cleaner\Cleaner#removeIncompleteSchemaLocation()` to private.
+
+
+## Version 2.12.0 2019-09-03
+
+- Add `CfdiCreator33::moveSatDefinitionsToComprobante()` method to move xml definitions
+  (`xmlns:*` and `xsi:schemaLocation`) to root node where namespace starts with `http://www.sat.gob.mx`.
+- Add `CfdiUtils\Nodes\NodeNsDefinitionsMover` that allows to move all (or filtered) namespace definitions
+  (`xmlns:*` and `xsi:schemaLocation`) to root node.
+- Improve `XmlNodeImporter` to read xml as `<node xmlns="namespace"/>`.
+- Create `SchemaLocations`, this utility helps to manage the content of `xsi:schemaLocation` attribute.
+- Refactor `Cleaner`, internal improvements and use of `SchemaLocations`.
+- Mark `CfdiUtils\Cleaner\Cleaner:removeIncompleteSchemaLocation()` as internal, it should always be private
+- Fix composer.json links
 
 
 ## Version 2.11.0 2019-08-06
