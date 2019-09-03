@@ -2,9 +2,10 @@
 namespace CfdiUtils\Cleaner;
 
 use CfdiUtils\Cfdi;
+use CfdiUtils\Utils\SchemaLocations;
 use CfdiUtils\Utils\Xml;
+use DOMAttr;
 use DOMDocument;
-use DOMElement;
 use DOMNode;
 use DOMNodeList;
 use DOMXPath;
@@ -168,12 +169,8 @@ class Cleaner
      */
     public function removeIncompleteSchemaLocations()
     {
-        $schemaLocations = $this->obtainXsiSchemaLocations();
-        for ($s = 0; $s < $schemaLocations->length; $s++) {
-            $element = $schemaLocations->item($s);
-            if (null !== $element) {
-                $element->nodeValue = $this->removeIncompleteSchemaLocation($element->nodeValue);
-            }
+        foreach ($this->obtainXsiSchemaLocations() as $element) {
+            $element->nodeValue = $this->removeIncompleteSchemaLocation($element->nodeValue);
         }
     }
 
@@ -201,11 +198,8 @@ class Cleaner
     public function removeNonSatNSschemaLocations()
     {
         $schemaLocations = $this->obtainXsiSchemaLocations();
-        for ($s = 0; $s < $schemaLocations->length; $s++) {
-            $element = $schemaLocations->item($s);
-            if (null !== $element) {
-                $this->removeNonSatNSschemaLocation($element);
-            }
+        foreach ($schemaLocations as $element) {
+            $this->removeNonSatNSschemaLocation($element);
         }
     }
 
@@ -296,6 +290,7 @@ class Cleaner
         }
     }
 
+    /** @return DOMNodeList|DOMAttr[] */
     private function obtainXsiSchemaLocations(): DOMNodeList
     {
         // Do not assume that prefix for http://www.w3.org/2001/XMLSchema-instance is "xsi"
