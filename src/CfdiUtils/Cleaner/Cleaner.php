@@ -204,13 +204,11 @@ class Cleaner
                 $schemaLocations->remove($namespace);
             }
         }
+        // apply
         $modified = $schemaLocations->asString();
-        if ($source === $modified) {
-            return;
-        }
         if ($schemaLocations->isEmpty()) { // remove node
             $schemaLocation->ownerElement->removeAttributeNode($schemaLocation);
-        } else { // replace node content
+        } elseif ($source !== $modified) { // replace node content and is different
             $schemaLocation->nodeValue = $modified;
         }
     }
