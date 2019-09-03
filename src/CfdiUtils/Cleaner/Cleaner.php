@@ -264,7 +264,7 @@ class Cleaner
     {
         $nss = [];
         $dom = $this->dom();
-        $namespaces = array_unique(array_column(iterator_to_array($this->xpathQuery('//namespace::*')), 'nodeValue'));
+        $namespaces = $this->obtainNamespaces();
         foreach ($namespaces as $namespace) {
             if (! $namespace || $this->isNameSpaceAllowed($namespace)) {
                 continue;
@@ -272,7 +272,6 @@ class Cleaner
             $prefix = $dom->lookupPrefix($namespace);
             $nss[$prefix] = $namespace;
         }
-        $nss = array_unique($nss);
         $documentElement = Xml::documentElement($dom);
         foreach ($nss as $prefix => $namespace) {
             $documentElement->removeAttributeNS($namespace, $prefix);
