@@ -60,6 +60,7 @@ class SchemaLocationsTest extends TestCase
         $expected = 'http://tempuri.org/my-foo http://tempuri.org/my-foo.xls'
             . ' http://tempuri.org/my-bar http://tempuri.org/my-bar.xls';
         $this->assertSame($expected, $schemaLocations->asString());
+        $this->assertFalse($schemaLocations->hasAnyNamespaceWithoutLocation());
     }
 
     public function testAsStringWithIncompleteValues()
@@ -75,6 +76,12 @@ class SchemaLocationsTest extends TestCase
         $expected = 'http://tempuri.org/my-foo http://tempuri.org/my-foo.xls'
             . ' http://tempuri.org/my-bar http://tempuri.org/my-bar.xls';
         $this->assertSame($expected, $schemaLocations->asString());
+        $this->assertTrue($schemaLocations->hasAnyNamespaceWithoutLocation());
+        $this->assertSame([
+            'http://tempuri.org/my-aaa',
+            'http://tempuri.org/my-bbb',
+            'http://tempuri.org/my-ccc',
+        ], $schemaLocations->getNamespacesWithoutLocation());
     }
 
     public function testTraverse()
@@ -105,6 +112,7 @@ class SchemaLocationsTest extends TestCase
             . ' http://tempuri.org/my-bar http://tempuri.org/my-bar.xls'
             . ' http://tempuri.org/my-xee';
         $schemaLocations = SchemaLocations::fromString($input, false);
+        $this->assertFalse($schemaLocations->hasAnyNamespaceWithoutLocation());
         $expected = [
             'http://tempuri.org/my-foo' => 'http://tempuri.org/my-foo.xls',
             'http://tempuri.org/my-bar' => 'http://tempuri.org/my-bar.xls',
@@ -118,6 +126,7 @@ class SchemaLocationsTest extends TestCase
             . ' http://tempuri.org/my-bar http://tempuri.org/my-bar.xls'
             . ' http://tempuri.org/my-xee';
         $schemaLocations = SchemaLocations::fromString($input, true);
+        $this->assertTrue($schemaLocations->hasAnyNamespaceWithoutLocation());
         $expected = [
             'http://tempuri.org/my-foo' => 'http://tempuri.org/my-foo.xls',
             'http://tempuri.org/my-bar' => 'http://tempuri.org/my-bar.xls',

@@ -62,6 +62,21 @@ class SchemaLocations implements Countable, IteratorAggregate
         return array_key_exists($namespace, $this->pairs);
     }
 
+    /**
+     * @return string[]
+     */
+    public function getNamespacesWithoutLocation(): array
+    {
+        return array_keys(array_filter($this->pairs, function (string $location): bool {
+            return ('' === $location);
+        }));
+    }
+
+    public function hasAnyNamespaceWithoutLocation(): bool
+    {
+        return count($this->getNamespacesWithoutLocation()) > 0;
+    }
+
     public function append(string $namespace, string $location)
     {
         $this->pairs[$namespace] = $location;
