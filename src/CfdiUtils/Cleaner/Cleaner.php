@@ -203,36 +203,30 @@ class Cleaner
         }
     }
 
-    /**
-     * @param DOMNode $schemaLocation This is the attribute
-     * @return void
-     */
-    private function removeNonSatNSschemaLocation(DOMNode $schemaLocation)
+    private function removeNonSatNSschemaLocation(DOMAttr $schemaLocation)
     {
         $source = $schemaLocation->nodeValue;
-        $parts = array_values(array_filter(explode(' ', $source)));
-        $partsCount = count($parts);
-        if (0 !== $partsCount % 2) {
-            throw new CleanerException("The schemaLocation value '" . $source . "' must have even number of URIs");
+        // load locations
+        $schemaLocations = SchemaLocations::fromString($source, true);
+        if ($schemaLocations->hasAnyNamespaceWithoutLocation()) {
+            throw new CleanerException(
+                sprintf("The schemaLocation value '%s' must have even number of URIs", $source)
+            );
         }
-        $modified = '';
-        for ($k = 0; $k < $partsCount; $k = $k + 2) {
-            if (! $this->isNameSpaceAllowed($parts[$k])) {
-                continue;
+        // filter
+        foreach ($schemaLocations as $namespace => $location) {
+            if (! $this->isNameSpaceAllowed($namespace)) {
+                $schemaLocations->remove($namespace);
             }
-            $modified .= $parts[$k] . ' ' . $parts[$k + 1] . ' ';
         }
-        $modified = rtrim($modified, ' ');
-        if ($source == $modified) {
+        $modified = $schemaLocations->asString();
+        if ($source === $modified) {
             return;
         }
-        if ('' !== $modified) {
+        if ($schemaLocations->isEmpty()) { // remove node
+            $schemaLocation->ownerElement->removeAttributeNode($schemaLocation);
+        } else { // replace node content
             $schemaLocation->nodeValue = $modified;
-        } else {
-            $parentElement = $schemaLocation->parentNode;
-            if ($parentElement instanceof DOMElement) {
-                $parentElement->removeAttributeNS($schemaLocation->namespaceURI, $schemaLocation->localName);
-            }
         }
     }
 
