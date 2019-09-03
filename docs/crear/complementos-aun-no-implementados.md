@@ -56,19 +56,15 @@ $creator->saveXml('archivo_con_complemento.xml');
 Dado el ejemplo anterior, el comprobante contendrá la siguiente información:
 
 ```xml
-<Comprobante>
+<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3"
+    xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd">
     <!-- ... nodos del comprobante ... -->
-    <Complemento>
+    <cfdi:Complemento>
         <!-- ... otros complementos ... -->
-        <leyendasFisc:LeyendasFiscales
-            xmlns:leyendasFisc="http://www.sat.gob.mx/leyendasFiscales"
-            xsi:schemaLocation = "http://www.sat.gob.mx/leyendasFiscales http://www.sat.gob.mx/sitio_internet/cfd/leyendasFiscales/leyendasFisc.xsd"
-            version="1.0">
-            <leyendasFisc:Leyenda
-                disposicionFiscal="RESDERAUTH"
-                norma = "Artíclo 2. Fracción IV."
-                textoLeyenda = "El software desarrollado se entrega con licencia MIT" />
+        <leyendasFisc:LeyendasFiscales version="1.0" xmlns:leyendasFisc="http://www.sat.gob.mx/leyendasFiscales"
+            xsi:schemaLocation = "http://www.sat.gob.mx/leyendasFiscales http://www.sat.gob.mx/sitio_internet/cfd/leyendasFiscales/leyendasFisc.xsd">
+            <leyendasFisc:Leyenda disposicionFiscal="RESDERAUTH" norma = "Artíclo 2. Fracción IV." textoLeyenda = "El software desarrollado se entrega con licencia MIT" />
         </leyendasFisc:LeyendasFiscales>
-    </Complemento>
-</Comprobante>
+    </cfdi:Complemento>
+</cfdi:Comprobante>
 ```
