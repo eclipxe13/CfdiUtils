@@ -138,7 +138,7 @@ En realidad, esto no es una regla importarte e incluso se podría decir que sale
 Sin embargo, en la documentación técnica del SAT lo documenta como *mandatorio*. Es decir, se está obligado
 a seguir esta definición.
 
-Si no haz creado tus CFDI con esta estructura malamente requerida por el SAT, no te preocupes, en caso de ser
+Si no creaste tus CFDI con esta estructura malamente requerida por el SAT, no te preocupes, en caso de ser
 necesario podrías hasta modificar tus CFDI anteriores (aun cuando tengan sello) porque la ubicación de las
 definiciones de los espacios de nombres no participan en la formación de la cadena de origen.
 
