@@ -41,10 +41,11 @@ before_script:
     - travis_retry npm install
     - travis_retry pip install --user mkdocs
     - | # codeclimate
-        if [ "$TRAVIS_PHP_VERSION" == "$FULL_BUILD_PHP_VERSION" -a "$TRAVIS_PULL_REQUEST" == "false" ]; then
+        if [[ "$TRAVIS_PHP_VERSION" == "$FULL_BUILD_PHP_VERSION" -a "$TRAVIS_PULL_REQUEST" == "false" ]]; then
             wget https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
             chmod +x ./cc-test-reporter
             ./cc-test-reporter before-build
+            echo "CodeClimate before build status: $?"
         fi
 
 script:
@@ -66,15 +67,15 @@ script:
     - ~/.local/bin/mkdocs build --strict --site-dir build/docs
 
 after_script:
-    - | # upload test covegare
+    - | # upload test covegare to scrutinizer
         if [[ "$TRAVIS_PHP_VERSION" == "$FULL_BUILD_PHP_VERSION" ]]; then
-            # scrutinizer
             wget https://scrutinizer-ci.com/ocular.phar
             php ocular.phar code-coverage:upload --format=php-clover "$COVERAGE_FILE"
-            # codeclimate
-            if [[ "$TRAVIS_PULL_REQUEST" == "false" ]]; then
-              COVERAGE_FILE=build/tests/coverage.xml ./cc-test-reporter after-build --coverage-input-type clover --exit-code $TRAVIS_TEST_RESULT
-            fi
+        fi
+    - | # upload test covegare to codeclimate
+        if [[ "$TRAVIS_PHP_VERSION" == "$FULL_BUILD_PHP_VERSION" -a "$TRAVIS_PULL_REQUEST" == "false" ]]; then
+            ./cc-test-reporter after-build clover --exit-code $TRAVIS_TEST_RESULT
+            echo "CodeClimate after build status: $?"
         fi
 
 notifications:
