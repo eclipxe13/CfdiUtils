@@ -31,12 +31,21 @@ addons:
 env:
     global:
         - FULL_BUILD_PHP_VERSION="7.3"
+        - COVERAGE_FILE=build/tests/coverage.xml
+        - CC_TEST_REPORTER_ID="0b951d76fee5711d19cd5fa1e2b80b8b2aa20ac583b4597533ef310635a9b64a"
+        - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
 
 before_script:
     - phpenv config-rm xdebug.ini || true
     - travis_retry composer install --no-interaction --prefer-dist
     - travis_retry npm install
     - travis_retry pip install --user mkdocs
+    - | # codeclimate
+        if [ "$TRAVIS_PHP_VERSION" == "$FULL_BUILD_PHP_VERSION" -a "$TRAVIS_PULL_REQUEST" == "false" ]; then
+            wget https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+            ./cc-test-reporter before-build
+        fi
 
 script:
     - mkdir -p build/tests/
@@ -45,7 +54,7 @@ script:
     - vendor/bin/php-cs-fixer fix --using-cache=no --dry-run --verbose
     - | # create code coverage file
         if [[ $TRAVIS_PHP_VERSION == $FULL_BUILD_PHP_VERSION ]]; then
-            php -dzend_extension=xdebug.so vendor/bin/phpunit --verbose --coverage-text --coverage-clover=build/tests/coverage.xml
+            php -dzend_extension=xdebug.so vendor/bin/phpunit --verbose --coverage-text --coverage-clover="$COVERAGE_FILE"
         else
             vendor/bin/phpunit --verbose
         fi
@@ -58,9 +67,14 @@ script:
 
 after_script:
     - | # upload test covegare
-        if [[ $TRAVIS_PHP_VERSION == $FULL_BUILD_PHP_VERSION ]]; then
+        if [[ "$TRAVIS_PHP_VERSION" == "$FULL_BUILD_PHP_VERSION" ]]; then
+            # scrutinizer
             wget https://scrutinizer-ci.com/ocular.phar
-            php ocular.phar code-coverage:upload --format=php-clover build/tests/coverage.xml
+            php ocular.phar code-coverage:upload --format=php-clover "$COVERAGE_FILE"
+            # codeclimate
+            if [[ "$TRAVIS_PULL_REQUEST" == "false" ]]; then
+              COVERAGE_FILE=build/tests/coverage.xml ./cc-test-reporter after-build --coverage-input-type clover --exit-code $TRAVIS_TEST_RESULT
+            fi
         fi
 
 notifications:
