@@ -2,61 +2,61 @@ language: php
 
 # php compatibility
 php:
-  - 7.0
-  - 7.1
-  - 7.2
-  - 7.3
+    - "7.0"
+    - "7.1"
+    - "7.2"
+    - "7.3"
 
 branches:
-  except:
-    - appveyor # exclude appveyor branch
+    except:
+        - appveyor
 
 before_install:
-  - nvm install 8
+    - nvm install 8
 
 # This triggers builds to run on the new TravisCI infrastructure.
 # See: http://docs.travis-ci.com/user/workers/container-based-infrastructure/
 sudo: false
 
 addons:
-  apt:
-    packages:
-      - libsaxonb-java
+    apt:
+        packages:
+            - libsaxonb-java
 
 env:
-  - FULL_BUILD_PHP_VERSION="7.3"
+    global:
+        - FULL_BUILD_PHP_VERSION="7.3"
 
 before_script:
-  - travis_retry composer install --no-interaction --prefer-dist
-  - travis_retry npm install
-  - travis_retry pip install --user mkdocs
-  - phpenv config-rm xdebug.ini
+    - phpenv config-rm xdebug.ini || true
+    - travis_retry composer install --no-interaction --prefer-dist
+    - travis_retry npm install
+    - travis_retry pip install --user mkdocs
 
 script:
-  - mkdir -p build/tests/
-  - vendor/bin/phplint
-  - vendor/bin/phpcs -sp src/ tests/
-  - vendor/bin/php-cs-fixer fix --using-cache=no --dry-run --verbose
-  - |
-    if [[ $TRAVIS_PHP_VERSION == $FULL_BUILD_PHP_VERSION ]]; then
-      php -dzend_extension=xdebug.so vendor/bin/phpunit --verbose --coverage-text --coverage-clover=build/tests/coverage.xml
-    else
-      vendor/bin/phpunit --verbose
-    fi
-  - |
-    if [[ $TRAVIS_PHP_VERSION == $FULL_BUILD_PHP_VERSION ]]; then
-      vendor/bin/phpstan.phar --no-progress analyse --level max src/ tests/
-    fi
-  - node node_modules/markdownlint-cli/markdownlint.js *.md docs/
-  - ~/.local/bin/mkdocs build --strict --site-dir build/docs
+    - mkdir -p build/tests/
+    - vendor/bin/phplint
+    - vendor/bin/phpcs -sp src/ tests/
+    - vendor/bin/php-cs-fixer fix --using-cache=no --dry-run --verbose
+    - | # create code coverage file
+        if [[ $TRAVIS_PHP_VERSION == $FULL_BUILD_PHP_VERSION ]]; then
+            php -dzend_extension=xdebug.so vendor/bin/phpunit --verbose --coverage-text --coverage-clover=build/tests/coverage.xml
+        else
+            vendor/bin/phpunit --verbose
+        fi
+    - | # only check phpstan on FULL_BUILD_PHP_VERSION
+        if [[ $TRAVIS_PHP_VERSION == $FULL_BUILD_PHP_VERSION ]]; then
+            vendor/bin/phpstan.phar --no-progress analyse --level max src/ tests/
+        fi
+    - node node_modules/markdownlint-cli/markdownlint.js *.md docs/
+    - ~/.local/bin/mkdocs build --strict --site-dir build/docs
 
 after_script:
-  # upload test covegare to scrutinizer
-  - |
-    if [[ $TRAVIS_PHP_VERSION == $FULL_BUILD_PHP_VERSION ]]; then
-      wget https://scrutinizer-ci.com/ocular.phar
-      php ocular.phar code-coverage:upload --format=php-clover build/tests/coverage.xml
-    fi
+    - | # upload test covegare
+        if [[ $TRAVIS_PHP_VERSION == $FULL_BUILD_PHP_VERSION ]]; then
+            wget https://scrutinizer-ci.com/ocular.phar
+            php ocular.phar code-coverage:upload --format=php-clover build/tests/coverage.xml
+        fi
 
 notifications:
-  email: false
+    email: false
