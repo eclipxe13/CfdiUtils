@@ -41,7 +41,7 @@ before_script:
     - travis_retry npm install
     - travis_retry pip install --user mkdocs
     - | # codeclimate
-        if [[ "$TRAVIS_PHP_VERSION" == "$FULL_BUILD_PHP_VERSION" -a "$TRAVIS_PULL_REQUEST" == "false" ]]; then
+        if [[ "$TRAVIS_PHP_VERSION" == "$FULL_BUILD_PHP_VERSION" && "$TRAVIS_PULL_REQUEST" == "false" ]]; then
             wget https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
             chmod +x ./cc-test-reporter
             ./cc-test-reporter before-build
@@ -73,7 +73,7 @@ after_script:
             php ocular.phar code-coverage:upload --format=php-clover "$COVERAGE_FILE"
         fi
     - | # upload test covegare to codeclimate
-        if [[ "$TRAVIS_PHP_VERSION" == "$FULL_BUILD_PHP_VERSION" -a "$TRAVIS_PULL_REQUEST" == "false" ]]; then
+        if [[ "$TRAVIS_PHP_VERSION" == "$FULL_BUILD_PHP_VERSION" && "$TRAVIS_PULL_REQUEST" == "false" ]]; then
             ./cc-test-reporter after-build clover --exit-code $TRAVIS_TEST_RESULT
             echo "CodeClimate after build status: $?"
         fi
