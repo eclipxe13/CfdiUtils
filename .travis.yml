@@ -31,7 +31,7 @@ addons:
 env:
     global:
         - FULL_BUILD_PHP_VERSION="7.3"
-        - COVERAGE_FILE=build/tests/coverage.xml
+        - COVERAGE_FILE=build/logs/clover.xml
         - CC_TEST_REPORTER_ID="0b951d76fee5711d19cd5fa1e2b80b8b2aa20ac583b4597533ef310635a9b64a"
         - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
 
@@ -49,12 +49,13 @@ before_script:
         fi
 
 script:
-    - mkdir -p build/tests/
+    - mkdir -p build/
     - vendor/bin/phplint
     - vendor/bin/phpcs -sp src/ tests/
     - vendor/bin/php-cs-fixer fix --using-cache=no --dry-run --verbose
     - | # create code coverage file
         if [[ $TRAVIS_PHP_VERSION == $FULL_BUILD_PHP_VERSION ]]; then
+            mkdir -p "$(dirname "$COVERAGE_FILE")"
             php -dzend_extension=xdebug.so vendor/bin/phpunit --verbose --coverage-text --coverage-clover="$COVERAGE_FILE"
         else
             vendor/bin/phpunit --verbose
@@ -74,7 +75,7 @@ after_script:
         fi
     - | # upload test covegare to codeclimate
         if [[ "$TRAVIS_PHP_VERSION" == "$FULL_BUILD_PHP_VERSION" && "$TRAVIS_PULL_REQUEST" == "false" ]]; then
-            ./cc-test-reporter after-build clover --exit-code $TRAVIS_TEST_RESULT
+            ./cc-test-reporter after-build --input-type clover --exit-code $TRAVIS_TEST_RESULT
             echo "CodeClimate after build status: $?"
         fi
 
