@@ -28,6 +28,20 @@
 - Change visibility of `CfdiUtils\Cleaner\Cleaner#removeIncompleteSchemaLocation()` to private.
 
 
+## Version 2.12.1 2019-09-11
+
+- Trigger E_USER_DEPRECATED on `CfdiUtils\Cleaner\Cleaner#removeIncompleteSchemaLocation()`
+- Trigger E_USER_DEPRECATED on `CfdiUtils\Certificado\SerialNumber#baseConvert()`
+- Improvements on docs/index
+- Remove several development files from final package
+- Development:
+    - Fix `.editorconfig`
+    - Integrate codeclimate, evaluate for a while to consider a replacement for scrutinizer
+    - Add PHP 7.4snapshot
+    - Remove Symfony Insight config file
+    - On `composer dev:build` it also calls `composer dev:check-style`
+
+
 ## Version 2.12.0 2019-09-03
 
 - Add `CfdiCreator33::moveSatDefinitionsToComprobante()` method to move xml definitions
