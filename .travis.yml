@@ -69,13 +69,14 @@ script:
 
 after_script:
     - | # upload test covegare to scrutinizer
-        if [[ "$TRAVIS_PHP_VERSION" == "$FULL_BUILD_PHP_VERSION" ]]; then
+        if [[ -e "$COVERAGE_FILE" ]]; then
             wget https://scrutinizer-ci.com/ocular.phar
             php ocular.phar code-coverage:upload --format=php-clover "$COVERAGE_FILE"
+            echo "Scrutinizer code coverage upload status: $?"
         fi
     - | # upload test covegare to codeclimate
-        if [[ "$TRAVIS_PHP_VERSION" == "$FULL_BUILD_PHP_VERSION" && "$TRAVIS_PULL_REQUEST" == "false" ]]; then
-            ./cc-test-reporter after-build --input-type clover --exit-code $TRAVIS_TEST_RESULT
+        if [[ -e "$COVERAGE_FILE" ]]; then
+            ./cc-test-reporter after-build --coverage-input-type clover --exit-code $TRAVIS_TEST_RESULT
             echo "CodeClimate after build status: $?"
         fi
 
