@@ -31,7 +31,7 @@ addons:
 env:
     global:
         - FULL_BUILD_PHP_VERSION="7.3"
-        - COVERAGE_FILE=build/tests/coverage.xml
+        - COVERAGE_FILE=build/logs/clover.xml
         - CC_TEST_REPORTER_ID="0b951d76fee5711d19cd5fa1e2b80b8b2aa20ac583b4597533ef310635a9b64a"
         - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
 
@@ -41,19 +41,21 @@ before_script:
     - travis_retry npm install
     - travis_retry pip install --user mkdocs
     - | # codeclimate
-        if [ "$TRAVIS_PHP_VERSION" == "$FULL_BUILD_PHP_VERSION" -a "$TRAVIS_PULL_REQUEST" == "false" ]; then
-            wget https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+        if [[ "$TRAVIS_PHP_VERSION" == "$FULL_BUILD_PHP_VERSION" && "$TRAVIS_PULL_REQUEST" == "false" ]]; then
+            wget -O ./cc-test-reporter https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
             chmod +x ./cc-test-reporter
             ./cc-test-reporter before-build
+            echo "CodeClimate before build status: $?"
         fi
 
 script:
-    - mkdir -p build/tests/
+    - mkdir -p build/
     - vendor/bin/phplint
     - vendor/bin/phpcs -sp src/ tests/
     - vendor/bin/php-cs-fixer fix --using-cache=no --dry-run --verbose
     - | # create code coverage file
         if [[ $TRAVIS_PHP_VERSION == $FULL_BUILD_PHP_VERSION ]]; then
+            mkdir -p "$(dirname "$COVERAGE_FILE")"
             php -dzend_extension=xdebug.so vendor/bin/phpunit --verbose --coverage-text --coverage-clover="$COVERAGE_FILE"
         else
             vendor/bin/phpunit --verbose
@@ -66,15 +68,16 @@ script:
     - ~/.local/bin/mkdocs build --strict --site-dir build/docs
 
 after_script:
-    - | # upload test covegare
-        if [[ "$TRAVIS_PHP_VERSION" == "$FULL_BUILD_PHP_VERSION" ]]; then
-            # scrutinizer
+    - | # upload test covegare to scrutinizer
+        if [[ -e "$COVERAGE_FILE" ]]; then
             wget https://scrutinizer-ci.com/ocular.phar
             php ocular.phar code-coverage:upload --format=php-clover "$COVERAGE_FILE"
-            # codeclimate
-            if [[ "$TRAVIS_PULL_REQUEST" == "false" ]]; then
-              COVERAGE_FILE=build/tests/coverage.xml ./cc-test-reporter after-build --coverage-input-type clover --exit-code $TRAVIS_TEST_RESULT
-            fi
+            echo "Scrutinizer code coverage upload status: $?"
+        fi
+    - | # upload test covegare to codeclimate
+        if [[ -e "$COVERAGE_FILE" ]]; then
+            ./cc-test-reporter after-build --coverage-input-type clover --exit-code $TRAVIS_TEST_RESULT
+            echo "CodeClimate after build status: $?"
         fi
 
 notifications:
