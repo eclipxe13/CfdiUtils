@@ -1,3 +1,0 @@
-rules:
-  php.silenced_error:
-    enabled: false
