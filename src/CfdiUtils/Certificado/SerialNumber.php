@@ -79,7 +79,7 @@ class SerialNumber
      */
     public function baseConvert(string $number, int $frombase, int $tobase): string
     {
-        trigger_error('This method is deprecated, should not be used from outside this class');
+        trigger_error('This method is deprecated, should not be used from outside this class', E_USER_DEPRECATED);
         return BaseConverter::createBase36()->convert($number, $frombase, $tobase);
     }
 }

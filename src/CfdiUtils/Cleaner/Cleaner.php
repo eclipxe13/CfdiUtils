@@ -156,7 +156,7 @@ class Cleaner
     public function removeIncompleteSchemaLocations()
     {
         foreach ($this->obtainXsiSchemaLocations() as $element) {
-            $element->nodeValue = $this->removeIncompleteSchemaLocation($element->nodeValue);
+            $element->nodeValue = $this->removeIncompleteSchemaLocationPrivate($element->nodeValue);
         }
     }
 
@@ -167,6 +167,12 @@ class Cleaner
      * @internal
      */
     public function removeIncompleteSchemaLocation(string $source): string
+    {
+        trigger_error('This method is deprecated, should not be used from outside this class', E_USER_DEPRECATED);
+        return $this->removeIncompleteSchemaLocationPrivate($source);
+    }
+
+    private function removeIncompleteSchemaLocationPrivate(string $source): string
     {
         $schemaLocations = SchemaLocations::fromStingStrictXsd($source);
         foreach ($schemaLocations->getNamespacesWithoutLocation() as $namespace) {
