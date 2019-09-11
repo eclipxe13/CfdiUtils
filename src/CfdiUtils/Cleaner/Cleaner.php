@@ -168,6 +168,7 @@ class Cleaner
      */
     public function removeIncompleteSchemaLocation(string $source): string
     {
+        trigger_error('This method is deprecated, should not be used from outside this class', E_USER_DEPRECATED);
         return $this->removeIncompleteSchemaLocationPrivate($source);
     }
 
