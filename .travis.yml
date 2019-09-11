@@ -42,7 +42,7 @@ before_script:
     - travis_retry pip install --user mkdocs
     - | # codeclimate
         if [[ "$TRAVIS_PHP_VERSION" == "$FULL_BUILD_PHP_VERSION" && "$TRAVIS_PULL_REQUEST" == "false" ]]; then
-            wget https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            wget -o ./cc-test-reporter https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
             chmod +x ./cc-test-reporter
             ./cc-test-reporter before-build
             echo "CodeClimate before build status: $?"
