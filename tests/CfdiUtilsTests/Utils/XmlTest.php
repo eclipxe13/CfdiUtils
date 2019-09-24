@@ -7,6 +7,15 @@ use DOMDocument;
 
 class XmlTest extends TestCase
 {
+    public function testMethodNewDocumentContentWithInvalidXmlEncoding()
+    {
+        $invalidXml = utf8_decode('<e a="ñ"></e>'); // the ñ is a special character
+        $this->expectException(\UnexpectedValueException::class);
+        $this->expectExceptionMessage('Cannot create a DOM Document from xml string'
+            . PHP_EOL . 'XML Fatal [L: 1, C: 7]: Input is not proper UTF-8');
+        Xml::newDocumentContent($invalidXml);
+    }
+
     public function testMethodDocumentElementWithoutRootElement()
     {
         $this->expectException(\UnexpectedValueException::class);

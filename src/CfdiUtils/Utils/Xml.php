@@ -4,6 +4,7 @@ namespace CfdiUtils\Utils;
 use DOMDocument;
 use DOMElement;
 use DOMNode;
+use LibXMLError;
 
 class Xml
 {
@@ -50,9 +51,32 @@ class Xml
         $document = static::newDocument();
         // this error silenced call is intentional, no need to alter libxml_use_internal_errors
         if (false === @$document->loadXML($content)) {
-            throw new \UnexpectedValueException('Cannot create a DOM Document from xml string');
+            throw new \UnexpectedValueException(
+                trim('Cannot create a DOM Document from xml string' . PHP_EOL . static::castLibXmlLastErrorAsString())
+            );
         }
         return $document;
+    }
+
+    private static function castLibXmlLastErrorAsString(): string
+    {
+        $error = libxml_get_last_error();
+        if (! $error instanceof LibXMLError) {
+            return '';
+        }
+        $types = [
+            LIBXML_ERR_NONE => 'None',
+            LIBXML_ERR_WARNING => 'Warning',
+            LIBXML_ERR_ERROR => 'Error',
+            LIBXML_ERR_FATAL => 'Fatal',
+        ];
+        return sprintf(
+            'XML %s [L: %d, C: %d]: %s',
+            $types[$error->level] ?? 'Unknown',
+            $error->line,
+            $error->column,
+            $error->message
+        );
     }
 
     public static function isValidXmlName(string $name): bool
