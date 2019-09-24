@@ -28,6 +28,8 @@ trabajar con CFDI y también para obtener su ayuda, todo lo que la comunidad pue
 contribuir será bien apreciado. Tenemos una comunidad activa y dinámica, nos puedes
 encontrar en el [canal #phpcfdi de discord][discord].
 
+No olvides visitar <https://www.phpcfdi.com> donde contamos con muchas más librerías relacionadas con
+CFDI y herramientas del SAT. Y próximamente el lugar donde publicaremos la versión `3.y.z`.
 
 ## Lectura de CFDI
 

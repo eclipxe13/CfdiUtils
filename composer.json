@@ -4,8 +4,10 @@
     "keywords": ["cfdi", "cfdi33", "mexico", "electronic invoice"],
     "homepage": "https://github.com/eclipxe13/CfdiUtils",
     "support": {
+        "source": "https://github.com/eclipxe13/CfdiUtils",
         "issues": "https://github.com/eclipxe13/CfdiUtils/issues",
-        "docs": "https://cfdiutils.readthedocs.io/"
+        "docs": "https://cfdiutils.readthedocs.io/",
+        "chat": "https://discord.gg/aFGYXvX"
     },
     "license": "MIT",
     "authors": [

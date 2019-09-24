@@ -14,7 +14,7 @@
 
 # Do not put this files on a distribution package
 /tests/              export-ignore
-/.appveyor.xml       export-ignore
+/.appveyor.yml       export-ignore
 /.codeclimate.yml    export-ignore
 /.editorconfig       export-ignore
 /.gitattributes      export-ignore
