@@ -64,6 +64,17 @@ EOD;
         $this->assertTrue($verify);
     }
 
+    public function testConstructUsingPemContents()
+    {
+        $pemfile = $this->utilAsset('certs/CSD01_AAA010101AAA.cer.pem');
+        $contents = file_get_contents($pemfile) ?: '';
+
+        $fromFile = new Certificado($pemfile);
+        $fromContents = new Certificado($contents);
+
+        $this->assertSame($fromFile->getPemContents(), $fromContents->getPemContents());
+    }
+
     public function testVerifyWithInvalidData()
     {
         $dataFile = $this->utilAsset('certs/data-to-sign.txt');

@@ -47,11 +47,9 @@ class RetencionesCreator10 implements
     public function putCertificado(Certificado $certificado)
     {
         $this->setCertificado($certificado);
-        $cerfile = $certificado->getFilename();
         $this->retenciones['NumCert'] = $certificado->getSerial();
-        if (file_exists($cerfile)) {
-            $this->retenciones['Cert'] = base64_encode(strval(file_get_contents($cerfile)));
-        }
+        $pemContents = implode('', preg_grep('/^((?!-).)*$/', explode(PHP_EOL, $certificado->getPemContents())));
+        $this->retenciones['Cert'] = $pemContents;
     }
 
     public function buildCadenaDeOrigen(): string

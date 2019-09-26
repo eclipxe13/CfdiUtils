@@ -1,7 +1,6 @@
 <?php
 namespace CfdiUtils\Certificado;
 
-use CfdiUtils\Internals\TemporaryFile;
 use CfdiUtils\Nodes\NodeInterface;
 
 class NodeCertificado
@@ -99,14 +98,10 @@ class NodeCertificado
      */
     public function obtain(): Certificado
     {
-        $temporaryFile = TemporaryFile::create();
-        // the temporary name was created
-        try {
-            $this->save($temporaryFile->getPath());
-            $certificado = new Certificado($temporaryFile->getPath());
-            return $certificado;
-        } finally {
-            $temporaryFile->remove();
+        $certificado = $this->extract();
+        if ('' === $certificado) {
+            throw new \RuntimeException('The certificado attribute is empty');
         }
+        return new Certificado(base64_encode($certificado));
     }
 }
