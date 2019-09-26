@@ -77,11 +77,9 @@ class CfdiCreator33 implements
     public function putCertificado(Certificado $certificado, bool $putEmisorRfcNombre = true)
     {
         $this->setCertificado($certificado);
-        $cerfile = $certificado->getFilename();
         $this->comprobante['NoCertificado'] = $certificado->getSerial();
-        if (file_exists($cerfile)) {
-            $this->comprobante['Certificado'] = base64_encode(strval(file_get_contents($cerfile)));
-        }
+        $pemContents = implode('', preg_grep('/^((?!-).)*$/', explode(PHP_EOL, $certificado->getPemContents())));
+        $this->comprobante['Certificado'] = $pemContents;
         if ($putEmisorRfcNombre) {
             $emisor = $this->comprobante->searchNode('cfdi:Emisor');
             if (null === $emisor) {
