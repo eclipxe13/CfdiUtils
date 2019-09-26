@@ -28,6 +28,14 @@
 - Change visibility of `CfdiUtils\Cleaner\Cleaner#removeIncompleteSchemaLocation()` to private.
 
 
+## Version 2.12.3 2019-09-26
+
+- `CfdiUtils\Certificado\Certificado` can be created using PEM contents and not only a certificate path.
+- `CfdiUtils\Creator33` can use a certificate without associated filename.
+- `CfdiUtils\RetencionesCreator10` can use a certificate without associated filename.
+- `CfdiUtils\Certificado\NodeCertificado` can obtain the certificate without creating a temporary file.
+
+
 ## Version 2.12.2 2019-09-24
 
 - When cannot load an Xml string include `LibXMLError` information into exception, like:
