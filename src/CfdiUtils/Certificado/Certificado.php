@@ -38,27 +38,36 @@ class Certificado
     /**
      * Certificado constructor.
      *
-     * @param string $filename
+     * @param string $filename Allows filename or certificate contents (PEM or DER)
      * @param OpenSSL $openSSL
-     * @throws \UnexpectedValueException when the file does not exists or is not readable
-     * @throws \UnexpectedValueException when cannot read the certificate file or is empty
-     * @throws \RuntimeException when cannot parse the certificate file or is empty
+     * @throws \UnexpectedValueException when the certificate does not exists or is not readable
+     * @throws \UnexpectedValueException when cannot read the certificate or is empty
+     * @throws \RuntimeException when cannot parse the certificate or is empty
      * @throws \RuntimeException when cannot get serialNumberHex or serialNumber from certificate
      */
     public function __construct(string $filename, OpenSSL $openSSL = null)
     {
-        $this->assertFileExists($filename);
-        $contents = strval(file_get_contents($filename));
-        if ('' === $contents) {
-            throw new \UnexpectedValueException("File $filename is empty");
-        }
         $this->setOpenSSL($openSSL ?: new OpenSSL());
-        $contents = $this->obtainPemCertificate($contents);
+        $contents = $this->extractPemCertificate($filename);
+        // using $filename as PEM content did not retrieve any result, so, use it as path
+        if ('' === $contents) {
+            $sourceName = 'file ' . $filename;
+            $this->assertFileExists($filename);
+            $contents = file_get_contents($filename) ?: '';
+            if ('' === $contents) {
+                throw new \UnexpectedValueException("File $filename is empty");
+            }
+            // this will take PEM contents or perform a PHP conversion from DER to PEM
+            $contents = $this->obtainPemCertificate($contents);
+        } else {
+            $filename = '';
+            $sourceName = '(contents)';
+        }
 
         // get the certificate data
         $data = openssl_x509_parse($contents, true);
         if (! is_array($data)) {
-            throw new \RuntimeException("Cannot parse the certificate file $filename");
+            throw new \RuntimeException("Cannot parse the certificate $sourceName");
         }
 
         // get the public key
@@ -74,7 +83,7 @@ class Certificado
         } elseif (isset($data['serialNumber'])) {
             $serial->loadDecimal($data['serialNumber']);
         } else {
-            throw new \RuntimeException("Cannot get serialNumberHex or serialNumber from certificate file $filename");
+            throw new \RuntimeException("Cannot get serialNumberHex or serialNumber from certificate $sourceName");
         }
         $this->serial = $serial;
         $this->validFrom = $data['validFrom_time_t'] ?? 0;
@@ -84,12 +93,25 @@ class Certificado
         $this->filename = $filename;
     }
 
-    private function obtainPemCertificate(string $contents): string
+    private function extractPemCertificate(string $contents): string
     {
         $openssl = $this->getOpenSSL();
-        $extracted = $openssl->readPemContents($contents)->certificate();
+        $decoded = @base64_decode($contents, true) ?: '';
+        if ($contents === base64_encode($decoded)) { // is a one liner certificate
+            $doubleEncoded = $openssl->readPemContents($decoded)->certificate();
+            if ($doubleEncoded !== '') {
+                return $doubleEncoded;
+            }
+            $contents = $this->getOpenSSL()->derCerConvertPhp($decoded);
+        }
+        return $openssl->readPemContents($contents)->certificate();
+    }
+
+    private function obtainPemCertificate(string $contents): string
+    {
+        $extracted = $this->extractPemCertificate($contents);
         if ('' === $extracted) { // cannot extract, could be on DER format
-            $extracted = $openssl->derCerConvertPhp($contents);
+            $extracted = $this->getOpenSSL()->derCerConvertPhp($contents);
         }
         return $extracted;
     }
