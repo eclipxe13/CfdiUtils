@@ -75,6 +75,12 @@ Realiza diferentes validaciones relacionadas con el tipo de comprobante:
 - TIPOCOMP010: Si el tipo de comprobante es N, entonces la moneda debe ser MXN
 
 
+## ComprobanteDescuento
+
+- DESCUENTO01: Si existe el atributo descuento, entonces debe ser menor o igual que el subtotal
+               y mayor o igual que cero (CFDI33109)
+
+
 ## ComprobanteTotal
 
 - TOTAL01: El atributo Total existe, no está vacío y cumple con el patrón [0-9]+(.[0-9]+)?
