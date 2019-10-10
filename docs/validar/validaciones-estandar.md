@@ -84,7 +84,8 @@ Realiza diferentes validaciones relacionadas con el tipo de comprobante:
 
 Estas validaciones son exclusivas del atributo descuento del concepto:
 
-- CONCEPDESC01: Si existe el atributo descuento, entonces debe ser menor o igual que el subtotal y mayor o igual que cero (CFDI33109)
+- CONCEPDESC01: Si existe el atributo descuento en el concepto,
+  entonces debe ser menor o igual que el importe y mayor o igual que cero (CFDI33151)
 
 
 ## ConceptoImpuestos

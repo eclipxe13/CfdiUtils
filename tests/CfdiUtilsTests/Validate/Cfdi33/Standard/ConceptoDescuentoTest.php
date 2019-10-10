@@ -19,6 +19,7 @@ class ConceptoDescuentoTest extends ValidateTestCase
     public function providerValidCases()
     {
         return[
+            ['', '0'],
             ['0', '1'],
             ['1', '1'],
             ['0.000000', '0.000001'],
@@ -29,14 +30,14 @@ class ConceptoDescuentoTest extends ValidateTestCase
 
     /**
      * @param string $descuento
-     * @param string $subtotal
+     * @param string $importe
      * @dataProvider providerValidCases
      */
-    public function testValidCases($descuento, $subtotal)
+    public function testValidCases($descuento, $importe)
     {
-        $this->comprobante->addAttributes([
+        $this->getComprobante()->addConcepto([
             'Descuento' => $descuento,
-            'SubTotal' => $subtotal,
+            'Importe' => $importe,
         ]);
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::ok(), 'CONCEPDESC01');
@@ -45,7 +46,6 @@ class ConceptoDescuentoTest extends ValidateTestCase
     public function providerInvalidCases()
     {
         return[
-            ['', '0'],
             ['1', '0'],
             ['5', null],
             ['0.000001', '0.000000'],
@@ -53,26 +53,26 @@ class ConceptoDescuentoTest extends ValidateTestCase
             ['-5', '5'],
         ];
     }
+
     /**
      * @param string $descuento
-     * @param string $subtotal
+     * @param string $importe
      * @dataProvider providerInvalidCases
      */
-    public function testInvalidCases($descuento, $subtotal)
+    public function testInvalidCases($descuento, $importe)
     {
-        $this->comprobante->addAttributes([
+        $this->getComprobante()->addConcepto(['Descuento' => '1', 'Importe' => '2']);
+        $concepto = $this->getComprobante()->addConcepto([
             'Descuento' => $descuento,
-            'SubTotal' => $subtotal,
+            'Importe' => $importe,
         ]);
+        $this->assertTrue($this->validator->conceptoHasInvalidDiscount($concepto));
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::error(), 'CONCEPDESC01');
     }
 
     public function testNoneCase()
     {
-        $this->comprobante->addAttributes([
-            'Descuento' => null,
-        ]);
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::none(), 'CONCEPDESC01');
     }
