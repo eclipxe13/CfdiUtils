@@ -33,6 +33,11 @@
 - The validation `CONCEPDESC01` was not correctly set, it was checking concept discount against document subtotal,
   it was fixed to concept discount against concept import. It covers SAT rule `CFDI33151`, not `CFDI33109`.
 - New validation `DESCUENTO01` that verify document discount against document subtotal, covers `CFDI33109`.
+- Development: include `build/` empty folder (with `.gitignore` to exclude all)
+- Continuous Integration:
+    - Travis remove `sudo: false` and build on `dist: bionic`.
+    - Scrutinizer add more time to wait for coverage test.
+    - Remove CodeClimate integration.
 
 
 ## Version 2.12.3 2019-09-26

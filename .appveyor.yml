@@ -115,7 +115,6 @@ install:
 ## Run the actual test
 test_script:
     - cd c:\projects\project
-    - mkdir build
     - vendor\bin\phplint.bat
     - vendor\bin\phpcs.bat -sp src tests
     - vendor\bin\php-cs-fixer.bat fix --dry-run --verbose

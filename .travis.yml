@@ -43,8 +43,7 @@ script:
     - vendor/bin/php-cs-fixer fix --using-cache=no --dry-run --verbose
     - | # create code coverage file
         if [[ $TRAVIS_PHP_VERSION == $FULL_BUILD_PHP_VERSION ]]; then
-            mkdir -p "$(dirname "$COVERAGE_FILE")"
-            php -dzend_extension=xdebug.so vendor/bin/phpunit --verbose --coverage-text --coverage-clover="$COVERAGE_FILE"
+            php -dzend_extension=xdebug.so vendor/bin/phpunit --testdox --verbose --coverage-clover="$COVERAGE_FILE"
         else
             vendor/bin/phpunit --verbose
         fi

@@ -29,7 +29,6 @@ Descargar el proyecto
 
 ```shell
 git clone https://github.com/eclipxe13/cfdiutils
-mkdir -p cfdiutils/build/
 ```
 
 Instalar las dependencias, opcionalmente puedes poner `--prefer-dist` para instalar
