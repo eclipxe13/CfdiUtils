@@ -35,7 +35,7 @@
 - New validation `DESCUENTO01` that verify document discount against document subtotal, covers `CFDI33109`.
 - Development: include `build/` empty folder (with `.gitignore` to exclude all)
 - Continuous Integration:
-    - Travis remove `sudo: false` and build on `dist: bionic`.
+    - Travis remove `sudo: false` and build on `dist: xenial`.
     - Scrutinizer add more time to wait for coverage test.
     - Remove CodeClimate integration.
 
