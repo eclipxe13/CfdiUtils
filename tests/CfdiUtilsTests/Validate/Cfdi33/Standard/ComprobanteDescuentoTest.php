@@ -1,25 +1,24 @@
 <?php
 namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
-use CfdiUtils\Validate\Cfdi33\Standard\ConceptoDescuento;
+use CfdiUtils\Validate\Cfdi33\Standard\ComprobanteDescuento;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class ConceptoDescuentoTest extends ValidateTestCase
+class ComprobanteDescuentoTest extends ValidateTestCase
 {
-    /** @var ConceptoDescuento */
+    /** @var ComprobanteDescuento */
     protected $validator;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->validator = new ConceptoDescuento();
+        $this->validator = new ComprobanteDescuento();
     }
 
     public function providerValidCases()
     {
         return[
-            ['', '0'],
             ['0', '1'],
             ['1', '1'],
             ['0.000000', '0.000001'],
@@ -30,22 +29,23 @@ class ConceptoDescuentoTest extends ValidateTestCase
 
     /**
      * @param string $descuento
-     * @param string $importe
+     * @param string $subtotal
      * @dataProvider providerValidCases
      */
-    public function testValidCases($descuento, $importe)
+    public function testValidCases($descuento, $subtotal)
     {
-        $this->getComprobante()->addConcepto([
+        $this->comprobante->addAttributes([
             'Descuento' => $descuento,
-            'Importe' => $importe,
+            'SubTotal' => $subtotal,
         ]);
         $this->runValidate();
-        $this->assertStatusEqualsCode(Status::ok(), 'CONCEPDESC01');
+        $this->assertStatusEqualsCode(Status::ok(), 'DESCUENTO01');
     }
 
     public function providerInvalidCases()
     {
         return[
+            ['', '0'],
             ['1', '0'],
             ['5', null],
             ['0.000001', '0.000000'],
@@ -53,27 +53,27 @@ class ConceptoDescuentoTest extends ValidateTestCase
             ['-5', '5'],
         ];
     }
-
     /**
      * @param string $descuento
-     * @param string $importe
+     * @param string $subtotal
      * @dataProvider providerInvalidCases
      */
-    public function testInvalidCases($descuento, $importe)
+    public function testInvalidCases($descuento, $subtotal)
     {
-        $this->getComprobante()->addConcepto(['Descuento' => '1', 'Importe' => '2']);
-        $concepto = $this->getComprobante()->addConcepto([
+        $this->comprobante->addAttributes([
             'Descuento' => $descuento,
-            'Importe' => $importe,
+            'SubTotal' => $subtotal,
         ]);
-        $this->assertTrue($this->validator->conceptoHasInvalidDiscount($concepto));
         $this->runValidate();
-        $this->assertStatusEqualsCode(Status::error(), 'CONCEPDESC01');
+        $this->assertStatusEqualsCode(Status::error(), 'DESCUENTO01');
     }
 
     public function testNoneCase()
     {
+        $this->comprobante->addAttributes([
+            'Descuento' => null,
+        ]);
         $this->runValidate();
-        $this->assertStatusEqualsCode(Status::none(), 'CONCEPDESC01');
+        $this->assertStatusEqualsCode(Status::none(), 'DESCUENTO01');
     }
 }

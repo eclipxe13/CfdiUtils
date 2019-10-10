@@ -28,6 +28,13 @@
 - Change visibility of `CfdiUtils\Cleaner\Cleaner#removeIncompleteSchemaLocation()` to private.
 
 
+## Version 2.12.4 2019-10-10
+
+- The validation `CONCEPDESC01` was not correctly set, it was checking concept discount against document subtotal,
+  it was fixed to concept discount against concept import. It covers SAT rule `CFDI33151`, not `CFDI33109`.
+- New validation `DESCUENTO01` that verify document discount against document subtotal, covers `CFDI33109`.
+
+
 ## Version 2.12.3 2019-09-26
 
 - `CfdiUtils\Certificado\Certificado` can be created using PEM contents and not only a certificate path.
