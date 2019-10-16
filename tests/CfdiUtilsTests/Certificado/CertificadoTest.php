@@ -130,7 +130,6 @@ EOD;
         new Certificado($badCertificateFile);
     }
 
-
     public function testConstructCertificateUsingPathThatIsBase64()
     {
         $workingdir = $this->utilAsset('certs/');
