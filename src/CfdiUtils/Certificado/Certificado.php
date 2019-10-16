@@ -95,9 +95,6 @@ class Certificado
 
     private function extractPemCertificate(string $contents): string
     {
-        if (strlen($contents) < 2000) {
-            return ''; // is too short to be a PEM certificate
-        }
         $openssl = $this->getOpenSSL();
         $decoded = @base64_decode($contents, true) ?: '';
         if ($contents === base64_encode($decoded)) { // is a one liner certificate
