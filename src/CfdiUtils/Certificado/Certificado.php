@@ -49,8 +49,10 @@ class Certificado
     {
         $this->setOpenSSL($openSSL ?: new OpenSSL());
         $contents = $this->extractPemCertificate($filename);
-        // using $filename as PEM content did not retrieve any result, so, use it as path
-        if ('' === $contents) {
+        // using $filename as PEM content did not retrieve any result,
+        // or the path actually exists (path is a valid base64 string)
+        // then use it as path
+        if ('' === $contents || realpath($filename)) {
             $sourceName = 'file ' . $filename;
             $this->assertFileExists($filename);
             $contents = file_get_contents($filename) ?: '';
