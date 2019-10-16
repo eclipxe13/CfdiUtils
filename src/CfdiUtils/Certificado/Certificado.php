@@ -99,11 +99,12 @@ class Certificado
     {
         $openssl = $this->getOpenSSL();
         $decoded = @base64_decode($contents, true) ?: '';
-        if ($contents === base64_encode($decoded)) { // is a one liner certificate
+        if ('' !== $decoded && $contents === base64_encode($decoded)) { // is a one liner certificate
             $doubleEncoded = $openssl->readPemContents($decoded)->certificate();
             if ($doubleEncoded !== '') {
                 return $doubleEncoded;
             }
+            // derCerConvertPhp will include PEM header and footer
             $contents = $this->getOpenSSL()->derCerConvertPhp($decoded);
         }
         return $openssl->readPemContents($contents)->certificate();
