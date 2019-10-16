@@ -130,6 +130,28 @@ EOD;
         new Certificado($badCertificateFile);
     }
 
+
+    public function testConstructCertificateUsingPathThatIsBase64()
+    {
+        $workingdir = $this->utilAsset('certs/');
+        /** @var string $previousPath phpstan complains about getcwd returning FALSE */
+        $previousPath = getcwd();
+        chdir($workingdir);
+        try {
+            $certificate = new Certificado('00001000000403258748.cer');
+            $this->assertSame('00001000000403258748', $certificate->getSerial());
+        } finally {
+            chdir($previousPath);
+        }
+    }
+
+    public function testConstructWithDerCertificateContentsThrowsException()
+    {
+        $file = $this->utilAsset('certs/CSD01_AAA010101AAA.cer');
+        $this->expectException(\UnexpectedValueException::class);
+        new Certificado(file_get_contents($file) ?: '');
+    }
+
     public function testBelogsToReturnsTrueWithItsCertificate()
     {
         $certificateFile = $this->utilAsset('certs/CSD01_AAA010101AAA.cer');
