@@ -269,8 +269,22 @@ class Certificado
      */
     protected function assertFileExists(string $filename)
     {
-        if (! file_exists($filename) || ! is_readable($filename) || is_dir($filename)) {
-            throw new \UnexpectedValueException("File $filename does not exists or is not readable");
+        $exists = false;
+        $previous = null;
+        try {
+            if (boolval(preg_match('/[[:cntrl:]]/', $filename))) {
+                $filename = '(invalid file name)';
+                throw new \RuntimeException('The file name contains control characters, it might be a DER content');
+            }
+            if (file_exists($filename) && is_readable($filename) && ! is_dir($filename)) {
+                $exists = true;
+            }
+        } catch (\Throwable $exception) {
+            $previous = $exception;
+        }
+        if (! $exists) {
+            $exceptionMessage = sprintf('File %s does not exists or is not readable', $filename);
+            throw new \UnexpectedValueException($exceptionMessage, 0, $previous);
         }
     }
 
