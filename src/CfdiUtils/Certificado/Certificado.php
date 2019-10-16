@@ -49,8 +49,10 @@ class Certificado
     {
         $this->setOpenSSL($openSSL ?: new OpenSSL());
         $contents = $this->extractPemCertificate($filename);
-        // using $filename as PEM content did not retrieve any result, so, use it as path
-        if ('' === $contents) {
+        // using $filename as PEM content did not retrieve any result,
+        // or the path actually exists (path is a valid base64 string)
+        // then use it as path
+        if ('' === $contents || realpath($filename)) {
             $sourceName = 'file ' . $filename;
             $this->assertFileExists($filename);
             $contents = file_get_contents($filename) ?: '';
@@ -95,16 +97,14 @@ class Certificado
 
     private function extractPemCertificate(string $contents): string
     {
-        if (strlen($contents) < 2000) {
-            return ''; // is too short to be a PEM certificate
-        }
         $openssl = $this->getOpenSSL();
         $decoded = @base64_decode($contents, true) ?: '';
-        if ($contents === base64_encode($decoded)) { // is a one liner certificate
+        if ('' !== $decoded && $contents === base64_encode($decoded)) { // is a one liner certificate
             $doubleEncoded = $openssl->readPemContents($decoded)->certificate();
             if ($doubleEncoded !== '') {
                 return $doubleEncoded;
             }
+            // derCerConvertPhp will include PEM header and footer
             $contents = $this->getOpenSSL()->derCerConvertPhp($decoded);
         }
         return $openssl->readPemContents($contents)->certificate();
@@ -270,8 +270,22 @@ class Certificado
      */
     protected function assertFileExists(string $filename)
     {
-        if (! file_exists($filename) || ! is_readable($filename) || is_dir($filename)) {
-            throw new \UnexpectedValueException("File $filename does not exists or is not readable");
+        $exists = false;
+        $previous = null;
+        try {
+            if (boolval(preg_match('/[[:cntrl:]]/', $filename))) {
+                $filename = '(invalid file name)';
+                throw new \RuntimeException('The file name contains control characters, it might be a DER content');
+            }
+            if (file_exists($filename) && is_readable($filename) && ! is_dir($filename)) {
+                $exists = true;
+            }
+        } catch (\Throwable $exception) {
+            $previous = $exception;
+        }
+        if (! $exists) {
+            $exceptionMessage = sprintf('File %s does not exists or is not readable', $filename);
+            throw new \UnexpectedValueException($exceptionMessage, 0, $previous);
         }
     }
 

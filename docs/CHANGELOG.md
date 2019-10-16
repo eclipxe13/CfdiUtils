@@ -28,6 +28,15 @@
 - Change visibility of `CfdiUtils\Cleaner\Cleaner#removeIncompleteSchemaLocation()` to private.
 
 
+## Version 2.12.5 2019-10-15
+
+- Fix bug when creating a `Certificado` object and PEM content's length is less than 2000 bytes.
+    - Now it does not care about the length.
+    - If the content is a valid base64 string but is a path then will be used as a path.
+    - When checking that the file exists, catches if the path has control characters (like in DER content).
+    - Previous validation now makes `file_exists` to not throw an `Error`.
+
+
 ## Version 2.12.4 2019-10-10
 
 - The validation `CONCEPDESC01` was not correctly set, it was checking concept discount against document subtotal,
