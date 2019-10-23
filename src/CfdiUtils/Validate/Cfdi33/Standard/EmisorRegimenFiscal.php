@@ -3,6 +3,7 @@
 namespace CfdiUtils\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Nodes\NodeInterface;
+use CfdiUtils\Utils\Rfc;
 use CfdiUtils\Validate\Asserts;
 use CfdiUtils\Validate\Cfdi33\Abstracts\AbstractDiscoverableVersion33;
 use CfdiUtils\Validate\Status;
@@ -12,6 +13,8 @@ use CfdiUtils\Validate\Status;
  *
  * Valida que:
  *  - REGFIS01: El régimen fiscal contenga un valor apropiado según el tipo de RFC emisor (CFDI33130 y CFDI33131)
+ *
+ * Nota: No valida que el RFC sea válido, esa responsabilidad no es de este validador.
  */
 class EmisorRegimenFiscal extends AbstractDiscoverableVersion33
 {
@@ -27,7 +30,7 @@ class EmisorRegimenFiscal extends AbstractDiscoverableVersion33
             '605', '606', '608', '611', '612', '614', '616', '621', '629', '630', '615', '610', '622',
         ];
 
-        $length = strlen($emisorRfc);
+        $length = mb_strlen($emisorRfc);
         $validation = (12 === $length && in_array($regimenFiscal, $validMoralCodes, true))
             || (13 === $length && in_array($regimenFiscal, $validFisicaCodes, true));
 
