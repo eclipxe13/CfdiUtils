@@ -23,21 +23,23 @@ class EmisorRegimenFiscal extends AbstractDiscoverableVersion33
         $regimenFiscal = $comprobante->searchAttribute('cfdi:Emisor', 'RegimenFiscal');
         $emisorRfc = $comprobante->searchAttribute('cfdi:Emisor', 'Rfc');
 
-        $validMoralCodes = [
-            '601', '603', '609', '620', '623', '624', '628', '607', '610', '622',
-        ];
-        $validFisicaCodes = [
-            '605', '606', '608', '611', '612', '614', '616', '621', '629', '630', '615', '610', '622',
-        ];
-
         $length = mb_strlen($emisorRfc);
-        $validation = (12 === $length && in_array($regimenFiscal, $validMoralCodes, true))
-            || (13 === $length && in_array($regimenFiscal, $validFisicaCodes, true));
+        if (12 === $length) {
+            $validCodes = [
+                '601', '603', '609', '620', '623', '624', '628', '607', '610', '622',
+            ];
+        } elseif (13 === $length) {
+            $validCodes = [
+                '605', '606', '608', '611', '612', '614', '616', '621', '629', '630', '615', '610', '622',
+            ];
+        } else {
+            $validCodes = [];
+        }
 
         $asserts->put(
             'REGFIS01',
             'El régimen fiscal contenga un valor apropiado según el tipo de RFC emisor (CFDI33130 y CFDI33131)',
-            Status::when($validation),
+            Status::when(in_array($regimenFiscal, $validCodes, true)),
             sprintf('Rfc: "%s", Regimen Fiscal: "%s"', $emisorRfc, $regimenFiscal)
         );
     }
