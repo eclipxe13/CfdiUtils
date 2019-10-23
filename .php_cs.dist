@@ -4,7 +4,6 @@ return PhpCsFixer\Config::create()
     ->setCacheFile(__DIR__.'/build/.php_cs.cache')
     ->setRules([
         '@PSR2' => true,
-        'psr0' => false, // do not enforce psr-0, it rewrites 'namespace Test\' to 'namespace tests\'
         // symfony
         'whitespace_after_comma_in_array' => true,
         'no_empty_statement' => true,
