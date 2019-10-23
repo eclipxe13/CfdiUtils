@@ -28,8 +28,10 @@
 - Change visibility of `CfdiUtils\Cleaner\Cleaner#removeIncompleteSchemaLocation()` to private.
 
 
-## Version **UNRELEASED** 2019-10-23
+## Version 2.12.6 2019-10-23
 
+- Fix `REGFIS01` validation when receiving an RFC with non-ASCII chars (like `Ñ`).
+  It does not validate that the RFC is correct, that validation is on `EMISORRFC01`. 
 - Add installation to documentation.
 - Improve `php-cs-fixer` rules.
 - Fix travis build on PHP version `7.4snapshot`.
