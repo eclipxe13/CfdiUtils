@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\OpenSSL;
 
 use CfdiUtils\Internals\ShellExec;
@@ -46,7 +47,7 @@ class Caller
         );
 
         // eval response
-        if ($callResponse->exitStatus() !== 0) {
+        if (0 !== $callResponse->exitStatus()) {
             throw new OpenSSLCallerException($callResponse);
         }
 

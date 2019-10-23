@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtilsTests\QuickReader;
 
 use CfdiUtils\QuickReader\QuickReader;

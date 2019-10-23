@@ -30,8 +30,10 @@
 
 ## Version **UNRELEASED** 2019-10-23
 
-- Add installation to documentation
-- 
+- Add installation to documentation.
+- Improve `php-cs-fixer` rules.
+- Fix travis build on PHP version `7.4snapshot`.
+
 
 ## Version 2.12.5 2019-10-15
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos;
 
 use CfdiUtils\Nodes\NodeInterface;
@@ -10,6 +11,7 @@ use CfdiUtils\Nodes\NodeInterface;
 class CuentaBeneficiariaProhibida extends AbstractPagoValidator
 {
     protected $code = 'PAGO17';
+
     protected $title = 'En un pago, cuando la forma de pago no sea 02, 03, 04, 05, 28, 29 o 99'
         . ' la cuenta beneficiaria no debe existir (CRP215)';
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtilsTests\Elements\ImpLocal10;
 
 use CfdiUtils\Elements\ImpLocal10\ImpuestosLocales;

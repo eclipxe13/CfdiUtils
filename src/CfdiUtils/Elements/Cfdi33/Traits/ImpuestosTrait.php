@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Elements\Cfdi33\Traits;
 
 use CfdiUtils\Elements\Cfdi33\Impuestos;

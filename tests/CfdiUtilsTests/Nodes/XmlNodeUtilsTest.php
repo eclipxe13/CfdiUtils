@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtilsTests\Nodes;
 
 use CfdiUtils\Nodes\Node;
@@ -75,7 +76,7 @@ class XmlNodeUtilsTest extends TestCase
         $file = $this->utilAsset('xml-with-namespace-definitions-at-child-level.xml');
         $node = XmlNodeUtils::nodeFromXmlString(file_get_contents($file) ?: '');
         $inspected = $node->searchNode('base:Third', 'innerNS');
-        if ($inspected === null) {
+        if (null === $inspected) {
             $this->fail('The specimen does not have the required test case');
             return;
         }

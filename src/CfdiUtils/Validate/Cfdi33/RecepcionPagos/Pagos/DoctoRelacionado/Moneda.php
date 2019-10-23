@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\DoctoRelacionado;
 
 use CfdiUtils\Nodes\NodeInterface;
@@ -9,6 +10,7 @@ use CfdiUtils\Nodes\NodeInterface;
 class Moneda extends AbstractDoctoRelacionadoValidator
 {
     protected $code = 'PAGO23';
+
     protected $title = 'En un documento relacionado, la moneda no puede ser "XXX" (CRP217)';
 
     public function validateDoctoRelacionado(NodeInterface $docto): bool

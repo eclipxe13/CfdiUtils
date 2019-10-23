@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Validate;
 
 use CfdiUtils\Nodes\NodeInterface;
@@ -73,7 +74,7 @@ class MultiValidator implements ValidatorInterface, \Countable, \IteratorAggrega
     private function indexOf(ValidatorInterface $validator): int
     {
         $index = array_search($validator, $this->validators, true);
-        return ($index === false) ? -1 : (int) $index;
+        return (false === $index) ? -1 : (int) $index;
     }
 
     public function remove(ValidatorInterface $validator)

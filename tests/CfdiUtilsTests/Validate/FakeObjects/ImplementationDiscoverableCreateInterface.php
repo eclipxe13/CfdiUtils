@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtilsTests\Validate\FakeObjects;
 
 use CfdiUtils\Validate\Contracts\DiscoverableCreateInterface;

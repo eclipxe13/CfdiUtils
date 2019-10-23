@@ -1,24 +1,33 @@
 <?php
+
 namespace CfdiUtils\Validate\Cfdi33\RecepcionPagos\Helpers;
 
 class FormaPagoEntry
 {
     /** @var string */
     private $key;
+
     /** @var string */
     private $description;
+
     /** @var bool */
     private $allowSenderRfc;
+
     /** @var bool */
     private $allowSenderAccount;
+
     /** @var string */
     private $senderAccountPattern;
+
     /** @var bool */
     private $allowReceiverRfc;
+
     /** @var bool */
     private $allowReceiverAccount;
+
     /** @var string */
     private $receiverAccountPattern;
+
     /** @var bool */
     private $allowPaymentSignature;
 

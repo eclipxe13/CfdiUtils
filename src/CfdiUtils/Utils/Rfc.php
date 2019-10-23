@@ -1,12 +1,15 @@
 <?php
+
 namespace CfdiUtils\Utils;
 
 class Rfc
 {
     const RFC_GENERIC = 'XAXX010101000';
+
     const RFC_FOREIGN = 'XEXX010101000';
 
     const DISALLOW_GENERIC = 1;
+
     const DISALLOW_FOREIGN = 2;
 
     /** @var string */
@@ -37,12 +40,12 @@ class Rfc
 
     public function isPerson(): bool
     {
-        return ($this->length === 13);
+        return (13 === $this->length);
     }
 
     public function isMoral(): bool
     {
-        return ($this->length === 12);
+        return (12 === $this->length);
     }
 
     public function isGeneric(): bool
@@ -142,10 +145,10 @@ class Rfc
     public static function obtainDate(string $rfc): int
     {
         // rfc is multibyte
-        $begin = (mb_strlen($rfc) === 12) ? 3 : 4;
+        $begin = (12 === mb_strlen($rfc)) ? 3 : 4;
         // strdate is not multibyte
         $strdate = strval(mb_substr($rfc, $begin, 6));
-        if (strlen($strdate) !== 6) {
+        if (6 !== strlen($strdate)) {
             return 0;
         }
         $parts = str_split($strdate, 2);

@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils;
 
 use CfdiUtils\CadenaOrigen\DOMBuilder;

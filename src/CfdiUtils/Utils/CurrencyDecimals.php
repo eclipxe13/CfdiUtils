@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Utils;
 
 class CurrencyDecimals

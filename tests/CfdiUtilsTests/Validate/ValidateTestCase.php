@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtilsTests\Validate;
 
 use CfdiUtils\CadenaOrigen\DOMBuilder;

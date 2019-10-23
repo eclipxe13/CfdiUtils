@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Nodes\Node;
@@ -63,6 +64,7 @@ class EmisorRegimenFiscalTest extends ValidateTestCase
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::ok(), 'REGFIS01');
     }
+
     public function providerInvalidCases()
     {
         return [
@@ -75,6 +77,7 @@ class EmisorRegimenFiscalTest extends ValidateTestCase
             [null, null],
         ];
     }
+
     /**
      * @param string $emisorRfc
      * @param string $regimenFiscal

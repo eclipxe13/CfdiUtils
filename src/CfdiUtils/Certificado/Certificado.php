@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Certificado;
 
 use CfdiUtils\OpenSSL\OpenSSL;
@@ -101,7 +102,7 @@ class Certificado
         $decoded = @base64_decode($contents, true) ?: '';
         if ('' !== $decoded && $contents === base64_encode($decoded)) { // is a one liner certificate
             $doubleEncoded = $openssl->readPemContents($decoded)->certificate();
-            if ($doubleEncoded !== '') {
+            if ('' !== $doubleEncoded) {
                 return $doubleEncoded;
             }
             // derCerConvertPhp will include PEM header and footer

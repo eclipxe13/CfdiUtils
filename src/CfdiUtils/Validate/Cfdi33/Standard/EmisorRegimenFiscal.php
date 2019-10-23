@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Nodes\NodeInterface;
@@ -27,8 +28,8 @@ class EmisorRegimenFiscal extends AbstractDiscoverableVersion33
         ];
 
         $length = strlen($emisorRfc);
-        $validation = ($length === 12 && in_array($regimenFiscal, $validMoralCodes, true))
-            || ($length === 13 && in_array($regimenFiscal, $validFisicaCodes, true));
+        $validation = (12 === $length && in_array($regimenFiscal, $validMoralCodes, true))
+            || (13 === $length && in_array($regimenFiscal, $validFisicaCodes, true));
 
         $asserts->put(
             'REGFIS01',

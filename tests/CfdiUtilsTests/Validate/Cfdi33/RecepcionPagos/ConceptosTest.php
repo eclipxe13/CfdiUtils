@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtilsTests\Validate\Cfdi33\RecepcionPagos;
 
 use CfdiUtils\Elements\Cfdi33\Concepto;

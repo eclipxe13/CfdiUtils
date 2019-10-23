@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtilsTests\Cleaner;
 
 use CfdiUtils\Cleaner\Cleaner;

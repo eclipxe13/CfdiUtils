@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos;
 
 use CfdiUtils\Nodes\NodeInterface;
@@ -9,6 +10,7 @@ use CfdiUtils\Nodes\NodeInterface;
 class MonedaPago extends AbstractPagoValidator
 {
     protected $code = 'PAGO04';
+
     protected $title = 'En un pago, la moneda debe existir y no puede ser "XXX" (CRP202)';
 
     public function validatePago(NodeInterface $pago): bool

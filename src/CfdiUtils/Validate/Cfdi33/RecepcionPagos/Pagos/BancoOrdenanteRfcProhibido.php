@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos;
 
 use CfdiUtils\Nodes\NodeInterface;
@@ -9,6 +10,7 @@ use CfdiUtils\Nodes\NodeInterface;
 class BancoOrdenanteRfcProhibido extends AbstractPagoValidator
 {
     protected $code = 'PAGO12';
+
     protected $title = 'En un pago, cuando la forma de pago no sea bancarizada'
         . ' el RFC del banco emisor no debe existir (CRP238)';
 

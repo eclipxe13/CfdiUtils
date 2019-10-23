@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Validate\Cfdi33\Standard\ComprobanteDescuento;
@@ -53,6 +54,7 @@ class ComprobanteDescuentoTest extends ValidateTestCase
             ['-5', '5'],
         ];
     }
+
     /**
      * @param string $descuento
      * @param string $subtotal

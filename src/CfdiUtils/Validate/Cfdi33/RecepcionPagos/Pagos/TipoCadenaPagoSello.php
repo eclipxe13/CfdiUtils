@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos;
 
 use CfdiUtils\Nodes\NodeInterface;
@@ -10,6 +11,7 @@ use CfdiUtils\Nodes\NodeInterface;
 class TipoCadenaPagoSello extends AbstractPagoValidator
 {
     protected $code = 'PAGO22';
+
     protected $title = 'En un pago, si existe el tipo de cadena de pago debe existir'
         . ' el sello del pago  y viceversa (CRP231 y CRP232)';
 

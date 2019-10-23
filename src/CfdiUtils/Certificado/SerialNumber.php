@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Certificado;
 
 use CfdiUtils\Internals\BaseConverter;

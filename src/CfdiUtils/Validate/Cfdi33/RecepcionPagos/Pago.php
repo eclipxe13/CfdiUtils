@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Validate\Cfdi33\RecepcionPagos;
 
 use CfdiUtils\Nodes\NodeInterface;

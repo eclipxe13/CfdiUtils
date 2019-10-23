@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\XmlResolver;
 
 use CfdiUtils\CadenaOrigen\CfdiDefaultLocations;
@@ -21,7 +22,9 @@ class XmlResolver
     private $downloader;
 
     const TYPE_XSD = 'XSD';
+
     const TYPE_XSLT = 'XSLT';
+
     const TYPE_CER = 'CER';
 
     /**

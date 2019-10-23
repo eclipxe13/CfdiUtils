@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos;
 
 use CfdiUtils\Nodes\NodeInterface;
@@ -10,6 +11,7 @@ use CfdiUtils\Validate\Cfdi33\Utils\AssertFechaFormat;
 class Fecha extends AbstractPagoValidator
 {
     protected $code = 'PAGO02';
+
     protected $title = 'En un pago, la fecha debe cumplir con el formato específico';
 
     public function validatePago(NodeInterface $pago): bool

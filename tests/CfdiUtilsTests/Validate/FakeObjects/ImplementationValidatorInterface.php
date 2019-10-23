@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtilsTests\Validate\FakeObjects;
 
 use CfdiUtils\Nodes\NodeInterface;
@@ -9,8 +10,10 @@ class ImplementationValidatorInterface implements ValidatorInterface
 {
     /** @var string */
     public $version = '3.3';
+
     /** @var bool */
     public $onValidateSetMustStop = false;
+
     /** @var bool */
     public $enterValidateMethod = false;
 

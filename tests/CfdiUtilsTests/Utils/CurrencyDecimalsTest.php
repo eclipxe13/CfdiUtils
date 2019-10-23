@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtilsTests\Utils;
 
 use CfdiUtils\Utils\CurrencyDecimals;

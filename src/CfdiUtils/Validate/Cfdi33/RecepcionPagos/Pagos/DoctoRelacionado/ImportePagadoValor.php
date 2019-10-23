@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\DoctoRelacionado;
 
 use CfdiUtils\Nodes\NodeInterface;
@@ -12,6 +13,7 @@ class ImportePagadoValor extends AbstractDoctoRelacionadoValidator
     use CalculateDocumentAmountTrait;
 
     protected $code = 'PAGO27';
+
     protected $title = 'En un documento relacionado, el importe pagado debe ser mayor a cero (CRP223)';
 
     public function validateDoctoRelacionado(NodeInterface $docto): bool

@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\TimbreFiscalDigital;
 
 use CfdiUtils\VersionDiscovery\StaticMethodsCompatTrait;

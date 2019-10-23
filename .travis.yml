@@ -30,6 +30,8 @@ env:
     global:
         - FULL_BUILD_PHP_VERSION="7.3"
         - COVERAGE_FILE=build/coverage-clover.xml
+        - PHP_CS_FIXER_FUTURE_MODE=1
+        - PHP_CS_FIXER_IGNORE_ENV=1
 
 before_script:
     - phpenv config-rm xdebug.ini || true

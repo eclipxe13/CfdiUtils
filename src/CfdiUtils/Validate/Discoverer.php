@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Validate;
 
 use CfdiUtils\Validate\Contracts\DiscoverableCreateInterface as Discoverable;

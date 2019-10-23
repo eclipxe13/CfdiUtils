@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Validate;
 
 class Assert

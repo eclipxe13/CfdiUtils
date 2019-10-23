@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtilsTests\Elements\Pagos10;
 
 use CfdiUtils\Elements\Pagos10\Impuestos;

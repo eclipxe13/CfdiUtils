@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Validate\Cfdi33\Abstracts;
 
 use CfdiUtils\Validate\Contracts\ValidatorInterface;
