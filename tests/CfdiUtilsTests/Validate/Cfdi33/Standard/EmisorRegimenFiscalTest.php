@@ -32,6 +32,7 @@ class EmisorRegimenFiscalTest extends ValidateTestCase
             ['AAA010101AAA', '624'],
             ['AAA010101AAA', '628'],
             ['AAA010101AAA', '607'],
+            ['ÑAA010101AAA', '601'], // with Ñ
             // personas físicas
             ['AAAA010101AAA', '605'],
             ['AAAA010101AAA', '606'],
@@ -46,6 +47,9 @@ class EmisorRegimenFiscalTest extends ValidateTestCase
             ['AAAA010101AAA', '629'],
             ['AAAA010101AAA', '630'],
             ['AAAA010101AAA', '615'],
+            ['ÑAAA010101AAA', '605'], // with Ñ
+            ['AAA010000AAA', '601'], // RFC inválido, regimen válido persona moral
+            ['AAAA010000AAA', '605'], // RFC inválido, regimen válido persona física
         ];
     }
 
