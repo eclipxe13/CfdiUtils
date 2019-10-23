@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos;
 
 use CfdiUtils\Nodes\NodeInterface;
@@ -14,6 +15,7 @@ class MontoGreaterOrEqualThanSumOfDocuments extends AbstractPagoValidator
     use CalculateDocumentAmountTrait;
 
     protected $code = 'PAGO30';
+
     protected $title = 'En un pago, la suma de los valores registrados o predeterminados en el importe pagado'
         . ' de los documentos relacionados debe ser menor o igual que el monto del pago (CRP206)';
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Validate;
 
 class Asserts implements \Countable, \IteratorAggregate
@@ -56,6 +57,7 @@ class Asserts implements \Countable, \IteratorAggregate
     {
         return $this->put($code, null, $status, $explanation);
     }
+
     /**
      * Get and or set the flag that alerts about stop flow
      * Consider this flag as: "Something was found, you chould not continue"
@@ -168,7 +170,7 @@ class Asserts implements \Countable, \IteratorAggregate
     private function indexOf(Assert $assert): string
     {
         $index = array_search($assert, $this->asserts, true);
-        return ($index === false) ? '' : $index;
+        return (false === $index) ? '' : $index;
     }
 
     public function remove(Assert $assert)
@@ -189,7 +191,7 @@ class Asserts implements \Countable, \IteratorAggregate
         $this->asserts = [];
     }
 
-    public function import(Asserts $asserts)
+    public function import(self $asserts)
     {
         foreach ($asserts as $assert) {
             $this->add(clone $assert);

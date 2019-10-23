@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtilsTests\Validate\Cfdi33\RecepcionPagos\Helpers;
 
 use CfdiUtils\Elements\Pagos10\DoctoRelacionado;

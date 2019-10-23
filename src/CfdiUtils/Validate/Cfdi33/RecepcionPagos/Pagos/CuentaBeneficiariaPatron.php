@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos;
 
 use CfdiUtils\Nodes\NodeInterface;
@@ -9,6 +10,7 @@ use CfdiUtils\Nodes\NodeInterface;
 class CuentaBeneficiariaPatron extends AbstractPagoValidator
 {
     protected $code = 'PAGO18';
+
     protected $title = 'En un pago, cuando la cuenta beneficiaria existe'
         . ' debe cumplir con su patrón específico (CRP213)';
 

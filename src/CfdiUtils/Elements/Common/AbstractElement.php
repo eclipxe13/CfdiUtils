@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Elements\Common;
 
 use CfdiUtils\Nodes\Node;

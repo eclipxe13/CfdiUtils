@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Nodes\Node;
@@ -32,12 +33,13 @@ class ReceptorResidenciaFiscal extends AbstractDiscoverableVersion33
             $asserts->put($code, $title);
         }
     }
+
     public function validate(NodeInterface $comprobante, Asserts $asserts)
     {
         $this->registerAsserts($asserts);
 
         $receptor = $comprobante->searchNode('cfdi:Receptor');
-        if ($receptor === null) {
+        if (null === $receptor) {
             $receptor = new Node('cfdi:Receptor');
         }
 
@@ -50,7 +52,7 @@ class ReceptorResidenciaFiscal extends AbstractDiscoverableVersion33
         }
 
         $existsComercioExterior = (null !== $comprobante->searchNode('cfdi:Complemento', 'cce11:ComercioExterior'));
-        $isValidResidenciaFiscal = '' !== $receptor['ResidenciaFiscal'] && $receptor['ResidenciaFiscal'] !== 'MEX';
+        $isValidResidenciaFiscal = '' !== $receptor['ResidenciaFiscal'] && 'MEX' !== $receptor['ResidenciaFiscal'];
         if ($existsComercioExterior) {
             $asserts->putStatus(
                 'RESFISC02',

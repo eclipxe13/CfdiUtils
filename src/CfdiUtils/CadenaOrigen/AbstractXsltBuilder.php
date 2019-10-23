@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\CadenaOrigen;
 
 abstract class AbstractXsltBuilder implements XsltBuilderInterface

@@ -1,9 +1,11 @@
 <?php
+
 namespace CfdiUtils\CadenaOrigen;
 
 class CfdiDefaultLocations
 {
     const XSLT_32 = 'http://www.sat.gob.mx/sitio_internet/cfd/3/cadenaoriginal_3_2/cadenaoriginal_3_2.xslt';
+
     const XSLT_33 = 'http://www.sat.gob.mx/sitio_internet/cfd/3/cadenaoriginal_3_3/cadenaoriginal_3_3.xslt';
 
     public static function location(string $version): string

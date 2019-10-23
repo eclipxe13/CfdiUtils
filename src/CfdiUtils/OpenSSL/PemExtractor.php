@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\OpenSSL;
 
 use CfdiUtils\Internals\NormalizeLineEndingsTrait;

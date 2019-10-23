@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtilsTests\Validate\Cfdi33\RecepcionPagos;
 
 use CfdiUtils\Elements\Pagos10\Pagos;
@@ -114,6 +115,7 @@ class ComprobantePagosTest extends ValidateComplementoPagosTestCase
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::error(), 'PAGCOMP08');
     }
+
     /**
      * @param string|null $input
      * @testWith [""]

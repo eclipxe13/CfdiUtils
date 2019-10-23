@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\ConsultaCfdiSat;
 
 class Config

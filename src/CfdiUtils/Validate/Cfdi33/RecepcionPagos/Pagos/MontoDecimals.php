@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos;
 
 use CfdiUtils\Nodes\NodeInterface;
@@ -9,6 +10,7 @@ use CfdiUtils\Nodes\NodeInterface;
 class MontoDecimals extends AbstractPagoValidator
 {
     protected $code = 'PAGO08';
+
     protected $title = 'En un pago, el monto debe tener hasta la cantidad de decimales que soporte la moneda (CRP208)';
 
     public function validatePago(NodeInterface $pago): bool

@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\SumasConceptos;
 
 use CfdiUtils\Nodes\NodeInterface;
@@ -7,28 +8,40 @@ class SumasConceptos
 {
     /** @var float */
     private $importes = 0.0;
+
     /** @var float */
     private $descuento = 0.0;
+
     /** @var float */
     private $total;
+
     /** @var float */
     private $impuestosTrasladados;
+
     /** @var float */
     private $impuestosRetenidos;
+
     /** @var array */
     private $traslados = [];
+
     /** @var array */
     private $retenciones = [];
+
     /** @var float */
     private $localesImpuestosTrasladados;
+
     /** @var float */
     private $localesImpuestosRetenidos;
+
     /** @var array */
     private $localesTraslados = [];
+
     /** @var array */
     private $localesRetenciones = [];
+
     /** @var int */
     private $precision;
+
     /** @var bool */
     private $foundAnyConceptWithDiscount = false;
 

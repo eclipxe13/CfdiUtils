@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Elements\Pagos10;
 
 use CfdiUtils\Elements\Common\AbstractElement;

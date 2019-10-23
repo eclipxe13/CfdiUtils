@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtilsTests\Internals;
 
 use CfdiUtils\Internals\BaseConverter;

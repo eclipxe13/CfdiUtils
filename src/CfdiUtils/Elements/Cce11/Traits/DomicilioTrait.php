@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Elements\Cce11\Traits;
 
 use CfdiUtils\Elements\Cce11\Domicilio;

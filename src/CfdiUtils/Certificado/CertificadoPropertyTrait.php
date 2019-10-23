@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Certificado;
 
 trait CertificadoPropertyTrait

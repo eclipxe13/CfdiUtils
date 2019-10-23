@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtilsTests\Elements\Retenciones10;
 
 use CfdiUtils\Elements\Retenciones10\Addenda;

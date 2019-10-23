@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos;
 
 use CfdiUtils\Nodes\NodeInterface;
@@ -11,6 +12,7 @@ use CfdiUtils\Utils\Rfc;
 class BancoOrdenanteRfcCorrecto extends AbstractPagoValidator
 {
     protected $code = 'PAGO10';
+
     protected $title = 'En un pago, cuando el RFC del banco emisor de la cuenta ordenante existe'
         . ' debe ser válido y diferente de "XAXX010101000"';
 

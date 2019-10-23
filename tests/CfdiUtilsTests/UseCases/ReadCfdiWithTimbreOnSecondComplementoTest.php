@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtilsTests\UseCases;
 
 use CfdiUtils\CadenaOrigen\CfdiDefaultLocations;

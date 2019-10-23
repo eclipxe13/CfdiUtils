@@ -16,7 +16,7 @@ exit(call_user_func(function (string $command, string ...$arguments): int {
             $clean = true;
             continue;
         }
-        if ($argument === '--no-cache') {
+        if ('--no-cache' === $argument) {
             $noCache = true;
             continue;
         }

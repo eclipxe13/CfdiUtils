@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\QuickReader;
 
 use CfdiUtils\Utils\Xml;

@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtilsTests\Nodes;
 
 use CfdiUtils\Nodes\Attributes;
@@ -191,10 +192,12 @@ class AttributesTest extends TestCase
         $toStringObject = new class('foo') {
             /** @var string */
             private $value;
+
             public function __construct(string $value)
             {
                 $this->value = $value;
             }
+
             public function __toString()
             {
                 return $this->value;

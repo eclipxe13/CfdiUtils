@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Validate\Cfdi33\RecepcionPagos;
 
 use CfdiUtils\Nodes\NodeInterface;
@@ -77,7 +78,7 @@ class ComprobantePagos extends AbstractRecepcionPagos10
         $asserts->put(
             'PAGCOMP10',
             'No se debe registrar el apartado de Impuestos en el CFDI (CRP122)',
-            Status::when($comprobante->searchNodes('cfdi:Impuestos')->count() === 0)
+            Status::when(0 === $comprobante->searchNodes('cfdi:Impuestos')->count())
         );
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Elements\Dividendos10;
 
 use CfdiUtils\Elements\Common\AbstractElement;

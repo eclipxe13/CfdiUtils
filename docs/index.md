@@ -31,6 +31,10 @@ encontrar en el [canal #phpcfdi de discord][discord].
 No olvides visitar <https://www.phpcfdi.com> donde contamos con muchas más librerías relacionadas con
 CFDI y herramientas del SAT. Y próximamente el lugar donde publicaremos la versión `3.y.z`.
 
+## Instalación
+
+- [Instalación de CfdiUtils](instalar/instalacion.md)
+
 ## Lectura de CFDI
 
 La librería ofrece métodos para leer CFDI versión 3.2 y 3.3.

@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtilsTests\Elements\Dividendos10;
 
 use CfdiUtils\Elements\Dividendos10\DividOUtil;

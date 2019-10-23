@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtilsTests\OpenSSL;
 
 use CfdiUtils\OpenSSL\OpenSSL;

@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtilsTests\Elements\PagosAExtranjeros10;
 
 use CfdiUtils\Elements\PagosAExtranjeros10\Beneficiario;

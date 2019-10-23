@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\OpenSSL;
 
 use CfdiUtils\Internals\NormalizeLineEndingsTrait;
@@ -207,7 +208,7 @@ class OpenSSL
         if (is_dir($path)) {
             throw new OpenSSLException("File $path is a directory");
         }
-        if (filesize($path) === 0) {
+        if (0 === filesize($path)) {
             throw new OpenSSLException("File $path is empty");
         }
     }

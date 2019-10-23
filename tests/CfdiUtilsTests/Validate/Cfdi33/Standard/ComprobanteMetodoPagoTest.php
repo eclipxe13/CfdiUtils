@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Validate\Cfdi33\Standard\ComprobanteMetodoPago;
@@ -87,6 +88,7 @@ class ComprobanteMetodoPagoTest extends ValidateTestCase
             ['X', ''],
         ];
     }
+
     /**
      * @param mixed $tipoDeComprobante
      * @param string $metodoDePago

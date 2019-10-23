@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Validate;
 
 /**
@@ -8,8 +9,11 @@ namespace CfdiUtils\Validate;
 class Status
 {
     const STATUS_ERROR = 'ERROR';
+
     const STATUS_WARNING = 'WARN';
+
     const STATUS_NONE = 'NONE';
+
     const STATUS_OK = 'OK';
 
     const ORDER_MAP = [
@@ -24,69 +28,69 @@ class Status
     public function __construct(string $value)
     {
         // using values as keys for speed access
-        if ($value !== self::STATUS_ERROR && $value !== self::STATUS_WARNING
-            && $value !== self::STATUS_OK && $value !== self::STATUS_NONE) {
+        if (self::STATUS_ERROR !== $value && self::STATUS_WARNING !== $value
+            && self::STATUS_OK !== $value && self::STATUS_NONE !== $value) {
             throw new \UnexpectedValueException('The status is not one of the defined valid constants');
         }
         $this->status = $value;
     }
 
-    public static function ok(): Status
+    public static function ok(): self
     {
         return new self(self::STATUS_OK);
     }
 
-    public static function error(): Status
+    public static function error(): self
     {
         return new self(self::STATUS_ERROR);
     }
 
-    public static function warn(): Status
+    public static function warn(): self
     {
         return new self(self::STATUS_WARNING);
     }
 
-    public static function none(): Status
+    public static function none(): self
     {
         return new self(self::STATUS_NONE);
     }
 
     public function isError(): bool
     {
-        return $this->status === self::STATUS_ERROR;
+        return self::STATUS_ERROR === $this->status;
     }
 
     public function isWarning(): bool
     {
-        return $this->status === self::STATUS_WARNING;
+        return self::STATUS_WARNING === $this->status;
     }
 
     public function isOk(): bool
     {
-        return $this->status === self::STATUS_OK;
+        return self::STATUS_OK === $this->status;
     }
 
     public function isNone(): bool
     {
-        return $this->status === self::STATUS_NONE;
+        return self::STATUS_NONE === $this->status;
     }
 
-    public static function when(bool $condition, Status $errorStatus = null): Status
+    public static function when(bool $condition, self $errorStatus = null): self
     {
         return ($condition) ? self::ok() : ($errorStatus ? : self::error());
     }
 
-    public function equalsTo(Status $status): bool
+    public function equalsTo(self $status): bool
     {
         return ($status->status === $this->status);
     }
 
-    public function compareTo(Status $status): int
+    public function compareTo(self $status): int
     {
         return $this->comparableValue($this) <=> $this->comparableValue($status);
     }
 
-    public static function comparableValue(Status $status)
+    public static function comparableValue(self $status)
     {
         return self::ORDER_MAP[$status->status];
     }

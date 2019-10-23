@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Elements\Cfdi33;
 
 class ConceptoImpuestos extends Impuestos

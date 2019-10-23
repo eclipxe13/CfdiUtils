@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\DoctoRelacionado;
 
 use CfdiUtils\Nodes\NodeInterface;
@@ -10,6 +11,7 @@ use CfdiUtils\Nodes\NodeInterface;
 class ImportesDecimales extends AbstractDoctoRelacionadoValidator
 {
     protected $code = 'PAGO29';
+
     protected $title = 'En un documento relacionado, los importes de importe pagado, saldo anterior y saldo insoluto'
         . ' deben tener hasta la cantidad de decimales que soporte la moneda (CRP222, CRP224, CRP225)';
 

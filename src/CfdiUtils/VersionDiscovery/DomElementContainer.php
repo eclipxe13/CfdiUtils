@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\VersionDiscovery;
 
 use DOMElement;

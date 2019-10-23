@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtilsTests\ConsultaCfdiSat;
 
 use CfdiUtils\Cfdi;

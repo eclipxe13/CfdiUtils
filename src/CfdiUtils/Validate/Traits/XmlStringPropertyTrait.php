@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Validate\Traits;
 
 trait XmlStringPropertyTrait

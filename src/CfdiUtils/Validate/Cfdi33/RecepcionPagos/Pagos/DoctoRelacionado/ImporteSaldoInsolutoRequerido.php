@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\DoctoRelacionado;
 
 use CfdiUtils\Nodes\NodeInterface;
@@ -10,6 +11,7 @@ use CfdiUtils\Nodes\NodeInterface;
 class ImporteSaldoInsolutoRequerido extends AbstractDoctoRelacionadoValidator
 {
     protected $code = 'PAGO33';
+
     protected $title = 'En un documento relacionado, el saldo insoluto es requerido cuando'
         . ' el tipo de cambio existe o existe más de un documento relacionado (CRP233)';
 

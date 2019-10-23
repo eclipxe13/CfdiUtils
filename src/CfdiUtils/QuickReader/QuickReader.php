@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\QuickReader;
 
 class QuickReader extends \stdClass implements \ArrayAccess
@@ -24,7 +25,7 @@ class QuickReader extends \stdClass implements \ArrayAccess
             throw new \LogicException('Property name cannot be empty');
         }
         foreach ($attributes as $key => $value) {
-            if (! is_string($key) || $key === '') {
+            if (! is_string($key) || '' === $key) {
                 throw new \LogicException('There is an attibute with empty or non string name');
             }
             if (! is_string($value)) {
@@ -55,7 +56,7 @@ class QuickReader extends \stdClass implements \ArrayAccess
         if ('' === $name) {
             return $this->children;
         }
-        return array_filter($this->children, function (QuickReader $item) use ($name) {
+        return array_filter($this->children, function (self $item) use ($name) {
             return $this->namesAreEqual($name, (string) $item);
         });
     }

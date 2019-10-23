@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtilsTests\Certificado;
 
 use CfdiUtils\Certificado\Certificado;

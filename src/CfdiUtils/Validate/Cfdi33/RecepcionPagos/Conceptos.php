@@ -1,4 +1,5 @@
 <?php
+
 namespace CfdiUtils\Validate\Cfdi33\RecepcionPagos;
 
 use CfdiUtils\Nodes\NodeInterface;
@@ -16,10 +17,15 @@ use CfdiUtils\Validate\Status;
 class Conceptos extends AbstractRecepcionPagos10
 {
     const REQUIRED_CLAVEPRODSERV = '84111506';
+
     const REQUIRED_CANTIDAD = '1';
+
     const REQUIRED_CLAVEUNIDAD = 'ACT';
+
     const REQUIRED_DESCRIPCION = 'Pago';
+
     const REQUIRED_VALORUNITARIO = '0';
+
     const REQUIRED_IMPORTE = '0';
 
     public function validateRecepcionPagos(NodeInterface $comprobante, Asserts $asserts)
