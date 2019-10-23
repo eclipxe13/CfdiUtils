@@ -103,10 +103,10 @@ and licensed for use under the MIT License (MIT). Please see [LICENSE][] for mor
 [badge-source]: http://img.shields.io/badge/source-eclipxe13/CfdiUtils-blue?logo=github&style=flat-square
 [badge-documentation]: https://img.shields.io/readthedocs/cfdiutils/stable?logo=read-the-docs&style=flat-square
 [badge-discord]: https://img.shields.io/discord/459860554090283019?logo=discord&style=flat-square
-[badge-release]: https://img.shields.io/github/release/eclipxe13/CfdiUtils?style=flat-square
-[badge-license]: https://img.shields.io/github/license/eclipxe13/CfdiUtils?style=flat-square
+[badge-release]: https://img.shields.io/github/release/eclipxe13/CfdiUtils?logo=git&style=flat-square
+[badge-license]: https://img.shields.io/github/license/eclipxe13/CfdiUtils?logo=open-source-initiative&style=flat-square
 [badge-build]: https://img.shields.io/travis/eclipxe13/CfdiUtils/master?logo=travis&style=flat-square
 [badge-appveyor]: https://img.shields.io/appveyor/ci/eclipxe13/cfdiutils/master?logo=appveyor&style=flat-square
 [badge-quality]: https://img.shields.io/scrutinizer/g/eclipxe13/CfdiUtils/master?logo=scrutinizer-ci&style=flat-square
 [badge-coverage]: https://img.shields.io/scrutinizer/coverage/g/eclipxe13/CfdiUtils/master?logo=scrutinizer-ci&style=flat-square
-[badge-downloads]: https://img.shields.io/packagist/dt/eclipxe/CfdiUtils?style=flat-square
+[badge-downloads]: https://img.shields.io/packagist/dt/eclipxe/CfdiUtils?logo=composer&style=flat-square
