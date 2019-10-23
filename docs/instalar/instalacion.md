@@ -3,7 +3,7 @@
 Para instalar `eclipxe/cfdiutils` es necesario usar el administrador de paquetes
 [`composer`](https://getcomposer.org).
 
-```shell script
+```shell
 composer require eclipxe/cfdiutils
 ```
 
@@ -32,7 +32,7 @@ Lo que encontrarás en `vendor/eclipxe/cfdiutils/` es:
 
 Si tu proyecto no utiliza composer, te puede convenir usar este truco:
 
-```shell script
+```shell
 cd mi_proyecto
 mkdir cfdiutils
 cd cfdiutils
