@@ -7,6 +7,8 @@ theme:
 
 nav:
     - "CfdiUtils": "index.md"
+    - "Instalación":
+        - instalar/instalacion.md
     - "Lectura":
         - leer/leer-cfdi.md
         - leer/quickreader.md

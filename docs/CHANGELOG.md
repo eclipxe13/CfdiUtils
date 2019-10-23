@@ -28,6 +28,11 @@
 - Change visibility of `CfdiUtils\Cleaner\Cleaner#removeIncompleteSchemaLocation()` to private.
 
 
+## Version **UNRELEASED** 2019-10-23
+
+- Add installation to documentation
+- 
+
 ## Version 2.12.5 2019-10-15
 
 - Fix bug when creating a `Certificado` object and PEM content's length is less than 2000 bytes.
