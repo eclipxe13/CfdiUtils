@@ -32,7 +32,7 @@ init:
 install:
     # downgrade chocolatey to 0.10.13, otherwise versions query are not working
     # see https://github.com/chocolatey/choco/issues/1843
-    - choco install chocolatey --yes --version 0.10.13 --allow-downgrade --no-progress
+    - choco install chocolatey --yes --version 0.10.13 --allow-downgrade --no-progress --force
     # check chocolatey sources and version
     - choco source list
     # check openssl exists and run from PATH
