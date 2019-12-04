@@ -41,7 +41,7 @@ install:
     - ps: |
           Write-Host "PHP build version: $Env:php"
           # Get current version of php (if any)
-          $current_version = ""
+          [string]$current_version = ""
           if (Test-Path c:\tools\php\php.exe) {
               [string]$current_version = php -r "printf('%s.%s.%s', PHP_MAJOR_VERSION, PHP_MINOR_VERSION, PHP_RELEASE_VERSION);"
               Write-Host "PHP current version: $current_version"
@@ -77,17 +77,18 @@ install:
           # setup c:\tools\php\php.ini
           if (Test-Path c:\tools\php\php.ini-production) {
               Copy-Item -Path c:\tools\php\php.ini-production -Destination c:\tools\php\php.ini
+              [string]$php_ext_prefix=$(if ($Env:php -lt "7.2") {"php_"} else {""})
               Add-Content c:\tools\php\php.ini "`
                   `n; PHP Custom config `
                   date.timezone=UTC `
                   extension_dir=ext `
                   memory_limit=1G `
-                  extension=openssl `
-                  extension=mbstring `
-                  extension=fileinfo `
-                  extension=curl `
-                  extension=xsl `
-                  extension=soap `
+                  extension=${php_ext_prefix}openssl `
+                  extension=${php_ext_prefix}mbstring `
+                  extension=${php_ext_prefix}fileinfo `
+                  extension=${php_ext_prefix}curl `
+                  extension=${php_ext_prefix}xsl `
+                  extension=${php_ext_prefix}soap `
                   "
           }
 
