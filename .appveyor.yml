@@ -47,7 +47,7 @@ install:
           }
 
           # Get latest available version for php environment variable
-          $php_install_version = (( `
+          [string]$php_install_version = (( `
               choco search php --all-versions --limit-output `
                   | Select-String -Pattern "php|$Env:php" -SimpleMatch `
                   | Sort-Object { [version]($_ -Split '\|' | Select-Object -Last 1) } -Descending `
