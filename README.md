@@ -69,7 +69,7 @@ This library is compatible with PHP versions 7.0 and above.
 Please, try to use the full potential of the language like type declarations.
 
 The intented support is to be aligned with oldest *Active support* PHP Branch.
-See <http://php.net/supported-versions.php> for more details.
+See <https://www.php.net/supported-versions.php> for more details.
 
 
 ## Contributing
@@ -100,7 +100,7 @@ and licensed for use under the MIT License (MIT). Please see [LICENSE][] for mor
 [coverage]: https://scrutinizer-ci.com/g/eclipxe13/CfdiUtils/code-structure/master/code-coverage/src/CfdiUtils/
 [downloads]: https://packagist.org/packages/eclipxe/CfdiUtils
 
-[badge-source]: http://img.shields.io/badge/source-eclipxe13/CfdiUtils-blue?logo=github&style=flat-square
+[badge-source]: https://img.shields.io/badge/source-eclipxe13/CfdiUtils-blue?logo=github&style=flat-square
 [badge-documentation]: https://img.shields.io/readthedocs/cfdiutils/stable?logo=read-the-docs&style=flat-square
 [badge-discord]: https://img.shields.io/discord/459860554090283019?logo=discord&style=flat-square
 [badge-release]: https://img.shields.io/github/release/eclipxe13/CfdiUtils?logo=git&style=flat-square
