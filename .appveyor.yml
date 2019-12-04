@@ -82,12 +82,12 @@ install:
                   date.timezone=UTC `
                   extension_dir=ext `
                   memory_limit=1G `
-                  extension=php_openssl `
-                  extension=php_mbstring `
-                  extension=php_fileinfo `
-                  extension=php_curl `
-                  extension=php_xsl `
-                  extension=php_soap `
+                  extension=openssl `
+                  extension=mbstring `
+                  extension=fileinfo `
+                  extension=curl `
+                  extension=xsl `
+                  extension=soap `
                   "
           }
 
