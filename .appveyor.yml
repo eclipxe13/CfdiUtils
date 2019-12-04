@@ -32,7 +32,7 @@ init:
 install:
     # downgrade chocolatey to 0.10.13, otherwise versions query are not working
     # see https://github.com/chocolatey/choco/issues/1843
-    - choco install chocolatey --yes --version 0.10.13 --allow-downgrade
+    - choco install chocolatey --yes --version 0.10.13 --allow-downgrade --no-progress
     # check chocolatey sources and version
     - choco source list
     # check openssl exists and run from PATH
@@ -67,11 +67,11 @@ install:
           if (! ($current_version -eq $php_install_version)) {
               # uninstall if previous version exists
               if (! ($current_version -eq "")) {
-                  choco uninstall php --yes --force --ignore-package-exit-codes --ignore-autouninstaller-failure
+                  choco uninstall php --yes --force --ignore-package-exit-codes --ignore-autouninstaller-failure --no-progress
               }
               # install php on C:\tools\php
               appveyor-retry choco install --ignore-checksums --params='""/InstallDir:C:\tools\php""' `
-                  php --version $php_install_version --yes
+                  php --version $php_install_version --yes --no-progress
           }
 
           # setup c:\tools\php\php.ini
@@ -111,7 +111,7 @@ install:
     # saxonb
     - ps: |
           if (! (Test-Path ${Env:saxonb-path})) {
-              appveyor-retry choco install --ignore-checksums --yes saxonhe
+              appveyor-retry choco install --ignore-checksums --yes saxonhe --no-progress
           }
 
     # install project dependences and list available tools
