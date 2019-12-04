@@ -29,7 +29,7 @@ class SerialNumber
 
     public function loadDecimal(string $decString)
     {
-        if (0 === strpos($decString, '0x') || 0 === strpos($decString, '0X')) {
+        if (0 === strcasecmp('0x', substr($decString, 0, 2))) {
             $hexString = substr($decString, 2);
         } else {
             $hexString = BaseConverter::createBase36()->convert($decString, 10, 16);
