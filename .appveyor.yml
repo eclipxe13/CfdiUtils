@@ -30,6 +30,9 @@ init:
 
 ## Check for openssl, install php using version environment, install
 install:
+    # downgrade chocolatey to 0.10.13, otherwise versions query are not working
+    # see https://github.com/chocolatey/choco/issues/1843
+    - choco install chocolatey --yes --version 0.10.13 --allow-downgrade
     # check chocolatey sources and version
     - choco source list
     # check openssl exists and run from PATH
@@ -48,7 +51,7 @@ install:
 
           # Get latest available version for php environment variable
           [string]$php_install_version = (( `
-              choco search php --all-versions --limit-output `
+              choco search php --exact --all-versions --limit-output `
                   | Select-String -Pattern "php|$Env:php" -SimpleMatch `
                   | Sort-Object { [version]($_ -Split '\|' | Select-Object -Last 1) } -Descending `
                   | Select-Object -First 1 `
@@ -56,7 +59,7 @@ install:
           Write-Host "PHP available version: $php_install_version"
           if ($php_install_version -eq "") {
               Write-Host "Unable to find a chocolatey php package version for PHP $env:php"
-              choco search php --all-versions --limit-output | Select-String -Pattern "php|$Env:php" -SimpleMatch
+              choco search php --exact --all-versions --limit-output | Select-String -Pattern "php|$Env:php" -SimpleMatch
               Exit 1
           }
 
