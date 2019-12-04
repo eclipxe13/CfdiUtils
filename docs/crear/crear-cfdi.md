@@ -154,16 +154,7 @@ Este es un ejemplo para la obtener la URL directamente de un contenido XML.
 ```php
 $xmlContents = '<cfdi:Comprobante Version="3.3">...</cfdi:Comprobante>';
 $cfdi = \CfdiUtils\Cfdi::newFromString($xmlContents);
-$comprobante = $cfdi->getNode(); // Nodo de trabajo del nodo cfdi:Comprobante
-
-$parameters = new RequestParameters(
-    $comprobante['Version'],
-    $comprobante->searchAttribute('cfdi:Emisor', 'Rfc'),
-    $comprobante->searchAttribute('cfdi:Receptor', 'Rfc'),
-    $comprobante['Total'],
-    $comprobante->searchAttribute('cfdi:Complemento', 'tfd:TimbreFiscalDigital', 'UUID'),
-    $comprobante['Sello']
-);
+$parameters = \CfdiUtils\ConsultaCfdiSat\RequestParameters::createFromCfdi($cfdi);
 
 echo $parameters->expression(); // https://verificacfdi.facturaelectronica.sat.gob.mx/...
 ```
