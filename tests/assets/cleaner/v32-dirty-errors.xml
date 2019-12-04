@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante xmlns="http://www.sat.gob.mx/cfd/3" xmlns:cfdi="http://www.sat.gob.mx/cfd/3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:add="http://example.org/add" xmlns:xyz="http://example.org/xyz"
+  xmlns:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd http://example.org/add   http://example.org/xsd/add.xsd  http://www.sat.gob.mx/orphan1 http://www.sat.gob.mx/orphan2 http://example.org/xyz http://example.org/xsd/xyz.xsd http://www.sat.gob.mx/orphan3"
+  version="3.2">
+<cfdi:Addenda>
+    <ext:ElementosExtra xmlns:ext="http://example.com/xsd/ext">
+        <ext:Conector>1590115</ext:Conector>
+        <ext:tipoDocumento>FACTURA</ext:tipoDocumento>
+        <ext:periodo>MARZO 2016</ext:periodo>
+    </ext:ElementosExtra>
+    <abc:Sample xmlns:abc="http://example.com/xsd/abc" xsi:schemaLocation="http://example.com/xsd/abc http://example.com/xsd/abc.xsd" x="1"/>
+</cfdi:Addenda>
+<cfdi:Complemento>
+    <tfd:TimbreFiscalDigital xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" xsi:schemaLocation="http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/sitio_internet/cfd/TimbreFiscalDigital/TimbreFiscalDigital.xsd" version="1.0"/>
+    <add:point x="1" y="2" add:removed="Check if this attributte is removed"/>
+</cfdi:Complemento>
+</cfdi:Comprobante>

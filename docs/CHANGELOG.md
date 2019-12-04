@@ -28,6 +28,23 @@
 - Change visibility of `CfdiUtils\Cleaner\Cleaner#removeIncompleteSchemaLocation()` to private.
 
 
+## Version 2.12.7 2019-12-04
+
+- Add 2 new default cleans, before loading the CFDI as XML DOM Document:
+    - Change invalid `xmlns:schemaLocation` to `xsi:schemaLocation`. SAT uses to create *"valid"* CFDI with this error.
+    - Remove `xmlns="http://www.sat.gob.mx/cfd/3"` when also `xmlns:cfdi="http://www.sat.gob.mx/cfd/3"` is found.
+- Improve `SerialNumber` to use `map + impode` instead of concatenation.
+- Improve `SerialNumber` to `substr` instead of `strpos` to check if a string start with text.
+- (DOC) Add cleaner notes and example about clean before load.
+- (DOC) Simplify example on `RequestParameters` usage.
+- (DEV) Add support for PHP 7.4 on Travis-CI
+- (DEV) Add support for PHP 7.4 on AppVeyor
+    - Downgrade `chocolatey` to 0.10.13
+    - Add `--no-progress` to `choco` commands
+    - Setup extensions declared without prefix `php_` on PHP versions lower than 7.2
+    - Add `PHP_CS_FIXER` environment variables
+
+
 ## Version 2.12.6 2019-10-23
 
 - Fix `REGFIS01` validation when receiving an RFC with non-ASCII chars (like `Ñ`).

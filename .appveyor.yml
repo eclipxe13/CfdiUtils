@@ -18,15 +18,21 @@ environment:
         - php: 7.1
         - php: 7.2
         - php: 7.3
+        - php: 7.4
 
 init:
     - SET PATH=c:\tools\php;C:\tools\composer;C:\OpenSSL-v111-Win64\bin;%PATH%
     - SET COMPOSER_NO_INTERACTION=1
     - SET ANSICON="121x90 (121x90)"
     - SET saxonb-path=C:\ProgramData\chocolatey\bin\SaxonHE\bin\Transform.exe
+    - SET PHP_CS_FIXER_FUTURE_MODE=1
+    - SET PHP_CS_FIXER_IGNORE_ENV=1
 
 ## Check for openssl, install php using version environment, install
 install:
+    # downgrade chocolatey to 0.10.13, otherwise versions query are not working
+    # see https://github.com/chocolatey/choco/issues/1843
+    - choco install chocolatey --yes --version 0.10.13 --allow-downgrade --no-progress --force
     # check chocolatey sources and version
     - choco source list
     # check openssl exists and run from PATH
@@ -35,7 +41,7 @@ install:
     - ps: |
           Write-Host "PHP build version: $Env:php"
           # Get current version of php (if any)
-          $current_version = ""
+          [string]$current_version = ""
           if (Test-Path c:\tools\php\php.exe) {
               [string]$current_version = php -r "printf('%s.%s.%s', PHP_MAJOR_VERSION, PHP_MINOR_VERSION, PHP_RELEASE_VERSION);"
               Write-Host "PHP current version: $current_version"
@@ -44,8 +50,8 @@ install:
           }
 
           # Get latest available version for php environment variable
-          $php_install_version = (( `
-              choco search php --all-versions --limit-output `
+          [string]$php_install_version = (( `
+              choco search php --exact --all-versions --limit-output `
                   | Select-String -Pattern "php|$Env:php" -SimpleMatch `
                   | Sort-Object { [version]($_ -Split '\|' | Select-Object -Last 1) } -Descending `
                   | Select-Object -First 1 `
@@ -53,7 +59,7 @@ install:
           Write-Host "PHP available version: $php_install_version"
           if ($php_install_version -eq "") {
               Write-Host "Unable to find a chocolatey php package version for PHP $env:php"
-              choco search php --all-versions --limit-output | Select-String -Pattern "php|$Env:php" -SimpleMatch
+              choco search php --exact --all-versions --limit-output | Select-String -Pattern "php|$Env:php" -SimpleMatch
               Exit 1
           }
 
@@ -61,27 +67,28 @@ install:
           if (! ($current_version -eq $php_install_version)) {
               # uninstall if previous version exists
               if (! ($current_version -eq "")) {
-                  choco uninstall php --yes --force --ignore-package-exit-codes --ignore-autouninstaller-failure
+                  choco uninstall php --yes --force --ignore-package-exit-codes --ignore-autouninstaller-failure --no-progress
               }
               # install php on C:\tools\php
               appveyor-retry choco install --ignore-checksums --params='""/InstallDir:C:\tools\php""' `
-                  php --version $php_install_version --yes
+                  php --version $php_install_version --yes --no-progress
           }
 
           # setup c:\tools\php\php.ini
           if (Test-Path c:\tools\php\php.ini-production) {
               Copy-Item -Path c:\tools\php\php.ini-production -Destination c:\tools\php\php.ini
+              [string]$php_ext_prefix=$(if ($Env:php -lt "7.2") {"php_"} else {""})
               Add-Content c:\tools\php\php.ini "`
                   `n; PHP Custom config `
                   date.timezone=UTC `
                   extension_dir=ext `
                   memory_limit=1G `
-                  extension=php_openssl `
-                  extension=php_mbstring `
-                  extension=php_fileinfo `
-                  extension=php_curl `
-                  extension=php_xsl `
-                  extension=php_soap `
+                  extension=${php_ext_prefix}openssl `
+                  extension=${php_ext_prefix}mbstring `
+                  extension=${php_ext_prefix}fileinfo `
+                  extension=${php_ext_prefix}curl `
+                  extension=${php_ext_prefix}xsl `
+                  extension=${php_ext_prefix}soap `
                   "
           }
 
@@ -104,7 +111,7 @@ install:
     # saxonb
     - ps: |
           if (! (Test-Path ${Env:saxonb-path})) {
-              appveyor-retry choco install --ignore-checksums --yes saxonhe
+              appveyor-retry choco install --ignore-checksums --yes saxonhe --no-progress
           }
 
     # install project dependences and list available tools

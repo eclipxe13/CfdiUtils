@@ -7,7 +7,7 @@ use CfdiUtils\XmlResolver\XmlResolver;
 use XmlResourceRetriever\Downloader\DownloaderInterface;
 use XmlResourceRetriever\Downloader\PhpDownloader;
 
-class TestCase extends \PHPUnit\Framework\TestCase
+abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
     public static function utilAsset(string $file)
     {
