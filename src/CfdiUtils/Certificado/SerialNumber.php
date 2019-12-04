@@ -59,16 +59,16 @@ class SerialNumber
 
     protected function hexToAscii(string $input): string
     {
-        return array_reduce(str_split($input, 2), function (string $carry, string $value): string {
-            return $carry . chr(intval(hexdec($value)));
-        }, '');
+        return implode('', array_map(function (string $value): string {
+            return chr(intval(hexdec($value)));
+        }, str_split($input, 2)));
     }
 
     protected function asciiToHex(string $input): string
     {
-        return array_reduce(str_split($input, 1), function (string $carry, string $value): string {
-            return $carry . dechex(ord($value));
-        }, '');
+        return implode('', array_map(function (string $value): string {
+            return dechex(ord($value));
+        }, str_split($input, 1)));
     }
 
     /**
