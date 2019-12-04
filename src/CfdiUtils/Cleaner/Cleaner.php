@@ -3,6 +3,7 @@
 namespace CfdiUtils\Cleaner;
 
 use CfdiUtils\Cfdi;
+use CfdiUtils\Cleaner\BeforeLoad\BeforeLoadCleanerInterface;
 use CfdiUtils\Utils\SchemaLocations;
 use CfdiUtils\Utils\Xml;
 use DOMAttr;
@@ -27,8 +28,12 @@ class Cleaner
     /** @var DOMDocument|null */
     protected $dom;
 
-    public function __construct(string $content)
+    /** @var BeforeLoadCleanerInterface */
+    private $beforeLoadCleaner;
+
+    public function __construct(string $content, BeforeLoadCleanerInterface $beforeLoadCleaner = null)
     {
+        $this->beforeLoadCleaner = $beforeLoadCleaner ?? new BeforeLoad\BeforeLoadCleaner();
         if ('' !== $content) {
             $this->load($content);
         }
@@ -104,6 +109,7 @@ class Cleaner
     public function load(string $content)
     {
         try {
+            $content = $this->beforeLoadCleaner->clean($content);
             $cfdi = Cfdi::newFromString($content);
         } catch (\Throwable $exception) {
             throw new CleanerException($exception->getMessage(), $exception->getCode(), $exception->getPrevious());

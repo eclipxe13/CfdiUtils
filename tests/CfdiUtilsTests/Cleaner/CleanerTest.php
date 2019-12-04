@@ -65,6 +65,18 @@ class CleanerTest extends TestCase
         $this->assertInstanceOf(Cleaner::class, $cleaner, 'Cleaner created with minimum compatibility');
     }
 
+    public function testLoadWithDefaultBeforeLoadCleaner()
+    {
+        $withErrors = $this->utilAsset('cleaner/v32-dirty-errors.xml');
+        $justDirty = $this->utilAsset('cleaner/v32-dirty.xml');
+        $cleaner = new Cleaner(strval(file_get_contents($withErrors)));
+        $this->assertXmlStringEqualsXmlFile(
+            $justDirty,
+            $cleaner->retrieveXml(),
+            'Compare that the document was cleaned before load'
+        );
+    }
+
     public function testCleanOnDetail()
     {
         $basefile = $this->utilAsset('cleaner/v32-dirty.xml');
