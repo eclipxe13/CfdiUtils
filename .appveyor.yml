@@ -127,4 +127,4 @@ test_script:
     - vendor\bin\php-cs-fixer.bat fix --dry-run --verbose
     - if "%php%"=="7.0" vendor\bin\phpunit.bat --verbose
     - if not "%php%"=="7.0" vendor\bin\phpunit.bat --testdox --verbose
-    - if "%php%"=="7.3" vendor\bin\phpstan.phar.bat --no-progress analyse --level max src tests
+    - if "%php%"=="7.3" vendor\bin\phpstan.bat analyse --no-progress --level max src/ tests/

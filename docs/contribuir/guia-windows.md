@@ -63,7 +63,7 @@ vendor\bin\php-cs-fixer fix --verbose
 vendor\bin\phpunit
 
 :: ejecutar el analizador el analizador estático
-vendor\bin\phpstan.phar.bat --no-progress analyse --level max src tests
+vendor\bin\phpstan.bat --no-progress analyse --level max src tests
 ```
 
 Lamentablemente no se puede ejecutar `composer dev:build` o alguno de los comandos personalizados
