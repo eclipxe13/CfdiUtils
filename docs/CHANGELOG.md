@@ -28,6 +28,13 @@
 - Change visibility of `CfdiUtils\Cleaner\Cleaner#removeIncompleteSchemaLocation()` to private.
 
 
+## Version 2.12.8 2020-01-07
+
+- Change License year to 2020.
+- Change running dependence of `symfony/process` to allow version `^0.5`
+- Change development dependence `phpstan/phpstan-shim` to `phpstan/phpstan` (versions `^0.9` to `^0.11`)
+
+
 ## Version 2.12.7 2019-12-04
 
 - Add 2 new default cleans, before loading the CFDI as XML DOM Document:
