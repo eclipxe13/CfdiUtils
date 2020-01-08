@@ -34,7 +34,7 @@
         "ext-soap": "*",
         "ext-iconv": "*",
         "ext-json": "*",
-        "symfony/process": "^3.4|^4.2",
+        "symfony/process": "^3.4|^4.2|^5.0",
         "eclipxe/xmlresourceretriever": "^1.3.0",
         "eclipxe/xmlschemavalidator": "^2.0.2"
     },
@@ -47,7 +47,7 @@
         "overtrue/phplint": "^1.0",
         "squizlabs/php_codesniffer": "^3.0",
         "friendsofphp/php-cs-fixer": "^2.4",
-        "phpstan/phpstan-shim": ">=0.9"
+        "phpstan/phpstan": "^0.9|^0.10|^0.11"
     },
     "autoload": {
         "psr-4": {
@@ -81,7 +81,7 @@
             "vendor/bin/phplint",
             "@dev:check-style",
             "vendor/bin/phpunit --testdox --verbose --stop-on-failure",
-            "vendor/bin/phpstan.phar analyse --no-progress --level max src/ tests/"
+            "vendor/bin/phpstan analyse --no-progress --level max src/ tests/"
         ],
         "dev:coverage": [
             "@php -dzend_extension=xdebug.so vendor/bin/phpunit --coverage-text --coverage-html build/coverage/html/"

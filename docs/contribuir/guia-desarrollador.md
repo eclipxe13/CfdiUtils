@@ -63,7 +63,7 @@ vendor/bin/phpunit
 También ejecutamos PHPStan sobre archivos de orígenes y pruebas
 
 ```shell
-vendor/bin/phpstan.phar analyse --level max src/ tests/
+vendor/bin/phpstan analyse --level max src/ tests/
 ```
 
 
