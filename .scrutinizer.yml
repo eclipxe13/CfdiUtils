@@ -8,6 +8,10 @@ tools:
         timeout: 600 # default is 300 seconds, travis build can take more than that
 
 build:
+    dependencies:
+        override:
+            - composer self-update --no-interaction --no-progress
+            - composer install --no-interaction
     nodes:
         analysis:
             tests:
