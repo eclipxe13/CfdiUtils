@@ -29,7 +29,6 @@ before_script:
     - travis_retry pip install --user mkdocs
 
 script:
-    - vendor/bin/phplint
     - vendor/bin/phpcs -sp src/ tests/
     - vendor/bin/php-cs-fixer fix --using-cache=no --dry-run --verbose
     - | # create code coverage file

@@ -88,7 +88,7 @@ Este estado se debe entender como que el SAT reconoce el CFDI y su estado genera
 Se refiere a que si en el momento de la consulta el CFDI se puede cancelar.
 
 - `No cancelable`: No se puede cancelar, tal vez ya hay documentos relacionados.
-- `Cancelable sin aceptación`: Se puede cancelar de inmediato
+- `Cancelable sin aceptación`: Se puede cancelar de inmediato.
 - `Cancelable con aceptación`: Se puede cancelar pero se va a tener que esperar respuesta.
 
 ### EstatusCancelacion (estado de cancelación)
@@ -96,11 +96,11 @@ Se refiere a que si en el momento de la consulta el CFDI se puede cancelar.
 Se refiere al estado de la cancelación solicitada previamente.
 
 - `(ninguno)`: El estado vacío es que no tiene estado de cancelación, porque no fue solicitada.
-- `Cancelado sin aceptación`: Se canceló y no fue necesaria la aceptación
-- `En proceso`: En espera de que el receptor la autorice
-- `Plazo vencido`: Cancelado por vencimiento de plazo en que el receptor podía denegarla
-- `Cancelado con aceptación`: Cancelado con el consentimiento del receptor
-- `Solicitud rechazada`: No cancelada.
+- `Cancelado sin aceptación`: Se canceló y no fue necesaria la aceptación.
+- `En proceso`: En espera de que el receptor la autorice.
+- `Plazo vencido`: Cancelado por vencimiento de plazo en que el receptor podía denegarla.
+- `Cancelado con aceptación`: Cancelado con el consentimiento del receptor.
+- `Solicitud rechazada`: No se realizó la cancelación por rechazo.
 
 ## Estados mutuamente excluyentes
 
