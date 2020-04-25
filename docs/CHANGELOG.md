@@ -28,6 +28,11 @@
 - Change visibility of `CfdiUtils\Cleaner\Cleaner#removeIncompleteSchemaLocation()` to private.
 
 
+## UNRELEASED 2020-04-25
+
+- Review and fix `CreateComprobantePagosCaseTest`.
+
+
 ## Version 2.12.8 2020-01-07
 
 - Change License year to 2020.

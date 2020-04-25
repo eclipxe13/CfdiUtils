@@ -21,7 +21,7 @@ class CreateComprobantePagosCaseTest extends TestCase
         $comprobante = $creator->comprobante();
         $comprobante->addAttributes([
             'Fecha' => Format::datetime($fecha),
-            'TipoDeComprobante' => 'P', // ingreso
+            'TipoDeComprobante' => 'P', // pago
             'LugarExpedicion' => '52000',
             'Moneda' => 'XXX',
             'Total' => '0',
@@ -35,6 +35,7 @@ class CreateComprobantePagosCaseTest extends TestCase
             'RegimenFiscal' => '601',
         ]);
         $comprobante->addReceptor(['Rfc' => 'COSC8001137NA', 'UsoCFDI' => 'P01']);
+        // The concepto *must* have this content
         $comprobante->addConcepto([
             'ClaveProdServ' => '84111506',
             'Cantidad' => '1',
@@ -44,6 +45,8 @@ class CreateComprobantePagosCaseTest extends TestCase
             'Importe' => '0',
         ]);
 
+        // create and populate the "complemento de pagos"
+        // @see \CfdiUtils\Elements\Pagos10\Pagos
         $complementoPagos = new Pagos();
         $pago = $complementoPagos->addPago([
             'FechaPago' => Format::datetime($fechaPago),
@@ -76,25 +79,25 @@ class CreateComprobantePagosCaseTest extends TestCase
                 'ImpSaldoInsoluto' => '7000.00',
             ]
         );
+
+        // add the "complemento de pagos" ($complementoPagos) to the $comprobante
         $comprobante->addComplemento($complementoPagos);
 
         // add sello and validate to assert that the specimen does not have any errors
         $creator->addSello('file://' . $keyfile, '');
+
+        // this is after add sello to probe that it did not change the cadena origen or the sello
+        $creator->moveSatDefinitionsToComprobante();
+
+        // perform validations, it should not have any error nor warnings
         $findings = $creator->validate();
         $this->assertFalse(
             $findings->hasErrors() || $findings->hasWarnings(),
             'Created document must not contain errors, fix your test specimen'
         );
 
-        // this is after add sello to probe that it did not change it
-        $creator->moveSatDefinitionsToComprobante();
-        $this->assertFalse(
-            $findings->hasErrors() || $findings->hasWarnings(),
-            'After moveSatDefinitionsToComprobante the document must not have any warnings or errors'
-        );
-
+        // test that the file is the same as expected
         $expectedFile = $this->utilAsset('created-pago-with-ns-at-root.xml');
-        file_put_contents($expectedFile, $creator->asXml());
         $this->assertXmlStringEqualsXmlFile(
             $expectedFile,
             $creator->asXml(),
