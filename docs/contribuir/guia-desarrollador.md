@@ -40,12 +40,6 @@ composer install
 
 ## Pruebas
 
-Para probar que todos los archivos no contienen errores de sintaxis
-
-```shell
-vendor/bin/phplint
-```
-
 Para probar que no se están violando las reglas de estilo
 
 ```shell

@@ -32,6 +32,7 @@
 
 - Review and fix `CreateComprobantePagosCaseTest`.
 - Add docblocks on `StatusResponse` and fix script `tests/estadosat.php`.
+- Remove `overtrue/phplint` from development dependences.
 
 
 ## Version 2.12.8 2020-01-07
