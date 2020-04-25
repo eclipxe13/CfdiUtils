@@ -31,6 +31,7 @@
 ## UNRELEASED 2020-04-25
 
 - Review and fix `CreateComprobantePagosCaseTest`.
+- Add docblocks on `StatusResponse` and fix script `tests/estadosat.php`.
 
 
 ## Version 2.12.8 2020-01-07

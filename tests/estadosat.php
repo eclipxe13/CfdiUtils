@@ -35,8 +35,8 @@ exit(call_user_func(function (string $command, string ...$arguments): int {
 
         print_r(array_filter([
             'file' => $file,
-            'Petición' => $response->getCfdi(),
-            'Estado CFDI' => $response->getCode(),
+            'Petición' => $response->getCode(),
+            'Estado CFDI' => $response->getCfdi(),
             'Cancelable' => $response->getCancellable(),
             'Estado cancelación' => $response->getCancellationStatus(),
         ]));
