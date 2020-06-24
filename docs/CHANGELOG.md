@@ -33,6 +33,14 @@
 - *2020-07-18*: Documentation: Add last document to `mkdocs:nav`, format rewording and links.
 
 
+## Version 2.12.10 UNRELEASED
+
+- Add `tests/resource-sat-xml-download`, include it on travis build.
+
+SAT has been failing providing XSD and XSLT files. This tool obtains (via `tests/resource-sat-xml-download`) a fresh copy
+of those files from [`phpcfdi/resources-sat-xml`](https://github.com/phpcfdi/resources-sat-xml) project for development.
+
+
 ## Version 2.12.9 2020-04-25
 
 - Review and fix `CreateComprobantePagosCaseTest`.

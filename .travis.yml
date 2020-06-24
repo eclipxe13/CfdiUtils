@@ -27,6 +27,7 @@ before_script:
     - travis_retry composer install --no-interaction --prefer-dist
     - travis_retry npm install
     - travis_retry pip install --user mkdocs
+    - travis_retry bash tests/resource-sat-xml-download build/
 
 script:
     - vendor/bin/phpcs -sp src/ tests/

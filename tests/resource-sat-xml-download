@@ -1,0 +1,26 @@
+#!/bin/bash -e
+
+if [ -z "$1" ]; then
+    DESTINATION="$(pwd)/build"
+else
+    DESTINATION="$1"
+fi
+
+WORKDIR="$(mktemp --directory)"
+ZIPFILE="$WORKDIR/resources-sat-xml.zip"
+
+# download latest archive from github as resources-sat-xml.zip
+echo "Downloading https://github.com/phpcfdi/resources-sat-xml/archive/master.zip to $ZIPFILE"
+wget -O "$ZIPFILE" https://github.com/phpcfdi/resources-sat-xml/archive/master.zip
+
+# unzip the "resources" folder contents and place then into my-resources
+echo "Extract resources from $ZIPFILE"
+unzip "$ZIPFILE" 'resources-sat-xml-master/resources/*' -d "$WORKDIR"
+
+echo "Copy $WORKDIR/resources-sat-xml-master/resources/ to $DESTINATION"
+rm -rf "$DESTINATION/resources/www.sat.gob.mx"
+cp -r "$WORKDIR/resources-sat-xml-master/resources" "$DESTINATION"
+
+# remove temporary working dir
+echo "Remove $WORKDIR"
+rm -rf "$WORKDIR"
