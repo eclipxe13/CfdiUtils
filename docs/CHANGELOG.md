@@ -51,6 +51,10 @@ This replaces any known and found url ignoring case and put the correct one,
 it also replaces `http://www.sat.gob.mx/sitio_internet/TimbreFiscalDigital/TimbreFiscalDigital.xsd` (unused)
 with `http://www.sat.gob.mx/sitio_internet/cfd/TimbreFiscalDigital/TimbreFiscalDigital.xsd` (official).
 
+- Improve explanation on `TFDSELLO01` when unable to get certificate.
+
+The assert `TFDSELLO01` *El Sello SAT del Timbre Fiscal Digital corresponde al certificado SAT*, now includes the
+exception message when unable to obtain a certificate.
 
 ## Version 2.12.9 2020-04-25
 
