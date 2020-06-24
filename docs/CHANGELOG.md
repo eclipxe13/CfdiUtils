@@ -45,6 +45,12 @@ of those files from [`phpcfdi/resources-sat-xml`](https://github.com/phpcfdi/res
 In the past, SAT allowed at least 2 different URLS for TFD 1.0 on XSD and XSLT files. In this version this is
 normalized with [`phpcfdi/sat-ns-registry`](https://github.com/phpcfdi/sat-ns-registry) project.
 
+- Add a new cleaner method `Cleaner::fixKnownSchemaLocationsXsdUrls` to override the XSD file URLS for CFDI and TFD.
+
+This replaces any known and found url ignoring case and put the correct one,
+it also replaces `http://www.sat.gob.mx/sitio_internet/TimbreFiscalDigital/TimbreFiscalDigital.xsd` (unused)
+with `http://www.sat.gob.mx/sitio_internet/cfd/TimbreFiscalDigital/TimbreFiscalDigital.xsd` (official).
+
 
 ## Version 2.12.9 2020-04-25
 
