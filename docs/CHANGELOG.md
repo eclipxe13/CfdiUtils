@@ -40,6 +40,11 @@
 SAT has been failing providing XSD and XSLT files. This tool obtains (via `tests/resource-sat-xml-download`) a fresh copy
 of those files from [`phpcfdi/resources-sat-xml`](https://github.com/phpcfdi/resources-sat-xml) project for development.
 
+- Fix default locations for TFD 1.0.
+
+In the past, SAT allowed at least 2 different URLS for TFD 1.0 on XSD and XSLT files. In this version this is
+normalized with [`phpcfdi/sat-ns-registry`](https://github.com/phpcfdi/sat-ns-registry) project.
+
 
 ## Version 2.12.9 2020-04-25
 
