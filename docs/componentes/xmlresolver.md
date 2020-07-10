@@ -69,6 +69,10 @@ una fábrica de objetos (factory pattern) o bien una función que siempre te dev
 el objeto configurado tal y como lo necesitas.
 
 
+!!! note ""
+    Durante el proceso de descarga de los recursos, puede pasar que los orígenes de los archivos no estén disponibles (y pasa muy seguido). Si el SAT presenta fallas al entregar los archivos XSD y XSLT, CfdiUtils va a fallar. Para evitar este problema en PHPCfdi hicimos un proyecto que proporciona copias recientes de los archivos XSD y XSLT que se pueden descargar desde [phpcfdi/resources-sat-xml](https://github.com/phpcfdi/resources-sat-xml) y poner en el repositorio local definido.
+
+
 ## Cómo invalidar el caché del almacenamiento local
 
 **En corto: Simplemente bórralos.**
