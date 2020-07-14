@@ -97,6 +97,7 @@ Solo hay métodos específicos para CFDI 3.3.
 - [Contradicciones de CFDI de Pagos](problemas/contradicciones-pagos.md)
 - [Descarga de certificados](problemas/descarga-certificados.md)
 - [Múltiples complementos](problemas/multiples-complementos.md)
+- [Descarga de recursos XSD y XSLT](problemas/descarga-recursos.md)
 
 
 ## Copyright and License
