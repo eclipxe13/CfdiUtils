@@ -27,6 +27,11 @@
 - Remove file `ConsultaCFDIServiceSAT.svc.xml`.
 - Change visibility of `CfdiUtils\Cleaner\Cleaner#removeIncompleteSchemaLocation()` to private.
 
+## UNRELEASED
+
+- *2020-07-14*: Documentation: "Descarga de recursos XSD y XSLT"
+- *2020-07-18*: Documentation: Add last document to `mkdocs:nav`, format rewording and links.
+
 
 ## Version 2.12.9 2020-04-25
 
