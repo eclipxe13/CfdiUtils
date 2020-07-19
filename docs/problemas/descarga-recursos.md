@@ -1,10 +1,16 @@
 # Descarga de recursos XSD y XSLT
 
-Durante el proceso de descarga de los recursos, puede pasar que los orígenes de los archivos no estén disponibles (y pasa muy seguido).
+Durante el proceso de descarga de los recursos XML, puede pasar que los orígenes de los archivos no estén disponibles.
+Los archivos XSD son necesarios para validar que el CFDI y sus complementos sean correctos, los archivos XSLT son
+necesarios para generar las cadenas de origen siguiendo las reglas del SAT.
 
-Si el SAT presenta fallas al entregar los archivos XSD y XSLT, CfdiUtils va a fallar.
+Si el SAT presenta fallas al entregar los archivos XSD y XSLT la librería `CfdiUtils` va a fallar.
 
-Para evitar este problema en PHPCfdi hicimos un proyecto que proporciona copias recientes de los archivos XSD y XSLT que se pueden descargar desde [phpcfdi/resources-sat-xml](https://github.com/phpcfdi/resources-sat-xml) y poner en el repositorio local definido para el componente [XmlResolver](https://cfdiutils.readthedocs.io/es/latest/componentes/xmlresolver/).
+Para mitigar este problema, en PhpCfdi existe un proyecto que genera copias recientes de los archivos XSD y XSLT
+que se pueden descargar desde [`phpcfdi/resources-sat-xml`](https://github.com/phpcfdi/resources-sat-xml) y poner en el
+repositorio local definido para el componente [`XmlResolver`](../componentes/xmlresolver.md).
+
+Ver [PhpCfdi/Recursos SAT XML](https://www.phpcfdi.com/recursos/sat-xml/) para más información de los recursos XML.
 
 ## Uso del recurso
 
@@ -18,6 +24,8 @@ unzip resources-sat-xml.zip 'resources-sat-xml-master/resources/*' -d /tmp/sat
 # eliminar resources-sat-xml.zip
 rm resources-sat-xml.zip
 ```
+
+## Configuración de `CfdiUtils`
 
 Definir el lugar por defecto del repositorio de recursos de `XmlResolver`:
 
@@ -33,5 +41,3 @@ $cfdiCreator->setXmlResolver($myResolver);
 // ponerlo utilizando el constructor
 $cfdiValidator = new \CfdiUtils\CfdiValidator33($myResolver);
 ```
-
-Mi recomendación es que, si vas a modificar o desactivar el repositorio local, tengas una fábrica de objetos (factory pattern) o bien una función que siempre te devuelva el objeto configurado tal y como lo necesitas.
