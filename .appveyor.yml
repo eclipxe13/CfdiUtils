@@ -113,16 +113,15 @@ install:
           if (! (Test-Path ${Env:saxonb-path})) {
               appveyor-retry choco install --ignore-checksums --yes saxonhe --no-progress
           }
-    # sat-xml resources
-    - ps: |
-          appveyor-retry appveyor DownloadFile https://github.com/phpcfdi/resources-sat-xml/archive/master.zip -Filename c:\projects\project\build\sat-xml.zip
-          Expand-Archive -LiteralPath c:\projects\project\build\sat-xml.zip -DestinationPath c:\projects\project\build\ -Force
-          Move-Item -Path c:\projects\project\build\resources-sat-xml-master\resources -Destination c:\projects\project\build\resources
-
     # install project dependences and list available tools
     - cd c:\projects\project
     - appveyor-retry composer install --prefer-dist --no-progress --no-interaction --ansi
     - dir vendor\bin
+    # sat-xml resources as a dependency
+    - ps: |
+          appveyor-retry appveyor DownloadFile https://github.com/phpcfdi/resources-sat-xml/archive/master.zip -Filename c:\projects\project\build\sat-xml.zip
+          Expand-Archive -LiteralPath c:\projects\project\build\sat-xml.zip -DestinationPath c:\projects\project\build\ -Force
+          Move-Item -Path c:\projects\project\build\resources-sat-xml-master\resources -Destination c:\projects\project\build\resources
 
 ## Run the actual test
 test_script:
