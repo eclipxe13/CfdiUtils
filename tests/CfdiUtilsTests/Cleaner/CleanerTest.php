@@ -85,7 +85,8 @@ class CleanerTest extends TestCase
         $step3 = $this->utilAsset('cleaner/v32-no-nonsat-nodes.xml');
         $step4 = $this->utilAsset('cleaner/v32-no-nonsat-schemalocations.xml');
         $step5 = $this->utilAsset('cleaner/v32-no-nonsat-xmlns.xml');
-        foreach ([$basefile, $step1, $step3, $step2, $step4, $step5] as $filename) {
+        $step6 = $this->utilAsset('cleaner/v32-schemalocations-replacements.xml');
+        foreach ([$basefile, $step1, $step3, $step2, $step4, $step5, $step6] as $filename) {
             $this->assertFileExists($basefile, "The file $filename for testing does not exists");
         }
         $cleaner = new Cleaner(strval(file_get_contents($basefile)));
@@ -130,8 +131,15 @@ class CleanerTest extends TestCase
             'Compare that xmlns definitions were removed'
         );
 
+        $cleaner->fixKnownSchemaLocationsXsdUrls();
         $this->assertXmlStringEqualsXmlFile(
-            $step5,
+            $step6,
+            $cleaner->retrieveXml(),
+            'Compare that schemaLocations definitions were changed'
+        );
+
+        $this->assertXmlStringEqualsXmlFile(
+            $step6,
             Cleaner::staticClean(strval(file_get_contents($basefile))),
             'Check static method for cleaning is giving the same results as detailed execution'
         );

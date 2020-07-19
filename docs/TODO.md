@@ -5,7 +5,11 @@
 
 ## Verificar problemas conocidos
 
-### Descarga de certificados desde <https://rdc.sat.gob.mx/rccf/>
+### Descarga de certificados desde <https://rdc.sat.gob.mx/rccf/> por certificados vencidos
+
+Ver: <https://www.phpcfdi.com/sat/problemas-conocidos/descarga-certificados/#problemas-de-caducidad-de-certificados>
+
+*Actualización 2020-07-18*: Desde 2019-10-24 este problema parece solucionado.
 
 La descarga de certificados desde `https://rdc.sat.gob.mx/rccf/` falla por un error de configuración
 en el servidor web del SAT. Por ello se han puesto instancias especiales de descargadores `PhpDownloader`

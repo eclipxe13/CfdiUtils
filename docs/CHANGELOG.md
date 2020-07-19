@@ -27,10 +27,40 @@
 - Remove file `ConsultaCFDIServiceSAT.svc.xml`.
 - Change visibility of `CfdiUtils\Cleaner\Cleaner#removeIncompleteSchemaLocation()` to private.
 
-## UNRELEASED
+## Version 2.12.10 2020-07-18
 
-- *2020-07-14*: Documentation: "Descarga de recursos XSD y XSLT"
-- *2020-07-18*: Documentation: Add last document to `mkdocs:nav`, format rewording and links.
+- Documentation "Descarga de recursos XSD y XSLT"
+
+    - *2020-07-14*: Documentation: "Descarga de recursos XSD y XSLT"
+    - *2020-07-18*: Documentation: Add last document to `mkdocs:nav`, format rewording and links.
+
+- Add `tests/resource-sat-xml-download`, include it on travis build.
+
+SAT has been failing providing XSD and XSLT files. This tool obtains (via `tests/resource-sat-xml-download`) a fresh copy
+of those files from [`phpcfdi/resources-sat-xml`](https://github.com/phpcfdi/resources-sat-xml) project for development.
+
+- Add script to install [`phpcfdi/resources-sat-xml`](https://github.com/phpcfdi/resources-sat-xml) on AppVeyor build.
+
+- Fix default locations for TFD 1.0.
+
+In the past, SAT allowed at least 2 different URLS for TFD 1.0 on XSD and XSLT files. In this version this is
+normalized with [`phpcfdi/sat-ns-registry`](https://github.com/phpcfdi/sat-ns-registry) project.
+
+- Add a new cleaner method `Cleaner::fixKnownSchemaLocationsXsdUrls` to override the XSD file URLS for CFDI and TFD.
+
+This replaces any known and found url ignoring case and put the correct one,
+it also replaces `http://www.sat.gob.mx/sitio_internet/TimbreFiscalDigital/TimbreFiscalDigital.xsd` (unused)
+with `http://www.sat.gob.mx/sitio_internet/cfd/TimbreFiscalDigital/TimbreFiscalDigital.xsd` (official).
+
+- Improve explanation on `TFDSELLO01` when unable to get certificate.
+
+The assert `TFDSELLO01` *El Sello SAT del Timbre Fiscal Digital corresponde al certificado SAT*, now includes the
+exception message when unable to obtain a certificate.
+
+- Remove insecure downloader from testing.
+
+This was introduced previously because the webserver was using invalid SSL certificates.
+This problem does not exist anymore (since 2019-10-24).
 
 
 ## Version 2.12.9 2020-04-25

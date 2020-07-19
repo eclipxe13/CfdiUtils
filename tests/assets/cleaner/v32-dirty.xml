@@ -12,7 +12,7 @@
     <abc:Sample xmlns:abc="http://example.com/xsd/abc" xsi:schemaLocation="http://example.com/xsd/abc http://example.com/xsd/abc.xsd" x="1"/>
 </cfdi:Addenda>
 <cfdi:Complemento>
-    <tfd:TimbreFiscalDigital xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" xsi:schemaLocation="http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/sitio_internet/cfd/TimbreFiscalDigital/TimbreFiscalDigital.xsd" version="1.0"/>
+    <tfd:TimbreFiscalDigital xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" xsi:schemaLocation="http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/sitio_internet/timbrefiscaldigital/TimbreFiscalDigital.xsd" version="1.0"/>
     <add:point x="1" y="2" add:removed="Check if this attributte is removed"/>
 </cfdi:Complemento>
 </cfdi:Comprobante>

@@ -4,6 +4,7 @@ namespace CfdiUtils\Cleaner;
 
 use CfdiUtils\Cfdi;
 use CfdiUtils\Cleaner\BeforeLoad\BeforeLoadCleanerInterface;
+use CfdiUtils\Cleaner\Cleaners\SchemaLocationsXsdUrlsFixer;
 use CfdiUtils\Utils\SchemaLocations;
 use CfdiUtils\Utils\Xml;
 use DOMAttr;
@@ -91,6 +92,7 @@ class Cleaner
         $this->removeNonSatNSschemaLocations();
         $this->removeUnusedNamespaces();
         $this->collapseComprobanteComplemento();
+        $this->fixKnownSchemaLocationsXsdUrls();
     }
 
     /**
@@ -305,6 +307,20 @@ class Cleaner
                 $extra->removeChild($child);
                 $first->appendChild($child);
             }
+        }
+    }
+
+    /**
+     * Procedure to fix XSD known location paths for CFDI and TFD
+     *
+     * @return void
+     */
+    public function fixKnownSchemaLocationsXsdUrls()
+    {
+        $xsiLocations = $this->obtainXsiSchemaLocations();
+        $schemasFixer = SchemaLocationsXsdUrlsFixer::createWithKnownSatUrls();
+        foreach ($xsiLocations as $xsiSchemaLocation) {
+            $schemasFixer->fixSchemaLocationAttribute($xsiSchemaLocation);
         }
     }
 

@@ -86,7 +86,7 @@ class TimbreFiscalDigitalSello extends AbstractDiscoverableVersion33 implements
         } catch (\Throwable $ex) {
             $assert->setStatus(
                 Status::error(),
-                sprintf('No se ha podido obtener el certificado %s', $certificadoSAT)
+                sprintf('No se ha podido obtener el certificado %s: %s', $certificadoSAT, $ex->getMessage())
             );
             return;
         }
