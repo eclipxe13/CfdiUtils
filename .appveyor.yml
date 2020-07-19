@@ -30,9 +30,6 @@ init:
 
 ## Check for openssl, install php using version environment, install
 install:
-    # downgrade chocolatey to 0.10.13, otherwise versions query are not working
-    # see https://github.com/chocolatey/choco/issues/1843
-    - choco install chocolatey --yes --version 0.10.13 --allow-downgrade --no-progress --force
     # check chocolatey sources and version
     - choco source list
     # check openssl exists and run from PATH
@@ -118,7 +115,6 @@ install:
           appveyor-retry appveyor DownloadFile https://github.com/phpcfdi/resources-sat-xml/archive/master.zip -Filename c:\projects\project\build\sat-xml.zip
           Expand-Archive -LiteralPath c:\projects\project\build\sat-xml.zip -DestinationPath c:\projects\project\build\ -Force
           Move-Item -Path c:\projects\project\build\resources-sat-xml-master\resources -Destination c:\projects\project\build\resources
-
     # install project dependences and list available tools
     - cd c:\projects\project
     - appveyor-retry composer install --prefer-dist --no-progress --no-interaction --ansi
