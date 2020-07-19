@@ -38,6 +38,7 @@ nav:
         - problemas/contradicciones-pagos.md
         - problemas/descarga-certificados.md
         - problemas/multiples-complementos.md
+        - problemas/descarga-recursos.md
     - "Acerca de":
         - "To Do List": "TODO.md"
         - "Changelog": "CHANGELOG.md"
