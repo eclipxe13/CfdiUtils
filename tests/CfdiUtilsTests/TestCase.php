@@ -4,8 +4,6 @@ namespace CfdiUtilsTests;
 
 use CfdiUtils\Certificado\SatCertificateNumber;
 use CfdiUtils\XmlResolver\XmlResolver;
-use XmlResourceRetriever\Downloader\DownloaderInterface;
-use XmlResourceRetriever\Downloader\PhpDownloader;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
@@ -19,25 +17,10 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         return ('\\' === DIRECTORY_SEPARATOR);
     }
 
-    protected function newInsecurePhpDownloader(): DownloaderInterface
+    /** @return XmlResolver */
+    protected function newResolver()
     {
-        // disable ssl verification connecting to https://rdc.sat.gob.mx/ since SAT web server has config errors
-        return new PhpDownloader(
-            stream_context_create([
-                'ssl' => [
-                    'verify_peer' => false,
-                ],
-            ])
-        );
-    }
-
-    protected function newResolver(DownloaderInterface $downloader = null)
-    {
-        $xmlResolver = new XmlResolver();
-        if (null !== $downloader) {
-            $xmlResolver->setDownloader($downloader);
-        }
-        return $xmlResolver;
+        return new XmlResolver();
     }
 
     protected function downloadResourceIfNotExists(string $remote): string

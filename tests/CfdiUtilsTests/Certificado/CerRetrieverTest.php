@@ -27,7 +27,7 @@ class CerRetrieverTest extends TestCase
         // after this date this test may fail
         $certificateId = '00001000000406258094';
         $cerNumber = new SatCertificateNumber($certificateId);
-        $retriever = $this->newResolver($this->newInsecurePhpDownloader())->newCerRetriever();
+        $retriever = $this->newResolver()->newCerRetriever();
         $remoteUrl = $cerNumber->remoteUrl();
         $localPath = $retriever->buildPath($remoteUrl);
 

@@ -56,6 +56,12 @@ with `http://www.sat.gob.mx/sitio_internet/cfd/TimbreFiscalDigital/TimbreFiscalD
 The assert `TFDSELLO01` *El Sello SAT del Timbre Fiscal Digital corresponde al certificado SAT*, now includes the
 exception message when unable to obtain a certificate.
 
+- Remove insecure downloader from testing.
+
+This was introduced previously because the webserver was using invalid SSL certificates.
+This problem does not exist anymore (since 2019-10-24).
+
+
 ## Version 2.12.9 2020-04-25
 
 - Review and fix `CreateComprobantePagosCaseTest`.
