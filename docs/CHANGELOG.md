@@ -27,6 +27,13 @@
 - Remove file `ConsultaCFDIServiceSAT.svc.xml`.
 - Change visibility of `CfdiUtils\Cleaner\Cleaner#removeIncompleteSchemaLocation()` to private.
 
+
+## Version 2.12.11 2020-08-16
+
+- Fix TimbreFiscalDigital XSLT URL locations, updated from SAT documentation.
+  For more information check [phpcfdi/sat-ns-registry](https://github.com/phpcfdi/sat-ns-registry) project.
+
+
 ## Version 2.12.10 2020-07-18
 
 - Documentation "Descarga de recursos XSD y XSLT"
