@@ -63,6 +63,12 @@ This was introduced previously because the webserver was using invalid SSL certi
 This problem does not exist anymore (since 2019-10-24).
 
 
+## Version 2.12.10 2020-08-16
+
+- Fix TimbreFiscalDigital XSLT URL locations, updated from SAT documentation.
+  For more information check [phpcfdi/sat-ns-registry](https://github.com/phpcfdi/sat-ns-registry) project.
+
+
 ## Version 2.12.9 2020-04-25
 
 - Review and fix `CreateComprobantePagosCaseTest`.
