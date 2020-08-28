@@ -19,6 +19,7 @@ nav:
     - "Creación":
         - crear/crear-cfdi.md
         - crear/elements-cfdi33.md
+        - crear/complemento-nomina12b.md
         - crear/complementos-aun-no-implementados.md
         - crear/cfdi-de-retenciones-e-informacion-de-pagos.md
     - "Componentes":
