@@ -1,0 +1,26 @@
+<?php
+
+namespace CfdiUtilsTests\Elements\Nomina12;
+
+use CfdiUtils\Elements\Nomina12\SubContratacion;
+use PHPUnit\Framework\TestCase;
+
+/**
+ * @covers \CfdiUtils\Elements\Nomina12\SubContratacion
+ */
+class SubContratacionTest extends TestCase
+{
+    /** @var SubContratacion */
+    public $element;
+
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->element = new SubContratacion();
+    }
+
+    public function testConstructedObject()
+    {
+        $this->assertSame('nomina12:SubContratacion', $this->element->getElementName());
+    }
+}

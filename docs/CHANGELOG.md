@@ -28,6 +28,15 @@
 - Change visibility of `CfdiUtils\Cleaner\Cleaner#removeIncompleteSchemaLocation()` to private.
 
 
+## Version 2.13.0 2020-08-28
+
+- Add helper elements for *Complemento de Nómina 1.2 revisión B*.
+    - Root element is `CfdiUtils\Elements\Nomina12\Nomina`.
+    - Add test with 100% coverage on the namespace.
+    - Add documentation.
+    - **Important** It does not contain any validators but standard `XSD`.
+
+
 ## Version 2.12.11 2020-08-16
 
 - Fix TimbreFiscalDigital XSLT URL locations, updated from SAT documentation.
