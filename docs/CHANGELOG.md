@@ -28,6 +28,11 @@
 - Change visibility of `CfdiUtils\Cleaner\Cleaner#removeIncompleteSchemaLocation()` to private.
 
 
+## Version 2.13.1 2020-10-01
+
+- Fix validation `FORMAPAGO01`, it only applies when `Complemento de Pago` exists.
+
+
 ## Version 2.13.0 2020-08-28
 
 - Add helper elements for *Complemento de Nómina 1.2 revisión B*.
