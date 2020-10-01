@@ -73,7 +73,7 @@ class Retenciones
     }
 
     /**
-     * Create a Cfdi Retenciones object from a xml string
+     * Create a CFDI Retenciones object from a xml string
      *
      * @param string $content
      * @return static

@@ -43,6 +43,10 @@ class Cfdi
 
     const CFDI_NAMESPACE = 'http://www.sat.gob.mx/cfd/3';
 
+    const CFDI_NSPREFIX = 'cfdi';
+
+    const CFDI_ROOTNODE_NAME = 'Comprobante';
+
     public function __construct(DOMDocument $document)
     {
         $rootElement = Xml::documentElement($document);
@@ -50,13 +54,19 @@ class Cfdi
         // this is why we are casting the value to string
         $nsPrefix = (string) $document->lookupPrefix(static::CFDI_NAMESPACE);
         if ('' === $nsPrefix) {
-            throw new \UnexpectedValueException('Document does not implement namespace ' . static::CFDI_NAMESPACE);
+            throw new \UnexpectedValueException(
+                sprintf('Document does not implement namespace %s', static::CFDI_NAMESPACE)
+            );
         }
-        if ('cfdi' !== $nsPrefix) {
-            throw new \UnexpectedValueException('Prefix for namespace ' . static::CFDI_NAMESPACE . ' is not "cfdi"');
+        if (static::CFDI_NSPREFIX !== $nsPrefix) {
+            throw new \UnexpectedValueException(
+                sprintf('Prefix for namespace %s is not "%s"', static::CFDI_NAMESPACE, static::CFDI_NSPREFIX)
+            );
         }
-        if ($rootElement->tagName !== $nsPrefix . ':Comprobante') {
-            throw new \UnexpectedValueException('Root element is not Comprobante');
+
+        $expectedRootNodeName = static::CFDI_NSPREFIX . ':' . static::CFDI_ROOTNODE_NAME;
+        if ($rootElement->tagName !== $expectedRootNodeName) {
+            throw new \UnexpectedValueException(sprintf('Root element is not %s', $expectedRootNodeName));
         }
 
         $this->version = (new CfdiVersion())->getFromDOMElement($rootElement);
@@ -64,10 +74,9 @@ class Cfdi
     }
 
     /**
-     * Create a Cfdi object from a xml string
+     * Create a CFDI object from a xml string
      *
      * @param string $content
-     *
      * @return static
      */
     public static function newFromString(string $content): self
@@ -90,8 +99,6 @@ class Cfdi
 
     /**
      * Get a clone of the local DOM document
-     *
-     * @return DOMDocument
      */
     public function getDocument(): DOMDocument
     {
@@ -107,20 +114,25 @@ class Cfdi
             // pass the document element to avoid xml header
             $this->source = $this->document->saveXML(Xml::documentElement($this->document));
         }
+
         return $this->source;
     }
 
     /**
-     * Get the node object to iterate in the CFDI
+     * Get the node object to iterate through the CFDI
      */
     public function getNode(): NodeInterface
     {
         if (null === $this->node) {
             $this->node = XmlNodeUtils::nodeFromXmlElement(Xml::documentElement($this->document));
         }
+
         return $this->node;
     }
 
+    /**
+     * Get the quick reader object to iterate through the CFDI
+     */
     public function getQuickReader(): QuickReader
     {
         if (null === $this->quickReader) {
