@@ -42,13 +42,9 @@ class Retenciones
 
     const RET_NAMESPACE = 'http://www.sat.gob.mx/esquemas/retencionpago/1';
 
-    const RET_NSPREFIX = 'retenciones';
-
-    const RET_ROOTNODE_NAME = 'Retenciones';
-
     public function __construct(DOMDocument $document)
     {
-        $rootElement = $this->extractValidRootElement($document, self::RET_NAMESPACE, self::RET_NSPREFIX, self::RET_ROOTNODE_NAME);
+        $rootElement = $this->extractValidRootElement($document, self::RET_NAMESPACE, 'retenciones', 'Retenciones');
         $version = $rootElement->getAttribute('Version');
         $this->version = ('1.0' === $version) ? $version : '';
         $this->document = clone $document;
