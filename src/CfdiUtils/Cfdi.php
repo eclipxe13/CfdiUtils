@@ -44,13 +44,9 @@ class Cfdi
 
     const CFDI_NAMESPACE = 'http://www.sat.gob.mx/cfd/3';
 
-    const CFDI_NSPREFIX = 'cfdi';
-
-    const CFDI_ROOTNODE_NAME = 'Comprobante';
-
     public function __construct(DOMDocument $document)
     {
-        $rootElement = $this->extractValidRootElement($document, static::CFDI_NAMESPACE, static::CFDI_NSPREFIX, static::CFDI_ROOTNODE_NAME);
+        $rootElement = $this->extractValidRootElement($document, static::CFDI_NAMESPACE, 'cfdi', 'Comprobante');
 
         $this->version = (new CfdiVersion())->getFromDOMElement($rootElement);
         $this->document = clone $document;
