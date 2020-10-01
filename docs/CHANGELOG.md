@@ -31,6 +31,7 @@
 ## Version 2.14.0 2020-10-01
 
 - Add `Retenciones` reader to work with *CFDI de retenciones e información de pagos*.
+- Refactor `Cfdi` and `Retenciones` to use recently created `XmlReaderTrait`.
 
 
 ## Version 2.13.1 2020-10-01
