@@ -28,9 +28,16 @@
 - Change visibility of `CfdiUtils\Cleaner\Cleaner#removeIncompleteSchemaLocation()` to private.
 
 
+## Version 2.14.0 2020-10-01
+
+- Add `Retenciones` reader to work with *CFDI de retenciones e información de pagos*.
+- Refactor `Cfdi` and `Retenciones` to use recently created `XmlReaderTrait`.
+
+
 ## Version 2.13.1 2020-10-01
 
 - Fix validation `FORMAPAGO01`, it only applies when `Complemento de Pago` exists.
+- Add `Retenciones` reader to work with *CFDI de retenciones e información de pagos*.
 
 
 ## Version 2.13.0 2020-08-28

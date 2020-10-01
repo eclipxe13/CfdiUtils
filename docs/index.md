@@ -40,6 +40,7 @@ CFDI y herramientas del SAT. Y próximamente el lugar donde publicaremos la vers
 La librería ofrece métodos para leer CFDI versión 3.2 y 3.3.
 
 - [Lectura formal de un CFDI](leer/leer-cfdi.md)
+- [Lectura formal de un CFDI de Retenciones](leer/leer-cfdi-retenciones.md)
 - [Lectura rápida de un CFDI](leer/quickreader.md)
 - [Limpieza de un CFDI](leer/limpieza-cfdi.md)
 
