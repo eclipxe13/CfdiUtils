@@ -8,6 +8,7 @@ use CfdiUtils\QuickReader\QuickReader;
 use CfdiUtils\QuickReader\QuickReaderImporter;
 use CfdiUtils\Utils\Xml;
 use DOMDocument;
+use DOMElement;
 
 /**
  * This class contains minimum helpers to read CFDI based on DOMDocument
@@ -49,28 +50,41 @@ class Cfdi
 
     public function __construct(DOMDocument $document)
     {
+        $rootElement = $this->extractValidRootElement($document, static::CFDI_NAMESPACE, static::CFDI_NSPREFIX, static::CFDI_ROOTNODE_NAME);
+
+        $this->version = (new CfdiVersion())->getFromDOMElement($rootElement);
+        $this->document = clone $document;
+    }
+
+
+    private function extractValidRootElement(
+        DOMDocument $document,
+        string $expectedNamespace,
+        string $expectedNsPrefix,
+        string $expectedRootBaseNodeName
+    ): DOMElement {
         $rootElement = Xml::documentElement($document);
+
         // is not docummented: lookupPrefix returns NULL instead of string when not found
         // this is why we are casting the value to string
-        $nsPrefix = (string) $document->lookupPrefix(static::CFDI_NAMESPACE);
+        $nsPrefix = (string) $document->lookupPrefix($expectedNamespace);
         if ('' === $nsPrefix) {
             throw new \UnexpectedValueException(
-                sprintf('Document does not implement namespace %s', static::CFDI_NAMESPACE)
+                sprintf('Document does not implement namespace %s', $expectedNamespace)
             );
         }
-        if (static::CFDI_NSPREFIX !== $nsPrefix) {
+        if ($expectedNsPrefix !== $nsPrefix) {
             throw new \UnexpectedValueException(
-                sprintf('Prefix for namespace %s is not "%s"', static::CFDI_NAMESPACE, static::CFDI_NSPREFIX)
+                sprintf('Prefix for namespace %s is not "%s"', $expectedNamespace, $expectedNsPrefix)
             );
         }
 
-        $expectedRootNodeName = static::CFDI_NSPREFIX . ':' . static::CFDI_ROOTNODE_NAME;
+        $expectedRootNodeName = $expectedNsPrefix . ':' . $expectedRootBaseNodeName;
         if ($rootElement->tagName !== $expectedRootNodeName) {
             throw new \UnexpectedValueException(sprintf('Root element is not %s', $expectedRootNodeName));
         }
 
-        $this->version = (new CfdiVersion())->getFromDOMElement($rootElement);
-        $this->document = clone $document;
+        return $rootElement;
     }
 
     /**

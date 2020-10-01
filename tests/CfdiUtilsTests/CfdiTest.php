@@ -37,7 +37,7 @@ class CfdiTest extends TestCase
     public function testInvalidCfdiRootIsNotComprobante()
     {
         $this->expectException(\UnexpectedValueException::class);
-        $this->expectExceptionMessage('Root element is not Comprobante');
+        $this->expectExceptionMessage('Root element is not cfdi:Comprobante');
 
         $checker = Cfdi::newFromString(
             '<cfdi:X xmlns:cfdi="http://www.sat.gob.mx/cfd/3" version="3.2"' . '/>'
@@ -49,7 +49,7 @@ class CfdiTest extends TestCase
     public function testInvalidCfdiRootIsNotPrefixed()
     {
         $this->expectException(\UnexpectedValueException::class);
-        $this->expectExceptionMessage('Root element is not Comprobante');
+        $this->expectExceptionMessage('Root element is not cfdi:Comprobante');
 
         $checker = Cfdi::newFromString(
             '<x:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" version="3.2"' . '/>'

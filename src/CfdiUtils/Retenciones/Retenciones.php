@@ -8,6 +8,7 @@ use CfdiUtils\QuickReader\QuickReader;
 use CfdiUtils\QuickReader\QuickReaderImporter;
 use CfdiUtils\Utils\Xml;
 use DOMDocument;
+use DOMElement;
 
 /**
  * This class contains minimum helpers to read CFDI Retenciones based on DOMDocument
@@ -47,29 +48,40 @@ class Retenciones
 
     public function __construct(DOMDocument $document)
     {
+        $rootElement = $this->extractValidRootElement($document, self::RET_NAMESPACE, self::RET_NSPREFIX, self::RET_ROOTNODE_NAME);
+        $version = $rootElement->getAttribute('Version');
+        $this->version = ('1.0' === $version) ? $version : '';
+        $this->document = clone $document;
+    }
+
+    private function extractValidRootElement(
+        DOMDocument $document,
+        string $expectedNamespace,
+        string $expectedNsPrefix,
+        string $expectedRootBaseNodeName
+    ): DOMElement {
         $rootElement = Xml::documentElement($document);
+
         // is not docummented: lookupPrefix returns NULL instead of string when not found
         // this is why we are casting the value to string
-        $nsPrefix = (string) $document->lookupPrefix(static::RET_NAMESPACE);
+        $nsPrefix = (string) $document->lookupPrefix($expectedNamespace);
         if ('' === $nsPrefix) {
             throw new \UnexpectedValueException(
-                sprintf('Document does not implement namespace %s', static::RET_NAMESPACE)
+                sprintf('Document does not implement namespace %s', $expectedNamespace)
             );
         }
-        if (static::RET_NSPREFIX !== $nsPrefix) {
+        if ($expectedNsPrefix !== $nsPrefix) {
             throw new \UnexpectedValueException(
-                sprintf('Prefix for namespace %s is not "%s"', static::RET_NAMESPACE, static::RET_NSPREFIX)
+                sprintf('Prefix for namespace %s is not "%s"', $expectedNamespace, $expectedNsPrefix)
             );
         }
 
-        $expectedRootNodeName = static::RET_NSPREFIX . ':' . static::RET_ROOTNODE_NAME;
+        $expectedRootNodeName = $expectedNsPrefix . ':' . $expectedRootBaseNodeName;
         if ($rootElement->tagName !== $expectedRootNodeName) {
             throw new \UnexpectedValueException(sprintf('Root element is not %s', $expectedRootNodeName));
         }
 
-        $version = $rootElement->getAttribute('Version');
-        $this->version = ('1.0' === $version) ? $version : '';
-        $this->document = clone $document;
+        return $rootElement;
     }
 
     /**
