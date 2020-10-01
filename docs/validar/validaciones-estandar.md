@@ -28,7 +28,8 @@ esto incluye los ceros a la izquierda. Si la moneda no es USD, EUR, MXN o XXX en
 
 ## ComprobanteFormaPago
 
-Valida que exista si no existe el complemento de pagos y que no exista si existe el complemento de pagos
+Valida que si el complemento de pagos existe entonces no debe existir el atributo forma de pago.
+En caso de que el complemento de pagos no exista esta validación no tiene ningún efecto.
 
 - FORMAPAGO01: El campo forma de pago no debe existir cuando existe el complemento para recepción de pagos (CFDI33103)
 

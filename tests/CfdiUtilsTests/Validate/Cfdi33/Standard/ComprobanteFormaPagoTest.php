@@ -18,17 +18,17 @@ class ComprobanteFormaPagoTest extends ValidateTestCase
         $this->validator = new ComprobanteFormaPago();
     }
 
-    public function testValidateOkWhenNotFormaPagoAndNotComplementoPago()
+    public function testValidateNothingWhenNotFormaPagoAndNotComplementoPago()
     {
         $this->runValidate();
-        $this->assertStatusEqualsCode(Status::error(), 'FORMAPAGO01');
+        $this->assertStatusEqualsCode(Status::none(), 'FORMAPAGO01');
     }
 
-    public function testValidateOkWhenFormaPagoAndNotComplementoPago()
+    public function testValidateNothingWhenFormaPagoAndNotComplementoPago()
     {
         $this->comprobante['FormaPago'] = '01'; // efectivo
         $this->runValidate();
-        $this->assertStatusEqualsCode(Status::ok(), 'FORMAPAGO01');
+        $this->assertStatusEqualsCode(Status::none(), 'FORMAPAGO01');
     }
 
     public function testValidateOkWhenNotFormaPagoAndComplementoPago()
