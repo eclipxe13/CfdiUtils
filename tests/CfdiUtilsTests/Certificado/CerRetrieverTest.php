@@ -28,6 +28,7 @@ class CerRetrieverTest extends TestCase
         $certificateId = '00001000000406258094';
         $cerNumber = new SatCertificateNumber($certificateId);
         $retriever = $this->newResolver()->newCerRetriever();
+        $retriever->setDownloader(new CertificateDownloaderHelper());
         $remoteUrl = $cerNumber->remoteUrl();
         $localPath = $retriever->buildPath($remoteUrl);
 

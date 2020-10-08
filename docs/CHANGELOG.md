@@ -28,6 +28,13 @@
 - Change visibility of `CfdiUtils\Cleaner\Cleaner#removeIncompleteSchemaLocation()` to private.
 
 
+## UNRELEASED 2020-10-08
+
+- Looks like web service at `https://rdc.sat.gob.mx/` is having issues (again). This is breaking testing.
+  To mitigate the problem, a new testing class `CertificateDownloaderHelper` has been created to retry the
+  download if it fails, for a maximum of 5 attempts. This change does not create a new release version.
+
+
 ## Version 2.14.0 2020-10-01
 
 - Add `Retenciones` reader to work with *CFDI de retenciones e información de pagos*.
