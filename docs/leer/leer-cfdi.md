@@ -1,7 +1,7 @@
 # Leer un CFDI
 
 El problema de leer un CFDI es que la información entre versiones 3.3, 3.2
-y previas no es compatible. Por ello es necesario necesario primero
+y previas no es compatible. Por ello es necesario primero
 averiguar la versión del archivo que deseamos interpretar.
 
 En esta sección se describe la lectura formal de la librería para leer nodos.
