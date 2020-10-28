@@ -95,3 +95,16 @@ foreach ($asserts as $assert) {
     echo $assert, PHP_EOL;
 }
 ```
+
+## Explanation
+
+Es posible tener acceso a la explicación de una prueba o aseguramiento usando `Assert::getExplanation()`.
+
+```php
+<?php
+/** @var \CfdiUtils\CfdiCreator33 $creator */
+$asserts = $creator->validate();
+foreach ($asserts->errors() as $error) {
+    echo $error->getExplanation(), PHP_EOL;
+}
+```
