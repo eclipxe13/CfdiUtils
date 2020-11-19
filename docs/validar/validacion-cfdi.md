@@ -22,12 +22,20 @@ entonces se puede validar usando el método `validate(): Asserts`, por ejemplo:
 /** @var \CfdiUtils\CfdiCreator33 $creator */
 $asserts = $creator->validate();
 $asserts->hasErrors(); // devuelve verdadero en caso de error
+foreach ($asserts as $assert) {
+    echo PHP_EOL, vsprintf('%-10s %-8s %s => %s', [
+        $assert->getCode(),
+        $assert->getStatus(),
+        $assert->getTitle(),
+        $assert->getExplanation(),
+    ]);
+}
 ```
 
 
 ## Validación de documentos recibidos
 
-Para esta validar un documento recibido se puede utilizar la clase `CfdiUtils\CfdiValidator33`, por ejemplo:
+Para validar un documento recibido se puede utilizar la clase `CfdiUtils\CfdiValidator33`, por ejemplo:
 
 ```php
 <?php
@@ -37,7 +45,16 @@ $cfdiFile = '... ubicación del archivo XML del cfdi ...';
 
 $validator = new CfdiValidator33();
 $asserts = $validator->validateXml(file_get_contents($cfdiFile));
-$asserts->hasErrors(); // devuelve verdadero en caso de error
+if ($asserts->hasErrors()) {  // si hay errores los muestra
+    foreach ($asserts->errors() as $error) {
+        echo PHP_EOL, vsprintf('%-10s %-8s %s => %s', [
+            $error->getCode(),
+            $error->getStatus(),
+            $error->getTitle(),
+            $error->getExplanation(),
+        ]);
+    }
+}
 ```
 
 Un objeto de tipo `CfdiValidator33` contiene un `XmlResolver`.
@@ -67,6 +84,25 @@ una advertencia; también se puede saber lo que estuvo bien o no se pudo comprob
 
 El `Assert` es un "aseguramiento", se trata de un enunciado afirmativo, no un enunciado de error, por ello,
 un ejemplo de título del aseguramiento podría ser: *El CFDI tiene una moneda definida y que pertenece al catálogo de monedas*.
+
+
+### Code, Title y Explanation
+
+Cada `Assert` cuenta con un código, un título y una explicación de la prueba o aseguramiento y es posible tener acceso a ellos, por ejemplo:
+
+```php
+<?php
+/** @var \CfdiUtils\CfdiCreator33 $creator */
+$asserts = $creator->validate();
+foreach ($asserts as $assert) {
+    echo PHP_EOL, vsprintf('%-10s %-8s %s => %s', [
+        $assert->getCode(),
+        $assert->getStatus(),
+        $assert->getTitle(),
+        $assert->getExplanation(),
+    ]);
+}
+```
 
 
 ## Status
