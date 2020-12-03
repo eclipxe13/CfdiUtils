@@ -20,6 +20,7 @@ addons:
 env:
     global:
         - FULL_BUILD_PHP_VERSION="7.4"
+        - XDEBUG_MODE=coverage
         - COVERAGE_FILE=build/coverage-clover.xml
 
 before_script:
