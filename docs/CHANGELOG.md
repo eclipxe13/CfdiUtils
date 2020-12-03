@@ -28,12 +28,19 @@
 - Change visibility of `CfdiUtils\Cleaner\Cleaner#removeIncompleteSchemaLocation()` to private.
 
 
-## UNRELEASED 2020-10-08
+## UNRELEASED
+
+### 2020-10-08
 
 - Looks like web service at `https://rdc.sat.gob.mx/` is having issues (again). This is breaking testing.
   To mitigate the problem, a new testing class `CertificateDownloaderHelper` has been created to retry the
   download if it fails, for a maximum of 5 attempts. This change does not create a new release version.
 
+### 2020-12-03
+
+- Add `XDEBUG_MODE=coverage` on Travis-CI configuration file since it upgrade to `XDebug v3.0.0` and it contains
+  a bug that makes `PHPUnit` break with the message: *Use of undefined constant XDEBUG_CC_UNUSED - assumed 'XDEBUG_CC_UNUSED'*.
+  This will be resolved on <https://github.com/xdebug/xdebug/pull/699> but not released (yet).
 
 ## Version 2.14.0 2020-10-01
 
