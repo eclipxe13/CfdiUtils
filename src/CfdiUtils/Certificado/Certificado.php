@@ -40,7 +40,7 @@ class Certificado
      * Certificado constructor.
      *
      * @param string $filename Allows filename or certificate contents (PEM or DER)
-     * @param OpenSSL $openSSL
+     * @param OpenSSL|null $openSSL
      * @throws \UnexpectedValueException when the certificate does not exists or is not readable
      * @throws \UnexpectedValueException when cannot read the certificate or is empty
      * @throws \RuntimeException when cannot parse the certificate or is empty
@@ -149,7 +149,10 @@ class Certificado
             throw new \RuntimeException("Cannot open the private key file $pemKeyFile");
         }
         $belongs = openssl_x509_check_private_key($this->getPemContents(), $privateKey);
-        openssl_free_key($privateKey);
+        if (\PHP_VERSION_ID < 80000) {
+            // phpcs:ignore
+            openssl_free_key($privateKey);
+        }
         return $belongs;
     }
 
@@ -259,7 +262,10 @@ class Certificado
                 throw new \RuntimeException('OpenSSL Error: ' . openssl_error_string());
             }
         } finally {
-            openssl_free_key($pubKey);
+            if (\PHP_VERSION_ID < 80000) {
+                // phpcs:ignore
+                openssl_free_key($pubKey);
+            }
         }
         return (1 === $verify);
     }
@@ -294,14 +300,15 @@ class Certificado
     {
         try {
             $pubkey = openssl_get_publickey($contents);
-            if (! is_resource($pubkey)) {
+            if (false === $pubkey) {
                 return '';
             }
             $pubData = openssl_pkey_get_details($pubkey) ?: [];
             return $pubData['key'] ?? '';
         } finally {
             // close public key even if the flow is throw an exception
-            if (is_resource($pubkey)) {
+            if (false !== $pubkey && \PHP_VERSION_ID < 80000) {
+                // phpcs:ignore
                 openssl_free_key($pubkey);
             }
         }
