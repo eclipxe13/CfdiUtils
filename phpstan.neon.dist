@@ -1,3 +1,4 @@
 parameters:
+    level: 5
     inferPrivatePropertyTypeFromConstructor: true
 

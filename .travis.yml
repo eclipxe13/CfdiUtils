@@ -25,34 +25,33 @@ env:
 
 before_script:
     - phpenv config-rm xdebug.ini || true
-    - | # only require phpstan on FULL_BUILD_PHP_VERSION
+    - travis_retry composer self-update --2 --no-interaction
+    - | # only require full development dependencies on FULL_BUILD_PHP_VERSION
         if [[ $TRAVIS_PHP_VERSION != $FULL_BUILD_PHP_VERSION ]]; then
-            composer remove phpstan/phpstan --dev --no-interaction --no-progress --no-update
+            composer remove squizlabs/php_codesniffer friendsofphp/php-cs-fixer phpstan/phpstan --dev --no-interaction --no-progress --no-update
         fi
     - | # only require genkgo/xsl on PHP >= 7.3
         if [[ $TRAVIS_PHP_VERSION < "7.3"  ]]; then
             composer remove genkgo/xsl --dev --no-interaction --no-progress --no-update
         fi
-    - travis_retry composer install --no-interaction --prefer-dist
-    - travis_retry npm install
-    - travis_retry pip install --user mkdocs
+    - travis_retry composer update --no-interaction --prefer-dist
+    - | # only install full development dependencies on FULL_BUILD_PHP_VERSION
+        if [[ $TRAVIS_PHP_VERSION == $FULL_BUILD_PHP_VERSION ]]; then
+            travis_retry npm install
+            travis_retry pip install --user mkdocs
+        fi
     - travis_retry bash tests/resource-sat-xml-download build/
 
 script:
-    - vendor/bin/phpcs -sp src/ tests/
-    - PHP_CS_FIXER_IGNORE_ENV=yes vendor/bin/php-cs-fixer fix --using-cache=no --dry-run --verbose
-    - | # create code coverage file
-        if [[ $TRAVIS_PHP_VERSION == $FULL_BUILD_PHP_VERSION ]]; then
-            php -dzend_extension=xdebug.so vendor/bin/phpunit --testdox --verbose --coverage-clover="$COVERAGE_FILE"
-        else
-            vendor/bin/phpunit --testdox --verbose
-        fi
-    - | # only check phpstan on FULL_BUILD_PHP_VERSION
-        if [[ $TRAVIS_PHP_VERSION == $FULL_BUILD_PHP_VERSION ]]; then
-            vendor/bin/phpstan --no-progress analyse --level max src/ tests/
-        fi
-    - node node_modules/markdownlint-cli/markdownlint.js *.md docs/
-    - ~/.local/bin/mkdocs build --strict --site-dir build/docs
+    # only phpunit without coverage
+    - if [[ $TRAVIS_PHP_VERSION != $FULL_BUILD_PHP_VERSION ]]; then vendor/bin/phpunit --testdox --verbose; fi
+    # full build
+    - if [[ $TRAVIS_PHP_VERSION == $FULL_BUILD_PHP_VERSION ]]; then vendor/bin/phpcs -sp src/ tests/; fi
+    - if [[ $TRAVIS_PHP_VERSION == $FULL_BUILD_PHP_VERSION ]]; then vendor/bin/php-cs-fixer fix --using-cache=no --dry-run --verbose; fi
+    - if [[ $TRAVIS_PHP_VERSION == $FULL_BUILD_PHP_VERSION ]]; then php -dzend_extension=xdebug.so vendor/bin/phpunit --testdox --verbose --coverage-clover="$COVERAGE_FILE"; fi
+    - if [[ $TRAVIS_PHP_VERSION == $FULL_BUILD_PHP_VERSION ]]; then vendor/bin/phpstan --no-progress analyse src/ tests/; fi
+    - if [[ $TRAVIS_PHP_VERSION == $FULL_BUILD_PHP_VERSION ]]; then node node_modules/markdownlint-cli/markdownlint.js *.md docs/; fi
+    - if [[ $TRAVIS_PHP_VERSION == $FULL_BUILD_PHP_VERSION ]]; then ~/.local/bin/mkdocs build --strict --site-dir build/docs; fi
 
 after_script:
     - | # upload test covegare to scrutinizer
