@@ -9,6 +9,10 @@ use CfdiUtils\Validate\Contracts\ValidatorInterface;
 
 abstract class AbstractRecepcionPagos10 extends AbstractVersion33 implements DiscoverableCreateInterface
 {
+    final public function __construct()
+    {
+    }
+
     abstract public function validateRecepcionPagos(NodeInterface $comprobante, Asserts $asserts);
 
     public function validate(NodeInterface $comprobante, Asserts $asserts)

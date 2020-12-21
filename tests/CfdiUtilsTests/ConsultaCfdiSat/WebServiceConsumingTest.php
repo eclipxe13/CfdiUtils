@@ -66,9 +66,11 @@ class WebServiceConsumingTest extends TestCase
         $soapClient = $this->tolerantSoapClient($ws);
 
         // check timeout
+        /** @phpstan-ignore-next-line the variable is internal */
         $this->assertSame(60, $soapClient->{'_connection_timeout'});
 
         // check context
+        /** @phpstan-ignore-next-line the variable is internal */
         $context = $soapClient->{'_stream_context'};
         $options = stream_context_get_options($context);
         ArraySubsetAssert::assertArraySubset(['ssl' => ['verify_peer' => false]], $options);

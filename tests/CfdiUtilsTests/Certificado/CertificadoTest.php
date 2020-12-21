@@ -134,7 +134,6 @@ EOD;
     public function testConstructCertificateUsingPathThatIsBase64()
     {
         $workingdir = $this->utilAsset('certs/');
-        /** @var string $previousPath phpstan complains about getcwd returning FALSE */
         $previousPath = getcwd();
         chdir($workingdir);
         try {

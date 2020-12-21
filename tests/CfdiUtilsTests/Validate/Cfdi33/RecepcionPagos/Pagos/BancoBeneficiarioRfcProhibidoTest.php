@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 class BancoBeneficiarioRfcProhibidoTest extends TestCase
 {
     /**
-     * @param string|null $paymentType
+     * @param string $paymentType
      * @param string|null $rfc
      * @testWith ["02", "COSC8001137NA"]
      *           ["02", ""]

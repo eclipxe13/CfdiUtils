@@ -47,7 +47,7 @@
         "dms/phpunit-arraysubset-asserts": "^0.1.1",
         "squizlabs/php_codesniffer": "^3.0",
         "friendsofphp/php-cs-fixer": "^2.4",
-        "phpstan/phpstan": "^0.11"
+        "phpstan/phpstan": "^0.12"
     },
     "autoload": {
         "psr-4": {
@@ -80,7 +80,7 @@
         "dev:test": [
             "@dev:check-style",
             "@php vendor/bin/phpunit --testdox --verbose --stop-on-failure",
-            "@php vendor/bin/phpstan analyse --no-progress --level max src/ tests/"
+            "@php vendor/bin/phpstan analyse --no-progress --level 5 src/ tests/"
         ],
         "dev:coverage": [
             "@php -dzend_extension=xdebug.so vendor/bin/phpunit --coverage-text --coverage-html build/coverage/html/"

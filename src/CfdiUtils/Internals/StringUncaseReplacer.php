@@ -20,7 +20,7 @@ final class StringUncaseReplacer
 
     /**
      * @param array<string, array<string>> $replacements
-     * @return static
+     * @return self
      */
     public static function create(array $replacements): self
     {

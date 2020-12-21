@@ -24,13 +24,7 @@ class FechaComprobante extends AbstractDiscoverableVersion33
     private $maximumDate;
 
     /** @var int Tolerancia en segundos */
-    private $tolerance;
-
-    public function __construct(int $maximumDate = null, int $tolerance = 300)
-    {
-        $this->maximumDate = $maximumDate;
-        $this->tolerance = $tolerance;
-    }
+    private $tolerance = 300;
 
     public function getMinimumDate(): int
     {

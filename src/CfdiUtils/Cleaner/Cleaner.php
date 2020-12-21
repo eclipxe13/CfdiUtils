@@ -356,7 +356,6 @@ class Cleaner
         } else {
             $document = Xml::ownerDocument($element);
         }
-        /** @var DOMNodeList|false $nodelist phpstan does not know that query can return false */
         $nodelist = (new DOMXPath($document))->query($query, $element);
         if (false === $nodelist) {
             $nodelist = new DOMNodeList();

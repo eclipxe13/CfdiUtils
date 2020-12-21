@@ -69,7 +69,7 @@ class QuickReader extends \stdClass implements \ArrayAccess
     {
         $child = $this->getChildByName($name);
         if (null === $child) {
-            $child = new static($name);
+            $child = new self($name);
         }
 
         return $child;

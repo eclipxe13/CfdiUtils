@@ -21,19 +21,8 @@ class Pago extends AbstractRecepcionPagos10
     /** @var Asserts This is the asserts object used in the validation process */
     private $asserts;
 
-    /** @var Pagos\AbstractPagoValidator[] */
+    /** @var Pagos\AbstractPagoValidator[]|null */
     private $validators;
-
-    /**
-     * @param Pagos\AbstractPagoValidator[]|null $validators
-     */
-    public function __construct(array $validators = null)
-    {
-        if (null === $validators) {
-            $validators = $this->createValidators();
-        }
-        $this->validators = $validators;
-    }
 
     /**
      * @return Pagos\AbstractPagoValidator[]
@@ -70,8 +59,11 @@ class Pago extends AbstractRecepcionPagos10
     /**
      * @return Pagos\AbstractPagoValidator[]
      */
-    public function getValidators()
+    public function getValidators(): array
     {
+        if (null === $this->validators) {
+            $this->validators = $this->createValidators();
+        }
         return $this->validators;
     }
 

@@ -13,7 +13,7 @@ class ShellExecTemplate
     public function create(string $template, array $arguments): array
     {
         $command = [];
-        $parts = array_filter(explode(' ', $template) ?: [], function (string $part): bool {
+        $parts = array_filter(explode(' ', $template), function (string $part): bool {
             return ('' !== $part);
         });
 
