@@ -25,7 +25,7 @@ class FormaDePagoTest extends TestCase
      *           [""]
      *           ["99"]
      */
-    public function testInvalid($formaPago)
+    public function testInvalid(?string $formaPago)
     {
         $pago = new Pago([
             'FormaDePagoP' => $formaPago,

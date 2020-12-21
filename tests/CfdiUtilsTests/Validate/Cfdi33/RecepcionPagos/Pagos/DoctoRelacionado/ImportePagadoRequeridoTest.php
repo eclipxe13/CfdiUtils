@@ -22,11 +22,11 @@ class ImportePagadoRequeridoTest extends TestCase
     }
 
     /**
-     * @param string|null $exchangeRate
+     * @param string $exchangeRate
      * @testWith ["19.8765"]
      *           [""]
      */
-    public function testInvalidExchangeRate($exchangeRate)
+    public function testInvalidExchangeRate(string $exchangeRate)
     {
         $pago = new Pago();
         $docto = $pago->addDoctoRelacionado([

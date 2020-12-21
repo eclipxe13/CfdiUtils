@@ -29,6 +29,7 @@ class OpenSSLPropertyTest extends TestCase
         };
 
         $this->expectException(\TypeError::class);
+        /** @noinspection PhpExpressionResultUnusedInspection */
         $object->getOpenSSL();
     }
 

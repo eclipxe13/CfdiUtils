@@ -50,8 +50,8 @@ class TfdCadenaDeOrigenTest extends TestCase
 
     public function testXsltLocation()
     {
-        $this->assertContains('TFD_1_0.xslt', TfdCadenaDeOrigen::xsltLocation('1.0'));
-        $this->assertContains('TFD_1_1.xslt', TfdCadenaDeOrigen::xsltLocation('1.1'));
+        $this->assertStringContainsString('TFD_1_0.xslt', TfdCadenaDeOrigen::xsltLocation('1.0'));
+        $this->assertStringContainsString('TFD_1_1.xslt', TfdCadenaDeOrigen::xsltLocation('1.1'));
     }
 
     public function testXsltLocationException()

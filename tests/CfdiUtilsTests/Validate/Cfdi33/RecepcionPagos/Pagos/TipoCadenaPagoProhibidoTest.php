@@ -16,7 +16,7 @@ class TipoCadenaPagoProhibidoTest extends TestCase
      *           ["03", null]
      *           ["03", "SPEI"]
      */
-    public function testValid(string $paymentForm, $input)
+    public function testValid(string $paymentForm, ?string $input)
     {
         $pago = new Pago([
             'FormaDePagoP' => $paymentForm,
@@ -33,7 +33,7 @@ class TipoCadenaPagoProhibidoTest extends TestCase
      * @testWith ["01", "SPEI"]
      *           ["01", ""]
      */
-    public function testInvalid(string $paymentForm, $input)
+    public function testInvalid(string $paymentForm, ?string $input)
     {
         $pago = new Pago([
             'FormaDePagoP' => $paymentForm,

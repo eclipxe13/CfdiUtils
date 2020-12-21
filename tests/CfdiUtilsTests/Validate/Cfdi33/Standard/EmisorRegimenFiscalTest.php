@@ -18,7 +18,7 @@ class EmisorRegimenFiscalTest extends ValidateTestCase
         $this->validator = new EmisorRegimenFiscal();
     }
 
-    public function providerValidCases()
+    public function providerValidCases(): array
     {
         return[
             // personas morales
@@ -58,7 +58,7 @@ class EmisorRegimenFiscalTest extends ValidateTestCase
      * @param string $regimenFiscal
      * @dataProvider providerValidCases
      */
-    public function testValidCases($emisorRfc, $regimenFiscal)
+    public function testValidCases(string $emisorRfc, string $regimenFiscal)
     {
         $this->comprobante->addChild(new Node('cfdi:Emisor', [
             'RegimenFiscal' => $regimenFiscal,
@@ -69,7 +69,7 @@ class EmisorRegimenFiscalTest extends ValidateTestCase
         $this->assertStatusEqualsCode(Status::ok(), 'REGFIS01');
     }
 
-    public function providerInvalidCases()
+    public function providerInvalidCases(): array
     {
         return [
             ['AAA010101AAA', '605'], // persona moral con regimen incorrecto
@@ -83,11 +83,11 @@ class EmisorRegimenFiscalTest extends ValidateTestCase
     }
 
     /**
-     * @param string $emisorRfc
-     * @param string $regimenFiscal
+     * @param string|null $emisorRfc
+     * @param string|null $regimenFiscal
      * @dataProvider providerInvalidCases
      */
-    public function testInvalidCases($emisorRfc, $regimenFiscal)
+    public function testInvalidCases(?string $emisorRfc, ?string $regimenFiscal)
     {
         $this->comprobante->addChild(new Node('cfdi:Emisor', [
             'RegimenFiscal' => $regimenFiscal,

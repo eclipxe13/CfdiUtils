@@ -86,7 +86,7 @@ class ShellExecTest extends TestCase
         $execution = (new ShellExec($command))->run();
 
         $expectedContent = basename(__FILE__);
-        $this->assertContains($expectedContent, $execution->output());
+        $this->assertStringContainsString($expectedContent, $execution->output());
     }
 
     public function testRunExpectingExitStatus()
@@ -141,7 +141,7 @@ class ShellExecTest extends TestCase
         $this->assertSame('value of foo / value of bar', $execution->output());
     }
 
-    public function providerEnvironmentVariablePathDoesNotGetLost()
+    public function providerEnvironmentVariablePathDoesNotGetLost(): array
     {
         return [
             'with one environment var' => [['foo' => 'bar']],

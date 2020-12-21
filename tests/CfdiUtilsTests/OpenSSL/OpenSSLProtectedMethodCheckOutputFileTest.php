@@ -8,7 +8,7 @@ use CfdiUtilsTests\TestCase;
 
 class OpenSSLProtectedMethodCheckOutputFileTest extends TestCase
 {
-    private function openSSL()
+    private function openSSL(): object
     {
         return new class() extends OpenSSL {
             public function checkOutputFile(string $path)

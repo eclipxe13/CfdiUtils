@@ -24,7 +24,7 @@ class MonedaPagoTest extends TestCase
      *           [""]
      *           ["XXX"]
      */
-    public function testInvalid($currency)
+    public function testInvalid(?string $currency)
     {
         $pago = new Pago([
             'MonedaP' => $currency,

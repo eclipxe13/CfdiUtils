@@ -25,7 +25,7 @@ class ComprobanteImpuestosTest extends ValidateTestCase
      *           [false, true]
      *           [true, true]
      */
-    public function testValidImpuestos($putTraslados, $putRetenciones)
+    public function testValidImpuestos(bool $putTraslados, bool $putRetenciones)
     {
         $nodeImpuestos = new Node('cfdi:Impuestos');
         if ($putTraslados) {

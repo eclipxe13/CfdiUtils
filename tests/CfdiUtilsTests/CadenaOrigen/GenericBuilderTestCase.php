@@ -19,7 +19,7 @@ abstract class GenericBuilderTestCase extends TestCase
      * @see procedureCreateCadenaOrigenExpectedContent
      * @return array
      */
-    public function providerCfdiToCadenaOrigen()
+    public function providerCfdiToCadenaOrigen(): array
     {
         return [
             ['cfdi32-real.xml', 'cfdi32-real-cadenaorigen.txt', CfdiDefaultLocations::XSLT_32],
@@ -33,7 +33,7 @@ abstract class GenericBuilderTestCase extends TestCase
      * @param string $xsltLocation
      * @dataProvider providerCfdiToCadenaOrigen
      */
-    public function testCfdiToCadenaOrigen($xmlLocation, $expectedTransformation, $xsltLocation)
+    public function testCfdiToCadenaOrigen(string $xmlLocation, string $expectedTransformation, string $xsltLocation)
     {
         $xsltLocation = $this->downloadResourceIfNotExists($xsltLocation);
 

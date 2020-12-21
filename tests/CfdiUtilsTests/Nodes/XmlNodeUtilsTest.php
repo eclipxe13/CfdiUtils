@@ -9,7 +9,7 @@ use CfdiUtilsTests\TestCase;
 
 class XmlNodeUtilsTest extends TestCase
 {
-    public function providerToNodeFromNode()
+    public function providerToNodeFromNode(): array
     {
         return [
             'simple-xml' => [$this->utilAsset('nodes/sample.xml')],
@@ -35,7 +35,7 @@ class XmlNodeUtilsTest extends TestCase
      * @param string $filename
      * @dataProvider providerToNodeFromNode
      */
-    public function testExportFromFileAndExportAgain($filename)
+    public function testExportFromFileAndExportAgain(string $filename)
     {
         $source = strval(file_get_contents($filename));
 

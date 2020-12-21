@@ -45,7 +45,6 @@ class TemporaryFileTest extends TestCase
         if (is_writable($directory)) {
             rmdir($directory);
             $this->markTestSkipped('Cannot create a read-only directory');
-            return;
         }
 
         // setup expected exception

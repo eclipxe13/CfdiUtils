@@ -9,7 +9,7 @@ use CfdiUtilsTests\TestCase;
 
 class NodeCertificadoTest extends TestCase
 {
-    private function createNodeCertificado(string $contents)
+    private function createNodeCertificado(string $contents): NodeCertificado
     {
         return new NodeCertificado(XmlNodeUtils::nodeFromXmlString($contents));
     }

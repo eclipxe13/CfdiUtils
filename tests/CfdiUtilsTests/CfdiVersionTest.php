@@ -8,7 +8,7 @@ use CfdiUtils\Nodes\XmlNodeUtils;
 
 class CfdiVersionTest extends TestCase
 {
-    public function providerCfdiVersion()
+    public function providerCfdiVersion(): array
     {
         return [
             '3.3' => ['3.3', 'Version', '3.3'],
@@ -30,7 +30,7 @@ class CfdiVersionTest extends TestCase
      * @param string|null $value
      * @dataProvider providerCfdiVersion
      */
-    public function testCfdiVersion($expected, $attribute, $value)
+    public function testCfdiVersion(string $expected, string $attribute, ?string $value)
     {
         $node = new Node('cfdi', [$attribute => $value]);
         $cfdiVersion = new CfdiVersion();

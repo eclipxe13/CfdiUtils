@@ -28,7 +28,7 @@ class FechaTest extends ValidateTestCase
      *           ["not a date"]
      *           ["2018-01-01"]
      */
-    public function testInvalid($fechaPago)
+    public function testInvalid(?string $fechaPago)
     {
         $pagoNode = new Pago([
             'FechaPago' => $fechaPago,

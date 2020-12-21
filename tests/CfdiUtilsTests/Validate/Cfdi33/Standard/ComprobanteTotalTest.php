@@ -17,7 +17,7 @@ class ComprobanteTotalTest extends ValidateTestCase
         $this->validator = new ComprobanteTotal();
     }
 
-    public function providerTotalWithInvalidValue()
+    public function providerTotalWithInvalidValue(): array
     {
         return [
             'empty' => [''],
@@ -36,7 +36,7 @@ class ComprobanteTotalTest extends ValidateTestCase
      * @param string|null $value
      * @dataProvider providerTotalWithInvalidValue
      */
-    public function testTotalWithInvalidValue($value)
+    public function testTotalWithInvalidValue(?string $value)
     {
         $this->comprobante->addAttributes([
             'Total' => $value,
@@ -46,7 +46,7 @@ class ComprobanteTotalTest extends ValidateTestCase
         $this->assertStatusEqualsCode(Status::error(), 'TOTAL01');
     }
 
-    public function providerTotalWithValidValues()
+    public function providerTotalWithValidValues(): array
     {
         return [
             '0' => ['0'],
@@ -56,10 +56,10 @@ class ComprobanteTotalTest extends ValidateTestCase
     }
 
     /**
-     * @param string|null $value
+     * @param string $value
      * @dataProvider providerTotalWithValidValues
      */
-    public function testTotalWithCorrectValues($value)
+    public function testTotalWithCorrectValues(string $value)
     {
         $this->comprobante->addAttributes([
             'Total' => $value,

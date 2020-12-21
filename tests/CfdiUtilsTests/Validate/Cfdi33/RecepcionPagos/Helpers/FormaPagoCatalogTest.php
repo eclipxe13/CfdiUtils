@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class FormaPagoCatalogTest extends TestCase
 {
-    public function providerObtain()
+    public function providerObtain(): array
     {
         return [
             'Efectivo' => ['01'],

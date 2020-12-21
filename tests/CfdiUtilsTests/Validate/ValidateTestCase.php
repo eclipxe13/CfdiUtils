@@ -60,7 +60,7 @@ abstract class ValidateTestCase extends TestCase
             $this->fail("Did not receive actual status for code '$code', it may not exists");
         }
         $actualAssert = $this->asserts->get($code);
-        $this->assertContains($expected, $actualAssert->getExplanation());
+        $this->assertStringContainsString($expected, $actualAssert->getExplanation());
     }
 
     protected function getAssertByCodeOrFail(string $code): Assert

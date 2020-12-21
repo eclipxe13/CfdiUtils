@@ -19,7 +19,7 @@ class EmisorRfcTest extends ValidateTestCase
         $this->validator = new EmisorRfc();
     }
 
-    public function providerValidCases()
+    public function providerValidCases(): array
     {
         return [
             'person' => ['COSC8001137NA'],
@@ -41,7 +41,7 @@ class EmisorRfcTest extends ValidateTestCase
         $this->assertStatusEqualsCode(Status::ok(), 'EMISORRFC01');
     }
 
-    public function providerInvalidCases()
+    public function providerInvalidCases(): array
     {
         return [
             'none' => [null],
@@ -53,10 +53,10 @@ class EmisorRfcTest extends ValidateTestCase
     }
 
     /**
-     * @param string $rfc
+     * @param string|null $rfc
      * @dataProvider providerInvalidCases
      */
-    public function testInvalidCases($rfc)
+    public function testInvalidCases(?string $rfc)
     {
         $this->comprobante->addChild(new Node('cfdi:Emisor', [
             'Rfc' => $rfc,

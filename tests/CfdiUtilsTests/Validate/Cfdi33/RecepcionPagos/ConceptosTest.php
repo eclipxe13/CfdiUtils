@@ -48,7 +48,7 @@ class ConceptosTest extends ValidateComplementoPagosTestCase
 
         $assert = $this->getAssertByCodeOrFail('PAGCON01');
         $this->assertStatusEqualsAssert(Status::error(), $assert);
-        $this->assertContains('No se encontró el nodo Conceptos', $assert->getExplanation());
+        $this->assertStringContainsString('No se encontró el nodo Conceptos', $assert->getExplanation());
     }
 
     public function testConceptosZeroChildren()
@@ -60,7 +60,7 @@ class ConceptosTest extends ValidateComplementoPagosTestCase
 
         $assert = $this->getAssertByCodeOrFail('PAGCON01');
         $this->assertStatusEqualsAssert(Status::error(), $assert);
-        $this->assertContains('Se esperaba encontrar un solo hijo de conceptos', $assert->getExplanation());
+        $this->assertStringContainsString('Se esperaba encontrar un solo hijo de conceptos', $assert->getExplanation());
     }
 
     public function testConceptosChildrenMoreThanOne()
@@ -72,7 +72,7 @@ class ConceptosTest extends ValidateComplementoPagosTestCase
 
         $assert = $this->getAssertByCodeOrFail('PAGCON01');
         $this->assertStatusEqualsAssert(Status::error(), $assert);
-        $this->assertContains('Se esperaba encontrar un solo hijo de conceptos', $assert->getExplanation());
+        $this->assertStringContainsString('Se esperaba encontrar un solo hijo de conceptos', $assert->getExplanation());
     }
 
     public function testConceptosChildIsNotConcepto()
@@ -86,7 +86,7 @@ class ConceptosTest extends ValidateComplementoPagosTestCase
 
         $assert = $this->getAssertByCodeOrFail('PAGCON01');
         $this->assertStatusEqualsAssert(Status::error(), $assert);
-        $this->assertContains('No se encontró el nodo Concepto', $assert->getExplanation());
+        $this->assertStringContainsString('No se encontró el nodo Concepto', $assert->getExplanation());
     }
 
     public function testConceptoWithChildren()
@@ -97,10 +97,10 @@ class ConceptosTest extends ValidateComplementoPagosTestCase
 
         $assert = $this->getAssertByCodeOrFail('PAGCON01');
         $this->assertStatusEqualsAssert(Status::error(), $assert);
-        $this->assertContains('Se esperaba encontrar ningún hijo de concepto', $assert->getExplanation());
+        $this->assertStringContainsString('Se esperaba encontrar ningún hijo de concepto', $assert->getExplanation());
     }
 
-    public function providerConceptoInvalidData()
+    public function providerConceptoInvalidData(): array
     {
         $second = [
             [null],
@@ -122,7 +122,7 @@ class ConceptosTest extends ValidateComplementoPagosTestCase
      * @param string|null $value
      * @dataProvider providerConceptoInvalidData
      */
-    public function testConceptoInvalidData(string $attribute, $value)
+    public function testConceptoInvalidData(string $attribute, ?string $value)
     {
         $this->concepto[$attribute] = $value;
 
@@ -131,7 +131,7 @@ class ConceptosTest extends ValidateComplementoPagosTestCase
         $this->assertStatusEqualsCode(Status::error(), 'PAGCON01');
     }
 
-    public function providerConceptoInvalidDataMustNotExists()
+    public function providerConceptoInvalidDataMustNotExists(): array
     {
         return [
             ['NoIdentificacion'],

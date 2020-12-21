@@ -72,8 +72,8 @@ class AssertTest extends TestCase
     {
         $assert = new Assert('CODE', 'Title', Status::ok());
         $value = (string) $assert;
-        $this->assertContains('CODE', $value);
-        $this->assertContains('Title', $value);
-        $this->assertContains(Status::STATUS_OK, $value);
+        $this->assertStringContainsString('CODE', $value);
+        $this->assertStringContainsString('Title', $value);
+        $this->assertStringContainsString(Status::STATUS_OK, $value);
     }
 }

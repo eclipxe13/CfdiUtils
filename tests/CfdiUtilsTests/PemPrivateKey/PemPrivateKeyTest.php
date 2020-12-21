@@ -8,7 +8,7 @@ use CfdiUtilsTests\TestCase;
 
 class PemPrivateKeyTest extends TestCase
 {
-    public function providerConstructWithBadArgument()
+    public function providerConstructWithBadArgument(): array
     {
         return [
             'empty' => [''],
@@ -29,7 +29,7 @@ class PemPrivateKeyTest extends TestCase
      * @param string $key
      * @dataProvider providerConstructWithBadArgument
      */
-    public function testConstructWithBadArgument($key)
+    public function testConstructWithBadArgument(string $key)
     {
         $this->expectException(\UnexpectedValueException::class);
         new PemPrivateKey($key);

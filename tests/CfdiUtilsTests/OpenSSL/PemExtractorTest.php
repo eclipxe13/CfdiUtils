@@ -9,14 +9,14 @@ class PemExtractorTest extends TestCase
 {
     public function testExtractorWithEmptyContent()
     {
-        $extractor = new \CfdiUtils\OpenSSL\PemExtractor('');
+        $extractor = new PemExtractor('');
         $this->assertSame('', $extractor->getContents());
         $this->assertSame('', $extractor->extractCertificate());
         $this->assertSame('', $extractor->extractPublicKey());
         $this->assertSame('', $extractor->extractCertificate());
     }
 
-    public function providerCrLfAndLf()
+    public function providerCrLfAndLf(): array
     {
         return [
             'CRLF' => ["\r\n"],
@@ -46,19 +46,19 @@ class PemExtractorTest extends TestCase
             'FOO+PRIVATE+KEY',
             '-----END PRIVATE KEY-----',
         ]);
-        $extractor = new \CfdiUtils\OpenSSL\PemExtractor($content);
+        $extractor = new PemExtractor($content);
         $this->assertSame($content, $extractor->getContents());
-        $this->assertContains(
+        $this->assertStringContainsString(
             'FOO+CERTIFICATE',
             $extractor->extractCertificate(),
             "Certificate using EOL $info was not extracted"
         );
-        $this->assertContains(
+        $this->assertStringContainsString(
             'FOO+PUBLIC+KEY',
             $extractor->extractPublicKey(),
             "Public Key using EOL $info was not extracted"
         );
-        $this->assertContains(
+        $this->assertStringContainsString(
             'FOO+PRIVATE+KEY',
             $extractor->extractPrivateKey(),
             "Private Key using EOL $info was not extracted"
@@ -70,11 +70,11 @@ class PemExtractorTest extends TestCase
         $pemcerpub = $this->utilAsset('certs/CSD01_AAA010101AAA.cer.pem');
         $contents = strval(file_get_contents($pemcerpub));
 
-        $extractor = new \CfdiUtils\OpenSSL\PemExtractor($contents);
+        $extractor = new PemExtractor($contents);
         $this->assertSame($contents, $extractor->getContents());
 
-        $this->assertContains('PUBLIC KEY', $extractor->extractPublicKey());
-        $this->assertContains('CERTIFICATE', $extractor->extractCertificate());
+        $this->assertStringContainsString('PUBLIC KEY', $extractor->extractPublicKey());
+        $this->assertStringContainsString('CERTIFICATE', $extractor->extractCertificate());
     }
 
     public function testExtractPrivateKey()
@@ -82,8 +82,8 @@ class PemExtractorTest extends TestCase
         $pemkey = $this->utilAsset('certs/CSD01_AAA010101AAA.key.pem');
         $contents = strval(file_get_contents($pemkey));
 
-        $extractor = new \CfdiUtils\OpenSSL\PemExtractor($contents);
-        $this->assertContains('PRIVATE KEY', $extractor->extractPrivateKey());
+        $extractor = new PemExtractor($contents);
+        $this->assertStringContainsString('PRIVATE KEY', $extractor->extractPrivateKey());
     }
 
     public function testUsingBinaryFileExtractNothing()

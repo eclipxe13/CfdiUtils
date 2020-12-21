@@ -16,7 +16,7 @@ class TipoCambioRequeridoTest extends TestCase
      * @testWith ["USD", "USD", null]
      *           ["MXN", "USD", "19.9876"]
      */
-    public function testValid($currencyPayment, $currencyDocument, $exchangeRate)
+    public function testValid(string $currencyPayment, string $currencyDocument, ?string $exchangeRate)
     {
         $pago = new Pago([
             'MonedaP' => $currencyPayment,
@@ -39,7 +39,7 @@ class TipoCambioRequeridoTest extends TestCase
      * @testWith ["USD", "USD", "19.9876"]
      *           ["MXN", "USD", null]
      */
-    public function testInvalid($currencyPayment, $currencyDocument, $exchangeRate)
+    public function testInvalid(string $currencyPayment, string $currencyDocument, ?string $exchangeRate)
     {
         $pago = new Pago([
             'MonedaP' => $currencyPayment,

@@ -24,7 +24,7 @@ class WebServiceTest extends TestCase
         $this->assertSame($config, $ws->getConfig());
     }
 
-    public function providerRequestWithBadRawResponse()
+    public function providerRequestWithBadRawResponse(): array
     {
         return [
             'response invalid' => [
@@ -51,7 +51,7 @@ class WebServiceTest extends TestCase
      * @param string $expectedMessage
      * @dataProvider providerRequestWithBadRawResponse
      */
-    public function testRequestWithBadRawResponse($rawResponse, string $expectedMessage)
+    public function testRequestWithBadRawResponse(?\stdClass $rawResponse, string $expectedMessage)
     {
         /** @var WebService&\PHPUnit\Framework\MockObject\MockObject $webService */
         $webService = $this->getMockBuilder(WebService::class)

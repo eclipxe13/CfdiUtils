@@ -21,12 +21,12 @@ class MontoDecimalsTest extends TestCase
     }
 
     /**
-     * @param string|null $amount
+     * @param string $amount
      * @testWith ["0.001"]
      *           ["0.000"]
      *           ["0.123"]
      */
-    public function testInvalid($amount)
+    public function testInvalid(string $amount)
     {
         $pago = new Pago([
             'MonedaP' => 'USD', // 2 decimals

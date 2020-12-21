@@ -15,7 +15,7 @@ class ImporteSaldoInsolutoValorTest extends TestCase
      * @param string $left
      * @testWith ["100.00", "100.00", "0.0"]
      */
-    public function testValid($previous, $payment, $left)
+    public function testValid(string $previous, string $payment, string $left)
     {
         $pago = new Pago();
         $docto = $pago->addDoctoRelacionado([
@@ -36,7 +36,7 @@ class ImporteSaldoInsolutoValorTest extends TestCase
      * @param string $left
      * @testWith ["150.00", "100.00", "50.0"]
      */
-    public function testWithCalculate($previous, $payment, $left)
+    public function testWithCalculate(string $previous, string $payment, string $left)
     {
         $pago = new Pago(['Monto' => $payment]);
         $docto = $pago->addDoctoRelacionado([
@@ -59,7 +59,7 @@ class ImporteSaldoInsolutoValorTest extends TestCase
      *           ["100.01", "100.00", "0.00"]
      *           ["100.00", "100.01", "0.00"]
      */
-    public function testInvalid($previous, $payment, $left)
+    public function testInvalid(string $previous, string $payment, string $left)
     {
         $pago = new Pago();
         $docto = $pago->addDoctoRelacionado([

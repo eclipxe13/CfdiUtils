@@ -30,7 +30,7 @@ class TimbreFiscalDigitalVersionTest extends ValidateTestCase
         $this->assertStatusEqualsCode(Status::ok(), 'TFDVERSION01');
     }
 
-    public function providerInvalidVersion()
+    public function providerInvalidVersion(): array
     {
         return[
             ['1.0'],
@@ -48,7 +48,7 @@ class TimbreFiscalDigitalVersionTest extends ValidateTestCase
      * @param string|null $version
      * @dataProvider providerInvalidVersion
      */
-    public function testInvalidCase($version)
+    public function testInvalidCase(?string $version)
     {
         $tfd = new TimbreFiscalDigital();
         $tfd->addAttributes(['Version' => $version]); // override version

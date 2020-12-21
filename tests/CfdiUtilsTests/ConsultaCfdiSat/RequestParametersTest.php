@@ -22,7 +22,7 @@ class RequestParametersTest extends TestCase
         $this->assertSame('AAA010101AAA', $parameters->getRfcEmisor());
         $this->assertSame('COSC8001137NA', $parameters->getRfcReceptor());
         $this->assertSame('1,234.5678', $parameters->getTotal());
-        $this->assertEquals(1234.5678, $parameters->getTotalFloat(), '', 0.0000001);
+        $this->assertEqualsWithDelta(1234.5678, $parameters->getTotalFloat(), 0.0000001);
         $this->assertSame('CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC', $parameters->getUuid());
         $this->assertSame('0123456789', $parameters->getSello());
 
@@ -69,7 +69,7 @@ class RequestParametersTest extends TestCase
         $this->assertSame('XAXX010101000', $parameters->getRfcReceptor());
         $this->assertSame('80824F3B-323E-407B-8F8E-40D83FE2E69F', $parameters->getUuid());
         $this->assertStringEndsWith('YRbgmmVYiA==', $parameters->getSello());
-        $this->assertEquals(4685.00, $parameters->getTotalFloat(), '', 0.001);
+        $this->assertEqualsWithDelta(4685.00, $parameters->getTotalFloat(), 0.001);
     }
 
     public function testCreateFromCfdiVersion33()
@@ -82,7 +82,7 @@ class RequestParametersTest extends TestCase
         $this->assertSame('DIM8701081LA', $parameters->getRfcReceptor());
         $this->assertSame('CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC', $parameters->getUuid());
         $this->assertStringEndsWith('XmE4/OAgdg==', $parameters->getSello());
-        $this->assertEquals(2010.01, $parameters->getTotalFloat(), '', 0.001);
+        $this->assertEqualsWithDelta(2010.01, $parameters->getTotalFloat(), 0.001);
     }
 
     /**
@@ -96,9 +96,8 @@ class RequestParametersTest extends TestCase
      *           ["1.1", "1.1"]
      *           ["0", "0.0"]
      *           ["0.1234567", "0.123457"]
-     *
      */
-    public function testExpressionTotalExamples($total, $expected)
+    public function testExpressionTotalExamples(string $total, string $expected)
     {
         $parameters = new RequestParameters(
             '3.3',
@@ -109,6 +108,6 @@ class RequestParametersTest extends TestCase
             '0123456789'
         );
 
-        $this->assertContains('&tt=' . $expected . '&', $parameters->expression());
+        $this->assertStringContainsString('&tt=' . $expected . '&', $parameters->expression());
     }
 }

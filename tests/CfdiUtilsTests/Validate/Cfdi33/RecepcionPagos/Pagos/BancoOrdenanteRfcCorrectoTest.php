@@ -15,7 +15,7 @@ class BancoOrdenanteRfcCorrectoTest extends TestCase
      *           ["XEXX010101000"]
      *           [null]
      */
-    public function testValid($rfc)
+    public function testValid(?string $rfc)
     {
         $pago = new Pago([
             'RfcEmisorCtaOrd' => $rfc,
@@ -26,12 +26,12 @@ class BancoOrdenanteRfcCorrectoTest extends TestCase
     }
 
     /**
-     * @param string|null $rfc
+     * @param string $rfc
      * @testWith ["COSC8099137N1"]
      *           ["XAXX010101000"]
      *           [""]
      */
-    public function testInvalid($rfc)
+    public function testInvalid(string $rfc)
     {
         $pago = new Pago([
             'RfcEmisorCtaOrd' => $rfc,

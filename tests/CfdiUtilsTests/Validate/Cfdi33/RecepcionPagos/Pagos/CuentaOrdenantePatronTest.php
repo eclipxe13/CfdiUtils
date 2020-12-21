@@ -10,11 +10,11 @@ use PHPUnit\Framework\TestCase;
 class CuentaOrdenantePatronTest extends TestCase
 {
     /**
-     * @param string $input
+     * @param string|null $input
      * @testWith ["1234567890123456"]
      *           [null]
      */
-    public function testValid($input)
+    public function testValid(?string $input)
     {
         $pago = new Pago([
             'FormaDePagoP' => '04', // require a pattern of 16 digits
@@ -29,7 +29,7 @@ class CuentaOrdenantePatronTest extends TestCase
      * @testWith ["1"]
      *           [""]
      */
-    public function testInvalid($input)
+    public function testInvalid(string $input)
     {
         $pago = new Pago([
             'FormaDePagoP' => '04', // require a pattern of 16 digits

@@ -15,7 +15,7 @@ class TipoCadenaPagoCertificadoTest extends TestCase
      * @testWith [null, null]
      *           ["1", "1"]
      */
-    public function testValid($tipoCadPago, $input)
+    public function testValid(?string $tipoCadPago, ?string $input)
     {
         $pago = new Pago([
             'TipoCadPago' => $tipoCadPago,
@@ -36,7 +36,7 @@ class TipoCadenaPagoCertificadoTest extends TestCase
      *           [null, ""]
      *           ["", null]
      */
-    public function testInvalid($tipoCadPago, $input)
+    public function testInvalid(?string $tipoCadPago, ?string $input)
     {
         $pago = new Pago([
             'TipoCadPago' => $tipoCadPago,

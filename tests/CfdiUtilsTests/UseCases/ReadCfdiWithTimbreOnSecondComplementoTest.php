@@ -69,7 +69,7 @@ class ReadCfdiWithTimbreOnSecondComplementoTest extends TestCase
         );
     }
 
-    protected function createCfdiForTesting(string $uuid)
+    protected function createCfdiForTesting(string $uuid): string
     {
         $cerfile = $this->utilAsset('certs/CSD01_AAA010101AAA.cer');
         $keyfile = $this->utilAsset('certs/CSD01_AAA010101AAA.key.pem');

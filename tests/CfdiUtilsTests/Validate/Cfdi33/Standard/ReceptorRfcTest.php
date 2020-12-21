@@ -19,7 +19,7 @@ class ReceptorRfcTest extends ValidateTestCase
         $this->validator = new ReceptorRfc();
     }
 
-    public function providerValidCases()
+    public function providerValidCases(): array
     {
         return [
             'generic' => [Rfc::RFC_GENERIC],
@@ -43,7 +43,7 @@ class ReceptorRfcTest extends ValidateTestCase
         $this->assertStatusEqualsCode(Status::ok(), 'RECRFC01');
     }
 
-    public function providerInvalidCases()
+    public function providerInvalidCases(): array
     {
         return [
             'none' => [null],
@@ -53,10 +53,10 @@ class ReceptorRfcTest extends ValidateTestCase
     }
 
     /**
-     * @param string $rfc
+     * @param string|null $rfc
      * @dataProvider providerInvalidCases
      */
-    public function testInvalidCases($rfc)
+    public function testInvalidCases(?string $rfc)
     {
         $this->comprobante->addChild(new Node('cfdi:Receptor', [
             'Rfc' => $rfc,

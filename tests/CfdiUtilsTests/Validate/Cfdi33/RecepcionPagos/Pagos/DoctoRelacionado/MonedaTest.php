@@ -16,7 +16,7 @@ class MonedaTest extends TestCase
      *           [""]
      *           [null]
      */
-    public function testValid($input)
+    public function testValid(?string $input)
     {
         $docto = new DoctoRelacionado([
             'MonedaDR' => $input,
@@ -28,10 +28,10 @@ class MonedaTest extends TestCase
     }
 
     /**
-     * @param string|null $input
+     * @param string $input
      * @testWith ["XXX"]
      */
-    public function testInvalid($input)
+    public function testInvalid(string $input)
     {
         $docto = new DoctoRelacionado([
             'MonedaDR' => $input,

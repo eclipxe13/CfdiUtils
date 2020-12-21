@@ -39,7 +39,7 @@ class XmlFollowSchemaTest extends ValidateTestCase
         $this->comprobante = $comprobante;
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::error(), 'XSD01');
-        $this->assertContains('Emisor', $this->asserts->get('XSD01')->getExplanation());
+        $this->assertStringContainsString('Emisor', $this->asserts->get('XSD01')->getExplanation());
     }
 
     public function testWithXsdUriNotFound()

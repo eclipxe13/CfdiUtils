@@ -206,7 +206,7 @@ class SumasConceptosComprobanteImpuestosTest extends ValidateTestCase
         $this->assertStatusEqualsCode(Status::error(), 'SUMAS11');
     }
 
-    public function providerValidateDescuentoLessOrEqualThanSubTotal()
+    public function providerValidateDescuentoLessOrEqualThanSubTotal(): array
     {
         return [
             'greater' => ['12345.679', '12345.678', Status::error()],

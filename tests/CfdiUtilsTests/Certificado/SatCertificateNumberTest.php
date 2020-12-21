@@ -7,7 +7,7 @@ use CfdiUtilsTests\TestCase;
 
 class SatCertificateNumberTest extends TestCase
 {
-    public function providerValidNumbers()
+    public function providerValidNumbers(): array
     {
         return [
             ['00000000000000000000'],
@@ -15,7 +15,7 @@ class SatCertificateNumberTest extends TestCase
         ];
     }
 
-    public function providerInvalidNumbers()
+    public function providerInvalidNumbers(): array
     {
         return [
             'empty' => [''],
@@ -29,7 +29,7 @@ class SatCertificateNumberTest extends TestCase
      * @param string $value
      * @dataProvider providerValidNumbers
      */
-    public function testIsValidCertificateNumberWithCorrectValues($value)
+    public function testIsValidCertificateNumberWithCorrectValues(string $value)
     {
         $this->assertSame(true, SatCertificateNumber::isValidCertificateNumber($value));
         $number = new SatCertificateNumber($value);
@@ -41,7 +41,7 @@ class SatCertificateNumberTest extends TestCase
      * @param string $value
      * @dataProvider providerInvalidNumbers
      */
-    public function testIsValidCertificateNumberWithIncorrectValues($value)
+    public function testIsValidCertificateNumberWithIncorrectValues(string $value)
     {
         $this->assertSame(false, SatCertificateNumber::isValidCertificateNumber($value));
 

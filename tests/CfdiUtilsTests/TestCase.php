@@ -7,7 +7,7 @@ use CfdiUtils\XmlResolver\XmlResolver;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
-    public static function utilAsset(string $file)
+    public static function utilAsset(string $file): string
     {
         return dirname(__DIR__) . '/assets/' . $file;
     }
@@ -17,8 +17,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         return ('\\' === DIRECTORY_SEPARATOR);
     }
 
-    /** @return XmlResolver */
-    protected function newResolver()
+    protected function newResolver(): XmlResolver
     {
         return new XmlResolver();
     }

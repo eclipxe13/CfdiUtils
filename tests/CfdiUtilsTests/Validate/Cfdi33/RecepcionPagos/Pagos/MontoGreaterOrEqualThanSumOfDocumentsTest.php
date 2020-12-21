@@ -52,7 +52,7 @@ class MontoGreaterOrEqualThanSumOfDocumentsTest extends TestCase
             'ImpPagado' => '123.45',
         ]), new Pago());
 
-        $this->assertEquals(123.45, $amount, '', 0.001);
+        $this->assertEqualsWithDelta(123.45, $amount, 0.001);
     }
 
     public function testCalculateDocumentAmountWhenIsUndefined()
@@ -63,7 +63,7 @@ class MontoGreaterOrEqualThanSumOfDocumentsTest extends TestCase
         $validator = new MontoGreaterOrEqualThanSumOfDocuments();
         $amount = $validator->calculateDocumentAmount($docto, $pago);
 
-        $this->assertEquals(123.45, $amount, '', 0.001);
+        $this->assertEqualsWithDelta(123.45, $amount, 0.001);
     }
 
     public function testCalculateDocumentAmountWhenIsUndefinedWithExchangeRate()
@@ -74,7 +74,7 @@ class MontoGreaterOrEqualThanSumOfDocumentsTest extends TestCase
         $validator = new MontoGreaterOrEqualThanSumOfDocuments();
         $amount = $validator->calculateDocumentAmount($docto, $pago);
 
-        $this->assertEquals(0, $amount, '', 0.001);
+        $this->assertEqualsWithDelta(0, $amount, 0.001);
     }
 
     public function testCalculateDocumentAmountWhenIsUndefinedWithMoreDocuments()
@@ -86,6 +86,6 @@ class MontoGreaterOrEqualThanSumOfDocumentsTest extends TestCase
         $validator = new MontoGreaterOrEqualThanSumOfDocuments();
         $amount = $validator->calculateDocumentAmount($docto, $pago);
 
-        $this->assertEquals(0, $amount, '', 0.001);
+        $this->assertEqualsWithDelta(0, $amount, 0.001);
     }
 }

@@ -9,6 +9,7 @@ use CfdiUtils\ConsultaCfdiSat\WebService;
 use CfdiUtilsTests\TestCase;
 use SoapClient;
 use SoapFault;
+use DMS\PHPUnitExtensions\ArraySubset\Assert as ArraySubsetAssert;
 
 /**
  * This test case is performing real request to SAT WebService.
@@ -34,7 +35,6 @@ class WebServiceConsumingTest extends TestCase
             return $ws->request($request);
         } catch (SoapFault $exception) {
             $this->markTestSkipped("SAT Service: {$exception->getMessage()}");
-            throw $exception;
         }
     }
 
@@ -44,7 +44,6 @@ class WebServiceConsumingTest extends TestCase
             return $ws->getSoapClient();
         } catch (SoapFault $exception) {
             $this->markTestSkipped("SAT Service: {$exception->getMessage()}");
-            throw $exception;
         }
     }
 
@@ -72,7 +71,7 @@ class WebServiceConsumingTest extends TestCase
         // check context
         $context = $soapClient->{'_stream_context'};
         $options = stream_context_get_options($context);
-        $this->assertArraySubset(['ssl' => ['verify_peer' => false]], $options);
+        ArraySubsetAssert::assertArraySubset(['ssl' => ['verify_peer' => false]], $options);
     }
 
     public function testValidDocumentVersion33()

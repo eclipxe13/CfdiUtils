@@ -11,11 +11,11 @@ use PHPUnit\Framework\TestCase;
 class ImportePagadoValorTest extends TestCase
 {
     /**
-     * @param string|null $input
+     * @param string $input
      * @testWith ["0.01"]
      *           ["123456.78"]
      */
-    public function testValid($input)
+    public function testValid(string $input)
     {
         $docto = new DoctoRelacionado([
             'ImpPagado' => $input,
@@ -44,7 +44,7 @@ class ImportePagadoValorTest extends TestCase
      *           [""]
      *           [null]
      */
-    public function testInvalid($input)
+    public function testInvalid(?string $input)
     {
         $pago = new Pago();
         $docto = $pago->addDoctoRelacionado([
