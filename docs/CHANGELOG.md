@@ -28,6 +28,12 @@
 - Change visibility of `CfdiUtils\Cleaner\Cleaner#removeIncompleteSchemaLocation()` to private.
 
 
+## UNRELEASED
+
+### 2020-12-20
+
+- Validation `SELLO04` fails when there are special caracters like `é` and `LC_CTYPE` is not setup.
+
 ## Version 2.14.2 2021-03-16
 
 ### `FormaPago` on `N - Nómina`

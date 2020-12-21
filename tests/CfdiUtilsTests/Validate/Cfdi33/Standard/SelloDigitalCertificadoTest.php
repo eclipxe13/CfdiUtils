@@ -82,7 +82,7 @@ class SelloDigitalCertificadoTest extends ValidateTestCase
         $emisor = $this->comprobante->searchNode('cfdi:Emisor');
         //    add acentos, change case, and punctuation to original name
         //                   ACCEM SERVICIOS EMPRESARIALES SC
-        $emisor['Nombre'] = 'ACCÉM - SERVICIOS Empresariales, S.C.';
+        $emisor['Nombre'] = 'Accem - SERVICIOS Empresariales, S. C.';
 
         $this->runValidate();
 
@@ -151,6 +151,8 @@ class SelloDigitalCertificadoTest extends ValidateTestCase
     }
 
     /**
+     * This test does not care about locales
+     *
      * @param bool $expected
      * @param string $first
      * @param string $second
@@ -158,7 +160,7 @@ class SelloDigitalCertificadoTest extends ValidateTestCase
      *           [true, "Empresa \"Equis\"", "Empresa Equis"]
      *           [false, "Empresa Equis Sa de Cv", "Empresa Equis SA CV"]
      */
-    public function testCompareNames(bool $expected, string $first, string $second)
+    public function testCompareNamesBasicChars(bool $expected, string $first, string $second)
     {
         $validator = new class() extends SelloDigitalCertificado {
             public function testCompareNames(string $first, string $second): bool
@@ -167,5 +169,39 @@ class SelloDigitalCertificadoTest extends ValidateTestCase
             }
         };
         $this->assertSame($expected, $validator->testCompareNames($first, $second));
+    }
+
+    /**
+     * This test will perform comparison only when locates are set up or can be set.
+     * Otherwise the test will be skipped.
+     *
+     * @param bool $expected
+     * @param string $first
+     * @param string $second
+     * @testWith [true, "Cesar Gomez Aguero", "César Gómez Agüero"]
+     *           [true, "Cesar Gomez Aguero", "CÉSAR GÓMEZ AGÜERO"]
+     *           [true, "CAÑA SA", "Cana SA"]
+     */
+    public function testCompareNamesExtendedChars(bool $expected, string $first, string $second)
+    {
+        $validator = new class() extends SelloDigitalCertificado {
+            public function testCompareNames(string $first, string $second): bool
+            {
+                return $this->compareNames($first, $second);
+            }
+        };
+
+        $currentLocale = setlocale(LC_CTYPE, '0') ?: 'C';
+        if ('C' === $currentLocale || 'POSIX' === $currentLocale) {
+            if (false === setlocale(LC_CTYPE, ['es_MX.utf8', 'en_US.utf8', 'es_MX', 'en_US'])) {
+                $this->markTestSkipped('Cannot compare names without LC_CTYPE configured');
+            }
+        }
+
+        try {
+            $this->assertSame($expected, $validator->testCompareNames($first, $second));
+        } finally {
+            setlocale(LC_CTYPE, $currentLocale);
+        }
     }
 }
