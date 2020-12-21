@@ -7,7 +7,6 @@ use CfdiUtils\ConsultaCfdiSat\RequestParameters;
 use CfdiUtils\ConsultaCfdiSat\StatusResponse;
 use CfdiUtils\ConsultaCfdiSat\WebService;
 use CfdiUtilsTests\TestCase;
-use DMS\PHPUnitExtensions\ArraySubset\Assert as ArraySubsetAssert;
 use SoapClient;
 use SoapFault;
 
@@ -73,7 +72,7 @@ class WebServiceConsumingTest extends TestCase
         /** @phpstan-ignore-next-line the variable is internal */
         $context = $soapClient->{'_stream_context'};
         $options = stream_context_get_options($context);
-        ArraySubsetAssert::assertArraySubset(['ssl' => ['verify_peer' => false]], $options);
+        $this->assertSame(false, $options['ssl']['verify_peer'] ?? null);
     }
 
     public function testValidDocumentVersion33()

@@ -3,7 +3,6 @@
 namespace CfdiUtilsTests\Elements\Cfdi33;
 
 use CfdiUtils\Elements\Cfdi33\Comprobante;
-use DMS\PHPUnitExtensions\ArraySubset\Assert as ArraySubsetAssert;
 use PHPUnit\Framework\TestCase;
 
 /*
@@ -65,7 +64,17 @@ class ComprobanteGetCfdiRelacionadosTest extends TestCase
             'errstr' => 'El método getCfdiRelacionados ya no admite atributos, use addCfdiRelacionados en su lugar',
         ];
 
-        ArraySubsetAssert::assertArraySubset($expectedError, $this->errors[0]);
+        $capturedError = $this->errors[0] ?? [];
+        $this->assertSame(
+            $expectedError['errno'],
+            $capturedError['errno'] ?? null,
+            'Captured error does not have expected error number'
+        );
+        $this->assertSame(
+            $expectedError['errstr'],
+            $capturedError['errstr'] ?? null,
+            'Captured error does not have expected error message'
+        );
     }
 
     public function testStillIsWorkingWhenPassAnArrayAsArgument()
