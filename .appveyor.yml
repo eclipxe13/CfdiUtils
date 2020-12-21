@@ -17,6 +17,7 @@ environment:
         - php: 7.2
         - php: 7.3
         - php: 7.4
+        - php: 8.0
 
 init:
     - SET PATH=c:\tools\php;C:\tools\composer;C:\OpenSSL-v111-Win64\bin;%PATH%

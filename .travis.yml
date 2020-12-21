@@ -3,7 +3,7 @@ language: php
 dist: xenial
 
 # php compatibility
-php: ["7.2", "7.3", "7.4"]
+php: ["7.2", "7.3", "7.4", "8.0"]
 
 branches:
     except:
@@ -40,7 +40,7 @@ before_script:
 
 script:
     - vendor/bin/phpcs -sp src/ tests/
-    - vendor/bin/php-cs-fixer fix --using-cache=no --dry-run --verbose
+    - PHP_CS_FIXER_IGNORE_ENV=yes vendor/bin/php-cs-fixer fix --using-cache=no --dry-run --verbose
     - | # create code coverage file
         if [[ $TRAVIS_PHP_VERSION == $FULL_BUILD_PHP_VERSION ]]; then
             php -dzend_extension=xdebug.so vendor/bin/phpunit --testdox --verbose --coverage-clover="$COVERAGE_FILE"
