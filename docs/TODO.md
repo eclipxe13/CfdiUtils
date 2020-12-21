@@ -1,7 +1,6 @@
 # Lista de tareas pendientes e ideas
 
-- Compatibilidad con PHP 7.4
-- Firma de CfdiUtils\Utils\Format::number el argumento $decimals debe ser entero
+- Incrementar la cobertura de PHPStan al nivel máximo.
 
 ## Verificar problemas conocidos
 
@@ -68,7 +67,7 @@ ideas than need a solution:
 ## Validation rules for Pagos
 
 The validation rules for "Complemento de Recepción de pagos" are included since version 2.6 but
-they require more cases of use and a better understanding of the rules published by SAT.
+they require more cases of use, and a better understanding of the rules published by SAT.
 
 
 ## Validation rules for ComercioExterior

@@ -30,9 +30,23 @@
 
 ## UNRELEASED
 
-### 2020-12-20
+### 2020-12-20 (branch php8.0)
 
 - Validation `SELLO04` fails when there are special caracters like `é` and `LC_CTYPE` is not setup.
+- Remove support for PHP 7.0 and PHP 7.1.
+- Compatilize with PHP 8.0 / OpenSSL:
+    - It does not return resources but objects.
+    - On deprecated functions tun only if PHP version is lower than 8.0 and put annotations for `phpcs`.
+- Upgrade to PHPUnit 8.5 and upgrade test suite
+- AppVeyor: Only run PHPUnit
+- Travis-CI: On PHP != 7.4 only run PHPUnit
+- Travis-CI: On PHP == 7.4 run all the build commands
+- PHPStan: Upgrade to version 0.12, downgrade level to 5.
+- Soft backwards incompatibility changes:
+    - Method __construct() of class CfdiUtils\Validate\Cfdi33\Standard\FechaComprobante became final
+    - Method __construct() of class CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pago became final
+    - The return type of CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pago#getValidators() changed from no type to array
+    - The parameter $decimals of CfdiUtils\Utils\Format::number() changed from no type to a non-contravariant int
 
 ## Version 2.14.2 2021-03-16
 
