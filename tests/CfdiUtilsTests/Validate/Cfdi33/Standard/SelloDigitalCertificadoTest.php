@@ -175,31 +175,42 @@ class SelloDigitalCertificadoTest extends ValidateTestCase
      * This test will perform comparison only when locates are set up or can be set.
      * Otherwise the test will be skipped.
      *
-     * @param bool $expected
      * @param string $first
      * @param string $second
-     * @testWith [true, "Cesar Gomez Aguero", "César Gómez Agüero"]
-     *           [true, "Cesar Gomez Aguero", "CÉSAR GÓMEZ AGÜERO"]
-     *           [true, "CAÑA SA", "Cana SA"]
+     * @testWith ["Cesar Gomez Aguero", "César Gómez Agüero"]
+     *           ["Cesar Gomez Aguero", "CÉSAR GÓMEZ AGÜERO"]
+     *           ["CAÑA SA", "Cana SA"]
      */
-    public function testCompareNamesExtendedChars(bool $expected, string $first, string $second)
+    public function testCompareNamesExtendedChars(string $first, string $second)
     {
         $validator = new class() extends SelloDigitalCertificado {
             public function testCompareNames(string $first, string $second): bool
             {
                 return $this->compareNames($first, $second);
             }
+
+            public function testCastNombre(string $name): string
+            {
+                return $this->castNombre($name);
+            }
         };
 
         $currentLocale = setlocale(LC_CTYPE, '0') ?: 'C';
         if ('C' === $currentLocale || 'POSIX' === $currentLocale) {
-            if (false === setlocale(LC_CTYPE, ['es_MX.utf8', 'en_US.utf8', 'es_MX', 'en_US'])) {
+            if (false === setlocale(LC_CTYPE, ['es_MX.utf8', 'en_US.utf8', 'es_MX', 'en_US', 'spanish', 'english'])) {
                 $this->markTestSkipped('Cannot compare names without LC_CTYPE configured');
             }
         }
 
         try {
-            $this->assertSame($expected, $validator->testCompareNames($first, $second));
+            $this->assertTrue($validator->testCompareNames($first, $second), sprintf(
+                'Unable to assert name equals (%s, %s) [%s like %s] with locale %s',
+                $first,
+                $second,
+                $validator->testCastNombre($first),
+                $validator->testCastNombre($second),
+                setlocale(LC_CTYPE, '0') ?: 'C'
+            ));
         } finally {
             setlocale(LC_CTYPE, $currentLocale);
         }
