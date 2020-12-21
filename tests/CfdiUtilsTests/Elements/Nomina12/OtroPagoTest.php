@@ -15,7 +15,7 @@ class OtroPagoTest extends TestCase
     /** @var OtroPago */
     public $element;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->element = new OtroPago();

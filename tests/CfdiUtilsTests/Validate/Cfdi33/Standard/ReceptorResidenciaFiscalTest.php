@@ -12,7 +12,7 @@ class ReceptorResidenciaFiscalTest extends ValidateTestCase
     /** @var  ReceptorResidenciaFiscal */
     protected $validator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->validator = new ReceptorResidenciaFiscal();

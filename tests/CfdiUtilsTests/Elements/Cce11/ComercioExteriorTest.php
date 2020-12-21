@@ -16,7 +16,7 @@ class ComercioExteriorTest extends TestCase
     /** @var ComercioExterior */
     public $element;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->element = new ComercioExterior();

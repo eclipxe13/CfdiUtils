@@ -15,7 +15,7 @@ class ConceptosTest extends ValidateComplementoPagosTestCase
     /** @var Concepto */
     protected $concepto;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->validator = new Conceptos();

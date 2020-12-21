@@ -10,7 +10,7 @@ class CuentaPredialTest extends TestCase
     /** @var CuentaPredial */
     public $element;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->element = new CuentaPredial();

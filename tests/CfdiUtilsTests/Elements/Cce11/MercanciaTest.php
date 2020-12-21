@@ -11,7 +11,7 @@ class MercanciaTest extends TestCase
     /** @var Mercancia */
     public $element;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->element = new Mercancia();

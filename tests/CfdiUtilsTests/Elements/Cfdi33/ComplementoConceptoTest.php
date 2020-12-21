@@ -10,7 +10,7 @@ class ComplementoConceptoTest extends TestCase
     /** @var ComplementoConcepto */
     public $element;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->element = new ComplementoConcepto();

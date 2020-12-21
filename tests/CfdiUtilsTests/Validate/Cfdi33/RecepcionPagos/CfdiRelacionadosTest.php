@@ -10,7 +10,7 @@ class CfdiRelacionadosTest extends ValidateComplementoPagosTestCase
     /** @var CfdiRelacionados */
     protected $validator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->validator = new CfdiRelacionados();

@@ -14,7 +14,7 @@ class ImpuestosTraitTest extends TestCase
     /** @var UseImpuestos */
     public $element;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->element = new UseImpuestos();

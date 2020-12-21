@@ -12,7 +12,7 @@ class EmisorRegimenFiscalTest extends ValidateTestCase
     /** @var  EmisorRegimenFiscal */
     protected $validator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->validator = new EmisorRegimenFiscal();

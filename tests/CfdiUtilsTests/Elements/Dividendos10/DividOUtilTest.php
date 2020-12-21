@@ -10,7 +10,7 @@ class DividOUtilTest extends TestCase
     /** @var DividOUtil */
     public $element;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->element = new DividOUtil();

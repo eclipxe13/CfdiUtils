@@ -10,7 +10,7 @@ class CfdiQuickReaderTest extends TestCase
     /** @var QuickReader */
     private $comprobante;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $contents = strval(file_get_contents($this->utilAsset('cfdi33-real.xml')));

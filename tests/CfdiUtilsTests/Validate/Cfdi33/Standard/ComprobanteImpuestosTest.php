@@ -12,7 +12,7 @@ class ComprobanteImpuestosTest extends ValidateTestCase
     /** @var  ComprobanteImpuestos */
     protected $validator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->validator = new ComprobanteImpuestos();

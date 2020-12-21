@@ -13,7 +13,7 @@ class SeparacionIndemnizacionTest extends TestCase
     /** @var SeparacionIndemnizacion */
     public $element;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->element = new SeparacionIndemnizacion();

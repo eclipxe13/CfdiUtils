@@ -10,7 +10,7 @@ abstract class ValidateComplementoPagosTestCase extends ValidateTestCase
     /** @var Pagos10 */
     protected $complemento;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

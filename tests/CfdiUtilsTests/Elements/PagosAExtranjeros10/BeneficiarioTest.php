@@ -10,7 +10,7 @@ class BeneficiarioTest extends TestCase
     /** @var Beneficiario */
     public $element;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->element = new Beneficiario();

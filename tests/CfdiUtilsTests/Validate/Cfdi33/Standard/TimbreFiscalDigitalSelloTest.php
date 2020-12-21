@@ -14,7 +14,7 @@ class TimbreFiscalDigitalSelloTest extends ValidateTestCase
     /** @var TimbreFiscalDigitalSello */
     protected $validator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->validator = new TimbreFiscalDigitalSello();

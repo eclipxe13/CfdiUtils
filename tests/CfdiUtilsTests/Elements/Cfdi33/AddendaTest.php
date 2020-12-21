@@ -11,7 +11,7 @@ class AddendaTest extends TestCase
     /** @var Addenda */
     public $element;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->element = new Addenda();

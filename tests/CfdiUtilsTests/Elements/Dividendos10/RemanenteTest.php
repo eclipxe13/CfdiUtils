@@ -10,7 +10,7 @@ class RemanenteTest extends TestCase
     /** @var Remanente */
     public $element;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->element = new Remanente();

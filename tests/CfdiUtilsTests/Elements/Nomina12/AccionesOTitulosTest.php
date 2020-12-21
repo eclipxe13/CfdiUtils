@@ -13,7 +13,7 @@ class AccionesOTitulosTest extends TestCase
     /** @var AccionesOTitulos */
     public $element;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->element = new AccionesOTitulos();

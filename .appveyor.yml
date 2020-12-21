@@ -14,8 +14,6 @@ cache:
 ## Build matrix for lowest and highest possible targets
 environment:
     matrix:
-        - php: 7.0
-        - php: 7.1
         - php: 7.2
         - php: 7.3
         - php: 7.4
@@ -115,8 +113,8 @@ install:
           }
     # install project dependences and list available tools
     - cd c:\projects\project
+    - composer remove genkgo/xsl squizlabs/php_codesniffer friendsofphp/php-cs-fixer phpstan/phpstan --dev --no-interaction --no-progress --no-update
     - appveyor-retry composer install --prefer-dist --no-progress --no-interaction --ansi
-    - dir vendor\bin
     # sat-xml resources as a dependency
     - ps: |
           appveyor-retry appveyor DownloadFile https://github.com/phpcfdi/resources-sat-xml/archive/master.zip -Filename c:\projects\project\build\sat-xml.zip
@@ -126,8 +124,4 @@ install:
 ## Run the actual test
 test_script:
     - cd c:\projects\project
-    - vendor\bin\phpcs.bat -sp src tests
-    - vendor\bin\php-cs-fixer.bat fix --dry-run --verbose
-    - if "%php%"=="7.0" vendor\bin\phpunit.bat --verbose
-    - if not "%php%"=="7.0" vendor\bin\phpunit.bat --testdox --verbose
-    - if "%php%"=="7.3" vendor\bin\phpstan.bat analyse --no-progress --level max src/ tests/
+    - vendor\bin\phpunit.bat --testdox --verbose

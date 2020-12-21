@@ -11,7 +11,7 @@ class ComprobanteTipoCambioTest extends ValidateTestCase
     /** @var ComprobanteTipoCambio */
     protected $validator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->validator = new ComprobanteTipoCambio();

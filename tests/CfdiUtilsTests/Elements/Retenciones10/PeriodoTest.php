@@ -10,7 +10,7 @@ class PeriodoTest extends TestCase
     /** @var Periodo */
     public $element;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->element = new Periodo();

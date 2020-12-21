@@ -13,7 +13,7 @@ class IncapacidadTest extends TestCase
     /** @var Incapacidad */
     public $element;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->element = new Incapacidad();

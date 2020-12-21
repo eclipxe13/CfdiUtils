@@ -27,7 +27,7 @@ abstract class ValidateTestCase extends TestCase
     /** @var Hydrater */
     protected $hydrater;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->comprobante = new Comprobante();

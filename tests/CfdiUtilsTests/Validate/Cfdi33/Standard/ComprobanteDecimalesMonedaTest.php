@@ -12,7 +12,7 @@ class ComprobanteDecimalesMonedaTest extends ValidateTestCase
     /** @var ComprobanteDecimalesMoneda */
     protected $validator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->validator = new ComprobanteDecimalesMoneda();

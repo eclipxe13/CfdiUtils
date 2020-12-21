@@ -11,7 +11,7 @@ class ComprobantePagosTest extends ValidateComplementoPagosTestCase
     /** @var ComprobantePagos */
     protected $validator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->validator = new ComprobantePagos();

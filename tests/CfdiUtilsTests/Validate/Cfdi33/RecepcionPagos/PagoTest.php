@@ -9,7 +9,7 @@ class PagoTest extends ValidateComplementoPagosTestCase
     /** @var Pago */
     protected $validator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->validator = new Pago();

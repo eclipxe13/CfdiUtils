@@ -11,7 +11,7 @@ class RetencionesTest extends TestCase
     /** @var Retenciones */
     public $element;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->element = new Retenciones();

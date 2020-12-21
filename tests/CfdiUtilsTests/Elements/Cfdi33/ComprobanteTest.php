@@ -20,7 +20,7 @@ class ComprobanteTest extends TestCase
     /**@var Comprobante */
     public $element;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->element = new Comprobante();

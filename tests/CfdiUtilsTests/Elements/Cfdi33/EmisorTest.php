@@ -10,7 +10,7 @@ class EmisorTest extends TestCase
     /** @var Emisor */
     public $element;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->element = new Emisor();

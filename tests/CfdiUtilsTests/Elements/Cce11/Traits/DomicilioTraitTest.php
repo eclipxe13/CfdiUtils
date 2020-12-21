@@ -10,7 +10,7 @@ class DomicilioTraitTest extends TestCase
     /** @var UseDomicilio */
     public $element;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->element = new UseDomicilio();

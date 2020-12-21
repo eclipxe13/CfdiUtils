@@ -16,7 +16,7 @@ class ConceptoTest extends TestCase
     /** @var  Concepto */
     public $element;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->element = new Concepto();

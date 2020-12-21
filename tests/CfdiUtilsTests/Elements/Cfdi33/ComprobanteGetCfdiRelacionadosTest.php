@@ -20,7 +20,7 @@ class ComprobanteGetCfdiRelacionadosTest extends TestCase
 {
     private $errors = [];
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         set_error_handler(
@@ -29,15 +29,16 @@ class ComprobanteGetCfdiRelacionadosTest extends TestCase
         );
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         restore_error_handler();
         parent::tearDown();
     }
 
-    public function errorHandler($errno, $errstr, $errfile, $errline, $errcontext)
+    public function errorHandler(int $errno, string $errstr, string $errfile = '', int $errline = 0, array $errcontext = []): bool
     {
         $this->errors[] = compact('errno', 'errstr', 'errfile', 'errline', 'errcontext');
+        return true;
     }
 
     public function testGetCfdiRelacionadoDontTriggerErrorsWhenCallWithoutArgument()

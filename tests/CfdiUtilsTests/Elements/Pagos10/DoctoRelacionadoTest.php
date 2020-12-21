@@ -10,7 +10,7 @@ class DoctoRelacionadoTest extends TestCase
     /** @var DoctoRelacionado */
     public $element;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->element = new DoctoRelacionado();
