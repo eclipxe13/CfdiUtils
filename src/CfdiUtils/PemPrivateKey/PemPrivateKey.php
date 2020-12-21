@@ -13,7 +13,7 @@ class PemPrivateKey
     /** @var string */
     private $contents;
 
-    /** @var resource|false */
+    /** @var mixed|false */
     private $privatekey = false;
 
     /**
@@ -98,7 +98,7 @@ class PemPrivateKey
         return (false !== $this->privatekey);
     }
 
-    /** @return resource */
+    /** @return mixed */
     private function getOpenPrivateKey()
     {
         if (false === $this->privatekey) {
