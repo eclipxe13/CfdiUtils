@@ -78,7 +78,6 @@ class XmlNodeUtilsTest extends TestCase
         $inspected = $node->searchNode('base:Third', 'innerNS');
         if (null === $inspected) {
             $this->fail('The specimen does not have the required test case');
-            return;
         }
         $this->assertSame('http://external.com/inner', $inspected['xmlns']);
     }

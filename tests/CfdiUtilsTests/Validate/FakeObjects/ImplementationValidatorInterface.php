@@ -18,7 +18,7 @@ class ImplementationValidatorInterface implements ValidatorInterface
     public $enterValidateMethod = false;
 
     /** @var Asserts|null */
-    public $assertsToImport = null;
+    public $assertsToImport;
 
     public function validate(NodeInterface $comprobante, Asserts $asserts)
     {

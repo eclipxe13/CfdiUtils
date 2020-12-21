@@ -29,7 +29,6 @@ class TfdCadenaDeOrigenTest extends TestCase
         $tfd = $cfdi->getNode()->searchNode('cfdi:Complemento', 'tfd:TimbreFiscalDigital');
         if (null === $tfd) {
             $this->fail('Cannot get the tfd:TimbreFiscalDigital node');
-            return;
         }
         $tfdXml = XmlNodeUtils::nodeToXmlString($tfd);
 
