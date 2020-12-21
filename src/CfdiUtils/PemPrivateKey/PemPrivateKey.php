@@ -14,7 +14,7 @@ class PemPrivateKey
     private $contents;
 
     /** @var resource|false */
-    private $privatekey;
+    private $privatekey = false;
 
     /**
      * Create a private key helper class based on a private key PEM formatted
