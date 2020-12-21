@@ -36,8 +36,13 @@ class ComprobanteGetCfdiRelacionadosTest extends TestCase
         parent::tearDown();
     }
 
-    public function errorHandler(int $errno, string $errstr, string $errfile = '', int $errline = 0, array $errcontext = []): bool
-    {
+    public function errorHandler(
+        int $errno,
+        string $errstr,
+        string $errfile = '',
+        int $errline = 0,
+        array $errcontext = []
+    ): bool {
         $this->errors[] = compact('errno', 'errstr', 'errfile', 'errline', 'errcontext');
         return true;
     }

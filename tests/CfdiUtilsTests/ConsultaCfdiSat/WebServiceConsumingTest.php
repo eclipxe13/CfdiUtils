@@ -7,9 +7,9 @@ use CfdiUtils\ConsultaCfdiSat\RequestParameters;
 use CfdiUtils\ConsultaCfdiSat\StatusResponse;
 use CfdiUtils\ConsultaCfdiSat\WebService;
 use CfdiUtilsTests\TestCase;
+use DMS\PHPUnitExtensions\ArraySubset\Assert as ArraySubsetAssert;
 use SoapClient;
 use SoapFault;
-use DMS\PHPUnitExtensions\ArraySubset\Assert as ArraySubsetAssert;
 
 /**
  * This test case is performing real request to SAT WebService.

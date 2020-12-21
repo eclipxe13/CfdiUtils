@@ -46,7 +46,10 @@ class TimbreFiscalDigitalSelloTest extends ValidateTestCase
         $this->validator->setXmlResolver(null);
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::none(), 'TFDSELLO01');
-        $this->assertStringContainsString('No se puede hacer la validación', $this->asserts->get('TFDSELLO01')->getExplanation());
+        $this->assertStringContainsString(
+            'No se puede hacer la validación',
+            $this->asserts->get('TFDSELLO01')->getExplanation()
+        );
     }
 
     public function testValidatorDontHaveTimbreFiscalDigital()
@@ -124,7 +127,10 @@ class TimbreFiscalDigitalSelloTest extends ValidateTestCase
 
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::error(), 'TFDSELLO01');
-        $this->assertStringContainsString('obtener el certificado', $this->asserts->get('TFDSELLO01')->getExplanation());
+        $this->assertStringContainsString(
+            'obtener el certificado',
+            $this->asserts->get('TFDSELLO01')->getExplanation()
+        );
     }
 
     public function testValidatorSelloSatInvalid()
