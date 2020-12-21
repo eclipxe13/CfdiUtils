@@ -65,12 +65,12 @@
             "@dev:docs"
         ],
         "dev:check-style": [
-            "vendor/bin/php-cs-fixer fix --dry-run --verbose",
-            "vendor/bin/phpcs --colors -sp src/ tests/"
+            "@php vendor/bin/php-cs-fixer fix --dry-run --verbose",
+            "@php vendor/bin/phpcs --colors -sp src/ tests/"
         ],
         "dev:fix-style": [
-            "vendor/bin/php-cs-fixer fix --verbose",
-            "vendor/bin/phpcbf --colors -sp src/ tests/"
+            "@php vendor/bin/php-cs-fixer fix --verbose",
+            "@php vendor/bin/phpcbf --colors -sp src/ tests/"
         ],
         "dev:docs": [
             "node_modules/markdownlint-cli/markdownlint.js *.md docs/",
@@ -78,8 +78,8 @@
         ],
         "dev:test": [
             "@dev:check-style",
-            "vendor/bin/phpunit --testdox --verbose --stop-on-failure",
-            "vendor/bin/phpstan analyse --no-progress --level max src/ tests/"
+            "@php vendor/bin/phpunit --testdox --verbose --stop-on-failure",
+            "@php vendor/bin/phpstan analyse --no-progress --level max src/ tests/"
         ],
         "dev:coverage": [
             "@php -dzend_extension=xdebug.so vendor/bin/phpunit --coverage-text --coverage-html build/coverage/html/"
