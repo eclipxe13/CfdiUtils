@@ -42,7 +42,7 @@
         "genkgo/xsl": "Allows usage of Genkgo/Xsl transformations"
     },
     "require-dev": {
-        "genkgo/xsl": "^0.6",
+        "genkgo/xsl": "dev-master",
         "phpunit/phpunit": "^8.5",
         "squizlabs/php_codesniffer": "^3.0",
         "friendsofphp/php-cs-fixer": "^2.4",

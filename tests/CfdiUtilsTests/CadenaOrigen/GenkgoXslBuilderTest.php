@@ -7,6 +7,13 @@ use CfdiUtils\CadenaOrigen\XsltBuilderInterface;
 
 class GenkgoXslBuilderTest extends GenericBuilderTestCase
 {
+    protected function setUp(): void
+    {
+        if (! class_exists(\Genkgo\Xsl\XsltProcessor::class)) {
+            $this->markTestSkipped('Genkgo/Xsl is not installed');
+        }
+    }
+
     protected function createBuilder(): XsltBuilderInterface
     {
         return new GenkgoXslBuilder();
