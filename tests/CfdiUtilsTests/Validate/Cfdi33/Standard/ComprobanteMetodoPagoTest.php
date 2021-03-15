@@ -17,91 +17,61 @@ class ComprobanteMetodoPagoTest extends ValidateTestCase
         $this->validator = new ComprobanteMetodoPago();
     }
 
-    public function providerValidCases()
+    /**
+     * @param string $tipoDeComprobante
+     * @testWith ["T"]
+     *           ["P"]
+     */
+    public function testValidCasesMetodoPagoExists($tipoDeComprobante)
     {
-        return[
-            ['T', null, 'METPAG01'],
-            ['P', null, 'METPAG01'],
-            ['N', null, 'METPAG01'],
-            ['I', 'PUE', 'METPAG02'],
-            ['I', 'PPD', 'METPAG02'],
-            ['E', 'PUE', 'METPAG02'],
-            ['I', 'PPD', 'METPAG02'],
-        ];
+        $this->comprobante->addAttributes([
+            'TipoDeComprobante' => $tipoDeComprobante,
+            'MetodoPago' => null, // no MetodoPago
+        ]);
+        $this->runValidate();
+        $this->assertStatusEqualsCode(Status::ok(), 'METPAG01');
     }
 
     /**
      * @param string $tipoDeComprobante
-     * @param mixed $metodoDePago
-     * @param string $ok
-     * @dataProvider providerValidCases
+     * @testWith ["T"]
+     *           ["P"]
      */
-    public function testValidCases($tipoDeComprobante, $metodoDePago, $ok)
+    public function testInvalidCasesMetodoPagoExists($tipoDeComprobante)
     {
         $this->comprobante->addAttributes([
             'TipoDeComprobante' => $tipoDeComprobante,
-            'MetodoPago' => $metodoDePago,
+            'MetodoPago' => '',
         ]);
         $this->runValidate();
-        $this->assertFalse($this->asserts->hasErrors());
-        $this->assertStatusEqualsCode(Status::ok(), $ok);
-    }
-
-    public function providerInvalidCases()
-    {
-        return[
-            ['T', 'PUE', 'METPAG01'],
-            ['T', '', 'METPAG01'],
-            ['P', 'PUE', 'METPAG01'],
-            ['P', '', 'METPAG01'],
-            ['N', 'PUE', 'METPAG01'],
-            ['N', '', 'METPAG01'],
-            ['I', null, 'METPAG02'],
-            ['I', null, 'METPAG02'],
-            ['E', 'XXX', 'METPAG02'],
-            ['I', 'XXX', 'METPAG02'],
-        ];
+        $this->assertStatusEqualsCode(Status::error(), 'METPAG01');
     }
 
     /**
-     * @param string $tipoDeComprobante
-     * @param mixed $metodoDePago
-     * @param string $error
-     * @dataProvider providerInvalidCases
-     */
-    public function testInvalidCases($tipoDeComprobante, $metodoDePago, $error)
-    {
-        $this->comprobante->addAttributes([
-            'TipoDeComprobante' => $tipoDeComprobante,
-            'MetodoPago' => $metodoDePago,
-        ]);
-        $this->runValidate();
-        $this->assertTrue($this->asserts->hasErrors());
-        $this->assertStatusEqualsCode(Status::error(), $error);
-    }
-
-    public function providerNoneCases()
-    {
-        return [
-            [null, ''],
-            ['', ''],
-            ['X', ''],
-        ];
-    }
-
-    /**
-     * @param mixed $tipoDeComprobante
      * @param string $metodoDePago
-     * @dataProvider providerNoneCases
+     * @testWith ["PUE"]
+     *           ["PPD"]
      */
-    public function testNoneCases($tipoDeComprobante, $metodoDePago)
+    public function testMetodoPagoHasValidValue(string $metodoDePago)
     {
         $this->comprobante->addAttributes([
-            'TipoDeComprobante' => $tipoDeComprobante,
             'MetodoPago' => $metodoDePago,
         ]);
         $this->runValidate();
-        $this->assertFalse($this->asserts->hasErrors());
-        $this->assertCount(2, $this->asserts->byStatus(Status::none()));
+        $this->assertStatusEqualsCode(Status::ok(), 'METPAG02');
+    }
+
+    /**
+     * @param string $metodoDePago
+     * @testWith [""]
+     *           ["XXX"]
+     */
+    public function testMetodoPagoExistsWithInalidValue(string $metodoDePago)
+    {
+        $this->comprobante->addAttributes([
+            'MetodoPago' => $metodoDePago,
+        ]);
+        $this->runValidate();
+        $this->assertStatusEqualsCode(Status::error(), 'METPAG02');
     }
 }

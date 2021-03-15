@@ -47,9 +47,12 @@ Valida el nodo impuestos del comprobante
 
 Validaciones específicas relacionadas con el método de pago
 
-- METPAG01: Si el tipo de documento es T, P ó N, entonces el metodo de pago no debe existir (CFDI33123, CFDI33124)
-- METPAG02: Si el tipo de documento es I ó E, entonces el metodo de pago debe ser "PUE" o "PPD" (CFDI33121, CFDI33122)
+- METPAG01: Si el tipo de documento es T ó P, entonces el método de pago no debe existir (CFDI33123)
+- METPAG02: Si existe el método de pago entonces debe ser "PUE" o "PPD" (CFDI33121)
 
+En METPAG01 solo se verifica que no exista el atributo de método de pago cuando el tipo de documento es Traslado o Nómina.
+No se verifica su no existencia para otros tipos de documentos.
+Tampoco se verifica que el método de pago sí exista para otros tipos de documentos.
 
 ## ComprobanteTipoCambio
 
@@ -67,7 +70,7 @@ Realiza diferentes validaciones relacionadas con el tipo de comprobante:
 - TIPOCOMP01: Si el tipo de comprobante es T, P ó N, entonces no debe existir las condiciones de pago
 - TIPOCOMP02: Si el tipo de comprobante es T, P ó N, entonces no debe existir la definición de impuestos (CFDI33179)
 - TIPOCOMP03: Si el tipo de comprobante es T, P ó N, entonces no debe existir la forma de pago
-- TIPOCOMP04: Si el tipo de comprobante es T, P ó N, entonces no debe existir el método de pago (CFDI33123)
+- TIPOCOMP04: Si el tipo de comprobante es T ó P, entonces no debe existir el método de pago (CFDI33123)
 - TIPOCOMP05: Si el tipo de comprobante es T ó P, entonces no debe existir el descuento del comprobante (CFDI33110)
 - TIPOCOMP06: Si el tipo de comprobante es T ó P, entonces no debe existir el descuento de los conceptos (CFDI33179)
 - TIPOCOMP07: Si el tipo de comprobante es T ó P, entonces el subtotal debe ser cero (CFDI33108)
