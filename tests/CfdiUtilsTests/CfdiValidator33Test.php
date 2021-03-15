@@ -98,7 +98,7 @@ class CfdiValidator33Test extends TestCase
 
         $validator = new CfdiValidator33($this->newResolver());
         $asserts = $validator->validate($cfdi->getSource(), $cfdi->getNode());
-        $asserts->hasErrors() && print_r($asserts->errors());
+        // $asserts->hasErrors() && print_r($asserts->errors());
         $this->assertFalse(
             $asserts->hasErrors(),
             'The validation of an expected cfdi33 real file fails'
