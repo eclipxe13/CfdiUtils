@@ -43,17 +43,6 @@ Valida el nodo impuestos del comprobante
 - COMPIMPUESTOSC03: Si existe al menos una retención entonces debe existir el total de retenciones
 
 
-## ComprobanteMetodoPago
-
-Validaciones específicas relacionadas con el método de pago
-
-- METPAG01: Si el tipo de documento es T ó P, entonces el método de pago no debe existir (CFDI33123)
-- METPAG02: Si existe el método de pago entonces debe ser "PUE" o "PPD" (CFDI33121)
-
-En METPAG01 solo se verifica que no exista el atributo de método de pago cuando el tipo de documento es Traslado o Nómina.
-No se verifica su no existencia para otros tipos de documentos.
-Tampoco se verifica que el método de pago sí exista para otros tipos de documentos.
-
 ## ComprobanteTipoCambio
 
 - TIPOCAMBIO01: La moneda exista y no tenga un valor vacío
