@@ -36,7 +36,6 @@ class ComprobanteTipoDeComprobanteTest extends ValidateTestCase
         $this->assertStatusEqualsCode(Status::ok(), 'TIPOCOMP01');
         $this->assertStatusEqualsCode(Status::ok(), 'TIPOCOMP02');
         $this->assertStatusEqualsCode(Status::ok(), 'TIPOCOMP03');
-        $this->assertStatusEqualsCode(Status::ok(), 'TIPOCOMP04');
     }
 
     /**
@@ -56,7 +55,6 @@ class ComprobanteTipoDeComprobanteTest extends ValidateTestCase
         $this->assertStatusEqualsCode(Status::error(), 'TIPOCOMP01');
         $this->assertStatusEqualsCode(Status::error(), 'TIPOCOMP02');
         $this->assertStatusEqualsCode(Status::error(), 'TIPOCOMP03');
-        $this->assertStatusEqualsCode(Status::error(), 'TIPOCOMP04');
     }
 
     public function providerTP()
@@ -76,10 +74,25 @@ class ComprobanteTipoDeComprobanteTest extends ValidateTestCase
             'Total' => '0.00',
         ]);
         $this->runValidate();
+        $this->assertStatusEqualsCode(Status::ok(), 'TIPOCOMP04');
         $this->assertStatusEqualsCode(Status::ok(), 'TIPOCOMP05');
         $this->assertStatusEqualsCode(Status::ok(), 'TIPOCOMP06');
         $this->assertStatusEqualsCode(Status::ok(), 'TIPOCOMP07');
         $this->assertStatusEqualsCode(Status::ok(), 'TIPOCOMP08');
+    }
+
+    /**
+     * @param string $tipoDeComprobante
+     * @dataProvider providerTP
+     */
+    public function testInvalidTPMetodoPago($tipoDeComprobante)
+    {
+        $this->comprobante->addAttributes([
+            'TipoDeComprobante' => $tipoDeComprobante,
+            'MetodoPago' => '',
+        ]);
+        $this->runValidate();
+        $this->assertStatusEqualsCode(Status::error(), 'TIPOCOMP04');
     }
 
     /**

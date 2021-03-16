@@ -14,7 +14,7 @@ use CfdiUtils\Validate\Status;
  * - TIPOCOMP01: Si el tipo de comprobante es T, P ó N, entonces no debe existir las condiciones de pago
  * - TIPOCOMP02: Si el tipo de comprobante es T, P ó N, entonces no debe existir la definición de impuestos (CFDI33179)
  * - TIPOCOMP03: Si el tipo de comprobante es T, P ó N, entonces no debe existir la forma de pago
- * - TIPOCOMP04: Si el tipo de comprobante es T, P ó N, entonces no debe existir el método de pago (CFDI33123)
+ * - TIPOCOMP04: Si el tipo de comprobante es T ó P, entonces no debe existir el método de pago (CFDI33123)
  * - TIPOCOMP05: Si el tipo de comprobante es T ó P, entonces no debe existir el descuento del comprobante (CFDI33110)
  * - TIPOCOMP06: Si el tipo de comprobante es T ó P, entonces no debe existir el descuento de los conceptos (CFDI33179)
  * - TIPOCOMP07: Si el tipo de comprobante es T ó P, entonces el subtotal debe ser cero (CFDI33108)
@@ -33,9 +33,9 @@ class ComprobanteTipoDeComprobante extends AbstractDiscoverableVersion33
             'TIPOCOMP02' => 'Si el tipo de comprobante es T, P ó N,'
                          . ' entonces no debe existir la definición de impuestos (CFDI33179)',
             'TIPOCOMP03' => 'Si el tipo de comprobante es T, P ó N, entonces no debe existir la forma de pago',
-            'TIPOCOMP04' => 'Si el tipo de comprobante es T, P ó N,'
-                         . ' entonces no debe existir el método de pago (CFDI33123)',
 
+            'TIPOCOMP04' => 'Si el tipo de comprobante es T ó P,'
+                         . ' entonces no debe existir el método de pago (CFDI33123)',
             'TIPOCOMP05' => 'Si el tipo de comprobante es T ó P,'
                          . ' entonces no debe existir el descuento del comprobante (CFDI33110)',
             'TIPOCOMP06' => 'Si el tipo de comprobante es T ó P,'
@@ -72,13 +72,13 @@ class ComprobanteTipoDeComprobante extends AbstractDiscoverableVersion33
                 'TIPOCOMP03',
                 Status::when(! $comprobante->offsetExists('FormaPago'))
             );
+        }
+
+        if ('T' === $tipoComprobante || 'P' === $tipoComprobante) {
             $asserts->putStatus(
                 'TIPOCOMP04',
                 Status::when(! $comprobante->offsetExists('MetodoPago'))
             );
-        }
-
-        if ('T' === $tipoComprobante || 'P' === $tipoComprobante) {
             $asserts->putStatus(
                 'TIPOCOMP05',
                 Status::when(! $comprobante->offsetExists('Descuento'))
