@@ -35,7 +35,6 @@ class ComprobanteTipoDeComprobanteTest extends ValidateTestCase
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::ok(), 'TIPOCOMP01');
         $this->assertStatusEqualsCode(Status::ok(), 'TIPOCOMP02');
-        $this->assertStatusEqualsCode(Status::ok(), 'TIPOCOMP03');
     }
 
     /**
@@ -54,7 +53,6 @@ class ComprobanteTipoDeComprobanteTest extends ValidateTestCase
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::error(), 'TIPOCOMP01');
         $this->assertStatusEqualsCode(Status::error(), 'TIPOCOMP02');
-        $this->assertStatusEqualsCode(Status::error(), 'TIPOCOMP03');
     }
 
     public function providerTP()
