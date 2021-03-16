@@ -35,7 +35,6 @@ class ComprobanteTipoDeComprobanteTest extends ValidateTestCase
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::ok(), 'TIPOCOMP01');
         $this->assertStatusEqualsCode(Status::ok(), 'TIPOCOMP02');
-        $this->assertStatusEqualsCode(Status::ok(), 'TIPOCOMP03');
     }
 
     /**
@@ -54,7 +53,6 @@ class ComprobanteTipoDeComprobanteTest extends ValidateTestCase
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::error(), 'TIPOCOMP01');
         $this->assertStatusEqualsCode(Status::error(), 'TIPOCOMP02');
-        $this->assertStatusEqualsCode(Status::error(), 'TIPOCOMP03');
     }
 
     public function providerTP()
@@ -70,10 +68,13 @@ class ComprobanteTipoDeComprobanteTest extends ValidateTestCase
     {
         $this->comprobante->addAttributes([
             'TipoDeComprobante' => $tipoDeComprobante,
+            'FormaPago' => null, // set to null to make clear that it must not exists
+            'MetodoPago' => null, // set to null to make clear that it must not exists
             'SubTotal' => '0',
             'Total' => '0.00',
         ]);
         $this->runValidate();
+        $this->assertStatusEqualsCode(Status::ok(), 'TIPOCOMP03');
         $this->assertStatusEqualsCode(Status::ok(), 'TIPOCOMP04');
         $this->assertStatusEqualsCode(Status::ok(), 'TIPOCOMP05');
         $this->assertStatusEqualsCode(Status::ok(), 'TIPOCOMP06');
@@ -85,13 +86,15 @@ class ComprobanteTipoDeComprobanteTest extends ValidateTestCase
      * @param string $tipoDeComprobante
      * @dataProvider providerTP
      */
-    public function testInvalidTPMetodoPago($tipoDeComprobante)
+    public function testInvalidTP($tipoDeComprobante)
     {
         $this->comprobante->addAttributes([
             'TipoDeComprobante' => $tipoDeComprobante,
+            'FormaPago' => '',
             'MetodoPago' => '',
         ]);
         $this->runValidate();
+        $this->assertStatusEqualsCode(Status::error(), 'TIPOCOMP03');
         $this->assertStatusEqualsCode(Status::error(), 'TIPOCOMP04');
     }
 

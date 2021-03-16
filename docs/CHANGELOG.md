@@ -28,6 +28,13 @@
 - Change visibility of `CfdiUtils\Cleaner\Cleaner#removeIncompleteSchemaLocation()` to private.
 
 
+## Version 2.14.2 2021-03-16
+
+### `FormaPago` on `N - Nómina`
+
+- Validation `TIPOCOMP03` does not apply on documents type `N - Nómina`.
+
+
 ## Version 2.14.1 2021-03-14
 
 ### `MetodoPago` on `N - Nómina`
