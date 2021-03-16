@@ -13,7 +13,7 @@ use CfdiUtils\Validate\Status;
  * Valida que:
  * - TIPOCOMP01: Si el tipo de comprobante es T, P ó N, entonces no debe existir las condiciones de pago
  * - TIPOCOMP02: Si el tipo de comprobante es T, P ó N, entonces no debe existir la definición de impuestos (CFDI33179)
- * - TIPOCOMP03: Si el tipo de comprobante es P, entonces no debe existir la forma de pago (CFDI33103)
+ * - TIPOCOMP03: Si el tipo de comprobante es T ó P, entonces no debe existir la forma de pago
  * - TIPOCOMP04: Si el tipo de comprobante es T ó P, entonces no debe existir el método de pago (CFDI33123)
  * - TIPOCOMP05: Si el tipo de comprobante es T ó P, entonces no debe existir el descuento del comprobante (CFDI33110)
  * - TIPOCOMP06: Si el tipo de comprobante es T ó P, entonces no debe existir el descuento de los conceptos (CFDI33179)
@@ -32,7 +32,7 @@ class ComprobanteTipoDeComprobante extends AbstractDiscoverableVersion33
                          . ' entonces no debe existir las condiciones de pago',
             'TIPOCOMP02' => 'Si el tipo de comprobante es T, P ó N,'
                          . ' entonces no debe existir la definición de impuestos (CFDI33179)',
-            'TIPOCOMP03' => 'Si el tipo de comprobante es P, entonces no debe existir la forma de pago (CFDI33103)',
+            'TIPOCOMP03' => 'Si el tipo de comprobante es T ó P, entonces no debe existir la forma de pago',
 
             'TIPOCOMP04' => 'Si el tipo de comprobante es T ó P,'
                          . ' entonces no debe existir el método de pago (CFDI33123)',
@@ -72,6 +72,10 @@ class ComprobanteTipoDeComprobante extends AbstractDiscoverableVersion33
 
         if ('T' === $tipoComprobante || 'P' === $tipoComprobante) {
             $asserts->putStatus(
+                'TIPOCOMP03',
+                Status::when(! $comprobante->offsetExists('FormaPago'))
+            );
+            $asserts->putStatus(
                 'TIPOCOMP04',
                 Status::when(! $comprobante->offsetExists('MetodoPago'))
             );
@@ -104,13 +108,6 @@ class ComprobanteTipoDeComprobante extends AbstractDiscoverableVersion33
             $asserts->putStatus(
                 'TIPOCOMP10',
                 Status::when('MXN' === $comprobante['Moneda'])
-            );
-        }
-
-        if ('P' === $tipoComprobante) {
-            $asserts->putStatus(
-                'TIPOCOMP03',
-                Status::when(! $comprobante->offsetExists('FormaPago'))
             );
         }
     }
