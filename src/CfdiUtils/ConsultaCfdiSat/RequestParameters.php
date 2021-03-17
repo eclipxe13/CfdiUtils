@@ -3,6 +3,7 @@
 namespace CfdiUtils\ConsultaCfdiSat;
 
 use CfdiUtils\Cfdi;
+use UnexpectedValueException;
 
 class RequestParameters
 {
@@ -65,7 +66,7 @@ class RequestParameters
     public function setVersion(string $version)
     {
         if (! in_array($version, ['3.2', '3.3'], true)) {
-            throw new \UnexpectedValueException('The version is not allowed');
+            throw new UnexpectedValueException('The version is not allowed');
         }
         $this->version = $version;
     }

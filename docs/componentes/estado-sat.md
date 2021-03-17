@@ -64,11 +64,11 @@ y cambiar la URL.
 ## Datos que entrega la consulta
 
 El servicio entrega cuatro valores: estado de la consulta, estado del cfdi,
-estado de cancelabilidad y estado de cancelación.
+estado de cancelabilidad, estado de cancelación y validación EFOS.
 
 ### CodigoEstatus (estado de consulta)
 
-Este estado está relacionado a la solicitud de información al SAT. No al CFDI.
+Este estado está relacionado con la solicitud de información al SAT. No al CFDI.
 
 - `S - Comprobante obtenido satisfactoriamente`
 - `N - 601: La expresión impresa proporcionada no es válida`
@@ -101,6 +101,16 @@ Se refiere al estado de la cancelación solicitada previamente.
 - `Plazo vencido`: Cancelado por vencimiento de plazo en que el receptor podía denegarla.
 - `Cancelado con aceptación`: Cancelado con el consentimiento del receptor.
 - `Solicitud rechazada`: No se realizó la cancelación por rechazo.
+
+### ValidacionEFOS (estado del emisor en la lista de EFOS)
+
+El WebService del SAT devuelve dos códigos que asumimos se refieren al emisor del CFDI:
+
+- 200: No se enctró en el listado de EFOS.
+- 100: Se encontró en el listado de EFOS.
+
+Desconocemos si el código se refiere a si estaba listado en el momento de la emisión del CFDI,
+al momento de ser reportado el CFDI al SAT o al momento de consulta.
 
 ## Estados mutuamente excluyentes
 
@@ -156,10 +166,11 @@ $service = new WebService();
 $response = $service->request($request);
 
 // obtener las respuestas
-$response->getCode(); // S - ...
-$response->getCfdi(); // Vigente
-$response->getCancellable(); // Cancelable con aceptación
-$response->getCancellationStatus(); // En proceso
+echo $response->getCode(); // S - ...
+echo $response->getCfdi(); // Vigente
+echo $response->getCancellable(); // Cancelable con aceptación
+echo $response->getCancellationStatus(); // En proceso
+echo $response->getValidationEfos(); // 200
 ```
 
 ## Problema con el webservice del SAT

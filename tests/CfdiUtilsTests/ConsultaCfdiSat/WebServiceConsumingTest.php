@@ -92,6 +92,7 @@ class WebServiceConsumingTest extends TestCase
         $this->assertSame('Vigente', $return->getCfdi());
         $this->assertSame('Cancelable sin aceptación', $return->getCancellable());
         $this->assertSame('', $return->getCancellationStatus());
+        $this->assertSame('200', $return->getValidationEfos());
     }
 
     public function testValidDocumentVersion32()
@@ -108,6 +109,9 @@ class WebServiceConsumingTest extends TestCase
 
         $this->assertTrue($return->responseWasOk());
         $this->assertTrue($return->isVigente());
+        $this->assertSame('Cancelable sin aceptación', $return->getCancellable());
+        $this->assertSame('', $return->getCancellationStatus());
+        $this->assertSame('200', $return->getValidationEfos());
     }
 
     public function testConsumeWebServiceWithNotFoundDocument()
@@ -128,6 +132,7 @@ class WebServiceConsumingTest extends TestCase
         $this->assertStringStartsWith('No Encontrado', $return->getCfdi());
         $this->assertFalse($return->responseWasOk());
         $this->assertTrue($return->isNotFound());
+        $this->assertFalse($return->isEfosListed());
     }
 
     public function testConsumeWebServiceWithCancelledDocument()
@@ -145,5 +150,6 @@ class WebServiceConsumingTest extends TestCase
 
         $this->assertTrue($return->responseWasOk());
         $this->assertTrue($return->isCancelled());
+        $this->assertFalse($return->isEfosListed());
     }
 }

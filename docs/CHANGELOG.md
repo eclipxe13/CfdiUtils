@@ -32,6 +32,11 @@
 
 ### 2021-03-17 (branch php8.0)
 
+Improvements:
+
+- Include validation web service version 1.3 new response `ValidacionEFOS` as
+  `StatusResponse::getValidationEfos() string` and `StatusResponse::isEfosListed() bool`.
+
 General:
 
 - Upgrade to PHPUnit 8.5 and upgrade test suite
