@@ -12,6 +12,8 @@ use DOMDocument;
 use DOMNode;
 use DOMNodeList;
 use DOMXPath;
+use LogicException;
+use Throwable;
 
 /**
  * Class to clean CFDI and avoid bad common practices.
@@ -47,7 +49,7 @@ class Cleaner
      * @param string $content
      * @return string
      */
-    public static function staticClean($content): string
+    public static function staticClean(string $content): string
     {
         $cleaner = new self($content);
         $cleaner->clean();
@@ -113,7 +115,7 @@ class Cleaner
         try {
             $content = $this->beforeLoadCleaner->clean($content);
             $cfdi = Cfdi::newFromString($content);
-        } catch (\Throwable $exception) {
+        } catch (Throwable $exception) {
             throw new CleanerException($exception->getMessage(), $exception->getCode(), $exception->getPrevious());
         }
         $version = $cfdi->getVersion();
@@ -164,8 +166,8 @@ class Cleaner
      */
     public function removeIncompleteSchemaLocations()
     {
-        foreach ($this->obtainXsiSchemaLocations() as $element) {
-            $element->nodeValue = $this->removeIncompleteSchemaLocationPrivate($element->nodeValue);
+        foreach ($this->obtainXsiSchemaLocations() as $attribute) {
+            $attribute->nodeValue = $this->removeIncompleteSchemaLocationPrivate($attribute->nodeValue);
         }
     }
 
@@ -199,8 +201,8 @@ class Cleaner
     public function removeNonSatNSschemaLocations()
     {
         $schemaLocations = $this->obtainXsiSchemaLocations();
-        foreach ($schemaLocations as $element) {
-            $this->removeNonSatNSschemaLocation($element);
+        foreach ($schemaLocations as $attribute) {
+            $this->removeNonSatNSschemaLocation($attribute);
         }
     }
 
@@ -319,12 +321,12 @@ class Cleaner
     {
         $xsiLocations = $this->obtainXsiSchemaLocations();
         $schemasFixer = SchemaLocationsXsdUrlsFixer::createWithKnownSatUrls();
-        foreach ($xsiLocations as $xsiSchemaLocation) {
-            $schemasFixer->fixSchemaLocationAttribute($xsiSchemaLocation);
+        foreach ($xsiLocations as $attribute) {
+            $schemasFixer->fixSchemaLocationAttribute($attribute);
         }
     }
 
-    /** @return DOMNodeList|DOMAttr[] */
+    /** @return DOMNodeList<DOMAttr> */
     private function obtainXsiSchemaLocations(): DOMNodeList
     {
         // Do not assume that prefix for http://www.w3.org/2001/XMLSchema-instance is "xsi"
@@ -332,7 +334,12 @@ class Cleaner
         if (! $xsi) {
             return new DOMNodeList();
         }
-        return $this->xpathQuery("//@$xsi:schemaLocation");
+        /** @var DOMNodeList<DOMAttr>|false $nodeList */
+        $nodeList = $this->xpathQuery("//@$xsi:schemaLocation");
+        if (false === $nodeList) {
+            return new DOMNodeList();
+        }
+        return $nodeList;
     }
 
     /** @return string[] */
@@ -366,7 +373,7 @@ class Cleaner
     private function dom(): DOMDocument
     {
         if (null === $this->dom) {
-            throw new \LogicException('No document has been loaded');
+            throw new LogicException('No document has been loaded');
         }
         return $this->dom;
     }
