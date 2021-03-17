@@ -24,7 +24,7 @@
         "optimize-autoloader": true
     },
     "require": {
-        "php": ">=7.2",
+        "php": ">=7.3",
         "ext-libxml": "*",
         "ext-dom": "*",
         "ext-xsl": "*",
@@ -43,7 +43,7 @@
     },
     "require-dev": {
         "genkgo/xsl": "dev-master",
-        "phpunit/phpunit": "^8.5",
+        "phpunit/phpunit": "^9.5",
         "squizlabs/php_codesniffer": "^3.0",
         "friendsofphp/php-cs-fixer": "^2.4",
         "phpstan/phpstan": "^0.12"
