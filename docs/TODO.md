@@ -8,6 +8,8 @@
 
 Ver: <https://www.phpcfdi.com/sat/problemas-conocidos/descarga-certificados/#problemas-de-caducidad-de-certificados>
 
+*Actualización 2020-10-08*: Este problema se vuelve a presentar.
+
 *Actualización 2020-07-18*: Desde 2019-10-24 este problema parece solucionado.
 
 La descarga de certificados desde `https://rdc.sat.gob.mx/rccf/` falla por un error de configuración
