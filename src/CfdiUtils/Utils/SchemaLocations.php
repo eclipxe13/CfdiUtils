@@ -71,7 +71,7 @@ class SchemaLocations implements Countable, IteratorAggregate
 
     public function isEmpty(): bool
     {
-        return (0 === count($this->pairs));
+        return ([] === $this->pairs);
     }
 
     /**
@@ -103,7 +103,7 @@ class SchemaLocations implements Countable, IteratorAggregate
 
     public function hasAnyNamespaceWithoutLocation(): bool
     {
-        return count($this->getNamespacesWithoutLocation()) > 0;
+        return [] !== $this->getNamespacesWithoutLocation();
     }
 
     public function append(string $namespace, string $location)
