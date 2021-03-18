@@ -228,10 +228,12 @@ This problem does not exist anymore (since 2019-10-24).
 ## Version 2.12.2 2019-09-24
 
 - When cannot load an Xml string include `LibXMLError` information into exception, like:
+
     ```text
     Cannot create a DOM Document from xml string
     XML Fatal [L: 1, C: 7]: Input is not proper UTF-8
     ```
+
 - Include composer `support` sections `source` and `chat`
 - Development: Exclude correct file `.appveyor.yml` (was `.appveyor.xml`)
 

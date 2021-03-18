@@ -41,6 +41,7 @@ git config --global core.autocrlf input
 ```
 
 > Referencias:
+>
 > * <https://help.github.com/articles/dealing-with-line-endings/>
 > * <https://www.appveyor.com/docs/appveyor-yml/>
 
