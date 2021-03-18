@@ -61,4 +61,4 @@ jobs:
         if: matrix.operating-systems == 'windows-latest'
         run: vendor/bin/phpunit --testdox --verbose
         env:
-          saxonb-path: "C:\ProgramData\chocolatey\bin\SaxonHE\bin\Transform.exe"
+          saxonb-path: 'C:\ProgramData\chocolatey\bin\SaxonHE\bin\Transform.exe'
