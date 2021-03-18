@@ -35,7 +35,7 @@ final class CerRetrieverTest extends TestCase
         if (file_exists($localPath)) {
             unlink($localPath);
         }
-        $this->assertFileNotExists($localPath);
+        $this->assertFileDoesNotExist($localPath);
 
         $retriever->retrieve($remoteUrl);
         $this->assertFileExists($localPath);

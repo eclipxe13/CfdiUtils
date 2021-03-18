@@ -120,7 +120,7 @@ XML;
         $retrieved = $retencion->getDocument();
 
         $this->assertNotSame($document, $retrieved, 'The DOM Document must NOT be the same as constructed');
-        $this->assertXmlStringEqualsXmlString($document, $retrieved, 'The DOM Documents should be equal');
+        $this->assertXmlStringEqualsXmlString($xml, $retrieved->saveXML(), 'The DOM Documents should be equal');
     }
 
     public function testGetSource()

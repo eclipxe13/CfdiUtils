@@ -12,7 +12,7 @@ final class TemporaryFileTest extends TestCase
         $temp = TemporaryFile::create();
         $this->assertFileExists($temp->getPath());
         $temp->remove();
-        $this->assertFileNotExists($temp->getPath());
+        $this->assertFileDoesNotExist($temp->getPath());
     }
 
     public function testCreateWithDirectory()
@@ -90,7 +90,7 @@ final class TemporaryFileTest extends TestCase
         });
 
         $this->assertSame($expected, $retrieved, 'Method did not return the expected value');
-        $this->assertFileNotExists($file->getPath());
+        $this->assertFileDoesNotExist($file->getPath());
     }
 
     public function testRunAndRemoveWithException()
@@ -107,6 +107,6 @@ final class TemporaryFileTest extends TestCase
             }
         }
 
-        $this->assertFileNotExists($file->getPath());
+        $this->assertFileDoesNotExist($file->getPath());
     }
 }

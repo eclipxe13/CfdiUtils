@@ -154,7 +154,7 @@ final class CleanerTest extends TestCase
         $domFirst = $cleaner->retrieveDocument();
         $domSecond = $cleaner->retrieveDocument();
         $this->assertNotSame($domFirst, $domSecond);
-        $this->assertXmlStringEqualsXmlString($domFirst, $domSecond);
+        $this->assertXmlStringEqualsXmlString($domFirst->saveXML(), $domSecond->saveXML());
     }
 
     public function testRemoveNonSatNSschemaLocationsWithNotEvenSchemaLocationContents()
