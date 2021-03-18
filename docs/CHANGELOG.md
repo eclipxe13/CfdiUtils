@@ -28,19 +28,19 @@
 - Change visibility of `CfdiUtils\Cleaner\Cleaner#removeIncompleteSchemaLocation()` to private.
 
 
-## UNRELEASED
-
-### 2021-03-17 (branch php8.0)
+## Version 2.15.0 2021-03-17
 
 Improvements:
 
 - Include validation web service version 1.3 new response `ValidacionEFOS` as
   `StatusResponse::getValidationEfos() string` and `StatusResponse::isEfosListed() bool`.
+- Update `ConsultaCFDIServiceSAT.svc.xml`. It is unused, but exists for compatibility.
 
 General:
 
-- Upgrade to PHPUnit 8.5 and upgrade test suite
-- Remove support for PHP 7.0 and PHP 7.1.
+- Upgrade to PHPUnit 9.5 and upgrade test suite.
+- Test classes are declared as final.
+- Remove support for PHP 7.0, PHP 7.1 and PHP 7.2.
 - Compatilize with PHP 8.0 / OpenSSL:
     - openssl functions does not return resources but objects.
     - On deprecated functions run only if PHP version is lower than 8.0 and put annotations for `phpcs`.
@@ -48,6 +48,7 @@ General:
 Bugfixes:
 
 - Validation `SELLO04` fails when there are special caracters like `é` and `LC_CTYPE` is not setup.
+- Fix `COMPIMPUESTOSC01` description typo.
 
 There are some soft backwards incompatibility changes:
 
