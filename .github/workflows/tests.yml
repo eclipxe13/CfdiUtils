@@ -1,0 +1,49 @@
+on:
+  pull_request:
+  push:
+  schedule:
+    - cron: '0 16 * * 0' # sunday 16:00
+
+jobs:
+  build:
+    name: PHP ${{ matrix.php-versions }} on ${{ matrix.operating-systems }}
+    runs-on: ${{ matrix.operating-systems }}
+
+    strategy:
+      matrix:
+        operating-systems: [ "ubuntu-latest", "windows-latest" ]
+        php-versions: [ '7.3', '7.4', '8.0' ]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # see https://github.com/marketplace/actions/setup-php-action
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: libxml, dom, xsl, simplexml, mbstring, openssl, soap, iconv, json
+          coverage: xdebug
+          tools: composer:v2
+        env:
+          fail-fast: true
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install project dependencies
+        run: |
+          composer remove squizlabs/php_codesniffer friendsofphp/php-cs-fixer phpstan/phpstan --dev --no-interaction --no-progress --no-update
+          composer upgrade --no-interaction --no-progress --prefer-dist
+
+      - name: Tests (phpunit)
+        run: vendor/bin/phpunit --testdox --verbose
