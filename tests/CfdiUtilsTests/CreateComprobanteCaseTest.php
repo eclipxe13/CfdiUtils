@@ -7,7 +7,7 @@ use CfdiUtils\CfdiCreator33;
 use CfdiUtils\Utils\Format;
 use CfdiUtils\Validate\Status;
 
-class CreateComprobanteCaseTest extends TestCase
+final class CreateComprobanteCaseTest extends TestCase
 {
     public function testCreateCfdiUsingComprobanteElement()
     {

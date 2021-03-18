@@ -13,7 +13,7 @@ use CfdiUtils\Elements\Retenciones10\Totales;
 use CfdiUtils\Nodes\Node;
 use PHPUnit\Framework\TestCase;
 
-class RetencionesTest extends TestCase
+final class RetencionesTest extends TestCase
 {
     /** @var Retenciones */
     public $element;

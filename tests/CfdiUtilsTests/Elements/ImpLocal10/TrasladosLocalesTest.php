@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\Elements\ImpLocal10;
 use CfdiUtils\Elements\ImpLocal10\TrasladosLocales;
 use PHPUnit\Framework\TestCase;
 
-class TrasladosLocalesTest extends TestCase
+final class TrasladosLocalesTest extends TestCase
 {
     /** @var TrasladosLocales */
     public $element;

@@ -6,7 +6,7 @@ use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\Certificado\SatCertificateNumber;
 use CfdiUtilsTests\TestCase;
 
-class CerRetrieverTest extends TestCase
+final class CerRetrieverTest extends TestCase
 {
     public function testRetrieveNonExistent()
     {

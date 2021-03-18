@@ -7,7 +7,7 @@ use CfdiUtils\CfdiCreator33;
 use CfdiUtils\Elements\Pagos10\Pagos;
 use CfdiUtils\Utils\Format;
 
-class CreateComprobantePagosCaseTest extends TestCase
+final class CreateComprobantePagosCaseTest extends TestCase
 {
     public function testMoveSatDefinitionsToComprobante()
     {

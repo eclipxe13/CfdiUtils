@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\Nodes;
 use CfdiUtils\Nodes\Attributes;
 use CfdiUtilsTests\TestCase;
 
-class AttributesTest extends TestCase
+final class AttributesTest extends TestCase
 {
     public function testConstructWithoutArguments()
     {

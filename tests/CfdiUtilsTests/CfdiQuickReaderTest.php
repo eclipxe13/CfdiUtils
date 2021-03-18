@@ -5,7 +5,7 @@ namespace CfdiUtilsTests;
 use CfdiUtils\Cfdi;
 use CfdiUtils\QuickReader\QuickReader;
 
-class CfdiQuickReaderTest extends TestCase
+final class CfdiQuickReaderTest extends TestCase
 {
     /** @var QuickReader */
     private $comprobante;

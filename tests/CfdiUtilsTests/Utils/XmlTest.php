@@ -6,7 +6,7 @@ use CfdiUtils\Utils\Xml;
 use CfdiUtilsTests\TestCase;
 use DOMDocument;
 
-class XmlTest extends TestCase
+final class XmlTest extends TestCase
 {
     public function testMethodNewDocumentContentWithInvalidXmlEncoding()
     {

@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\ConsultaCfdiSat;
 use CfdiUtils\ConsultaCfdiSat\StatusResponse;
 use CfdiUtilsTests\TestCase;
 
-class StatusResponseTest extends TestCase
+final class StatusResponseTest extends TestCase
 {
     public function testConsultaResponseExpectedOk()
     {

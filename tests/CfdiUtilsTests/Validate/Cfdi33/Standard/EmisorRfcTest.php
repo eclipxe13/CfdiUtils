@@ -8,7 +8,7 @@ use CfdiUtils\Validate\Cfdi33\Standard\EmisorRfc;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class EmisorRfcTest extends ValidateTestCase
+final class EmisorRfcTest extends ValidateTestCase
 {
     /** @var EmisorRfc */
     protected $validator;

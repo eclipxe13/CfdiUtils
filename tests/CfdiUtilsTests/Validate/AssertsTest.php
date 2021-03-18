@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Asserts;
 use CfdiUtils\Validate\Status;
 use PHPUnit\Framework\TestCase;
 
-class AssertsTest extends TestCase
+final class AssertsTest extends TestCase
 {
     public function testConstructor()
     {

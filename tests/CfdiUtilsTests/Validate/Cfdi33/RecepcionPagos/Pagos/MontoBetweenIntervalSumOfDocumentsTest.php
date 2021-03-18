@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\MontoBetweenIntervalSumOfDocu
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidatePagoException;
 use PHPUnit\Framework\TestCase;
 
-class MontoBetweenIntervalSumOfDocumentsTest extends TestCase
+final class MontoBetweenIntervalSumOfDocumentsTest extends TestCase
 {
     public function testValid()
     {

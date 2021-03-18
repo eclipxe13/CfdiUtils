@@ -7,7 +7,7 @@ use CfdiUtils\ConsultaCfdiSat\RequestParameters;
 use CfdiUtils\ConsultaCfdiSat\WebService;
 use CfdiUtilsTests\TestCase;
 
-class WebServiceTest extends TestCase
+final class WebServiceTest extends TestCase
 {
     public function testConstructWithNoConfig()
     {

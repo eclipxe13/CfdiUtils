@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\Standard\ComprobanteFormaPago;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class ComprobanteFormaPagoTest extends ValidateTestCase
+final class ComprobanteFormaPagoTest extends ValidateTestCase
 {
     /** @var ComprobanteFormaPago */
     protected $validator;

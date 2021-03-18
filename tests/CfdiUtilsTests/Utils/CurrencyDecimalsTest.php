@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\Utils;
 use CfdiUtils\Utils\CurrencyDecimals;
 use CfdiUtilsTests\TestCase;
 
-class CurrencyDecimalsTest extends TestCase
+final class CurrencyDecimalsTest extends TestCase
 {
     public function testCreateGeneric()
     {

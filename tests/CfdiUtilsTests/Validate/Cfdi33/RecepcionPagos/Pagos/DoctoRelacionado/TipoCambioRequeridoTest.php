@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\DoctoRelacionado\TipoCambioRe
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\DoctoRelacionado\ValidateDoctoException;
 use PHPUnit\Framework\TestCase;
 
-class TipoCambioRequeridoTest extends TestCase
+final class TipoCambioRequeridoTest extends TestCase
 {
     /**
      * @param string $currencyPayment

@@ -14,7 +14,7 @@ use XmlResourceRetriever\Downloader\PhpDownloader;
  *
  * @see https://www.phpcfdi.com/sat/problemas-conocidos/descarga-certificados/
  */
-class CertificateDownloaderHelper implements DownloaderInterface
+final class CertificateDownloaderHelper implements DownloaderInterface
 {
     /** @var PhpDownloader */
     private $realDownloader;

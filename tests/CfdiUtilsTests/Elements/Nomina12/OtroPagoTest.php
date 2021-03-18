@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \CfdiUtils\Elements\Nomina12\OtroPago
  */
-class OtroPagoTest extends TestCase
+final class OtroPagoTest extends TestCase
 {
     /** @var OtroPago */
     public $element;

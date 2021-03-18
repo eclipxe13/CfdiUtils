@@ -6,7 +6,7 @@ use CfdiUtils\Cfdi;
 use CfdiUtils\ConsultaCfdiSat\RequestParameters;
 use CfdiUtilsTests\TestCase;
 
-class RequestParametersTest extends TestCase
+final class RequestParametersTest extends TestCase
 {
     public function testConstructorAndGetters()
     {

@@ -6,7 +6,7 @@ use CfdiUtils\Elements\Cfdi33\Complemento;
 use CfdiUtils\Nodes\Node;
 use PHPUnit\Framework\TestCase;
 
-class ComplementoTest extends TestCase
+final class ComplementoTest extends TestCase
 {
     /** @var Complemento */
     public $element;

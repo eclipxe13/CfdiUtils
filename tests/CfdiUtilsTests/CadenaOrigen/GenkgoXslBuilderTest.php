@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\CadenaOrigen;
 use CfdiUtils\CadenaOrigen\GenkgoXslBuilder;
 use CfdiUtils\CadenaOrigen\XsltBuilderInterface;
 
-class GenkgoXslBuilderTest extends GenericBuilderTestCase
+final class GenkgoXslBuilderTest extends GenericBuilderTestCase
 {
     protected function setUp(): void
     {

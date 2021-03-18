@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\Standard\ComprobanteDecimalesMoneda;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class ComprobanteDecimalesMonedaTest extends ValidateTestCase
+final class ComprobanteDecimalesMonedaTest extends ValidateTestCase
 {
     /** @var ComprobanteDecimalesMoneda */
     protected $validator;

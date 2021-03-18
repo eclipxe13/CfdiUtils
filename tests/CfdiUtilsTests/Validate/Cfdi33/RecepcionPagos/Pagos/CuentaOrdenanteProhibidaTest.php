@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\CuentaOrdenanteProhibida;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidatePagoException;
 use PHPUnit\Framework\TestCase;
 
-class CuentaOrdenanteProhibidaTest extends TestCase
+final class CuentaOrdenanteProhibidaTest extends TestCase
 {
     /**
      * @param string $paymentType

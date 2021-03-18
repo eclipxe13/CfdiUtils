@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\Certificado;
 use CfdiUtils\Certificado\SatCertificateNumber;
 use CfdiUtilsTests\TestCase;
 
-class SatCertificateNumberTest extends TestCase
+final class SatCertificateNumberTest extends TestCase
 {
     public function providerValidNumbers(): array
     {

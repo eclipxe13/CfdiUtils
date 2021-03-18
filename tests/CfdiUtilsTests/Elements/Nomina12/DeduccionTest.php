@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \CfdiUtils\Elements\Nomina12\Deduccion
  */
-class DeduccionTest extends TestCase
+final class DeduccionTest extends TestCase
 {
     /** @var Deduccion */
     public $element;

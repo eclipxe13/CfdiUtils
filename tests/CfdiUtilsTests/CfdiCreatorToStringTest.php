@@ -4,7 +4,7 @@ namespace CfdiUtilsTests;
 
 use CfdiUtils\CfdiCreator33;
 
-class CfdiCreatorToStringTest extends TestCase
+final class CfdiCreatorToStringTest extends TestCase
 {
     public function testWhenCastingToStringWithExceptionOnlyReturnsAnEmptyString()
     {

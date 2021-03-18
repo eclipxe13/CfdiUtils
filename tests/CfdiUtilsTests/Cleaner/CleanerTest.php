@@ -6,7 +6,7 @@ use CfdiUtils\Cleaner\Cleaner;
 use CfdiUtils\Cleaner\CleanerException;
 use CfdiUtilsTests\TestCase;
 
-class CleanerTest extends TestCase
+final class CleanerTest extends TestCase
 {
     public function testConstructorWithEmptyText()
     {

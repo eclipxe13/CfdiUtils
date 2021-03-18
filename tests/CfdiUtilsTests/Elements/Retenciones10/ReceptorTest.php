@@ -7,7 +7,7 @@ use CfdiUtils\Elements\Retenciones10\Nacional;
 use CfdiUtils\Elements\Retenciones10\Receptor;
 use PHPUnit\Framework\TestCase;
 
-class ReceptorTest extends TestCase
+final class ReceptorTest extends TestCase
 {
     /** @var Receptor */
     public $element;

@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\DoctoRelacionado\ImportesDeci
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\DoctoRelacionado\ValidateDoctoException;
 use PHPUnit\Framework\TestCase;
 
-class ImportesDecimalesTest extends TestCase
+final class ImportesDecimalesTest extends TestCase
 {
     /**
      * @param string $currency

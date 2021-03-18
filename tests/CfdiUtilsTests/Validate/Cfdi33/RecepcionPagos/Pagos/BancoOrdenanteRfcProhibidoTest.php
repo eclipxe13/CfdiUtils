@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\BancoOrdenanteRfcProhibido;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidatePagoException;
 use PHPUnit\Framework\TestCase;
 
-class BancoOrdenanteRfcProhibidoTest extends TestCase
+final class BancoOrdenanteRfcProhibidoTest extends TestCase
 {
     /**
      * @param string $paymentType

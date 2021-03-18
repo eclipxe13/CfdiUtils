@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\Elements\Retenciones10;
 use CfdiUtils\Elements\Retenciones10\Emisor;
 use PHPUnit\Framework\TestCase;
 
-class EmisorTest extends TestCase
+final class EmisorTest extends TestCase
 {
     /** @var Emisor */
     public $element;

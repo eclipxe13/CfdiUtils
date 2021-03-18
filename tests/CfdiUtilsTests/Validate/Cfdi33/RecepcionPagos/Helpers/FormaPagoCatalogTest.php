@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\Validate\Cfdi33\RecepcionPagos\Helpers;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Helpers\FormaPagoCatalog;
 use PHPUnit\Framework\TestCase;
 
-class FormaPagoCatalogTest extends TestCase
+final class FormaPagoCatalogTest extends TestCase
 {
     public function providerObtain(): array
     {

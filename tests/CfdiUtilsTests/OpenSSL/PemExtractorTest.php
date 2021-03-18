@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\OpenSSL;
 use CfdiUtils\OpenSSL\PemExtractor;
 use CfdiUtilsTests\TestCase;
 
-class PemExtractorTest extends TestCase
+final class PemExtractorTest extends TestCase
 {
     public function testExtractorWithEmptyContent()
     {

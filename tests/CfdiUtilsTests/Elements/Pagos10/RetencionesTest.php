@@ -6,7 +6,7 @@ use CfdiUtils\Elements\Pagos10\Retencion;
 use CfdiUtils\Elements\Pagos10\Retenciones;
 use PHPUnit\Framework\TestCase;
 
-class RetencionesTest extends TestCase
+final class RetencionesTest extends TestCase
 {
     /** @var Retenciones */
     public $element;

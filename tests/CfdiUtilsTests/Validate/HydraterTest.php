@@ -7,7 +7,7 @@ use CfdiUtilsTests\TestCase;
 use CfdiUtilsTests\Validate\FakeObjects\ImplementationRequireXmlResolverInterface;
 use CfdiUtilsTests\Validate\FakeObjects\ImplementationRequireXmlStringInterface;
 
-class HydraterTest extends TestCase
+final class HydraterTest extends TestCase
 {
     public function testHydrateXmlString()
     {

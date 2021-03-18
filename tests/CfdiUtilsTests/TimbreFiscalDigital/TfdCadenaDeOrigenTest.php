@@ -8,7 +8,7 @@ use CfdiUtils\TimbreFiscalDigital\TfdCadenaDeOrigen;
 use CfdiUtils\XmlResolver\XmlResolver;
 use CfdiUtilsTests\TestCase;
 
-class TfdCadenaDeOrigenTest extends TestCase
+final class TfdCadenaDeOrigenTest extends TestCase
 {
     public function testConstructorMinimal()
     {

@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\Standard\ConceptoImpuestos;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class ConceptoImpuestosTest extends ValidateTestCase
+final class ConceptoImpuestosTest extends ValidateTestCase
 {
     /** @var ConceptoImpuestos */
     protected $validator;

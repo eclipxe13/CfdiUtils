@@ -6,7 +6,7 @@ use CfdiUtils\CadenaOrigen\SaxonbCliBuilder;
 use CfdiUtils\CadenaOrigen\XsltBuilderInterface;
 use CfdiUtils\CadenaOrigen\XsltBuildException;
 
-class SaxonbCliBuilderTest extends GenericBuilderTestCase
+final class SaxonbCliBuilderTest extends GenericBuilderTestCase
 {
     protected function createBuilder(): XsltBuilderInterface
     {

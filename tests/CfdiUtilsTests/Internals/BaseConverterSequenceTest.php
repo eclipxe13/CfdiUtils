@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\Internals;
 use CfdiUtils\Internals\BaseConverterSequence;
 use PHPUnit\Framework\TestCase;
 
-class BaseConverterSequenceTest extends TestCase
+final class BaseConverterSequenceTest extends TestCase
 {
     public function testValidSequence()
     {

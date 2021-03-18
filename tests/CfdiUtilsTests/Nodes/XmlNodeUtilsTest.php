@@ -7,7 +7,7 @@ use CfdiUtils\Nodes\XmlNodeUtils;
 use CfdiUtils\Utils\Xml;
 use CfdiUtilsTests\TestCase;
 
-class XmlNodeUtilsTest extends TestCase
+final class XmlNodeUtilsTest extends TestCase
 {
     public function providerToNodeFromNode(): array
     {

@@ -12,7 +12,7 @@ use CfdiUtils\Validate\Contracts\RequireXmlStringInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class SelloDigitalCertificadoTest extends ValidateTestCase
+final class SelloDigitalCertificadoTest extends ValidateTestCase
 {
     /** @var SelloDigitalCertificado */
     protected $validator;

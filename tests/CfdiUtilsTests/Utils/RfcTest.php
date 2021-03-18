@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\Utils;
 use CfdiUtils\Utils\Rfc;
 use CfdiUtilsTests\TestCase;
 
-class RfcTest extends TestCase
+final class RfcTest extends TestCase
 {
     public function testCreateRfcPerson()
     {

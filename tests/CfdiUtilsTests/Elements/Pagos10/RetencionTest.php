@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\Elements\Pagos10;
 use CfdiUtils\Elements\Pagos10\Retencion;
 use PHPUnit\Framework\TestCase;
 
-class RetencionTest extends TestCase
+final class RetencionTest extends TestCase
 {
     /** @var Retencion */
     public $element;

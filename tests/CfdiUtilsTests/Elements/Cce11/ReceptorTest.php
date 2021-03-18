@@ -6,7 +6,7 @@ use CfdiUtils\Elements\Cce11\Domicilio;
 use CfdiUtils\Elements\Cce11\Receptor;
 use PHPUnit\Framework\TestCase;
 
-class ReceptorTest extends TestCase
+final class ReceptorTest extends TestCase
 {
     /** @var Receptor */
     public $element;

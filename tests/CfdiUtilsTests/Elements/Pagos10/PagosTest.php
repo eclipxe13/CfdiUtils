@@ -6,7 +6,7 @@ use CfdiUtils\Elements\Pagos10\Pago;
 use CfdiUtils\Elements\Pagos10\Pagos;
 use PHPUnit\Framework\TestCase;
 
-class PagosTest extends TestCase
+final class PagosTest extends TestCase
 {
     /** @var Pagos */
     public $element;

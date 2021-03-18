@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\Utils;
 use CfdiUtils\Utils\SchemaLocations;
 use CfdiUtilsTests\TestCase;
 
-class SchemaLocationsTest extends TestCase
+final class SchemaLocationsTest extends TestCase
 {
     public function testConstructorWithEmptyValue()
     {

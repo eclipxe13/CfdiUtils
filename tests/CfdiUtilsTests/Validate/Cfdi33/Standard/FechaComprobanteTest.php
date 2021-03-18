@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\Standard\FechaComprobante;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class FechaComprobanteTest extends ValidateTestCase
+final class FechaComprobanteTest extends ValidateTestCase
 {
     /** @var FechaComprobante */
     protected $validator;

@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\DoctoRelacionado\ImporteSaldo
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\DoctoRelacionado\ValidateDoctoException;
 use PHPUnit\Framework\TestCase;
 
-class ImporteSaldoAnteriorRequeridoTest extends TestCase
+final class ImporteSaldoAnteriorRequeridoTest extends TestCase
 {
     public function testValid()
     {

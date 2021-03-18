@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\Validate\Cfdi33\RecepcionPagos;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos;
 use CfdiUtils\Validate\Status;
 
-class PagosTest extends ValidateComplementoPagosTestCase
+final class PagosTest extends ValidateComplementoPagosTestCase
 {
     /** @var Pagos */
     protected $validator;

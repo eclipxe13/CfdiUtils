@@ -8,7 +8,7 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\ComplementoPagos;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class ComplementoPagosTest extends ValidateTestCase
+final class ComplementoPagosTest extends ValidateTestCase
 {
     /** @var ComplementoPagos */
     protected $validator;

@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\Internals;
 use CfdiUtils\Internals\ShellExecTemplate;
 use CfdiUtilsTests\TestCase;
 
-class ShellExecTemplateTest extends TestCase
+final class ShellExecTemplateTest extends TestCase
 {
     public function providerTemplateCommandToArrayArguments(): array
     {

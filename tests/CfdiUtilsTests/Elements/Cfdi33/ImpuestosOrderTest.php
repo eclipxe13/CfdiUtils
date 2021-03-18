@@ -8,7 +8,7 @@ use CfdiUtils\Elements\Cfdi33\ConceptoImpuestos;
 use CfdiUtils\Elements\Cfdi33\Impuestos;
 use PHPUnit\Framework\TestCase;
 
-class ImpuestosOrderTest extends TestCase
+final class ImpuestosOrderTest extends TestCase
 {
     public function testComprobanteImpuestosOrderIsRetencionesTraslados()
     {

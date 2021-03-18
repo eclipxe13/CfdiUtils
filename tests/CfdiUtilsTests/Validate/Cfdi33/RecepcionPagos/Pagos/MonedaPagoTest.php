@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\MonedaPago;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidatePagoException;
 use PHPUnit\Framework\TestCase;
 
-class MonedaPagoTest extends TestCase
+final class MonedaPagoTest extends TestCase
 {
     public function testValid()
     {

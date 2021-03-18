@@ -8,7 +8,7 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\MontoGreaterOrEqualThanSumOfD
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidatePagoException;
 use PHPUnit\Framework\TestCase;
 
-class MontoGreaterOrEqualThanSumOfDocumentsTest extends TestCase
+final class MontoGreaterOrEqualThanSumOfDocumentsTest extends TestCase
 {
     public function testValid()
     {

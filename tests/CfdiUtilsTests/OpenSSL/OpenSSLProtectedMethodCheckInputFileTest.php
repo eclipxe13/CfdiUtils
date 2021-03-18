@@ -6,7 +6,7 @@ use CfdiUtils\Internals\TemporaryFile;
 use CfdiUtils\OpenSSL\OpenSSL;
 use CfdiUtilsTests\TestCase;
 
-class OpenSSLProtectedMethodCheckInputFileTest extends TestCase
+final class OpenSSLProtectedMethodCheckInputFileTest extends TestCase
 {
     private function openSSL(): object
     {

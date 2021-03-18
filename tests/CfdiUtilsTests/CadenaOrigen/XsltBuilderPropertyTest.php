@@ -7,7 +7,7 @@ use CfdiUtils\CadenaOrigen\XsltBuilderPropertyInterface;
 use CfdiUtils\CadenaOrigen\XsltBuilderPropertyTrait;
 use CfdiUtilsTests\TestCase;
 
-class XsltBuilderPropertyTest extends TestCase
+final class XsltBuilderPropertyTest extends TestCase
 {
     public function testXsltBuilderPropertyWithoutSet()
     {

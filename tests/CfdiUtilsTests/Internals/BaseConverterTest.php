@@ -6,7 +6,7 @@ use CfdiUtils\Internals\BaseConverter;
 use CfdiUtils\Internals\BaseConverterSequence;
 use PHPUnit\Framework\TestCase;
 
-class BaseConverterTest extends TestCase
+final class BaseConverterTest extends TestCase
 {
     public function testBasicFunctionality()
     {

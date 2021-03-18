@@ -6,7 +6,7 @@ use CfdiUtils\Elements\Pagos10\DoctoRelacionado;
 use CfdiUtils\Elements\Pagos10\Pago;
 use PHPUnit\Framework\TestCase;
 
-class CalculateDocumentAmountTraitTest extends TestCase
+final class CalculateDocumentAmountTraitTest extends TestCase
 {
     public function testCalculateDocumentAmountWhenIsSet()
     {

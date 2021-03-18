@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\Xml\XmlFollowSchema;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class XmlFollowSchemaTest extends ValidateTestCase
+final class XmlFollowSchemaTest extends ValidateTestCase
 {
     /** @var XmlFollowSchema */
     protected $validator;

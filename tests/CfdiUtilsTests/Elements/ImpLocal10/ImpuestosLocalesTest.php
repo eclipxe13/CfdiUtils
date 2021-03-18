@@ -7,7 +7,7 @@ use CfdiUtils\Elements\ImpLocal10\RetencionesLocales;
 use CfdiUtils\Elements\ImpLocal10\TrasladosLocales;
 use PHPUnit\Framework\TestCase;
 
-class ImpuestosLocalesTest extends TestCase
+final class ImpuestosLocalesTest extends TestCase
 {
     /** @var ImpuestosLocales */
     public $element;

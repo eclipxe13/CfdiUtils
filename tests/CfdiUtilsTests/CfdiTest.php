@@ -4,7 +4,7 @@ namespace CfdiUtilsTests;
 
 use CfdiUtils\Cfdi;
 
-class CfdiTest extends TestCase
+final class CfdiTest extends TestCase
 {
     public function testNewFromStringWithEmptyXml()
     {

@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\CuentaBeneficiariaPatron;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidatePagoException;
 use PHPUnit\Framework\TestCase;
 
-class CuentaBeneficiariaPatronTest extends TestCase
+final class CuentaBeneficiariaPatronTest extends TestCase
 {
     /**
      * @param string|null $input

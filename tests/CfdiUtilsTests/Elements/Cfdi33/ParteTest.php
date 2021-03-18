@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\Elements\Cfdi33;
 use CfdiUtils\Elements\Cfdi33\Parte;
 use PHPUnit\Framework\TestCase;
 
-class ParteTest extends TestCase
+final class ParteTest extends TestCase
 {
     /** @var Parte */
     public $element;

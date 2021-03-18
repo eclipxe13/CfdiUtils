@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
  *
  */
 
-class ComprobanteGetCfdiRelacionadosTest extends TestCase
+final class ComprobanteGetCfdiRelacionadosTest extends TestCase
 {
     private $errors = [];
 

@@ -8,7 +8,7 @@ use CfdiUtils\Validate\Cfdi33\Standard\TimbreFiscalDigitalVersion;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class TimbreFiscalDigitalVersionTest extends ValidateTestCase
+final class TimbreFiscalDigitalVersionTest extends ValidateTestCase
 {
     /* @var \CfdiUtils\Elements\Cfdi33\Comprobante */
     protected $comprobante;

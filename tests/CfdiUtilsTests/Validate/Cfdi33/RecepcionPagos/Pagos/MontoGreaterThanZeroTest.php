@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\MontoGreaterThanZero;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidatePagoException;
 use PHPUnit\Framework\TestCase;
 
-class MontoGreaterThanZeroTest extends TestCase
+final class MontoGreaterThanZeroTest extends TestCase
 {
     /**
      * @param string $amount

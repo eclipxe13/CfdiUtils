@@ -6,7 +6,7 @@ use CfdiUtils\Elements\Cfdi33\Comprobante;
 use CfdiUtils\Elements\Tfd11\TimbreFiscalDigital;
 use PHPUnit\Framework\TestCase;
 
-class TimbreFiscalDigitalTest extends TestCase
+final class TimbreFiscalDigitalTest extends TestCase
 {
     /**@var Comprobante */
     public $element;

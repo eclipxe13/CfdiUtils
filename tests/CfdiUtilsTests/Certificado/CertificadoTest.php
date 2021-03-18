@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\Certificado;
 use CfdiUtils\Certificado\Certificado;
 use CfdiUtilsTests\TestCase;
 
-class CertificadoTest extends TestCase
+final class CertificadoTest extends TestCase
 {
     public function testConstructWithValidExample()
     {

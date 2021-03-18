@@ -6,7 +6,7 @@ use CfdiUtils\CfdiValidator33;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\TestCase;
 
-class SamplesTest extends TestCase
+final class SamplesTest extends TestCase
 {
     /**
      * @param string $sampleName

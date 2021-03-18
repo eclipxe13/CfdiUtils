@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \CfdiUtils\Elements\Nomina12\Percepciones
  */
-class PercepcionesTest extends TestCase
+final class PercepcionesTest extends TestCase
 {
     /** @var Percepciones */
     public $element;

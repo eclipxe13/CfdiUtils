@@ -6,7 +6,7 @@ use CfdiUtils\Nodes\NodeNsDefinitionsMover;
 use CfdiUtils\Nodes\XmlNodeUtils;
 use CfdiUtilsTests\TestCase;
 
-class NodeNsDefinitionsMoverTest extends TestCase
+final class NodeNsDefinitionsMoverTest extends TestCase
 {
     public function testMoveDefinitionsWithFilter()
     {

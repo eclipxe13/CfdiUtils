@@ -14,7 +14,7 @@ use CfdiUtils\Nodes\Node;
 use CfdiUtils\Utils\Format;
 use CfdiUtilsTests\TestCase;
 
-class ReadCfdiWithTimbreOnSecondComplementoTest extends TestCase
+final class ReadCfdiWithTimbreOnSecondComplementoTest extends TestCase
 {
     public function testRetrieveTimbre()
     {

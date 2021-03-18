@@ -6,7 +6,7 @@ use CfdiUtils\Validate\Cfdi33\Standard\ComprobanteTipoCambio;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class ComprobanteTipoCambioTest extends ValidateTestCase
+final class ComprobanteTipoCambioTest extends ValidateTestCase
 {
     /** @var ComprobanteTipoCambio */
     protected $validator;

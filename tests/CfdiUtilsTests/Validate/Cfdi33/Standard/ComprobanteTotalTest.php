@@ -6,7 +6,7 @@ use CfdiUtils\Validate\Cfdi33\Standard\ComprobanteTotal;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class ComprobanteTotalTest extends ValidateTestCase
+final class ComprobanteTotalTest extends ValidateTestCase
 {
     /** @var ComprobanteTotal */
     protected $validator;

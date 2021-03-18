@@ -6,7 +6,7 @@ use CfdiUtils\CfdiVersion;
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Nodes\XmlNodeUtils;
 
-class CfdiVersionTest extends TestCase
+final class CfdiVersionTest extends TestCase
 {
     public function providerCfdiVersion(): array
     {

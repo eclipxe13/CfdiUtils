@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\Validate;
 use CfdiUtils\Validate\Status;
 use PHPUnit\Framework\TestCase;
 
-class StatusTest extends TestCase
+final class StatusTest extends TestCase
 {
     public function testConstructWithInvalidCode()
     {

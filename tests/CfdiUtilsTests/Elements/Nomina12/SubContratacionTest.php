@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \CfdiUtils\Elements\Nomina12\SubContratacion
  */
-class SubContratacionTest extends TestCase
+final class SubContratacionTest extends TestCase
 {
     /** @var SubContratacion */
     public $element;

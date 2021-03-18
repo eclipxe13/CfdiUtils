@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\Standard\ReceptorResidenciaFiscal;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class ReceptorResidenciaFiscalTest extends ValidateTestCase
+final class ReceptorResidenciaFiscalTest extends ValidateTestCase
 {
     /** @var  ReceptorResidenciaFiscal */
     protected $validator;

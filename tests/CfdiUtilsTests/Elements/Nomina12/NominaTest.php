@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \CfdiUtils\Elements\Nomina12\Nomina
  */
-class NominaTest extends TestCase
+final class NominaTest extends TestCase
 {
     /** @var Nomina */
     public $element;

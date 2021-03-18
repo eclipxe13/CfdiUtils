@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\TipoCadenaPagoCadena;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidatePagoException;
 use PHPUnit\Framework\TestCase;
 
-class TipoCadenaPagoCadenaTest extends TestCase
+final class TipoCadenaPagoCadenaTest extends TestCase
 {
     /**
      * @param string|null $tipoCadPago

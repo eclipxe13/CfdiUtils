@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \CfdiUtils\Elements\Nomina12\Incapacidad
  */
-class IncapacidadTest extends TestCase
+final class IncapacidadTest extends TestCase
 {
     /** @var Incapacidad */
     public $element;

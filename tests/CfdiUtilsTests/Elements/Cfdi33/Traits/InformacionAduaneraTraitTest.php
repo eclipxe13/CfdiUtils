@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\Elements\Cfdi33\Traits;
 use CfdiUtils\Elements\Cfdi33\InformacionAduanera;
 use PHPUnit\Framework\TestCase;
 
-class InformacionAduaneraTraitTest extends TestCase
+final class InformacionAduaneraTraitTest extends TestCase
 {
     public function testAddInformacionAduanera()
     {

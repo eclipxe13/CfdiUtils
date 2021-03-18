@@ -6,7 +6,7 @@ use CfdiUtils\Elements\Cfdi33\CfdiRelacionado;
 use CfdiUtils\Elements\Cfdi33\CfdiRelacionados;
 use PHPUnit\Framework\TestCase;
 
-class CfdiRelacionadosTest extends TestCase
+final class CfdiRelacionadosTest extends TestCase
 {
     /** @var CfdiRelacionados */
     public $element;

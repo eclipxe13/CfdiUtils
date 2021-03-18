@@ -6,7 +6,7 @@ use CfdiUtils\Validate\Cfdi33\Standard\ConceptoDescuento;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class ConceptoDescuentoTest extends ValidateTestCase
+final class ConceptoDescuentoTest extends ValidateTestCase
 {
     /** @var ConceptoDescuento */
     protected $validator;

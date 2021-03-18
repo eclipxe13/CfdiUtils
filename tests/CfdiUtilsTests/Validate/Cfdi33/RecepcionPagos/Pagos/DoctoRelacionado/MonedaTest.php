@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\DoctoRelacionado\Moneda;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\DoctoRelacionado\ValidateDoctoException;
 use PHPUnit\Framework\TestCase;
 
-class MonedaTest extends TestCase
+final class MonedaTest extends TestCase
 {
     /**
      * @param string|null $input

@@ -8,7 +8,7 @@ use CfdiUtils\Validate\Contracts\DiscoverableCreateInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class SumasConceptosComprobanteImpuestosTest extends ValidateTestCase
+final class SumasConceptosComprobanteImpuestosTest extends ValidateTestCase
 {
     /** @var SumasConceptosComprobanteImpuestos */
     protected $validator;

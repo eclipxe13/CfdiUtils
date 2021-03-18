@@ -9,7 +9,7 @@ use CfdiUtils\Elements\Cfdi33\Traslado;
 use CfdiUtils\Elements\Cfdi33\Traslados;
 use PHPUnit\Framework\TestCase;
 
-class ImpuestosTraitTest extends TestCase
+final class ImpuestosTraitTest extends TestCase
 {
     /** @var UseImpuestos */
     public $element;

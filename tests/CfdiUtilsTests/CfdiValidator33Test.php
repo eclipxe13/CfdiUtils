@@ -8,7 +8,7 @@ use CfdiUtils\CfdiValidator33;
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Nodes\XmlNodeUtils;
 
-class CfdiValidator33Test extends TestCase
+final class CfdiValidator33Test extends TestCase
 {
     public function testConstructWithoutArguments()
     {

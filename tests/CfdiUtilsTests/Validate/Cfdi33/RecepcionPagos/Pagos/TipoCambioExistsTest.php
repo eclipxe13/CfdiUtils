@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\TipoCambioExists;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidatePagoException;
 use PHPUnit\Framework\TestCase;
 
-class TipoCambioExistsTest extends TestCase
+final class TipoCambioExistsTest extends TestCase
 {
     /**
      * @param string $currency

@@ -6,7 +6,7 @@ use CfdiUtils\Nodes\Node;
 use CfdiUtils\Nodes\NodesSorter;
 use PHPUnit\Framework\TestCase;
 
-class NodesSorterTest extends TestCase
+final class NodesSorterTest extends TestCase
 {
     public function testConstructWithNames()
     {

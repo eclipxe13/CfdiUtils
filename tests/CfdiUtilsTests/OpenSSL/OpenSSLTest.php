@@ -7,7 +7,7 @@ use CfdiUtils\OpenSSL\OpenSSLCallerException;
 use CfdiUtils\PemPrivateKey\PemPrivateKey;
 use CfdiUtilsTests\TestCase;
 
-class OpenSSLTest extends TestCase
+final class OpenSSLTest extends TestCase
 {
     public function testCreateInstanceWithoutAnyArguments()
     {

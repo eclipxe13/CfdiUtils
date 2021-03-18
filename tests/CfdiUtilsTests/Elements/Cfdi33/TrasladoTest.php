@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\Elements\Cfdi33;
 use CfdiUtils\Elements\Cfdi33\Traslado;
 use PHPUnit\Framework\TestCase;
 
-class TrasladoTest extends TestCase
+final class TrasladoTest extends TestCase
 {
     /** @var Traslado */
     public $element;

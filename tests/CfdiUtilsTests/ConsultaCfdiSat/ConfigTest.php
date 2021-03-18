@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\ConsultaCfdiSat;
 use CfdiUtils\ConsultaCfdiSat\Config;
 use CfdiUtilsTests\TestCase;
 
-class ConfigTest extends TestCase
+final class ConfigTest extends TestCase
 {
     public function testConstructorDefaultValues()
     {

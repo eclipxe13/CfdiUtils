@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\Standard\ComprobanteTipoDeComprobante;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class ComprobanteTipoDeComprobanteTest extends ValidateTestCase
+final class ComprobanteTipoDeComprobanteTest extends ValidateTestCase
 {
     /** @var  ComprobanteTipoDeComprobante */
     protected $validator;

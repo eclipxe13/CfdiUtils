@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\Elements\Cfdi33;
 use CfdiUtils\Elements\Cfdi33\ComplementoConcepto;
 use PHPUnit\Framework\TestCase;
 
-class ComplementoConceptoTest extends TestCase
+final class ComplementoConceptoTest extends TestCase
 {
     /** @var ComplementoConcepto */
     public $element;

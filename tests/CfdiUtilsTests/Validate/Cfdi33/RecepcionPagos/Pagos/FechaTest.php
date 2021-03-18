@@ -8,7 +8,7 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\Fecha;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidatePagoException;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class FechaTest extends ValidateTestCase
+final class FechaTest extends ValidateTestCase
 {
     public function testValid()
     {

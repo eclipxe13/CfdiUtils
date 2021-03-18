@@ -6,7 +6,7 @@ use CfdiUtils\Elements\Pagos10\Traslado;
 use CfdiUtils\Elements\Pagos10\Traslados;
 use PHPUnit\Framework\TestCase;
 
-class TrasladosTest extends TestCase
+final class TrasladosTest extends TestCase
 {
     /** @var Traslados */
     public $element;

@@ -7,7 +7,7 @@ use CfdiUtils\Nodes\Node;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Conceptos;
 use CfdiUtils\Validate\Status;
 
-class ConceptosTest extends ValidateComplementoPagosTestCase
+final class ConceptosTest extends ValidateComplementoPagosTestCase
 {
     /** @var Conceptos */
     protected $validator;

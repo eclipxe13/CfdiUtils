@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\BancoOrdenanteRfcCorrecto;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidatePagoException;
 use PHPUnit\Framework\TestCase;
 
-class BancoOrdenanteRfcCorrectoTest extends TestCase
+final class BancoOrdenanteRfcCorrectoTest extends TestCase
 {
     /**
      * @param string|null $rfc

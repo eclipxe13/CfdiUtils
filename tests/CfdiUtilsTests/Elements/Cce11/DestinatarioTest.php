@@ -6,7 +6,7 @@ use CfdiUtils\Elements\Cce11\Destinatario;
 use CfdiUtils\Elements\Cce11\Domicilio;
 use PHPUnit\Framework\TestCase;
 
-class DestinatarioTest extends TestCase
+final class DestinatarioTest extends TestCase
 {
     /** @var Destinatario */
     public $element;

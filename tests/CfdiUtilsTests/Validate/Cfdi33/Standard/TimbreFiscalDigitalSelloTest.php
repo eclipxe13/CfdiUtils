@@ -9,7 +9,7 @@ use CfdiUtils\Validate\Cfdi33\Standard\TimbreFiscalDigitalSello;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class TimbreFiscalDigitalSelloTest extends ValidateTestCase
+final class TimbreFiscalDigitalSelloTest extends ValidateTestCase
 {
     /** @var TimbreFiscalDigitalSello */
     protected $validator;

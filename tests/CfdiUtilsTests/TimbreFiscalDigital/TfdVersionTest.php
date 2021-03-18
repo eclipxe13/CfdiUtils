@@ -7,7 +7,7 @@ use CfdiUtils\Nodes\XmlNodeUtils;
 use CfdiUtils\TimbreFiscalDigital\TfdVersion;
 use CfdiUtilsTests\TestCase;
 
-class TfdVersionTest extends TestCase
+final class TfdVersionTest extends TestCase
 {
     public function providerTfdVersion(): array
     {

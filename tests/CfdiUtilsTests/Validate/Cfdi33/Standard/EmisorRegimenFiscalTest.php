@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\Standard\EmisorRegimenFiscal;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class EmisorRegimenFiscalTest extends ValidateTestCase
+final class EmisorRegimenFiscalTest extends ValidateTestCase
 {
     /** @var  EmisorRegimenFiscal */
     protected $validator;

@@ -6,7 +6,7 @@ use CfdiUtils\Cleaner\BeforeLoad\BeforeLoadCleaner;
 use CfdiUtils\Cleaner\BeforeLoad\BeforeLoadCleanerInterface;
 use CfdiUtilsTests\TestCase;
 
-class BeforeLoadCleanerTest extends TestCase
+final class BeforeLoadCleanerTest extends TestCase
 {
     public function testImplementsBeforeLoadCleanerInterface()
     {

@@ -6,7 +6,7 @@ use CfdiUtils\OpenSSL\OpenSSL;
 use CfdiUtils\OpenSSL\OpenSSLPropertyTrait;
 use CfdiUtilsTests\TestCase;
 
-class OpenSSLPropertyTest extends TestCase
+final class OpenSSLPropertyTest extends TestCase
 {
     public function testCorrectImplementer()
     {

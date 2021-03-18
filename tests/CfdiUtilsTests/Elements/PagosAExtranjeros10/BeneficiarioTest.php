@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\Elements\PagosAExtranjeros10;
 use CfdiUtils\Elements\PagosAExtranjeros10\Beneficiario;
 use PHPUnit\Framework\TestCase;
 
-class BeneficiarioTest extends TestCase
+final class BeneficiarioTest extends TestCase
 {
     /** @var Beneficiario */
     public $element;

@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\TipoCadenaPagoProhibido;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidatePagoException;
 use PHPUnit\Framework\TestCase;
 
-class TipoCadenaPagoProhibidoTest extends TestCase
+final class TipoCadenaPagoProhibidoTest extends TestCase
 {
     /**
      * @param string $paymentForm

@@ -8,7 +8,7 @@ use CfdiUtils\Validate\Cfdi33\Standard\ReceptorRfc;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class ReceptorRfcTest extends ValidateTestCase
+final class ReceptorRfcTest extends ValidateTestCase
 {
     /** @var ReceptorRfc */
     protected $validator;

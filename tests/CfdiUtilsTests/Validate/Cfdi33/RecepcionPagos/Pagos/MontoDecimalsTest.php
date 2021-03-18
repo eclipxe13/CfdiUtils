@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\MontoDecimals;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidatePagoException;
 use PHPUnit\Framework\TestCase;
 
-class MontoDecimalsTest extends TestCase
+final class MontoDecimalsTest extends TestCase
 {
     public function testValid()
     {

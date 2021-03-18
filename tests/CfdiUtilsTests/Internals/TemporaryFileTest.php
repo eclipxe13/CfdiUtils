@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\Internals;
 use CfdiUtils\Internals\TemporaryFile;
 use CfdiUtilsTests\TestCase;
 
-class TemporaryFileTest extends TestCase
+final class TemporaryFileTest extends TestCase
 {
     public function testBasicFunctionality()
     {

@@ -7,7 +7,7 @@ use CfdiUtils\Elements\Dividendos10\DividOUtil;
 use CfdiUtils\Elements\Dividendos10\Remanente;
 use PHPUnit\Framework\TestCase;
 
-class DividendosTest extends TestCase
+final class DividendosTest extends TestCase
 {
     /** @var Dividendos */
     public $element;

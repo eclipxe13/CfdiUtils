@@ -7,7 +7,7 @@ use CfdiUtils\XmlResolver\XmlResolver;
 use CfdiUtilsTests\TestCase;
 use XmlResourceRetriever\Downloader\DownloaderInterface;
 
-class XmlResolverTest extends TestCase
+final class XmlResolverTest extends TestCase
 {
     public function testConstructor()
     {

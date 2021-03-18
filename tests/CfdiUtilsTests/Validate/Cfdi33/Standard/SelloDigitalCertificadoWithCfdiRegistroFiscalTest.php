@@ -11,7 +11,7 @@ use CfdiUtils\Validate\Cfdi33\Standard\SelloDigitalCertificado;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class SelloDigitalCertificadoWithCfdiRegistroFiscalTest extends ValidateTestCase
+final class SelloDigitalCertificadoWithCfdiRegistroFiscalTest extends ValidateTestCase
 {
     /** @var SelloDigitalCertificado */
     protected $validator;

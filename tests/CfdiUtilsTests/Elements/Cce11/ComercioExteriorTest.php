@@ -11,7 +11,7 @@ use CfdiUtils\Elements\Cce11\Propietario;
 use CfdiUtils\Elements\Cce11\Receptor;
 use PHPUnit\Framework\TestCase;
 
-class ComercioExteriorTest extends TestCase
+final class ComercioExteriorTest extends TestCase
 {
     /** @var ComercioExterior */
     public $element;

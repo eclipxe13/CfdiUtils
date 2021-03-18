@@ -8,7 +8,7 @@ use CfdiUtils\Nodes\Node;
 use CfdiUtils\SumasConceptos\SumasConceptos;
 use PHPUnit\Framework\TestCase;
 
-class SumasConceptosTest extends TestCase
+final class SumasConceptosTest extends TestCase
 {
     public function testConstructor()
     {

@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \CfdiUtils\Elements\Nomina12\Emisor
  */
-class EmisorTest extends TestCase
+final class EmisorTest extends TestCase
 {
     /** @var Emisor */
     public $element;

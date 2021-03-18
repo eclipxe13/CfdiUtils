@@ -6,7 +6,7 @@ use CfdiUtils\Elements\Pagos10\Pagos;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\ComprobantePagos;
 use CfdiUtils\Validate\Status;
 
-class ComprobantePagosTest extends ValidateComplementoPagosTestCase
+final class ComprobantePagosTest extends ValidateComplementoPagosTestCase
 {
     /** @var ComprobantePagos */
     protected $validator;

@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\Internals;
 use CfdiUtils\Internals\ShellExec;
 use PHPUnit\Framework\TestCase;
 
-class ShellExecTest extends TestCase
+final class ShellExecTest extends TestCase
 {
     public function testConstructWithValues()
     {

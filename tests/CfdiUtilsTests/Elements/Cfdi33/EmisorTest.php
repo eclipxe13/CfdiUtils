@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\Elements\Cfdi33;
 use CfdiUtils\Elements\Cfdi33\Emisor;
 use PHPUnit\Framework\TestCase;
 
-class EmisorTest extends TestCase
+final class EmisorTest extends TestCase
 {
     /** @var Emisor */
     public $element;

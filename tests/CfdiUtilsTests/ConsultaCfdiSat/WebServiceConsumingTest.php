@@ -19,7 +19,7 @@ use SoapFault;
  * The work around is to mark test skipped if we get a SoapFault when call
  * request or getSoapClient methods
  */
-class WebServiceConsumingTest extends TestCase
+final class WebServiceConsumingTest extends TestCase
 {
     private function createWebServiceObject(): WebService
     {

@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \CfdiUtils\Elements\Nomina12\Receptor
  */
-class ReceptorTest extends TestCase
+final class ReceptorTest extends TestCase
 {
     /** @var Receptor */
     public $element;

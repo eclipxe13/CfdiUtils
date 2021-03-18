@@ -6,7 +6,7 @@ use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\PemPrivateKey\PemPrivateKey;
 use CfdiUtilsTests\TestCase;
 
-class PemPrivateKeyTest extends TestCase
+final class PemPrivateKeyTest extends TestCase
 {
     public function providerConstructWithBadArgument(): array
     {

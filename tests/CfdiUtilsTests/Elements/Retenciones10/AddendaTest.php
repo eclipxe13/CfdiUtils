@@ -6,7 +6,7 @@ use CfdiUtils\Elements\Retenciones10\Addenda;
 use CfdiUtils\Nodes\Node;
 use PHPUnit\Framework\TestCase;
 
-class AddendaTest extends TestCase
+final class AddendaTest extends TestCase
 {
     /** @var Addenda */
     public $element;
