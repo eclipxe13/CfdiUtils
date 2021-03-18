@@ -1,0 +1,137 @@
+on:
+  pull_request:
+  push:
+  schedule:
+    - cron: '0 16 * * 0' # sunday 16:00
+
+jobs:
+
+  # this job perform phpunit tests on linux, windows and all php supported versions
+  tests:
+    name: PHP ${{ matrix.php-versions }} on ${{ matrix.operating-systems }}
+    runs-on: ${{ matrix.operating-systems }}
+
+    strategy:
+      matrix:
+        operating-systems: [ "ubuntu-latest", "windows-latest" ]
+        php-versions: [ '7.3', '7.4', '8.0' ]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install libsaxonb-java on linux
+        if: matrix.operating-systems == 'ubuntu-latest'
+        run: sudo apt-get install -y -qq libsaxonb-java
+
+      - name: Install saxonhe on windows
+        if: matrix.operating-systems == 'windows-latest'
+        run: choco install --ignore-checksums --no-progress --yes saxonhe
+
+      # see https://github.com/marketplace/actions/setup-php-action
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: libxml, dom, xsl, simplexml, mbstring, openssl, soap, iconv, json, intl, fileinfo
+          coverage: none
+          tools: composer:v2
+        env:
+          fail-fast: true
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install project dependencies
+        run: |
+          composer remove squizlabs/php_codesniffer friendsofphp/php-cs-fixer phpstan/phpstan --dev --no-interaction --no-progress --no-update
+          composer upgrade --no-interaction --no-progress --prefer-dist
+
+      - name: Tests (phpunit) on linux
+        if: matrix.operating-systems == 'ubuntu-latest'
+        run: vendor/bin/phpunit --testdox --verbose
+
+      - name: Tests (phpunit) on windows
+        if: matrix.operating-systems == 'windows-latest'
+        run: vendor/bin/phpunit --testdox --verbose
+        env:
+          saxonb-path: 'C:\ProgramData\chocolatey\bin\SaxonHE\bin\Transform.exe'
+
+  # this job perform a full build (check style, testing with coverage, code analysis and build docs)
+  full-build:
+    name: Full build
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # see https://github.com/marketplace/actions/setup-php-action
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.0"
+          extensions: libxml, dom, xsl, simplexml, mbstring, openssl, soap, iconv, json, intl, fileinfo
+          coverage: xdebug
+          tools: composer:v2, cs2pr
+        env:
+          fail-fast: true
+
+      - name: Install libsaxonb-java
+        run: sudo apt-get install -y -qq libsaxonb-java
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install SAT XML resources
+        run: bash tests/resource-sat-xml-download build/
+
+      - name: Install project dependencies
+        run: composer upgrade --no-interaction --no-progress --prefer-dist
+
+      # https://github.com/marketplace/actions/markdown-cli
+      - name: Code style (markdownlint-cli)
+        uses: nosborn/github-action-markdown-cli@v1.1.1
+        with:
+          files: '*.md docs/'
+          config_file: '.markdownlint.json'
+
+      - name: Code style (phpcs)
+        run: vendor/bin/phpcs -q --report=checkstyle src/ tests/ | cs2pr
+
+      - name: Code style (php-cs-fixer)
+        run: vendor/bin/php-cs-fixer fix --dry-run --format=checkstyle | cs2pr
+
+      - name: Tests (phpunit)
+        run: vendor/bin/phpunit --testdox --verbose --coverage-clover=build/coverage-clover.xml
+
+      - name: Code analysis (phpstan)
+        run: vendor/bin/phpstan analyse --no-progress --verbose src/ tests/
+
+      - name: Upload code coverage to scrutinizer
+        uses: sudo-bot/action-scrutinizer@latest
+        with:
+          cli-args: "--format=php-clover build/coverage-clover.xml"
+
+      # see https://github.com/marketplace/actions/mkdocs-action
+      - name: Run mkdocs
+        uses: Tiryoh/actions-mkdocs@v0
+        with:
+          mkdocs_version: 'latest'
+          configfile: 'mkdocs.yml'
