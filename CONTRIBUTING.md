@@ -54,14 +54,14 @@ When you do begin working on your feature, here are some guidelines to consider:
 * Your pull request description should clearly detail the changes you have made.
 * Follow our code style using `squizlabs/php_codesniffer` and `friendsofphp/php-cs-fixer`.
 * Please **write tests** for any new features you add.
-* Please **ensure that tests pass** before submitting your pull request. We have Travis CI automatically running tests for pull requests. However, running the tests locally will help save time.
+* Please **ensure that tests pass** before submitting your pull request. We have GitHub automatically running tests for pull requests. However, running the tests locally will help save time.
 * **Use topic/feature branches.** Please do not ask us to pull from your master branch.
 * **Submit one feature per pull request.** If you have multiple features you wish to submit, please break them up into separate pull requests.
 * **Send coherent history**. Make sure each individual commit in your pull request is meaningful. If you had to make multiple intermediate commits while developing, please squash them before submitting.
 
 ## Check the code style
 
-If you are having issues with coding standars run
+If you are having issues with coding standars then run:
 
 ```shell
 composer dev:check-style
