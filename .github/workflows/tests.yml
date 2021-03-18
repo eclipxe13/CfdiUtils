@@ -26,10 +26,6 @@ jobs:
         if: matrix.operating-systems == 'windows-latest'
         run: choco install --ignore-checksums --no-progress --yes saxonhe
 
-      - name: Set up saxonhe on windows
-        if: matrix.operating-systems == 'windows-latest'
-        run: echo "saxonb-path=C:\ProgramData\chocolatey\bin\SaxonHE\bin\Transform.exe" >> $GITHUB_ENV
-
       # see https://github.com/marketplace/actions/setup-php-action
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -57,5 +53,12 @@ jobs:
           composer remove squizlabs/php_codesniffer friendsofphp/php-cs-fixer phpstan/phpstan --dev --no-interaction --no-progress --no-update
           composer upgrade --no-interaction --no-progress --prefer-dist
 
-      - name: Tests (phpunit)
+      - name: Tests (phpunit) on linux
+        if: matrix.operating-systems == 'ubuntu-latest'
         run: vendor/bin/phpunit --testdox --verbose
+
+      - name: Tests (phpunit) on windows
+        if: matrix.operating-systems == 'windows-latest'
+        run: vendor/bin/phpunit --testdox --verbose
+        env:
+          saxonb-path: "C:\ProgramData\chocolatey\bin\SaxonHE\bin\Transform.exe"
