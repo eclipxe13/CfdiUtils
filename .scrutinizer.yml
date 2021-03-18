@@ -5,7 +5,7 @@ filter:
 
 tools:
   external_code_coverage:
-    timeout: 600 # default is 300 seconds, travis build can take more than that
+    timeout: 600 # default is 300 seconds
 
 build:
   dependencies:

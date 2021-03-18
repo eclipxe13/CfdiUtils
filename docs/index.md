@@ -5,7 +5,6 @@
 [![Latest Version][badge-release]][release]
 [![Software License][badge-license]][license]
 [![Build Status][badge-build]][build]
-[![AppVeyor Status][badge-appveyor]][appveyor]
 [![Source Code][badge-documentation]][documentation]
 [![Scrutinizer][badge-quality]][quality]
 [![Coverage Status][badge-coverage]][coverage]
@@ -118,8 +117,7 @@ y se encuentra amparada por la Licencia MIT (MIT). Consulte el archivo [LICENSE]
 [discord]: https://discord.gg/aFGYXvX
 [release]: https://github.com/eclipxe13/CfdiUtils/releases
 [license]: https://github.com/eclipxe13/CfdiUtils/blob/master/LICENSE
-[build]: https://travis-ci.com/eclipxe13/CfdiUtils?branch=master
-[appveyor]: https://ci.appveyor.com/project/eclipxe13/cfdiutils/branch/master
+[build]: https://github.com/eclipxe13/CfdiUtils/actions/workflows/build.yml?query=branch:master
 [quality]: https://scrutinizer-ci.com/g/eclipxe13/CfdiUtils/?branch=master
 [coverage]: https://scrutinizer-ci.com/g/eclipxe13/CfdiUtils/code-structure/master/code-coverage/src/CfdiUtils/
 [downloads]: https://packagist.org/packages/eclipxe/CfdiUtils
@@ -129,8 +127,7 @@ y se encuentra amparada por la Licencia MIT (MIT). Consulte el archivo [LICENSE]
 [badge-discord]: https://img.shields.io/discord/459860554090283019?logo=discord&style=flat-square
 [badge-release]: https://img.shields.io/github/release/eclipxe13/CfdiUtils?logo=git&style=flat-square
 [badge-license]: https://img.shields.io/github/license/eclipxe13/CfdiUtils?logo=open-source-initiative&style=flat-square
-[badge-build]: https://img.shields.io/travis/com/eclipxe13/CfdiUtils/master?logo=travis&style=flat-square
-[badge-appveyor]: https://img.shields.io/appveyor/ci/eclipxe13/cfdiutils/master?logo=appveyor&style=flat-square
+[badge-build]: https://img.shields.io/github/workflow/status/eclipxe13/CfdiUtils/build/master?logo=github-actions&style=flat-square
 [badge-quality]: https://img.shields.io/scrutinizer/g/eclipxe13/CfdiUtils/master?logo=scrutinizer-ci&style=flat-square
 [badge-coverage]: https://img.shields.io/scrutinizer/coverage/g/eclipxe13/CfdiUtils/master?logo=scrutinizer-ci&style=flat-square
 [badge-downloads]: https://img.shields.io/packagist/dt/eclipxe/CfdiUtils?logo=composer&style=flat-square
