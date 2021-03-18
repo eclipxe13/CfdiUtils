@@ -2,54 +2,54 @@ site_name: "CfdiUtils"
 site_description: "Librería de utilerías comunes para trabajar con PHP y CFDI 3.2 & 3.3 (México)"
 
 theme:
-    name: "readthedocs"
-    language: "es"
+  name: "readthedocs"
+  language: "es"
 
 nav:
-    - "CfdiUtils": "index.md"
-    - "Instalación":
-        - instalar/instalacion.md
-    - "Lectura":
-        - leer/leer-cfdi.md
-        - leer/leer-cfdi-retenciones.md
-        - leer/quickreader.md
-        - leer/limpieza-cfdi.md
-    - "Validación":
-        - validar/validacion-cfdi.md
-        - validar/validaciones-estandar.md
-    - "Creación":
-        - crear/crear-cfdi.md
-        - crear/elements-cfdi33.md
-        - crear/complemento-nomina12b.md
-        - crear/complementos-aun-no-implementados.md
-        - crear/cfdi-de-retenciones-e-informacion-de-pagos.md
-    - "Componentes":
-        - componentes/xmlresolver.md
-        - componentes/cadena-de-origen.md
-        - componentes/estado-sat.md
-        - componentes/elements.md
-        - componentes/nodes.md
-        - componentes/certificado.md
-    - "Utilerías":
-        - utilerias/openssl.md
-    - "Contribuir":
-        - contribuir/guia-desarrollador.md
-        - contribuir/guia-documentador.md
-        - contribuir/guia-windows.md
-    - "Problemas":
-        - problemas/contradicciones-pagos.md
-        - problemas/descarga-certificados.md
-        - problemas/multiples-complementos.md
-        - problemas/descarga-recursos.md
-    - "Acerca de":
-        - "To Do List": "TODO.md"
-        - "Changelog": "CHANGELOG.md"
+  - "CfdiUtils": "index.md"
+  - "Instalación":
+    - instalar/instalacion.md
+  - "Lectura":
+    - leer/leer-cfdi.md
+    - leer/leer-cfdi-retenciones.md
+    - leer/quickreader.md
+    - leer/limpieza-cfdi.md
+  - "Validación":
+    - validar/validacion-cfdi.md
+    - validar/validaciones-estandar.md
+  - "Creación":
+    - crear/crear-cfdi.md
+    - crear/elements-cfdi33.md
+    - crear/complemento-nomina12b.md
+    - crear/complementos-aun-no-implementados.md
+    - crear/cfdi-de-retenciones-e-informacion-de-pagos.md
+  - "Componentes":
+    - componentes/xmlresolver.md
+    - componentes/cadena-de-origen.md
+    - componentes/estado-sat.md
+    - componentes/elements.md
+    - componentes/nodes.md
+    - componentes/certificado.md
+  - "Utilerías":
+    - utilerias/openssl.md
+  - "Contribuir":
+    - contribuir/guia-desarrollador.md
+    - contribuir/guia-documentador.md
+    - contribuir/guia-windows.md
+  - "Problemas":
+    - problemas/contradicciones-pagos.md
+    - problemas/descarga-certificados.md
+    - problemas/multiples-complementos.md
+    - problemas/descarga-recursos.md
+  - "Acerca de":
+    - "To Do List": "TODO.md"
+    - "Changelog": "CHANGELOG.md"
 
 markdown_extensions:
-    - toc:
-        permalink: ""
-    - admonition  # add block-styled side content
-    - def_list    # https://python-markdown.github.io/extensions/definition_lists/
-    - fenced_code # code blocks
+  - toc:
+      permalink: ""
+  - admonition  # add block-styled side content
+  - def_list    # https://python-markdown.github.io/extensions/definition_lists/
+  - fenced_code # code blocks
 
 copyright: "Copyright &copy; MIT License 2017 - 2018 Carlos C Soto & contibutors"

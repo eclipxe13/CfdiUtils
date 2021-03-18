@@ -1,20 +1,20 @@
 filter:
-    excluded_paths:
-        - 'tests/'
-        - 'vendor/'
+  excluded_paths:
+    - 'tests/'
+    - 'vendor/'
 
 tools:
-    external_code_coverage:
-        timeout: 600 # default is 300 seconds, travis build can take more than that
+  external_code_coverage:
+    timeout: 600 # default is 300 seconds, travis build can take more than that
 
 build:
-    dependencies:
+  dependencies:
+    override:
+      - composer self-update --no-interaction --no-progress
+      - composer remove squizlabs/php_codesniffer friendsofphp/php-cs-fixer phpstan/phpstan --dev --no-interaction --no-progress --no-update
+      - composer install --no-interaction
+  nodes:
+    analysis:
+      tests:
         override:
-            - composer self-update --no-interaction --no-progress
-            - composer remove squizlabs/php_codesniffer friendsofphp/php-cs-fixer phpstan/phpstan --dev --no-interaction --no-progress --no-update
-            - composer install --no-interaction
-    nodes:
-        analysis:
-            tests:
-                override:
-                    - php-scrutinizer-run --enable-security-analysis
+          - php-scrutinizer-run --enable-security-analysis
