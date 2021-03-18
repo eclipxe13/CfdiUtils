@@ -30,10 +30,6 @@ before_script:
         if [[ $TRAVIS_PHP_VERSION != $FULL_BUILD_PHP_VERSION ]]; then
             composer remove squizlabs/php_codesniffer friendsofphp/php-cs-fixer phpstan/phpstan --dev --no-interaction --no-progress --no-update
         fi
-    - | # only require genkgo/xsl on PHP >= 7.3
-        if [[ $TRAVIS_PHP_VERSION < "7.3"  ]]; then
-            composer remove genkgo/xsl --dev --no-interaction --no-progress --no-update
-        fi
     - travis_retry composer update --no-interaction --prefer-dist
     - | # only install full development dependencies on FULL_BUILD_PHP_VERSION
         if [[ $TRAVIS_PHP_VERSION == $FULL_BUILD_PHP_VERSION ]]; then
