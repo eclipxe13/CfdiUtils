@@ -23,7 +23,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
-          extensions: libxml, dom, xsl, simplexml, mbstring, openssl, soap, iconv, json
+          extensions: libxml, dom, xsl, simplexml, mbstring, openssl, soap, iconv, json, intl, fileinfo
           coverage: xdebug
           tools: composer:v2
         env:
