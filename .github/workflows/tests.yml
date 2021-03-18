@@ -18,6 +18,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Install libsaxonb-java on linux
+        if: matrix.operating-systems == 'ubuntu-latest'
+        run: sudo apt-get install -y -qq libsaxonb-java
+
+      - name: Install saxonhe on windows
+        if: matrix.operating-systems == 'windows-latest'
+        run: choco install --ignore-checksums --no-progress --yes saxonhe
+
+      - name: Set up saxonhe on windows
+        if: matrix.operating-systems == 'windows-latest'
+        run: echo "saxonb-path=C:\ProgramData\chocolatey\bin\SaxonHE\bin\Transform.exe" >> $GITHUB_ENV
+
       # see https://github.com/marketplace/actions/setup-php-action
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
