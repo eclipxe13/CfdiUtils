@@ -36,7 +36,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-versions }}
           extensions: libxml, dom, xsl, simplexml, mbstring, openssl, soap, iconv, json, intl, fileinfo
-          coverage: xdebug
+          coverage: none
           tools: composer:v2
         env:
           fail-fast: true
