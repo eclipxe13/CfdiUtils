@@ -14,7 +14,6 @@ cache:
 ## Build matrix for lowest and highest possible targets
 environment:
     matrix:
-        - php: 7.2
         - php: 7.3
         - php: 7.4
         - php: 8.0
@@ -76,18 +75,17 @@ install:
           # setup c:\tools\php\php.ini
           if (Test-Path c:\tools\php\php.ini-production) {
               Copy-Item -Path c:\tools\php\php.ini-production -Destination c:\tools\php\php.ini
-              [string]$php_ext_prefix=$(if ($Env:php -lt "7.2") {"php_"} else {""})
               Add-Content c:\tools\php\php.ini "`
                   `n; PHP Custom config `
                   date.timezone=UTC `
                   extension_dir=ext `
                   memory_limit=1G `
-                  extension=${php_ext_prefix}openssl `
-                  extension=${php_ext_prefix}mbstring `
-                  extension=${php_ext_prefix}fileinfo `
-                  extension=${php_ext_prefix}curl `
-                  extension=${php_ext_prefix}xsl `
-                  extension=${php_ext_prefix}soap `
+                  extension=openssl `
+                  extension=mbstring `
+                  extension=fileinfo `
+                  extension=curl `
+                  extension=xsl `
+                  extension=soap `
                   "
           }
 
