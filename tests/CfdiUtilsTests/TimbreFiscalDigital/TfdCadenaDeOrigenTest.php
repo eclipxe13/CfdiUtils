@@ -8,7 +8,7 @@ use CfdiUtils\TimbreFiscalDigital\TfdCadenaDeOrigen;
 use CfdiUtils\XmlResolver\XmlResolver;
 use CfdiUtilsTests\TestCase;
 
-class TfdCadenaDeOrigenTest extends TestCase
+final class TfdCadenaDeOrigenTest extends TestCase
 {
     public function testConstructorMinimal()
     {
@@ -29,7 +29,6 @@ class TfdCadenaDeOrigenTest extends TestCase
         $tfd = $cfdi->getNode()->searchNode('cfdi:Complemento', 'tfd:TimbreFiscalDigital');
         if (null === $tfd) {
             $this->fail('Cannot get the tfd:TimbreFiscalDigital node');
-            return;
         }
         $tfdXml = XmlNodeUtils::nodeToXmlString($tfd);
 
@@ -51,8 +50,8 @@ class TfdCadenaDeOrigenTest extends TestCase
 
     public function testXsltLocation()
     {
-        $this->assertContains('TFD_1_0.xslt', TfdCadenaDeOrigen::xsltLocation('1.0'));
-        $this->assertContains('TFD_1_1.xslt', TfdCadenaDeOrigen::xsltLocation('1.1'));
+        $this->assertStringContainsString('TFD_1_0.xslt', TfdCadenaDeOrigen::xsltLocation('1.0'));
+        $this->assertStringContainsString('TFD_1_1.xslt', TfdCadenaDeOrigen::xsltLocation('1.1'));
     }
 
     public function testXsltLocationException()

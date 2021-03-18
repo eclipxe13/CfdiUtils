@@ -6,12 +6,12 @@ use CfdiUtils\Elements\Cfdi33\Concepto;
 use CfdiUtils\Elements\Cfdi33\Conceptos;
 use PHPUnit\Framework\TestCase;
 
-class ConceptosTest extends TestCase
+final class ConceptosTest extends TestCase
 {
     /** @var Conceptos */
     public $element;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->element = new Conceptos();

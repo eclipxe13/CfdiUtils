@@ -7,7 +7,7 @@ use CfdiUtils\OpenSSL\OpenSSLCallerException;
 use CfdiUtils\PemPrivateKey\PemPrivateKey;
 use CfdiUtilsTests\TestCase;
 
-class OpenSSLTest extends TestCase
+final class OpenSSLTest extends TestCase
 {
     public function testCreateInstanceWithoutAnyArguments()
     {
@@ -77,7 +77,7 @@ class OpenSSLTest extends TestCase
         $openssl->derKeyConvertOut($cerFile, 'invalid-passphrase');
     }
 
-    public function providerPrivateKeyProtectPem()
+    public function providerPrivateKeyProtectPem(): array
     {
         return [
             'protect' => ['certs/CSD01_AAA010101AAA.key.pem', '', 'foo-bar-baz'],

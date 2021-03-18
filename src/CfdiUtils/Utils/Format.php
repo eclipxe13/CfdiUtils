@@ -7,7 +7,7 @@ namespace CfdiUtils\Utils;
  */
 class Format
 {
-    public static function number(float $value, $decimals = 2): string
+    public static function number(float $value, int $decimals = 2): string
     {
         return number_format($value, $decimals, '.', '');
     }

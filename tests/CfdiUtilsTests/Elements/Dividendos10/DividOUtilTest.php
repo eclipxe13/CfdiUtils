@@ -5,12 +5,12 @@ namespace CfdiUtilsTests\Elements\Dividendos10;
 use CfdiUtils\Elements\Dividendos10\DividOUtil;
 use PHPUnit\Framework\TestCase;
 
-class DividOUtilTest extends TestCase
+final class DividOUtilTest extends TestCase
 {
     /** @var DividOUtil */
     public $element;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->element = new DividOUtil();

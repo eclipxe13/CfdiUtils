@@ -200,12 +200,12 @@ class SumasConceptos
 
     public function hasTraslados(): bool
     {
-        return (count($this->traslados) > 0);
+        return ([] !== $this->traslados);
     }
 
     public function hasRetenciones(): bool
     {
-        return (count($this->retenciones) > 0);
+        return ([] !== $this->retenciones);
     }
 
     public function getImpuestosTrasladados(): float
@@ -245,12 +245,12 @@ class SumasConceptos
 
     public function hasLocalesTraslados(): bool
     {
-        return (count($this->localesTraslados) > 0);
+        return ([] !== $this->localesTraslados);
     }
 
     public function hasLocalesRetenciones(): bool
     {
-        return (count($this->localesRetenciones) > 0);
+        return ([] !== $this->localesRetenciones);
     }
 
     public function foundAnyConceptWithDiscount(): bool

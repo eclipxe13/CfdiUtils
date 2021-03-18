@@ -42,11 +42,10 @@ class MontoBetweenIntervalSumOfDocuments extends AbstractPagoValidator
         foreach ($documents as $document) {
             $values[] = $this->calculateDocumentAmountBounds($document, $pago);
         }
-        $bounds = [
+        return [
             'lower' => array_sum(array_column($values, 'lower')),
             'upper' => array_sum(array_column($values, 'upper')),
         ];
-        return $bounds;
     }
 
     public function calculateDocumentAmountBounds(NodeInterface $doctoRelacionado, NodeInterface $pago): array

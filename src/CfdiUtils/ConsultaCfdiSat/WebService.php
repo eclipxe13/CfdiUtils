@@ -2,7 +2,10 @@
 
 namespace CfdiUtils\ConsultaCfdiSat;
 
+use RuntimeException;
 use SoapClient;
+use SoapVar;
+use stdClass;
 
 class WebService
 {
@@ -73,38 +76,39 @@ class WebService
     {
         $rawResponse = $this->doRequestConsulta($requestParameters->expression());
 
-        if (! ($rawResponse instanceof \stdClass)) {
-            throw new \RuntimeException('The consulta web service did not return any result');
+        if (! ($rawResponse instanceof stdClass)) {
+            throw new RuntimeException('The consulta web service did not return any result');
         }
         $result = (array) $rawResponse;
         if (! isset($result['CodigoEstatus'])) {
-            throw new \RuntimeException('The consulta web service did not have expected ConsultaResult:CodigoEstatus');
+            throw new RuntimeException('The consulta web service did not have expected ConsultaResult:CodigoEstatus');
         }
         if (! isset($result['Estado'])) {
-            throw new \RuntimeException('The consulta web service did not have expected ConsultaResult:Estado');
+            throw new RuntimeException('The consulta web service did not have expected ConsultaResult:Estado');
         }
         return new StatusResponse(
             $result['CodigoEstatus'],
             $result['Estado'],
             $result['EsCancelable'] ?? '',
-            $result['EstatusCancelacion'] ?? ''
+            $result['EstatusCancelacion'] ?? '',
+            $result['ValidacionEFOS'] ?? ''
         );
     }
 
     /**
      * This method exists to be able to mock SOAP call
      *
-     * @internal
      * @param string $expression
-     * @return null|\stdClass
+     * @return null|stdClass
+     *@internal
      */
-    protected function doRequestConsulta(string $expression)
+    protected function doRequestConsulta(string $expression): ?stdClass
     {
         /** @var int $encoding Override because inspectors does not know that second argument can be NULL */
         $encoding = null;
         return $this->getSoapClient()->__soapCall(
             'Consulta',
-            [new \SoapVar($expression, $encoding, '', '', 'expresionImpresa', 'http://tempuri.org/')],
+            [new SoapVar($expression, $encoding, '', '', 'expresionImpresa', 'http://tempuri.org/')],
             ['soapaction' => 'http://tempuri.org/IConsultaCFDIService/Consulta']
         );
     }

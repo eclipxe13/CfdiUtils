@@ -7,12 +7,12 @@ use CfdiUtils\Elements\Pagos10\Impuestos;
 use CfdiUtils\Elements\Pagos10\Pago;
 use PHPUnit\Framework\TestCase;
 
-class PagoTest extends TestCase
+final class PagoTest extends TestCase
 {
     /** @var Pago */
     public $element;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->element = new Pago();

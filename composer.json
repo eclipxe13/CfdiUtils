@@ -24,7 +24,7 @@
         "optimize-autoloader": true
     },
     "require": {
-        "php": ">=7.0",
+        "php": ">=7.3",
         "ext-libxml": "*",
         "ext-dom": "*",
         "ext-xsl": "*",
@@ -42,11 +42,11 @@
         "genkgo/xsl": "Allows usage of Genkgo/Xsl transformations"
     },
     "require-dev": {
-        "genkgo/xsl": "^0.6",
-        "phpunit/phpunit": "^6.2|^7.3",
+        "genkgo/xsl": "dev-master",
+        "phpunit/phpunit": "^9.5",
         "squizlabs/php_codesniffer": "^3.0",
         "friendsofphp/php-cs-fixer": "^2.4",
-        "phpstan/phpstan": "^0.9|^0.10|^0.11"
+        "phpstan/phpstan": "^0.12"
     },
     "autoload": {
         "psr-4": {
@@ -65,12 +65,12 @@
             "@dev:docs"
         ],
         "dev:check-style": [
-            "vendor/bin/php-cs-fixer fix --dry-run --verbose",
-            "vendor/bin/phpcs --colors -sp src/ tests/"
+            "@php vendor/bin/php-cs-fixer fix --dry-run --verbose",
+            "@php vendor/bin/phpcs --colors -sp src/ tests/"
         ],
         "dev:fix-style": [
-            "vendor/bin/php-cs-fixer fix --verbose",
-            "vendor/bin/phpcbf --colors -sp src/ tests/"
+            "@php vendor/bin/php-cs-fixer fix --verbose",
+            "@php vendor/bin/phpcbf --colors -sp src/ tests/"
         ],
         "dev:docs": [
             "node_modules/markdownlint-cli/markdownlint.js *.md docs/",
@@ -78,8 +78,8 @@
         ],
         "dev:test": [
             "@dev:check-style",
-            "vendor/bin/phpunit --testdox --verbose --stop-on-failure",
-            "vendor/bin/phpstan analyse --no-progress --level max src/ tests/"
+            "@php vendor/bin/phpunit --testdox --verbose --stop-on-failure",
+            "@php vendor/bin/phpstan analyse --no-progress src/ tests/"
         ],
         "dev:coverage": [
             "@php -dzend_extension=xdebug.so vendor/bin/phpunit --coverage-text --coverage-html build/coverage/html/"

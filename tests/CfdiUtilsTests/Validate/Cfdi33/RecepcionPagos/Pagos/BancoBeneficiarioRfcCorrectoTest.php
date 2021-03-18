@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\BancoBeneficiarioRfcCorrecto;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidatePagoException;
 use PHPUnit\Framework\TestCase;
 
-class BancoBeneficiarioRfcCorrectoTest extends TestCase
+final class BancoBeneficiarioRfcCorrectoTest extends TestCase
 {
     /**
      * @param string|null $rfc
@@ -15,7 +15,7 @@ class BancoBeneficiarioRfcCorrectoTest extends TestCase
      *           ["XEXX010101000"]
      *           [null]
      */
-    public function testValid($rfc)
+    public function testValid(?string $rfc)
     {
         $pago = new Pago([
             'RfcEmisorCtaBen' => $rfc,
@@ -31,7 +31,7 @@ class BancoBeneficiarioRfcCorrectoTest extends TestCase
      *           ["XAXX010101000"]
      *           [""]
      */
-    public function testInvalid($rfc)
+    public function testInvalid(?string $rfc)
     {
         $pago = new Pago([
             'RfcEmisorCtaBen' => $rfc,

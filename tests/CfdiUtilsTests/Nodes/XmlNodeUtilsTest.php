@@ -7,9 +7,9 @@ use CfdiUtils\Nodes\XmlNodeUtils;
 use CfdiUtils\Utils\Xml;
 use CfdiUtilsTests\TestCase;
 
-class XmlNodeUtilsTest extends TestCase
+final class XmlNodeUtilsTest extends TestCase
 {
-    public function providerToNodeFromNode()
+    public function providerToNodeFromNode(): array
     {
         return [
             'simple-xml' => [$this->utilAsset('nodes/sample.xml')],
@@ -35,7 +35,7 @@ class XmlNodeUtilsTest extends TestCase
      * @param string $filename
      * @dataProvider providerToNodeFromNode
      */
-    public function testExportFromFileAndExportAgain($filename)
+    public function testExportFromFileAndExportAgain(string $filename)
     {
         $source = strval(file_get_contents($filename));
 
@@ -78,7 +78,6 @@ class XmlNodeUtilsTest extends TestCase
         $inspected = $node->searchNode('base:Third', 'innerNS');
         if (null === $inspected) {
             $this->fail('The specimen does not have the required test case');
-            return;
         }
         $this->assertSame('http://external.com/inner', $inspected['xmlns']);
     }

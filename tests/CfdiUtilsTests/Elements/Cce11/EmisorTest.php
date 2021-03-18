@@ -6,12 +6,12 @@ use CfdiUtils\Elements\Cce11\Domicilio;
 use CfdiUtils\Elements\Cce11\Emisor;
 use PHPUnit\Framework\TestCase;
 
-class EmisorTest extends TestCase
+final class EmisorTest extends TestCase
 {
     /** @var Emisor */
     public $element;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->element = new Emisor();

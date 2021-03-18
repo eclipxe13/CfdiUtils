@@ -11,12 +11,12 @@ use CfdiUtils\Validate\Cfdi33\Standard\SelloDigitalCertificado;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class SelloDigitalCertificadoWithCfdiRegistroFiscalTest extends ValidateTestCase
+final class SelloDigitalCertificadoWithCfdiRegistroFiscalTest extends ValidateTestCase
 {
     /** @var SelloDigitalCertificado */
     protected $validator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->validator = new SelloDigitalCertificado();

@@ -6,12 +6,12 @@ use CfdiUtils\Elements\Cce11\Mercancia;
 use CfdiUtils\Elements\Cce11\Mercancias;
 use PHPUnit\Framework\TestCase;
 
-class MercanciasTest extends TestCase
+final class MercanciasTest extends TestCase
 {
     /** @var Mercancias */
     public $element;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->element = new Mercancias();

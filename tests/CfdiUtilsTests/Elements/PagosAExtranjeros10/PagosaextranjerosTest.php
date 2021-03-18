@@ -7,12 +7,12 @@ use CfdiUtils\Elements\PagosAExtranjeros10\NoBeneficiario;
 use CfdiUtils\Elements\PagosAExtranjeros10\Pagosaextranjeros;
 use PHPUnit\Framework\TestCase;
 
-class PagosaextranjerosTest extends TestCase
+final class PagosaextranjerosTest extends TestCase
 {
     /** @var Pagosaextranjeros */
     public $element;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->element = new Pagosaextranjeros();

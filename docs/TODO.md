@@ -1,13 +1,14 @@
 # Lista de tareas pendientes e ideas
 
-- Compatibilidad con PHP 7.4
-- Firma de CfdiUtils\Utils\Format::number el argumento $decimals debe ser entero
+- Incrementar la cobertura de PHPStan al nivel máximo.
 
 ## Verificar problemas conocidos
 
 ### Descarga de certificados desde <https://rdc.sat.gob.mx/rccf/> por certificados vencidos
 
 Ver: <https://www.phpcfdi.com/sat/problemas-conocidos/descarga-certificados/#problemas-de-caducidad-de-certificados>
+
+*Actualización 2020-10-08*: Este problema se vuelve a presentar.
 
 *Actualización 2020-07-18*: Desde 2019-10-24 este problema parece solucionado.
 
@@ -68,7 +69,7 @@ ideas than need a solution:
 ## Validation rules for Pagos
 
 The validation rules for "Complemento de Recepción de pagos" are included since version 2.6 but
-they require more cases of use and a better understanding of the rules published by SAT.
+they require more cases of use, and a better understanding of the rules published by SAT.
 
 
 ## Validation rules for ComercioExterior

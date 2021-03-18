@@ -6,18 +6,18 @@ use CfdiUtils\Validate\Cfdi33\Standard\ConceptoDescuento;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class ConceptoDescuentoTest extends ValidateTestCase
+final class ConceptoDescuentoTest extends ValidateTestCase
 {
     /** @var ConceptoDescuento */
     protected $validator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->validator = new ConceptoDescuento();
     }
 
-    public function providerValidCases()
+    public function providerValidCases(): array
     {
         return[
             ['', '0'],
@@ -34,7 +34,7 @@ class ConceptoDescuentoTest extends ValidateTestCase
      * @param string $importe
      * @dataProvider providerValidCases
      */
-    public function testValidCases($descuento, $importe)
+    public function testValidCases(string $descuento, string $importe)
     {
         $this->getComprobante()->addConcepto([
             'Descuento' => $descuento,
@@ -44,7 +44,7 @@ class ConceptoDescuentoTest extends ValidateTestCase
         $this->assertStatusEqualsCode(Status::ok(), 'CONCEPDESC01');
     }
 
-    public function providerInvalidCases()
+    public function providerInvalidCases(): array
     {
         return[
             ['1', '0'],
@@ -57,10 +57,10 @@ class ConceptoDescuentoTest extends ValidateTestCase
 
     /**
      * @param string $descuento
-     * @param string $importe
+     * @param string|null $importe
      * @dataProvider providerInvalidCases
      */
-    public function testInvalidCases($descuento, $importe)
+    public function testInvalidCases(string $descuento, ?string $importe)
     {
         $this->getComprobante()->addConcepto(['Descuento' => '1', 'Importe' => '2']);
         $concepto = $this->getComprobante()->addConcepto([

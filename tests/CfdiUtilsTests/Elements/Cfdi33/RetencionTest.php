@@ -5,12 +5,12 @@ namespace CfdiUtilsTests\Elements\Cfdi33;
 use CfdiUtils\Elements\Cfdi33\Retencion;
 use PHPUnit\Framework\TestCase;
 
-class RetencionTest extends TestCase
+final class RetencionTest extends TestCase
 {
     /** @var Retencion */
     public $element;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->element = new Retencion();

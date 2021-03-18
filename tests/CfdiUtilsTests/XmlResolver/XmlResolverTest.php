@@ -7,7 +7,7 @@ use CfdiUtils\XmlResolver\XmlResolver;
 use CfdiUtilsTests\TestCase;
 use XmlResourceRetriever\Downloader\DownloaderInterface;
 
-class XmlResolverTest extends TestCase
+final class XmlResolverTest extends TestCase
 {
     public function testConstructor()
     {
@@ -80,7 +80,7 @@ class XmlResolverTest extends TestCase
         $resolver->resolve('http://example.org/example.xml');
     }
 
-    public function providerObtainTypeFromUrl()
+    public function providerObtainTypeFromUrl(): array
     {
         return [
             'xsd' => ['http://example.com/resource.xsd', XmlResolver::TYPE_XSD],
@@ -93,11 +93,11 @@ class XmlResolverTest extends TestCase
     }
 
     /**
-     * @dataProvider providerObtainTypeFromUrl
      * @param string $url
      * @param string $expectedType
+     * @dataProvider providerObtainTypeFromUrl
      */
-    public function testObtainTypeFromUrl($url, $expectedType)
+    public function testObtainTypeFromUrl(string $url, string $expectedType)
     {
         $resolver = new XmlResolver();
         $this->assertEquals($expectedType, $resolver->obtainTypeFromUrl($url));

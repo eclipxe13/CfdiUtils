@@ -6,7 +6,7 @@ use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\Certificado\SatCertificateNumber;
 use CfdiUtilsTests\TestCase;
 
-class CerRetrieverTest extends TestCase
+final class CerRetrieverTest extends TestCase
 {
     public function testRetrieveNonExistent()
     {
@@ -35,7 +35,7 @@ class CerRetrieverTest extends TestCase
         if (file_exists($localPath)) {
             unlink($localPath);
         }
-        $this->assertFileNotExists($localPath);
+        $this->assertFileDoesNotExist($localPath);
 
         $retriever->retrieve($remoteUrl);
         $this->assertFileExists($localPath);

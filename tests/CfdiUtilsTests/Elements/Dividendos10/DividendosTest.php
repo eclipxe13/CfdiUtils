@@ -7,12 +7,12 @@ use CfdiUtils\Elements\Dividendos10\DividOUtil;
 use CfdiUtils\Elements\Dividendos10\Remanente;
 use PHPUnit\Framework\TestCase;
 
-class DividendosTest extends TestCase
+final class DividendosTest extends TestCase
 {
     /** @var Dividendos */
     public $element;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->element = new Dividendos();

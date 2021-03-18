@@ -8,12 +8,12 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \CfdiUtils\Elements\Nomina12\JubilacionPensionRetiro
  */
-class JubilacionPensionRetiroTest extends TestCase
+final class JubilacionPensionRetiroTest extends TestCase
 {
     /** @var JubilacionPensionRetiro */
     public $element;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->element = new JubilacionPensionRetiro();

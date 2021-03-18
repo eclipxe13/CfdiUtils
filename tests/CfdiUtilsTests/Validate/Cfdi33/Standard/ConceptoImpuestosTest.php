@@ -7,12 +7,12 @@ use CfdiUtils\Validate\Cfdi33\Standard\ConceptoImpuestos;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class ConceptoImpuestosTest extends ValidateTestCase
+final class ConceptoImpuestosTest extends ValidateTestCase
 {
     /** @var ConceptoImpuestos */
     protected $validator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->validator = new ConceptoImpuestos();
@@ -26,9 +26,9 @@ class ConceptoImpuestosTest extends ValidateTestCase
         $this->assertStatusEqualsCode(Status::error(), 'CONCEPIMPC01');
     }
 
-    public function providerInvalidBaseTraslado()
+    public function providerInvalidBaseTraslado(): array
     {
-        return[
+        return [
             ['0'],
             ['0.0000001'],
             ['-1'],
@@ -41,7 +41,7 @@ class ConceptoImpuestosTest extends ValidateTestCase
      * @param string $base
      * @dataProvider providerInvalidBaseTraslado
      */
-    public function testTrasladoHasBaseGreaterThanZeroInvalidCase($base)
+    public function testTrasladoHasBaseGreaterThanZeroInvalidCase(string $base)
     {
         $comprobante = $this->validComprobante();
         $comprobante->addConcepto()->addTraslado(['Base' => $base]);
@@ -49,7 +49,7 @@ class ConceptoImpuestosTest extends ValidateTestCase
         $this->assertStatusEqualsCode(Status::error(), 'CONCEPIMPC02');
     }
 
-    public function providerTrasladoTipoFactorExento()
+    public function providerTrasladoTipoFactorExento(): array
     {
         return[
             ['1', '1'],
@@ -63,7 +63,7 @@ class ConceptoImpuestosTest extends ValidateTestCase
      * @param string|null $importe
      * @dataProvider providerTrasladoTipoFactorExento
      */
-    public function testTrasladoTipoFactorExentoInvalidCase($tasaOCuota, $importe)
+    public function testTrasladoTipoFactorExentoInvalidCase(?string $tasaOCuota, ?string $importe)
     {
         $comprobante = $this->validComprobante();
         $comprobante->addConcepto()->addTraslado([
@@ -75,7 +75,7 @@ class ConceptoImpuestosTest extends ValidateTestCase
         $this->assertStatusEqualsCode(Status::error(), 'CONCEPIMPC03');
     }
 
-    public function providerTrasladosTipoFactorTasaOCuotaInvalidCase()
+    public function providerTrasladosTipoFactorTasaOCuotaInvalidCase(): array
     {
         return $this->providerFullJoin(
             [['Tasa'], ['Cuota']], // tipoFactor
@@ -90,8 +90,11 @@ class ConceptoImpuestosTest extends ValidateTestCase
      * @param string|null $importe
      * @dataProvider providerTrasladosTipoFactorTasaOCuotaInvalidCase
      */
-    public function testTrasladosTipoFactorTasaOCuotaInvalidCase($tipoFactor, $tasaOCuota, $importe)
-    {
+    public function testTrasladosTipoFactorTasaOCuotaInvalidCase(
+        string $tipoFactor,
+        ?string $tasaOCuota,
+        ?string $importe
+    ) {
         $comprobante = $this->validComprobante();
         $comprobante->addConcepto()->addTraslado([
             'TipoFactor' => $tipoFactor,
@@ -102,7 +105,7 @@ class ConceptoImpuestosTest extends ValidateTestCase
         $this->assertStatusEqualsCode(Status::error(), 'CONCEPIMPC04');
     }
 
-    public function providerInvalidBaseRetencion()
+    public function providerInvalidBaseRetencion(): array
     {
         return[
             ['0'],
@@ -117,7 +120,7 @@ class ConceptoImpuestosTest extends ValidateTestCase
      * @param string $base
      * @dataProvider providerInvalidBaseTraslado
      */
-    public function testRetencionesHasBaseGreaterThanZeroInvalidCase($base)
+    public function testRetencionesHasBaseGreaterThanZeroInvalidCase(string $base)
     {
         $comprobante = $this->validComprobante();
         $comprobante->addConcepto()->addRetencion(['Base' => $base]);

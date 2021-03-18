@@ -8,20 +8,20 @@ use CfdiUtils\Nodes\Node;
 use CfdiUtils\SumasConceptos\SumasConceptos;
 use PHPUnit\Framework\TestCase;
 
-class SumasConceptosTest extends TestCase
+final class SumasConceptosTest extends TestCase
 {
     public function testConstructor()
     {
         $maxDiff = 0.0000001;
         $sc = new SumasConceptos(new Node('x'));
         $this->assertSame(2, $sc->getPrecision());
-        $this->assertEquals(0, $sc->getSubTotal(), '', $maxDiff);
-        $this->assertEquals(0, $sc->getTotal(), '', $maxDiff);
-        $this->assertEquals(0, $sc->getDescuento(), '', $maxDiff);
-        $this->assertEquals(0, $sc->getImpuestosRetenidos(), '', $maxDiff);
-        $this->assertEquals(0, $sc->getImpuestosTrasladados(), '', $maxDiff);
-        $this->assertEquals(0, $sc->getLocalesImpuestosRetenidos(), '', $maxDiff);
-        $this->assertEquals(0, $sc->getLocalesImpuestosTrasladados(), '', $maxDiff);
+        $this->assertEqualsWithDelta(0, $sc->getSubTotal(), $maxDiff);
+        $this->assertEqualsWithDelta(0, $sc->getTotal(), $maxDiff);
+        $this->assertEqualsWithDelta(0, $sc->getDescuento(), $maxDiff);
+        $this->assertEqualsWithDelta(0, $sc->getImpuestosRetenidos(), $maxDiff);
+        $this->assertEqualsWithDelta(0, $sc->getImpuestosTrasladados(), $maxDiff);
+        $this->assertEqualsWithDelta(0, $sc->getLocalesImpuestosRetenidos(), $maxDiff);
+        $this->assertEqualsWithDelta(0, $sc->getLocalesImpuestosTrasladados(), $maxDiff);
         $this->assertCount(0, $sc->getRetenciones());
         $this->assertCount(0, $sc->getTraslados());
         $this->assertCount(0, $sc->getLocalesRetenciones());
@@ -32,7 +32,7 @@ class SumasConceptosTest extends TestCase
         $this->assertFalse($sc->hasLocalesTraslados());
     }
 
-    public function providerWithConceptsDecimals()
+    public function providerWithConceptsDecimals(): array
     {
         /*
          * The case "tax uses 1 dec" 53.4 = round(35.6 + 17.8, 2)
@@ -51,7 +51,7 @@ class SumasConceptosTest extends TestCase
      * @param float $total
      * @dataProvider providerWithConceptsDecimals
      */
-    public function testWithConceptsDecimals($taxDecimals, $subtotal, $traslados, $total)
+    public function testWithConceptsDecimals(int $taxDecimals, float $subtotal, float $traslados, float $total)
     {
         $maxDiff = 0.0000001;
         $comprobante = new Comprobante();
@@ -72,12 +72,12 @@ class SumasConceptosTest extends TestCase
             'Importe' => number_format(222.22 * 0.16, $taxDecimals, '.', ''),
         ]);
         $sc = new SumasConceptos($comprobante, 2);
-        $this->assertEquals($subtotal, $sc->getSubTotal(), '', $maxDiff);
-        $this->assertEquals($traslados, $sc->getImpuestosTrasladados(), '', $maxDiff);
-        $this->assertEquals($total, $sc->getTotal(), '', $maxDiff);
+        $this->assertEqualsWithDelta($subtotal, $sc->getSubTotal(), $maxDiff);
+        $this->assertEqualsWithDelta($traslados, $sc->getImpuestosTrasladados(), $maxDiff);
+        $this->assertEqualsWithDelta($total, $sc->getTotal(), $maxDiff);
         // this are zero
-        $this->assertEquals(0, $sc->getDescuento(), '', $maxDiff);
-        $this->assertEquals(0, $sc->getImpuestosRetenidos(), '', $maxDiff);
+        $this->assertEqualsWithDelta(0, $sc->getDescuento(), $maxDiff);
+        $this->assertEqualsWithDelta(0, $sc->getImpuestosRetenidos(), $maxDiff);
         $this->assertCount(0, $sc->getRetenciones());
     }
 
@@ -115,15 +115,15 @@ class SumasConceptosTest extends TestCase
         $this->assertTrue($sc->hasTraslados());
         $this->assertCount(1, $sc->getLocalesTraslados());
 
-        $this->assertEquals(333.33, $sc->getSubTotal(), '', $maxDiff);
-        $this->assertEquals(53.33, $sc->getImpuestosTrasladados(), '', $maxDiff);
-        $this->assertEquals(8.33, $sc->getLocalesImpuestosTrasladados(), '', $maxDiff);
-        $this->assertEquals(333.33 + 53.33 + 8.33, $sc->getTotal(), '', $maxDiff);
+        $this->assertEqualsWithDelta(333.33, $sc->getSubTotal(), $maxDiff);
+        $this->assertEqualsWithDelta(53.33, $sc->getImpuestosTrasladados(), $maxDiff);
+        $this->assertEqualsWithDelta(8.33, $sc->getLocalesImpuestosTrasladados(), $maxDiff);
+        $this->assertEqualsWithDelta(333.33 + 53.33 + 8.33, $sc->getTotal(), $maxDiff);
         // this are zero
-        $this->assertEquals(0, $sc->getDescuento(), '', $maxDiff);
-        $this->assertEquals(0, $sc->getImpuestosRetenidos(), '', $maxDiff);
+        $this->assertEqualsWithDelta(0, $sc->getDescuento(), $maxDiff);
+        $this->assertEqualsWithDelta(0, $sc->getImpuestosRetenidos(), $maxDiff);
         $this->assertCount(0, $sc->getRetenciones());
-        $this->assertEquals(0, $sc->getLocalesImpuestosRetenidos(), '', $maxDiff);
+        $this->assertEqualsWithDelta(0, $sc->getLocalesImpuestosRetenidos(), $maxDiff);
         $this->assertCount(0, $sc->getLocalesRetenciones());
     }
 
@@ -152,8 +152,8 @@ class SumasConceptosTest extends TestCase
         $sumas = new SumasConceptos($comprobante, 3);
 
         $this->assertTrue($sumas->hasTraslados());
-        $this->assertEquals(10.0, $sumas->getImpuestosTrasladados(), '', 0.0001);
-        $this->assertEquals(10.0, $sumas->getTraslados()['002:Tasa:0.160000']['Importe'], '', 0.0000001);
+        $this->assertEqualsWithDelta(10.0, $sumas->getImpuestosTrasladados(), 0.0001);
+        $this->assertEqualsWithDelta(10.0, $sumas->getTraslados()['002:Tasa:0.160000']['Importe'], 0.0000001);
     }
 
     public function testImpuestoWithTrasladosTasaAndExento()
@@ -181,7 +181,7 @@ class SumasConceptosTest extends TestCase
 
         $sumas = new SumasConceptos($comprobante, 2);
         $this->assertTrue($sumas->hasTraslados());
-        $this->assertEquals(320.0, $sumas->getImpuestosTrasladados(), '', 0.001);
+        $this->assertEqualsWithDelta(320.0, $sumas->getImpuestosTrasladados(), 0.001);
         $this->assertCount(1, $sumas->getTraslados());
     }
 
@@ -197,7 +197,7 @@ class SumasConceptosTest extends TestCase
 
         $sumas = new SumasConceptos($comprobante, 2);
         $this->assertFalse($sumas->hasTraslados());
-        $this->assertEquals(0, $sumas->getImpuestosTrasladados(), '', 0.001);
+        $this->assertEqualsWithDelta(0, $sumas->getImpuestosTrasladados(), 0.001);
         $this->assertCount(0, $sumas->getTraslados());
     }
 }

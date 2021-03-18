@@ -28,6 +28,44 @@
 - Change visibility of `CfdiUtils\Cleaner\Cleaner#removeIncompleteSchemaLocation()` to private.
 
 
+## Version 2.15.0 2021-03-17
+
+Improvements:
+
+- Include validation web service version 1.3 new response `ValidacionEFOS` as
+  `StatusResponse::getValidationEfos() string` and `StatusResponse::isEfosListed() bool`.
+- Update `ConsultaCFDIServiceSAT.svc.xml`. It is unused, but exists for compatibility.
+
+General:
+
+- Upgrade to PHPUnit 9.5 and upgrade test suite.
+- Test classes are declared as final.
+- Remove support for PHP 7.0, PHP 7.1 and PHP 7.2.
+- Compatilize with PHP 8.0 / OpenSSL:
+    - openssl functions does not return resources but objects.
+    - On deprecated functions run only if PHP version is lower than 8.0 and put annotations for `phpcs`.
+
+Bugfixes:
+
+- Validation `SELLO04` fails when there are special caracters like `é` and `LC_CTYPE` is not setup.
+- Fix `COMPIMPUESTOSC01` description typo.
+
+There are some soft backwards incompatibility changes:
+
+- Method __construct() of class CfdiUtils\Validate\Cfdi33\Standard\FechaComprobante became final
+- Method __construct() of class CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pago became final
+- The return type of CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pago#getValidators() changed from no type to array
+- The parameter $decimals of CfdiUtils\Utils\Format::number() changed from no type to a non-contravariant int
+- The parameter $content of CfdiUtils\Cleaner\Cleaner::staticClean() changed from no type to a non-contravariant string.
+
+Development environment:
+
+- AppVeyor: Only run PHPUnit
+- Travis-CI: On PHP != 7.4 only run PHPUnit
+- Travis-CI: On PHP == 7.4 run all the build commands
+- PHPStan: Upgrade to version 0.12, downgrade level to 5.
+
+
 ## Version 2.14.2 2021-03-16
 
 ### `FormaPago` on `N - Nómina`

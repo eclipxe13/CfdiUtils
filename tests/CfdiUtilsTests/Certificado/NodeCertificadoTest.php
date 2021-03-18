@@ -7,9 +7,9 @@ use CfdiUtils\Internals\TemporaryFile;
 use CfdiUtils\Nodes\XmlNodeUtils;
 use CfdiUtilsTests\TestCase;
 
-class NodeCertificadoTest extends TestCase
+final class NodeCertificadoTest extends TestCase
 {
-    private function createNodeCertificado(string $contents)
+    private function createNodeCertificado(string $contents): NodeCertificado
     {
         return new NodeCertificado(XmlNodeUtils::nodeFromXmlString($contents));
     }

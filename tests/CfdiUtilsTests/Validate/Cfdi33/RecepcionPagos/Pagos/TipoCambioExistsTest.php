@@ -7,15 +7,15 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\TipoCambioExists;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidatePagoException;
 use PHPUnit\Framework\TestCase;
 
-class TipoCambioExistsTest extends TestCase
+final class TipoCambioExistsTest extends TestCase
 {
     /**
-     * @param string|null $currency
+     * @param string $currency
      * @param string|null $exchangerate
      * @testWith ["MXN", null]
-     *           ["USD", 18.5678]
+     *           ["USD", "18.5678"]
      */
-    public function testValidInput($currency, $exchangerate)
+    public function testValidInput(string $currency, ?string $exchangerate)
     {
         $pago = new Pago([
             'MonedaP' => $currency,
@@ -26,14 +26,14 @@ class TipoCambioExistsTest extends TestCase
     }
 
     /**
-     * @param string|null $currency
+     * @param string $currency
      * @param string|null $exchangerate
      * @testWith ["MXN", "1"]
      *           ["MXN", "1.23"]
      *           ["USD", null]
      *           ["USD", ""]
      */
-    public function testInvalidInput($currency, $exchangerate)
+    public function testInvalidInput(string $currency, ?string $exchangerate)
     {
         $pago = new Pago([
             'MonedaP' => $currency,

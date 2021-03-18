@@ -5,12 +5,12 @@ namespace CfdiUtilsTests\Elements\Dividendos10;
 use CfdiUtils\Elements\Dividendos10\Remanente;
 use PHPUnit\Framework\TestCase;
 
-class RemanenteTest extends TestCase
+final class RemanenteTest extends TestCase
 {
     /** @var Remanente */
     public $element;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->element = new Remanente();

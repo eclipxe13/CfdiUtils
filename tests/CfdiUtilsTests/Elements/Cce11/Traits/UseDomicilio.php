@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\Elements\Cce11\Traits;
 use CfdiUtils\Elements\Cce11\Traits\DomicilioTrait;
 use CfdiUtils\Elements\Common\AbstractElement;
 
-class UseDomicilio extends AbstractElement
+final class UseDomicilio extends AbstractElement
 {
     use DomicilioTrait;
 

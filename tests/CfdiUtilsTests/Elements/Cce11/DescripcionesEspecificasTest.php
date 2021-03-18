@@ -5,12 +5,12 @@ namespace CfdiUtilsTests\Elements\Cce11;
 use CfdiUtils\Elements\Cce11\DescripcionesEspecificas;
 use PHPUnit\Framework\TestCase;
 
-class DescripcionesEspecificasTest extends TestCase
+final class DescripcionesEspecificasTest extends TestCase
 {
     /** @var DescripcionesEspecificas */
     public $element;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->element = new DescripcionesEspecificas();

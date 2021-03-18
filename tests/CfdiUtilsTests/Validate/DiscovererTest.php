@@ -6,7 +6,7 @@ use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Discoverer;
 use PHPUnit\Framework\TestCase;
 
-class DiscovererTest extends TestCase
+final class DiscovererTest extends TestCase
 {
     public function testDiscoverInFolder()
     {

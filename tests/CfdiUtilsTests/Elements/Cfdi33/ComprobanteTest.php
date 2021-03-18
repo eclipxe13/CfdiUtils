@@ -15,12 +15,12 @@ use CfdiUtils\Elements\Cfdi33\Receptor;
 use CfdiUtils\Nodes\Node;
 use PHPUnit\Framework\TestCase;
 
-class ComprobanteTest extends TestCase
+final class ComprobanteTest extends TestCase
 {
     /**@var Comprobante */
     public $element;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->element = new Comprobante();

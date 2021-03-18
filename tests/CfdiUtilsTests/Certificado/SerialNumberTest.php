@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\Certificado;
 use CfdiUtils\Certificado\SerialNumber;
 use PHPUnit\Framework\TestCase;
 
-class SerialNumberTest extends TestCase
+final class SerialNumberTest extends TestCase
 {
     public function testAsDecimalAsAscii()
     {

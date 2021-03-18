@@ -5,12 +5,12 @@ namespace CfdiUtilsTests;
 use CfdiUtils\Cfdi;
 use CfdiUtils\QuickReader\QuickReader;
 
-class CfdiQuickReaderTest extends TestCase
+final class CfdiQuickReaderTest extends TestCase
 {
     /** @var QuickReader */
     private $comprobante;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $contents = strval(file_get_contents($this->utilAsset('cfdi33-real.xml')));
@@ -32,11 +32,11 @@ class CfdiQuickReaderTest extends TestCase
         $iva = 0;
         foreach (($this->comprobante->impuestos->traslados)('traslado') as $traslado) {
             if ('002' === $traslado['iMpUeStO']) {
-                $iva = $iva + $traslado['Importe'];
+                $iva = $iva + floatval($traslado['Importe']);
             }
         }
 
-        $this->assertEquals(273.46, $iva, '', 0.001);
+        $this->assertEqualsWithDelta(273.46, $iva, 0.001);
     }
 
     public function testAccessToNestedAttributeSecondLevel()
@@ -62,6 +62,6 @@ class CfdiQuickReaderTest extends TestCase
             $sum += (float) $concepto['importe'];
         }
 
-        $this->assertEquals(1709.12, $sum, '', 0.001);
+        $this->assertEqualsWithDelta(1709.12, $sum, 0.001);
     }
 }

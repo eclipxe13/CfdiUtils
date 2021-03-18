@@ -19,7 +19,7 @@ use SoapFault;
  * The work around is to mark test skipped if we get a SoapFault when call
  * request or getSoapClient methods
  */
-class WebServiceConsumingTest extends TestCase
+final class WebServiceConsumingTest extends TestCase
 {
     private function createWebServiceObject(): WebService
     {
@@ -34,7 +34,6 @@ class WebServiceConsumingTest extends TestCase
             return $ws->request($request);
         } catch (SoapFault $exception) {
             $this->markTestSkipped("SAT Service: {$exception->getMessage()}");
-            throw $exception;
         }
     }
 
@@ -44,7 +43,6 @@ class WebServiceConsumingTest extends TestCase
             return $ws->getSoapClient();
         } catch (SoapFault $exception) {
             $this->markTestSkipped("SAT Service: {$exception->getMessage()}");
-            throw $exception;
         }
     }
 
@@ -67,12 +65,14 @@ class WebServiceConsumingTest extends TestCase
         $soapClient = $this->tolerantSoapClient($ws);
 
         // check timeout
+        /** @phpstan-ignore-next-line the variable is internal */
         $this->assertSame(60, $soapClient->{'_connection_timeout'});
 
         // check context
+        /** @phpstan-ignore-next-line the variable is internal */
         $context = $soapClient->{'_stream_context'};
         $options = stream_context_get_options($context);
-        $this->assertArraySubset(['ssl' => ['verify_peer' => false]], $options);
+        $this->assertSame(false, $options['ssl']['verify_peer'] ?? null);
     }
 
     public function testValidDocumentVersion33()
@@ -92,6 +92,7 @@ class WebServiceConsumingTest extends TestCase
         $this->assertSame('Vigente', $return->getCfdi());
         $this->assertSame('Cancelable sin aceptación', $return->getCancellable());
         $this->assertSame('', $return->getCancellationStatus());
+        $this->assertSame('200', $return->getValidationEfos());
     }
 
     public function testValidDocumentVersion32()
@@ -108,6 +109,9 @@ class WebServiceConsumingTest extends TestCase
 
         $this->assertTrue($return->responseWasOk());
         $this->assertTrue($return->isVigente());
+        $this->assertSame('Cancelable sin aceptación', $return->getCancellable());
+        $this->assertSame('', $return->getCancellationStatus());
+        $this->assertSame('200', $return->getValidationEfos());
     }
 
     public function testConsumeWebServiceWithNotFoundDocument()
@@ -128,6 +132,7 @@ class WebServiceConsumingTest extends TestCase
         $this->assertStringStartsWith('No Encontrado', $return->getCfdi());
         $this->assertFalse($return->responseWasOk());
         $this->assertTrue($return->isNotFound());
+        $this->assertFalse($return->isEfosListed());
     }
 
     public function testConsumeWebServiceWithCancelledDocument()
@@ -145,5 +150,6 @@ class WebServiceConsumingTest extends TestCase
 
         $this->assertTrue($return->responseWasOk());
         $this->assertTrue($return->isCancelled());
+        $this->assertFalse($return->isEfosListed());
     }
 }

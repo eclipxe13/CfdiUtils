@@ -11,7 +11,7 @@
 [![Coverage Status][badge-coverage]][coverage]
 [![Total Downloads][badge-downloads]][downloads]
 
-[`eclipxe/CfdiUtils`](https://github.com/eclipxe13/CfdiUtils)
+El proyecto [`eclipxe/CfdiUtils`](https://github.com/eclipxe13/CfdiUtils)
 es una librería de PHP para leer, validar y crear CFDI 3.3.
 
 Mira el archivo [README][] para información rápida (en inglés).
@@ -26,7 +26,7 @@ México, en proyectos privados o proyectos libres como el futuro "BuzonCFDI".
 Esta librería se ha liberado como software libre para ayudar a otros desarrolladores a
 trabajar con CFDI y también para obtener su ayuda, todo lo que la comunidad pueda
 contribuir será bien apreciado. Tenemos una comunidad activa y dinámica, nos puedes
-encontrar en el [canal #phpcfdi de discord][discord].
+encontrar en el canal [#phpcfdi de discord][discord].
 
 No olvides visitar <https://www.phpcfdi.com> donde contamos con muchas más librerías relacionadas con
 CFDI y herramientas del SAT. Y próximamente el lugar donde publicaremos la versión `3.y.z`.

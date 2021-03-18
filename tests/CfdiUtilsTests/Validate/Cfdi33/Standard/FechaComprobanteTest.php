@@ -7,12 +7,12 @@ use CfdiUtils\Validate\Cfdi33\Standard\FechaComprobante;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class FechaComprobanteTest extends ValidateTestCase
+final class FechaComprobanteTest extends ValidateTestCase
 {
     /** @var FechaComprobante */
     protected $validator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->validator = new FechaComprobante();

@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\MontoBetweenIntervalSumOfDocu
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidatePagoException;
 use PHPUnit\Framework\TestCase;
 
-class MontoBetweenIntervalSumOfDocumentsTest extends TestCase
+final class MontoBetweenIntervalSumOfDocumentsTest extends TestCase
 {
     public function testValid()
     {
@@ -88,7 +88,7 @@ class MontoBetweenIntervalSumOfDocumentsTest extends TestCase
     {
         $randomValues = [];
         for ($i = 0; $i < 20; $i++) {
-            $randomValues[] = [rand(1, 99999999) / 100];
+            $randomValues[] = [random_int(1, 99999999) / 100];
         }
         return $randomValues;
     }

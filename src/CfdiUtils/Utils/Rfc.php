@@ -153,7 +153,6 @@ class Rfc
         }
         $parts = str_split($strdate, 2);
         // year 2000 is leap year (%4 & %100 & %400)
-        /** @var int|false $date phpstan does not know that mktime can return false */
         $date = mktime(0, 0, 0, (int) $parts[1], (int) $parts[2], (int) ('20' . $parts[0]));
         if (false === $date) {
             /** @codeCoverageIgnore it is unlikely to enter this block */

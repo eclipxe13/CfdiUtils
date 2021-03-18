@@ -7,12 +7,12 @@ use CfdiUtils\Validate\Cfdi33\Xml\XmlFollowSchema;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class XmlFollowSchemaTest extends ValidateTestCase
+final class XmlFollowSchemaTest extends ValidateTestCase
 {
     /** @var XmlFollowSchema */
     protected $validator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->validator = new XmlFollowSchema();
@@ -39,7 +39,7 @@ class XmlFollowSchemaTest extends ValidateTestCase
         $this->comprobante = $comprobante;
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::error(), 'XSD01');
-        $this->assertContains('Emisor', $this->asserts->get('XSD01')->getExplanation());
+        $this->assertStringContainsString('Emisor', $this->asserts->get('XSD01')->getExplanation());
     }
 
     public function testWithXsdUriNotFound()

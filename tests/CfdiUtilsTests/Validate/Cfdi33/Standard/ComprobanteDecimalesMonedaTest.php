@@ -7,12 +7,12 @@ use CfdiUtils\Validate\Cfdi33\Standard\ComprobanteDecimalesMoneda;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class ComprobanteDecimalesMonedaTest extends ValidateTestCase
+final class ComprobanteDecimalesMonedaTest extends ValidateTestCase
 {
     /** @var ComprobanteDecimalesMoneda */
     protected $validator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->validator = new ComprobanteDecimalesMoneda();

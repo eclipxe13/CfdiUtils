@@ -7,14 +7,14 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\MontoGreaterThanZero;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidatePagoException;
 use PHPUnit\Framework\TestCase;
 
-class MontoGreaterThanZeroTest extends TestCase
+final class MontoGreaterThanZeroTest extends TestCase
 {
     /**
      * @param string $amount
      * @testWith ["0.000001"]
      *           ["1"]
      */
-    public function testValid($amount)
+    public function testValid(string $amount)
     {
         $pago = new Pago([
             'Monto' => $amount,
@@ -32,7 +32,7 @@ class MontoGreaterThanZeroTest extends TestCase
      *           [""]
      *           ["not numeric"]
      */
-    public function testPagoMontoGreaterThanZeroInvalid($amount)
+    public function testPagoMontoGreaterThanZeroInvalid(?string $amount)
     {
         $pago = new Pago([
             'Monto' => $amount,

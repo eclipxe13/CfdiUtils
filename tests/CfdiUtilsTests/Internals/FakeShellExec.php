@@ -8,7 +8,7 @@ use CfdiUtils\Internals\ShellExecResult;
 /**
  * Use this class to emulate a ShellExec with predefined result
  */
-class FakeShellExec extends ShellExec
+final class FakeShellExec extends ShellExec
 {
     /** @var ShellExecResult|null */
     private $result;

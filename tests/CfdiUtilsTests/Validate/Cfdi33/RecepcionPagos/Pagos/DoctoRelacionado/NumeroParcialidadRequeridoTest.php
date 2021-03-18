@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\DoctoRelacionado\NumeroParcia
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\DoctoRelacionado\ValidateDoctoException;
 use PHPUnit\Framework\TestCase;
 
-class NumeroParcialidadRequeridoTest extends TestCase
+final class NumeroParcialidadRequeridoTest extends TestCase
 {
     public function testValid()
     {

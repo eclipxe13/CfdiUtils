@@ -7,18 +7,18 @@ use CfdiUtils\Validate\Cfdi33\Standard\ReceptorResidenciaFiscal;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class ReceptorResidenciaFiscalTest extends ValidateTestCase
+final class ReceptorResidenciaFiscalTest extends ValidateTestCase
 {
     /** @var  ReceptorResidenciaFiscal */
     protected $validator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->validator = new ReceptorResidenciaFiscal();
     }
 
-    public function providerValidCases()
+    public function providerValidCases(): array
     {
         return [
             // RESFISC01: Si el RFC no es XEXX010101000 entonces la residencia fiscal no debe existir
@@ -35,15 +35,20 @@ class ReceptorResidenciaFiscalTest extends ValidateTestCase
     }
 
     /**
-     * @param mixed $receptorRfc
-     * @param mixed $residenciaFiscal
-     * @param mixed $numRegIdTrib
-     * @param mixed $putComercioExterior
+     * @param string|null $receptorRfc
+     * @param string|null $residenciaFiscal
+     * @param string|null $numRegIdTrib
+     * @param bool $putComercioExterior
      * @param string $ok
      * @dataProvider providerValidCases
      */
-    public function testValidCase($receptorRfc, $residenciaFiscal, $numRegIdTrib, $putComercioExterior, $ok)
-    {
+    public function testValidCase(
+        ?string $receptorRfc,
+        ?string $residenciaFiscal,
+        ?string $numRegIdTrib,
+        bool $putComercioExterior,
+        string $ok
+    ) {
         $this->comprobante->addChild(new Node('cfdi:Receptor', [
             'Rfc' => $receptorRfc,
             'ResidenciaFiscal' => $residenciaFiscal,
@@ -59,7 +64,7 @@ class ReceptorResidenciaFiscalTest extends ValidateTestCase
         $this->assertStatusEqualsCode(Status::ok(), $ok);
     }
 
-    public function providerInvalidCases()
+    public function providerInvalidCases(): array
     {
         return [
             // RESFISC01: Si el RFC no es XEXX010101000 entonces la residencia fiscal no debe existir
@@ -83,15 +88,20 @@ class ReceptorResidenciaFiscalTest extends ValidateTestCase
     }
 
     /**
-     * @param mixed $receptorRfc
-     * @param mixed $residenciaFiscal
-     * @param mixed $numRegIdTrib
+     * @param string|null $receptorRfc
+     * @param string|null $residenciaFiscal
+     * @param string|null $numRegIdTrib
      * @param bool $putComercioExterior
      * @param string $error
-     * @dataProvider providerinValidCases
+     * @dataProvider providerInvalidCases
      */
-    public function testInvalidCase($receptorRfc, $residenciaFiscal, $numRegIdTrib, $putComercioExterior, $error)
-    {
+    public function testInvalidCase(
+        ?string $receptorRfc,
+        ?string $residenciaFiscal,
+        ?string $numRegIdTrib,
+        bool $putComercioExterior,
+        string $error
+    ) {
         $this->comprobante->addChild(new Node('cfdi:Receptor', [
             'Rfc' => $receptorRfc,
             'ResidenciaFiscal' => $residenciaFiscal,

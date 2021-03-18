@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\Nodes;
 use CfdiUtils\Nodes\Attributes;
 use CfdiUtilsTests\TestCase;
 
-class AttributesTest extends TestCase
+final class AttributesTest extends TestCase
 {
     public function testConstructWithoutArguments()
     {
@@ -27,7 +27,7 @@ class AttributesTest extends TestCase
         }
     }
 
-    public function providerSetMethodWithInvalidName()
+    public function providerSetMethodWithInvalidName(): array
     {
         return [
             'empty' => [''],
@@ -63,7 +63,7 @@ class AttributesTest extends TestCase
         $this->assertSame('BAR', $attributes->get('foo'));
     }
 
-    public function providerSetWithInvalidNames()
+    public function providerSetWithInvalidNames(): array
     {
         return [
             'empty' => [''],
@@ -80,7 +80,7 @@ class AttributesTest extends TestCase
      * @param string $name
      * @dataProvider providerSetWithInvalidNames
      */
-    public function testSetWithInvalidNames($name)
+    public function testSetWithInvalidNames(string $name)
     {
         $attributes = new Attributes();
 
@@ -198,7 +198,7 @@ class AttributesTest extends TestCase
                 $this->value = $value;
             }
 
-            public function __toString()
+            public function __toString(): string
             {
                 return $this->value;
             }

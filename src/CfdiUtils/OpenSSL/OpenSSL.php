@@ -31,12 +31,11 @@ class OpenSSL
     public function readPemContents(string $contents): PemContainer
     {
         $extractor = new PemExtractor($contents);
-        $pemContainer = new PemContainer(
+        return new PemContainer(
             $extractor->extractCertificate(),
             $extractor->extractPublicKey(),
             $extractor->extractPrivateKey()
         );
-        return $pemContainer;
     }
 
     public function derCerConvertPhp(string $derContent): string

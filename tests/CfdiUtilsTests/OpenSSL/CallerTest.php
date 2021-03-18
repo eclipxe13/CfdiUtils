@@ -10,7 +10,7 @@ use CfdiUtils\OpenSSL\OpenSSLException;
 use CfdiUtilsTests\Internals\FakeShellExec;
 use CfdiUtilsTests\TestCase;
 
-class CallerTest extends TestCase
+final class CallerTest extends TestCase
 {
     public function testConstructWithoutArguments()
     {

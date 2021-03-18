@@ -6,7 +6,7 @@ use CfdiUtils\Cleaner\BeforeLoad\BeforeLoadCleanerInterface;
 use CfdiUtils\Cleaner\BeforeLoad\ChangeXmlnsSchemaLocation;
 use CfdiUtilsTests\TestCase;
 
-class ChangeXmlnsSchemaLocationTest extends TestCase
+final class ChangeXmlnsSchemaLocationTest extends TestCase
 {
     public function testImplementsBeforeLoadCleanerInterface()
     {

@@ -4,12 +4,12 @@ namespace CfdiUtilsTests\Validate\Cfdi33\RecepcionPagos;
 
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pago;
 
-class PagoTest extends ValidateComplementoPagosTestCase
+final class PagoTest extends ValidateComplementoPagosTestCase
 {
     /** @var Pago */
     protected $validator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->validator = new Pago();

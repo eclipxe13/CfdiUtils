@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\Certificado;
 use CfdiUtils\Certificado\Certificado;
 use CfdiUtilsTests\TestCase;
 
-class CertificadoTest extends TestCase
+final class CertificadoTest extends TestCase
 {
     public function testConstructWithValidExample()
     {
@@ -134,7 +134,6 @@ EOD;
     public function testConstructCertificateUsingPathThatIsBase64()
     {
         $workingdir = $this->utilAsset('certs/');
-        /** @var string $previousPath phpstan complains about getcwd returning FALSE */
         $previousPath = getcwd();
         chdir($workingdir);
         try {

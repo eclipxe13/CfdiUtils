@@ -8,7 +8,7 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\Fecha;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidatePagoException;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class FechaTest extends ValidateTestCase
+final class FechaTest extends ValidateTestCase
 {
     public function testValid()
     {
@@ -28,7 +28,7 @@ class FechaTest extends ValidateTestCase
      *           ["not a date"]
      *           ["2018-01-01"]
      */
-    public function testInvalid($fechaPago)
+    public function testInvalid(?string $fechaPago)
     {
         $pagoNode = new Pago([
             'FechaPago' => $fechaPago,

@@ -8,7 +8,7 @@ use DOMDocument;
 
 use PHPUnit\Framework\TestCase;
 
-class QuickReaderImporterTest extends TestCase
+final class QuickReaderImporterTest extends TestCase
 {
     public function testImporterImportEmptyNode()
     {

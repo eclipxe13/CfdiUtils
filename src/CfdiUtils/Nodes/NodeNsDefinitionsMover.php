@@ -11,7 +11,7 @@ class NodeNsDefinitionsMover
 
     public function __construct()
     {
-        $this->setNamespaceFilter(null);
+        $this->setNamespaceFilter();
     }
 
     public function hasNamespaceFilter(): bool

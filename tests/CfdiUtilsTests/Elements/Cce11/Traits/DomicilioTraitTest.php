@@ -5,12 +5,12 @@ namespace CfdiUtilsTests\Elements\Cce11\Traits;
 use CfdiUtils\Elements\Cce11\Domicilio;
 use PHPUnit\Framework\TestCase;
 
-class DomicilioTraitTest extends TestCase
+final class DomicilioTraitTest extends TestCase
 {
     /** @var UseDomicilio */
     public $element;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->element = new UseDomicilio();

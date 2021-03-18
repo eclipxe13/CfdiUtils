@@ -26,7 +26,7 @@ class XmlNodeUtils
     {
         $element = static::nodeToXmlElement($node);
         $simpleXmlElement = simplexml_import_dom($element);
-        if (false === $simpleXmlElement) {
+        if (! $simpleXmlElement instanceof SimpleXMLElement) {
             throw new \InvalidArgumentException('Cannot convert to SimpleXmlElement');
         }
         return $simpleXmlElement;

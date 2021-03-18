@@ -6,7 +6,7 @@ use CfdiUtils\Cleaner\BeforeLoad\BeforeLoadCleanerInterface;
 use CfdiUtils\Cleaner\BeforeLoad\RemoveDuplicatedCfdi3Namespace;
 use CfdiUtilsTests\TestCase;
 
-class RemoveDuplicatedCfdi3NamespaceTest extends TestCase
+final class RemoveDuplicatedCfdi3NamespaceTest extends TestCase
 {
     public function testImplementsBeforeLoadCleanerInterface()
     {

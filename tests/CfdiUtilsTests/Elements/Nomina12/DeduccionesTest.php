@@ -9,12 +9,12 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \CfdiUtils\Elements\Nomina12\Deducciones
  */
-class DeduccionesTest extends TestCase
+final class DeduccionesTest extends TestCase
 {
     /** @var Deducciones */
     public $element;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->element = new Deducciones();

@@ -7,9 +7,9 @@ use CfdiUtils\Nodes\XmlNodeUtils;
 use CfdiUtils\TimbreFiscalDigital\TfdVersion;
 use CfdiUtilsTests\TestCase;
 
-class TfdVersionTest extends TestCase
+final class TfdVersionTest extends TestCase
 {
-    public function providerTfdVersion()
+    public function providerTfdVersion(): array
     {
         return [
             '1.1' => ['1.1', 'Version', '1.1'],
@@ -31,7 +31,7 @@ class TfdVersionTest extends TestCase
      * @param string|null $value
      * @dataProvider providerTfdVersion
      */
-    public function testTfdVersion($expected, $attribute, $value)
+    public function testTfdVersion(string $expected, string $attribute, ?string $value)
     {
         $node = new Node('tfd', [$attribute => $value]);
         $tfdVersion = new TfdVersion();

@@ -12,7 +12,7 @@ use CfdiUtilsTests\Validate\FakeObjects\ImplementationRequireXmlResolverInterfac
 use CfdiUtilsTests\Validate\FakeObjects\ImplementationRequireXmlStringInterface;
 use CfdiUtilsTests\Validate\FakeObjects\ImplementationValidatorInterface;
 
-class MultiValidatorTest extends TestCase
+final class MultiValidatorTest extends TestCase
 {
     public function testConstruct()
     {

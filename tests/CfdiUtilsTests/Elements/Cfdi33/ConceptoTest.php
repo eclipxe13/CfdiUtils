@@ -11,12 +11,12 @@ use CfdiUtils\Elements\Cfdi33\InformacionAduanera;
 use CfdiUtils\Elements\Cfdi33\Parte;
 use PHPUnit\Framework\TestCase;
 
-class ConceptoTest extends TestCase
+final class ConceptoTest extends TestCase
 {
     /** @var  Concepto */
     public $element;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->element = new Concepto();

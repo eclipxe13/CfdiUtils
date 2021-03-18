@@ -16,11 +16,11 @@ use PHPUnit\Framework\TestCase;
  *
  */
 
-class ComprobanteGetCfdiRelacionadosTest extends TestCase
+final class ComprobanteGetCfdiRelacionadosTest extends TestCase
 {
     private $errors = [];
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         set_error_handler(
@@ -29,15 +29,21 @@ class ComprobanteGetCfdiRelacionadosTest extends TestCase
         );
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         restore_error_handler();
         parent::tearDown();
     }
 
-    public function errorHandler($errno, $errstr, $errfile, $errline, $errcontext)
-    {
+    public function errorHandler(
+        int $errno,
+        string $errstr,
+        string $errfile = '',
+        int $errline = 0,
+        array $errcontext = []
+    ): bool {
         $this->errors[] = compact('errno', 'errstr', 'errfile', 'errline', 'errcontext');
+        return true;
     }
 
     public function testGetCfdiRelacionadoDontTriggerErrorsWhenCallWithoutArgument()
@@ -58,7 +64,17 @@ class ComprobanteGetCfdiRelacionadosTest extends TestCase
             'errstr' => 'El método getCfdiRelacionados ya no admite atributos, use addCfdiRelacionados en su lugar',
         ];
 
-        $this->assertArraySubset($expectedError, $this->errors[0]);
+        $capturedError = $this->errors[0] ?? [];
+        $this->assertSame(
+            $expectedError['errno'],
+            $capturedError['errno'] ?? null,
+            'Captured error does not have expected error number'
+        );
+        $this->assertSame(
+            $expectedError['errstr'],
+            $capturedError['errstr'] ?? null,
+            'Captured error does not have expected error message'
+        );
     }
 
     public function testStillIsWorkingWhenPassAnArrayAsArgument()

@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\Validate\Cfdi33\RecepcionPagos\Helpers;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Helpers\FormaPagoEntry;
 use PHPUnit\Framework\TestCase;
 
-class FormaPagoEntryTest extends TestCase
+final class FormaPagoEntryTest extends TestCase
 {
     /**
      * @param string $key

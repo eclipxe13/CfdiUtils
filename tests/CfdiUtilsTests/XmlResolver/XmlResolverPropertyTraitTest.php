@@ -7,12 +7,12 @@ use CfdiUtils\XmlResolver\XmlResolverPropertyInterface;
 use CfdiUtils\XmlResolver\XmlResolverPropertyTrait;
 use CfdiUtilsTests\TestCase;
 
-class XmlResolverPropertyTraitTest extends TestCase
+final class XmlResolverPropertyTraitTest extends TestCase
 {
     /** @var XmlResolverPropertyInterface */
     private $specimen;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->specimen = new class() implements XmlResolverPropertyInterface {

@@ -6,12 +6,12 @@ use CfdiUtils\Elements\Cfdi33\Addenda;
 use CfdiUtils\Nodes\Node;
 use PHPUnit\Framework\TestCase;
 
-class AddendaTest extends TestCase
+final class AddendaTest extends TestCase
 {
     /** @var Addenda */
     public $element;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->element = new Addenda();

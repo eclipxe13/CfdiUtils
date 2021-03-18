@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\DoctoRelacionado\ImportesDeci
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\DoctoRelacionado\ValidateDoctoException;
 use PHPUnit\Framework\TestCase;
 
-class ImportesDecimalesTest extends TestCase
+final class ImportesDecimalesTest extends TestCase
 {
     /**
      * @param string $currency
@@ -18,7 +18,7 @@ class ImportesDecimalesTest extends TestCase
      *           ["MXN", "100.0", "100.0", "0.0"]
      *           ["MXN", "100", "100", "0"]
      */
-    public function testValid($currency, $previous, $payment, $left)
+    public function testValid(string $currency, string $previous, string $payment, string $left)
     {
         $pago = new Pago();
         $docto = $pago->addDoctoRelacionado([
@@ -43,7 +43,7 @@ class ImportesDecimalesTest extends TestCase
      *           ["MXN", "100.00", "100.000", "0.00"]
      *           ["MXN", "100.00", "100.00", "0.000"]
      */
-    public function testInvalid($currency, $previous, $payment, $left)
+    public function testInvalid(string $currency, string $previous, string $payment, string $left)
     {
         $pago = new Pago();
         $docto = $pago->addDoctoRelacionado([

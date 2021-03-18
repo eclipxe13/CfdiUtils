@@ -5,12 +5,12 @@ namespace CfdiUtilsTests\Elements\Cfdi33;
 use CfdiUtils\Elements\Cfdi33\CuentaPredial;
 use PHPUnit\Framework\TestCase;
 
-class CuentaPredialTest extends TestCase
+final class CuentaPredialTest extends TestCase
 {
     /** @var CuentaPredial */
     public $element;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->element = new CuentaPredial();

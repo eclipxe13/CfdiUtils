@@ -16,16 +16,21 @@ class StatusResponse
     /** @var string */
     private $cancellationStatus;
 
+    /** @var string */
+    private $validationEfos;
+
     public function __construct(
         string $statusCode,
         string $status,
         string $cancellable = '',
-        string $cancellationStatus = ''
+        string $cancellationStatus = '',
+        string $validationEfos = ''
     ) {
         $this->code = $statusCode;
         $this->cfdi = $status;
         $this->cancellable = $cancellable;
         $this->cancellationStatus = $cancellationStatus;
+        $this->validationEfos = $validationEfos;
     }
 
     /**
@@ -90,6 +95,19 @@ class StatusResponse
         return $this->cancellationStatus;
     }
 
+    /**
+     * Validation EFOS values:
+     *
+     * - "100": El emisor se encontró en el listado EFOS
+     * - "200": No se encontró en listado EFOS
+     *
+     * @return string
+     */
+    public function getValidationEfos(): string
+    {
+        return $this->validationEfos;
+    }
+
     public function responseWasOk(): bool
     {
         return ('S - ' === substr($this->code, 0, 4));
@@ -108,5 +126,10 @@ class StatusResponse
     public function isCancelled(): bool
     {
         return ('Cancelado' === $this->cfdi);
+    }
+
+    public function isEfosListed(): bool
+    {
+        return ('100' === $this->validationEfos);
     }
 }

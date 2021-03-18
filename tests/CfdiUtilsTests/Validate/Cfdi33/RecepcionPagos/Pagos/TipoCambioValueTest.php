@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\TipoCambioValue;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidatePagoException;
 use PHPUnit\Framework\TestCase;
 
-class TipoCambioValueTest extends TestCase
+final class TipoCambioValueTest extends TestCase
 {
     /**
      * @param string|null $exchangerate
@@ -15,7 +15,7 @@ class TipoCambioValueTest extends TestCase
      *           ["18.5623"]
      *           [null]
      */
-    public function testValid($exchangerate)
+    public function testValid(?string $exchangerate)
     {
         $pago = new Pago([
             'TipoCambioP' => $exchangerate,
@@ -25,14 +25,14 @@ class TipoCambioValueTest extends TestCase
     }
 
     /**
-     * @param string|null $exchangerate
+     * @param string $exchangerate
      * @testWith ["0.000001"]
      *           ["1.0000001"]
      *           ["-1"]
      *           ["not numeric"]
      *           [""]
      */
-    public function testInvalid($exchangerate)
+    public function testInvalid(string $exchangerate)
     {
         $pago = new Pago([
             'TipoCambioP' => $exchangerate,

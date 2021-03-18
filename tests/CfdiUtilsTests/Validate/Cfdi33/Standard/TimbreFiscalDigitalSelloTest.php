@@ -9,12 +9,12 @@ use CfdiUtils\Validate\Cfdi33\Standard\TimbreFiscalDigitalSello;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class TimbreFiscalDigitalSelloTest extends ValidateTestCase
+final class TimbreFiscalDigitalSelloTest extends ValidateTestCase
 {
     /** @var TimbreFiscalDigitalSello */
     protected $validator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->validator = new TimbreFiscalDigitalSello();
@@ -46,14 +46,17 @@ class TimbreFiscalDigitalSelloTest extends ValidateTestCase
         $this->validator->setXmlResolver(null);
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::none(), 'TFDSELLO01');
-        $this->assertContains('No se puede hacer la validación', $this->asserts->get('TFDSELLO01')->getExplanation());
+        $this->assertStringContainsString(
+            'No se puede hacer la validación',
+            $this->asserts->get('TFDSELLO01')->getExplanation()
+        );
     }
 
     public function testValidatorDontHaveTimbreFiscalDigital()
     {
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::none(), 'TFDSELLO01');
-        $this->assertContains('no contiene un Timbre', $this->asserts->get('TFDSELLO01')->getExplanation());
+        $this->assertStringContainsString('no contiene un Timbre', $this->asserts->get('TFDSELLO01')->getExplanation());
     }
 
     public function testValidatorTimbreFiscalDigitalVersionIsNotPresent()
@@ -64,7 +67,7 @@ class TimbreFiscalDigitalSelloTest extends ValidateTestCase
 
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::none(), 'TFDSELLO01');
-        $this->assertContains('La versión del timbre', $this->asserts->get('TFDSELLO01')->getExplanation());
+        $this->assertStringContainsString('La versión del timbre', $this->asserts->get('TFDSELLO01')->getExplanation());
     }
 
     public function testValidatorTimbreFiscalDigitalVersionIsNotValid()
@@ -75,7 +78,7 @@ class TimbreFiscalDigitalSelloTest extends ValidateTestCase
 
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::none(), 'TFDSELLO01');
-        $this->assertContains('La versión del timbre', $this->asserts->get('TFDSELLO01')->getExplanation());
+        $this->assertStringContainsString('La versión del timbre', $this->asserts->get('TFDSELLO01')->getExplanation());
     }
 
     public function testValidatorTimbreFiscalDigitalSelloSatDoesNotMatchWithComprobante()
@@ -86,7 +89,7 @@ class TimbreFiscalDigitalSelloTest extends ValidateTestCase
 
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::error(), 'TFDSELLO01');
-        $this->assertContains('no coincide', $this->asserts->get('TFDSELLO01')->getExplanation());
+        $this->assertStringContainsString('no coincide', $this->asserts->get('TFDSELLO01')->getExplanation());
     }
 
     public function testValidatorNoCertificadoSatEmpty()
@@ -98,7 +101,7 @@ class TimbreFiscalDigitalSelloTest extends ValidateTestCase
 
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::error(), 'TFDSELLO01');
-        $this->assertContains('NoCertificadoSAT', $this->asserts->get('TFDSELLO01')->getExplanation());
+        $this->assertStringContainsString('NoCertificadoSAT', $this->asserts->get('TFDSELLO01')->getExplanation());
     }
 
     public function testValidatorNoCertificadoSatInvalid()
@@ -111,7 +114,7 @@ class TimbreFiscalDigitalSelloTest extends ValidateTestCase
 
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::error(), 'TFDSELLO01');
-        $this->assertContains('NoCertificadoSAT', $this->asserts->get('TFDSELLO01')->getExplanation());
+        $this->assertStringContainsString('NoCertificadoSAT', $this->asserts->get('TFDSELLO01')->getExplanation());
     }
 
     public function testValidatorNoCertificadoSatNonExistent()
@@ -124,7 +127,10 @@ class TimbreFiscalDigitalSelloTest extends ValidateTestCase
 
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::error(), 'TFDSELLO01');
-        $this->assertContains('obtener el certificado', $this->asserts->get('TFDSELLO01')->getExplanation());
+        $this->assertStringContainsString(
+            'obtener el certificado',
+            $this->asserts->get('TFDSELLO01')->getExplanation()
+        );
     }
 
     public function testValidatorSelloSatInvalid()
@@ -146,7 +152,7 @@ class TimbreFiscalDigitalSelloTest extends ValidateTestCase
 
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::error(), 'TFDSELLO01');
-        $this->assertContains(
+        $this->assertStringContainsString(
             'La verificación del timbrado fue negativa',
             $this->asserts->get('TFDSELLO01')->getExplanation()
         );
@@ -157,12 +163,12 @@ class TimbreFiscalDigitalSelloTest extends ValidateTestCase
         return new TimbreFiscalDigital($attributes);
     }
 
-    private function validCertificadoSAT()
+    private function validCertificadoSAT(): string
     {
         return '00001000000406258094';
     }
 
-    private function validSelloCfdi()
+    private function validSelloCfdi(): string
     {
         return 'Xt7tK83WumikNMyx4Y/Z3R7D0rOjqTrrLu8wBlCnvXrpMFgWtyrcFUttGnevvUqCnQjuVUSpFcXqbzIQEUYNKFjxmtjwGHN+b'
             . '15xUvcnfqpJRBoJe2IKd5YMZqYp9NhTJIMBYsE7+fhP1+mHcKdKn9WwXrar8uXzISqPgZ97AORBsMWmXxbVWYRtqT4MX/Xq4yhbT4jao'
@@ -170,7 +176,7 @@ class TimbreFiscalDigitalSelloTest extends ValidateTestCase
             . 'ks7qC+eO3EsGVr1/ntmGcwTurbGXmE4/OAgdg==';
     }
 
-    private function validSelloSat()
+    private function validSelloSat(): string
     {
         return 'IRy7wQnKnlIsN/pSZSR7qEm/SOJuLIbNjj/S3EAd278T2uo0t73KXfXzUbbfWOwpdZEAZeosq/yEiStTaf44ZonqRS1fq6oYk1'
             . '2udMmT4NFrEYbPEEKLn4lqdhuW4v8ZK2Vos/pjCtYtpT+/oVIXiWg9KrGVGuMvygRPWSmd+YJq3Jm7qTz0ON0vzBOvXralSZ4Q14xUvt'

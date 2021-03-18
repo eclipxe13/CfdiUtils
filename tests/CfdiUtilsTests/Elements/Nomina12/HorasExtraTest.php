@@ -8,12 +8,12 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \CfdiUtils\Elements\Nomina12\HorasExtra
  */
-class HorasExtraTest extends TestCase
+final class HorasExtraTest extends TestCase
 {
     /** @var HorasExtra */
     public $element;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->element = new HorasExtra();

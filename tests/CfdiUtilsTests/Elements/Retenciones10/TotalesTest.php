@@ -6,12 +6,12 @@ use CfdiUtils\Elements\Retenciones10\ImpRetenidos;
 use CfdiUtils\Elements\Retenciones10\Totales;
 use PHPUnit\Framework\TestCase;
 
-class TotalesTest extends TestCase
+final class TotalesTest extends TestCase
 {
     /** @var Totales */
     public $element;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->element = new Totales();

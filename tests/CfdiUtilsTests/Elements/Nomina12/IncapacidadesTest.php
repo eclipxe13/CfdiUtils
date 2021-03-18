@@ -9,12 +9,12 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \CfdiUtils\Elements\Nomina12\Incapacidades
  */
-class IncapacidadesTest extends TestCase
+final class IncapacidadesTest extends TestCase
 {
     /** @var Incapacidades */
     public $element;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->element = new Incapacidades();

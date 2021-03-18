@@ -7,12 +7,12 @@ use CfdiUtils\Validate\Cfdi33\Standard\ComprobanteImpuestos;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class ComprobanteImpuestosTest extends ValidateTestCase
+final class ComprobanteImpuestosTest extends ValidateTestCase
 {
     /** @var  ComprobanteImpuestos */
     protected $validator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->validator = new ComprobanteImpuestos();
@@ -25,7 +25,7 @@ class ComprobanteImpuestosTest extends ValidateTestCase
      *           [false, true]
      *           [true, true]
      */
-    public function testValidImpuestos($putTraslados, $putRetenciones)
+    public function testValidImpuestos(bool $putTraslados, bool $putRetenciones)
     {
         $nodeImpuestos = new Node('cfdi:Impuestos');
         if ($putTraslados) {

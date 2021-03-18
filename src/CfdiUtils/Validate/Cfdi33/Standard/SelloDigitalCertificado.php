@@ -180,15 +180,13 @@ class SelloDigitalCertificado extends AbstractDiscoverableVersion33 implements
 
     protected function compareNames(string $first, string $second): bool
     {
-        return (0 === strcasecmp($this->castNombre($first), $this->castNombre($second)));
+        return ($this->castNombre($first) === $this->castNombre($second));
     }
 
     protected function castNombre(string $nombre): string
     {
-        return str_replace(
-            [' ', '-', ',', '.', '#', '&', "'", '"'],
-            '',
-            iconv('UTF-8', 'ASCII//TRANSLIT', $nombre) ?: ''
-        );
+        $nombre = iconv('UTF-8', 'ASCII//TRANSLIT', $nombre) ?: '';
+        $nombre = str_replace([' ', '-', ',', '.', '#', '&', "'", '"', '~', '¨', '^'], '', $nombre);
+        return mb_strtoupper($nombre);
     }
 }

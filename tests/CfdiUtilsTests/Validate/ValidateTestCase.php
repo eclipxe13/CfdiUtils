@@ -27,7 +27,7 @@ abstract class ValidateTestCase extends TestCase
     /** @var Hydrater */
     protected $hydrater;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->comprobante = new Comprobante();
@@ -58,17 +58,15 @@ abstract class ValidateTestCase extends TestCase
     {
         if (! $this->asserts->exists($code)) {
             $this->fail("Did not receive actual status for code '$code', it may not exists");
-            return;
         }
         $actualAssert = $this->asserts->get($code);
-        $this->assertContains($expected, $actualAssert->getExplanation());
+        $this->assertStringContainsString($expected, $actualAssert->getExplanation());
     }
 
     protected function getAssertByCodeOrFail(string $code): Assert
     {
         if (! $this->asserts->exists($code)) {
             $this->fail("Did not receive actual status for code '$code', it may not exists");
-            throw new \LogicException("Code $code did not exists");
         }
         return $this->asserts->get($code);
     }

@@ -8,12 +8,12 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \CfdiUtils\Elements\Nomina12\EntidadSNCF
  */
-class EntidadSNCFTest extends TestCase
+final class EntidadSNCFTest extends TestCase
 {
     /** @var EntidadSNCF */
     public $element;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->element = new EntidadSNCF();

@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\FormaDePago;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidatePagoException;
 use PHPUnit\Framework\TestCase;
 
-class FormaDePagoTest extends TestCase
+final class FormaDePagoTest extends TestCase
 {
     public function testValid()
     {
@@ -25,7 +25,7 @@ class FormaDePagoTest extends TestCase
      *           [""]
      *           ["99"]
      */
-    public function testInvalid($formaPago)
+    public function testInvalid(?string $formaPago)
     {
         $pago = new Pago([
             'FormaDePagoP' => $formaPago,

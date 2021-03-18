@@ -7,18 +7,18 @@ use CfdiUtils\Validate\Cfdi33\Standard\ComprobanteTipoDeComprobante;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class ComprobanteTipoDeComprobanteTest extends ValidateTestCase
+final class ComprobanteTipoDeComprobanteTest extends ValidateTestCase
 {
     /** @var  ComprobanteTipoDeComprobante */
     protected $validator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->validator = new ComprobanteTipoDeComprobante();
     }
 
-    public function providerTPN()
+    public function providerTPN(): array
     {
         return [['T'], ['P'], ['N']];
     }
@@ -27,7 +27,7 @@ class ComprobanteTipoDeComprobanteTest extends ValidateTestCase
      * @param string $tipoDeComprobante
      * @dataProvider providerTPN
      */
-    public function testValidTPN($tipoDeComprobante)
+    public function testValidTPN(string $tipoDeComprobante)
     {
         $this->comprobante->addAttributes([
             'TipoDeComprobante' => $tipoDeComprobante,
@@ -41,7 +41,7 @@ class ComprobanteTipoDeComprobanteTest extends ValidateTestCase
      * @param string $tipoDeComprobante
      * @dataProvider providerTPN
      */
-    public function testInvalidTPN($tipoDeComprobante)
+    public function testInvalidTPN(string $tipoDeComprobante)
     {
         $this->comprobante->addAttributes([
             'TipoDeComprobante' => $tipoDeComprobante,
@@ -55,7 +55,7 @@ class ComprobanteTipoDeComprobanteTest extends ValidateTestCase
         $this->assertStatusEqualsCode(Status::error(), 'TIPOCOMP02');
     }
 
-    public function providerTP()
+    public function providerTP(): array
     {
         return [['T'], ['P']];
     }
@@ -64,7 +64,7 @@ class ComprobanteTipoDeComprobanteTest extends ValidateTestCase
      * @param string $tipoDeComprobante
      * @dataProvider providerTP
      */
-    public function testValidTP($tipoDeComprobante)
+    public function testValidTP(string $tipoDeComprobante)
     {
         $this->comprobante->addAttributes([
             'TipoDeComprobante' => $tipoDeComprobante,
@@ -117,7 +117,7 @@ class ComprobanteTipoDeComprobanteTest extends ValidateTestCase
         $this->assertStatusEqualsCode(Status::error(), 'TIPOCOMP06');
     }
 
-    public function providerTPNonZero()
+    public function providerTPNonZero(): array
     {
         $types = [
             ['T'],
@@ -138,7 +138,7 @@ class ComprobanteTipoDeComprobanteTest extends ValidateTestCase
      * @param string|null $subtotal
      * @dataProvider providerTPNonZero
      */
-    public function testInvalidSubTotal($tipoDeComprobante, $subtotal)
+    public function testInvalidSubTotal(string $tipoDeComprobante, ?string $subtotal)
     {
         $this->comprobante->addAttributes([
             'TipoDeComprobante' => $tipoDeComprobante,
@@ -153,7 +153,7 @@ class ComprobanteTipoDeComprobanteTest extends ValidateTestCase
      * @param string|null $total
      * @dataProvider providerTPNonZero
      */
-    public function testInvalidTotal($tipoDeComprobante, $total)
+    public function testInvalidTotal(string $tipoDeComprobante, ?string $total)
     {
         $this->comprobante->addAttributes([
             'TipoDeComprobante' => $tipoDeComprobante,
@@ -163,7 +163,7 @@ class ComprobanteTipoDeComprobanteTest extends ValidateTestCase
         $this->assertStatusEqualsCode(Status::error(), 'TIPOCOMP08');
     }
 
-    public function providerIEN()
+    public function providerIEN(): array
     {
         return [['I'], ['E'], ['N']];
     }
@@ -172,7 +172,7 @@ class ComprobanteTipoDeComprobanteTest extends ValidateTestCase
      * @param string $tipoDeComprobante
      * @dataProvider providerIEN
      */
-    public function testValidIENValorUnitarioGreaterThanZero($tipoDeComprobante)
+    public function testValidIENValorUnitarioGreaterThanZero(string $tipoDeComprobante)
     {
         $this->comprobante->addAttributes([
             'TipoDeComprobante' => $tipoDeComprobante,
@@ -185,7 +185,7 @@ class ComprobanteTipoDeComprobanteTest extends ValidateTestCase
         $this->assertStatusEqualsCode(Status::ok(), 'TIPOCOMP09');
     }
 
-    public function providerIENWrongValue()
+    public function providerIENWrongValue(): array
     {
         return $this->providerFullJoin(
             $this->providerIEN(),
@@ -198,7 +198,7 @@ class ComprobanteTipoDeComprobanteTest extends ValidateTestCase
      * @param string|null $wrongUnitValue
      * @dataProvider providerIENWrongValue
      */
-    public function testInvalidIENValorUnitarioGreaterThanZero($tipoDeComprobante, $wrongUnitValue)
+    public function testInvalidIENValorUnitarioGreaterThanZero(string $tipoDeComprobante, ?string $wrongUnitValue)
     {
         $this->comprobante->addAttributes([
             'TipoDeComprobante' => $tipoDeComprobante,

@@ -6,12 +6,12 @@ use CfdiUtils\Elements\Pagos10\Retencion;
 use CfdiUtils\Elements\Pagos10\Retenciones;
 use PHPUnit\Framework\TestCase;
 
-class RetencionesTest extends TestCase
+final class RetencionesTest extends TestCase
 {
     /** @var Retenciones */
     public $element;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->element = new Retenciones();

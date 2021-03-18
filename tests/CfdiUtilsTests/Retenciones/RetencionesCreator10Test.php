@@ -8,7 +8,7 @@ use CfdiUtils\Elements\Dividendos10\Dividendos;
 use CfdiUtils\Retenciones\RetencionesCreator10;
 use CfdiUtilsTests\TestCase;
 
-class RetencionesCreator10Test extends TestCase
+final class RetencionesCreator10Test extends TestCase
 {
     public function testCreatePreCfdiWithAllCorrectValues()
     {

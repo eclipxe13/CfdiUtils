@@ -6,12 +6,12 @@ use CfdiUtils\Elements\Retenciones10\Complemento;
 use CfdiUtils\Nodes\Node;
 use PHPUnit\Framework\TestCase;
 
-class ComplementoTest extends TestCase
+final class ComplementoTest extends TestCase
 {
     /** @var Complemento */
     public $element;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->element = new Complemento();

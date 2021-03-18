@@ -5,14 +5,14 @@ namespace CfdiUtilsTests\Internals;
 use CfdiUtils\Internals\TemporaryFile;
 use CfdiUtilsTests\TestCase;
 
-class TemporaryFileTest extends TestCase
+final class TemporaryFileTest extends TestCase
 {
     public function testBasicFunctionality()
     {
         $temp = TemporaryFile::create();
         $this->assertFileExists($temp->getPath());
         $temp->remove();
-        $this->assertFileNotExists($temp->getPath());
+        $this->assertFileDoesNotExist($temp->getPath());
     }
 
     public function testCreateWithDirectory()
@@ -45,7 +45,6 @@ class TemporaryFileTest extends TestCase
         if (is_writable($directory)) {
             rmdir($directory);
             $this->markTestSkipped('Cannot create a read-only directory');
-            return;
         }
 
         // setup expected exception
@@ -91,7 +90,7 @@ class TemporaryFileTest extends TestCase
         });
 
         $this->assertSame($expected, $retrieved, 'Method did not return the expected value');
-        $this->assertFileNotExists($file->getPath());
+        $this->assertFileDoesNotExist($file->getPath());
     }
 
     public function testRunAndRemoveWithException()
@@ -108,6 +107,6 @@ class TemporaryFileTest extends TestCase
             }
         }
 
-        $this->assertFileNotExists($file->getPath());
+        $this->assertFileDoesNotExist($file->getPath());
     }
 }

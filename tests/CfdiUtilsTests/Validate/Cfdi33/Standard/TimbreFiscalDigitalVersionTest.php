@@ -8,7 +8,7 @@ use CfdiUtils\Validate\Cfdi33\Standard\TimbreFiscalDigitalVersion;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class TimbreFiscalDigitalVersionTest extends ValidateTestCase
+final class TimbreFiscalDigitalVersionTest extends ValidateTestCase
 {
     /* @var \CfdiUtils\Elements\Cfdi33\Comprobante */
     protected $comprobante;
@@ -16,7 +16,7 @@ class TimbreFiscalDigitalVersionTest extends ValidateTestCase
     /** @var  TimbreFiscalDigitalVersion */
     protected $validator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->validator = new TimbreFiscalDigitalVersion();
@@ -30,7 +30,7 @@ class TimbreFiscalDigitalVersionTest extends ValidateTestCase
         $this->assertStatusEqualsCode(Status::ok(), 'TFDVERSION01');
     }
 
-    public function providerInvalidVersion()
+    public function providerInvalidVersion(): array
     {
         return[
             ['1.0'],
@@ -48,7 +48,7 @@ class TimbreFiscalDigitalVersionTest extends ValidateTestCase
      * @param string|null $version
      * @dataProvider providerInvalidVersion
      */
-    public function testInvalidCase($version)
+    public function testInvalidCase(?string $version)
     {
         $tfd = new TimbreFiscalDigital();
         $tfd->addAttributes(['Version' => $version]); // override version

@@ -21,7 +21,7 @@ class ComprobanteImpuestos extends AbstractDiscoverableVersion33
     private function registerAsserts(Asserts $asserts)
     {
         $assertDescriptions = [
-            'COMPIMPUESTOSC01' => 'Si existe el nodo impuestos entonces debe incluir el total detraslados y/o'
+            'COMPIMPUESTOSC01' => 'Si existe el nodo impuestos entonces debe incluir el total de traslados y/o'
                 . ' el total de retenciones',
             'COMPIMPUESTOSC02' => 'Si existe al menos un traslado entonces debe existir el total de traslados',
             'COMPIMPUESTOSC03' => 'Si existe al menos una retención entonces debe existir el total de retenciones',

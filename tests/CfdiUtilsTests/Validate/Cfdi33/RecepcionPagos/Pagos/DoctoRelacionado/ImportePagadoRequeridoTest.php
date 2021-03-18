@@ -8,7 +8,7 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\DoctoRelacionado\ImportePagad
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\DoctoRelacionado\ValidateDoctoException;
 use PHPUnit\Framework\TestCase;
 
-class ImportePagadoRequeridoTest extends TestCase
+final class ImportePagadoRequeridoTest extends TestCase
 {
     public function testValid()
     {
@@ -22,11 +22,11 @@ class ImportePagadoRequeridoTest extends TestCase
     }
 
     /**
-     * @param string|null $exchangeRate
+     * @param string $exchangeRate
      * @testWith ["19.8765"]
      *           [""]
      */
-    public function testInvalidExchangeRate($exchangeRate)
+    public function testInvalidExchangeRate(string $exchangeRate)
     {
         $pago = new Pago();
         $docto = $pago->addDoctoRelacionado([

@@ -22,7 +22,7 @@ class Comprobante extends AbstractElement
     public function getCfdiRelacionados(): CfdiRelacionados
     {
         $arguments = func_get_args();
-        if (count($arguments) > 0) {
+        if ([] !== $arguments) {
             trigger_error(
                 'El método getCfdiRelacionados ya no admite atributos, use addCfdiRelacionados en su lugar',
                 E_USER_NOTICE

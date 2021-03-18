@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Discoverer;
 use CfdiUtils\Validate\MultiValidatorFactory;
 use PHPUnit\Framework\TestCase;
 
-class MultiValidatorFactoryTest extends TestCase
+final class MultiValidatorFactoryTest extends TestCase
 {
     public function testConstructWithoutArguments()
     {

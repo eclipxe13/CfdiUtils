@@ -3,6 +3,8 @@
 namespace CfdiUtils\CadenaOrigen;
 
 use DOMDocument;
+use Genkgo\Xsl\Cache\NullCache;
+use Genkgo\Xsl\Exception\TransformationException;
 use Genkgo\Xsl\XsltProcessor;
 
 class GenkgoXslBuilder extends DOMBuilder
@@ -16,12 +18,15 @@ class GenkgoXslBuilder extends DOMBuilder
 
     protected function transform(DOMDocument $xml, DOMDocument $xsl): string
     {
-        $xslt = new XSLTProcessor();
+        $xslt = new XSLTProcessor(new NullCache());
         $xslt->importStyleSheet($xsl);
 
-        // this error silenced call is intentional, avoid transformation errors except when return false
-        /** @var string|null|false $transform */
-        $transform = @$xslt->transformToXML($xml);
+        try {
+            /** @var string|null|false $transform */
+            $transform = $xslt->transformToXML($xml);
+        } catch (TransformationException $exception) {
+            throw new XsltBuildException('Error while transforming the xslt content', 0, $exception);
+        }
         if (null === $transform || false === $transform) {
             throw $this->createLibXmlErrorOrMessage('Error while transforming the xslt content');
         }

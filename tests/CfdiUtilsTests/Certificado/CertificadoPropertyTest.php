@@ -7,7 +7,7 @@ use CfdiUtils\Certificado\CertificadoPropertyInterface;
 use CfdiUtils\Certificado\CertificadoPropertyTrait;
 use CfdiUtilsTests\TestCase;
 
-class CertificadoPropertyTest extends TestCase
+final class CertificadoPropertyTest extends TestCase
 {
     public function testCertificadoProperty()
     {

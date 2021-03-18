@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\BancoOrdenanteNombreRequerido
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidatePagoException;
 use PHPUnit\Framework\TestCase;
 
-class BancoOrdenanteNombreRequeridoTest extends TestCase
+final class BancoOrdenanteNombreRequeridoTest extends TestCase
 {
     /**
      * @param string|null $rfc
@@ -18,7 +18,7 @@ class BancoOrdenanteNombreRequeridoTest extends TestCase
      *           [null, "Foreign bank"]
      *           [null, null]
      */
-    public function testValid($rfc, $name)
+    public function testValid(?string $rfc, ?string $name)
     {
         $pago = new Pago([
             'RfcEmisorCtaOrd' => $rfc,
@@ -30,12 +30,12 @@ class BancoOrdenanteNombreRequeridoTest extends TestCase
     }
 
     /**
-     * @param string|null $rfc
+     * @param string $rfc
      * @param string|null $name
      * @testWith ["XEXX010101000", ""]
      *           ["XEXX010101000", null]
      */
-    public function testInvalid($rfc, $name)
+    public function testInvalid(string $rfc, ?string $name)
     {
         $pago = new Pago([
             'RfcEmisorCtaOrd' => $rfc,

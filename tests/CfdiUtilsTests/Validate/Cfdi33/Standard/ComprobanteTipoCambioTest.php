@@ -6,18 +6,18 @@ use CfdiUtils\Validate\Cfdi33\Standard\ComprobanteTipoCambio;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class ComprobanteTipoCambioTest extends ValidateTestCase
+final class ComprobanteTipoCambioTest extends ValidateTestCase
 {
     /** @var ComprobanteTipoCambio */
     protected $validator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->validator = new ComprobanteTipoCambio();
     }
 
-    public function providerMonedaWithValidValues()
+    public function providerMonedaWithValidValues(): array
     {
         return [
             ['MXN', '1', 'TIPOCAMBIO02', ['TIPOCAMBIO03', 'TIPOCAMBIO04']],
@@ -34,12 +34,12 @@ class ComprobanteTipoCambioTest extends ValidateTestCase
 
     /**
      * @param string $moneda
-     * @param mixed $tipoCambio
+     * @param string|null $tipoCambio
      * @param string $ok
      * @param string[] $nones
      * @dataProvider providerMonedaWithValidValues
      */
-    public function testMonedaWithValidValues($moneda, $tipoCambio, $ok, $nones)
+    public function testMonedaWithValidValues(string $moneda, ?string $tipoCambio, string $ok, array $nones)
     {
         $this->comprobante->addAttributes([
             'Moneda' => $moneda,
@@ -54,7 +54,7 @@ class ComprobanteTipoCambioTest extends ValidateTestCase
         }
     }
 
-    public function providerNoMonedaOrEmpty()
+    public function providerNoMonedaOrEmpty(): array
     {
         return [
             [null, null],
@@ -67,11 +67,11 @@ class ComprobanteTipoCambioTest extends ValidateTestCase
     }
 
     /**
-     * @param string $moneda
+     * @param string|null $moneda
      * @param string|null $tipoCambio
      * @dataProvider providerNoMonedaOrEmpty
      */
-    public function testNoMonedaOrEmpty($moneda, $tipoCambio)
+    public function testNoMonedaOrEmpty(?string $moneda, ?string $tipoCambio)
     {
         $this->comprobante->addAttributes([
             'Moneda' => $moneda,
@@ -85,7 +85,7 @@ class ComprobanteTipoCambioTest extends ValidateTestCase
         $this->assertStatusEqualsCode(Status::none(), 'TIPOCAMBIO04');
     }
 
-    public function providerMonedaWithInvalidValues()
+    public function providerMonedaWithInvalidValues(): array
     {
         return [
             ['MXN', '', 'TIPOCAMBIO02', ['TIPOCAMBIO03', 'TIPOCAMBIO04']],
@@ -113,7 +113,7 @@ class ComprobanteTipoCambioTest extends ValidateTestCase
      * @param string[] $nones
      * @dataProvider providerMonedaWithInvalidValues
      */
-    public function testMonedaWithInvalidValues($moneda, $tipoCambio, $error, $nones)
+    public function testMonedaWithInvalidValues(string $moneda, ?string $tipoCambio, string $error, array $nones)
     {
         $this->comprobante->addAttributes([
             'Moneda' => $moneda,

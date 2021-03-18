@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\Validate\Cfdi33\RecepcionPagos\Pagos;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\DoctoRelacionado;
 use PHPUnit\Framework\TestCase;
 
-class DoctoRelacionadoTest extends TestCase
+final class DoctoRelacionadoTest extends TestCase
 {
     public function testValidatorsCodes()
     {

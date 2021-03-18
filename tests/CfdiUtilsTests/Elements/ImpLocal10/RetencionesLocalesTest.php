@@ -5,12 +5,12 @@ namespace CfdiUtilsTests\Elements\ImpLocal10;
 use CfdiUtils\Elements\ImpLocal10\RetencionesLocales;
 use PHPUnit\Framework\TestCase;
 
-class RetencionesLocalesTest extends TestCase
+final class RetencionesLocalesTest extends TestCase
 {
     /** @var RetencionesLocales */
     public $element;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->element = new RetencionesLocales();

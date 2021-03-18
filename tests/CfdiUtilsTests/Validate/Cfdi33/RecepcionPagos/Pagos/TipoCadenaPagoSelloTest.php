@@ -7,7 +7,7 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\TipoCadenaPagoSello;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidatePagoException;
 use PHPUnit\Framework\TestCase;
 
-class TipoCadenaPagoSelloTest extends TestCase
+final class TipoCadenaPagoSelloTest extends TestCase
 {
     /**
      * @param string|null $tipoCadPago
@@ -15,7 +15,7 @@ class TipoCadenaPagoSelloTest extends TestCase
      * @testWith [null, null]
      *           ["1", "1"]
      */
-    public function testValid($tipoCadPago, $input)
+    public function testValid(?string $tipoCadPago, ?string $input)
     {
         $pago = new Pago([
             'TipoCadPago' => $tipoCadPago,
@@ -36,7 +36,7 @@ class TipoCadenaPagoSelloTest extends TestCase
      *           [null, ""]
      *           ["", null]
      */
-    public function testInvalid($tipoCadPago, $input)
+    public function testInvalid(?string $tipoCadPago, ?string $input)
     {
         $pago = new Pago([
             'TipoCadPago' => $tipoCadPago,

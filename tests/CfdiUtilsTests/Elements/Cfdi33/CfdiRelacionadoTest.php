@@ -5,12 +5,12 @@ namespace CfdiUtilsTests\Elements\Cfdi33;
 use CfdiUtils\Elements\Cfdi33\CfdiRelacionado;
 use PHPUnit\Framework\TestCase;
 
-class CfdiRelacionadoTest extends TestCase
+final class CfdiRelacionadoTest extends TestCase
 {
     /** @var CfdiRelacionado */
     public $element;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->element = new CfdiRelacionado();

@@ -8,12 +8,12 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \CfdiUtils\Elements\Nomina12\CompensacionSaldosAFavor
  */
-class CompensacionSaldosAFavorTest extends TestCase
+final class CompensacionSaldosAFavorTest extends TestCase
 {
     /** @var CompensacionSaldosAFavor */
     public $element;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->element = new CompensacionSaldosAFavor();

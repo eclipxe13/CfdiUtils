@@ -6,7 +6,7 @@ use CfdiUtils\QuickReader\QuickReader;
 
 use PHPUnit\Framework\TestCase;
 
-class QuickReaderTest extends TestCase
+final class QuickReaderTest extends TestCase
 {
     public function testMinimalInstance()
     {

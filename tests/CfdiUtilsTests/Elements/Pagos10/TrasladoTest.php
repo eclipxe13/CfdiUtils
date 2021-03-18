@@ -5,12 +5,12 @@ namespace CfdiUtilsTests\Elements\Pagos10;
 use CfdiUtils\Elements\Pagos10\Traslado;
 use PHPUnit\Framework\TestCase;
 
-class TrasladoTest extends TestCase
+final class TrasladoTest extends TestCase
 {
     /** @var Traslado */
     public $element;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->element = new Traslado();

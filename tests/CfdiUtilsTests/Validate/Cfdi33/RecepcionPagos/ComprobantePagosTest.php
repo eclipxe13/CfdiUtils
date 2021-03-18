@@ -6,12 +6,12 @@ use CfdiUtils\Elements\Pagos10\Pagos;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\ComprobantePagos;
 use CfdiUtils\Validate\Status;
 
-class ComprobantePagosTest extends ValidateComplementoPagosTestCase
+final class ComprobantePagosTest extends ValidateComplementoPagosTestCase
 {
     /** @var ComprobantePagos */
     protected $validator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->validator = new ComprobantePagos();
@@ -74,7 +74,7 @@ class ComprobantePagosTest extends ValidateComplementoPagosTestCase
      *           [null]
      *           ["MXN"]
      */
-    public function testErrorWithMonedaNotXxx($input)
+    public function testErrorWithMonedaNotXxx(?string $input)
     {
         $this->getComprobante()->addAttributes([
             'Moneda' => $input,
@@ -107,7 +107,7 @@ class ComprobantePagosTest extends ValidateComplementoPagosTestCase
      *           [null]
      *           ["0.0"]
      */
-    public function testErrorWithSubTotalNotZero($input)
+    public function testErrorWithSubTotalNotZero(?string $input)
     {
         $this->getComprobante()->addAttributes([
             'SubTotal' => $input,
@@ -122,7 +122,7 @@ class ComprobantePagosTest extends ValidateComplementoPagosTestCase
      *           [null]
      *           ["0.0"]
      */
-    public function testErrorWithTotalNotZero($input)
+    public function testErrorWithTotalNotZero(?string $input)
     {
         $this->getComprobante()->addAttributes([
             'Total' => $input,

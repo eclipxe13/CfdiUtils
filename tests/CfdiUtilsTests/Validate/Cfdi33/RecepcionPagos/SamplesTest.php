@@ -6,7 +6,7 @@ use CfdiUtils\CfdiValidator33;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\TestCase;
 
-class SamplesTest extends TestCase
+final class SamplesTest extends TestCase
 {
     /**
      * @param string $sampleName
@@ -19,7 +19,7 @@ class SamplesTest extends TestCase
      *           ["sample-validacfd04.xml"]
      *           ["sample-validacfd05.xml"]
      */
-    public function testSamplesFiles($sampleName)
+    public function testSamplesFiles(string $sampleName)
     {
         $sampleFile = $this->utilAsset('pagos10/' . $sampleName);
         $this->assertFileExists($sampleFile);

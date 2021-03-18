@@ -7,17 +7,17 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\CuentaOrdenanteProhibida;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidatePagoException;
 use PHPUnit\Framework\TestCase;
 
-class CuentaOrdenanteProhibidaTest extends TestCase
+final class CuentaOrdenanteProhibidaTest extends TestCase
 {
     /**
-     * @param string|null $paymentType
+     * @param string $paymentType
      * @param string|null $account
      * @testWith ["02", "x"]
      *           ["02", ""]
      *           ["02", null]
      *           ["01", null]
      */
-    public function testValid($paymentType, $account)
+    public function testValid(string $paymentType, ?string $account)
     {
         $pago = new Pago([
             'FormaDePagoP' => $paymentType,
@@ -29,12 +29,12 @@ class CuentaOrdenanteProhibidaTest extends TestCase
     }
 
     /**
-     * @param string|null $paymentType
-     * @param string|null $account
+     * @param string $paymentType
+     * @param string $account
      * @testWith ["01", "x"]
      *           ["01", ""]
      */
-    public function testInvalid($paymentType, $account)
+    public function testInvalid(string $paymentType, string $account)
     {
         $pago = new Pago([
             'FormaDePagoP' => $paymentType,

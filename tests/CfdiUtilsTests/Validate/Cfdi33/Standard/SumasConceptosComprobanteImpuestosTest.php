@@ -8,12 +8,12 @@ use CfdiUtils\Validate\Contracts\DiscoverableCreateInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
 
-class SumasConceptosComprobanteImpuestosTest extends ValidateTestCase
+final class SumasConceptosComprobanteImpuestosTest extends ValidateTestCase
 {
     /** @var SumasConceptosComprobanteImpuestos */
     protected $validator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->validator = new SumasConceptosComprobanteImpuestos();
@@ -206,7 +206,7 @@ class SumasConceptosComprobanteImpuestosTest extends ValidateTestCase
         $this->assertStatusEqualsCode(Status::error(), 'SUMAS11');
     }
 
-    public function providerValidateDescuentoLessOrEqualThanSubTotal()
+    public function providerValidateDescuentoLessOrEqualThanSubTotal(): array
     {
         return [
             'greater' => ['12345.679', '12345.678', Status::error()],

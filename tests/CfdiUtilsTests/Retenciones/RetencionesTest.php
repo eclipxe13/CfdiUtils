@@ -6,7 +6,7 @@ use CfdiUtils\Retenciones\Retenciones;
 use CfdiUtils\Utils\Xml;
 use CfdiUtilsTests\TestCase;
 
-class RetencionesTest extends TestCase
+final class RetencionesTest extends TestCase
 {
     const XML_MINIMAL_DEFINITION = <<<XML
 <retenciones:Retenciones xmlns:retenciones="http://www.sat.gob.mx/esquemas/retencionpago/1" Version="1.0"/>
@@ -120,7 +120,7 @@ XML;
         $retrieved = $retencion->getDocument();
 
         $this->assertNotSame($document, $retrieved, 'The DOM Document must NOT be the same as constructed');
-        $this->assertXmlStringEqualsXmlString($document, $retrieved, 'The DOM Documents should be equal');
+        $this->assertXmlStringEqualsXmlString($xml, $retrieved->saveXML(), 'The DOM Documents should be equal');
     }
 
     public function testGetSource()

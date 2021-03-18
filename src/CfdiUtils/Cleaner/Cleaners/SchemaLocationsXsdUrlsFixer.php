@@ -34,7 +34,7 @@ final class SchemaLocationsXsdUrlsFixer
      * Created a new instance based on known CFDI and TFD
      * It also includes the incorrect but allowed TFD 1.0 alternate urls
      *
-     * @return static
+     * @return self
      */
     public static function createWithKnownSatUrls(): self
     {

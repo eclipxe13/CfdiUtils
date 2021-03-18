@@ -4,6 +4,7 @@ namespace CfdiUtils\PemPrivateKey;
 
 use CfdiUtils\OpenSSL\OpenSSL;
 use CfdiUtils\OpenSSL\OpenSSLPropertyTrait;
+use UnexpectedValueException;
 
 class PemPrivateKey
 {
@@ -12,8 +13,8 @@ class PemPrivateKey
     /** @var string */
     private $contents;
 
-    /** @var resource|null */
-    private $privatekey;
+    /** @var mixed|false */
+    private $privatekey = false;
 
     /**
      * Create a private key helper class based on a private key PEM formatted
@@ -22,8 +23,8 @@ class PemPrivateKey
      * - file contents
      *
      * @param string $key
-     * @param \CfdiUtils\OpenSSL\OpenSSL $openSSL
-     * @throws \UnexpectedValueException if the file is not PEM format
+     * @param OpenSSL|null $openSSL
+     * @throws UnexpectedValueException if the file is not PEM format
      */
     public function __construct(string $key, OpenSSL $openSSL = null)
     {
@@ -39,7 +40,7 @@ class PemPrivateKey
                 throw new \RuntimeException('Empty key');
             }
         } catch (\Throwable $exc) {
-            throw new \UnexpectedValueException('The key is not a file or a string PEM format private key', 0, $exc);
+            throw new UnexpectedValueException('The key is not a file or a string PEM format private key', 0, $exc);
         }
 
         $this->contents = $contents;
@@ -52,7 +53,7 @@ class PemPrivateKey
 
     public function __clone()
     {
-        $this->privatekey = null;
+        $this->privatekey = false;
     }
 
     public function __sleep()
@@ -73,9 +74,12 @@ class PemPrivateKey
 
     public function close()
     {
-        if (null !== $this->privatekey) {
-            openssl_pkey_free($this->privatekey);
-            $this->privatekey = null;
+        if (false !== $this->privatekey) {
+            if (\PHP_VERSION_ID < 80000) {
+                // phpcs:ignore
+                openssl_pkey_free($this->privatekey);
+            }
+            $this->privatekey = false;
         }
     }
 
@@ -91,13 +95,13 @@ class PemPrivateKey
 
     public function isOpen(): bool
     {
-        return (null !== $this->privatekey);
+        return (false !== $this->privatekey);
     }
 
-    /** @return resource */
+    /** @return mixed */
     private function getOpenPrivateKey()
     {
-        if (! is_resource($this->privatekey)) {
+        if (false === $this->privatekey) {
             throw new \RuntimeException('The private key is not open');
         }
         return $this->privatekey;

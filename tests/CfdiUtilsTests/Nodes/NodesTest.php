@@ -7,7 +7,7 @@ use CfdiUtils\Nodes\NodeInterface;
 use CfdiUtils\Nodes\Nodes;
 use CfdiUtilsTests\TestCase;
 
-class NodesTest extends TestCase
+final class NodesTest extends TestCase
 {
     public function testEmptyNodes()
     {
