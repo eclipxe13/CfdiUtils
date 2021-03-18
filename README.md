@@ -65,8 +65,7 @@ composer require eclipxe/cfdiutils
 
 ## PHP Support
 
-This library is compatible with **PHP 7.2 and above**.
-Please, try to use the full potential of the language like type declarations.
+This library is compatible with **PHP 7.3 and above**. Please, try to use the language's full potential.
 
 The intented support is to be aligned with oldest *Active support* PHP Branch.
 See <https://www.php.net/supported-versions.php> for more details.
