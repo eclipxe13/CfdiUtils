@@ -30,7 +30,7 @@
 
 ## UNRELEASED 2021-03-18
 
-### Migrate from Travis-CI and AppVeyor to GitHuib Actions.
+### Migrate from Travis-CI and AppVeyor to GitHuib Actions
 
 I'm more than grateful to both platforms for supporting this open source project for the previous years.
 I recommend both platforms as an alternative to GitHub Actions.
