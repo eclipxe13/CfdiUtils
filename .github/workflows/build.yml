@@ -52,10 +52,11 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Install SAT XML resources
+        shell: bash
         run: |
           git clone --depth 1 https://github.com/phpcfdi/resources-sat-xml resources-sat-xml-cloned
           mv resources-sat-xml-cloned/resources build/resources
-          rm -rf resources-sat-xml-cloned
+          rm -r -f resources-sat-xml-cloned
 
       - name: Install project dependencies
         run: |
