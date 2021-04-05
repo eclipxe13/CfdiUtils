@@ -28,9 +28,16 @@
 - Change visibility of `CfdiUtils\Cleaner\Cleaner#removeIncompleteSchemaLocation()` to private.
 
 
-## UNRELEASED 2021-03-18
+## UNRELEASED
 
-### Migrate from Travis-CI and AppVeyor to GitHuib Actions
+No unreleased changes.
+
+
+## Version 2.15.1 2021-04-04
+
+- Fix try to close public key when it didn't exists. Good catch PHPStan!
+
+### Migrate from Travis-CI and AppVeyor to GitHub Actions
 
 I'm more than grateful to both platforms for supporting this open source project for the previous years.
 I recommend both platforms as an alternative to GitHub Actions.

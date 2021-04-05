@@ -307,7 +307,7 @@ class Certificado
             return $pubData['key'] ?? '';
         } finally {
             // close public key even if the flow is throw an exception
-            if (false !== $pubkey && \PHP_VERSION_ID < 80000) {
+            if (isset($pubkey) && false !== $pubkey && \PHP_VERSION_ID < 80000) {
                 // phpcs:ignore
                 openssl_free_key($pubkey);
             }
