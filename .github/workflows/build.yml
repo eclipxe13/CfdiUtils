@@ -1,7 +1,11 @@
 name: build
 on:
   pull_request:
+    branches:
+      - master
   push:
+    branches:
+      - master
   schedule:
     - cron: '0 16 * * 0' # sunday 16:00
 
