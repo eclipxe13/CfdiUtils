@@ -46,6 +46,8 @@ nav:
     - problemas/descarga-certificados.md
     - problemas/multiples-complementos.md
     - problemas/descarga-recursos.md
+  - "Actualización":
+    - "Cambiar de 2.x a 3.x": actualizar/version_2_a_3.md
   - "Acerca de":
     - "To Do List": "TODO.md"
     - "Changelog": "CHANGELOG.md"
