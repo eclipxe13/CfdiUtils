@@ -36,7 +36,7 @@
         "ext-json": "*",
         "symfony/process": "^3.4|^4.2|^5.0",
         "eclipxe/xmlresourceretriever": "^2.0.0",
-        "eclipxe/xmlschemavalidator": "^2.0.2"
+        "eclipxe/xmlschemavalidator": "^3.0.0"
     },
     "suggest": {
         "genkgo/xsl": "Allows usage of Genkgo/Xsl transformations"

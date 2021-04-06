@@ -48,6 +48,7 @@ The following changes apply only to development and has been applied to main bra
 ### Upgrade dependences
 
 - Upgrade `Eclipxe/XmlResourceRetriever` to version `2.0.0`.
+- Upgrade `Eclipxe/XmlSchemaValidator` to version `3.0.0`.
 
 
 ## Version 2.15.1 2021-04-04

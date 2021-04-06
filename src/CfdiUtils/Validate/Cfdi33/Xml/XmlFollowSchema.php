@@ -12,9 +12,9 @@ use CfdiUtils\Validate\Status;
 use CfdiUtils\Validate\Traits\XmlStringPropertyTrait;
 use CfdiUtils\XmlResolver\XmlResolverPropertyInterface;
 use CfdiUtils\XmlResolver\XmlResolverPropertyTrait;
-use XmlSchemaValidator\Schema;
-use XmlSchemaValidator\Schemas;
-use XmlSchemaValidator\SchemaValidator;
+use Eclipxe\XmlSchemaValidator\Schema;
+use Eclipxe\XmlSchemaValidator\Schemas;
+use Eclipxe\XmlSchemaValidator\SchemaValidator;
 
 /**
  * XmlFollowSchema
@@ -48,7 +48,7 @@ class XmlFollowSchema extends AbstractVersion33 implements
         }
 
         // create the schema validator object
-        $schemaValidator = new SchemaValidator($content);
+        $schemaValidator = SchemaValidator::createFromString($content);
 
         // validate using resolver->retriever or using the simple method
         try {
