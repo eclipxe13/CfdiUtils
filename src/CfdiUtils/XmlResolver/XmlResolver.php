@@ -4,11 +4,11 @@ namespace CfdiUtils\XmlResolver;
 
 use CfdiUtils\CadenaOrigen\CfdiDefaultLocations;
 use CfdiUtils\Certificado\CerRetriever;
-use XmlResourceRetriever\Downloader\DownloaderInterface;
-use XmlResourceRetriever\Downloader\PhpDownloader;
-use XmlResourceRetriever\RetrieverInterface;
-use XmlResourceRetriever\XsdRetriever;
-use XmlResourceRetriever\XsltRetriever;
+use Eclipxe\XmlResourceRetriever\Downloader\DownloaderInterface;
+use Eclipxe\XmlResourceRetriever\Downloader\PhpDownloader;
+use Eclipxe\XmlResourceRetriever\RetrieverInterface;
+use Eclipxe\XmlResourceRetriever\XsdRetriever;
+use Eclipxe\XmlResourceRetriever\XsltRetriever;
 
 /**
  * XmlResolver - Class to download xml resources from internet to local paths
@@ -196,7 +196,7 @@ class XmlResolver
         return new CerRetriever($this->getLocalPath(), $this->getDownloader());
     }
 
-    public function resolveCadenaOrigenLocation(string $version)
+    public function resolveCadenaOrigenLocation(string $version): string
     {
         return $this->resolve(CfdiDefaultLocations::location($version), self::TYPE_XSLT);
     }

@@ -43,6 +43,11 @@ The following changes apply only to development and has been applied to main bra
 - Upgrade `php-cs-fixer` to version `3.0`.
 
 
+## Version 2.15.2 2021-04-05
+
+- Upgrade `Eclipxe/XmlSchemaValidator` to version `2.0.0`.
+
+
 ## Version 2.15.1 2021-04-04
 
 - Fix try to close public key when it didn't exist. Good catch PHPStan!

@@ -2,20 +2,20 @@
 
 namespace CfdiUtils\Certificado;
 
-use XmlResourceRetriever\AbstractBaseRetriever;
-use XmlResourceRetriever\RetrieverInterface;
+use Eclipxe\XmlResourceRetriever\AbstractBaseRetriever;
+use Eclipxe\XmlResourceRetriever\RetrieverInterface;
 
 class CerRetriever extends AbstractBaseRetriever implements RetrieverInterface
 {
-    public function retrieve(string $resource): string
+    public function retrieve(string $url): string
     {
         $this->clearHistory();
-        $localFilename = $this->download($resource);
-        $this->addToHistory($resource, $localFilename);
+        $localFilename = $this->download($url);
+        $this->addToHistory($url, $localFilename);
         return $localFilename;
     }
 
-    protected function checkIsValidDownloadedFile(string $source, string $localpath)
+    protected function checkIsValidDownloadedFile(string $source, string $localpath): void
     {
         // check content is cer file
         try {

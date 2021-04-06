@@ -2,9 +2,9 @@
 
 namespace CfdiUtilsTests\Certificado;
 
+use Eclipxe\XmlResourceRetriever\Downloader\DownloaderInterface;
+use Eclipxe\XmlResourceRetriever\Downloader\PhpDownloader;
 use Exception;
-use XmlResourceRetriever\Downloader\DownloaderInterface;
-use XmlResourceRetriever\Downloader\PhpDownloader;
 
 /**
  * This class is a wrapper around PhpDownloader to retry the download if it fails (for any reason).
