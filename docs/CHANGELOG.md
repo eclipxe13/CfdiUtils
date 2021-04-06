@@ -2,10 +2,6 @@
 
 ## Backward compatibility breaks (not released yet), plan for version 3.0
 
-- Remove deprecated classes:
-    - `\CfdiUtils\CadenaOrigen\CadenaOrigenBuilder`
-    - `\CfdiUtils\CadenaOrigen\DefaultLocations`
-    - `\CfdiUtils\CadenaOrigen\CadenaOrigenLocations`
 - Remove `\CfdiUtils\PemPrivateKey\PemPrivateKey::isOpened` to `\CfdiUtils\PemPrivateKey\PemPrivateKey::isOpen`
 - Remove `CfdiUtils\ConsultaCfdiSat\Config::getWsdlUrl()`
 - Remove `static` methods from `\CfdiUtils\CfdiVersion`, instead create an instance of the class
@@ -49,6 +45,12 @@ The following changes apply only to development and has been applied to main bra
 
 - Upgrade `Eclipxe/XmlResourceRetriever` to version `2.0.0`.
 - Upgrade `Eclipxe/XmlSchemaValidator` to version `3.0.0`.
+
+### Removed classes
+
+- The class `CfdiUtils\CadenaOrigen\CadenaOrigenBuilder` has been removed.
+- The class `CfdiUtils\CadenaOrigen\CadenaOrigenLocations` has been removed.
+- The class `CfdiUtils\CadenaOrigen\DefaultLocations` has been removed.
 
 
 ## Version 2.15.1 2021-04-04
