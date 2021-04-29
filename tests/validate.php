@@ -1,5 +1,8 @@
 <?php
 
+use CfdiUtils\CfdiValidator33;
+use PhpCfdi\CfdiCleaner\Cleaner;
+
 require __DIR__ . '/bootstrap.php';
 
 exit(call_user_func(function (string $command, string ...$arguments): int {
@@ -36,14 +39,14 @@ exit(call_user_func(function (string $command, string ...$arguments): int {
         return 0;
     }
 
-    $validator = new \CfdiUtils\CfdiValidator33();
+    $validator = new CfdiValidator33();
     if ($noCache) {
         $validator->getXmlResolver()->setLocalPath('');
     }
     foreach ($files as $file) {
         $xmlContent = strval(file_get_contents($file));
         if ($clean) {
-            $xmlContent = \CfdiUtils\Cleaner\Cleaner::staticClean($xmlContent);
+            $xmlContent = Cleaner::staticClean($xmlContent);
         }
         $asserts = $validator->validateXml($xmlContent);
         print_r(array_filter([

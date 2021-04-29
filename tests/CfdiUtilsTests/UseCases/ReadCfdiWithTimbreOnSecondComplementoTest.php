@@ -7,12 +7,12 @@ use CfdiUtils\CadenaOrigen\DOMBuilder;
 use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\Cfdi;
 use CfdiUtils\CfdiCreator33;
-use CfdiUtils\Cleaner\Cleaner;
 use CfdiUtils\ConsultaCfdiSat\RequestParameters;
 use CfdiUtils\Elements\Tfd11\TimbreFiscalDigital;
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Utils\Format;
 use CfdiUtilsTests\TestCase;
+use PhpCfdi\CfdiCleaner\XmlDocumentCleaners\CollapseComplemento;
 
 final class ReadCfdiWithTimbreOnSecondComplementoTest extends TestCase
 {
@@ -39,11 +39,14 @@ final class ReadCfdiWithTimbreOnSecondComplementoTest extends TestCase
         );
 
         // perform cleaning
-        $cleaner = new Cleaner($dirtyXml);
-        $cleaner->collapseComprobanteComplemento();
-        $cleanXml = $cleaner->retrieveXml();
-        $cleanSourceString = $this->obtainSourceString($dirtyXml);
-        $cleanCfdi = Cfdi::newFromString($cleanXml);
+        $cleanDocument = $dirtyCfdi->getDocument();
+        $cleaner = new CollapseComplemento();
+        $cleaner->clean($cleanDocument);
+
+        // open the clean XML
+        $cleanCfdi = new Cfdi($cleanDocument);
+        $cleanXml = $cleanCfdi->getSource();
+        $cleanSourceString = $this->obtainSourceString($cleanXml);
         $this->assertCount(1, $cleanCfdi->getNode()->searchNodes('cfdi:Complemento'));  // expected 1 complemento
         $this->assertSame($dirtySourceString, $cleanSourceString, 'Source string after cleaning must be the same');
 

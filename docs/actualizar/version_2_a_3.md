@@ -3,6 +3,15 @@
 !!! note ""
     Este documento aún no está terminado, conforme se realicen los cambios es necesario actualizar este documento.
 
+## Separación del limpiador a `phpcfdi/cfdi-cleaner`
+
+La funcionalidad de limpieza de CFDI se movió a [`phpcfdi/cfdi-cleaner`](https://github.com/phpcfdi/cfdi-cleaner).
+
+```diff
+- $xmlContent = \CfdiUtils\Cleaner\Cleaner::staticClean($xmlContent);
++ $xmlContent = \PhpCfdi\CfdiCleaner\Cleaner::staticClean($xmlContent);
+```
+
 ## Uso de `XmlResourceRetriever`
 
 La librería `eclipxe/XmlResourceRetriever` se cambió a la versión `3.0.0`.

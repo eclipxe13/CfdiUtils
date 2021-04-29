@@ -148,7 +148,8 @@ duplicar el trabajo de averiguar la versión.
 Es frecuente que los archivos CFDI contengan errores.
 Para entender más el tema vea el artículo de [Limpieza de un CFDI](limpieza-cfdi.md).
 
-Si está leyendo un CFDI recibido o no confiable este es un ejemplo de cómo limpiar y crear el objeto CFDI:
+Si está leyendo un CFDI recibido o no confiable este es un ejemplo de cómo limpiar y crear el objeto CFDI.
+Nótese que la limpieza propiamente se está haciendo a través de la librería `phpcfdi/cfdi-cleaner`.
 
 ```php
 <?php
@@ -157,7 +158,7 @@ $cfdiFile = '/cfdi/recibidos/2018/FEI-456823.xml';
 $xmlContents = file_get_contents($cfdiFile);
 
 // limpiar el cfdi
-$xmlContents = \CfdiUtils\Cleaner\Cleaner::staticClean($xmlContents);
+$xmlContents = \PhpCfdi\CfdiCleaner\Cleaner::staticClean($xmlContents);
 
 // crear la instancia del objeto CFDI
 $cfdi = \CfdiUtils\Cfdi::newFromString($xmlContents);
