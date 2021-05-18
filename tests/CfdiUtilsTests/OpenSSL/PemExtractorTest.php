@@ -67,7 +67,7 @@ final class PemExtractorTest extends TestCase
 
     public function testExtractCertificateWithPublicKey()
     {
-        $pemcerpub = $this->utilAsset('certs/CSD01_AAA010101AAA.cer.pem');
+        $pemcerpub = $this->utilAsset('certs/EKU9003173C9.cer.pem');
         $contents = strval(file_get_contents($pemcerpub));
 
         $extractor = new PemExtractor($contents);
@@ -79,7 +79,7 @@ final class PemExtractorTest extends TestCase
 
     public function testExtractPrivateKey()
     {
-        $pemkey = $this->utilAsset('certs/CSD01_AAA010101AAA.key.pem');
+        $pemkey = $this->utilAsset('certs/EKU9003173C9.key.pem');
         $contents = strval(file_get_contents($pemkey));
 
         $extractor = new PemExtractor($contents);
@@ -88,7 +88,7 @@ final class PemExtractorTest extends TestCase
 
     public function testUsingBinaryFileExtractNothing()
     {
-        $pemkey = $this->utilAsset('certs/CSD01_AAA010101AAA.key');
+        $pemkey = $this->utilAsset('certs/EKU9003173C9.key');
         $contents = strval(file_get_contents($pemkey));
 
         $extractor = new PemExtractor($contents);

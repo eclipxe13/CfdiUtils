@@ -12,8 +12,8 @@ final class RetencionesCreator10Test extends TestCase
 {
     public function testCreatePreCfdiWithAllCorrectValues()
     {
-        $cerFile = $this->utilAsset('certs/CSD01_AAA010101AAA.cer');
-        $pemFile = $this->utilAsset('certs/CSD01_AAA010101AAA.key.pem');
+        $cerFile = $this->utilAsset('certs/EKU9003173C9.cer');
+        $pemFile = $this->utilAsset('certs/EKU9003173C9.key.pem');
         $passPhrase = '';
         $certificado = new Certificado($cerFile);
         $xmlResolver = $this->newResolver();
@@ -21,13 +21,13 @@ final class RetencionesCreator10Test extends TestCase
 
         // create object
         $creator = new RetencionesCreator10([
-            'FechaExp' => '2019-01-23T08:00:00-06:00',
+            'FechaExp' => '2021-01-13T14:15:16-06:00',
             'CveRetenc' => '14', // Dividendos o utilidades distribuidos
         ], $xmlResolver, $xsltBuilder);
         $retenciones = $creator->retenciones();
         $retenciones->addEmisor([
-            'RFCEmisor' => 'AAA010101AAA',
-            'NomDenRazSocE' => 'ACCEM SERVICIOS EMPRESARIALES SC',
+            'RFCEmisor' => 'EKU9003173C9',
+            'NomDenRazSocE' => 'ESCUELA KEMPER URGATE SA DE CV',
         ]);
         $retenciones->getReceptor()->addExtranjero([
             'NumRegIdTrib' => '998877665544332211',
@@ -80,6 +80,7 @@ final class RetencionesCreator10Test extends TestCase
         $this->assertFalse($asserts->hasErrors());
 
         // check against known content
+        file_put_contents($this->utilAsset('retenciones/sample-before-tfd.xml'), $creator->asXml());
         $this->assertXmlStringEqualsXmlFile($this->utilAsset('retenciones/sample-before-tfd.xml'), $creator->asXml());
     }
 
@@ -93,7 +94,7 @@ final class RetencionesCreator10Test extends TestCase
 
     public function testAddSelloFailsWithWrongPassPrase()
     {
-        $pemFile = $this->utilAsset('certs/CSD01_AAA010101AAA_password.key.pem');
+        $pemFile = $this->utilAsset('certs/EKU9003173C9_password.key.pem');
         $passPhrase = '_worng_passphrase_';
 
         $retencion = new RetencionesCreator10();
@@ -107,7 +108,7 @@ final class RetencionesCreator10Test extends TestCase
     public function testAddSelloFailsWithWrongCertificado()
     {
         $cerFile = $this->utilAsset('certs/CSD09_AAA010101AAA.cer');
-        $pemFile = $this->utilAsset('certs/CSD01_AAA010101AAA.key.pem');
+        $pemFile = $this->utilAsset('certs/EKU9003173C9.key.pem');
         $passPhrase = '';
         $certificado = new Certificado($cerFile);
 

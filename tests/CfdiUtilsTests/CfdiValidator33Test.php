@@ -47,9 +47,6 @@ final class CfdiValidator33Test extends TestCase
         // Is already known that TFDSELLO01 is failing.
         // We are not creating the SelloSAT for cfdi33-valid.xml file
         $asserts->removeByCode('TFDSELLO01');
-        // Is already known that EMISORRFC01 is failing.
-        // A valid RFC is not AAA010101AAA
-        $asserts->removeByCode('EMISORRFC01');
         $this->assertFalse(
             $asserts->hasErrors(),
             'The validation of an expected cfdi33 valid file fails,'
@@ -65,7 +62,7 @@ final class CfdiValidator33Test extends TestCase
     public function procedureCreateSelloAgainOnValidCdfi33()
     {
         $cfdiFile = $this->utilAsset('cfdi33-valid.xml');
-        $pemKeyFile = $this->utilAsset('certs/CSD01_AAA010101AAA.key.pem');
+        $pemKeyFile = $this->utilAsset('certs/EKU9003173C9.key.pem');
         $node = XmlNodeUtils::nodeFromXmlString(strval(file_get_contents($cfdiFile)));
         $creator = CfdiCreator33::newUsingNode($node);
         $comprobante = $creator->comprobante();

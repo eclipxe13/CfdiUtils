@@ -155,7 +155,7 @@ use \CfdiUtils\ConsultaCfdiSat\RequestParameters;
 // los datos del cfdi que se van a consultar
 $request = new RequestParameters(
     '3.3', // version del cfdi
-    'AAA010101AAA', // rfc emisor
+    'EKU9003173C9', // rfc emisor
     'COSC8001137NA', // rfc receptor
     '1,234.5678', // total (puede contener comas de millares)
     'CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC', // UUID

@@ -12,14 +12,14 @@ final class RequestParametersTest extends TestCase
     {
         $parameters = new RequestParameters(
             '3.3',
-            'AAA010101AAA',
+            'EKU9003173C9',
             'COSC8001137NA',
             '1,234.5678',
             'CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC',
             '0123456789'
         );
         $this->assertSame('3.3', $parameters->getVersion());
-        $this->assertSame('AAA010101AAA', $parameters->getRfcEmisor());
+        $this->assertSame('EKU9003173C9', $parameters->getRfcEmisor());
         $this->assertSame('COSC8001137NA', $parameters->getRfcReceptor());
         $this->assertSame('1,234.5678', $parameters->getTotal());
         $this->assertEqualsWithDelta(1234.5678, $parameters->getTotalFloat(), 0.0000001);
@@ -28,7 +28,7 @@ final class RequestParametersTest extends TestCase
 
         $expected33 = 'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx'
             . '?id=CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC'
-            . '&re=AAA010101AAA'
+            . '&re=EKU9003173C9'
             . '&rr=COSC8001137NA'
             . '&tt=1234.5678'
             . '&fe=23456789';
@@ -36,7 +36,7 @@ final class RequestParametersTest extends TestCase
         $this->assertSame($expected33, $parameters->expression());
 
         $expected32 = ''
-            . '?re=AAA010101AAA'
+            . '?re=EKU9003173C9'
             . '&rr=COSC8001137NA'
             . '&tt=0000001234.567800'
             . '&id=CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC';
@@ -51,7 +51,7 @@ final class RequestParametersTest extends TestCase
 
         new RequestParameters(
             '1.1',
-            'AAA010101AAA',
+            'EKU9003173C9',
             'COSC8001137NA',
             '1,234.5678',
             'CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC',
@@ -101,7 +101,7 @@ final class RequestParametersTest extends TestCase
     {
         $parameters = new RequestParameters(
             '3.3',
-            'AAA010101AAA',
+            'EKU9003173C9',
             'COSC8001137NA',
             $total,
             'CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC',

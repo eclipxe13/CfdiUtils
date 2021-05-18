@@ -81,12 +81,12 @@ $emisor['Curp'] = '...';
 $receptor = $nomina->addReceptor(['NumEmpleado' => 'JFIK000045']);
 
 // agregar con prefijo add (Subcontratacion es de múltiples)
-$receptor->addSubContratacion(['RfcLabora' => 'AAAA010101AAA', 'PorcentajeTiempo' => '50']); // devuelve SubContratacion
+$receptor->addSubContratacion(['RfcLabora' => 'EKU9003173C9', 'PorcentajeTiempo' => '50']); // devuelve SubContratacion
 $receptor->addSubContratacion(['RfcLabora' => 'XXXX010101XXX', 'PorcentajeTiempo' => '60']); // devuelve SubContratacion
 
 // agregar con prefijo multi (Subcontratacion es de múltiples)
 $receptor->multiSubContratacion(
-    ['RfcLabora' => 'AAAA010101AAA', 'PorcentajeTiempo' => '50'],
+    ['RfcLabora' => 'EKU9003173C9', 'PorcentajeTiempo' => '50'],
     ['RfcLabora' => 'XXXX010101XXX', 'PorcentajeTiempo' => '60']
 ); // devuelve Receptor (exactamente $receptor)
 ```
