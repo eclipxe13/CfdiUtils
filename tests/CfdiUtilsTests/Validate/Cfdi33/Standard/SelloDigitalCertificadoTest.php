@@ -26,7 +26,7 @@ final class SelloDigitalCertificadoTest extends ValidateTestCase
 
     protected function setUpCertificado(array $attributes = [])
     {
-        $cerfile = $this->utilAsset('certs/CSD01_AAA010101AAA.cer');
+        $cerfile = $this->utilAsset('certs/EKU9003173C9.cer');
         $certificado = new Certificado($cerfile);
         $cfdiCreator = new CfdiCreator33([], $certificado);
         $this->comprobante = $cfdiCreator->comprobante();
@@ -80,9 +80,9 @@ final class SelloDigitalCertificadoTest extends ValidateTestCase
     {
         $this->setUpCertificado();
         $emisor = $this->comprobante->searchNode('cfdi:Emisor');
-        //    add acentos, change case, and punctuation to original name
-        //                   ACCEM SERVICIOS EMPRESARIALES SC
-        $emisor['Nombre'] = 'Accem - SERVICIOS Empresariales, S. C.';
+        //    change case, and punctuation to original name
+        //                   ESCUELA KEMPER URGATE SA DE CV
+        $emisor['Nombre'] = 'ESCUELA - Kemper Urgate, S.A. DE C.V.';
 
         $this->runValidate();
 
@@ -91,7 +91,7 @@ final class SelloDigitalCertificadoTest extends ValidateTestCase
 
     public function testValidateBadLowerFecha()
     {
-        $validLowerDate = strtotime('2017-05-18 03:54:56');
+        $validLowerDate = strtotime('2019-06-17T19:44:13+00:00');
         $this->setUpCertificado(['Fecha' => Format::datetime($validLowerDate - 1)]);
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::error(), 'SELLO05');
@@ -100,7 +100,7 @@ final class SelloDigitalCertificadoTest extends ValidateTestCase
 
     public function testValidateOkLowerFecha()
     {
-        $validLowerDate = strtotime('2017-05-18 03:54:56');
+        $validLowerDate = strtotime('2019-06-17T19:44:14+00:00');
         $this->setUpCertificado(['Fecha' => Format::datetime($validLowerDate)]);
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::ok(), 'SELLO05');
@@ -109,7 +109,7 @@ final class SelloDigitalCertificadoTest extends ValidateTestCase
 
     public function testValidateBadHigherFecha()
     {
-        $validHigherDate = strtotime('2021-05-18 03:54:56');
+        $validHigherDate = strtotime('2023-06-17T19:44:15+00:00');
         $this->setUpCertificado(['Fecha' => Format::datetime($validHigherDate + 1)]);
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::ok(), 'SELLO05');
@@ -118,7 +118,7 @@ final class SelloDigitalCertificadoTest extends ValidateTestCase
 
     public function testValidateOkHigherFecha()
     {
-        $validHigherDate = strtotime('2021-05-18 03:54:56');
+        $validHigherDate = strtotime('2023-06-17T19:44:14+00:00');
         $this->setUpCertificado(['Fecha' => Format::datetime($validHigherDate)]);
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::ok(), 'SELLO05');

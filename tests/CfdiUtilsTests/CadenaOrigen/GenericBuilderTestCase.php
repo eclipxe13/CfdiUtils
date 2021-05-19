@@ -12,18 +12,20 @@ abstract class GenericBuilderTestCase extends TestCase
     abstract protected function createBuilder(): XsltBuilderInterface;
 
     /**
-     * The file cfdi33-valid-cadenaorigen.txt was created using the command line util saxonb-xslt
+     * The files cfdi33-real-cadenaorigen.txt was created using the command line util saxonb-xslt
      * available in debian in the package libsaxonb-java.
-     * To recreate these files use the method procedureCreateCadenaOrigenExpectedContent
      *
-     * @see procedureCreateCadenaOrigenExpectedContent
+     * saxonb-xslt -s:cfdi33-real.xml \
+     *     -xsl:http://www.sat.gob.mx/sitio_internet/cfd/3/cadenaoriginal_3_3/cadenaoriginal_3_3.xslt \
+     *     -warnings:silent > cfdi33-real-cadenaorigen.txt
+     *
      * @return array
      */
     public function providerCfdiToCadenaOrigen(): array
     {
         return [
             ['cfdi32-real.xml', 'cfdi32-real-cadenaorigen.txt', CfdiDefaultLocations::XSLT_32],
-            ['cfdi33-valid.xml', 'cfdi33-valid-cadenaorigen.txt', CfdiDefaultLocations::XSLT_33],
+            ['cfdi33-real.xml', 'cfdi33-real-cadenaorigen.txt', CfdiDefaultLocations::XSLT_33],
         ];
     }
 

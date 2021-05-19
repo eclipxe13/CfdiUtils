@@ -93,23 +93,23 @@ para ser correctamente interpretado por esta clase (en realidad por PHP).
 
 ```shell
 openssl x509 -nameopt utf8,sep_multiline,lname -inform DER -noout -dates -serial \
-  -subject -fingerprint -pubkey -in CSD01_AAA010101AAA.cer
+  -subject -fingerprint -pubkey -in EKU9003173C9.cer
 ```
 
 - Convertir la llave privada a un archivo PEM sin contraseña:
 
 ```shell
-openssl pkcs8 -inform DER -in CSD01_AAA010101AAA.key -out CSD01_AAA010101AAA.key.pem
+openssl pkcs8 -inform DER -in EKU9003173C9.key -out EKU9003173C9.key.pem
 ```
 
 - Establecer la contraseña a un archivo PEM:
 
 ```shell
-openssl rsa -in CSD01_AAA010101AAA.key.pem -des3 -out CSD01_AAA010101AAA_password.key.pem
+openssl rsa -in EKU9003173C9.key.pem -des3 -out EKU9003173C9_password.key.pem
 ```
 
 - Convertir el certificado a formato PEM:
 
 ```shell
-openssl x509 -inform DER -outform PEM -in CSD01_AAA010101AAA.cer -pubkey -out CSD01_AAA010101AAA.cer.pem
+openssl x509 -inform DER -outform PEM -in EKU9003173C9.cer -pubkey -out EKU9003173C9.cer.pem
 ```

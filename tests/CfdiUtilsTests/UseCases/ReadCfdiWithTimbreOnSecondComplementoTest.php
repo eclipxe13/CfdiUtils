@@ -71,8 +71,8 @@ final class ReadCfdiWithTimbreOnSecondComplementoTest extends TestCase
 
     protected function createCfdiForTesting(string $uuid): string
     {
-        $cerfile = $this->utilAsset('certs/CSD01_AAA010101AAA.cer');
-        $keyfile = $this->utilAsset('certs/CSD01_AAA010101AAA.key.pem');
+        $cerfile = $this->utilAsset('certs/EKU9003173C9.cer');
+        $keyfile = $this->utilAsset('certs/EKU9003173C9.key.pem');
         $certificado = new Certificado($cerfile);
         $fecha = strtotime('now - 10 minutes');
 
@@ -138,6 +138,10 @@ final class ReadCfdiWithTimbreOnSecondComplementoTest extends TestCase
         // validar que no tiene errores
         $asserts = $creator->validate();
         if ($asserts->hasErrors() || $asserts->hasWarnings()) {
+            print_r([
+                'warnings' => $asserts->warnings(),
+                'errors' => $asserts->errors(),
+            ]);
             throw new \RuntimeException('The PRECFDI created for testing has errors');
         }
 

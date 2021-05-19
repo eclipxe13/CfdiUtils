@@ -29,11 +29,11 @@ final class CfdiCreatorFromExistentTest extends TestCase
         $xmlSource = strval(file_get_contents($this->utilAsset('cfdi33-real.xml')));
         $nodeSource = XmlNodeUtils::nodeFromXmlString($xmlSource);
         $creator = CfdiCreator33::newUsingNode($nodeSource);
-        $creator->putCertificado(new Certificado($this->utilAsset('certs/CSD01_AAA010101AAA.cer')), true);
+        $creator->putCertificado(new Certificado($this->utilAsset('certs/EKU9003173C9.cer')), true);
 
         $comprobante = $creator->comprobante();
         $this->assertCount(1, $comprobante->searchNodes('cfdi:Emisor'));
-        $this->assertSame('ACCEM SERVICIOS EMPRESARIALES SC', $comprobante->searchAttribute('cfdi:Emisor', 'Nombre'));
-        $this->assertSame('AAA010101AAA', $comprobante->searchAttribute('cfdi:Emisor', 'Rfc'));
+        $this->assertSame('ESCUELA KEMPER URGATE SA DE CV', $comprobante->searchAttribute('cfdi:Emisor', 'Nombre'));
+        $this->assertSame('EKU9003173C9', $comprobante->searchAttribute('cfdi:Emisor', 'Rfc'));
     }
 }

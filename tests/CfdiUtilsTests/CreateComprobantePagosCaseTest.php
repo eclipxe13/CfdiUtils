@@ -9,13 +9,13 @@ use CfdiUtils\Utils\Format;
 
 final class CreateComprobantePagosCaseTest extends TestCase
 {
-    public function testMoveSatDefinitionsToComprobante()
+    public function testCreateComprobantePagos()
     {
-        $cerfile = $this->utilAsset('certs/CSD01_AAA010101AAA.cer');
-        $keyfile = $this->utilAsset('certs/CSD01_AAA010101AAA.key.pem');
+        $cerfile = $this->utilAsset('certs/EKU9003173C9.cer');
+        $keyfile = $this->utilAsset('certs/EKU9003173C9.key.pem');
         $certificado = new Certificado($cerfile);
-        $fecha = strtotime('2018-03-09 10:11:12');
-        $fechaPago = strtotime('2018-02-14 12:00:00');
+        $fecha = strtotime('2021-01-13 14:15:16');
+        $fechaPago = strtotime('2020-12-13 17:18:19');
 
         $creator = new CfdiCreator33();
         $comprobante = $creator->comprobante();
@@ -30,8 +30,8 @@ final class CreateComprobantePagosCaseTest extends TestCase
         $creator->putCertificado($certificado, false);
 
         $comprobante->addEmisor([
-            'Nombre' => 'ACCEM SERVICIOS EMPRESARIALES SC',
-            'Rfc' => 'AAA010101AAA',
+            'Nombre' => 'ESCUELA KEMPER URGATE SA DE CV',
+            'Rfc' => 'EKU9003173C9',
             'RegimenFiscal' => '601',
         ]);
         $comprobante->addReceptor(['Rfc' => 'COSC8001137NA', 'UsoCFDI' => 'P01']);
@@ -91,6 +91,7 @@ final class CreateComprobantePagosCaseTest extends TestCase
 
         // perform validations, it should not have any error nor warnings
         $findings = $creator->validate();
+
         $this->assertFalse(
             $findings->hasErrors() || $findings->hasWarnings(),
             'Created document must not contain errors, fix your test specimen'
@@ -98,10 +99,6 @@ final class CreateComprobantePagosCaseTest extends TestCase
 
         // test that the file is the same as expected
         $expectedFile = $this->utilAsset('created-pago-with-ns-at-root.xml');
-        $this->assertXmlStringEqualsXmlFile(
-            $expectedFile,
-            $creator->asXml(),
-            'The created xml does not have root elements at root level'
-        );
+        $this->assertXmlStringEqualsXmlFile($expectedFile, $creator->asXml());
     }
 }

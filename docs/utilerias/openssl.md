@@ -125,16 +125,16 @@ Además de que `openssl` en versiones anteriores no contaba con este soporte.
 $openssl = new \CfdiUtils\OpenSSL\OpenSSL();
 
 // Leer un certificado desde un archivo con finales de línea convertidas a PHP_EOL
-$cerFile = 'AAAA010101AAA.cer.pem';
+$cerFile = 'EKU9003173C9.cer.pem';
 $certificate = $openssl->readPemFile($cerFile)->certificate();
 
 // Leer una llave privada desde una cadena de caracteres con finales de línea convertidas a PHP_EOL
-$keyFile = 'AAAA010101AAA.key.pem';
+$keyFile = 'EKU9003173C9.key.pem';
 $keyContents = file_get_contents($keyFile);
 $privateKey = $openssl->readPemContents($keyContents)->privateKey();
 
 // Leer un archivo PEM y averiguar sus contenidos:
-$pemFile = 'AAAA010101AAA.pem';
+$pemFile = 'EKU9003173C9.pem';
 $pem = $openssl->readPemFile($pemFile);
 
 // usando hasCertificate
@@ -176,7 +176,7 @@ Contenidos antes de primer sección son descartados
 FOO-BAR
 -----END CERTIFICATE-----
 -----BEGIN PUBLIC KEY-----
-Esta sección contiene una "o" acentuada y comillas dobles por lo que simplemente es descartada  
+Esta sección contiene una "o" acentuada y comillas dobles por lo que simplemente es descartada
 -----END PUBLIC KEY-----
 Contenidos entre secciones son descartados
 -----BEGIN SOMETHING-----
@@ -198,8 +198,8 @@ Lo único que hace es almacenar la información encontrada en un solo objeto.
 
 ```php
 <?php
-$cerFile = 'AAAA010101AAA.cer';
-$cerContents = file_get_contents('AAAA010101AAA.cer');
+$cerFile = 'EKU9003173C9.cer';
+$cerContents = file_get_contents('EKU9003173C9.cer');
 $openssl = new \CfdiUtils\OpenSSL\OpenSSL();
 
 // guardar el certificado en PEM a partir del archivo DER usando openssl
@@ -235,8 +235,8 @@ Este método llama a `openssl`.
 
 ```php
 <?php
-$cerFile = 'AAAA010101AAA.cer.pem';
-$keyDerFile = 'AAAA010101AAA.key';
+$cerFile = 'EKU9003173C9.cer.pem';
+$keyDerFile = 'EKU9003173C9.key';
 $keyPemFile = $keyDerFile . '.pem';
 $keyPemFileUnprotected = $keyDerFile . '.unprotected.pem';
 $keyDerPass = '12345678a';

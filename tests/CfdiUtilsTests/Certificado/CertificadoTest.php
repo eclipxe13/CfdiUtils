@@ -11,42 +11,42 @@ final class CertificadoTest extends TestCase
     {
         // information checked using
         // openssl x509 -nameopt utf8,sep_multiline,lname -inform DER -noout -dates -serial -subject \
-        //         -fingerprint -pubkey -in tests/assets/certs/CSD01_AAA010101AAA.cer
+        //         -fingerprint -pubkey -in tests/assets/certs/EKU9003173C9.cer
         $expectedPublicKey = <<< EOD
 -----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAl1RywcgQiDCK+8Bqe0ad
-hUg7f7vJN0PW2Qqilsv60pKNEWjUSs90YnE/eDFPk74AIgNBc34dL24xYNidpRFq
-VIgX0I4UJ2H84fY+f5SaQ3hy6WvYNqcrO1Ug7yJ1czpz1oefmE6juEPFcwLe464Z
-XcVLg5uTFNX702y84BXaUx7btIetIHQOG4u6tRtnBeb7+vh23Pdva4uAFz4OLL3k
-8b4wi7ug0ozz1oE0ZyNMnD72T5bMmI93dmlCAh51gEP7xBbGVgKDGGe1reT3KWBc
-phcJiTSTSpq68EnWNJFV/kGOMhRs6y1pCnn2eSAeHjlz2CfAlFXrXw1bR8x4PO4p
-HQIDAQAB
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjdKXiqYHzi++YmEb9X6q
+vqFWLCz1VEfxom2JhinPSJxxcuZWBejk2I5yCL5pDnUaG2xpQlMTkV/7S7JfGGvY
+JumKO4R5zg0QSA7qdxiEhcwf/ekfSvzM2EDnLHDCKAQwEWsnJy78uxZTLzu/65VZ
+7EgEcWUTvCs/GZJLI9s6XmKY2SMmv9+vfqBqkJNXE0ZB6OfSbyeE325P94iMn+B/
+yJ4vZwXvXGFqNDJyqG+ww7f77HYubQPJjLQPedy2qTcgmSAwkUEJVBjYA6mPf/Be
+ZlL1YJHHM7CIBnb3/bzED0n944woio+4+rnMZdfhcCVpm74DZomlEf9KuJtq5u/J
+RQIDAQAB
 -----END PUBLIC KEY-----
 
 EOD;
-        $cerfile = $this->utilAsset('certs/CSD01_AAA010101AAA.cer');
+        $cerfile = $this->utilAsset('certs/EKU9003173C9.cer');
 
         $certificado = new Certificado($cerfile);
 
         $this->assertSame($cerfile, $certificado->getFilename());
         $certificateName = implode('', [
-            '/CN=ACCEM SERVICIOS EMPRESARIALES SC',
-            '/name=ACCEM SERVICIOS EMPRESARIALES SC',
-            '/O=ACCEM SERVICIOS EMPRESARIALES SC',
-            '/x500UniqueIdentifier=AAA010101AAA / HEGT7610034S2',
-            '/serialNumber= / HEGT761003MDFRNN09',
-            '/OU=CSD01_AAA010101AAA',
+            '/CN=ESCUELA KEMPER URGATE SA DE CV',
+            '/name=ESCUELA KEMPER URGATE SA DE CV',
+            '/O=ESCUELA KEMPER URGATE SA DE CV',
+            '/x500UniqueIdentifier=EKU9003173C9 / XIQB891116QE4',
+            '/serialNumber= / XIQB891116MGRMZR05',
+            '/OU=Escuela Kemper Urgate',
         ]);
         $this->assertSame($certificateName, $certificado->getCertificateName());
-        $this->assertSame('ACCEM SERVICIOS EMPRESARIALES SC', $certificado->getName());
-        $this->assertSame('AAA010101AAA', $certificado->getRfc());
-        $this->assertSame('30001000000300023708', $certificado->getSerial());
+        $this->assertSame('ESCUELA KEMPER URGATE SA DE CV', $certificado->getName());
+        $this->assertSame('EKU9003173C9', $certificado->getRfc());
+        $this->assertSame('30001000000400002434', $certificado->getSerial());
         $this->assertSame(
-            '3330303031303030303030333030303233373038',
+            '3330303031303030303030343030303032343334',
             $certificado->getSerialObject()->getHexadecimal()
         );
-        $this->assertSame(strtotime('2017-05-18T03:54:56+00:00'), $certificado->getValidFrom());
-        $this->assertSame(strtotime('2021-05-18T03:54:56+00:00'), $certificado->getValidTo());
+        $this->assertSame(strtotime('2019-06-17T14:44:14-05:00'), $certificado->getValidFrom());
+        $this->assertSame(strtotime('2023-06-17T14:44:14-05:00'), $certificado->getValidTo());
         $this->assertSame($expectedPublicKey, $certificado->getPubkey());
     }
 
@@ -54,7 +54,7 @@ EOD;
     {
         $dataFile = $this->utilAsset('certs/data-to-sign.txt');
         $signatureFile = $this->utilAsset('certs/data-sha256.bin');
-        $certificadoFile = $this->utilAsset('certs/CSD01_AAA010101AAA.cer');
+        $certificadoFile = $this->utilAsset('certs/EKU9003173C9.cer');
 
         $certificado = new Certificado($certificadoFile);
         $verify = $certificado->verify(
@@ -67,7 +67,7 @@ EOD;
 
     public function testConstructUsingPemContents()
     {
-        $pemfile = $this->utilAsset('certs/CSD01_AAA010101AAA.cer.pem');
+        $pemfile = $this->utilAsset('certs/EKU9003173C9.cer.pem');
         $contents = file_get_contents($pemfile) ?: '';
 
         $fromFile = new Certificado($pemfile);
@@ -80,7 +80,7 @@ EOD;
     {
         $dataFile = $this->utilAsset('certs/data-to-sign.txt');
         $signatureFile = $this->utilAsset('certs/data-sha256.bin');
-        $certificadoFile = $this->utilAsset('certs/CSD01_AAA010101AAA.cer');
+        $certificadoFile = $this->utilAsset('certs/EKU9003173C9.cer');
 
         $certificado = new Certificado($certificadoFile);
         $verify = $certificado->verify(
@@ -137,8 +137,8 @@ EOD;
         $previousPath = getcwd();
         chdir($workingdir);
         try {
-            $certificate = new Certificado('00001000000403258748.cer');
-            $this->assertSame('00001000000403258748', $certificate->getSerial());
+            $certificate = new Certificado('EKU9003173C9.cer');
+            $this->assertSame('30001000000400002434', $certificate->getSerial());
         } finally {
             chdir($previousPath);
         }
@@ -146,15 +146,15 @@ EOD;
 
     public function testConstructWithDerCertificateContentsThrowsException()
     {
-        $file = $this->utilAsset('certs/CSD01_AAA010101AAA.cer');
+        $file = $this->utilAsset('certs/EKU9003173C9.cer');
         $this->expectException(\UnexpectedValueException::class);
         new Certificado(file_get_contents($file) ?: '');
     }
 
     public function testBelogsToReturnsTrueWithItsCertificate()
     {
-        $certificateFile = $this->utilAsset('certs/CSD01_AAA010101AAA.cer');
-        $pemKeyFile = $this->utilAsset('certs/CSD01_AAA010101AAA.key.pem');
+        $certificateFile = $this->utilAsset('certs/EKU9003173C9.cer');
+        $pemKeyFile = $this->utilAsset('certs/EKU9003173C9.key.pem');
         $certificate = new Certificado($certificateFile);
         $this->assertTrue($certificate->belongsTo($pemKeyFile));
     }
@@ -163,15 +163,15 @@ EOD;
     {
         // the cer file is different from previous test
         $certificateFile = $this->utilAsset('certs/CSD09_AAA010101AAA.cer');
-        $pemKeyFile = $this->utilAsset('certs/CSD01_AAA010101AAA.key.pem');
+        $pemKeyFile = $this->utilAsset('certs/EKU9003173C9.key.pem');
         $certificate = new Certificado($certificateFile);
         $this->assertFalse($certificate->belongsTo($pemKeyFile));
     }
 
     public function testBelongsToWithPasswordProtectedFile()
     {
-        $certificateFile = $this->utilAsset('certs/CSD01_AAA010101AAA.cer');
-        $pemKeyFile = $this->utilAsset('certs/CSD01_AAA010101AAA_password.key.pem');
+        $certificateFile = $this->utilAsset('certs/EKU9003173C9.cer');
+        $pemKeyFile = $this->utilAsset('certs/EKU9003173C9_password.key.pem');
         $certificate = new Certificado($certificateFile);
 
         $this->assertTrue($certificate->belongsTo($pemKeyFile, '12345678a'));
@@ -179,8 +179,8 @@ EOD;
 
     public function testBelongsToWithPasswordProtectedFileButWrongPassword()
     {
-        $certificateFile = $this->utilAsset('certs/CSD01_AAA010101AAA.cer');
-        $pemKeyFile = $this->utilAsset('certs/CSD01_AAA010101AAA_password.key.pem');
+        $certificateFile = $this->utilAsset('certs/EKU9003173C9.cer');
+        $pemKeyFile = $this->utilAsset('certs/EKU9003173C9_password.key.pem');
         $certificate = new Certificado($certificateFile);
 
         $this->expectException(\RuntimeException::class);
@@ -191,7 +191,7 @@ EOD;
 
     public function testBelongsToWithEmptyFile()
     {
-        $certificateFile = $this->utilAsset('certs/CSD01_AAA010101AAA.cer');
+        $certificateFile = $this->utilAsset('certs/EKU9003173C9.cer');
         $pemKeyFile = $this->utilAsset('empty.bin');
         $certificate = new Certificado($certificateFile);
 
@@ -211,7 +211,7 @@ EOD;
     public function testGetSerialObjectReturnsACopyOfTheObjectInsteadTheSameObject()
     {
         // remove this test on version 3 when the object SerialNumber is immutable
-        $certificateFile = $this->utilAsset('certs/00001000000301246267.cer');
+        $certificateFile = $this->utilAsset('certs/EKU9003173C9.cer');
         $certificate = new Certificado($certificateFile);
 
         $first = $certificate->getSerialObject();

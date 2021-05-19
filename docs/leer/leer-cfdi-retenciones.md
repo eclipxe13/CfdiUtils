@@ -113,9 +113,9 @@ $reader = \CfdiUtils\Retenciones\Retenciones::newFromString($xmlContent);
 
 // obtener el nodo para lectura formal
 $nodeRetenciones = $reader->getNode();
-echo $nodeRetenciones->searchAttribute('retenciones:Emisor', 'RFCEmisor'); // AAA010101AAA
+echo $nodeRetenciones->searchAttribute('retenciones:Emisor', 'RFCEmisor'); // EKU9003173C9
 
 // obtener el QuickReader para lectura rápida
 $qrRetenciones = $reader->getQuickReader();
-echo $qrRetenciones->emisor['rfcemisor']; // AAA010101AAA
+echo $qrRetenciones->emisor['rfcemisor']; // EKU9003173C9
 ```

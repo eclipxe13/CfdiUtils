@@ -23,7 +23,7 @@ final class OpenSSLTest extends TestCase
 
     public function testReadPemFile()
     {
-        $pemcer = $this->utilAsset('certs/CSD01_AAA010101AAA.cer.pem');
+        $pemcer = $this->utilAsset('certs/EKU9003173C9.cer.pem');
         $openssl = new OpenSSL();
         $pem = $openssl->readPemFile($pemcer);
         $this->assertTrue($pem->hasPublicKey());
@@ -34,9 +34,9 @@ final class OpenSSLTest extends TestCase
     public function testCertificateConvertContentsDerToPem()
     {
         $openssl = new OpenSSL();
-        $cerFile = $this->utilAsset('certs/CSD01_AAA010101AAA.cer');
+        $cerFile = $this->utilAsset('certs/EKU9003173C9.cer');
         $cerContents = strval(file_get_contents($cerFile));
-        $pemFile = $this->utilAsset('certs/CSD01_AAA010101AAA.cer.pem');
+        $pemFile = $this->utilAsset('certs/EKU9003173C9.cer.pem');
         $expected = $openssl->readPemFile($pemFile)->certificate();
 
         $converted = $openssl->derCerConvertPhp($cerContents);
@@ -47,9 +47,9 @@ final class OpenSSLTest extends TestCase
     public function testCertificateConvertFilesDerToPem()
     {
         $openssl = new OpenSSL();
-        $keyFile = $this->utilAsset('certs/CSD01_AAA010101AAA.cer');
+        $keyFile = $this->utilAsset('certs/EKU9003173C9.cer');
         $cerContents = strval(file_get_contents($keyFile));
-        $pemFile = $this->utilAsset('certs/CSD01_AAA010101AAA.cer.pem');
+        $pemFile = $this->utilAsset('certs/EKU9003173C9.cer.pem');
         $expected = $openssl->readPemFile($pemFile)->certificate();
 
         $converted = $openssl->derCerConvertInOut($cerContents);
@@ -60,8 +60,8 @@ final class OpenSSLTest extends TestCase
     public function testPrivateKeyConvertDerToPem()
     {
         $openssl = new OpenSSL();
-        $cerFile = $this->utilAsset('certs/CSD01_AAA010101AAA.key');
-        $pemFile = $this->utilAsset('certs/CSD01_AAA010101AAA.key.pem');
+        $cerFile = $this->utilAsset('certs/EKU9003173C9.key');
+        $pemFile = $this->utilAsset('certs/EKU9003173C9.key.pem');
         $expected = $openssl->readPemFile($pemFile)->privateKey();
 
         $converted = $openssl->derKeyConvertOut($cerFile, '12345678a');
@@ -72,7 +72,7 @@ final class OpenSSLTest extends TestCase
     public function testPrivateKeyConvertDerToPemThrowsExceptionUsingInvalidPassPhrase()
     {
         $openssl = new OpenSSL();
-        $cerFile = $this->utilAsset('certs/CSD01_AAA010101AAA.key');
+        $cerFile = $this->utilAsset('certs/EKU9003173C9.key');
         $this->expectException(OpenSSLCallerException::class);
         $openssl->derKeyConvertOut($cerFile, 'invalid-passphrase');
     }
@@ -80,9 +80,9 @@ final class OpenSSLTest extends TestCase
     public function providerPrivateKeyProtectPem(): array
     {
         return [
-            'protect' => ['certs/CSD01_AAA010101AAA.key.pem', '', 'foo-bar-baz'],
-            'change' => ['certs/CSD01_AAA010101AAA_password.key.pem', '12345678a', 'foo-bar-baz'],
-            'unprotect' => ['certs/CSD01_AAA010101AAA_password.key.pem', '12345678a', ''],
+            'protect' => ['certs/EKU9003173C9.key.pem', '', 'foo-bar-baz'],
+            'change' => ['certs/EKU9003173C9_password.key.pem', '12345678a', 'foo-bar-baz'],
+            'unprotect' => ['certs/EKU9003173C9_password.key.pem', '12345678a', ''],
         ];
     }
 
@@ -111,7 +111,7 @@ final class OpenSSLTest extends TestCase
      */
     public function testPrivateKeyProtectDer(string $outPassPhrase)
     {
-        $derFile = 'certs/CSD01_AAA010101AAA.key';
+        $derFile = 'certs/EKU9003173C9.key';
         $inPassPhrase = '12345678a';
         $openssl = new OpenSSL();
         $derFile = $this->utilAsset($derFile);
@@ -124,7 +124,7 @@ final class OpenSSLTest extends TestCase
 
     public function testPrivateKeyUnprotectPem()
     {
-        $pemFile = $this->utilAsset('certs/CSD01_AAA010101AAA_password.key.pem');
+        $pemFile = $this->utilAsset('certs/EKU9003173C9_password.key.pem');
         $pemContents = strval(file_get_contents($pemFile));
         $inPassPhrase = '12345678a';
         $openssl = new OpenSSL();

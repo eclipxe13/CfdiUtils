@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-return PhpCsFixer\Config::create()
+return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setCacheFile(__DIR__ . '/build/.php_cs.cache')
     ->setRules([
@@ -16,7 +16,7 @@ return PhpCsFixer\Config::create()
         'no_extra_blank_lines' => true,
         'function_typehint_space' => true,
         'no_alias_functions' => true,
-        'trailing_comma_in_multiline_array' => true,
+        'trailing_comma_in_multiline' => ['elements' => ['arrays']],
         'new_with_braces' => true,
         'no_blank_lines_after_class_opening' => true,
         'no_blank_lines_after_phpdoc' => true,

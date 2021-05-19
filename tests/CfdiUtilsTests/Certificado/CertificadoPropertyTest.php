@@ -16,7 +16,7 @@ final class CertificadoPropertyTest extends TestCase
         };
 
         $this->assertFalse($implementation->hasCertificado());
-        $certificado = new Certificado($this->utilAsset('certs/CSD01_AAA010101AAA.cer'));
+        $certificado = new Certificado($this->utilAsset('certs/EKU9003173C9.cer'));
 
         $implementation->setCertificado($certificado);
         $this->assertTrue($implementation->hasCertificado());

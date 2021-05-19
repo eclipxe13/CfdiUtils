@@ -22,8 +22,8 @@ $creator = new \CfdiUtils\Retenciones\RetencionesCreator10([
 // retenciones es un objeto de ayuda, similar a Comprobante
 $retenciones = $creator->retenciones();
 $retenciones->addEmisor([
-    'RFCEmisor' => 'AAA010101AAA',
-    'NomDenRazSocE' => 'ACCEM SERVICIOS EMPRESARIALES SC',
+    'RFCEmisor' => 'EKU9003173C9',
+    'NomDenRazSocE' => 'ESCUELA KEMPER URGATE SA DE CV',
 ]);
 $retenciones->getReceptor()->addExtranjero([
     'NumRegIdTrib' => '998877665544332211',

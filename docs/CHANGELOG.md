@@ -30,7 +30,12 @@
 
 ## UNRELEASED
 
-No unreleased changes.
+### 2021-05-18
+
+The following changes apply only to development and has been applied to main branch.
+
+- The *Certificado de Sello Digital (CSD)* `CSD01_AAA010101AAA` is expired, it has been changed to `EKU9003173C9`.
+- Upgrade `php-cs-fixer` to version `3.0`.
 
 
 ## Version 2.15.1 2021-04-04
