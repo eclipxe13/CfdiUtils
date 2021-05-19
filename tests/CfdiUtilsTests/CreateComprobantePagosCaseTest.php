@@ -91,7 +91,7 @@ final class CreateComprobantePagosCaseTest extends TestCase
 
         // perform validations, it should not have any error nor warnings
         $findings = $creator->validate();
-        print_r($findings->errors());
+
         $this->assertFalse(
             $findings->hasErrors() || $findings->hasWarnings(),
             'Created document must not contain errors, fix your test specimen'

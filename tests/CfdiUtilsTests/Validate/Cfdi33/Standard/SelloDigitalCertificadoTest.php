@@ -80,9 +80,9 @@ final class SelloDigitalCertificadoTest extends ValidateTestCase
     {
         $this->setUpCertificado();
         $emisor = $this->comprobante->searchNode('cfdi:Emisor');
-        //    add acentos, change case, and punctuation to original name
+        //    change case, and punctuation to original name
         //                   ESCUELA KEMPER URGATE SA DE CV
-        $emisor['Nombre'] = 'ESCUELA -Këmper Urgate- S.A. DE C.V.';
+        $emisor['Nombre'] = 'ESCUELA - Kemper Urgate, S.A. DE C.V.';
 
         $this->runValidate();
 
