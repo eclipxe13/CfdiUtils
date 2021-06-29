@@ -2,6 +2,9 @@ site_name: "CfdiUtils"
 site_description: "Librería de utilerías comunes para trabajar con PHP y CFDI 3.2 & 3.3 (México)"
 site_dir: build/docs
 strict: true
+site_url: ''
+use_directory_urls: false
+
 
 theme:
   name: "readthedocs"
