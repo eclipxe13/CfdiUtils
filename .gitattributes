@@ -19,6 +19,7 @@
 /.gitignore                 export-ignore
 /.markdownlint.json         export-ignore
 /.php-cs-fixer.dist.php     export-ignore
+/.readthedocs.yaml          export-ignore
 /.scrutinizer.yml           export-ignore
 /mkdocs.yml                 export-ignore
 /package.json               export-ignore
