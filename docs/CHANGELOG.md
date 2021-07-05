@@ -30,9 +30,13 @@
 
 ## UNRELEASED
 
-### 2021-05-18
-
 The following changes apply only to development and has been applied to main branch.
+
+### 2021-07-05
+
+- Fix build on *Read The Docs* by adding a config file and Python requirements file.
+
+### 2021-05-18
 
 - The *Certificado de Sello Digital (CSD)* `CSD01_AAA010101AAA` is expired, it has been changed to `EKU9003173C9`.
 - Upgrade `php-cs-fixer` to version `3.0`.
