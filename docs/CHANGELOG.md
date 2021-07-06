@@ -34,6 +34,7 @@ The following changes apply only to development and has been applied to main bra
 
 ### 2021-07-05
 
+- Fix documentation badge point to *latest* instead of *stable*.
 - Fix build on *Read The Docs* by adding a config file and Python requirements file.
 
 ### 2021-05-18
@@ -44,7 +45,7 @@ The following changes apply only to development and has been applied to main bra
 
 ## Version 2.15.1 2021-04-04
 
-- Fix try to close public key when it didn't exists. Good catch PHPStan!
+- Fix try to close public key when it didn't exist. Good catch PHPStan!
 
 ### Migrate from Travis-CI and AppVeyor to GitHub Actions
 

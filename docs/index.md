@@ -123,7 +123,7 @@ y se encuentra amparada por la Licencia MIT (MIT). Consulte el archivo [LICENSE]
 [downloads]: https://packagist.org/packages/eclipxe/CfdiUtils
 
 [badge-source]: https://img.shields.io/badge/source-eclipxe13/CfdiUtils-blue?logo=github&style=flat-square
-[badge-documentation]: https://img.shields.io/readthedocs/cfdiutils/stable?logo=read-the-docs&style=flat-square
+[badge-documentation]: https://img.shields.io/readthedocs/cfdiutils/latest?logo=read-the-docs&style=flat-square
 [badge-discord]: https://img.shields.io/discord/459860554090283019?logo=discord&style=flat-square
 [badge-release]: https://img.shields.io/github/release/eclipxe13/CfdiUtils?logo=git&style=flat-square
 [badge-license]: https://img.shields.io/github/license/eclipxe13/CfdiUtils?logo=open-source-initiative&style=flat-square
