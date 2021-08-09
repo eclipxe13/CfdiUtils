@@ -29,7 +29,9 @@ class CfdiCreator33 implements
     XsltBuilderPropertyInterface
 {
     use CertificadoPropertyTrait;
+
     use XmlResolverPropertyTrait;
+
     use XsltBuilderPropertyTrait;
 
     /** @var Comprobante */
