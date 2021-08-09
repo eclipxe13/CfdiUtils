@@ -40,14 +40,4 @@ final class OpenSSLPropertyTest extends TestCase
         };
         $this->assertFalse(is_callable([$object, 'setOpenSSL']), 'setOpenSSL must not be public accesible');
     }
-
-    public function testChangingSetterVisibility()
-    {
-        $object = new class() {
-            use OpenSSLPropertyTrait {
-                setOpenSSL as public;
-            }
-        };
-        $this->assertTrue(is_callable([$object, 'setOpenSSL']), 'setOpenSSL was not overrided by trait usage');
-    }
 }
