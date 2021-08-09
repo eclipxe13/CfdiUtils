@@ -24,7 +24,9 @@ class RetencionesCreator10 implements
     XsltBuilderPropertyInterface
 {
     use CertificadoPropertyTrait;
+
     use XmlResolverPropertyTrait;
+
     use XsltBuilderPropertyTrait;
 
     /** @var Retenciones */

@@ -40,7 +40,9 @@ class SelloDigitalCertificado extends AbstractDiscoverableVersion33 implements
     private $certificado;
 
     use XmlResolverPropertyTrait;
+
     use XmlStringPropertyTrait;
+
     use XsltBuilderPropertyTrait;
 
     private function registerAsserts()

@@ -17,7 +17,7 @@ This library provides helper objects to work with Mexican CFDI (Comprobante Fisc
 :mexico: Visita la **documentación en español** de esta librería en [Read the docs][documentation].
 También te esperamos en el canal [#phpcfdi de discord](https://discord.gg/aFGYXvX).
 
-The documentation related to this library and its API is documented in [Read the docs][documentation].
+The documentation related to this library and its API is on [Read the docs][documentation].
 It is written in **spanish language** since is the language of the intented audience.
 
 **Nota: Este proyecto será migrado a `phpcfdi/cfdiutils`, aún no tenemos fecha planeada**
@@ -31,8 +31,8 @@ CFDI y herramientas del SAT. Y próximamente el lugar donde publicaremos la vers
 - Read CFDI version 3.2 and 3.3.
 - Validate CFDI version 3.3 against schemas, cfdi signature (`Sello`) and custom rules.
 - Validate that the Timbre Fiscal Digital signature match with the CFDI 3.3,
-  if not then the document was modified after signature.
-- Validate the "Complemento de recepción de pagos".
+  if not then the document has been modified after signature.
+- Validates the "Complemento de recepción de pagos".
 - Helper objects to deal with:
     - `Cadena de origen` generation.
     - Extract information from CER files or `Certificado` attribute.

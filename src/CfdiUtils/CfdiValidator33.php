@@ -18,6 +18,7 @@ use CfdiUtils\XmlResolver\XmlResolverPropertyTrait;
 class CfdiValidator33 implements XmlResolverPropertyInterface, XsltBuilderPropertyInterface
 {
     use XmlResolverPropertyTrait;
+
     use XsltBuilderPropertyTrait;
 
     /**
