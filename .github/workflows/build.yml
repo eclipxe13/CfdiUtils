@@ -11,7 +11,7 @@ on:
 
 jobs:
 
-  # this job perform phpunit tests on linux, windows and all php supported versions
+  # this job performs phpunit tests on linux, windows and all php supported versions
   tests:
     name: PHP ${{ matrix.php-versions }} on ${{ matrix.operating-systems }}
     runs-on: ${{ matrix.operating-systems }}
@@ -77,7 +77,7 @@ jobs:
         env:
           saxonb-path: 'C:\ProgramData\chocolatey\bin\SaxonHE\bin\Transform.exe'
 
-  # this job perform a full build (check style, testing with coverage, code analysis and build docs)
+  # this job performs a full build (check style, testing with coverage, code analysis and build docs)
   full-build:
     name: Full build
     runs-on: "ubuntu-latest"

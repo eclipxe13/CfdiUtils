@@ -39,7 +39,7 @@ cd cfdiutils
 composer require eclipxe/cfdiutils
 ```
 
-Dentro de el script de PHP donde deseas incluir php incluye el archivo autoload generado:
+Dentro del script de PHP donde deseas incluir php incluye el archivo autoload generado:
 
 ```php
 require __DIR__ . '/cfdiutils/vendor/autoload.php';

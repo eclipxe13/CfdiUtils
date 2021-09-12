@@ -22,7 +22,7 @@ Adicionalmente cuenta con los métodos:
     `belongsTo(string $pemKeyFile, string $passPhrase = ''): bool`
 
 - Permite verificar si una firma dada corresponde a los datos, como por ejemplo,
-  si el sello corresponde con  la cadena de origen.
+  si el sello corresponde con la cadena de origen.
 
     `verify(string $data, string $signature, int $algorithm = OPENSSL_ALGO_SHA256): bool`
 
@@ -75,8 +75,8 @@ por el método `getSerialObject(): SerialNumber` y dicho objeto puede devolver e
 - `SerialNumber::getDecimal()`: `292233162870206001759766198425879490508935868472`
 
 !!! note ""
-    Se obtiene una copia del objeto y no la misma instancia porque el `SerialNumber` es mutable, a partir de la
-    versión 3 el objeto será inmutable y se podrá obtener el objeto de la propia instancia.
+    Se obtiene una copia del objeto y no la misma instancia porque el objeto `SerialNumber` es mutable, a partir
+    de la versión 3 el objeto será inmutable y se podrá obtener el objeto de la propia instancia.
 
 
 ## Acerca de los formatos de archivo

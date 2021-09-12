@@ -109,7 +109,7 @@ class MyDownloader implements \XmlResourceRetriever\Downloader\DownloaderInterfa
 // crear tu propia instancia de tu descargador
 $myDownloader = new MyDownloader();
 
-// crear el resolvedor con el downloader desde el contructor
+// crear el resolvedor con el downloader desde el constructor
 $myResolver = new \CfdiUtils\XmlResolver\XmlResolver(null, $myDownloader);
 
 // establecer el descargador después de que se ha creado el resolvedor

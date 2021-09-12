@@ -5,7 +5,7 @@ El SAT cuenta con un webservice para consultar el estado de un CFDI.
 - Servicio: <https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc>
 - Documentación: <ftp://ftp2.sat.gob.mx/asistencia_servicio_ftp/publicaciones/cfdi/WS_ConsultaCFDI.pdf>
 
-Para poderlo consumir se han implementado varias clases dentro del espacio de nonbres `\CfdiUtils\ConsultaCfdiSat`.
+Para poderlo consumir se han implementado varias clases dentro del espacio de nombres `\CfdiUtils\ConsultaCfdiSat`.
 
 - `WebService`: Objeto que permite consumir el servicio.
 - `Config`: Objeto que permite configurar la consulta.

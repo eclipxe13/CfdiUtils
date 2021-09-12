@@ -14,8 +14,8 @@ Por ejemplo, se le puede agregar una adenda o poner/quitar formato al XML,
 pues ni el nodo Addenda ni el "XML Whitespace" forman parte de la cadena de origen.
 
 Incluso, es frecuente "reparar" un CFDI que tiene errores como una adenda sin XSD
-o errores sintácticos como poner un número par de rutas en el `xsi:schemaLocation`
-o eliminar espacios de nombres no utilizados.
+o errores sintácticos como poner un número par de rutas en el atributo
+`xsi:schemaLocation` o eliminar espacios de nombres no utilizados.
 
 
 ## Método del SAT para generar cadenas de origen
@@ -37,8 +37,8 @@ Para generar cadenas de origen tenemos diferentes implementaciones de
 la interfaz `\CfdiUtils\CadenaOrigen\XsltBuilderInterface`.
 Contiene un único método `build(string $xmlContent, string $xsltLocation)`.
 
-El `$xmlContent` es el XML que se desea convertir y `$xsltLocation` es la
-ubicación del archivo XSLT (local o remoto).
+El parámetro `$xmlContent` es el XML que se desea convertir y el parámetro `$xsltLocation`
+es la ubicación del archivo XSLT (local o remoto).
 
 Las implementaciones son:
 
@@ -46,12 +46,12 @@ Las implementaciones son:
   soporte nativo para Xslt versión 2, la transformación es compatible
   y genera el resultado esperado.
 - `GenkgoXslBuilder`: Funciona igual que `DOMBuilder` pero al momento de hacer
-  la transformación utiliza la librería [genkgo/xsl](https://github.com/genkgo/xsl)
-  que es una implementación de Xslt versión 2 en PHP.
+  la transformación utiliza la librería [`genkgo/xsl`](https://github.com/genkgo/xsl)
+  que es una implementación de Xslt versión 2 en PHP.  
   Para usarla debes hacer algo como `composer require genkgo/xsl`.
 - `SaxonbCliBuilder`: Utiliza la herramienta
   [Saxon-B XSLT Processor](https://en.wikipedia.org/wiki/Saxon_XSLT) desde la
-  ejecución por línea de comandos. Esta utilería presume la implementación de Xslt versión 2.
+  ejecución por línea de comandos. Esta utilería presume la implementación de Xslt versión 2.  
   Para usarla debes hacer algo como `apt-get install libsaxonb-java`.
 
 
@@ -79,7 +79,7 @@ $xmlContent = file_get_contents('... archivo xml');
 // usar el resolvedor para usar los recursos descargados
 $resolver = new XmlResolver();
 
-// el resolvedor tiene un método de ayuda para obtener le ubicacion del XSLT
+// el resolvedor tiene un método de ayuda para obtener la ubicación del XSLT
 // dependiendo de la versión del comprobante
 $location = $resolver->resolveCadenaOrigenLocation('3.3');
 
@@ -134,7 +134,7 @@ $tfdXmlString = \CfdiUtils\Nodes\XmlNodeUtils::nodeToXmlString($tfd);
 ```
 
 
-## PHP y XLST versión 2
+## PHP y XSLT versión 2
 
 Es importante notar que hasta el momento (enero/2019) no es posible en PHP
 procesar XSLT versión 2.0. Sin embargo el procesador que sí tiene PHP genera

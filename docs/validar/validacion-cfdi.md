@@ -60,9 +60,9 @@ if ($asserts->hasErrors()) {  // si hay errores los muestra
 Un objeto de tipo `CfdiValidator33` contiene un `XmlResolver`.
 Si se elimina entonces algunos validadores no realizarán el proceso o bien saldrán a internet a encontrar
 los recursos que necesitan. Por omisión se crea un nuevo `XmlResolver` pero puede ser establecido
-desde su contructor o bien con el método `setXmlResolver`.
+desde su constructor o bien con el método `setXmlResolver`.
 
-Recuerda que la validación trabajará con la información tal comno es presentada, por lo que tal vez
+Recuerda que la validación trabajará con la información tal como es presentada, por lo que tal vez
 desees usar el método rápido de limpieza `CfdiUtils\Cleaner\Cleaner::staticClean()`.
 
 
@@ -82,7 +82,7 @@ Se puede considerar que un `Assert` es una prueba o un aseguramiento, y cada `As
 Gracias al registro de todos los `Assert` en una validación se puede saber no solo lo que falló o generó
 una advertencia; también se puede saber lo que estuvo bien o no se pudo comprobar.
 
-El `Assert` es un "aseguramiento", se trata de un enunciado afirmativo, no un enunciado de error, por ello,
+Un `Assert` es un "aseguramiento", se trata de un enunciado afirmativo, no un enunciado de error, por ello,
 un ejemplo de título del aseguramiento podría ser: *El CFDI tiene una moneda definida y que pertenece al catálogo de monedas*.
 
 
@@ -107,7 +107,7 @@ foreach ($asserts as $assert) {
 
 ## Status
 
-Esta es una clase de tipo "value object" por lo que solamente se puede instanciar con un valor y no modificar.
+Esta es una clase de tipo "value object" por lo que solamente se puede crear una instancia con un valor y no modificar.
 
 Un objeto `Status` puede contener uno de cuatro valores:
 
@@ -121,7 +121,7 @@ Un objeto `Status` puede contener uno de cuatro valores:
 
 `Asserts` es una colección de objetos de tipo `Assert`.
 Esta colección no permite que existan dos `Assert` con el mismo código, cuando se encuentra que se quiere
-escribir un `Assert` con el mismo código entonces el previo es sobre escrito.
+escribir un `Assert` con el mismo código entonces el previo es sobreescrito.
 
 ```php
 <?php

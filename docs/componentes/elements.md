@@ -56,7 +56,7 @@ Por el contrario, como puede haber varios Cfdi Relacionados, entonces
 - Se agrega el elemento recién creado a los hijos de `CfdiRelacionados`.
 - Se devuelve el elemento creado.
 
-Existe un caso donde lo que se espera entregar como atributo al pefijo `add*` es en realidad un hijo.
+Existe un caso donde lo que se espera entregar como atributo al prefijo `add*` es en realidad un hijo.
 Esto sucede en `addComplemento` y `addAddenda`.
 
 

@@ -52,7 +52,7 @@ to a new namespace `PhpCfdi\CfdiUtils`
 ## CfdiVersion & TfdVersion
 
 The classes `CfdiUtils\CfdiVersion` and `CfdiUtils\TimbreFiscalDigital\CfdiVersion`
-share the same logic and methods. They are detected as code smell and it would be better
+share the same logic and methods. They are detected as code smells, and it would be better
 to have a single class to implement the logic and extend that class to provide configuration.
 
 
@@ -68,7 +68,7 @@ ideas than need a solution:
 
 ## Validation rules for Pagos
 
-The validation rules for "Complemento de Recepción de pagos" are included since version 2.6 but
+The validation rules for "Complemento de Recepción de pagos" are included since version 2.6, but
 they require more cases of use, and a better understanding of the rules published by SAT.
 
 

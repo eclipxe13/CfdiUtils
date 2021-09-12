@@ -20,7 +20,7 @@ Mira el archivo [README][] para información rápida (en inglés).
 
 La motivación de crear esta librería es contar con una herramienta flexible, rápida y
 confiable para trabajar con CFDI. Se pretende que sea utilizada por la comunidad de PHP
-México, en proyectos privados o proyectos libres como el futuro "BuzonCFDI".
+México, en proyectos privados o proyectos libres como `BuzonCFDI`.
 
 Esta librería se ha liberado como software libre para ayudar a otros desarrolladores a
 trabajar con CFDI y también para obtener su ayuda, todo lo que la comunidad pueda
