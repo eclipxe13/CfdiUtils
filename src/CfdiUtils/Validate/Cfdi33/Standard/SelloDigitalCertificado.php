@@ -3,7 +3,6 @@
 namespace CfdiUtils\Validate\Cfdi33\Standard;
 
 use CfdiUtils\CadenaOrigen\XsltBuilderPropertyTrait;
-use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\Certificado\NodeCertificado;
 use CfdiUtils\Nodes\NodeInterface;
 use CfdiUtils\Validate\Asserts;
@@ -14,6 +13,8 @@ use CfdiUtils\Validate\Contracts\RequireXsltBuilderInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtils\Validate\Traits\XmlStringPropertyTrait;
 use CfdiUtils\XmlResolver\XmlResolverPropertyTrait;
+use DateTimeImmutable;
+use PhpCfdi\Credentials\Certificate;
 
 /**
  * SelloDigitalCertificado
@@ -36,7 +37,7 @@ class SelloDigitalCertificado extends AbstractDiscoverableVersion33 implements
     /** @var Asserts */
     private $asserts;
 
-    /** @var Certificado */
+    /** @var Certificate */
     private $certificado;
 
     use XmlResolverPropertyTrait;
@@ -106,7 +107,7 @@ class SelloDigitalCertificado extends AbstractDiscoverableVersion33 implements
 
     private function validateNoCertificado(string $noCertificado)
     {
-        $expectedNumber = $this->certificado->getSerial();
+        $expectedNumber = $this->certificado->serialNumber()->bytes();
         $this->asserts->putStatus(
             'SELLO02',
             Status::when($expectedNumber === $noCertificado),
@@ -116,7 +117,7 @@ class SelloDigitalCertificado extends AbstractDiscoverableVersion33 implements
 
     private function validateRfc(string $emisorRfc)
     {
-        $expectedRfc = $this->certificado->getRfc();
+        $expectedRfc = $this->certificado->rfc();
         $this->asserts->put(
             'SELLO03',
             'El RFC del comprobante igual al encontrado en el certificado',
@@ -132,23 +133,24 @@ class SelloDigitalCertificado extends AbstractDiscoverableVersion33 implements
         }
         $this->asserts->putStatus(
             'SELLO04',
-            Status::when($this->compareNames($this->certificado->getName(), $emisorNombre)),
-            sprintf('Nombre certificado: %s, Nombre comprobante: %s', $this->certificado->getName(), $emisorNombre)
+            Status::when($this->compareNames($this->certificado->legalName(), $emisorNombre)),
+            sprintf('Nombre certificado: %s, Nombre comprobante: %s', $this->certificado->legalName(), $emisorNombre)
         );
     }
 
     private function validateFecha(string $fechaSource)
     {
-        $fecha = ('' === $fechaSource) ? 0 : intval(strtotime($fechaSource));
-        if (0 === $fecha) {
+        $fechaTimeStamp = ('' === $fechaSource) ? 0 : intval(strtotime($fechaSource));
+        if (0 === $fechaTimeStamp) {
             return;
         }
-        $validFrom = $this->certificado->getValidFrom();
-        $validTo = $this->certificado->getValidTo();
+        $fecha = (new DateTimeImmutable())->setTimestamp($fechaTimeStamp);
+        $validFrom = $this->certificado->validFromDateTime();
+        $validTo = $this->certificado->validToDateTime();
         $explanation = vsprintf('Validez del certificado: %s hasta %s, Fecha comprobante: %s', [
-            date('Y-m-d H:i:s', $validFrom),
-            date('Y-m-d H:i:s', $validTo),
-            date('Y-m-d H:i:s', $fecha),
+            $validFrom->format('Y-m-d H:i:s'),
+            $validTo->format('Y-m-d H:i:s'),
+            $fecha->format('Y-m-d H:i:s'),
         ]);
         $this->asserts->putStatus('SELLO05', Status::when($fecha >= $validFrom), $explanation);
         $this->asserts->putStatus('SELLO06', Status::when($fecha <= $validTo), $explanation);
@@ -161,7 +163,7 @@ class SelloDigitalCertificado extends AbstractDiscoverableVersion33 implements
             return;
         }
         $cadena = $this->buildCadenaOrigen();
-        $selloIsValid = $this->certificado->verify($cadena, $sello, OPENSSL_ALGO_SHA256);
+        $selloIsValid = $this->certificado->publicKey()->verify($cadena, $sello, OPENSSL_ALGO_SHA256);
         $this->asserts->putStatus(
             'SELLO08',
             Status::when($selloIsValid),
@@ -172,7 +174,7 @@ class SelloDigitalCertificado extends AbstractDiscoverableVersion33 implements
     private function obtainSello(string $selloBase64): string
     {
         // this silence error operator is intentional, if $selloBase64 is malformed
-        // then it will return false and I will recognize the error
+        // then it will return false, and I will recognize the error
         $sello = @base64_decode($selloBase64, true);
         $this->asserts->putStatus('SELLO07', Status::when(false !== $sello));
         return (string) $sello;

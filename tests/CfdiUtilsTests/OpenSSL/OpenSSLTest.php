@@ -4,8 +4,9 @@ namespace CfdiUtilsTests\OpenSSL;
 
 use CfdiUtils\OpenSSL\OpenSSL;
 use CfdiUtils\OpenSSL\OpenSSLCallerException;
-use CfdiUtils\PemPrivateKey\PemPrivateKey;
 use CfdiUtilsTests\TestCase;
+use PhpCfdi\Credentials\PrivateKey;
+use Throwable;
 
 final class OpenSSLTest extends TestCase
 {
@@ -99,9 +100,13 @@ final class OpenSSLTest extends TestCase
         $pemContents = strval(file_get_contents($pemFile));
 
         $converted = $openssl->pemKeyProtectInOut($pemContents, $inPassPhrase, $outPassPhrase);
+        $this->assertNotEmpty($converted);
 
-        $privateKey = new PemPrivateKey($converted);
-        $this->assertTrue($privateKey->open($outPassPhrase), 'Cannot open the generated private Key');
+        try {
+            new PrivateKey($converted, $outPassPhrase);
+        } catch (Throwable $exception) {
+            $this->fail("Cannot open the generated private Key: {$exception->getMessage()}");
+        }
     }
 
     /**
@@ -117,9 +122,13 @@ final class OpenSSLTest extends TestCase
         $derFile = $this->utilAsset($derFile);
 
         $converted = $openssl->derKeyProtectOut($derFile, $inPassPhrase, $outPassPhrase);
+        $this->assertNotEmpty($converted);
 
-        $privateKey = new PemPrivateKey($converted);
-        $this->assertTrue($privateKey->open($outPassPhrase), 'Cannot open the generated private Key');
+        try {
+            new PrivateKey($converted, $outPassPhrase);
+        } catch (Throwable $exception) {
+            $this->fail("Cannot open the generated private Key: {$exception->getMessage()}");
+        }
     }
 
     public function testPrivateKeyUnprotectPem()
@@ -130,8 +139,12 @@ final class OpenSSLTest extends TestCase
         $openssl = new OpenSSL();
 
         $converted = $openssl->pemKeyUnprotectInOut($pemContents, $inPassPhrase);
+        $this->assertNotEmpty($converted);
 
-        $privateKey = new PemPrivateKey($converted);
-        $this->assertTrue($privateKey->open(''), 'Cannot open the generated private Key');
+        try {
+            new PrivateKey($converted, '');
+        } catch (Throwable $exception) {
+            $this->fail("Cannot open the generated private Key: {$exception->getMessage()}");
+        }
     }
 }

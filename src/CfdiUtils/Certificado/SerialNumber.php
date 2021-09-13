@@ -6,8 +6,8 @@ use CfdiUtils\Internals\BaseConverter;
 
 /**
  * This class is used to load hexadecimal or decimal data as a certificate serial number.
- * It have its own class because SOLID and is easy to test in this way.
- * It is not intented to use in general.
+ * It has its own class because SOLID and is easy to test in this way.
+ * It is not intended to use in general.
  */
 class SerialNumber
 {

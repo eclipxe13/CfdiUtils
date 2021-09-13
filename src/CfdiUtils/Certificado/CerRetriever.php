@@ -4,6 +4,7 @@ namespace CfdiUtils\Certificado;
 
 use Eclipxe\XmlResourceRetriever\AbstractBaseRetriever;
 use Eclipxe\XmlResourceRetriever\RetrieverInterface;
+use PhpCfdi\Credentials\Certificate;
 
 class CerRetriever extends AbstractBaseRetriever implements RetrieverInterface
 {
@@ -19,7 +20,7 @@ class CerRetriever extends AbstractBaseRetriever implements RetrieverInterface
     {
         // check content is cer file
         try {
-            new Certificado($localpath);
+            Certificate::openFile($localpath);
         } catch (\Throwable $ex) {
             unlink($localpath);
             throw new \RuntimeException("The source $source is not a cer file", 0, $ex);

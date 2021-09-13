@@ -2,15 +2,15 @@
 
 namespace CfdiUtilsTests\Certificado;
 
-use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\Certificado\SatCertificateNumber;
 use CfdiUtilsTests\TestCase;
+use PhpCfdi\Credentials\Certificate;
 
 final class CerRetrieverTest extends TestCase
 {
     public function testRetrieveNonExistent()
     {
-        // this certificate does not exists in the internet repository, it will fail to download
+        // this certificate does not exist in the internet repository, it will fail to download
         $certificateId = '20001000000300022779';
         $cerNumber = new SatCertificateNumber($certificateId);
         $retriever = $this->newResolver()->newCerRetriever();
@@ -40,7 +40,7 @@ final class CerRetrieverTest extends TestCase
         $retriever->retrieve($remoteUrl);
         $this->assertFileExists($localPath);
 
-        $certificate = new Certificado($localPath);
-        $this->assertSame($certificateId, $certificate->getSerial());
+        $certificate = Certificate::openFile($localPath);
+        $this->assertSame($certificateId, $certificate->serialNumber()->bytes());
     }
 }

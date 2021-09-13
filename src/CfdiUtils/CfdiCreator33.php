@@ -6,7 +6,6 @@ use CfdiUtils\CadenaOrigen\DOMBuilder;
 use CfdiUtils\CadenaOrigen\XsltBuilderInterface;
 use CfdiUtils\CadenaOrigen\XsltBuilderPropertyInterface;
 use CfdiUtils\CadenaOrigen\XsltBuilderPropertyTrait;
-use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\Certificado\CertificadoPropertyInterface;
 use CfdiUtils\Certificado\CertificadoPropertyTrait;
 use CfdiUtils\Elements\Cfdi33\Comprobante;
@@ -14,7 +13,6 @@ use CfdiUtils\Elements\Cfdi33\Helpers\SumasConceptosWriter;
 use CfdiUtils\Nodes\NodeInterface;
 use CfdiUtils\Nodes\NodeNsDefinitionsMover;
 use CfdiUtils\Nodes\XmlNodeUtils;
-use CfdiUtils\PemPrivateKey\PemPrivateKey;
 use CfdiUtils\SumasConceptos\SumasConceptos;
 use CfdiUtils\Validate\Asserts;
 use CfdiUtils\Validate\Hydrater;
@@ -22,6 +20,8 @@ use CfdiUtils\Validate\MultiValidatorFactory;
 use CfdiUtils\XmlResolver\XmlResolver;
 use CfdiUtils\XmlResolver\XmlResolverPropertyInterface;
 use CfdiUtils\XmlResolver\XmlResolverPropertyTrait;
+use PhpCfdi\Credentials\Certificate;
+use PhpCfdi\Credentials\PrivateKey;
 
 class CfdiCreator33 implements
     CertificadoPropertyInterface,
@@ -37,35 +37,35 @@ class CfdiCreator33 implements
 
     /**
      * CfdiCreator33 constructor.
+     *
      * @param array $comprobanteAttributes
-     * @param Certificado|null $certificado
      * @param XmlResolver|null $xmlResolver
      * @param XsltBuilderInterface|null $xsltBuilder
      */
     public function __construct(
         array $comprobanteAttributes = [],
-        Certificado $certificado = null,
         XmlResolver $xmlResolver = null,
         XsltBuilderInterface $xsltBuilder = null
     ) {
         $this->comprobante = new Comprobante($comprobanteAttributes);
-        $this->setXmlResolver($xmlResolver ? : new XmlResolver());
-        if (null !== $certificado) {
-            $this->putCertificado($certificado);
-        }
-        $this->setXsltBuilder($xsltBuilder ? : new DOMBuilder());
+        $this->setXmlResolver($xmlResolver ?? new XmlResolver());
+        $this->setXsltBuilder($xsltBuilder ?? new DOMBuilder());
     }
 
     public static function newUsingNode(
         NodeInterface $node,
-        Certificado $certificado = null,
-        XmlResolver $xmlResolver = null
+        XmlResolver $xmlResolver = null,
+        XsltBuilderInterface $xsltBuilder = null
     ): self {
-        $new = new self([], $certificado, $xmlResolver);
+        $new = new self([], $xmlResolver, $xsltBuilder);
         $comprobante = $new->comprobante();
         $comprobante->addAttributes($node->attributes()->exportArray());
         foreach ($node as $child) {
             $comprobante->addChild($child);
+        }
+        $certificateContents = (new Certificado\NodeCertificado($comprobante))->extract();
+        if ('' !== $certificateContents) {
+            $new->putCertificado(new Certificate($certificateContents), false);
         }
         return $new;
     }
@@ -75,11 +75,11 @@ class CfdiCreator33 implements
         return $this->comprobante;
     }
 
-    public function putCertificado(Certificado $certificado, bool $putEmisorRfcNombre = true)
+    public function putCertificado(Certificate $certificado, bool $putEmisorRfcNombre = true): void
     {
         $this->setCertificado($certificado);
-        $this->comprobante['NoCertificado'] = $certificado->getSerial();
-        $pemContents = implode('', preg_grep('/^((?!-).)*$/', explode(PHP_EOL, $certificado->getPemContents())));
+        $this->comprobante['NoCertificado'] = $certificado->serialNumber()->bytes();
+        $pemContents = implode('', preg_grep('/^((?!-).)*$/', explode(PHP_EOL, $certificado->pemAsOneLine())));
         $this->comprobante['Certificado'] = $pemContents;
         if ($putEmisorRfcNombre) {
             $emisor = $this->comprobante->searchNode('cfdi:Emisor');
@@ -87,8 +87,8 @@ class CfdiCreator33 implements
                 $emisor = $this->comprobante->getEmisor();
             }
             $emisor->addAttributes([
-                'Nombre' => $certificado->getName(),
-                'Rfc' => $certificado->getRfc(),
+                'Nombre' => $certificado->legalName(),
+                'Rfc' => $certificado->rfc(),
             ]);
         }
     }
@@ -98,7 +98,7 @@ class CfdiCreator33 implements
         return XmlNodeUtils::nodeToXmlString($this->comprobante, true);
     }
 
-    public function moveSatDefinitionsToComprobante()
+    public function moveSatDefinitionsToComprobante(): void
     {
         $nodeNsDefinitionsMover = new NodeNsDefinitionsMover();
         $nodeNsDefinitionsMover->setNamespaceFilter(
@@ -130,7 +130,7 @@ class CfdiCreator33 implements
         return new SumasConceptos($this->comprobante, $precision);
     }
 
-    public function addSumasConceptos(SumasConceptos $sumasConceptos = null, int $precision = 2)
+    public function addSumasConceptos(SumasConceptos $sumasConceptos = null, int $precision = 2): void
     {
         if (null === $sumasConceptos) {
             $sumasConceptos = $this->buildSumasConceptos($precision);
@@ -139,30 +139,17 @@ class CfdiCreator33 implements
         $writer->put();
     }
 
-    public function addSello(string $key, string $passPhrase = '')
+    public function addSello(PrivateKey $privateKey): void
     {
-        // create private key
-        $privateKey = new PemPrivateKey($key);
-        if (! $privateKey->open($passPhrase)) {
-            throw new \RuntimeException('Cannot open the private key');
+        if (! $privateKey->belongsTo($this->getCertificado())) {
+            throw new \RuntimeException('The private key does not belong to the current certificate');
         }
 
-        // check privatekey belongs to certificado
-        if ($this->hasCertificado()) {
-            if (! $privateKey->belongsTo($this->getCertificado()->getPemContents())) {
-                throw new \RuntimeException('The private key does not belong to the current certificate');
-            }
-        }
+        $sourceString = $this->buildCadenaDeOrigen();
 
-        // create sign and set into Sello attribute
-        $this->comprobante['Sello'] = base64_encode(
-            $privateKey->sign($this->buildCadenaDeOrigen(), OPENSSL_ALGO_SHA256)
-        );
+        $this->comprobante['Sello'] = base64_encode($privateKey->sign($sourceString, OPENSSL_ALGO_SHA256));
     }
 
-    /**
-     * @return Asserts|\CfdiUtils\Validate\Assert[]
-     */
     public function validate(): Asserts
     {
         $factory = new MultiValidatorFactory();
@@ -180,9 +167,6 @@ class CfdiCreator33 implements
         return $asserts;
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         try {

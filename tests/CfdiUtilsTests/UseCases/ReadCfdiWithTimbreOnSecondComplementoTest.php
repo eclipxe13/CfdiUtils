@@ -4,7 +4,6 @@ namespace CfdiUtilsTests\UseCases;
 
 use CfdiUtils\CadenaOrigen\CfdiDefaultLocations;
 use CfdiUtils\CadenaOrigen\DOMBuilder;
-use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\Cfdi;
 use CfdiUtils\CfdiCreator33;
 use CfdiUtils\ConsultaCfdiSat\RequestParameters;
@@ -13,6 +12,8 @@ use CfdiUtils\Nodes\Node;
 use CfdiUtils\Utils\Format;
 use CfdiUtilsTests\TestCase;
 use PhpCfdi\CfdiCleaner\XmlDocumentCleaners\CollapseComplemento;
+use PhpCfdi\Credentials\Certificate;
+use PhpCfdi\Credentials\PrivateKey;
 
 final class ReadCfdiWithTimbreOnSecondComplementoTest extends TestCase
 {
@@ -76,7 +77,7 @@ final class ReadCfdiWithTimbreOnSecondComplementoTest extends TestCase
     {
         $cerfile = $this->utilAsset('certs/EKU9003173C9.cer');
         $keyfile = $this->utilAsset('certs/EKU9003173C9.key.pem');
-        $certificado = new Certificado($cerfile);
+        $certificado = Certificate::openFile($cerfile);
         $fecha = strtotime('now - 10 minutes');
 
         $creator = new CfdiCreator33();
@@ -136,7 +137,7 @@ final class ReadCfdiWithTimbreOnSecondComplementoTest extends TestCase
         $comprobante->addComplemento($leyenda);
 
         // sellar el archivo
-        $creator->addSello('file://' . $keyfile);
+        $creator->addSello(PrivateKey::openFile($keyfile, ''));
 
         // validar que no tiene errores
         $asserts = $creator->validate();

@@ -2,7 +2,6 @@
 
 namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
-use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\CfdiCreator33;
 use CfdiUtils\Utils\Format;
 use CfdiUtils\Validate\Cfdi33\Standard\SelloDigitalCertificado;
@@ -11,6 +10,7 @@ use CfdiUtils\Validate\Contracts\RequireXmlResolverInterface;
 use CfdiUtils\Validate\Contracts\RequireXmlStringInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
+use PhpCfdi\Credentials\Certificate;
 
 final class SelloDigitalCertificadoTest extends ValidateTestCase
 {
@@ -27,8 +27,9 @@ final class SelloDigitalCertificadoTest extends ValidateTestCase
     protected function setUpCertificado(array $attributes = [])
     {
         $cerfile = $this->utilAsset('certs/EKU9003173C9.cer');
-        $certificado = new Certificado($cerfile);
-        $cfdiCreator = new CfdiCreator33([], $certificado);
+        $certificado = Certificate::openFile($cerfile);
+        $cfdiCreator = new CfdiCreator33([]);
+        $cfdiCreator->putCertificado($certificado);
         $this->comprobante = $cfdiCreator->comprobante();
         $this->comprobante->addAttributes($attributes);
     }

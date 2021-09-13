@@ -3,6 +3,7 @@
 namespace CfdiUtils\Certificado;
 
 use CfdiUtils\Nodes\NodeInterface;
+use PhpCfdi\Credentials\Certificate;
 
 class NodeCertificado
 {
@@ -16,12 +17,12 @@ class NodeCertificado
 
     /**
      * Extract the certificate from Comprobante->certificado
-     * If the node does not exists return an empty string
+     * If the node does not exist return an empty string
      * The returned string is no longer base64 encoded
      *
      * @return string
      *
-     * @throws \RuntimeException if the certificado attribute is not a valid base64 encoded string
+     * @throws \RuntimeException when the certificado attribute is not a valid base64 encoded string
      */
     public function extract(): string
     {
@@ -58,7 +59,7 @@ class NodeCertificado
     }
 
     /**
-     * Extract and save the certificate into an specified location
+     * Extract and save the certificate into a specified location
      *
      * @see extract
      *
@@ -66,8 +67,8 @@ class NodeCertificado
      * @return void
      *
      * @throws \UnexpectedValueException if the filename to store the certificate is empty
-     * @throws \RuntimeException if the certificado attribute is empty
-     * @throws \RuntimeException if cannot write the contents of the certificate
+     * @throws \RuntimeException when the certificado attribute is empty
+     * @throws \RuntimeException when cannot write the contents of the certificate
      */
     public function save(string $filename)
     {
@@ -95,14 +96,14 @@ class NodeCertificado
      *
      * @see save
      *
-     * @return Certificado
+     * @return Certificate
      */
-    public function obtain(): Certificado
+    public function obtain(): Certificate
     {
         $certificado = $this->extract();
         if ('' === $certificado) {
             throw new \RuntimeException('The certificado attribute is empty');
         }
-        return new Certificado(base64_encode($certificado));
+        return new Certificate($certificado);
     }
 }

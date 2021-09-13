@@ -2,10 +2,10 @@
 
 namespace CfdiUtilsTests\Certificado;
 
-use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\Certificado\CertificadoPropertyInterface;
 use CfdiUtils\Certificado\CertificadoPropertyTrait;
 use CfdiUtilsTests\TestCase;
+use PhpCfdi\Credentials\Certificate;
 
 final class CertificadoPropertyTest extends TestCase
 {
@@ -15,18 +15,19 @@ final class CertificadoPropertyTest extends TestCase
             use CertificadoPropertyTrait;
         };
 
-        $this->assertFalse($implementation->hasCertificado());
-        $certificado = new Certificado($this->utilAsset('certs/EKU9003173C9.cer'));
+        $certificado = Certificate::openFile($this->utilAsset('certs/EKU9003173C9.cer'));
 
         $implementation->setCertificado($certificado);
-        $this->assertTrue($implementation->hasCertificado());
         $this->assertSame($certificado, $implementation->getCertificado());
+    }
 
-        $implementation->setCertificado();
-        $this->assertFalse($implementation->hasCertificado());
+    public function testCertificadoPropertyWithoutInitialization()
+    {
+        $implementation = new class() implements CertificadoPropertyInterface {
+            use CertificadoPropertyTrait;
+        };
 
-        $this->expectException(\LogicException::class);
-        $this->expectExceptionMessage('current certificado');
+        $this->expectException(\TypeError::class);
         $implementation->getCertificado();
     }
 }

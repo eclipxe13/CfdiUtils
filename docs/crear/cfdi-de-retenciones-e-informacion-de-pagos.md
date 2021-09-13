@@ -58,8 +58,8 @@ $dividendos->addDividOUtil([
 $retenciones->addComplemento($dividendos);
 
 // poner certificado y sellar el precfdi, después de sellar no debes hacer cambios
-$creator->putCertificado(new \CfdiUtils\Certificado\Certificado('archivo.cer'));
-$creator->addSello('file://archivo.key.pem', 'la contraseña');
+$creator->putCertificado(\PhpCfdi\Credentials\Certificate::openFile('archivo.cer'));
+$creator->addSello(\PhpCfdi\Credentials\PrivateKey::openFile('file://archivo.key.pem', 'la contraseña'));
 
 // Asserts contendrá el resultado de la validación
 $asserts = $creator->validate();

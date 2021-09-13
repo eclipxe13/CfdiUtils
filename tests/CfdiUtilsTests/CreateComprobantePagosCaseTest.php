@@ -2,10 +2,11 @@
 
 namespace CfdiUtilsTests;
 
-use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\CfdiCreator33;
 use CfdiUtils\Elements\Pagos10\Pagos;
 use CfdiUtils\Utils\Format;
+use PhpCfdi\Credentials\Certificate;
+use PhpCfdi\Credentials\PrivateKey;
 
 final class CreateComprobantePagosCaseTest extends TestCase
 {
@@ -13,7 +14,7 @@ final class CreateComprobantePagosCaseTest extends TestCase
     {
         $cerfile = $this->utilAsset('certs/EKU9003173C9.cer');
         $keyfile = $this->utilAsset('certs/EKU9003173C9.key.pem');
-        $certificado = new Certificado($cerfile);
+        $certificado = Certificate::openFile($cerfile);
         $fecha = strtotime('2021-01-13 14:15:16');
         $fechaPago = strtotime('2020-12-13 17:18:19');
 
@@ -84,7 +85,7 @@ final class CreateComprobantePagosCaseTest extends TestCase
         $comprobante->addComplemento($complementoPagos);
 
         // add sello and validate to assert that the specimen does not have any errors
-        $creator->addSello('file://' . $keyfile, '');
+        $creator->addSello(PrivateKey::openFile($keyfile, ''));
 
         // this is after add sello to probe that it did not change the cadena origen or the sello
         $creator->moveSatDefinitionsToComprobante();

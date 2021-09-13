@@ -7,6 +7,7 @@ use CfdiUtils\CfdiCreator33;
 use CfdiUtils\CfdiValidator33;
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Nodes\XmlNodeUtils;
+use PhpCfdi\Credentials\PrivateKey;
 
 final class CfdiValidator33Test extends TestCase
 {
@@ -71,13 +72,13 @@ final class CfdiValidator33Test extends TestCase
         // developer: change here what you need
         $comprobante['TipoCambio'] = '1';
 
-        $creator->addSello('file://' . $pemKeyFile);
+        $creator->addSello(PrivateKey::openFile($pemKeyFile, ''));
         print_r([
             'old' => $previous,
             'new' => $comprobante['Sello'],
         ]);
         // echo $creator->asXml();
-        $this->assertTrue(false, 'This procedure must not run in real testing');
+        $this->fail('This procedure must not run in real testing');
     }
 
     public function testValidateThrowsExceptionIfEmptyContent()

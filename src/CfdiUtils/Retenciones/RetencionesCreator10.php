@@ -6,17 +6,17 @@ use CfdiUtils\CadenaOrigen\DOMBuilder;
 use CfdiUtils\CadenaOrigen\XsltBuilderInterface;
 use CfdiUtils\CadenaOrigen\XsltBuilderPropertyInterface;
 use CfdiUtils\CadenaOrigen\XsltBuilderPropertyTrait;
-use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\Certificado\CertificadoPropertyInterface;
 use CfdiUtils\Certificado\CertificadoPropertyTrait;
 use CfdiUtils\Elements\Retenciones10\Retenciones;
 use CfdiUtils\Nodes\XmlNodeUtils;
-use CfdiUtils\PemPrivateKey\PemPrivateKey;
 use CfdiUtils\Validate\Asserts;
 use CfdiUtils\Validate\Cfdi33\Xml\XmlFollowSchema;
 use CfdiUtils\XmlResolver\XmlResolver;
 use CfdiUtils\XmlResolver\XmlResolverPropertyInterface;
 use CfdiUtils\XmlResolver\XmlResolverPropertyTrait;
+use PhpCfdi\Credentials\Certificate;
+use PhpCfdi\Credentials\PrivateKey;
 
 class RetencionesCreator10 implements
     CertificadoPropertyInterface,
@@ -45,11 +45,11 @@ class RetencionesCreator10 implements
         return $this->retenciones;
     }
 
-    public function putCertificado(Certificado $certificado)
+    public function putCertificado(Certificate $certificado): void
     {
         $this->setCertificado($certificado);
-        $this->retenciones['NumCert'] = $certificado->getSerial();
-        $pemContents = implode('', preg_grep('/^((?!-).)*$/', explode(PHP_EOL, $certificado->getPemContents())));
+        $this->retenciones['NumCert'] = $certificado->serialNumber()->bytes();
+        $pemContents = implode('', preg_grep('/^((?!-).)*$/', explode(PHP_EOL, $certificado->pemAsOneLine())));
         $this->retenciones['Cert'] = $pemContents;
     }
 
@@ -66,25 +66,15 @@ class RetencionesCreator10 implements
         return $this->getXsltBuilder()->build($this->asXml(), $xsltLocation);
     }
 
-    public function addSello(string $key, string $passPhrase = '')
+    public function addSello(PrivateKey $privateKey): void
     {
-        // create private key
-        $privateKey = new PemPrivateKey($key);
-        if (! $privateKey->open($passPhrase)) {
-            throw new \RuntimeException('Cannot open the private key');
+        if (! $privateKey->belongsTo($this->getCertificado())) {
+            throw new \RuntimeException('The private key does not belong to the current certificate');
         }
 
-        // check privatekey belongs to certificado
-        if ($this->hasCertificado()) {
-            if (! $privateKey->belongsTo($this->getCertificado()->getPemContents())) {
-                throw new \RuntimeException('The private key does not belong to the current certificate');
-            }
-        }
+        $sourceString = $this->buildCadenaDeOrigen();
 
-        // create sign and set into Sello attribute
-        $this->retenciones['Sello'] = base64_encode(
-            $privateKey->sign($this->buildCadenaDeOrigen(), OPENSSL_ALGO_SHA1)
-        );
+        $this->retenciones['Sello'] = base64_encode($privateKey->sign($sourceString, OPENSSL_ALGO_SHA1));
     }
 
     public function validate(): Asserts

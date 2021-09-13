@@ -107,7 +107,6 @@ final class NodeCertificadoTest extends TestCase
         $nodeCertificado = $this->createNodeCertificado(strval(file_get_contents($cfdiSample)));
 
         $certificate = $nodeCertificado->obtain();
-        $this->assertEmpty($certificate->getFilename());
-        $this->assertEquals('CTO021007DZ8', $certificate->getRfc());
+        $this->assertEquals('CTO021007DZ8', $certificate->rfc());
     }
 }

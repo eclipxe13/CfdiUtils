@@ -2,10 +2,11 @@
 
 namespace CfdiUtilsTests;
 
-use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\CfdiCreator33;
 use CfdiUtils\Utils\Format;
 use CfdiUtils\Validate\Status;
+use PhpCfdi\Credentials\Certificate;
+use PhpCfdi\Credentials\PrivateKey;
 
 final class CreateComprobanteCaseTest extends TestCase
 {
@@ -13,7 +14,7 @@ final class CreateComprobanteCaseTest extends TestCase
     {
         $cerfile = $this->utilAsset('certs/EKU9003173C9.cer');
         $keyfile = $this->utilAsset('certs/EKU9003173C9.key.pem');
-        $certificado = new Certificado($cerfile);
+        $certificado = Certificate::openFile($cerfile);
         $fecha = mktime(14, 15, 16, 1, 13, 2021); // 2021-01-13 14:15:16
 
         // create comprobante using creator with attributes
@@ -27,7 +28,8 @@ final class CreateComprobanteCaseTest extends TestCase
             'TipoCambio' => Format::number(18.9008, 4), // taken from banxico
             'TipoDeComprobante' => 'I', // ingreso
             'LugarExpedicion' => '52000',
-        ], $certificado);
+        ]);
+        $creator->putCertificado($certificado);
 
         $comprobante = $creator->comprobante();
         $comprobante['MetodoPago'] = 'PUE'; // Pago en una sola exhibición
@@ -107,7 +109,7 @@ final class CreateComprobanteCaseTest extends TestCase
 
         // add additional calculated information sumas sello
         $creator->addSumasConceptos(null, 2);
-        $creator->addSello('file://' . $keyfile);
+        $creator->addSello(PrivateKey::openFile($keyfile, ''));
 
         // validate the comprobante and check it has no errors or warnings
         $asserts = $creator->validate();

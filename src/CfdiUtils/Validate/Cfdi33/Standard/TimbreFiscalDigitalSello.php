@@ -3,7 +3,6 @@
 namespace CfdiUtils\Validate\Cfdi33\Standard;
 
 use CfdiUtils\CadenaOrigen\XsltBuilderPropertyTrait;
-use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\Certificado\SatCertificateNumber;
 use CfdiUtils\Internals\TemporaryFile;
 use CfdiUtils\Nodes\NodeInterface;
@@ -15,6 +14,7 @@ use CfdiUtils\Validate\Contracts\RequireXmlResolverInterface;
 use CfdiUtils\Validate\Contracts\RequireXsltBuilderInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtils\XmlResolver\XmlResolverPropertyTrait;
+use PhpCfdi\Credentials\Certificate;
 
 /**
  * TimbreFiscalDigitalSello
@@ -77,11 +77,11 @@ class TimbreFiscalDigitalSello extends AbstractDiscoverableVersion33 implements
                 $temporaryFile = TemporaryFile::create();
                 $certificadoFile = $temporaryFile->getPath();
                 $resolver->getDownloader()->downloadTo($certificadoUrl, $certificadoFile);
-                $certificado = new Certificado($certificadoFile);
+                $certificado = Certificate::openFile($certificadoFile);
                 $temporaryFile->remove();
             } else {
                 $certificadoFile = $resolver->resolve($certificadoUrl, $resolver::TYPE_CER);
-                $certificado = new Certificado($certificadoFile);
+                $certificado = Certificate::openFile($certificadoFile);
             }
         } catch (\Throwable $ex) {
             $assert->setStatus(
@@ -95,7 +95,7 @@ class TimbreFiscalDigitalSello extends AbstractDiscoverableVersion33 implements
         $source = $tfdCadenaOrigen->build(XmlNodeUtils::nodeToXmlString($tfd), $tfd['Version']);
         $signature = strval(base64_decode($tfd['SelloSAT']));
 
-        $verification = $certificado->verify($source, $signature, OPENSSL_ALGO_SHA256);
+        $verification = $certificado->publicKey()->verify($source, $signature, OPENSSL_ALGO_SHA256);
         if (! $verification) {
             $assert->setStatus(
                 Status::error(),

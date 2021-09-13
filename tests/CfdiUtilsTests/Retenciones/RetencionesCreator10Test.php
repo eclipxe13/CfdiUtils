@@ -3,10 +3,11 @@
 namespace CfdiUtilsTests\Retenciones;
 
 use CfdiUtils\CadenaOrigen\DOMBuilder;
-use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\Elements\Dividendos10\Dividendos;
 use CfdiUtils\Retenciones\RetencionesCreator10;
 use CfdiUtilsTests\TestCase;
+use PhpCfdi\Credentials\Certificate;
+use PhpCfdi\Credentials\PrivateKey;
 
 final class RetencionesCreator10Test extends TestCase
 {
@@ -15,7 +16,7 @@ final class RetencionesCreator10Test extends TestCase
         $cerFile = $this->utilAsset('certs/EKU9003173C9.cer');
         $pemFile = $this->utilAsset('certs/EKU9003173C9.key.pem');
         $passPhrase = '';
-        $certificado = new Certificado($cerFile);
+        $certificado = Certificate::openFile($cerFile);
         $xmlResolver = $this->newResolver();
         $xsltBuilder = new DOMBuilder();
 
@@ -70,7 +71,7 @@ final class RetencionesCreator10Test extends TestCase
 
         // put additional content using helpers
         $creator->putCertificado($certificado);
-        $creator->addSello('file://' . $pemFile, $passPhrase);
+        $creator->addSello(PrivateKey::openFile($pemFile, $passPhrase));
 
         // validate
         $asserts = $creator->validate();
@@ -92,25 +93,12 @@ final class RetencionesCreator10Test extends TestCase
         $this->assertTrue($assert->getStatus()->isError());
     }
 
-    public function testAddSelloFailsWithWrongPassPrase()
-    {
-        $pemFile = $this->utilAsset('certs/EKU9003173C9_password.key.pem');
-        $passPhrase = '_worng_passphrase_';
-
-        $retencion = new RetencionesCreator10();
-        $retencion->setXmlResolver($this->newResolver());
-
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Cannot open the private key');
-        $retencion->addSello('file://' . $pemFile, $passPhrase);
-    }
-
     public function testAddSelloFailsWithWrongCertificado()
     {
         $cerFile = $this->utilAsset('certs/CSD09_AAA010101AAA.cer');
         $pemFile = $this->utilAsset('certs/EKU9003173C9.key.pem');
         $passPhrase = '';
-        $certificado = new Certificado($cerFile);
+        $certificado = Certificate::openFile($cerFile);
 
         $retencion = new RetencionesCreator10();
         $retencion->setXmlResolver($this->newResolver());
@@ -119,6 +107,6 @@ final class RetencionesCreator10Test extends TestCase
 
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('The private key does not belong to the current certificate');
-        $retencion->addSello('file://' . $pemFile, $passPhrase);
+        $retencion->addSello(PrivateKey::openFile($pemFile, $passPhrase));
     }
 }

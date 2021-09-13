@@ -2,7 +2,6 @@
 
 namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
-use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\CfdiCreator33;
 use CfdiUtils\Elements\Cfdi33\Comprobante;
 use CfdiUtils\Elements\Tfd11\TimbreFiscalDigital;
@@ -10,6 +9,7 @@ use CfdiUtils\Nodes\Node;
 use CfdiUtils\Validate\Cfdi33\Standard\SelloDigitalCertificado;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\ValidateTestCase;
+use PhpCfdi\Credentials\Certificate;
 
 final class SelloDigitalCertificadoWithCfdiRegistroFiscalTest extends ValidateTestCase
 {
@@ -23,8 +23,9 @@ final class SelloDigitalCertificadoWithCfdiRegistroFiscalTest extends ValidateTe
         $this->hydrater->hydrate($this->validator);
 
         $cerfile = $this->utilAsset('certs/00001000000403258748.cer');
-        $certificado = new Certificado($cerfile);
-        $cfdiCreator = new CfdiCreator33([], $certificado);
+        $certificado = Certificate::openFile($cerfile);
+        $cfdiCreator = new CfdiCreator33();
+        $cfdiCreator->putCertificado($certificado);
         $this->comprobante = $cfdiCreator->comprobante();
 
         $emisor = $this->comprobante->searchNode('cfdi:Emisor');

@@ -45,13 +45,14 @@ No hay una sola forma de hacer las cosas, pero la receta de creación sería alg
 
 ```php
 <?php
-$certificado = new \CfdiUtils\Certificado\Certificado('... ubicación archivo CER');
+$certificado = \PhpCfdi\Credentials\Certificate::openFile('... ubicación archivo CER');
 $comprobanteAtributos = [
     'Serie' => 'XXX',
     'Folio' => '0000123456',
     // y otros atributos más...
 ];
-$creator = new \CfdiUtils\CfdiCreator33($comprobanteAtributos, $certificado);
+$creator = new \CfdiUtils\CfdiCreator33($comprobanteAtributos);
+$creator->putCertificado($certificado);
 
 $comprobante = $creator->comprobante();
 

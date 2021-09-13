@@ -2,9 +2,9 @@
 
 namespace CfdiUtilsTests;
 
-use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\CfdiCreator33;
 use CfdiUtils\Nodes\XmlNodeUtils;
+use PhpCfdi\Credentials\Certificate;
 
 final class CfdiCreatorFromExistentTest extends TestCase
 {
@@ -29,7 +29,7 @@ final class CfdiCreatorFromExistentTest extends TestCase
         $xmlSource = strval(file_get_contents($this->utilAsset('cfdi33-real.xml')));
         $nodeSource = XmlNodeUtils::nodeFromXmlString($xmlSource);
         $creator = CfdiCreator33::newUsingNode($nodeSource);
-        $creator->putCertificado(new Certificado($this->utilAsset('certs/EKU9003173C9.cer')), true);
+        $creator->putCertificado(Certificate::openFile($this->utilAsset('certs/EKU9003173C9.cer')), true);
 
         $comprobante = $creator->comprobante();
         $this->assertCount(1, $comprobante->searchNodes('cfdi:Emisor'));

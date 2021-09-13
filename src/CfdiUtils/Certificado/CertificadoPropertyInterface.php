@@ -2,9 +2,11 @@
 
 namespace CfdiUtils\Certificado;
 
+use PhpCfdi\Credentials\Certificate;
+
 interface CertificadoPropertyInterface
 {
-    public function getCertificado(): Certificado;
+    public function getCertificado(): Certificate;
 
-    public function setCertificado(Certificado $Certificado);
+    public function setCertificado(Certificate $certificate);
 }
