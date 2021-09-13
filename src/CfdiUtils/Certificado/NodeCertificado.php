@@ -16,9 +16,27 @@ class NodeCertificado
     }
 
     /**
+     * Return a Certificado object from the Comprobante->Certificado attribute
+     * The temporary certificate is stored into a temporary folder and removed
+     * after the certificado is loaded. If you need to persist the certificate
+     * use the saveCertificado method instead
+     *
+     * @return Certificate
+     */
+    public function obtain(): Certificate
+    {
+        $certificado = $this->extract();
+        if ('' === $certificado) {
+            throw new \RuntimeException('The certificado attribute is empty');
+        }
+        return new Certificate($certificado);
+    }
+
+    /**
      * Extract the certificate from Comprobante->certificado
      * If the node does not exist return an empty string
      * The returned string is no longer base64 encoded
+     * @see obtain
      *
      * @return string
      *
@@ -47,20 +65,8 @@ class NodeCertificado
         return $certificateBin;
     }
 
-    private function getVersion(): string
-    {
-        if ('3.2' === $this->comprobante->searchAttribute('version')) {
-            return '3.2';
-        }
-        if ('3.3' === $this->comprobante->searchAttribute('Version')) {
-            return '3.3';
-        }
-        return '';
-    }
-
     /**
      * Extract and save the certificate into a specified location
-     *
      * @see extract
      *
      * @param string $filename
@@ -88,22 +94,14 @@ class NodeCertificado
         }
     }
 
-    /**
-     * Return a Certificado object from the Comprobante->Certificado attribute
-     * The temporary certificate is stored into a temporary folder and removed
-     * after the certificado is loaded. If you need to persist the certificate
-     * use the saveCertificado method instead
-     *
-     * @see save
-     *
-     * @return Certificate
-     */
-    public function obtain(): Certificate
+    private function getVersion(): string
     {
-        $certificado = $this->extract();
-        if ('' === $certificado) {
-            throw new \RuntimeException('The certificado attribute is empty');
+        if ('3.2' === $this->comprobante['version']) {
+            return '3.2';
         }
-        return new Certificate($certificado);
+        if ('3.3' === $this->comprobante['Version']) {
+            return '3.3';
+        }
+        return '';
     }
 }

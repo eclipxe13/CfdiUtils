@@ -32,7 +32,7 @@ final class SatCertificateNumberTest extends TestCase
     public function testIsValidCertificateNumberWithCorrectValues(string $value)
     {
         $this->assertSame(true, SatCertificateNumber::isValidCertificateNumber($value));
-        $number = new SatCertificateNumber($value);
+        $number = SatCertificateNumber::newFromString($value);
         $this->assertSame($value, $number->number());
         $this->assertStringEndsWith($value . '.cer', $number->remoteUrl());
     }
@@ -48,6 +48,6 @@ final class SatCertificateNumberTest extends TestCase
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('The certificate number is not correct');
 
-        new SatCertificateNumber($value);
+        SatCertificateNumber::newFromString($value);
     }
 }

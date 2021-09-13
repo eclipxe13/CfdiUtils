@@ -77,7 +77,7 @@ final class XmlResolverTest extends TestCase
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Unable to handle the resource');
 
-        $resolver->resolve('http://example.org/example.xml');
+        $resolver->resolve('http://example.com/example.xml');
     }
 
     public function providerObtainTypeFromUrl(): array
@@ -109,7 +109,7 @@ final class XmlResolverTest extends TestCase
         $localPath = $this->installCertificate($this->utilAsset('certs/20001000000300022779.cer'));
 
         $certificateId = '20001000000300022779';
-        $cerNumber = new SatCertificateNumber($certificateId);
+        $cerNumber = SatCertificateNumber::newFromString($certificateId);
         $resolver = new XmlResolver();
         $remoteUrl = $cerNumber->remoteUrl();
 

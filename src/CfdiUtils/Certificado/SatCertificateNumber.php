@@ -2,39 +2,54 @@
 
 namespace CfdiUtils\Certificado;
 
+use PhpCfdi\Credentials\SerialNumber;
+use UnexpectedValueException;
+
 class SatCertificateNumber
 {
-    /** @var string */
-    private $id;
+    /** @var SerialNumber */
+    private $serialNumber;
 
-    public function __construct(string $id)
+    public function __construct(SerialNumber $serialNumber)
     {
-        if (! $this->isValidCertificateNumber($id)) {
-            throw new \UnexpectedValueException('The certificate number is not correct');
+        if (! $this->isValidCertificateNumber($serialNumber->bytes())) {
+            throw new UnexpectedValueException('The certificate number is not correct');
         }
-        $this->id = $id;
+        $this->serialNumber = $serialNumber;
+    }
+
+    public static function newFromString(string $number): self
+    {
+        $serialNumber = SerialNumber::createFromBytes($number);
+        return new self($serialNumber);
     }
 
     public function number(): string
     {
-        return $this->id;
+        return $this->serialNumber->bytes();
+    }
+
+    public function object(): SerialNumber
+    {
+        return $this->serialNumber;
     }
 
     public function remoteUrl(): string
     {
+        $serialNumber = $this->number();
         return sprintf(
             'https://rdc.sat.gob.mx/rccf/%s/%s/%s/%s/%s/%s.cer',
-            substr($this->id, 0, 6),
-            substr($this->id, 6, 6),
-            substr($this->id, 12, 2),
-            substr($this->id, 14, 2),
-            substr($this->id, 16, 2),
-            $this->id
+            substr($serialNumber, 0, 6),
+            substr($serialNumber, 6, 6),
+            substr($serialNumber, 12, 2),
+            substr($serialNumber, 14, 2),
+            substr($serialNumber, 16, 2),
+            $serialNumber
         );
     }
 
-    public static function isValidCertificateNumber(string $id): bool
+    public static function isValidCertificateNumber(string $number): bool
     {
-        return (bool) preg_match('/^[0-9]{20}$/', $id);
+        return (bool) preg_match('/^[0-9]{20}$/', $number);
     }
 }

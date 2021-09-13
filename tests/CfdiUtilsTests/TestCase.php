@@ -48,7 +48,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     protected function installCertificate(string $cerfile): string
     {
         $certificateNumber = substr(basename($cerfile), 0, 20);
-        $satCertificateNumber = new SatCertificateNumber($certificateNumber);
+        $satCertificateNumber = SatCertificateNumber::newFromString($certificateNumber);
 
         $cerRetriever = $this->newResolver()->newCerRetriever();
 

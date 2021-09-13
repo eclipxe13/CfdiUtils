@@ -12,7 +12,7 @@ final class CerRetrieverTest extends TestCase
     {
         // this certificate does not exist in the internet repository, it will fail to download
         $certificateId = '20001000000300022779';
-        $cerNumber = new SatCertificateNumber($certificateId);
+        $cerNumber = SatCertificateNumber::newFromString($certificateId);
         $retriever = $this->newResolver()->newCerRetriever();
         $remoteUrl = $cerNumber->remoteUrl();
 
@@ -26,7 +26,7 @@ final class CerRetrieverTest extends TestCase
         // NOTE: This certificate is valid until 2021-05-22 12:42:41
         // after this date this test may fail
         $certificateId = '00001000000406258094';
-        $cerNumber = new SatCertificateNumber($certificateId);
+        $cerNumber = SatCertificateNumber::newFromString($certificateId);
         $retriever = $this->newResolver()->newCerRetriever();
         $retriever->setDownloader(new CertificateDownloaderHelper());
         $remoteUrl = $cerNumber->remoteUrl();
