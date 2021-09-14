@@ -2,6 +2,7 @@
 
 namespace CfdiUtils;
 
+use CfdiUtils\CadenaOrigen\CfdiDefaultLocations;
 use CfdiUtils\CadenaOrigen\DOMBuilder;
 use CfdiUtils\CadenaOrigen\XsltBuilderInterface;
 use CfdiUtils\CadenaOrigen\XsltBuilderPropertyInterface;
@@ -121,7 +122,8 @@ class CfdiCreator33 implements
                 'Cannot build the cadena de origen since there is no xml resolver'
             );
         }
-        $xsltLocation = $this->getXmlResolver()->resolveCadenaOrigenLocation('3.3');
+        $xmlResolver = $this->getXmlResolver();
+        $xsltLocation = $xmlResolver->resolve(CfdiDefaultLocations::location('3.3'), $xmlResolver::TYPE_XSLT);
         return $this->getXsltBuilder()->build($this->asXml(), $xsltLocation);
     }
 

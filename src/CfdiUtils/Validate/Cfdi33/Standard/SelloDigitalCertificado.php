@@ -2,6 +2,7 @@
 
 namespace CfdiUtils\Validate\Cfdi33\Standard;
 
+use CfdiUtils\CadenaOrigen\CfdiDefaultLocations;
 use CfdiUtils\CadenaOrigen\XsltBuilderPropertyTrait;
 use CfdiUtils\Certificado\NodeCertificado;
 use CfdiUtils\Nodes\NodeInterface;
@@ -101,7 +102,8 @@ class SelloDigitalCertificado extends AbstractDiscoverableVersion33 implements
 
     private function buildCadenaOrigen(): string
     {
-        $xsltLocation = $this->getXmlResolver()->resolveCadenaOrigenLocation('3.3');
+        $xmlResolver = $this->getXmlResolver();
+        $xsltLocation = $xmlResolver->resolve(CfdiDefaultLocations::location('3.3'), $xmlResolver::TYPE_XSLT);
         return $this->getXsltBuilder()->build($this->getXmlString(), $xsltLocation);
     }
 

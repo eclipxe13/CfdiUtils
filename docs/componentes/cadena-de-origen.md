@@ -70,8 +70,9 @@ Se puede seguir esta receta:
 
 ```php
 <?php
-use \CfdiUtils\XmlResolver\XmlResolver;
+use \CfdiUtils\CadenaOrigen\CfdiDefaultLocations;
 use \CfdiUtils\CadenaOrigen\DOMBuilder;
+use \CfdiUtils\XmlResolver\XmlResolver;
 
 // el contenido del cfdi
 $xmlContent = file_get_contents('... archivo xml');
@@ -79,9 +80,11 @@ $xmlContent = file_get_contents('... archivo xml');
 // usar el resolvedor para usar los recursos descargados
 $resolver = new XmlResolver();
 
-// el resolvedor tiene un método de ayuda para obtener la ubicación del XSLT
-// dependiendo de la versión del comprobante
-$location = $resolver->resolveCadenaOrigenLocation('3.3');
+// se puede usar la clase para obtener la ubicación del archivo XSLT
+$baseLocation = CfdiDefaultLocations::location('3.3');
+
+// y después resolver la ubicación
+$location = $resolver->resolve($baseLocation, $resolver::TYPE_XSLT);
 
 // fabricar la cadena de origen
 $builder = new DOMBuilder();
