@@ -6,7 +6,6 @@ use CfdiUtils\CadenaOrigen\CfdiDefaultLocations;
 use CfdiUtils\CadenaOrigen\DOMBuilder;
 use CfdiUtils\Cfdi;
 use CfdiUtils\CfdiCreator33;
-use CfdiUtils\ConsultaCfdiSat\RequestParameters;
 use CfdiUtils\Elements\Tfd11\TimbreFiscalDigital;
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Utils\Format;
@@ -34,10 +33,6 @@ final class ReadCfdiWithTimbreOnSecondComplementoTest extends TestCase
             $dirtyCfdi->getNode()->searchAttribute('cfdi:Complemento', 'tfd:TimbreFiscalDigital', 'UUID'),
             'Expected empty UUID from dirty CFDI using NodeInterface::searchAttribute'
         );
-        $this->assertEmpty(
-            RequestParameters::createFromCfdi($dirtyCfdi)->getUuid(),
-            'Expected empty UUID from dirty CFDI using RequestParameters'
-        );
 
         // perform cleaning
         $cleanDocument = $dirtyCfdi->getDocument();
@@ -63,13 +58,6 @@ final class ReadCfdiWithTimbreOnSecondComplementoTest extends TestCase
             $uuid,
             $cleanCfdi->getNode()->searchAttribute('cfdi:Complemento', 'tfd:TimbreFiscalDigital', 'UUID'),
             'Cannot get UUID using NodeInterface::searchAttribute'
-        );
-
-        // assert that the TimbreFiscalDigital can be read using RequestParameters
-        $this->assertSame(
-            $uuid,
-            RequestParameters::createFromCfdi($cleanCfdi)->getUuid(),
-            'Cannot get UUID using RequestParameters'
         );
     }
 

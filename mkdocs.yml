@@ -31,7 +31,6 @@ nav:
   - "Componentes":
     - componentes/xmlresolver.md
     - componentes/cadena-de-origen.md
-    - componentes/estado-sat.md
     - componentes/elements.md
     - componentes/nodes.md
   - "Utilerías":

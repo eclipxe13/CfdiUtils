@@ -146,20 +146,8 @@ definiciones de los espacios de nombres no participan en la formación de la cad
 
 ## Formación del texto de los códigos QR
 
-La formación del texto que se incluye en los códigos QR tiene reglas específicas
-y puede utilizarse el objeto `\CfdiUtils\ConsultaCfdiSat\RequestParameters`
-para obtener el texto contenido en el código QR.
-
-Este es un ejemplo para la obtener la URL directamente de un contenido XML.
-
-```php
-$xmlContents = '<cfdi:Comprobante Version="3.3">...</cfdi:Comprobante>';
-$cfdi = \CfdiUtils\Cfdi::newFromString($xmlContents);
-$parameters = \CfdiUtils\ConsultaCfdiSat\RequestParameters::createFromCfdi($cfdi);
-
-echo $parameters->expression(); // https://verificacfdi.facturaelectronica.sat.gob.mx/...
-```
-
+La formación del texto que se incluye en los códigos QR tiene reglas específicas,
+para generarlo puedes usar [`phpcfdi/cfdi-expresiones`](https://github.com/phpcfdi/cfdi-expresiones).
 
 ## Orden de los nodos de un CFDI
 

@@ -68,7 +68,6 @@ Solo hay métodos específicos para CFDI 3.3.
 - [Estructura de datos `Nodes`](componentes/nodes.md)
 - [Estructura de datos `Elements`](componentes/elements.md)
 - [Almacenamiento local de recursos del SAT](componentes/xmlresolver.md)
-- [Consultar estado de un CFDI](componentes/estado-sat.md)
 - [Generación de cadena original](componentes/cadena-de-origen.md)
 
 
