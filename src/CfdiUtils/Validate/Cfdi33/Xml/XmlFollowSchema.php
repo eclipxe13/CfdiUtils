@@ -36,7 +36,6 @@ class XmlFollowSchema extends AbstractVersion33 implements
     RequireXmlResolverInterface
 {
     use XmlStringPropertyTrait;
-
     use XmlResolverPropertyTrait;
 
     public function validate(NodeInterface $comprobante, Asserts $asserts)

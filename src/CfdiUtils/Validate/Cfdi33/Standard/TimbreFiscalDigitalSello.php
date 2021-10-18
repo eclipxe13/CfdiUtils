@@ -27,7 +27,6 @@ class TimbreFiscalDigitalSello extends AbstractDiscoverableVersion33 implements
     RequireXsltBuilderInterface
 {
     use XmlResolverPropertyTrait;
-
     use XsltBuilderPropertyTrait;
 
     public function validate(NodeInterface $comprobante, Asserts $asserts)
