@@ -9,7 +9,6 @@ use CfdiUtils\Elements\Common\AbstractElement;
 class Concepto extends AbstractElement
 {
     use ImpuestosTrait;
-
     use InformacionAduaneraTrait;
 
     public function getElementName(): string

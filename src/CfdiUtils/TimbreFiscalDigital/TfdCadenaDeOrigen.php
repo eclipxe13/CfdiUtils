@@ -13,7 +13,6 @@ use CfdiUtils\XmlResolver\XmlResolverPropertyTrait;
 class TfdCadenaDeOrigen implements XmlResolverPropertyInterface, XsltBuilderPropertyInterface
 {
     use XmlResolverPropertyTrait;
-
     use XsltBuilderPropertyTrait;
 
     const TFD_10 = 'http://www.sat.gob.mx/sitio_internet/timbrefiscaldigital/cadenaoriginal_TFD_1_0.xslt';
