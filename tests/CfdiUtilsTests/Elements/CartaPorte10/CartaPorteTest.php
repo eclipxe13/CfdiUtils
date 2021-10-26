@@ -3,9 +3,9 @@
 namespace CfdiUtilsTests\Elements\CartaPorte10;
 
 use CfdiUtils\Elements\CartaPorte10\CartaPorte;
-use CfdiUtils\Elements\CartaPorte10\FiguraTransporte;
-use CfdiUtils\Elements\CartaPorte10\Mercancias;
 use CfdiUtils\Elements\CartaPorte10\Ubicaciones;
+use CfdiUtils\Elements\CartaPorte10\Mercancias;
+use CfdiUtils\Elements\CartaPorte10\FiguraTransporte;
 use PHPUnit\Framework\TestCase;
 
 /**
