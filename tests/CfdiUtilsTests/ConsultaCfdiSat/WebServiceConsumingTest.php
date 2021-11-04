@@ -90,7 +90,7 @@ final class WebServiceConsumingTest extends TestCase
 
         $this->assertStringStartsWith('S - ', $return->getCode());
         $this->assertSame('Vigente', $return->getCfdi());
-        $this->assertSame('Cancelable sin aceptación', $return->getCancellable());
+        $this->assertSame('Cancelable con aceptación', $return->getCancellable());
         $this->assertSame('', $return->getCancellationStatus());
         $this->assertSame('200', $return->getValidationEfos());
     }
