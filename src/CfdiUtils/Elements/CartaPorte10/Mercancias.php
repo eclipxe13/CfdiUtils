@@ -10,4 +10,19 @@ class Mercancias extends AbstractElement
     {
         return 'cartaporte:Mercancias';
     }
+
+    public function addMercancia(array $attributes = []): Mercancia
+    {
+        $ubicacion = new Mercancia($attributes);
+        $this->addChild($ubicacion);
+        return $ubicacion;
+    }
+
+    public function multiMercancia(array ...$elementAttributes): self
+    {
+        foreach ($elementAttributes as $attributes) {
+            $this->addMercancia($attributes);
+        }
+        return $this;
+    }
 }
