@@ -10,4 +10,19 @@ class Ubicaciones extends AbstractElement
     {
         return 'cartaporte:Ubicaciones';
     }
+
+    public function addUbicacion(array $attributes = []): Ubicacion
+    {
+        $ubicacion = new Ubicacion($attributes);
+        $this->addChild($ubicacion);
+        return $ubicacion;
+    }
+
+    public function multiUbicacion(array ...$elementAttributes): self
+    {
+        foreach ($elementAttributes as $attributes) {
+            $this->addUbicacion($attributes);
+        }
+        return $this;
+    }
 }
