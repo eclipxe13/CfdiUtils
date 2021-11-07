@@ -13,9 +13,9 @@ class Mercancias extends AbstractElement
 
     public function addMercancia(array $attributes = []): Mercancia
     {
-        $ubicacion = new Mercancia($attributes);
-        $this->addChild($ubicacion);
-        return $ubicacion;
+        $mercancia = new Mercancia($attributes);
+        $this->addChild($mercancia);
+        return $mercancia;
     }
 
     public function multiMercancia(array ...$elementAttributes): self
@@ -24,5 +24,37 @@ class Mercancias extends AbstractElement
             $this->addMercancia($attributes);
         }
         return $this;
+    }
+
+    public function addAutotransporteFederal(array $attributes = []): AutotransporteFederal
+    {
+        $autotransporteFederal = new AutotransporteFederal($attributes);
+        $this->addChild($autotransporteFederal);
+
+        return $autotransporteFederal;
+    }
+
+    public function addTransporteMaritimo(array $attributes = []): TransporteMaritimo
+    {
+        $transporteMaritimo = new TransporteMaritimo($attributes);
+        $this->addChild($transporteMaritimo);
+
+        return $transporteMaritimo;
+    }
+
+    public function addTransporteAereo(array $attributes = []): TransporteAereo
+    {
+        $transporteAereo = new TransporteAereo($attributes);
+        $this->addChild($transporteAereo);
+
+        return $transporteAereo;
+    }
+
+    public function addTransporteFerroviario(array $attributes = []): TransporteFerroviario
+    {
+        $transporteFerroviario = new TransporteFerroviario($attributes);
+        $this->addChild($transporteFerroviario);
+
+        return $transporteFerroviario;
     }
 }
