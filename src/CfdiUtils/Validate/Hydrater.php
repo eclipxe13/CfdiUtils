@@ -15,9 +15,7 @@ use CfdiUtils\XmlResolver\XmlResolverPropertyTrait;
 class Hydrater implements XmlResolverPropertyInterface, XsltBuilderPropertyInterface
 {
     use XmlResolverPropertyTrait;
-
     use XmlStringPropertyTrait;
-
     use XsltBuilderPropertyTrait;
 
     public function hydrate(ValidatorInterface $validator)
