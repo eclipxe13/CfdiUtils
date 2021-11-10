@@ -2,6 +2,11 @@
 
 - Incrementar la cobertura de PHPStan al nivel máximo.
 
+## Documentar Carta Porte 1.0
+
+Se agregaron los elementos de ayuda a `CfdiUtils\Elements\CartaPorte10` pero no se agregó la documentación,
+es necesario agregarla tomando como ejemplo la documentación del *Complemento de Nómina 1.2b*.
+
 ## Verificar problemas conocidos
 
 ### Descarga de certificados desde <https://rdc.sat.gob.mx/rccf/> por certificados vencidos
