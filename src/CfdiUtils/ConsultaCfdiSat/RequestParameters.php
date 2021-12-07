@@ -115,8 +115,8 @@ class RequestParameters
     public function expressionVersion32(): string
     {
         return '?' . implode('&', [
-            're=' . strval($this->rfcEmisor),
-            'rr=' . strval($this->rfcReceptor),
+            're=' . htmlentities(strval($this->rfcEmisor)),
+            'rr=' . htmlentities(strval($this->rfcReceptor)),
             'tt=' . str_pad(number_format($this->totalFloat, 6, '.', ''), 17, '0', STR_PAD_LEFT),
             'id=' . strval($this->uuid),
         ]);
@@ -130,8 +130,8 @@ class RequestParameters
         }
         return 'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?' . implode('&', [
             'id=' . strval($this->uuid),
-            're=' . strval($this->rfcEmisor),
-            'rr=' . strval($this->rfcReceptor),
+            're=' . htmlentities(strval($this->rfcEmisor)),
+            'rr=' . htmlentities(strval($this->rfcReceptor)),
             'tt=' . $total,
             'fe=' . substr($this->sello, -8),
         ]);
