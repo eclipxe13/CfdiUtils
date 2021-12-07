@@ -110,4 +110,19 @@ final class RequestParametersTest extends TestCase
 
         $this->assertStringContainsString('&tt=' . $expected . '&', $parameters->expression());
     }
+
+    public function testRfcWithAmpersand()
+    {
+        $parameters = new RequestParameters(
+            '3.3',
+            'XX&020424235',
+            'C&SC8001137NA',
+            '1,234.5678',
+            'CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC',
+            '0123456789'
+        );
+
+        $this->assertSame('XX&amp;020424235', $parameters->getRfcEmisor());
+        $this->assertSame('C&amp;SC8001137NA', $parameters->getRfcReceptor());
+    }
 }
