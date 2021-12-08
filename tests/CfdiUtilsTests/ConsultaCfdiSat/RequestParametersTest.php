@@ -110,4 +110,38 @@ final class RequestParametersTest extends TestCase
 
         $this->assertStringContainsString('&tt=' . $expected . '&', $parameters->expression());
     }
+
+    public function testRfcWithAmpersand()
+    {
+        /*
+         * This is not an error. SAT is using XML encoding on URL instead of URL encoding,
+         * this is why the ampersand `&` should be `&amp;` instead of `%26`, and `Ñ` is the same.
+         */
+
+        $parameters = new RequestParameters(
+            '3.3',
+            'Ñ&A010101AAA',
+            'Ñ&A991231AA0',
+            '1,234.5678',
+            'CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC',
+            '0123456789'
+        );
+
+        $this->assertSame('Ñ&A010101AAA', $parameters->getRfcEmisor());
+        $this->assertSame('Ñ&A991231AA0', $parameters->getRfcReceptor());
+
+        $expected32 = '?re=Ñ&amp;A010101AAA'
+            . '&rr=Ñ&amp;A991231AA0'
+            . '&tt=0000001234.567800'
+            . '&id=CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC';
+        $this->assertSame($expected32, $parameters->expressionVersion32());
+
+        $expected33 = 'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx'
+            . '?id=CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC'
+            . '&re=Ñ&amp;A010101AAA'
+            . '&rr=Ñ&amp;A991231AA0'
+            . '&tt=1234.5678'
+            . '&fe=23456789';
+        $this->assertSame($expected33, $parameters->expressionVersion33());
+    }
 }
