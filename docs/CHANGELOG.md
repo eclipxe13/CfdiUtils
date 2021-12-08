@@ -33,6 +33,17 @@
 The following changes apply only to development and has been applied to main branch.
 
 
+## Version 2.16.1 2021-12-08
+
+Fix bug when create expression to query for the SAT status and the RFC (*emisor* or *receptor*) contains
+the characters `&` or `Ñ`. The service requires that the expression is XML "encoded".
+Thanks, @ramboram and @TheSpectroMX for your help.
+
+Refactor test script `tests/estadosat.php`.
+
+Fix typos on *"Complemento de Nómina versión 1.2, revisión B"* documentation.
+
+
 ## Version 2.16.0 2021-11-09
 
 Add `CfdiUtils\Elements\CartaPorte10` *Elements* to work with "Carta Porte 1.0".
