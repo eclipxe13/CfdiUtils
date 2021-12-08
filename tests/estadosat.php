@@ -1,8 +1,8 @@
 <?php
 
+use \CfdiUtils\ConsultaCfdiSat\WebService;
 use CfdiUtils\Cfdi;
 use CfdiUtils\ConsultaCfdiSat\RequestParameters;
-use \CfdiUtils\ConsultaCfdiSat\WebService;
 
 require __DIR__ . '/bootstrap.php';
 
@@ -23,7 +23,7 @@ exit(call_user_func(function (string $command, string ...$arguments): int {
     $webService = new WebService();
 
     foreach ($files as $file) {
-        if ( ! file_exists($file)) {
+        if (! file_exists($file)) {
             echo "El archivo $file no existe", PHP_EOL;
             continue;
         }
