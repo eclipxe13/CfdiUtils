@@ -35,10 +35,12 @@ exit(call_user_func(function (string $command, string ...$arguments): int {
 
         print_r(array_filter([
             'file' => $file,
+            'Expresión' => $request->expression(),
             'Petición' => $response->getCode(),
             'Estado CFDI' => $response->getCfdi(),
             'Cancelable' => $response->getCancellable(),
             'Estado cancelación' => $response->getCancellationStatus(),
+            'Validación EFOS' => $response->getValidationEfos(),
         ]));
     }
 
