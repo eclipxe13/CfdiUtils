@@ -55,6 +55,7 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "CfdiUtils\\Development\\": "development/",
             "CfdiUtilsTests\\": "tests/CfdiUtilsTests/"
         }
     },
