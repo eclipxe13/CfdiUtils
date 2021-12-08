@@ -1,20 +1,14 @@
 <?php
 
+use CfdiUtils\Cfdi;
+use CfdiUtils\ConsultaCfdiSat\RequestParameters;
 use \CfdiUtils\ConsultaCfdiSat\WebService;
 
 require __DIR__ . '/bootstrap.php';
 
 exit(call_user_func(function (string $command, string ...$arguments): int {
-    $files = [];
-    $askForHelp = false;
-    foreach ($arguments as $argument) {
-        if (in_array($argument, ['-h', '--help'], true)) {
-            $askForHelp = true;
-            break; // no need to continue with other arguments
-        }
-        $files[] = $argument;
-    }
-    $files = array_filter($files);
+    $askForHelp = ([] !== array_intersect(['-h', '--help'], $arguments));
+    $files = array_filter($arguments);
 
     if ($askForHelp || ! count($files)) {
         echo implode(PHP_EOL, [
@@ -29,19 +23,23 @@ exit(call_user_func(function (string $command, string ...$arguments): int {
     $webService = new WebService();
 
     foreach ($files as $file) {
-        $cfdi = \CfdiUtils\Cfdi::newFromString((string) file_get_contents($file));
-        $request = \CfdiUtils\ConsultaCfdiSat\RequestParameters::createFromCfdi($cfdi);
+        if ( ! file_exists($file)) {
+            echo "El archivo $file no existe", PHP_EOL;
+            continue;
+        }
+        $cfdi = Cfdi::newFromString((string) file_get_contents($file));
+        $request = RequestParameters::createFromCfdi($cfdi);
         $response = $webService->request($request);
 
-        print_r(array_filter([
-            'file' => $file,
-            'Expresión' => $request->expression(),
-            'Petición' => $response->getCode(),
-            'Estado CFDI' => $response->getCfdi(),
-            'Cancelable' => $response->getCancellable(),
-            'Estado cancelación' => $response->getCancellationStatus(),
-            'Validación EFOS' => $response->getValidationEfos(),
-        ]));
+        echo implode(PHP_EOL, [
+            "    Archivo: $file",
+            "  Expresión: {$request->expression()}",
+            "   Petición: {$response->getCode()}",
+            "Estado CFDI: {$response->getCfdi()}",
+            " Cancelable: {$response->getCancellable()}",
+            "Cancelación: {$response->getCancellationStatus()}",
+            "       EFOS: {$response->getValidationEfos()}",
+        ]), PHP_EOL;
     }
 
     return 0;
