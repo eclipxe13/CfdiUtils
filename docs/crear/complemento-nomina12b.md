@@ -1,7 +1,7 @@
 # Complemento de Nómina 1.2 revisión B
 
 El espacio de nombres de `CfdiUtils\Elements\Nomina12` permite trabajar en forma más fácil con los nodos
-con nombres y acciones específicas para implementar el Complemento de Nómina versión 1.2 revisión B
+con nombres y acciones específicas para implementar el Complemento de Nómina versión 1.2, revisión B
 vigente a partir del 01 de enero del 2020.
 
 La documentación del complemento la puedes encontrar en el sitio oficial del SAT:
@@ -17,10 +17,10 @@ Según la documentación técnica el XML **debe cumplir** con la siguiente espec
 - Namespace: `http://www.sat.gob.mx/nomina12`.
 - Archivo XSD: `http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd`.
 
-## Gerarquía de nodos
+## Jerarquía de nodos
 
-En la liguiente lista se puede ver la gerarquía, el orden y el número de apariciones mínimas y máximas de los nodos
-en el Complemento de Nómina versión 1.2 revisión B.
+En la siguiente lista se puede ver la jerarquía, el orden y el número de apariciones mínimas y máximas de los nodos
+en el Complemento de Nómina versión 1.2, revisión B.
 
 ```text
 [0,1] Nomina
