@@ -4,6 +4,8 @@ namespace CfdiUtilsTests\Elements\Cfdi33\Helpers;
 
 use CfdiUtils\Elements\Cfdi33\Comprobante;
 use CfdiUtils\Elements\Cfdi33\Helpers\SumasConceptosWriter;
+use CfdiUtils\Elements\ImpLocal10\ImpuestosLocales;
+use CfdiUtils\Elements\Pagos10\Pagos;
 use CfdiUtils\Nodes\XmlNodeUtils;
 use CfdiUtils\SumasConceptos\SumasConceptos;
 use PHPUnit\Framework\TestCase;
@@ -228,5 +230,61 @@ final class SumasConceptosWriterTest extends TestCase
             </cfdi:Impuestos>
 EOT;
         $this->assertXmlStringEqualsXmlString($expected, XmlNodeUtils::nodeToXmlString($comprobante->getImpuestos()));
+    }
+
+    public function testSetRequiredImpLocalAttributes()
+    {
+        $comprobante = new Comprobante();
+        $impLocal = new ImpuestosLocales();
+        for ($i = 0; $i < 2; $i++) {
+            $impLocal->addTrasladoLocal([
+                'ImpLocTrasladado' => 'IH',
+                'Importe' => '27.43',
+                'TasadeTraslado' => '2.50',
+            ]);
+            $impLocal->addRetencionLocal([
+                'ImpLocTrasladado' => 'IH',
+                'Importe' => '27.43',
+                'TasadeTraslado' => '2.50',
+            ]);
+        }
+        $comprobante->addComplemento($impLocal);
+
+        $precion = 2;
+        $sumas = new SumasConceptos($comprobante, $precion);
+        $writer = new SumasConceptosWriter($comprobante, $sumas, $precion);
+        $writer->put();
+
+        $this->assertEquals($impLocal->attributes()->get('TotaldeRetenciones'), '54.86');
+        $this->assertEquals($impLocal->attributes()->get('TotaldeTraslados'), '54.86');
+    }
+
+    public function testRemoveImpLocalComplementWhenIsEmptyAndPreservesOthersComplements()
+    {
+        $comprobante = new Comprobante();
+        $comprobante->addComplemento(new ImpuestosLocales());
+        $comprobante->addComplemento(new Pagos());
+
+        $precion = 2;
+        $sumas = new SumasConceptos($comprobante, $precion);
+        $writer = new SumasConceptosWriter($comprobante, $sumas, $precion);
+        $writer->put();
+
+        $this->assertEquals($comprobante->getComplemento()->count(), 1);
+        $this->assertNotNull($comprobante->searchNode('cfdi:Complemento', 'pago10:Pagos'));
+        $this->assertNull($comprobante->searchNode('cfdi:Complemento', 'implocal:ImpuestosLocales'));
+    }
+
+    public function testRemoveImpLocalComplementWhenIsEmptyAndNodeComplemento()
+    {
+        $comprobante = new Comprobante();
+        $comprobante->addComplemento(new ImpuestosLocales());
+
+        $precion = 2;
+        $sumas = new SumasConceptos($comprobante, $precion);
+        $writer = new SumasConceptosWriter($comprobante, $sumas, $precion);
+        $writer->put();
+
+        $this->assertNull($comprobante->searchNode('cfdi:Complemento'));
     }
 }
