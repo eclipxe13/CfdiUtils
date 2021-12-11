@@ -33,6 +33,7 @@ class SumasConceptosWriter
     {
         $this->putComprobanteSumas();
         $this->putImpuestosNode();
+        $this->putComplementoImpuestoLocalSumas();
     }
 
     private function putComprobanteSumas()
@@ -71,6 +72,25 @@ class SumasConceptosWriter
                 ...$this->getImpuestosContents($this->sumas->getRetenciones())
             );
         }
+    }
+
+    private function putComplementoImpuestoLocalSumas()
+    {
+        // search for implocal node
+        $impLocal = $this->comprobante->searchNode('cfdi:Complemento', 'implocal:ImpuestosLocales');
+        if (! $impLocal) {
+            return;
+        }
+        if (! $this->sumas->hasLocalesTraslados() && ! $this->sumas->hasLocalesRetenciones()) {
+            $complemento = $this->comprobante->getComplemento();
+            $complemento->children()->remove($impLocal);
+            if (0 === $complemento->count()) {
+                $this->comprobante->children()->remove($complemento);
+            }
+            return;
+        }
+        $impLocal->attributes()->set('TotaldeRetenciones', $this->format($this->sumas->getLocalesImpuestosRetenidos()));
+        $impLocal->attributes()->set('TotaldeTraslados', $this->format($this->sumas->getLocalesImpuestosTrasladados()));
     }
 
     private function getImpuestosContents(array $impuestos): array
