@@ -33,6 +33,12 @@
 The following changes apply only to development and has been applied to main branch.
 
 
+## Version 2.17.0 2021-12-10
+
+The helper object `SumasConceptosWriter` also writes the sum of *impuestos locales* when they are present.
+Thanks, @ccelli33 and @luffinando for your help.
+
+
 ## Version 2.16.1 2021-12-08
 
 Fix bug when create expression to query for the SAT status and the RFC (*emisor* or *receptor*) contains
