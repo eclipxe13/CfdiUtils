@@ -33,6 +33,11 @@
 The following changes apply only to development and has been applied to main branch.
 
 
+## Version 2.18.1 2021-12-17
+
+Remove `development/` from distribution package.
+
+
 ## Version 2.18.0 2021-12-17
 
 Add `CfdiUtils\Elements\CartaPorte20` *Elements* to work with "Carta Porte 2.0".

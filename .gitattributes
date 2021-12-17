@@ -12,6 +12,7 @@
 /package-lock.json          export-ignore
 
 # Do not put this files on a distribution package
+/development/               export-ignore
 /tests/                     export-ignore
 /.github/                   export-ignore
 /.editorconfig              export-ignore
