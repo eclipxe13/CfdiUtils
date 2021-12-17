@@ -1,0 +1,14 @@
+    public function add#child-name#(array $attributes = []): #child-name#
+    {
+        $subject = new #child-name#($attributes);
+        $this->addChild($subject);
+        return $subject;
+    }
+
+    public function multi#child-name#(array ...$elementAttributes): self
+    {
+        foreach ($elementAttributes as $attributes) {
+            $this->add#child-name#($attributes);
+        }
+        return $this;
+    }
