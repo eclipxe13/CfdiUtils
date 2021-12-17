@@ -83,7 +83,7 @@
             "@php vendor/bin/phpstan analyse --no-progress src/ tests/"
         ],
         "dev:coverage": [
-            "@php -dzend_extension=xdebug.so vendor/bin/phpunit --coverage-text --coverage-html build/coverage/html/"
+            "@php -dzend_extension=xdebug.so -dxdebug.mode=coverage vendor/bin/phpunit --coverage-html build/coverage/html/"
         ]
     },
     "scripts-descriptions": {
