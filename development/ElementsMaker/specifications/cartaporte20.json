@@ -1,7 +1,7 @@
 {
     "php-namespace": "CfdiUtils\\Elements\\CartaPorte20",
     "prefix": "cartaporte20",
-    "xml-namespace": "http://www.sat.gob.mx/cartaporte",
+    "xml-namespace": "http://www.sat.gob.mx/CartaPorte20",
     "xml-schemalocation": "http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte20.xsd",
     "version-attribute": "Version",
     "version-value": "2.0",

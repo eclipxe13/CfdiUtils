@@ -22,8 +22,8 @@ class CartaPorte extends AbstractElement
     public function getFixedAttributes(): array
     {
         return [
-            'xmlns:cartaporte20' => 'http://www.sat.gob.mx/cartaporte',
-            'xsi:schemaLocation' => 'http://www.sat.gob.mx/cartaporte'
+            'xmlns:cartaporte20' => 'http://www.sat.gob.mx/CartaPorte20',
+            'xsi:schemaLocation' => 'http://www.sat.gob.mx/CartaPorte20'
                 . ' http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte20.xsd',
             'Version' => '2.0',
         ];

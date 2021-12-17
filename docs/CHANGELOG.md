@@ -33,6 +33,11 @@
 The following changes apply only to development and has been applied to main branch.
 
 
+## Version 2.18.2 2021-12-17
+
+Fix *Carta Porte 2.0* XML Namespace.
+
+
 ## Version 2.18.1 2021-12-17
 
 Remove `development/` from distribution package.
