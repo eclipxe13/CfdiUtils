@@ -1,0 +1,14 @@
+<?php
+
+namespace #php-namespace#;
+
+use CfdiUtils\Elements\Common\AbstractElement;
+
+class #element-name# extends AbstractElement
+{
+    public function getElementName(): string
+    {
+        return '#prefix#:#element-name#';
+    }
+    #sections#
+}

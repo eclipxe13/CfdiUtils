@@ -1,0 +1,11 @@
+    public function get#child-name#(): #child-name#
+    {
+        return $this->helperGetOrAdd(new #child-name#());
+    }
+
+    public function add#child-name#(array $attributes = []): #child-name#
+    {
+        $subject = $this->get#child-name#();
+        $subject->addAttributes($attributes);
+        return $subject;
+    }

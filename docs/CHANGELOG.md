@@ -33,6 +33,15 @@
 The following changes apply only to development and has been applied to main branch.
 
 
+## Version 2.18.0 2021-12-17
+
+Add `CfdiUtils\Elements\CartaPorte20` *Elements* to work with "Carta Porte 2.0".
+
+Add *Elements Maker*, a development tool to create element classes based on a specification file.
+
+Fix `dev:coverage` composer script.
+
+
 ## Version 2.17.0 2021-12-10
 
 The helper object `SumasConceptosWriter` also writes the sum of *impuestos locales* when they are present.
