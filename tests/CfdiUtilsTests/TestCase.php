@@ -7,6 +7,16 @@ use CfdiUtils\XmlResolver\XmlResolver;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
+    public static function captureException(callable $function): ?\Throwable
+    {
+        try {
+            call_user_func($function);
+            return null;
+        } catch (\Throwable $exception) {
+            return $exception;
+        }
+    }
+
     public static function utilAsset(string $file): string
     {
         return dirname(__DIR__) . '/assets/' . $file;

@@ -26,6 +26,7 @@ class CfdiVersion extends VersionDiscoverer
     public function rules(): array
     {
         return [
+            '4.0' => 'Version',
             '3.3' => 'Version',
             '3.2' => 'version',
         ];
