@@ -33,6 +33,11 @@
 The following changes apply only to development and has been applied to main branch.
 
 
+## Version 2.18.3 2022-01-15
+
+Fix *Carta Porte 1.0* add missing element `Notificado`. Thanks @celli33.
+
+
 ## Version 2.18.2 2021-12-17
 
 Fix *Carta Porte 2.0* XML Namespace.
