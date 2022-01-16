@@ -13,7 +13,7 @@ use CfdiUtils\Elements\Retenciones10\Retenciones;
 use CfdiUtils\Nodes\XmlNodeUtils;
 use CfdiUtils\PemPrivateKey\PemPrivateKey;
 use CfdiUtils\Validate\Asserts;
-use CfdiUtils\Validate\Cfdi33\Xml\XmlFollowSchema;
+use CfdiUtils\Validate\Xml\XmlFollowSchema;
 use CfdiUtils\XmlResolver\XmlResolver;
 use CfdiUtils\XmlResolver\XmlResolverPropertyInterface;
 use CfdiUtils\XmlResolver\XmlResolverPropertyTrait;

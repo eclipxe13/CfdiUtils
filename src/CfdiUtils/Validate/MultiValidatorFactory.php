@@ -2,7 +2,7 @@
 
 namespace CfdiUtils\Validate;
 
-use CfdiUtils\Validate\Cfdi33\Xml\XmlFollowSchema;
+use CfdiUtils\Validate\Xml\XmlFollowSchema;
 
 class MultiValidatorFactory
 {
