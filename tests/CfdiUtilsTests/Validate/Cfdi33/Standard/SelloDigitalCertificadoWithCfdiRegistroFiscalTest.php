@@ -2,8 +2,6 @@
 
 namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
-use CfdiUtils\Certificado\Certificado;
-use CfdiUtils\CfdiCreator33;
 use CfdiUtils\Elements\Cfdi33\Comprobante;
 use CfdiUtils\Elements\Tfd11\TimbreFiscalDigital;
 use CfdiUtils\Nodes\Node;
@@ -23,13 +21,10 @@ final class SelloDigitalCertificadoWithCfdiRegistroFiscalTest extends Validate33
         $this->hydrater->hydrate($this->validator);
 
         $cerfile = $this->utilAsset('certs/00001000000403258748.cer');
-        $certificado = new Certificado($cerfile);
-        $cfdiCreator = new CfdiCreator33([], $certificado);
-        $this->comprobante = $cfdiCreator->comprobante();
-
-        $emisor = $this->comprobante->searchNode('cfdi:Emisor');
-        $emisor['Nombre'] = 'CARLOS CORTES SOTO';
-        $emisor['Rfc'] = 'COSC8001137NA';
+        $this->setUpCertificado([], [
+            'Nombre' => 'CARLOS CORTES SOTO',
+            'Rfc' => 'COSC8001137NA',
+        ], $cerfile);
     }
 
     public function testFailWhenHasNotCfdiRegistroFiscalAndCertificadosDoNotMatch()

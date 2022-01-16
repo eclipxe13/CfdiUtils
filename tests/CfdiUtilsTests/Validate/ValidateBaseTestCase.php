@@ -3,6 +3,7 @@
 namespace CfdiUtilsTests\Validate;
 
 use CfdiUtils\CadenaOrigen\DOMBuilder;
+use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\Cfdi;
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Nodes\NodeInterface;
@@ -35,6 +36,29 @@ abstract class ValidateBaseTestCase extends TestCase
         $this->hydrater = new Hydrater();
         $this->hydrater->setXmlResolver($this->newResolver());
         $this->hydrater->setXsltBuilder(new DOMBuilder());
+    }
+
+    protected function setUpCertificado(
+        array $comprobanteAttributes = [],
+        array $emisorAttributes = [],
+        string $certificateFile = ''
+    ): void {
+        $certificateFile = $certificateFile ?: $this->utilAsset('certs/EKU9003173C9.cer');
+        $certificado = new Certificado($certificateFile);
+        $this->comprobante->addAttributes(array_merge([
+            'Certificado' => $certificado->getPemContentsOneLine(),
+            'NoCertificado' => $certificado->getSerial(),
+        ], $comprobanteAttributes));
+
+        $emisor = $this->comprobante->searchNode('cfdi:Emisor');
+        if (null === $emisor) {
+            $emisor = new Node('cfdi:Emisor');
+            $this->comprobante->addChild($emisor);
+        }
+        $emisor->addAttributes(array_merge([
+            'Nombre' => $certificado->getName(),
+            'Rfc' => $certificado->getRfc(),
+        ], $emisorAttributes));
     }
 
     protected function runValidate()

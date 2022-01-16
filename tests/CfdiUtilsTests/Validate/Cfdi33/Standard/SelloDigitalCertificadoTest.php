@@ -2,8 +2,6 @@
 
 namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
-use CfdiUtils\Certificado\Certificado;
-use CfdiUtils\Nodes\Node;
 use CfdiUtils\Utils\Format;
 use CfdiUtils\Validate\Cfdi33\Standard\SelloDigitalCertificado;
 use CfdiUtils\Validate\Contracts\DiscoverableCreateInterface;
@@ -22,26 +20,6 @@ final class SelloDigitalCertificadoTest extends Validate33TestCase
         parent::setUp();
         $this->validator = new SelloDigitalCertificado();
         $this->hydrater->hydrate($this->validator);
-    }
-
-    protected function setUpCertificado(array $attributes = [])
-    {
-        $cerfile = $this->utilAsset('certs/EKU9003173C9.cer');
-        $certificado = new Certificado($cerfile);
-        $this->comprobante->addAttributes([
-            'Certificado' => $certificado->getPemContentsOneLine(),
-            'NoCertificado' => $certificado->getSerial(),
-        ]);
-        $emisor = $this->comprobante->searchNode('cfdi:Emisor');
-        if (null === $emisor) {
-            $emisor = new Node('cfdi:Emisor');
-            $this->comprobante->addChild($emisor);
-        }
-        $emisor->addAttributes([
-            'Nombre' => $certificado->getName(),
-            'Rfc' => $certificado->getRfc(),
-        ]);
-        $this->comprobante->addAttributes($attributes);
     }
 
     public function testObjectSpecification()
@@ -76,10 +54,10 @@ final class SelloDigitalCertificadoTest extends Validate33TestCase
 
     public function testValidateBadRfcAndNameNumber()
     {
-        $this->setUpCertificado();
-        $emisor = $this->comprobante->searchNode('cfdi:Emisor');
-        unset($emisor['Rfc']);
-        $emisor['Nombre'] = 'Foo Bar';
+        $this->setUpCertificado([], [
+            'Rfc' => null,
+            'Nombre' => 'Foo Bar',
+        ]);
 
         $this->runValidate();
 
@@ -89,11 +67,11 @@ final class SelloDigitalCertificadoTest extends Validate33TestCase
 
     public function testValidateWithEqualButNotIdenticalName()
     {
-        $this->setUpCertificado();
-        $emisor = $this->comprobante->searchNode('cfdi:Emisor');
         //    change case, and punctuation to original name
         //                   ESCUELA KEMPER URGATE SA DE CV
-        $emisor['Nombre'] = 'ESCUELA - Kemper Urgate, S.A. DE C.V.';
+        $this->setUpCertificado([], [
+            'Nombre' => 'ESCUELA - Kemper Urgate, S.A. DE C.V.',
+        ]);
 
         $this->runValidate();
 
