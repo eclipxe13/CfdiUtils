@@ -43,6 +43,7 @@ class MultiValidatorFactory
         $multiValidator = new MultiValidator('4.0');
         $multiValidator->add(new XmlFollowSchema());
         $multiValidator->add(new XmlDefinition());
+        $this->addDiscovered($multiValidator, __NAMESPACE__ . '\Cfdi40\Standard', __DIR__ . '/Cfdi40/Standard');
         return $multiValidator;
     }
 

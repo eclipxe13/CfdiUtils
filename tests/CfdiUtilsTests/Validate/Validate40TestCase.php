@@ -14,5 +14,4 @@ abstract class Validate40TestCase extends ValidateBaseTestCase
             'Version' => '4.0',
         ]);
     }
-
 }
