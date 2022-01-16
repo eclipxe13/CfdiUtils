@@ -3,7 +3,7 @@
 namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Certificado\Certificado;
-use CfdiUtils\CfdiCreator33;
+use CfdiUtils\Nodes\Node;
 use CfdiUtils\Utils\Format;
 use CfdiUtils\Validate\Cfdi33\Standard\SelloDigitalCertificado;
 use CfdiUtils\Validate\Contracts\DiscoverableCreateInterface;
@@ -28,8 +28,19 @@ final class SelloDigitalCertificadoTest extends Validate33TestCase
     {
         $cerfile = $this->utilAsset('certs/EKU9003173C9.cer');
         $certificado = new Certificado($cerfile);
-        $cfdiCreator = new CfdiCreator33([], $certificado);
-        $this->comprobante = $cfdiCreator->comprobante();
+        $this->comprobante->addAttributes([
+            'Certificado' => $certificado->getPemContentsOneLine(),
+            'NoCertificado' => $certificado->getSerial(),
+        ]);
+        $emisor = $this->comprobante->searchNode('cfdi:Emisor');
+        if (null === $emisor) {
+            $emisor = new Node('cfdi:Emisor');
+            $this->comprobante->addChild($emisor);
+        }
+        $emisor->addAttributes([
+            'Nombre' => $certificado->getName(),
+            'Rfc' => $certificado->getRfc(),
+        ]);
         $this->comprobante->addAttributes($attributes);
     }
 
@@ -197,7 +208,7 @@ final class SelloDigitalCertificadoTest extends Validate33TestCase
 
         $currentLocale = setlocale(LC_CTYPE, '0') ?: 'C';
         if ('C' === $currentLocale || 'POSIX' === $currentLocale) {
-            if (false === setlocale(LC_CTYPE, ['es_MX.utf8', 'en_US.utf8', 'es_MX', 'en_US', 'spanish', 'english'])) {
+            if (false === setlocale(LC_CTYPE, 'es_MX.utf8', 'en_US.utf8', 'es_MX', 'en_US', 'spanish', 'english')) {
                 $this->markTestSkipped('Cannot compare names without LC_CTYPE configured');
             }
         }

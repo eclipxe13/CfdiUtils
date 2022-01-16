@@ -49,8 +49,7 @@ class RetencionesCreator10 implements
     {
         $this->setCertificado($certificado);
         $this->retenciones['NumCert'] = $certificado->getSerial();
-        $pemContents = implode('', preg_grep('/^((?!-).)*$/', explode(PHP_EOL, $certificado->getPemContents())));
-        $this->retenciones['Cert'] = $pemContents;
+        $this->retenciones['Cert'] = $certificado->getPemContentsOneLine();
     }
 
     public function buildCadenaDeOrigen(): string

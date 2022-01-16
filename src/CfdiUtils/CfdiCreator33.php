@@ -79,8 +79,7 @@ class CfdiCreator33 implements
     {
         $this->setCertificado($certificado);
         $this->comprobante['NoCertificado'] = $certificado->getSerial();
-        $pemContents = implode('', preg_grep('/^((?!-).)*$/', explode(PHP_EOL, $certificado->getPemContents())));
-        $this->comprobante['Certificado'] = $pemContents;
+        $this->comprobante['Certificado'] = $certificado->getPemContentsOneLine();
         if ($putEmisorRfcNombre) {
             $emisor = $this->comprobante->searchNode('cfdi:Emisor');
             if (null === $emisor) {

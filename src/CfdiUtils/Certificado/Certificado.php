@@ -239,6 +239,15 @@ class Certificado
     }
 
     /**
+     * The contents of the certificate in PEM format
+     * @return string
+     */
+    public function getPemContentsOneLine(): string
+    {
+        return implode('', preg_grep('/^((?!-).)*$/', explode(PHP_EOL, $this->pemContents)));
+    }
+
+    /**
      * Verify the signature of some data
      *
      * @param string $data
