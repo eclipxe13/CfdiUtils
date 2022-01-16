@@ -5,9 +5,9 @@ namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Validate\Cfdi33\Standard\ComprobanteImpuestos;
 use CfdiUtils\Validate\Status;
-use CfdiUtilsTests\Validate\ValidateTestCase;
+use CfdiUtilsTests\Validate\Validate33TestCase;
 
-final class ComprobanteImpuestosTest extends ValidateTestCase
+final class ComprobanteImpuestosTest extends Validate33TestCase
 {
     /** @var  ComprobanteImpuestos */
     protected $validator;

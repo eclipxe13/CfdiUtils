@@ -4,7 +4,7 @@ namespace CfdiUtilsTests\Validate;
 
 use CfdiUtils\CadenaOrigen\DOMBuilder;
 use CfdiUtils\Cfdi;
-use CfdiUtils\Elements\Cfdi33\Comprobante;
+use CfdiUtils\Nodes\Node;
 use CfdiUtils\Nodes\NodeInterface;
 use CfdiUtils\Validate\Assert;
 use CfdiUtils\Validate\Asserts;
@@ -13,7 +13,7 @@ use CfdiUtils\Validate\Hydrater;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\TestCase;
 
-abstract class ValidateTestCase extends TestCase
+abstract class ValidateBaseTestCase extends TestCase
 {
     /** @var ValidatorInterface */
     protected $validator;
@@ -30,23 +30,11 @@ abstract class ValidateTestCase extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->comprobante = new Comprobante();
+        $this->comprobante = new Node('root');
         $this->asserts = new Asserts();
         $this->hydrater = new Hydrater();
         $this->hydrater->setXmlResolver($this->newResolver());
         $this->hydrater->setXsltBuilder(new DOMBuilder());
-    }
-
-    /**
-     * Use this function to allow code analisys tools to perform correctly
-     * @return Comprobante
-     */
-    protected function getComprobante(): Comprobante
-    {
-        if ($this->comprobante instanceof Comprobante) {
-            return $this->comprobante;
-        }
-        throw new \RuntimeException('The current comprobante node is not a ' . Comprobante::class);
     }
 
     protected function runValidate()

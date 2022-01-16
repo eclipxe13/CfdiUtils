@@ -6,9 +6,9 @@ use CfdiUtils\Nodes\Node;
 use CfdiUtils\Validate\Cfdi33\Standard\SumasConceptosComprobanteImpuestos;
 use CfdiUtils\Validate\Contracts\DiscoverableCreateInterface;
 use CfdiUtils\Validate\Status;
-use CfdiUtilsTests\Validate\ValidateTestCase;
+use CfdiUtilsTests\Validate\Validate33TestCase;
 
-final class SumasConceptosComprobanteImpuestosTest extends ValidateTestCase
+final class SumasConceptosComprobanteImpuestosTest extends Validate33TestCase
 {
     /** @var SumasConceptosComprobanteImpuestos */
     protected $validator;

@@ -7,9 +7,9 @@ use CfdiUtils\Nodes\Node;
 use CfdiUtils\Nodes\NodeInterface;
 use CfdiUtils\Validate\Cfdi33\Standard\TimbreFiscalDigitalSello;
 use CfdiUtils\Validate\Status;
-use CfdiUtilsTests\Validate\ValidateTestCase;
+use CfdiUtilsTests\Validate\Validate33TestCase;
 
-final class TimbreFiscalDigitalSelloTest extends ValidateTestCase
+final class TimbreFiscalDigitalSelloTest extends Validate33TestCase
 {
     /** @var TimbreFiscalDigitalSello */
     protected $validator;

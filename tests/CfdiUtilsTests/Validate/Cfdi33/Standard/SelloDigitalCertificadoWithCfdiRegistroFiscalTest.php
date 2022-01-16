@@ -9,9 +9,9 @@ use CfdiUtils\Elements\Tfd11\TimbreFiscalDigital;
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Validate\Cfdi33\Standard\SelloDigitalCertificado;
 use CfdiUtils\Validate\Status;
-use CfdiUtilsTests\Validate\ValidateTestCase;
+use CfdiUtilsTests\Validate\Validate33TestCase;
 
-final class SelloDigitalCertificadoWithCfdiRegistroFiscalTest extends ValidateTestCase
+final class SelloDigitalCertificadoWithCfdiRegistroFiscalTest extends Validate33TestCase
 {
     /** @var SelloDigitalCertificado */
     protected $validator;

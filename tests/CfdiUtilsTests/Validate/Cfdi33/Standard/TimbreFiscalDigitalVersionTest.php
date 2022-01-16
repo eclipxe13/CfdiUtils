@@ -6,9 +6,9 @@ use CfdiUtils\Elements\Tfd11\TimbreFiscalDigital;
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Validate\Cfdi33\Standard\TimbreFiscalDigitalVersion;
 use CfdiUtils\Validate\Status;
-use CfdiUtilsTests\Validate\ValidateTestCase;
+use CfdiUtilsTests\Validate\Validate33TestCase;
 
-final class TimbreFiscalDigitalVersionTest extends ValidateTestCase
+final class TimbreFiscalDigitalVersionTest extends Validate33TestCase
 {
     /* @var \CfdiUtils\Elements\Cfdi33\Comprobante */
     protected $comprobante;

@@ -6,9 +6,9 @@ use CfdiUtils\Elements\Pagos10\Pagos as PagosElement;
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\ComplementoPagos;
 use CfdiUtils\Validate\Status;
-use CfdiUtilsTests\Validate\ValidateTestCase;
+use CfdiUtilsTests\Validate\Validate33TestCase;
 
-final class ComplementoPagosTest extends ValidateTestCase
+final class ComplementoPagosTest extends Validate33TestCase
 {
     /** @var ComplementoPagos */
     protected $validator;

@@ -5,9 +5,9 @@ namespace CfdiUtilsTests\Validate\Xml;
 use CfdiUtils\Cfdi;
 use CfdiUtils\Validate\Status;
 use CfdiUtils\Validate\Xml\XmlFollowSchema;
-use CfdiUtilsTests\Validate\ValidateTestCase;
+use CfdiUtilsTests\Validate\Validate33TestCase;
 
-final class XmlFollowSchemaTest extends ValidateTestCase
+final class XmlFollowSchemaTest extends Validate33TestCase
 {
     /** @var XmlFollowSchema */
     protected $validator;

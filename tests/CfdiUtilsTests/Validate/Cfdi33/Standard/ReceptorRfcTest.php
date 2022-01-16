@@ -6,9 +6,9 @@ use CfdiUtils\Nodes\Node;
 use CfdiUtils\Utils\Rfc;
 use CfdiUtils\Validate\Cfdi33\Standard\ReceptorRfc;
 use CfdiUtils\Validate\Status;
-use CfdiUtilsTests\Validate\ValidateTestCase;
+use CfdiUtilsTests\Validate\Validate33TestCase;
 
-final class ReceptorRfcTest extends ValidateTestCase
+final class ReceptorRfcTest extends Validate33TestCase
 {
     /** @var ReceptorRfc */
     protected $validator;

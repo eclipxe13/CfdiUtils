@@ -5,9 +5,9 @@ namespace CfdiUtilsTests\Validate\Cfdi40\Xml;
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Validate\Cfdi40\Xml\XmlDefinition;
 use CfdiUtils\Validate\Status;
-use CfdiUtilsTests\Validate\ValidateTestCase;
+use CfdiUtilsTests\Validate\Validate40TestCase;
 
-final class XmlDefinitionTest extends ValidateTestCase
+final class XmlDefinitionTest extends Validate40TestCase
 {
     /** @var XmlDefinition */
     protected $validator;
@@ -20,10 +20,6 @@ final class XmlDefinitionTest extends ValidateTestCase
 
     public function testCorrectDefinition(): void
     {
-        $this->comprobante = new Node('cfdi:Comprobante', [
-            'xmlns:cfdi' => 'http://www.sat.gob.mx/cfd/4',
-            'Version' => '4.0',
-        ]);
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::ok(), 'XML01');
         $this->assertStatusEqualsCode(Status::ok(), 'XML02');
@@ -32,9 +28,9 @@ final class XmlDefinitionTest extends ValidateTestCase
 
     public function testInCorrectDefinitionNamespacePrefix(): void
     {
-        $this->comprobante = new Node('cfdi:Comprobante', [
+        $this->comprobante->addAttributes([
+            'xmlns:cfdi' => null,
             'xmlns:cfdi4' => 'http://www.sat.gob.mx/cfd/4',
-            'Version' => '4.0',
         ]);
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::error(), 'XML01');
@@ -42,9 +38,8 @@ final class XmlDefinitionTest extends ValidateTestCase
 
     public function testInCorrectDefinitionNamespaceValue(): void
     {
-        $this->comprobante = new Node('cfdi:Comprobante', [
+        $this->comprobante->addAttributes([
             'xmlns:cfdi' => 'http://www.sat.gob.mx/cfd/40',
-            'Version' => '4.0',
         ]);
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::error(), 'XML01');
@@ -52,28 +47,22 @@ final class XmlDefinitionTest extends ValidateTestCase
 
     public function testInCorrectDefinitionRootPrefix(): void
     {
-        $this->comprobante = new Node('cfdi4:Comprobante', [
-            'xmlns:cfdi' => 'http://www.sat.gob.mx/cfd/4',
-            'Version' => '4.0',
-        ]);
+        $this->comprobante = new Node('cfdi4:Comprobante');
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::error(), 'XML02');
     }
 
     public function testInCorrectDefinitionRootName(): void
     {
-        $this->comprobante = new Node('cfdi:Cfdi', [
-            'xmlns:cfdi' => 'http://www.sat.gob.mx/cfd/4',
-            'Version' => '4.0',
-        ]);
+        $this->comprobante = new Node('cfdi:Cfdi');
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::error(), 'XML02');
     }
 
     public function testInCorrectDefinitionVersionName(): void
     {
-        $this->comprobante = new Node('cfdi:Comprobante', [
-            'xmlns:cfdi' => 'http://www.sat.gob.mx/cfd/4',
+        $this->comprobante->addAttributes([
+            'Version' => null,
             'version' => '4.0',
         ]);
         $this->runValidate();
@@ -82,8 +71,7 @@ final class XmlDefinitionTest extends ValidateTestCase
 
     public function testInCorrectDefinitionVersionValue(): void
     {
-        $this->comprobante = new Node('cfdi:Comprobante', [
-            'xmlns:cfdi' => 'http://www.sat.gob.mx/cfd/4',
+        $this->comprobante->addAttributes([
             'Version' => '4.1',
         ]);
         $this->runValidate();

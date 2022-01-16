@@ -10,9 +10,9 @@ use CfdiUtils\Validate\Contracts\DiscoverableCreateInterface;
 use CfdiUtils\Validate\Contracts\RequireXmlResolverInterface;
 use CfdiUtils\Validate\Contracts\RequireXmlStringInterface;
 use CfdiUtils\Validate\Status;
-use CfdiUtilsTests\Validate\ValidateTestCase;
+use CfdiUtilsTests\Validate\Validate33TestCase;
 
-final class SelloDigitalCertificadoTest extends ValidateTestCase
+final class SelloDigitalCertificadoTest extends Validate33TestCase
 {
     /** @var SelloDigitalCertificado */
     protected $validator;
