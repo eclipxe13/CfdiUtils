@@ -14,12 +14,13 @@ class Concepto extends AbstractElement
     public function getChildrenOrder(): array
     {
         return [
-        'cfdi:Impuestos',
-        'cfdi:ACuentaTerceros',
-        'cfdi:InformacionAduanera',
-        'cfdi:CuentaPredial',
-        'cfdi:ComplementoConcepto',
-        'cfdi:Parte', ];
+            'cfdi:Impuestos',
+            'cfdi:ACuentaTerceros',
+            'cfdi:InformacionAduanera',
+            'cfdi:CuentaPredial',
+            'cfdi:ComplementoConcepto',
+            'cfdi:Parte',
+        ];
     }
 
     public function getImpuestos(): ConceptoImpuestos

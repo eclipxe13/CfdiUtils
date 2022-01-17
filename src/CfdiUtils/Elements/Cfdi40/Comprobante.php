@@ -3,6 +3,7 @@
 namespace CfdiUtils\Elements\Cfdi40;
 
 use CfdiUtils\Elements\Common\AbstractElement;
+use CfdiUtils\Nodes\NodeInterface;
 
 class Comprobante extends AbstractElement
 {
@@ -14,14 +15,15 @@ class Comprobante extends AbstractElement
     public function getChildrenOrder(): array
     {
         return [
-        'cfdi:InformacionGlobal',
-        'cfdi:CfdiRelacionados',
-        'cfdi:Emisor',
-        'cfdi:Receptor',
-        'cfdi:Conceptos',
-        'cfdi:Impuestos',
-        'cfdi:Complemento',
-        'cfdi:Addenda', ];
+            'cfdi:InformacionGlobal',
+            'cfdi:CfdiRelacionados',
+            'cfdi:Emisor',
+            'cfdi:Receptor',
+            'cfdi:Conceptos',
+            'cfdi:Impuestos',
+            'cfdi:Complemento',
+            'cfdi:Addenda',
+        ];
     }
 
     public function getFixedAttributes(): array
