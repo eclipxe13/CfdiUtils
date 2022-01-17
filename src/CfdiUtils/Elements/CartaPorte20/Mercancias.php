@@ -14,11 +14,12 @@ class Mercancias extends AbstractElement
     public function getChildrenOrder(): array
     {
         return [
-        'cartaporte20:Mercancia',
-        'cartaporte20:Autotransporte',
-        'cartaporte20:TransporteMaritimo',
-        'cartaporte20:TransporteAereo',
-        'cartaporte20:TransporteFerroviario', ];
+            'cartaporte20:Mercancia',
+            'cartaporte20:Autotransporte',
+            'cartaporte20:TransporteMaritimo',
+            'cartaporte20:TransporteAereo',
+            'cartaporte20:TransporteFerroviario',
+        ];
     }
 
     public function addMercancia(array $attributes = []): Mercancia

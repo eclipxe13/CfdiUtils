@@ -14,9 +14,10 @@ class CartaPorte extends AbstractElement
     public function getChildrenOrder(): array
     {
         return [
-        'cartaporte20:Ubicaciones',
-        'cartaporte20:Mercancias',
-        'cartaporte20:FiguraTransporte', ];
+            'cartaporte20:Ubicaciones',
+            'cartaporte20:Mercancias',
+            'cartaporte20:FiguraTransporte',
+        ];
     }
 
     public function getFixedAttributes(): array
