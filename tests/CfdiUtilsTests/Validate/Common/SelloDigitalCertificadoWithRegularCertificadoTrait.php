@@ -3,7 +3,7 @@
 namespace CfdiUtilsTests\Validate\Common;
 
 use CfdiUtils\Utils\Format;
-use CfdiUtils\Validate\Cfdi33\Standard\SelloDigitalCertificado;
+use CfdiUtils\Validate\Common\SelloDigitalCertificadoValidatorTrait;
 use CfdiUtils\Validate\Contracts\DiscoverableCreateInterface;
 use CfdiUtils\Validate\Contracts\RequireXmlResolverInterface;
 use CfdiUtils\Validate\Contracts\RequireXmlStringInterface;
@@ -109,24 +109,6 @@ trait SelloDigitalCertificadoWithRegularCertificadoTrait
         $this->assertStatusEqualsCode(Status::error(), 'SELLO07');
     }
 
-    public function testValidateBadSello()
-    {
-        $this->setupCfdiFile('cfdi33-valid.xml');
-        $this->comprobante['Sello'] = $this->comprobante['Certificado'];
-        $this->runValidate();
-        $this->assertStatusEqualsCode(Status::error(), 'SELLO08');
-    }
-
-    public function testValidateOk()
-    {
-        $this->setupCfdiFile('cfdi33-valid.xml');
-        $this->runValidate();
-        foreach (range(1, 8) as $i) {
-            $this->assertStatusEqualsCode(Status::ok(), 'SELLO0' . $i);
-        }
-        $this->assertCount(8, $this->asserts, 'All 8 were are tested');
-    }
-
     /**
      * This test does not care about locales
      *
@@ -139,7 +121,9 @@ trait SelloDigitalCertificadoWithRegularCertificadoTrait
      */
     public function testCompareNamesBasicChars(bool $expected, string $first, string $second)
     {
-        $validator = new class() extends SelloDigitalCertificado {
+        $validator = new class() {
+            use SelloDigitalCertificadoValidatorTrait;
+
             public function testCompareNames(string $first, string $second): bool
             {
                 return $this->compareNames($first, $second);
@@ -160,7 +144,9 @@ trait SelloDigitalCertificadoWithRegularCertificadoTrait
      */
     public function testCompareNamesExtendedChars(string $first, string $second)
     {
-        $validator = new class() extends SelloDigitalCertificado {
+        $validator = new class() {
+            use SelloDigitalCertificadoValidatorTrait;
+
             public function testCompareNames(string $first, string $second): bool
             {
                 return $this->compareNames($first, $second);
