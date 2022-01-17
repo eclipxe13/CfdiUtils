@@ -22,12 +22,12 @@ class Concepto extends AbstractElement
         'cfdi:Parte', ];
     }
 
-    public function getImpuestos(): Impuestos
+    public function getImpuestos(): ConceptoImpuestos
     {
-        return $this->helperGetOrAdd(new Impuestos());
+        return $this->helperGetOrAdd(new ConceptoImpuestos());
     }
 
-    public function addImpuestos(array $attributes = []): Impuestos
+    public function addImpuestos(array $attributes = []): ConceptoImpuestos
     {
         $subject = $this->getImpuestos();
         $subject->addAttributes($attributes);

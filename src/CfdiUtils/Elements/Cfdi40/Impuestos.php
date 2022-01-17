@@ -14,8 +14,9 @@ class Impuestos extends AbstractElement
     public function getChildrenOrder(): array
     {
         return [
-        'cfdi:Traslados',
-        'cfdi:Retenciones', ];
+            'cfdi:Retenciones',
+            'cfdi:Traslados',
+        ];
     }
 
     public function getTraslados(): Traslados
