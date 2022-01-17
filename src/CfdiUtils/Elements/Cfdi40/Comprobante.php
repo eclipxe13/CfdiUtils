@@ -114,11 +114,10 @@ class Comprobante extends AbstractElement
         return $this->helperGetOrAdd(new Complemento());
     }
 
-    public function addComplemento(array $attributes = []): Complemento
+    public function addComplemento(NodeInterface $children): self
     {
-        $subject = $this->getComplemento();
-        $subject->addAttributes($attributes);
-        return $subject;
+        $this->getComplemento()->addChild($children);
+        return $this;
     }
 
     public function getAddenda(): Addenda
@@ -126,10 +125,9 @@ class Comprobante extends AbstractElement
         return $this->helperGetOrAdd(new Addenda());
     }
 
-    public function addAddenda(array $attributes = []): Addenda
+    public function addAddenda(NodeInterface $children): self
     {
-        $subject = $this->getAddenda();
-        $subject->addAttributes($attributes);
-        return $subject;
+        $this->getAddenda()->addChild($children);
+        return $this;
     }
 }
