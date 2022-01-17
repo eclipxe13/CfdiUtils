@@ -40,6 +40,9 @@ final class CfdiValidator40Test extends TestCase
         $cfdiFile = $this->utilAsset('cfdi40-valid.xml');
         $cfdi = Cfdi::newFromString(strval(file_get_contents($cfdiFile)));
 
+        // install PAC testing certificate
+        $this->installCertificate($this->utilAsset('certs/30001000000400002495.cer'));
+
         $validator = new CfdiValidator40();
         $asserts = $validator->validate($cfdi->getSource(), $cfdi->getNode());
         $this->assertFalse(
