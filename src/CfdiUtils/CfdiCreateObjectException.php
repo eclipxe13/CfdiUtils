@@ -13,7 +13,7 @@ final class CfdiCreateObjectException extends UnexpectedValueException
     /**
      * @param array<string, UnexpectedValueException> $versionException
      */
-    public function __construct(string $message, array $versionException)
+    private function __construct(string $message, array $versionException)
     {
         parent::__construct($message);
         $this->versionExceptions = $versionException;
