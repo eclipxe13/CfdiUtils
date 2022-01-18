@@ -17,4 +17,16 @@ class SumasConceptosWriter extends BaseSumasConceptosWriter
     {
         parent::__construct($comprobante, $sumas, $precision);
     }
+
+    public function getComprobante(): Comprobante
+    {
+        $comprobante = parent::getComprobante();
+        if (! $comprobante instanceof Comprobante) {
+            throw new \LogicException(
+                sprintf('Property comprobante (%s) is not %s', get_class($comprobante), Comprobante::class)
+            );
+        }
+
+        return $comprobante;
+    }
 }

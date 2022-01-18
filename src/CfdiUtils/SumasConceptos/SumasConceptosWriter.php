@@ -46,7 +46,7 @@ class SumasConceptosWriter
         $this->precision = $precision;
     }
 
-    public function put(): void
+    public function put()
     {
         $this->putComprobanteSumas();
         $this->putImpuestosNode();
