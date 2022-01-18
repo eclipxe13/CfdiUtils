@@ -65,7 +65,7 @@ class RequestParameters
 
     public function setVersion(string $version)
     {
-        if (! in_array($version, ['3.2', '3.3'], true)) {
+        if (! in_array($version, ['3.2', '3.3', '4.0'], true)) {
             throw new UnexpectedValueException('The version is not allowed');
         }
         $this->version = $version;
@@ -103,6 +103,9 @@ class RequestParameters
 
     public function expression(): string
     {
+        if ('4.0' === $this->version) {
+            return $this->expressionVersion40();
+        }
         if ('3.3' === $this->version) {
             return $this->expressionVersion33();
         }
@@ -115,10 +118,10 @@ class RequestParameters
     public function expressionVersion32(): string
     {
         return '?' . implode('&', [
-            're=' . htmlentities(strval($this->rfcEmisor), ENT_XML1),
-            'rr=' . htmlentities(strval($this->rfcReceptor), ENT_XML1),
+            're=' . htmlentities($this->rfcEmisor, ENT_XML1),
+            'rr=' . htmlentities($this->rfcReceptor, ENT_XML1),
             'tt=' . str_pad(number_format($this->totalFloat, 6, '.', ''), 17, '0', STR_PAD_LEFT),
-            'id=' . strval($this->uuid),
+            'id=' . $this->uuid,
         ]);
     }
 
@@ -129,11 +132,16 @@ class RequestParameters
             $total = $total . '0'; // add trailing zero
         }
         return 'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?' . implode('&', [
-            'id=' . strval($this->uuid),
-            're=' . htmlentities(strval($this->rfcEmisor), ENT_XML1),
-            'rr=' . htmlentities(strval($this->rfcReceptor), ENT_XML1),
+            'id=' . $this->uuid,
+            're=' . htmlentities($this->rfcEmisor, ENT_XML1),
+            'rr=' . htmlentities($this->rfcReceptor, ENT_XML1),
             'tt=' . $total,
             'fe=' . substr($this->sello, -8),
         ]);
+    }
+
+    public function expressionVersion40(): string
+    {
+        return $this->expressionVersion33();
     }
 }

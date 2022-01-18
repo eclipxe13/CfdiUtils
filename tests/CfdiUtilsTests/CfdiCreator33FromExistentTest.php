@@ -6,7 +6,7 @@ use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\CfdiCreator33;
 use CfdiUtils\Nodes\XmlNodeUtils;
 
-final class CfdiCreatorFromExistentTest extends TestCase
+final class CfdiCreator33FromExistentTest extends TestCase
 {
     public function testNewUsingNode()
     {

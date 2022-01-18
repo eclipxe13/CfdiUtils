@@ -14,8 +14,9 @@ class TransporteFerroviario extends AbstractElement
     public function getChildrenOrder(): array
     {
         return [
-        'cartaporte20:DerechosDePaso',
-        'cartaporte20:Carro', ];
+            'cartaporte20:DerechosDePaso',
+            'cartaporte20:Carro',
+        ];
     }
 
     public function addDerechosDePaso(array $attributes = []): DerechosDePaso

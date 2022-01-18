@@ -3,6 +3,7 @@
 namespace CfdiUtilsTests\Elements;
 
 use CfdiUtils\Elements\Common\AbstractElement;
+use CfdiUtils\Nodes\Node;
 use CfdiUtilsTests\TestCase;
 
 abstract class ElementTestCase extends TestCase
@@ -37,8 +38,49 @@ abstract class ElementTestCase extends TestCase
         );
     }
 
-    public function assertElementHasChildSingle(AbstractElement $element, string $childClassName): void
-    {
+    public function assertElementHasChildSingle(
+        AbstractElement $element,
+        string $childClassName,
+        string $getter = '',
+        string $adder = ''
+    ): void {
+        $elementClass = get_class($element);
+        $childClassBaseName = basename(str_replace('\\', '/', $childClassName));
+        $element->children()->removeAll();
+
+        // element should return the same instance
+        $getter = $getter ?: 'get' . $childClassBaseName;
+        $instance = $element->{$getter}();
+        $this->assertInstanceOf(
+            $childClassName,
+            $instance,
+            sprintf('The method %s::%s should return the an instance of %s', $elementClass, $getter, $childClassName)
+        );
+        $this->assertSame(
+            $instance,
+            $element->{$getter}(),
+            sprintf('The method %s::%s should return always the same instance', $elementClass, $getter)
+        );
+
+        // add should work on the same object
+        $adder = $adder ?: 'add' . $childClassBaseName;
+        $second = $element->{$adder}(['foo' => 'bar']);
+        $this->assertInstanceOf(
+            $childClassName,
+            $second,
+            sprintf('The method %s::%s should return the an instance of %s', $elementClass, $adder, $childClassName)
+        );
+        $this->assertSame(
+            'bar',
+            $instance['foo'],
+            sprintf('The method %s::%s should write the attributes on the same instance', $elementClass, $adder)
+        );
+    }
+
+    public function assertElementHasChildSingleAddChild(
+        AbstractElement $element,
+        string $childClassName
+    ): void {
         $elementClass = get_class($element);
         $childClassBaseName = basename(str_replace('\\', '/', $childClassName));
         $element->children()->removeAll();
@@ -57,18 +99,27 @@ abstract class ElementTestCase extends TestCase
             sprintf('The method %s::%s should return always the same instance', $elementClass, $getter)
         );
 
-        // add should work on the same object
+        // add should append a child into the existent node
         $adder = 'add' . $childClassBaseName;
-        $second = $element->{$adder}(['foo' => 'bar']);
-        $this->assertInstanceOf(
-            $childClassName,
-            $second,
-            sprintf('The method %s::%s should return the an instance of %s', $elementClass, $adder, $childClassName)
+
+        $firstChild = new Node('child1');
+        $returnOnAdder = $element->{$adder}($firstChild);
+        $this->assertSame(
+            $element,
+            $returnOnAdder,
+            sprintf('The method %s::%s should return always the element instance', $elementClass, $getter)
         );
         $this->assertSame(
-            'bar',
-            $instance['foo'],
-            sprintf('The method %s::%s should write the attributes on the same instance', $elementClass, $adder)
+            [$firstChild],
+            iterator_to_array($instance->children()),
+            'The first child should be added to the element\'s children'
+        );
+        $secondChild = new Node('child2');
+        $element->{$adder}($secondChild);
+        $this->assertSame(
+            [$firstChild, $secondChild],
+            iterator_to_array($instance->children()),
+            'The second child should be added to the element\'s children'
         );
     }
 

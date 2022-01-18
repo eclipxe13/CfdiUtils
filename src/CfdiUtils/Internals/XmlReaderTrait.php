@@ -28,6 +28,7 @@ trait XmlReaderTrait
     /** @var QuickReader|null */
     private $quickReader;
 
+    /** @throws \UnexpectedValueException */
     private static function checkRootElement(
         DOMDocument $document,
         string $expectedNamespace,
@@ -36,7 +37,7 @@ trait XmlReaderTrait
     ): DOMElement {
         $rootElement = Xml::documentElement($document);
 
-        // is not docummented: lookupPrefix returns NULL instead of string when not found
+        // is not documented: lookupPrefix returns NULL instead of string when not found
         // this is why we are casting the value to string
         $nsPrefix = (string) $document->lookupPrefix($expectedNamespace);
         if ('' === $nsPrefix) {
@@ -68,7 +69,6 @@ trait XmlReaderTrait
     {
         $document = Xml::newDocumentContent($content);
         // populate source since it is already available, in this way we avoid the conversion from document to string
-        /** @noinspection PhpMethodParametersCountMismatchInspection */
         $cfdi = new self($document);
         $cfdi->source = $content;
         return $cfdi;

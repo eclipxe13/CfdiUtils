@@ -39,6 +39,7 @@ final class SchemaLocationsXsdUrlsFixer
     public static function createWithKnownSatUrls(): self
     {
         return new self([
+            'http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd' => [],
             'http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd' => [],
             'http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd' => [],
             'http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv3.xsd' => [],

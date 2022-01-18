@@ -14,10 +14,11 @@ class Mercancia extends AbstractElement
     public function getChildrenOrder(): array
     {
         return [
-        'cartaporte20:Pedimentos',
-        'cartaporte20:GuiasIdentificacion',
-        'cartaporte20:CantidadTransporta',
-        'cartaporte20:DetalleMercancia', ];
+            'cartaporte20:Pedimentos',
+            'cartaporte20:GuiasIdentificacion',
+            'cartaporte20:CantidadTransporta',
+            'cartaporte20:DetalleMercancia',
+        ];
     }
 
     public function addPedimentos(array $attributes = []): Pedimentos

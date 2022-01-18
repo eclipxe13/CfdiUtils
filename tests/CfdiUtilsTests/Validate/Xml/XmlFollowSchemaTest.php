@@ -1,13 +1,13 @@
 <?php
 
-namespace CfdiUtilsTests\Validate\Cfdi33\Xml;
+namespace CfdiUtilsTests\Validate\Xml;
 
 use CfdiUtils\Cfdi;
-use CfdiUtils\Validate\Cfdi33\Xml\XmlFollowSchema;
 use CfdiUtils\Validate\Status;
-use CfdiUtilsTests\Validate\ValidateTestCase;
+use CfdiUtils\Validate\Xml\XmlFollowSchema;
+use CfdiUtilsTests\Validate\Validate33TestCase;
 
-final class XmlFollowSchemaTest extends ValidateTestCase
+final class XmlFollowSchemaTest extends Validate33TestCase
 {
     /** @var XmlFollowSchema */
     protected $validator;

@@ -26,13 +26,20 @@ final class RequestParametersTest extends TestCase
         $this->assertSame('CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC', $parameters->getUuid());
         $this->assertSame('0123456789', $parameters->getSello());
 
+        $expected40 = 'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx'
+            . '?id=CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC'
+            . '&re=EKU9003173C9'
+            . '&rr=COSC8001137NA'
+            . '&tt=1234.5678'
+            . '&fe=23456789';
+        $this->assertSame($expected40, $parameters->expression());
+
         $expected33 = 'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx'
             . '?id=CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC'
             . '&re=EKU9003173C9'
             . '&rr=COSC8001137NA'
             . '&tt=1234.5678'
             . '&fe=23456789';
-
         $this->assertSame($expected33, $parameters->expression());
 
         $expected32 = ''
@@ -83,6 +90,19 @@ final class RequestParametersTest extends TestCase
         $this->assertSame('CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC', $parameters->getUuid());
         $this->assertStringEndsWith('XmE4/OAgdg==', $parameters->getSello());
         $this->assertEqualsWithDelta(2010.01, $parameters->getTotalFloat(), 0.001);
+    }
+
+    public function testCreateFromCfdiVersion40()
+    {
+        $cfdi = Cfdi::newFromString(strval(file_get_contents($this->utilAsset('cfdi40-real.xml'))));
+        $parameters = RequestParameters::createFromCfdi($cfdi);
+
+        $this->assertSame('4.0', $parameters->getVersion());
+        $this->assertSame('CSM190311AH6', $parameters->getRfcEmisor());
+        $this->assertSame('MCI7306249Y1', $parameters->getRfcReceptor());
+        $this->assertSame('04BF2854-FE7D-4377-9196-71248F060ABB', $parameters->getUuid());
+        $this->assertStringEndsWith('Ggwa5tSZhA==', $parameters->getSello());
+        $this->assertEqualsWithDelta(459.36, $parameters->getTotalFloat(), 0.001);
     }
 
     /**
@@ -143,5 +163,8 @@ final class RequestParametersTest extends TestCase
             . '&tt=1234.5678'
             . '&fe=23456789';
         $this->assertSame($expected33, $parameters->expressionVersion33());
+
+        // Same as CFDI 3.3
+        $this->assertSame($expected33, $parameters->expressionVersion40());
     }
 }

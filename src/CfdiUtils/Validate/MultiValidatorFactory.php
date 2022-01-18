@@ -2,7 +2,8 @@
 
 namespace CfdiUtils\Validate;
 
-use CfdiUtils\Validate\Cfdi33\Xml\XmlFollowSchema;
+use CfdiUtils\Validate\Cfdi40\Xml\XmlDefinition;
+use CfdiUtils\Validate\Xml\XmlFollowSchema;
 
 class MultiValidatorFactory
 {
@@ -35,6 +36,20 @@ class MultiValidatorFactory
     public function newReceived33(): MultiValidator
     {
         return $this->newCreated33();
+    }
+
+    public function newCreated40(): MultiValidator
+    {
+        $multiValidator = new MultiValidator('4.0');
+        $multiValidator->add(new XmlFollowSchema());
+        $multiValidator->add(new XmlDefinition());
+        $this->addDiscovered($multiValidator, __NAMESPACE__ . '\Cfdi40\Standard', __DIR__ . '/Cfdi40/Standard');
+        return $multiValidator;
+    }
+
+    public function newReceived40(): MultiValidator
+    {
+        return $this->newCreated40();
     }
 
     public function addDiscovered(MultiValidator $multiValidator, string $namespacePrefix, string $directory)

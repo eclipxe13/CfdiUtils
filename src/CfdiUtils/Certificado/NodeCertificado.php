@@ -30,6 +30,8 @@ class NodeCertificado
             $attr = 'certificado';
         } elseif ('3.3' === $version) {
             $attr = 'Certificado';
+        } elseif ('4.0' === $version) {
+            $attr = 'Certificado';
         } else {
             throw new \RuntimeException('Unsupported or unknown version');
         }
@@ -46,13 +48,16 @@ class NodeCertificado
         return $certificateBin;
     }
 
-    private function getVersion(): string
+    public function getVersion(): string
     {
         if ('3.2' === $this->comprobante->searchAttribute('version')) {
             return '3.2';
         }
         if ('3.3' === $this->comprobante->searchAttribute('Version')) {
             return '3.3';
+        }
+        if ('4.0' === $this->comprobante->searchAttribute('Version')) {
+            return '4.0';
         }
         return '';
     }

@@ -5,9 +5,9 @@ namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Validate\Cfdi33\Standard\ComprobanteFormaPago;
 use CfdiUtils\Validate\Status;
-use CfdiUtilsTests\Validate\ValidateTestCase;
+use CfdiUtilsTests\Validate\Validate33TestCase;
 
-final class ComprobanteFormaPagoTest extends ValidateTestCase
+final class ComprobanteFormaPagoTest extends Validate33TestCase
 {
     /** @var ComprobanteFormaPago */
     protected $validator;

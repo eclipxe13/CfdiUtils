@@ -5,9 +5,9 @@ namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Validate\Cfdi33\Standard\EmisorRegimenFiscal;
 use CfdiUtils\Validate\Status;
-use CfdiUtilsTests\Validate\ValidateTestCase;
+use CfdiUtilsTests\Validate\Validate33TestCase;
 
-final class EmisorRegimenFiscalTest extends ValidateTestCase
+final class EmisorRegimenFiscalTest extends Validate33TestCase
 {
     /** @var  EmisorRegimenFiscal */
     protected $validator;

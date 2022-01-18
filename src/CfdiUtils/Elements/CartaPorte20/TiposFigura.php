@@ -14,8 +14,9 @@ class TiposFigura extends AbstractElement
     public function getChildrenOrder(): array
     {
         return [
-        'cartaporte20:PartesTransporte',
-        'cartaporte20:Domicilio', ];
+            'cartaporte20:PartesTransporte',
+            'cartaporte20:Domicilio',
+        ];
     }
 
     public function addPartesTransporte(array $attributes = []): PartesTransporte

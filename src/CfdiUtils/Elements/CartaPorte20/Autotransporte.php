@@ -14,9 +14,10 @@ class Autotransporte extends AbstractElement
     public function getChildrenOrder(): array
     {
         return [
-        'cartaporte20:IdentificacionVehicular',
-        'cartaporte20:Seguros',
-        'cartaporte20:Remolques', ];
+            'cartaporte20:IdentificacionVehicular',
+            'cartaporte20:Seguros',
+            'cartaporte20:Remolques',
+        ];
     }
 
     public function getIdentificacionVehicular(): IdentificacionVehicular

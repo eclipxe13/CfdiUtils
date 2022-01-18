@@ -35,7 +35,8 @@ class SaxonbCliBuilder extends AbstractXsltBuilder
      * @param string $xmlFile
      * @param string $xsltLocation
      * @return string
-     * @deprecated 2.9.0 Will be removed with no replacement, never intented to be public
+     * @deprecated 2.9.0 Will be removed with no replacement, never intended to be public
+     * @codeCoverageIgnore
      */
     public function createCommand(string $xmlFile, string $xsltLocation): string
     {
