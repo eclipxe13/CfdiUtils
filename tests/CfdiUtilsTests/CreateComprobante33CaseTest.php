@@ -7,7 +7,7 @@ use CfdiUtils\CfdiCreator33;
 use CfdiUtils\Utils\Format;
 use CfdiUtils\Validate\Status;
 
-final class CreateComprobanteCaseTest extends TestCase
+final class CreateComprobante33CaseTest extends TestCase
 {
     public function testCreateCfdiUsingComprobanteElement()
     {
@@ -116,7 +116,7 @@ final class CreateComprobanteCaseTest extends TestCase
         $this->assertFalse($asserts->hasStatus(Status::warn()));
 
         // check the xml
-        $expectedFileContents = $this->utilAsset('created-with-discounts.xml');
+        $expectedFileContents = $this->utilAsset('created-with-discounts-33.xml');
         $xmlContents = $creator->asXml();
         $this->assertXmlStringEqualsXmlFile($expectedFileContents, $xmlContents);
         $this->assertStringStartsWith('<?xml', $xmlContents);
