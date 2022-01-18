@@ -58,6 +58,7 @@ final class SumasConceptosTest extends TestCase
         $comprobante->addConcepto([
             'Importe' => '111.11',
         ])->addTraslado([
+            'Base' => '111.11',
             'Impuesto' => '002',
             'TipoFactor' => 'Tasa',
             'TasaOCuota' => '0.160000',
@@ -66,6 +67,7 @@ final class SumasConceptosTest extends TestCase
         $comprobante->addConcepto([
             'Importe' => '222.22',
         ])->addTraslado([
+            'Base' => '222.22',
             'Impuesto' => '002',
             'TipoFactor' => 'Tasa',
             'TasaOCuota' => '0.160000',
@@ -89,6 +91,7 @@ final class SumasConceptosTest extends TestCase
         $comprobante->addConcepto([
             'Importe' => '111.11',
         ])->addTraslado([
+            'Base' => '111.11',
             'Impuesto' => '002',
             'TipoFactor' => 'Tasa',
             'TasaOCuota' => '0.160000',
@@ -97,6 +100,7 @@ final class SumasConceptosTest extends TestCase
         $comprobante->addConcepto([
             'Importe' => '222.22',
         ])->addTraslado([
+            'Base' => '222.22',
             'Impuesto' => '002',
             'TipoFactor' => 'Tasa',
             'TasaOCuota' => '0.160000',
@@ -142,18 +146,27 @@ final class SumasConceptosTest extends TestCase
     public function testImpuestoImporteWithMoreDecimalsThanThePrecisionIsRounded()
     {
         $comprobante = new Comprobante();
-        $comprobante->addConcepto()->addTraslado(
-            ['Importe' => '7.777777', 'Impuesto' => '002', 'TipoFactor' => 'Tasa', 'TasaOCuota' => '0.160000']
-        );
-        $comprobante->addConcepto()->addTraslado(
-            ['Importe' => '2.222222', 'Impuesto' => '002', 'TipoFactor' => 'Tasa', 'TasaOCuota' => '0.160000']
-        );
+        $comprobante->addConcepto()->addTraslado([
+            'Base' => '48.611106',
+            'Importe' => '7.777777',
+            'Impuesto' => '002',
+            'TipoFactor' => 'Tasa',
+            'TasaOCuota' => '0.160000',
+        ]);
+        $comprobante->addConcepto()->addTraslado([
+            'Base' => '13.888888',
+            'Importe' => '2.222222',
+            'Impuesto' => '002',
+            'TipoFactor' => 'Tasa',
+            'TasaOCuota' => '0.160000',
+        ]);
 
         $sumas = new SumasConceptos($comprobante, 3);
 
         $this->assertTrue($sumas->hasTraslados());
         $this->assertEqualsWithDelta(10.0, $sumas->getImpuestosTrasladados(), 0.0001);
         $this->assertEqualsWithDelta(10.0, $sumas->getTraslados()['002:Tasa:0.160000']['Importe'], 0.0000001);
+        $this->assertEqualsWithDelta(62.5, $sumas->getTraslados()['002:Tasa:0.160000']['Base'], 0.0000001);
     }
 
     public function testImpuestoWithTrasladosTasaAndExento()
@@ -188,12 +201,12 @@ final class SumasConceptosTest extends TestCase
     public function testImpuestoWithTrasladosAndOnlyExento()
     {
         $comprobante = new Comprobante();
-        $comprobante->addConcepto()->multiTraslado(...[
-            ['Impuesto' => '002', 'TipoFactor' => 'Exento'],
-        ]);
-        $comprobante->addConcepto()->multiTraslado(...[
-            ['Impuesto' => '002', 'TipoFactor' => 'Exento'],
-        ]);
+        $comprobante->addConcepto()->multiTraslado(
+            ['Impuesto' => '002', 'TipoFactor' => 'Exento']
+        );
+        $comprobante->addConcepto()->multiTraslado(
+            ['Impuesto' => '002', 'TipoFactor' => 'Exento']
+        );
 
         $sumas = new SumasConceptos($comprobante, 2);
         $this->assertFalse($sumas->hasTraslados());
