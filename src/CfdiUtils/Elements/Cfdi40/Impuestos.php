@@ -6,6 +6,13 @@ use CfdiUtils\Elements\Common\AbstractElement;
 
 class Impuestos extends AbstractElement
 {
+    use Traits\ImpuestosTrait;
+
+    protected function getImpuestos(): self
+    {
+        return $this;
+    }
+
     public function getElementName(): string
     {
         return 'cfdi:Impuestos';

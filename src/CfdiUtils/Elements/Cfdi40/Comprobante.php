@@ -133,4 +133,9 @@ class Comprobante extends AbstractElement
         $this->getAddenda()->addChild($children);
         return $this;
     }
+
+    public function addConcepto(array $attributes = []): Concepto
+    {
+        return $this->getConceptos()->addConcepto($attributes);
+    }
 }

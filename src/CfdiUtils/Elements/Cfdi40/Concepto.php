@@ -6,6 +6,8 @@ use CfdiUtils\Elements\Common\AbstractElement;
 
 class Concepto extends AbstractElement
 {
+    use Traits\ImpuestosTrait;
+
     public function getElementName(): string
     {
         return 'cfdi:Concepto';
