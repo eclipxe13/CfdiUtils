@@ -12,7 +12,7 @@ class GenkgoXslBuilder extends DOMBuilder
     public function __construct()
     {
         if (! class_exists(XsltProcessor::class)) {
-            throw new \RuntimeException('To use GenkgoXslBuilder you must install genkgo/xsl');
+            throw new \RuntimeException('To use GenkgoXslBuilder you must install genkgo/xsl'); // @codeCoverageIgnore
         }
     }
 

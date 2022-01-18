@@ -18,6 +18,7 @@ class SumasConceptosWriter extends BaseSumasConceptosWriter
         parent::__construct($comprobante, $sumas, $precision);
     }
 
+    /** @codeCoverageIgnore */
     public function getComprobante(): Comprobante
     {
         $comprobante = parent::getComprobante();

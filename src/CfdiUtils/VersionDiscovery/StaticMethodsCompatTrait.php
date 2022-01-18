@@ -7,7 +7,9 @@ use \DOMElement;
 use CfdiUtils\Nodes\NodeInterface;
 
 /**
- * @internal Use for compatibility
+ * Use this trait for compatibility only, all methods are deprecated.
+ * @internal
+ * @codeCoverageIgnore
  */
 trait StaticMethodsCompatTrait
 {

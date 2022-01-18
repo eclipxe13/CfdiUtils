@@ -11,6 +11,7 @@ use CfdiUtils\CfdiVersion;
  * This class is a helps override or set the location of the xslt resource.
  *
  * @deprecated :3.0.0 it does not have any replacement
+ * @codeCoverageIgnore
  */
 class CadenaOrigenLocations
 {
