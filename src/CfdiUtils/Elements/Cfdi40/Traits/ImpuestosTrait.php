@@ -16,23 +16,23 @@ trait ImpuestosTrait
 
     public function addTraslado(array $attributes = []): Traslado
     {
-        return $this->getImpuestos()->getTraslados()->addTraslado($attributes);
+        return $this->getElementImpuestos()->getTraslados()->addTraslado($attributes);
     }
 
     public function multiTraslado(array ...$elementAttributes): self
     {
-        $this->getImpuestos()->getTraslados()->multiTraslado(...$elementAttributes);
+        $this->getElementImpuestos()->getTraslados()->multiTraslado(...$elementAttributes);
         return $this;
     }
 
     public function addRetencion(array $attributes = []): Retencion
     {
-        return $this->getImpuestos()->getRetenciones()->addRetencion($attributes);
+        return $this->getElementImpuestos()->getRetenciones()->addRetencion($attributes);
     }
 
     public function multiRetencion(array ...$elementAttributes): self
     {
-        $this->getImpuestos()->getRetenciones()->multiRetencion(...$elementAttributes);
+        $this->getElementImpuestos()->getRetenciones()->multiRetencion(...$elementAttributes);
         return $this;
     }
 }
