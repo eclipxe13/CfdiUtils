@@ -74,6 +74,11 @@ The following are development details:
   extracted to `CfdiUtilsTests\Validate\ValidateBaseTestCase` because it shares a lot of logic with `CfdiUtilsTests\Validate\Validate40TestCase`.
 - The class `CfdiUtils\SumasConceptos\SumasConceptosWriter` can handle both CFDI 3.3 & 3.4.
 
+This version introduces this *soft* breaking compatibility changes, your implementation should not be affected:
+
+```text
+[BC] REMOVED: These ancestors of CfdiUtils\Validate\Cfdi33\Xml\XmlFollowSchema have been removed: ["CfdiUtils\\Validate\\Cfdi33\\Abstracts\\AbstractVersion33"]
+```
 
 ## Version 2.18.3 2022-01-15
 
