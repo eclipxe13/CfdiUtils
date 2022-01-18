@@ -28,6 +28,7 @@
 - Change visibility of `CfdiUtils\Cleaner\Cleaner#removeIncompleteSchemaLocation()` to private.
 - Remove deprecated constant `CfdiUtils\Cfdi::CFDI_NAMESPACE`.
 - Remove `CfdiUtils\Validate\Cfdi33\Xml\XmlFollowSchema`.
+- Remove classes `CfdiUtils\Elements\Cfdi33\Helpers\SumasConceptosWriter` and `CfdiUtils\Elements\Cfdi40\Helpers\SumasConceptosWriter`.
 
 
 ## UNRELEASED
@@ -35,7 +36,7 @@
 The following changes apply only to development and has been applied to main branch.
 
 
-## Version 2.19.0 2022-01-??
+## Version 2.19.0 2022-01-17
 
 Add CFDI 4.0 compatibility: read, validate and create:
 
@@ -45,6 +46,9 @@ Add CFDI 4.0 compatibility: read, validate and create:
     - The document follows de CFDI 4.0 schema.
     - The document has a valid `NoCertificado`, `Certificado` and `Sello`.
     - The document has a valid `TimbreFiscalDigital` and information matches with `cfdi:Comprobante@Sello`.
+- `CfdiUtils\CfdiCreator40` object was introduced to create CFDI 4.0.
+- The helper elements `CfdiUtils\Elements\Cfdi40` were created.
+- Add *minimal* documentation to read, validate and create CFDI 4.0.
 
 The following are development details:
 
@@ -63,9 +67,12 @@ The following are development details:
     - `CfdiUtils\Validate\Cfdi33\Standard\SelloDigitalCertificado` to `CfdiUtils\Validate\Common\SelloDigitalCertificadoValidatorTrait`.
     - `CfdiUtils\Validate\Cfdi33\Standard\TimbreFiscalDigitalSello` to `CfdiUtils\Validate\Common\TimbreFiscalDigitalSelloValidatorTrait`.
     - `CfdiUtils\Validate\Cfdi33\Standard\TimbreFiscalDigitalVersion` to `CfdiUtils\Validate\Common\TimbreFiscalDigitalVersionValidatorTrait`.
+    - `CfdiUtils\CfdiCreator33` to `CfdiUtils\Validate\CfdiCreatorTrait`.
+    - `CfdiUtils\Elements\Cfdi33\Helpers\SumasConceptosWriter` to `CfdiUtils\SumasConceptos\SumasConceptosWriter`.
 - The certificate PAC used for testing `30001000000400002495` is included.
 - The class `CfdiUtilsTests\Validate\ValidateTestCase` was renamed to `CfdiUtilsTests\Validate\Validate33TestCase` and
-  extracted to `CfdiUtilsTests\Validate\ValidateBaseTestCase` because it share a lot of logic with `CfdiUtilsTests\Validate\Validate40TestCase`.
+  extracted to `CfdiUtilsTests\Validate\ValidateBaseTestCase` because it shares a lot of logic with `CfdiUtilsTests\Validate\Validate40TestCase`.
+- The class `CfdiUtils\SumasConceptos\SumasConceptosWriter` can handle both CFDI 3.3 & 3.4.
 
 
 ## Version 2.18.3 2022-01-15
