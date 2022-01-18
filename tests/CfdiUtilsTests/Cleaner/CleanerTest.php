@@ -65,6 +65,14 @@ final class CleanerTest extends TestCase
         $this->assertInstanceOf(Cleaner::class, $cleaner, 'Cleaner created with minimum compatibility');
     }
 
+    public function testConstructorWithMinimalCompatibilityVersion40()
+    {
+        $cleaner = new Cleaner('<?xml version="1.0" encoding="UTF-8"?>
+            <' . 'cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4" Version="4.0" />
+        ');
+        $this->assertInstanceOf(Cleaner::class, $cleaner, 'Cleaner created with minimum compatibility');
+    }
+
     public function testLoadWithDefaultBeforeLoadCleaner()
     {
         $withErrors = $this->utilAsset('cleaner/v32-dirty-errors.xml');

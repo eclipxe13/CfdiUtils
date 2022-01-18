@@ -57,14 +57,14 @@ class Cleaner
     }
 
     /**
-     * Check if the CFDI version is complatible to this class
+     * Check if the CFDI version is compatible to this class
      *
      * @param string $version
      * @return bool
      */
     public static function isVersionAllowed(string $version): bool
     {
-        return in_array($version, ['3.2', '3.3']);
+        return in_array($version, ['3.2', '3.3', '4.0']);
     }
 
     /**
@@ -160,7 +160,7 @@ class Cleaner
     }
 
     /**
-     * Procedure to drop schemaLocations where second part does not ends with '.xsd'
+     * Procedure to drop schemaLocations where second part does not end with '.xsd'
      *
      * @return void
      */
@@ -247,7 +247,7 @@ class Cleaner
     }
 
     /**
-     * Procedure to remove all nodes from an specific namespace
+     * Procedure to remove all nodes from a specific namespace
      *
      * @param string $namespace
      * @return void
