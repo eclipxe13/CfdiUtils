@@ -80,6 +80,11 @@ This version introduces this *soft* breaking compatibility changes, your impleme
 [BC] REMOVED: These ancestors of CfdiUtils\Validate\Cfdi33\Xml\XmlFollowSchema have been removed: ["CfdiUtils\\Validate\\Cfdi33\\Abstracts\\AbstractVersion33"]
 ```
 
+Other changes:
+
+- Update license year, happy new year.
+- Update PHPUnit config file.
+
 ## Version 2.18.3 2022-01-15
 
 Fix *Carta Porte 1.0* add missing element `Notificado`. Thanks @celli33.
