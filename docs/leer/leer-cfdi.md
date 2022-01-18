@@ -1,6 +1,6 @@
 # Leer un CFDI
 
-El problema de leer un CFDI es que la información entre versiones 3.3, 3.2
+El problema de leer un CFDI es que la información entre versiones 4.0, 3.3, 3.2
 y previas no es compatible. Por ello es necesario primero
 averiguar la versión del archivo que deseamos interpretar.
 
@@ -17,6 +17,8 @@ una conversión del contenido XML a esta estructura interna.
 
 
 ### El objeto `CfdiUtils\Cfdi`
+
+**Con este objeto podrás leer CFDI 3.2, CFDI 3.3 y CFDI 4.0.**
 
 Este es un ejemplo básico de lectura de un contenido XML a un objeto de
 tipo `CfdiUtils\Cfdi`. Por lo general se utiliza el método estático
@@ -121,12 +123,11 @@ Recuerde consultar la entrada completa relacionada con la [Estructura de datos `
 Obtener la versión de un CFDI es sencillo con la clase `CfdiUtils\CfdiVersion`.
 
 El método que usarás para obtener la versión depende de la información que ya
-tengas instanciada:
+tengas cargada:
 
 - `getFromXmlString()`: Cuando ya tienes el contenido del XML en una variable
 - `getFromNode()`: Cuando tienes el nodo principal en un objeto de tipo `CfdiUtils\Nodes\NodeInterface`
-- `getFromDOMDocument()` y `getFromDOMElement()`: Cuando tienes el contenido XML
-  instanciado en un objeto de tipo DOM.
+- `getFromDOMDocument()` y `getFromDOMElement()`: Cuando tienes el contenido XML cargado en un objeto de tipo DOM.
 
 El resultado de estos métodos será un string con el número de versión y vacío en
 caso de no encontrarse un número de versión compatible.

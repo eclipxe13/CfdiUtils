@@ -10,7 +10,7 @@
 [![Coverage Status][badge-coverage]][coverage]
 [![Total Downloads][badge-downloads]][downloads]
 
-> PHP Common utilities for Mexican CFDI 3.2 & 3.3
+> PHP Common utilities for Mexican CFDI 3.2, 3.3 & 4.0.
 
 This library provides helper objects to work with Mexican CFDI (Comprobante Fiscal Digital por Internet).
 
@@ -27,10 +27,10 @@ CFDI y herramientas del SAT. Y próximamente el lugar donde publicaremos la vers
 
 ## Main features
 
-- Create CFDI version 3.3 based on a friendly extendable non-xml objects (`nodes`).
-- Read CFDI version 3.2 and 3.3.
-- Validate CFDI version 3.3 against schemas, cfdi signature (`Sello`) and custom rules.
-- Validate that the Timbre Fiscal Digital signature match with the CFDI 3.3,
+- Create CFDI version 3.3 & 4.0 based on a friendly extendable non-xml objects (`nodes`).
+- Read CFDI version 3.2, 3.3 & 4.0.
+- Validate CFDI version 3.3 & 4.0 against schemas, cfdi signature (`Sello`) and custom rules.
+- Validate that the Timbre Fiscal Digital signature match with the CFDI 3.3 & CFDI 4.0,
   if not then the document has been modified after signature.
 - Validates the "Complemento de recepción de pagos".
 - Helper objects to deal with:
@@ -58,15 +58,15 @@ composer require eclipxe/cfdiutils
 - Version 2.x **current** has a lot of features and helper objects.
 - Version 3.x **future** will be released with backward compatibility breaks.
     - See [docs/CHANGELOG.md](docs/CHANGELOG.md) for backward compatibility breaks.
-    - It may change to PHP 7.1
-    - It could be possible to migrate to phpcfdi/cfiutils under [phpCfdi][] organization
+    - It may change to PHP 8.0.
+    - It could be possible to migrate to phpcfdi/cfdi-utils under [phpCfdi][] organization.
 
 
 ## PHP Support
 
 This library is compatible with **PHP 7.3 and above**. Please, try to use the language's full potential.
 
-The intented support is to be aligned with oldest *Active support* PHP Branch.
+The intended support is to be aligned with oldest *Active support* PHP Branch.
 See <https://www.php.net/supported-versions.php> for more details.
 
 | CfdiUtils | PHP Supported versions   | Since      |

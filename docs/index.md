@@ -11,7 +11,7 @@
 [![Total Downloads][badge-downloads]][downloads]
 
 El proyecto [`eclipxe/CfdiUtils`](https://github.com/eclipxe13/CfdiUtils)
-es una librería de PHP para leer, validar y crear CFDI 3.3.
+es una librería de PHP para leer, validar y crear CFDI 3.3 & CFDI 4.0.
 
 Mira el archivo [README][] para información rápida (en inglés).
 
@@ -36,7 +36,7 @@ CFDI y herramientas del SAT. Y próximamente el lugar donde publicaremos la vers
 
 ## Lectura de CFDI
 
-La librería ofrece métodos para leer CFDI versión 3.2 y 3.3.
+La librería ofrece métodos para leer CFDI versión 3.2, 3.3 & 4.0.
 
 - [Lectura formal de un CFDI](leer/leer-cfdi.md)
 - [Lectura formal de un CFDI de Retenciones](leer/leer-cfdi-retenciones.md)
@@ -46,18 +46,21 @@ La librería ofrece métodos para leer CFDI versión 3.2 y 3.3.
 
 ## Validación de CFDI
 
-Solo hay validadores para CFDI 3.3.
+Validadores para CFDI 3.3 y CFDI 4.0.
 
 - [Validar un CFDI 3.3](validar/validacion-cfdi.md)
 - [Validaciones estándar](validar/validaciones-estandar.md)
+- [Validar un CFDI 4.0](validar/validacion-cfdi-40.md)
+- [Validaciones 4.0](validar/validaciones-40.md)
 
 
 ## Escritura de CFDI
 
-Solo hay métodos específicos para CFDI 3.3.
+Solo hay métodos específicos para CFDI 3.3 y CFDI 4.0.
 
 - [Crear un CFDI 3.3](crear/crear-cfdi.md)
 - [Elementos de CFDI 3.3](crear/elements-cfdi33.md)
+- [Crear un CFDI 4.0](crear/crear-cfdi-40.md)
 - [Elementos de Nómina 1.2 revisión B](crear/complemento-nomina12b.md)
 - [Agregar complementos](crear/complementos-aun-no-implementados.md)
 - [CFDI Retenciones](crear/cfdi-de-retenciones-e-informacion-de-pagos.md)
