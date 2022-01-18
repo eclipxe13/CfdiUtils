@@ -8,6 +8,11 @@ class Concepto extends AbstractElement
 {
     use Traits\ImpuestosTrait;
 
+    protected function getElementImpuestos(): Impuestos
+    {
+        return $this->getImpuestos();
+    }
+
     public function getElementName(): string
     {
         return 'cfdi:Concepto';

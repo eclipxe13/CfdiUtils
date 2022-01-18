@@ -7,6 +7,13 @@ use CfdiUtils\Nodes\NodeInterface;
 
 class Comprobante extends AbstractElement
 {
+    use Traits\ImpuestosTrait;
+
+    protected function getElementImpuestos(): Impuestos
+    {
+        return $this->getImpuestos();
+    }
+
     public function getElementName(): string
     {
         return 'cfdi:Comprobante';

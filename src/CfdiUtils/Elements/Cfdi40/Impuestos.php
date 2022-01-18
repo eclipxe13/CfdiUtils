@@ -8,7 +8,7 @@ class Impuestos extends AbstractElement
 {
     use Traits\ImpuestosTrait;
 
-    protected function getImpuestos(): self
+    protected function getElementImpuestos(): self
     {
         return $this;
     }

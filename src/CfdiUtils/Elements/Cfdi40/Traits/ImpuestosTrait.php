@@ -12,9 +12,9 @@ trait ImpuestosTrait
      * This method is required for all the shortcut methods included here
      * The returned instance must be Impuestos or an extended class
      */
-    abstract protected function getImpuestos(): Impuestos;
+    abstract protected function getElementImpuestos(): Impuestos;
 
-    public function addTraslado(array $attributes): Traslado
+    public function addTraslado(array $attributes = []): Traslado
     {
         return $this->getImpuestos()->getTraslados()->addTraslado($attributes);
     }
@@ -25,7 +25,7 @@ trait ImpuestosTrait
         return $this;
     }
 
-    public function addRetencion(array $attributes): Retencion
+    public function addRetencion(array $attributes = []): Retencion
     {
         return $this->getImpuestos()->getRetenciones()->addRetencion($attributes);
     }

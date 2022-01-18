@@ -4,9 +4,7 @@ namespace CfdiUtils\Elements\Cfdi40;
 
 class ConceptoImpuestos extends Impuestos
 {
-    use Traits\ImpuestosTrait;
-
-    protected function getImpuestos(): self
+    protected function getElementImpuestos(): Impuestos
     {
         return $this;
     }
