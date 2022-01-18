@@ -112,7 +112,7 @@ final class ComprobanteTest extends ElementTestCase
         $this->assertElementHasChildSingle($element, ACuentaTerceros::class);
         $this->assertElementHasChildMultiple($element, InformacionAduanera::class);
         $this->assertElementHasChildMultiple($element, CuentaPredial::class);
-        $this->assertElementHasChildSingle($element, ComplementoConcepto::class);
+        $this->assertElementHasChildSingleAddChild($element, ComplementoConcepto::class);
         $this->assertElementHasChildMultiple($element, Parte::class);
     }
 

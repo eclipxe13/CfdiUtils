@@ -3,6 +3,7 @@
 namespace CfdiUtils\Elements\Cfdi40;
 
 use CfdiUtils\Elements\Common\AbstractElement;
+use CfdiUtils\Nodes\NodeInterface;
 
 class Concepto extends AbstractElement
 {
@@ -89,11 +90,10 @@ class Concepto extends AbstractElement
         return $this->helperGetOrAdd(new ComplementoConcepto());
     }
 
-    public function addComplementoConcepto(array $attributes = []): ComplementoConcepto
+    public function addComplementoConcepto(NodeInterface $child): self
     {
-        $subject = $this->getComplementoConcepto();
-        $subject->addAttributes($attributes);
-        return $subject;
+        $this->getComplementoConcepto()->addChild($child);
+        return $this;
     }
 
     public function addParte(array $attributes = []): Parte
