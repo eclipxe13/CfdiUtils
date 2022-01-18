@@ -59,4 +59,18 @@ final class CfdiValidator40Test extends TestCase
         $this->expectExceptionMessage('empty');
         $validator->validate('', new Node('root'));
     }
+
+    public function testValidateCfdi40Real()
+    {
+        $cfdiFile = $this->utilAsset('cfdi40-real.xml');
+        $cfdi = Cfdi::newFromString(strval(file_get_contents($cfdiFile)));
+
+        $validator = new CfdiValidator40($this->newResolver());
+        $asserts = $validator->validate($cfdi->getSource(), $cfdi->getNode());
+        // $asserts->hasErrors() && print_r($asserts->errors());
+        $this->assertFalse(
+            $asserts->hasErrors(),
+            'The validation of an expected cfdi40 real file fails'
+        );
+    }
 }
