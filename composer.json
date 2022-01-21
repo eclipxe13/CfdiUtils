@@ -1,7 +1,7 @@
 {
     "name": "eclipxe/cfdiutils",
-    "description": "PHP Common utilities for Mexican CFDI 3.2 & 3.3",
-    "keywords": ["cfdi", "cfdi33", "mexico", "electronic invoice"],
+    "description": "PHP Common utilities for Mexican CFDI 3.2, 3.3 & 4.0",
+    "keywords": ["cfdi", "cfdi33", "cfdi40", "mexico", "electronic invoice"],
     "homepage": "https://github.com/eclipxe13/CfdiUtils",
     "support": {
         "source": "https://github.com/eclipxe13/CfdiUtils",
