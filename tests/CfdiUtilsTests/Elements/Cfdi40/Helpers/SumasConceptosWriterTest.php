@@ -27,7 +27,6 @@ final class SumasConceptosWriterTest extends TestCase
 
         $this->assertSame($precision, $writer->getPrecision());
         $this->assertSame($sumasConceptos, $writer->getSumasConceptos());
-        $this->assertSame($precision, $writer->getPrecision());
         $this->assertSame(true, $writer->hasWriteImpuestoBase());
     }
 }
