@@ -35,6 +35,8 @@
 
 The following changes apply only to development and has been applied to main branch.
 
+- Removed duplicated assert in Comprobante #84.
+
 
 ## Version 2.19.0 2022-01-17
 
