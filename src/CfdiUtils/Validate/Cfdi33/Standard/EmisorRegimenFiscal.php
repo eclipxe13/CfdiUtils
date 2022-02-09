@@ -30,7 +30,7 @@ class EmisorRegimenFiscal extends AbstractDiscoverableVersion33
             ];
         } elseif (13 === $length) {
             $validCodes = [
-                '605', '606', '608', '611', '612', '614', '616', '621', '629', '630', '615', '610', '622',
+                '605', '606', '608', '611', '612', '614', '616', '621', '629', '630', '615', '610', '622', '626',
             ];
         } else {
             $validCodes = [];
