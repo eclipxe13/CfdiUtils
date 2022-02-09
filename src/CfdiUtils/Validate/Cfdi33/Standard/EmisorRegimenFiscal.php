@@ -26,7 +26,7 @@ class EmisorRegimenFiscal extends AbstractDiscoverableVersion33
         $length = mb_strlen($emisorRfc);
         if (12 === $length) {
             $validCodes = [
-                '601', '603', '609', '620', '623', '624', '628', '607', '610', '622',
+                '601', '603', '609', '620', '623', '624', '628', '607', '610', '622', '626',
             ];
         } elseif (13 === $length) {
             $validCodes = [
