@@ -36,6 +36,7 @@
 The following changes apply only to development and has been applied to main branch.
 
 - Removed duplicated assert in Comprobante #84.
+- Added new regimen 626 in validator for EmisorRegimenFiscal class.
 
 
 ## Version 2.19.0 2022-01-17
