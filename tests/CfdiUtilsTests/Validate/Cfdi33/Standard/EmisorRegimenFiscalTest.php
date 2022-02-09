@@ -30,7 +30,7 @@ final class EmisorRegimenFiscalTest extends Validate33TestCase
             ['AAA010101AAA', '622'],
             ['AAA010101AAA', '623'],
             ['AAA010101AAA', '624'],
-            ['AAAA010101AAA', '626'],
+            ['AAAA010101AA', '626'],
             ['AAA010101AAA', '628'],
             ['AAA010101AAA', '607'],
             ['ÑAA010101AAA', '601'], // with Ñ
