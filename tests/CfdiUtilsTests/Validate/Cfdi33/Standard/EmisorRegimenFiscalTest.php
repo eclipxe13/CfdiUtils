@@ -30,6 +30,7 @@ final class EmisorRegimenFiscalTest extends Validate33TestCase
             ['AAA010101AAA', '622'],
             ['AAA010101AAA', '623'],
             ['AAA010101AAA', '624'],
+            ['AAAA010101AA', '626'],
             ['AAA010101AAA', '628'],
             ['AAA010101AAA', '607'],
             ['ÑAA010101AAA', '601'], // with Ñ
@@ -46,6 +47,7 @@ final class EmisorRegimenFiscalTest extends Validate33TestCase
             ['AAAA010101AAA', '622'],
             ['AAAA010101AAA', '629'],
             ['AAAA010101AAA', '630'],
+            ['AAAA010101AAA', '626'], // regimen RESICO
             ['AAAA010101AAA', '615'],
             ['ÑAAA010101AAA', '605'], // with Ñ
             ['AAA010000AAA', '601'], // RFC inválido, regimen válido persona moral
