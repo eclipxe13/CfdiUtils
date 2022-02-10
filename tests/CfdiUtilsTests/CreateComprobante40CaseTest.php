@@ -39,7 +39,7 @@ final class CreateComprobante40CaseTest extends TestCase
         $comprobante->addReceptor([
             'Rfc' => 'COSC8001137NA',
             'Nombre' => 'Carlos Cortés Soto', // note is an "e" with accent
-            'UsoCFDI' => 'G01', // Adquisición de mercancias
+            'UsoCFDI' => 'G01', // Adquisición de mercancías
             'RegimenFiscalReceptor' => '612', // Personas Físicas con Actividades Empresariales y Profesionales
             'DomicilioFiscalReceptor' => '52000',
         ]);

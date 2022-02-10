@@ -31,7 +31,10 @@
 - Remove classes `CfdiUtils\Elements\Cfdi33\Helpers\SumasConceptosWriter` and `CfdiUtils\Elements\Cfdi40\Helpers\SumasConceptosWriter`.
 
 
-## UNRELEASED
+## Version 2.19.1 2022-02-09
+
+
+Fix `EmisorRegimenFiscal` validation. Add `626 - RESICO`. Thanks @celli33.
 
 The following changes apply only to development and has been applied to main branch.
 
