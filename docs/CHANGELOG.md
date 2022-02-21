@@ -26,11 +26,99 @@
   and fix `CfdiUtils\ConsultaCfdiSat\Config::__construct()`.
 - Remove file `ConsultaCFDIServiceSAT.svc.xml`.
 - Change visibility of `CfdiUtils\Cleaner\Cleaner#removeIncompleteSchemaLocation()` to private.
+- Remove deprecated constant `CfdiUtils\Cfdi::CFDI_NAMESPACE`.
+- Remove `CfdiUtils\Validate\Cfdi33\Xml\XmlFollowSchema`.
+- Remove classes `CfdiUtils\Elements\Cfdi33\Helpers\SumasConceptosWriter` and `CfdiUtils\Elements\Cfdi40\Helpers\SumasConceptosWriter`.
 
 
-## UNRELEASED
+## Version 2.19.1 2022-02-09
+
+
+Fix `EmisorRegimenFiscal` validation. Add `626 - RESICO`. Thanks @celli33.
 
 The following changes apply only to development and has been applied to main branch.
+
+- Removed duplicated assert in Comprobante #84.
+- Added new regimen 626 in validator for EmisorRegimenFiscal class.
+
+
+## Version 2.19.0 2022-01-17
+
+Add CFDI 4.0 compatibility: read, validate and create:
+
+- `CfdiUtils\Cfdi` object now can read CFDI 4.0.
+- `CfdiUtils\CfdiValidator40` object was introduced to validate CFDI 4.0 with only the following validations:
+    - The document follows de CFDI 4.0 specification (namespace, root element prefix and name).
+    - The document follows de CFDI 4.0 schema.
+    - The document has a valid `NoCertificado`, `Certificado` and `Sello`.
+    - The document has a valid `TimbreFiscalDigital` and information matches with `cfdi:Comprobante@Sello`.
+- `CfdiUtils\CfdiCreator40` object was introduced to create CFDI 4.0.
+- The helper elements `CfdiUtils\Elements\Cfdi40` were created.
+- Add *minimal* documentation to read, validate and create CFDI 4.0.
+
+The following are development details:
+
+- Created `\CfdiUtils\Validate\Xml\XmlFollowSchema` as a standard validator, it does not depend on the type of CFDI.
+- The validator `CfdiUtils\Validate\Cfdi33\Xml\XmlFollowSchema` is now an extended class
+  of `\CfdiUtils\Validate\Xml\XmlFollowSchema`. The class is also deprecated.
+- Add `CfdiUtils\Certificado::getPemContentsOneLine()`.
+- Add CFDI 4.0 information to:
+    - `CfdiUtils\CadenaOrigen\CfdiDefaultLocations`.
+    - `CfdiUtils\Certificado\NodeCertificado`.
+    - `CfdiUtils\CfdiVersion`.
+- Deprecate `CfdiUtils\Cfdi::CFDI_NAMESPACE`.
+- Add `CfdiUtils\CfdiCreateObjectException` that contains all the failures when try to construct a `CfdiUtils\Cfdi` object.
+- Extract and share logic for several objects that are CFDI 3.3 and CFDI 4.0 compatible:
+    - `CfdiUtils\CfdiValidator33` to `CfdiUtils\Validate\CfdiValidatorTrait`.
+    - `CfdiUtils\Validate\Cfdi33\Standard\SelloDigitalCertificado` to `CfdiUtils\Validate\Common\SelloDigitalCertificadoValidatorTrait`.
+    - `CfdiUtils\Validate\Cfdi33\Standard\TimbreFiscalDigitalSello` to `CfdiUtils\Validate\Common\TimbreFiscalDigitalSelloValidatorTrait`.
+    - `CfdiUtils\Validate\Cfdi33\Standard\TimbreFiscalDigitalVersion` to `CfdiUtils\Validate\Common\TimbreFiscalDigitalVersionValidatorTrait`.
+    - `CfdiUtils\CfdiCreator33` to `CfdiUtils\Validate\CfdiCreatorTrait`.
+    - `CfdiUtils\Elements\Cfdi33\Helpers\SumasConceptosWriter` to `CfdiUtils\SumasConceptos\SumasConceptosWriter`.
+- The certificate PAC used for testing `30001000000400002495` is included.
+- The class `CfdiUtilsTests\Validate\ValidateTestCase` was renamed to `CfdiUtilsTests\Validate\Validate33TestCase` and
+  extracted to `CfdiUtilsTests\Validate\ValidateBaseTestCase` because it shares a lot of logic with `CfdiUtilsTests\Validate\Validate40TestCase`.
+- The class `CfdiUtils\SumasConceptos\SumasConceptosWriter` can handle both CFDI 3.3 & 3.4.
+
+This version introduces this *soft* breaking compatibility changes, your implementation should not be affected:
+
+```text
+[BC] REMOVED: These ancestors of CfdiUtils\Validate\Cfdi33\Xml\XmlFollowSchema have been removed: ["CfdiUtils\\Validate\\Cfdi33\\Abstracts\\AbstractVersion33"]
+```
+
+Other changes:
+
+- Update license year, happy new year.
+- Update PHPUnit config file.
+
+## Version 2.18.3 2022-01-15
+
+Fix *Carta Porte 1.0* add missing element `Notificado`. Thanks @celli33.
+
+
+## Version 2.18.2 2021-12-17
+
+Fix *Carta Porte 2.0* XML Namespace.
+
+
+## Version 2.18.1 2021-12-17
+
+Remove `development/` from distribution package.
+
+
+## Version 2.18.0 2021-12-17
+
+Add `CfdiUtils\Elements\CartaPorte20` *Elements* to work with "Carta Porte 2.0".
+
+Add *Elements Maker*, a development tool to create element classes based on a specification file.
+
+Fix `dev:coverage` composer script.
+
+
+## Version 2.17.0 2021-12-10
+
+The helper object `SumasConceptosWriter` also writes the sum of *impuestos locales* when they are present.
+Thanks, @ccelli33 and @luffinando for your help.
 
 
 ## Version 2.16.1 2021-12-08

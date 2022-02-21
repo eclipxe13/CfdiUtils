@@ -5,9 +5,9 @@ namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 use CfdiUtils\Utils\Format;
 use CfdiUtils\Validate\Cfdi33\Standard\FechaComprobante;
 use CfdiUtils\Validate\Status;
-use CfdiUtilsTests\Validate\ValidateTestCase;
+use CfdiUtilsTests\Validate\Validate33TestCase;
 
-final class FechaComprobanteTest extends ValidateTestCase
+final class FechaComprobanteTest extends Validate33TestCase
 {
     /** @var FechaComprobante */
     protected $validator;

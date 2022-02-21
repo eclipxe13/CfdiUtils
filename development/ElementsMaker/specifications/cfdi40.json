@@ -1,0 +1,49 @@
+{
+    "php-namespace": "CfdiUtils\\Elements\\Cfdi40",
+    "prefix": "cfdi",
+    "xml-namespace": "http://www.sat.gob.mx/cfd/4",
+    "xml-schemalocation": "http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd",
+    "version-attribute": "Version",
+    "version-value": "4.0",
+    "root-element": "Comprobante",
+    "structure": {
+        "InformacionGlobal": {},
+        "CfdiRelacionados": {
+            "multiple":  true,
+            "CfdiRelacionado": {"multiple":  true}
+        },
+        "Emisor": {},
+        "Receptor": {},
+        "Conceptos": {
+            "Concepto": {
+                "multiple":  true,
+                "Impuestos": {
+                    "Traslados": {
+                        "Traslado": {"multiple":  true}
+                    },
+                    "Retenciones": {
+                        "Retencion": {"multiple":  true}
+                    }
+                },
+                "ACuentaTerceros": {},
+                "InformacionAduanera": {"multiple":  true},
+                "CuentaPredial": {"multiple":  true},
+                "ComplementoConcepto": {},
+                "Parte": {
+                    "multiple":  true,
+                    "InformacionAduanera": {"multiple":  true}
+                }
+            }
+        },
+        "Impuestos": {
+            "Traslados": {
+                "Traslado": {"multiple":  true}
+            },
+            "Retenciones": {
+                "Retencion": {"multiple":  true}
+            }
+        },
+        "Complemento": {},
+        "Addenda": {}
+    }
+}

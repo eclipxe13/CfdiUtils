@@ -1,0 +1,51 @@
+{
+    "php-namespace": "CfdiUtils\\Elements\\CartaPorte20",
+    "prefix": "cartaporte20",
+    "xml-namespace": "http://www.sat.gob.mx/CartaPorte20",
+    "xml-schemalocation": "http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte20.xsd",
+    "version-attribute": "Version",
+    "version-value": "2.0",
+    "root-element": "CartaPorte",
+    "structure": {
+        "Ubicaciones": {
+            "Ubicacion": {
+                "multiple": true,
+                "Domicilio": {}
+            }
+        },
+        "Mercancias": {
+            "Mercancia": {
+                "multiple": true,
+                "Pedimentos": {"multiple": true},
+                "GuiasIdentificacion": {"multiple": true},
+                "CantidadTransporta": {"multiple": true},
+                "DetalleMercancia": {}
+            },
+            "Autotransporte": {
+                "IdentificacionVehicular": {},
+                "Seguros": {},
+                "Remolques": {
+                    "Remolque": {"multiple": true}
+                }
+            },
+            "TransporteMaritimo": {
+                "Contenedor": {"multiple": true}
+            },
+            "TransporteAereo": {},
+            "TransporteFerroviario": {
+                "DerechosDePaso": {"multiple": true},
+                "Carro": {
+                    "multiple": true,
+                    "Contenedor": {"multiple": true}
+                }
+            }
+        },
+        "FiguraTransporte": {
+            "TiposFigura": {
+                "multiple": true,
+                "PartesTransporte": {"multiple": true},
+                "Domicilio": {}
+            }
+        }
+    }
+}

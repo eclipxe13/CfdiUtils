@@ -11,6 +11,7 @@ use CfdiUtils\CfdiVersion;
  * This class is a helps override or set the location of the xslt resource.
  *
  * @deprecated :3.0.0 it does not have any replacement
+ * @codeCoverageIgnore
  */
 class CadenaOrigenLocations
 {
@@ -21,6 +22,7 @@ class CadenaOrigenLocations
     private $xsltLocations = [
         '3.2' => CfdiDefaultLocations::XSLT_32,
         '3.3' => CfdiDefaultLocations::XSLT_33,
+        '4.0' => CfdiDefaultLocations::XSLT_40,
     ];
 
     /**

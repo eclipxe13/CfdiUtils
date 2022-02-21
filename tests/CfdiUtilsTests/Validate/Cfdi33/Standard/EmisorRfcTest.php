@@ -6,9 +6,9 @@ use CfdiUtils\Nodes\Node;
 use CfdiUtils\Utils\Rfc;
 use CfdiUtils\Validate\Cfdi33\Standard\EmisorRfc;
 use CfdiUtils\Validate\Status;
-use CfdiUtilsTests\Validate\ValidateTestCase;
+use CfdiUtilsTests\Validate\Validate33TestCase;
 
-final class EmisorRfcTest extends ValidateTestCase
+final class EmisorRfcTest extends Validate33TestCase
 {
     /** @var EmisorRfc */
     protected $validator;

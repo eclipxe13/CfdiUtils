@@ -3,11 +3,11 @@
 namespace CfdiUtilsTests;
 
 use CfdiUtils\Certificado\Certificado;
-use CfdiUtils\CfdiCreator33;
+use CfdiUtils\CfdiCreator40;
 use CfdiUtils\Utils\Format;
 use CfdiUtils\Validate\Status;
 
-final class CreateComprobanteCaseTest extends TestCase
+final class CreateComprobante40CaseTest extends TestCase
 {
     public function testCreateCfdiUsingComprobanteElement()
     {
@@ -18,7 +18,7 @@ final class CreateComprobanteCaseTest extends TestCase
 
         // create comprobante using creator with attributes
         // did not set the XmlResolver then a new XmlResolver is created using the default location
-        $creator = new CfdiCreator33([
+        $creator = new CfdiCreator40([
             'Serie' => 'XXX',
             'Folio' => '0000123456',
             'Fecha' => Format::datetime($fecha),
@@ -26,6 +26,7 @@ final class CreateComprobanteCaseTest extends TestCase
             'Moneda' => 'USD',
             'TipoCambio' => Format::number(18.9008, 4), // taken from banxico
             'TipoDeComprobante' => 'I', // ingreso
+            'Exportacion' => '01', // No aplica
             'LugarExpedicion' => '52000',
         ], $certificado);
 
@@ -38,7 +39,9 @@ final class CreateComprobanteCaseTest extends TestCase
         $comprobante->addReceptor([
             'Rfc' => 'COSC8001137NA',
             'Nombre' => 'Carlos Cortés Soto', // note is an "e" with accent
-            'UsoCFDI' => 'G01', // Adquisición de mercancias
+            'UsoCFDI' => 'G01', // Adquisición de mercancías
+            'RegimenFiscalReceptor' => '612', // Personas Físicas con Actividades Empresariales y Profesionales
+            'DomicilioFiscalReceptor' => '52000',
         ]);
 
         // add concepto #1
@@ -52,6 +55,7 @@ final class CreateComprobanteCaseTest extends TestCase
             'ValorUnitario' => '500',
             'Importe' => '2000',
             'Descuento' => '500', // hot sale: take 4, pay only 3
+            'ObjetoImp' => '02',
         ]);
         $concepto->addTraslado([
             'Base' => '1500',
@@ -75,6 +79,7 @@ final class CreateComprobanteCaseTest extends TestCase
             'Descripcion' => 'Pantalla led 3x4" con entrada HDMI',
             'ValorUnitario' => '1000',
             'Importe' => '1000',
+            'ObjetoImp' => '02',
         ])->addTraslado([
             'Base' => '1000',
             'Impuesto' => '002', // IVA
@@ -97,6 +102,7 @@ final class CreateComprobanteCaseTest extends TestCase
             'Descripcion' => 'Servicio de envío de mercancías',
             'ValorUnitario' => '300',
             'Importe' => '300',
+            'ObjetoImp' => '02',
         ])->addTraslado([
             'Base' => '300',
             'Impuesto' => '002', // IVA
@@ -116,7 +122,7 @@ final class CreateComprobanteCaseTest extends TestCase
         $this->assertFalse($asserts->hasStatus(Status::warn()));
 
         // check the xml
-        $expectedFileContents = $this->utilAsset('created-with-discounts.xml');
+        $expectedFileContents = $this->utilAsset('created-with-discounts-40.xml');
         $xmlContents = $creator->asXml();
         $this->assertXmlStringEqualsXmlFile($expectedFileContents, $xmlContents);
         $this->assertStringStartsWith('<?xml', $xmlContents);

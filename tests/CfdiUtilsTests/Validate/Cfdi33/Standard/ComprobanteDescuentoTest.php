@@ -4,9 +4,9 @@ namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Validate\Cfdi33\Standard\ComprobanteDescuento;
 use CfdiUtils\Validate\Status;
-use CfdiUtilsTests\Validate\ValidateTestCase;
+use CfdiUtilsTests\Validate\Validate33TestCase;
 
-final class ComprobanteDescuentoTest extends ValidateTestCase
+final class ComprobanteDescuentoTest extends Validate33TestCase
 {
     /** @var ComprobanteDescuento */
     protected $validator;

@@ -5,9 +5,9 @@ namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Validate\Cfdi33\Standard\EmisorRegimenFiscal;
 use CfdiUtils\Validate\Status;
-use CfdiUtilsTests\Validate\ValidateTestCase;
+use CfdiUtilsTests\Validate\Validate33TestCase;
 
-final class EmisorRegimenFiscalTest extends ValidateTestCase
+final class EmisorRegimenFiscalTest extends Validate33TestCase
 {
     /** @var  EmisorRegimenFiscal */
     protected $validator;
@@ -30,6 +30,7 @@ final class EmisorRegimenFiscalTest extends ValidateTestCase
             ['AAA010101AAA', '622'],
             ['AAA010101AAA', '623'],
             ['AAA010101AAA', '624'],
+            ['AAAA010101AA', '626'],
             ['AAA010101AAA', '628'],
             ['AAA010101AAA', '607'],
             ['ÑAA010101AAA', '601'], // with Ñ
@@ -46,6 +47,7 @@ final class EmisorRegimenFiscalTest extends ValidateTestCase
             ['AAAA010101AAA', '622'],
             ['AAAA010101AAA', '629'],
             ['AAAA010101AAA', '630'],
+            ['AAAA010101AAA', '626'], // regimen RESICO
             ['AAAA010101AAA', '615'],
             ['ÑAAA010101AAA', '605'], // with Ñ
             ['AAA010000AAA', '601'], // RFC inválido, regimen válido persona moral

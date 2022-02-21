@@ -2,9 +2,9 @@
 
 namespace CfdiUtilsTests\Validate;
 
-use CfdiUtils\Validate\Cfdi33\Xml\XmlFollowSchema;
 use CfdiUtils\Validate\Discoverer;
 use CfdiUtils\Validate\MultiValidatorFactory;
+use CfdiUtils\Validate\Xml\XmlFollowSchema;
 use PHPUnit\Framework\TestCase;
 
 final class MultiValidatorFactoryTest extends TestCase

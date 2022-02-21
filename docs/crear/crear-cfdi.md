@@ -25,7 +25,9 @@ Esta clase es una especie de pegamento de todas las pequeñas utilerías y estru
 - `buildSumasConceptos(int $precision = 2): SumasConceptos`: Genera un objeto de tipo `SumasConceptos` según los datos de los `Conceptos`.
 
 - `addSumasConceptos(SumasConceptos $sumasConceptos = null, int $precision = 2)`: Establece los valores de `$sumasConceptos`
-   en el comprobante, si no se pasó el objeto entonces lo fabrica con `buildSumasConceptos()`.
+   en el comprobante, si no se pasó el objeto entonces lo fabrica con `buildSumasConceptos()`. Las sumas en cuestión son
+   los valores del comprobante `SubTotal`, `Total` y `Descuento`, nodo de impuestos del comprobante, y también
+   los totales `TotaldeRetenciones` y `TotaldeTraslados` del complemento de impuestos locales.
 
 - `addSello(string $key, string $passPhrase = '')`: Realiza el procedimiento de firma con la llave primaria y
    almacena el valor de dicha llave en base64 en el atributo `Sello`.

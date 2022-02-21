@@ -1,7 +1,7 @@
 {
     "name": "eclipxe/cfdiutils",
-    "description": "PHP Common utilities for Mexican CFDI 3.2 & 3.3",
-    "keywords": ["cfdi", "cfdi33", "mexico", "electronic invoice"],
+    "description": "PHP Common utilities for Mexican CFDI 3.2, 3.3 & 4.0",
+    "keywords": ["cfdi", "cfdi33", "cfdi40", "mexico", "electronic invoice"],
     "homepage": "https://github.com/eclipxe13/CfdiUtils",
     "support": {
         "source": "https://github.com/eclipxe13/CfdiUtils",
@@ -55,6 +55,7 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "CfdiUtils\\Development\\": "development/",
             "CfdiUtilsTests\\": "tests/CfdiUtilsTests/"
         }
     },
@@ -82,7 +83,7 @@
             "@php vendor/bin/phpstan analyse --no-progress src/ tests/"
         ],
         "dev:coverage": [
-            "@php -dzend_extension=xdebug.so vendor/bin/phpunit --coverage-text --coverage-html build/coverage/html/"
+            "@php -dzend_extension=xdebug.so -dxdebug.mode=coverage vendor/bin/phpunit --coverage-html build/coverage/html/"
         ]
     },
     "scripts-descriptions": {

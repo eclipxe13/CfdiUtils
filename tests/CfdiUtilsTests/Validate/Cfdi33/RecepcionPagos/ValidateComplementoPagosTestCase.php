@@ -3,9 +3,9 @@
 namespace CfdiUtilsTests\Validate\Cfdi33\RecepcionPagos;
 
 use CfdiUtils\Elements\Pagos10\Pagos as Pagos10;
-use CfdiUtilsTests\Validate\ValidateTestCase;
+use CfdiUtilsTests\Validate\Validate33TestCase;
 
-abstract class ValidateComplementoPagosTestCase extends ValidateTestCase
+abstract class ValidateComplementoPagosTestCase extends Validate33TestCase
 {
     /** @var Pagos10 */
     protected $complemento;

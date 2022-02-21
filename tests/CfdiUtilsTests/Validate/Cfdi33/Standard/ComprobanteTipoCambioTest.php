@@ -4,9 +4,9 @@ namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Validate\Cfdi33\Standard\ComprobanteTipoCambio;
 use CfdiUtils\Validate\Status;
-use CfdiUtilsTests\Validate\ValidateTestCase;
+use CfdiUtilsTests\Validate\Validate33TestCase;
 
-final class ComprobanteTipoCambioTest extends ValidateTestCase
+final class ComprobanteTipoCambioTest extends Validate33TestCase
 {
     /** @var ComprobanteTipoCambio */
     protected $validator;

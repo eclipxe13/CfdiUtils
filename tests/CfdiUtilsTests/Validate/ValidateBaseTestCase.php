@@ -3,8 +3,9 @@
 namespace CfdiUtilsTests\Validate;
 
 use CfdiUtils\CadenaOrigen\DOMBuilder;
+use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\Cfdi;
-use CfdiUtils\Elements\Cfdi33\Comprobante;
+use CfdiUtils\Nodes\Node;
 use CfdiUtils\Nodes\NodeInterface;
 use CfdiUtils\Validate\Assert;
 use CfdiUtils\Validate\Asserts;
@@ -13,7 +14,7 @@ use CfdiUtils\Validate\Hydrater;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\TestCase;
 
-abstract class ValidateTestCase extends TestCase
+abstract class ValidateBaseTestCase extends TestCase
 {
     /** @var ValidatorInterface */
     protected $validator;
@@ -30,23 +31,34 @@ abstract class ValidateTestCase extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->comprobante = new Comprobante();
+        $this->comprobante = new Node('root');
         $this->asserts = new Asserts();
         $this->hydrater = new Hydrater();
         $this->hydrater->setXmlResolver($this->newResolver());
         $this->hydrater->setXsltBuilder(new DOMBuilder());
     }
 
-    /**
-     * Use this function to allow code analisys tools to perform correctly
-     * @return Comprobante
-     */
-    protected function getComprobante(): Comprobante
-    {
-        if ($this->comprobante instanceof Comprobante) {
-            return $this->comprobante;
+    protected function setUpCertificado(
+        array $comprobanteAttributes = [],
+        array $emisorAttributes = [],
+        string $certificateFile = ''
+    ): void {
+        $certificateFile = $certificateFile ?: $this->utilAsset('certs/EKU9003173C9.cer');
+        $certificado = new Certificado($certificateFile);
+        $this->comprobante->addAttributes(array_merge([
+            'Certificado' => $certificado->getPemContentsOneLine(),
+            'NoCertificado' => $certificado->getSerial(),
+        ], $comprobanteAttributes));
+
+        $emisor = $this->comprobante->searchNode('cfdi:Emisor');
+        if (null === $emisor) {
+            $emisor = new Node('cfdi:Emisor');
+            $this->comprobante->addChild($emisor);
         }
-        throw new \RuntimeException('The current comprobante node is not a ' . Comprobante::class);
+        $emisor->addAttributes(array_merge([
+            'Nombre' => $certificado->getName(),
+            'Rfc' => $certificado->getRfc(),
+        ], $emisorAttributes));
     }
 
     protected function runValidate()

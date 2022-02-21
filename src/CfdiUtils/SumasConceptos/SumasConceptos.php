@@ -21,10 +21,14 @@ class SumasConceptos
     /** @var float */
     private $impuestosRetenidos;
 
-    /** @var array */
+    /**
+     * @var array<string, array{Impuesto:string, TipoFactor:string, TasaOCuota:string, Importe:float, Base:float}>
+     */
     private $traslados = [];
 
-    /** @var array */
+    /**
+     * @var array<string, array{Impuesto:string, Importe:float}>
+     */
     private $retenciones = [];
 
     /** @var float */
@@ -33,10 +37,14 @@ class SumasConceptos
     /** @var float */
     private $localesImpuestosRetenidos;
 
-    /** @var array */
+    /**
+     * @var array<int, array{Impuesto:string, Tasa:float, Importe:float}>
+     */
     private $localesTraslados = [];
 
-    /** @var array */
+    /**
+     * @var array<int, array{Impuesto:string, Tasa:float, Importe:float}>
+     */
     private $localesRetenciones = [];
 
     /** @var int */
@@ -112,6 +120,9 @@ class SumasConceptos
         }
     }
 
+    /**
+     * @return array<int, array{Impuesto:string, Tasa:float, Importe:float}>
+     */
     private function populateImpuestosLocales(NodeInterface $comprobante, string $plural, string $singular): array
     {
         $locales = $comprobante->searchNodes('cfdi:Complemento', 'implocal:ImpuestosLocales', 'implocal:' . $plural);
@@ -130,6 +141,9 @@ class SumasConceptos
     {
         foreach (array_keys($group) as $key) {
             $group[$key]['Importe'] = round($group[$key]['Importe'], $this->getPrecision());
+            if (isset($group[$key]['Base'])) {
+                $group[$key]['Base'] = round($group[$key]['Base'], $this->getPrecision());
+            }
         }
         return $group;
     }
@@ -147,9 +161,11 @@ class SumasConceptos
                 'TipoFactor' => $traslado['TipoFactor'],
                 'TasaOCuota' => $traslado['TasaOCuota'],
                 'Importe' => 0.0,
+                'Base' => 0.0,
             ];
         }
         $this->traslados[$key]['Importe'] += (float) $traslado['Importe'];
+        $this->traslados[$key]['Base'] += (float) $traslado['Base'];
     }
 
     private function addRetencion(NodeInterface $retencion)
@@ -188,11 +204,17 @@ class SumasConceptos
         return $this->descuento;
     }
 
+    /**
+     * @return array<string, array{Impuesto:string, TipoFactor:string, TasaOCuota:string, Importe:float, Base:float}>
+     */
     public function getTraslados(): array
     {
         return $this->traslados;
     }
 
+    /**
+     * @return array<string, array{Impuesto:string, Importe:float}>
+     */
     public function getRetenciones(): array
     {
         return $this->retenciones;
@@ -233,11 +255,17 @@ class SumasConceptos
         return $this->localesImpuestosRetenidos;
     }
 
+    /**
+     * @return array<int, array{Impuesto:string, Tasa:float, Importe:float}>
+     */
     public function getLocalesTraslados(): array
     {
         return $this->localesTraslados;
     }
 
+    /**
+     * @return array<int, array{Impuesto:string, Tasa:float, Importe:float}>
+     */
     public function getLocalesRetenciones(): array
     {
         return $this->localesRetenciones;

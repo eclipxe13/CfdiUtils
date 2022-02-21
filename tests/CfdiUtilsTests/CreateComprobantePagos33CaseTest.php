@@ -7,7 +7,7 @@ use CfdiUtils\CfdiCreator33;
 use CfdiUtils\Elements\Pagos10\Pagos;
 use CfdiUtils\Utils\Format;
 
-final class CreateComprobantePagosCaseTest extends TestCase
+final class CreateComprobantePagos33CaseTest extends TestCase
 {
     public function testCreateComprobantePagos()
     {
@@ -98,7 +98,7 @@ final class CreateComprobantePagosCaseTest extends TestCase
         );
 
         // test that the file is the same as expected
-        $expectedFile = $this->utilAsset('created-pago-with-ns-at-root.xml');
+        $expectedFile = $this->utilAsset('created-pago-with-ns-at-root-33.xml');
         $this->assertXmlStringEqualsXmlFile($expectedFile, $creator->asXml());
     }
 }
