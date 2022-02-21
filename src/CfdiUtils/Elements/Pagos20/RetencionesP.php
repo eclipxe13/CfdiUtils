@@ -4,23 +4,26 @@ namespace CfdiUtils\Elements\Pagos20;
 
 use CfdiUtils\Elements\Common\AbstractElement;
 
-class RetencionesP extends AbstractElement {
+class RetencionesP extends AbstractElement
+{
 
-    public function getElementName(): string {
+    public function getElementName(): string
+    {
         return 'pagos20:RetencionesP';
     }
 
-    public function addRetencionP(array $attributes = []): RetencionP {
+    public function addRetencionP(array $attributes = []): RetencionP
+    {
         $subject = new RetencionP($attributes);
         $this->addChild($subject);
         return $subject;
     }
 
-    public function multiRetencionP(array ...$elementAttributes): self {
+    public function multiRetencionP(array ...$elementAttributes): self
+    {
         foreach ($elementAttributes as $attributes) {
             $this->addRetencionP($attributes);
         }
         return $this;
     }
-
 }

@@ -23,7 +23,7 @@ exit(call_user_func(function (string $command, string ...$arguments): int {
     $webService = new WebService();
 
     foreach ($files as $file) {
-        if ( ! file_exists($file)) {
+        if (! file_exists($file)) {
             echo "El archivo $file no existe", PHP_EOL;
             continue;
         }
