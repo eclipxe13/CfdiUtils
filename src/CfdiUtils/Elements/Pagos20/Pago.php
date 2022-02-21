@@ -4,39 +4,39 @@ namespace CfdiUtils\Elements\Pagos20;
 
 use CfdiUtils\Elements\Common\AbstractElement;
 
-class Pago extends AbstractElement
-{
-    public function getElementName(): string
-    {
+class Pago extends AbstractElement {
+
+    public function getElementName(): string {
         return 'pagos20:Pago';
     }
-    public function getChildrenOrder(): array
-    {
+
+    public function getChildrenOrder(): array {
         return [
-'pagos20:DoctoRelacionado',
-'pagos20:ImpuestosP'];
-    }      public function addDoctoRelacionado(array $attributes = []): DoctoRelacionado
-    {
+            'pagos20:DoctoRelacionado',
+            'pagos20:ImpuestosP'];
+    }
+
+    public function addDoctoRelacionado(array $attributes = []): DoctoRelacionado {
         $subject = new DoctoRelacionado($attributes);
         $this->addChild($subject);
         return $subject;
     }
 
-    public function multiDoctoRelacionado(array ...$elementAttributes): self
-    {
+    public function multiDoctoRelacionado(array ...$elementAttributes): self {
         foreach ($elementAttributes as $attributes) {
             $this->addDoctoRelacionado($attributes);
         }
         return $this;
-    }   public function getImpuestosP(): ImpuestosP
-    {
+    }
+
+    public function getImpuestosP(): ImpuestosP {
         return $this->helperGetOrAdd(new ImpuestosP());
     }
 
-    public function addImpuestosP(array $attributes = []): ImpuestosP
-    {
+    public function addImpuestosP(array $attributes = []): ImpuestosP {
         $subject = $this->getImpuestosP();
         $subject->addAttributes($attributes);
         return $subject;
     }
+
 }
