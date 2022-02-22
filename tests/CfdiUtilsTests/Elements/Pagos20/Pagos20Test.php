@@ -23,7 +23,7 @@ final class Pagos20Test extends ElementTestCase
 
     public function testPagos20(): void
     {
-        $element = new Pagos20();
+        $element = new Pagos();
         $this->assertElementHasName($element, 'pagos20:Pagos');
         $this->assertElementHasFixedAttributes($element, [
             'xmlns:cartaporte20' => 'http://www.sat.gob.mx/Pagos20',
@@ -32,7 +32,7 @@ final class Pagos20Test extends ElementTestCase
             'Version' => '2.0',
         ]);
         $this->assertElementHasChildSingle($element, Totales::class);
-        $this->assertElementHassChildMultiple($element, Pago::class);
+        $this->assertElementHasChildMultiple($element, Pago::class);
     }
 
     public function testTotales(): void
@@ -79,7 +79,7 @@ final class Pagos20Test extends ElementTestCase
     {
         $element = new RetencionesDR();
         $this->assertElementHasName($element, 'pagos20:RetencionesDR');
-        $this->assertElementHasChildMultiple($element, RetencionDR::class);
+        $this->assertElementHasChildSingle($element, RetencionDR::class);
     }
 
     public function testRetencionDR(): void
