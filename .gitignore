@@ -3,10 +3,3 @@
 /composer.lock
 /node_modules
 /package-lock.json
-
-/nbproject/private/
-/nbproject/project.properties
-nbproject/project.xml
-include.path=${php.global.include.path}
-/nbproject/
-/nbproject/project.xml
