@@ -2,21 +2,21 @@
 
 namespace CfdiUtilsTests\Elements\Pagos20;
 
-use CfdiUtils\Elements\Pagos20\DoctoRelacionado;
-use CfdiUtils\Elements\Pagos20\ImpuestosDR;
-use CfdiUtils\Elements\Pagos20\ImpuestosP;
 use CfdiUtils\Elements\Pagos20\Pago;
 use CfdiUtils\Elements\Pagos20\Pagos;
-use CfdiUtils\Elements\Pagos20\RetencionDR;
-use CfdiUtils\Elements\Pagos20\RetencionP;
-use CfdiUtils\Elements\Pagos20\RetencionesDR;
-use CfdiUtils\Elements\Pagos20\RetencionesP;
 use CfdiUtils\Elements\Pagos20\Totales;
-use CfdiUtils\Elements\Pagos20\TrasladoDR;
 use CfdiUtils\Elements\Pagos20\TrasladoP;
-use CfdiUtils\Elements\Pagos20\TrasladosDR;
+use CfdiUtils\Elements\Pagos20\ImpuestosP;
+use CfdiUtils\Elements\Pagos20\RetencionP;
+use CfdiUtils\Elements\Pagos20\TrasladoDR;
 use CfdiUtils\Elements\Pagos20\TrasladosP;
+use CfdiUtils\Elements\Pagos20\ImpuestosDR;
+use CfdiUtils\Elements\Pagos20\RetencionDR;
+use CfdiUtils\Elements\Pagos20\TrasladosDR;
+use CfdiUtils\Elements\Pagos20\RetencionesP;
 use CfdiUtilsTests\Elements\ElementTestCase;
+use CfdiUtils\Elements\Pagos20\RetencionesDR;
+use CfdiUtils\Elements\Pagos20\DoctoRelacionado;
 
 final class Pagos20Test extends ElementTestCase
 {
@@ -29,7 +29,7 @@ final class Pagos20Test extends ElementTestCase
             'xmlns:pagos20' => 'http://www.sat.gob.mx/Pagos20',
             'xsi:schemaLocation' => 'http://www.sat.gob.mx/Pagos20'
             . ' http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos20.xsd',
-            'Version' => '2.0',
+            'Version' => '2.0'
         ]);
         $this->assertElementHasChildSingle($element, Totales::class);
         $this->assertElementHasChildMultiple($element, Pago::class);
@@ -54,7 +54,7 @@ final class Pagos20Test extends ElementTestCase
         $this->assertElementHasName($element, 'pagos20:Pago');
         $this->assertElementHasOrder($element, [
             'pagos20:DoctoRelacionado',
-            'pagos20:ImpuestosP',
+            'pagos20:ImpuestosP'
         ]);
         $this->assertElementHasChildMultiple($element, DoctoRelacionado::class);
         $this->assertElementHasChildSingle($element, ImpuestosP::class);
@@ -73,7 +73,7 @@ final class Pagos20Test extends ElementTestCase
         $this->assertElementHasName($element, 'pagos20:ImpuestosDR');
         $this->assertElementHasOrder($element, [
             'pagos20:RetencionesDR',
-            'pagos20:TrasladosDR',
+            'pagos20:TrasladosDR'
         ]);
         $this->assertElementHasChildSingle($element, RetencionesDR::class);
         $this->assertElementHasChildSingle($element, TrasladosDR::class);
@@ -111,7 +111,7 @@ final class Pagos20Test extends ElementTestCase
         $this->assertElementHasName($element, 'pagos20:ImpuestosP');
         $this->assertElementHasOrder($element, [
             'pagos20:RetencionesP',
-            'pagos20:TrasladosP',
+            'pagos20:TrasladosP'
         ]);
         $this->assertElementHasChildSingle($element, RetencionesP::class);
         $this->assertElementHasChildSingle($element, TrasladosP::class);
