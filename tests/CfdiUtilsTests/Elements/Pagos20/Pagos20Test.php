@@ -26,7 +26,7 @@ final class Pagos20Test extends ElementTestCase
         $element = new Pagos();
         $this->assertElementHasName($element, 'pagos20:Pagos');
         $this->assertElementHasFixedAttributes($element, [
-            'xmlns:cartaporte20' => 'http://www.sat.gob.mx/Pagos20',
+            'xmlns:pagos20' => 'http://www.sat.gob.mx/Pagos20',
             'xsi:schemaLocation' => 'http://www.sat.gob.mx/Pagos20'
             . ' http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos20.xsd',
             'Version' => '2.0',

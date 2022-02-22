@@ -14,7 +14,6 @@
                 "multiple": true,
                 "ImpuestosDR": {
                     "RetencionesDR": {
-                        "multiple": true,
                         "RetencionDR": {
                             "multiple": true
                         }
@@ -23,11 +22,6 @@
                         "TrasladoDR": {
                             "multiple": true
                         }
-                    }
-                },
-                "TrasladosDR": {
-                    "TrasladoDR": {
-                        "multiple": true
                     }
                 }
             },
