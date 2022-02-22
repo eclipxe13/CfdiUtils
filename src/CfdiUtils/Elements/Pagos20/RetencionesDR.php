@@ -10,6 +10,7 @@ class RetencionesDR extends AbstractElement
     {
         return 'pagos20:RetencionesDR';
     }
+
     public function addRetencionDR(array $attributes = []): RetencionDR
     {
         $subject = new RetencionDR($attributes);

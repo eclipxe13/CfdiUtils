@@ -10,12 +10,14 @@ class Pagos extends AbstractElement
     {
         return 'pagos20:Pagos';
     }
+
     public function getChildrenOrder(): array
     {
         return [
         'pagos20:Totales',
-        'pagos20:Pago'];
+        'pagos20:Pago', ];
     }
+
     public function getFixedAttributes(): array
     {
         return [
@@ -25,6 +27,7 @@ class Pagos extends AbstractElement
             'Version' => '2.0',
         ];
     }
+
     public function getTotales(): Totales
     {
         return $this->helperGetOrAdd(new Totales());
@@ -36,6 +39,7 @@ class Pagos extends AbstractElement
         $subject->addAttributes($attributes);
         return $subject;
     }
+
     public function addPago(array $attributes = []): Pago
     {
         $subject = new Pago($attributes);

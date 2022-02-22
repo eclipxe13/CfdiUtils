@@ -14,7 +14,7 @@ class ImpuestosDR extends AbstractElement
     {
         return [
         'pagos20:RetencionesDR',
-        'pagos20:TrasladosDR'];
+        'pagos20:TrasladosDR',];
     }
     public function getRetencionesDR(): RetencionesDR
     {

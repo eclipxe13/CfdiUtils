@@ -10,6 +10,7 @@ class TrasladosDR extends AbstractElement
     {
         return 'pagos20:TrasladosDR';
     }
+
     public function addTrasladoDR(array $attributes = []): TrasladoDR
     {
         $subject = new TrasladoDR($attributes);

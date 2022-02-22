@@ -10,12 +10,14 @@ class ImpuestosP extends AbstractElement
     {
         return 'pagos20:ImpuestosP';
     }
+
     public function getChildrenOrder(): array
     {
         return [
         'pagos20:RetencionesP',
-        'pagos20:TrasladosP'];
+        'pagos20:TrasladosP', ];
     }
+
     public function getRetencionesP(): RetencionesP
     {
         return $this->helperGetOrAdd(new RetencionesP());
@@ -27,6 +29,7 @@ class ImpuestosP extends AbstractElement
         $subject->addAttributes($attributes);
         return $subject;
     }
+
     public function getTrasladosP(): TrasladosP
     {
         return $this->helperGetOrAdd(new TrasladosP());

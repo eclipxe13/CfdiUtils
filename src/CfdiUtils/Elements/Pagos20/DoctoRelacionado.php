@@ -10,6 +10,7 @@ class DoctoRelacionado extends AbstractElement
     {
         return 'pagos20:DoctoRelacionado';
     }
+
     public function getImpuestosDR(): ImpuestosDR
     {
         return $this->helperGetOrAdd(new ImpuestosDR());
