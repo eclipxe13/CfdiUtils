@@ -8,6 +8,6 @@ class RetencionP extends AbstractElement
 {
     public function getElementName(): string
     {
-        return 'pagos20:RetencionP';
+        return 'pago20:RetencionP';
     }
 }

@@ -1,6 +1,6 @@
 {
     "php-namespace": "CfdiUtils\\Elements\\Pagos20",
-    "prefix": "pagos20",
+    "prefix": "pago20",
     "xml-namespace": "http://www.sat.gob.mx/Pagos20",
     "xml-schemalocation": "http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos20.xsd",
     "version-attribute": "Version",
@@ -14,7 +14,6 @@
                 "multiple": true,
                 "ImpuestosDR": {
                     "RetencionesDR": {
-                        "multiple": true,
                         "RetencionDR": {
                             "multiple": true
                         }

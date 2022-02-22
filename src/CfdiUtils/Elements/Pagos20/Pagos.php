@@ -8,21 +8,21 @@ class Pagos extends AbstractElement
 {
     public function getElementName(): string
     {
-        return 'pagos20:Pagos';
+        return 'pago20:Pagos';
     }
 
     public function getChildrenOrder(): array
     {
         return [
-        'pagos20:Totales',
-        'pagos20:Pago',
+        'pago20:Totales',
+        'pago20:Pago',
         ];
     }
 
     public function getFixedAttributes(): array
     {
         return [
-            'xmlns:pagos20' => 'http://www.sat.gob.mx/Pagos20',
+            'xmlns:pago20' => 'http://www.sat.gob.mx/Pagos20',
             'xsi:schemaLocation' => 'http://www.sat.gob.mx/Pagos20'
                 . ' http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos20.xsd',
             'Version' => '2.0',

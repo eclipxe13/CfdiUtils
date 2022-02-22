@@ -8,6 +8,6 @@ class TrasladoP extends AbstractElement
 {
     public function getElementName(): string
     {
-        return 'pagos20:TrasladoP';
+        return 'pago20:TrasladoP';
     }
 }

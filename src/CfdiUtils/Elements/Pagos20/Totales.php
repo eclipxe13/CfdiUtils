@@ -8,6 +8,6 @@ class Totales extends AbstractElement
 {
     public function getElementName(): string
     {
-        return 'pagos20:Totales';
+        return 'pago20:Totales';
     }
 }

@@ -8,7 +8,7 @@ class TrasladosDR extends AbstractElement
 {
     public function getElementName(): string
     {
-        return 'pagos20:TrasladosDR';
+        return 'pago20:TrasladosDR';
     }
 
     public function addTrasladoDR(array $attributes = []): TrasladoDR

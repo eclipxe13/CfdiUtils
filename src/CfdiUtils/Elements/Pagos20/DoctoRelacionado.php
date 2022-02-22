@@ -8,7 +8,7 @@ class DoctoRelacionado extends AbstractElement
 {
     public function getElementName(): string
     {
-        return 'pagos20:DoctoRelacionado';
+        return 'pago20:DoctoRelacionado';
     }
 
     public function getImpuestosDR(): ImpuestosDR

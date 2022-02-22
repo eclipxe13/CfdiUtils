@@ -8,7 +8,7 @@ class RetencionesDR extends AbstractElement
 {
     public function getElementName(): string
     {
-        return 'pagos20:RetencionesDR';
+        return 'pago20:RetencionesDR';
     }
 
     public function addRetencionDR(array $attributes = []): RetencionDR

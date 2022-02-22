@@ -8,7 +8,7 @@ class RetencionesP extends AbstractElement
 {
     public function getElementName(): string
     {
-        return 'pagos20:RetencionesP';
+        return 'pago20:RetencionesP';
     }
 
     public function addRetencionP(array $attributes = []): RetencionP

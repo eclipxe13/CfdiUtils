@@ -8,14 +8,14 @@ class Pago extends AbstractElement
 {
     public function getElementName(): string
     {
-        return 'pagos20:Pago';
+        return 'pago20:Pago';
     }
 
     public function getChildrenOrder(): array
     {
         return [
-        'pagos20:DoctoRelacionado',
-        'pagos20:ImpuestosP',
+        'pago20:DoctoRelacionado',
+        'pago20:ImpuestosP',
         ];
     }
 
