@@ -71,6 +71,10 @@ final class Pagos20Test extends ElementTestCase
     {
         $element = new ImpuestosDR();
         $this->assertElementHasName($element, 'pagos20:ImpuestosDR');
+        $this->assertElementHasOrder($element, [
+            'pagos20:RetencionesDR',
+            'pagos20:TrasladosDR',
+        ]);
         $this->assertElementHasChildSingle($element, RetencionesDR::class);
         $this->assertElementHasChildSingle($element, TrasladosDR::class);
     }
@@ -79,7 +83,7 @@ final class Pagos20Test extends ElementTestCase
     {
         $element = new RetencionesDR();
         $this->assertElementHasName($element, 'pagos20:RetencionesDR');
-        $this->assertElementHasChildSingle($element, RetencionDR::class);
+        $this->assertElementHasChildMultiple($element, RetencionDR::class);
     }
 
     public function testRetencionDR(): void
