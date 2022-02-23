@@ -1,8 +1,5 @@
 {
     "devDependencies": {
         "markdownlint-cli": "^0.31.1"
-    },
-    "dependencies": {
-        "mdlint": "^0.1.0"
     }
 }

@@ -40,13 +40,6 @@ final class Pagos20Test extends ElementTestCase
         $this->assertElementHasName($element, 'pago20:Totales');
     }
 
-    public function testPagos(): void
-    {
-        $element = new Pagos();
-        $this->assertElementHasName($element, 'pago20:Pagos');
-        $this->assertElementHasChildMultiple($element, Pago::class);
-    }
-
     public function testPago(): void
     {
         $element = new Pago();
