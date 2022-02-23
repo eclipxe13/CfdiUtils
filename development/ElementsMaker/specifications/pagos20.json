@@ -1,0 +1,42 @@
+{
+    "php-namespace": "CfdiUtils\\Elements\\Pagos20",
+    "prefix": "pago20",
+    "xml-namespace": "http://www.sat.gob.mx/Pagos20",
+    "xml-schemalocation": "http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos20.xsd",
+    "version-attribute": "Version",
+    "version-value": "2.0",
+    "root-element": "Pagos",
+    "structure": {
+        "Totales": {},
+        "Pago": {
+            "multiple": true,
+            "DoctoRelacionado": {
+                "multiple": true,
+                "ImpuestosDR": {
+                    "RetencionesDR": {
+                        "RetencionDR": {
+                            "multiple": true
+                        }
+                    },
+                    "TrasladosDR": {
+                        "TrasladoDR": {
+                            "multiple": true
+                        }
+                    }
+                }
+            },
+            "ImpuestosP": {
+                "RetencionesP": {
+                    "RetencionP": {
+                        "multiple": true
+                    }
+                },
+                "TrasladosP": {
+                    "TrasladoP": {
+                        "multiple": true
+                    }
+                }
+            }
+        }
+    }
+}
