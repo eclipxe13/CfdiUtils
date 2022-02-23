@@ -20,7 +20,7 @@ use CfdiUtilsTests\Elements\ElementTestCase;
 
 final class Pagos20Test extends ElementTestCase
 {
-    public function testPagos20(): void
+    public function testPagos(): void
     {
         $element = new Pagos();
         $this->assertElementHasName($element, 'pago20:Pagos');
