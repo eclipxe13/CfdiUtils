@@ -136,11 +136,9 @@ class SchemaLocations implements Countable, IteratorAggregate
     }
 
     /** @return Traversable<string, string> */
-    public function getIterator()
+    public function getIterator(): Traversable
     {
-        /** @var Traversable<string, string> $traversable */
-        $traversable = new ArrayIterator($this->pairs);
-        return $traversable;
+        return new ArrayIterator($this->pairs);
     }
 
     public function count(): int

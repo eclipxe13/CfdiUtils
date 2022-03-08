@@ -4,6 +4,7 @@ namespace CfdiUtils\Validate;
 
 use CfdiUtils\Nodes\NodeInterface;
 use CfdiUtils\Validate\Contracts\ValidatorInterface;
+use Traversable;
 
 class MultiValidator implements ValidatorInterface, \Countable, \IteratorAggregate
 {
@@ -90,18 +91,13 @@ class MultiValidator implements ValidatorInterface, \Countable, \IteratorAggrega
         $this->validators = [];
     }
 
-    /**
-     * @return \ArrayIterator|\Traversable
-     */
-    public function getIterator()
+    /** @return Traversable<ValidatorInterface> */
+    public function getIterator(): Traversable
     {
         return new \ArrayIterator($this->validators);
     }
 
-    /**
-     * @return int
-     */
-    public function count()
+    public function count(): int
     {
         return count($this->validators);
     }

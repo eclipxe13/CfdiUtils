@@ -3,10 +3,11 @@
 namespace CfdiUtils\Nodes;
 
 use CfdiUtils\Utils\Xml;
+use Traversable;
 
 class Attributes implements \Countable, \IteratorAggregate, \ArrayAccess
 {
-    /** @var string[] */
+    /** @var array<string, string> */
     private $attributes = [];
 
     public function __construct(array $attributes = [])
@@ -91,33 +92,38 @@ class Attributes implements \Countable, \IteratorAggregate, \ArrayAccess
         throw new \InvalidArgumentException(sprintf('Cannot convert value of attribute %s to string', $key));
     }
 
-    public function getIterator()
+    /** @return Traversable<string, string> */
+    public function getIterator(): Traversable
     {
         return new \ArrayIterator($this->attributes);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return $this->exists((string) $offset);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->get((string) $offset);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         $offset = strval($offset);
         $this->set($offset, $this->castValueToString($offset, $value));
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         $this->remove((string) $offset);
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->attributes);
     }

@@ -3,6 +3,7 @@
 namespace CfdiUtils\Nodes;
 
 use CfdiUtils\Utils\Xml;
+use Traversable;
 
 class Node implements NodeInterface
 {
@@ -111,21 +112,25 @@ class Node implements NodeInterface
      * Array access implementation as attribute helpers
      */
 
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return isset($this->attributes[$offset]);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->attributes[$offset];
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         $this->attributes[$offset] = $value;
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->attributes[$offset]);
@@ -135,18 +140,13 @@ class Node implements NodeInterface
      * other interfaces
      */
 
-    /**
-     * @return int
-     */
-    public function count()
+    public function count(): int
     {
         return $this->children->count();
     }
 
-    /**
-     * @return \ArrayIterator|\Traversable
-     */
-    public function getIterator()
+    /** @return Traversable<NodeInterface> */
+    public function getIterator(): Traversable
     {
         return $this->children->getIterator();
     }

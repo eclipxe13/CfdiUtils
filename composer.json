@@ -34,9 +34,9 @@
         "ext-soap": "*",
         "ext-iconv": "*",
         "ext-json": "*",
-        "symfony/process": "^3.4|^4.2|^5.0",
+        "symfony/process": "^3.4|^4.2|^5.0|^6.0",
         "eclipxe/xmlresourceretriever": "^1.3.0",
-        "eclipxe/xmlschemavalidator": "^2.0.2"
+        "eclipxe/xmlschemavalidator": "^3.0.2"
     },
     "suggest": {
         "genkgo/xsl": "Allows usage of Genkgo/Xsl transformations"

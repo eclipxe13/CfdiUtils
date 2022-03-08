@@ -2,9 +2,11 @@
 
 namespace CfdiUtils\Validate;
 
+use Traversable;
+
 class Asserts implements \Countable, \IteratorAggregate
 {
-    /** @var Assert[] */
+    /** @var array<string, Assert> */
     private $asserts = [];
 
     /** @var bool */
@@ -199,18 +201,13 @@ class Asserts implements \Countable, \IteratorAggregate
         $this->mustStop($asserts->mustStop());
     }
 
-    /**
-     * @return \ArrayIterator|\Traversable
-     */
-    public function getIterator()
+    /** @return Traversable<string, Assert> */
+    public function getIterator(): Traversable
     {
         return new \ArrayIterator($this->asserts);
     }
 
-    /**
-     * @return int
-     */
-    public function count()
+    public function count(): int
     {
         return count($this->asserts);
     }

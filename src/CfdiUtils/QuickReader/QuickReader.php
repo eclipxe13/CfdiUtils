@@ -125,11 +125,13 @@ class QuickReader extends \stdClass implements \ArrayAccess
         return $this->getAttributeByName((string) $name) ?? '';
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         throw new \LogicException('Cannot change attributes');
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         throw new \LogicException('Cannot change attributes');

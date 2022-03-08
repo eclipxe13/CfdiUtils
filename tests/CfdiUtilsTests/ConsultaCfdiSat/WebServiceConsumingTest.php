@@ -57,6 +57,7 @@ final class WebServiceConsumingTest extends TestCase
         $this->assertNotSame($soapClient, $this->tolerantSoapClient($ws));
     }
 
+    /** @requires PHP < 8.1 */
     public function testSoapClientHasSettings()
     {
         $config = new Config(60, false, '');
