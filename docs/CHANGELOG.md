@@ -31,6 +31,23 @@
 - Remove classes `CfdiUtils\Elements\Cfdi33\Helpers\SumasConceptosWriter` and `CfdiUtils\Elements\Cfdi40\Helpers\SumasConceptosWriter`.
 
 
+## Version 2.20.1 2022-03-08
+
+Add PHP 8.1 minimal compatibility.
+
+Skip tests on `GenkgoXslBuilderTest` because the library `genkgo/xsl` is not compatible with PHP 8.1. 
+
+Skip tests `WebServiceConsumingTest::testSoapClientHasSettings` because cannot access `SoapClient` private properties.
+
+Add dependence on `symfony/process` to include 6.0. This allows to install the library on PHP 8.1.
+
+Upgrade `eclipxe/xmlschemavalidator` from version 2.x to version 3.x (fully PHP 8.1 compatible).
+
+Add `#[\ReturnTypeWillChange]` or fix return types on implemented classes like
+`IteratorAggregate::getIterator(): Traversable`.
+
+Add information about how tu run locally GitHub Actions using  `nektos/act` tool.
+
 ## Version 2.20.0 2022-02-22
 
 Add `CfdiUtils\Elements\Pagos20` *Elements* to work with "Complemento para recepción de Pagos 2.0".
