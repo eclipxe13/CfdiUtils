@@ -35,7 +35,7 @@
 
 Add PHP 8.1 minimal compatibility.
 
-Skip tests on `GenkgoXslBuilderTest` because the library `genkgo/xsl` is not compatible with PHP 8.1. 
+Skip tests on `GenkgoXslBuilderTest` because the library `genkgo/xsl` is not compatible with PHP 8.1.
 
 Skip tests `WebServiceConsumingTest::testSoapClientHasSettings` because cannot access `SoapClient` private properties.
 
@@ -48,10 +48,12 @@ Add `#[\ReturnTypeWillChange]` or fix return types on implemented classes like
 
 Add information about how tu run locally GitHub Actions using  `nektos/act` tool.
 
+
 ## Version 2.20.0 2022-02-22
 
 Add `CfdiUtils\Elements\Pagos20` *Elements* to work with "Complemento para recepción de Pagos 2.0".
 Thanks @EmmanuelJCS.
+
 
 ## Version 2.19.1 2022-02-09
 
@@ -111,6 +113,7 @@ Other changes:
 
 - Update license year, happy new year.
 - Update PHPUnit config file.
+
 
 ## Version 2.18.3 2022-01-15
 
