@@ -25,6 +25,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Install libsaxonb-java on nektos/act
+        if: matrix.operating-systems == 'ubuntu-latest' && github.actor == 'nektos/act'
+        run: |
+          sudo apt-get update -y -qq
+          sudo apt-get install -y -qq default-jre
+
       - name: Install libsaxonb-java on linux
         if: matrix.operating-systems == 'ubuntu-latest'
         run: sudo apt-get install -y -qq libsaxonb-java
@@ -96,6 +102,12 @@ jobs:
           tools: composer:v2, cs2pr
         env:
           fail-fast: true
+
+      - name: Install libsaxonb-java on nektos/act
+        if: matrix.operating-systems == 'ubuntu-latest' && github.actor == 'nektos/act'
+        run: |
+          sudo apt-get update -y -qq
+          sudo apt-get install -y -qq default-jre
 
       - name: Install libsaxonb-java
         run: sudo apt-get install -y -qq libsaxonb-java

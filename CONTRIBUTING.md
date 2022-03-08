@@ -77,3 +77,13 @@ Before you can run these, be sure to `composer install` or `composer update`.
 ```shell
 composer dev:build
 ```
+
+## Running GitHub Actions locally
+
+You can use [`act`](https://github.com/nektos/act) to run your GitHub Actions locally.
+As documented in [`actions/setup-php-action`](https://github.com/marketplace/actions/setup-php-action#local-testing-setup)
+you will need to execute the command as:
+
+```shell
+act -P ubuntu-latest=shivammathur/node:latest
+```
