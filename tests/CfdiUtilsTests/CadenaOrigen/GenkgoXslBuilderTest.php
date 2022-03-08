@@ -5,6 +5,7 @@ namespace CfdiUtilsTests\CadenaOrigen;
 use CfdiUtils\CadenaOrigen\GenkgoXslBuilder;
 use CfdiUtils\CadenaOrigen\XsltBuilderInterface;
 
+/** @requires PHP < 8.1 */
 final class GenkgoXslBuilderTest extends GenericBuilderTestCase
 {
     protected function setUp(): void
