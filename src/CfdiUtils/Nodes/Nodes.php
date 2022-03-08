@@ -2,6 +2,8 @@
 
 namespace CfdiUtils\Nodes;
 
+use Traversable;
+
 class Nodes implements \Countable, \IteratorAggregate
 {
     /** @var NodeInterface[] */
@@ -145,18 +147,13 @@ class Nodes implements \Countable, \IteratorAggregate
         return $this;
     }
 
-    /**
-     * @return \ArrayIterator|\Traversable
-     */
-    public function getIterator()
+    /** @return Traversable<NodeInterface> */
+    public function getIterator(): Traversable
     {
         return new \ArrayIterator($this->nodes);
     }
 
-    /**
-     * @return int
-     */
-    public function count()
+    public function count(): int
     {
         return count($this->nodes);
     }
