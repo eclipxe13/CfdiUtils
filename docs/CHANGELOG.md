@@ -31,6 +31,11 @@
 - Remove classes `CfdiUtils\Elements\Cfdi33\Helpers\SumasConceptosWriter` and `CfdiUtils\Elements\Cfdi40\Helpers\SumasConceptosWriter`.
 
 
+## Unreleased 2022-03-18
+
+CI: Always run `apt-get update` before `apt-get install`.
+
+
 ## Version 2.20.1 2022-03-08
 
 Add PHP 8.1 minimal compatibility.
