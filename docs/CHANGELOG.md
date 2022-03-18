@@ -33,6 +33,9 @@
 
 ## Unreleased 2022-03-18
 
+Fix build since GitHub Action `sudo-bot/action-scrutinizer` is failing.
+Use `scrutinizer/ocular` package instead.
+
 CI: Always run `apt-get update` before `apt-get install`.
 
 

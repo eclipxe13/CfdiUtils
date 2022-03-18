@@ -143,8 +143,10 @@ jobs:
 
       - name: Upload code coverage to scrutinizer
         uses: sudo-bot/action-scrutinizer@latest
-        with:
-          cli-args: "--format=php-clover build/coverage-clover.xml"
+        run:
+          mkdir -p build/scrutinizer
+          composer require scrutinizer/ocular --working-dir build/scrutinizer --no-progress
+          build/scrutinizer/vendor/bin/ocular code-coverage:upload --no-interaction --format=php-clover build/coverage-clover.xml
 
       # see https://github.com/marketplace/actions/mkdocs-action
       - name: Run mkdocs
