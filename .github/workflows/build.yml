@@ -23,7 +23,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install libsaxonb-java on linux
         if: matrix.operating-systems == 'ubuntu-latest'
@@ -86,7 +86,9 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       # see https://github.com/marketplace/actions/setup-php-action
       - name: Setup PHP
@@ -144,8 +146,8 @@ jobs:
       - name: Upload code coverage to scrutinizer
         run: |
           mkdir -p build/scrutinizer
-          composer require scrutinizer/ocular --working-dir build/scrutinizer --no-progress
-          build/scrutinizer/vendor/bin/ocular code-coverage:upload --no-interaction --format=php-clover build/coverage-clover.xml
+          composer require scrutinizer/ocular:dev-master --working-dir=build/scrutinizer --no-progress
+          php build/scrutinizer/vendor/bin/ocular code-coverage:upload -vvv --no-interaction --format=php-clover build/coverage-clover.xml
 
       # see https://github.com/marketplace/actions/mkdocs-action
       - name: Run mkdocs
