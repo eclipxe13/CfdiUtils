@@ -36,6 +36,8 @@
 Fix build since GitHub Action `sudo-bot/action-scrutinizer` is failing.
 Use `scrutinizer/ocular` package instead.
 
+Test: When creating a pago, use `addSumasConceptos` to populate `SubTotal` and `Total`.
+
 CI: Always run `apt-get update` before `apt-get install`.
 
 

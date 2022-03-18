@@ -24,8 +24,6 @@ final class CreateComprobantePagos33CaseTest extends TestCase
             'TipoDeComprobante' => 'P', // pago
             'LugarExpedicion' => '52000',
             'Moneda' => 'XXX',
-            'Total' => '0',
-            'SubTotal' => '0',
         ]);
         $creator->putCertificado($certificado, false);
 
@@ -82,6 +80,9 @@ final class CreateComprobantePagos33CaseTest extends TestCase
 
         // add the "complemento de pagos" ($complementoPagos) to the $comprobante
         $comprobante->addComplemento($complementoPagos);
+
+        // use this method (with 0 decimals) to add attributes
+        $creator->addSumasConceptos(null, 0);
 
         // add sello and validate to assert that the specimen does not have any errors
         $creator->addSello('file://' . $keyfile, '');
