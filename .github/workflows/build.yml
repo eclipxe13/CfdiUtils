@@ -142,7 +142,7 @@ jobs:
         run: vendor/bin/phpstan analyse --no-progress --verbose src/ tests/
 
       - name: Upload code coverage to scrutinizer
-        run:
+        run: |
           mkdir -p build/scrutinizer
           composer require scrutinizer/ocular --working-dir build/scrutinizer --no-progress
           build/scrutinizer/vendor/bin/ocular code-coverage:upload --no-interaction --format=php-clover build/coverage-clover.xml
