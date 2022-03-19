@@ -61,7 +61,7 @@ When you do begin working on your feature, here are some guidelines to consider:
 
 ## Check the code style
 
-If you are having issues with coding standars then run:
+If you are having issues with coding standards then run:
 
 ```shell
 composer dev:check-style

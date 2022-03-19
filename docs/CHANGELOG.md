@@ -31,6 +31,16 @@
 - Remove classes `CfdiUtils\Elements\Cfdi33\Helpers\SumasConceptosWriter` and `CfdiUtils\Elements\Cfdi40\Helpers\SumasConceptosWriter`.
 
 
+## Unreleased 2022-03-18
+
+Fix build since GitHub Action `sudo-bot/action-scrutinizer` is failing.
+Use `scrutinizer/ocular` package instead.
+
+Test: When creating a pago, use `addSumasConceptos` to populate `SubTotal` and `Total`.
+
+CI: Always run `apt-get update` before `apt-get install`.
+
+
 ## Version 2.20.1 2022-03-08
 
 Add PHP 8.1 minimal compatibility.
