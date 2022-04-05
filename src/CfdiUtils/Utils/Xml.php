@@ -53,7 +53,7 @@ class Xml
         // this error silenced call is intentional, no need to alter libxml_use_internal_errors
         if (false === @$document->loadXML($content)) {
             throw new \UnexpectedValueException(
-                trim('Cannot create a DOM Document from xml string' . PHP_EOL . static::castLibXmlLastErrorAsString())
+                trim('Cannot create a DOM Document from xml string' . PHP_EOL . self::castLibXmlLastErrorAsString())
             );
         }
         return $document;
@@ -106,7 +106,7 @@ class Xml
      */
     public static function createElement(DOMDocument $document, string $name, string $content = ''): DOMElement
     {
-        return static::createDOMElement(
+        return self::createDOMElement(
             function () use ($document, $name) {
                 return $document->createElement($name);
             },
@@ -131,7 +131,7 @@ class Xml
         string $name,
         string $content = ''
     ): DOMElement {
-        return static::createDOMElement(
+        return self::createDOMElement(
             function () use ($document, $namespaceURI, $name) {
                 return $document->createElementNS($namespaceURI, $name);
             },

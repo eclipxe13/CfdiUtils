@@ -80,7 +80,6 @@ final class RetencionesCreator10Test extends TestCase
         $this->assertFalse($asserts->hasErrors());
 
         // check against known content
-        file_put_contents($this->utilAsset('retenciones/sample-before-tfd.xml'), $creator->asXml());
         $this->assertXmlStringEqualsXmlFile($this->utilAsset('retenciones/sample-before-tfd.xml'), $creator->asXml());
     }
 

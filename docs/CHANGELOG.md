@@ -31,7 +31,15 @@
 - Remove classes `CfdiUtils\Elements\Cfdi33\Helpers\SumasConceptosWriter` and `CfdiUtils\Elements\Cfdi40\Helpers\SumasConceptosWriter`.
 
 
-## Unreleased 2022-03-18
+## Version 2.20.2 2022-04-05
+
+Allow installing Genkgo/Xsl version 1.1.0; used for PHP >= 7.4.
+
+Test: Fix test that was overriding `retenciones/sample-before-tfd.xml` file.
+
+Include the following unreleased changes
+
+### 2022-03-18
 
 Fix build since GitHub Action `sudo-bot/action-scrutinizer` is failing.
 Use `scrutinizer/ocular` package instead.
