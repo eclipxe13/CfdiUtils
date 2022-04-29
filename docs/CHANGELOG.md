@@ -29,7 +29,13 @@
 - Remove deprecated constant `CfdiUtils\Cfdi::CFDI_NAMESPACE`.
 - Remove `CfdiUtils\Validate\Cfdi33\Xml\XmlFollowSchema`.
 - Remove classes `CfdiUtils\Elements\Cfdi33\Helpers\SumasConceptosWriter` and `CfdiUtils\Elements\Cfdi40\Helpers\SumasConceptosWriter`.
+- Merge methods from `\CfdiUtils\Nodes\NodeHasValueInterface` into `\CfdiUtils\Nodes\NodeInterface`.
 
+## Version 2.21.0 2022-04-29
+
+- Introduce `\CfdiUtils\Nodes\NodeHasValueInterface` to work with nodes simple text content.
+- The class `\CfdiUtils\Nodes\Node` implements `\CfdiUtils\Nodes\NodeHasValueInterface`.
+- The XML node importers and exporters now can read and write simple text content.
 
 ## Version 2.20.2 2022-04-05
 
