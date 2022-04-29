@@ -5,7 +5,7 @@ namespace CfdiUtils\Nodes;
 use CfdiUtils\Utils\Xml;
 use Traversable;
 
-class Node implements NodeInterface
+class Node implements NodeInterface, NodeHasValueInterface
 {
     /** @var string */
     private $name;
