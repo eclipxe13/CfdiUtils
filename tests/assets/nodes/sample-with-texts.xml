@@ -1,0 +1,12 @@
+<root id="root">
+    <level-one id="1">
+        <level-two id="1.1">value 1.1</level-two>
+        <level-two id="1.2">value 1.2</level-two>
+        <level-two id="1.3">value 1.3</level-two>
+    </level-one>
+    <level-one id="2">
+        <level-two id="2.1">value 2.1</level-two>
+        <level-two id="2.2">value 2.2</level-two>
+    </level-one>
+    <level-one id="empty"/>
+</root>

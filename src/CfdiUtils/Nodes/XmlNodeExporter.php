@@ -29,6 +29,10 @@ class XmlNodeExporter
             $element->appendChild($childElement);
         }
 
+        if ('' !== $node->value()) {
+            $element->appendChild($document->createTextNode($node->value()));
+        }
+
         return $element;
     }
 }

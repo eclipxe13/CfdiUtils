@@ -17,6 +17,10 @@ interface NodeInterface extends \ArrayAccess, \Countable, \IteratorAggregate
 
     public function addAttributes(array $attributes);
 
+    public function value(): string;
+
+    public function setValue(string $value): void;
+
     public function clear();
 
     public function searchAttribute(string ...$searchPath): string;

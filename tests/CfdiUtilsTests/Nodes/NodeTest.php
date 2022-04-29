@@ -13,6 +13,7 @@ final class NodeTest extends TestCase
         $this->assertSame('name', $node->name());
         $this->assertCount(0, $node->attributes());
         $this->assertCount(0, $node->children());
+        $this->assertSame('', $node->value());
     }
 
     public function testConstructWithArguments()
@@ -20,9 +21,11 @@ final class NodeTest extends TestCase
         $dummyNode = new Node('dummy');
         $attributes = ['foo' => 'bar'];
         $children = [$dummyNode];
-        $node = new Node('name', $attributes, $children);
+        $value = 'xee';
+        $node = new Node('name', $attributes, $children, $value);
         $this->assertSame('bar', $node->attributes()->get('foo'));
         $this->assertSame($dummyNode, $node->children()->firstNodeWithName('dummy'));
+        $this->assertSame($value, $node->value());
     }
 
     public function testConstructWithEmptyName()
@@ -115,5 +118,16 @@ final class NodeTest extends TestCase
         unset($node['id']);
         $this->assertFalse(isset($node['id']));
         $this->assertSame('', $node['id']);
+    }
+
+    public function testValueProperty()
+    {
+        $node = new Node('x');
+
+        $node->setValue('first');
+        $this->assertSame('first', $node->value());
+
+        $node->setValue('second');
+        $this->assertSame('second', $node->value());
     }
 }

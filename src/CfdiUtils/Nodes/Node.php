@@ -16,13 +16,16 @@ class Node implements NodeInterface
     /** @var Nodes|NodeInterface[] */
     private $children;
 
+    /** @var string */
+    private $value;
+
     /**
      * Node constructor.
      * @param string $name
      * @param array $attributes
      * @param NodeInterface[] $children
      */
-    public function __construct(string $name, array $attributes = [], array $children = [])
+    public function __construct(string $name, array $attributes = [], array $children = [], string $value = '')
     {
         if (! Xml::isValidXmlName($name)) {
             throw new \UnexpectedValueException(sprintf('Cannot create a node with an invalid xml name: "%s"', $name));
@@ -30,6 +33,7 @@ class Node implements NodeInterface
         $this->name = $name;
         $this->attributes = new Attributes($attributes);
         $this->children = new Nodes($children);
+        $this->value = $value;
     }
 
     public function name(): string
@@ -68,6 +72,16 @@ class Node implements NodeInterface
     public function addAttributes(array $attributes)
     {
         $this->attributes->importArray($attributes);
+    }
+
+    public function value(): string
+    {
+        return $this->value;
+    }
+
+    public function setValue(string $value): void
+    {
+        $this->value = $value;
     }
 
     /*
