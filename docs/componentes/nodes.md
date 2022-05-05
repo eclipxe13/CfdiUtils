@@ -7,7 +7,7 @@ donde cada uno tiene una colección de atributos. Los nodos no tienen referencia
 ## Objeto `CfdiUtils\Nodes\Node`
 
 Esta es la estructura básica. Un nodo debe tener un nombre y esta propiedad no se puede cambiar.
-Su contructor admite tres parámetros:
+Su constructor admite tres parámetros:
 
 - `string $name`: Nombre del nodo, se eliminan espacios en blanco al inicio y al final, no permite vacíos.
 - `string[] $attributes`: arreglo de elementos clave/valor que serán importados como atributos
@@ -16,7 +16,7 @@ Su contructor admite tres parámetros:
 
 ### Atributos de nodos `attributes(): CfdiUtils\Nodes\Attributes`
 
-Se accesa a sus atributos utilizando la forma de arreglos de php siguiendo estas reglas básicas:
+Se accede a sus atributos utilizando la forma de arreglos de php siguiendo estas reglas básicas:
 
 - La lectura de un nodo siempre devuelve una cadena de caracteres aunque el atributo no exista.
 - La escritura de un nodo es siempre con una cadena de caracteres, también puede ser un objeto
@@ -56,7 +56,7 @@ Cuanto se itera el objeto en realidad se está iterando sobre la colección de n
 
 La clase `Node` tiene estos métodos de ayuda que sirven para trabajar directamente sobre la colección Nodes:
 
-- iterador: el `foreach` se realiza sobre la colección de nodos.
+- iterador: el ciclo `foreach` se realiza sobre la colección de nodos.
 - `addChild(Node $node)`: agrega un nodo en la colección de nodos.
 
 
@@ -101,7 +101,7 @@ Se pueden hacer las operaciones básicas como:
 `exists(Node $node)`,
 `get(int $index)`.
 
-Adicionalmente se pueden usar los métodos:
+Adicionalmente, se pueden usar los métodos:
 `firstNodeWithName(string name): Node|null`,
 `getNodesByName(string $nodeName): Nodes` y
 `importFromArray(Nodes[] $nodes)`
@@ -110,9 +110,9 @@ Adicionalmente se pueden usar los métodos:
 ## Clase CfdiUtils\Nodes\Attributes
 
 Esta clase representa una colección de atributos identificados por nombre.
-Al iterar en el objeto se devolverá cada uno de los attributos en forma de clave/valor.
+Al iterar en el objeto se devolverá cada uno de los atributos en forma de clave/valor.
 
-Adicionalmente esta clase permite el uso de acceso como arreglo, por lo que permite:
+Adicionalmente, esta clase permite el uso de acceso como arreglo, por lo que permite:
 
 - `$attributes[$name]` como equivalente de `$attributes->get($name)`
 - `$attributes[$name] = $value` como equivalente de `$attributes->set($name, $value)`
@@ -133,10 +133,27 @@ Se pueden hacer las operaciones básicas como:
 Esta es una clase de utilerías que contiene métodos estáticos que permiten crear estructuras de nodos desde XML
 y generar XML a partir de los nodos. Recuerde que los nodos solo pueden almacenar atributos y nodos hijos.
 
-Actualmente permite exportar e importar a/desde: `DOMDocument`, `DOMElement`, `SimpleXmlElement` y `string` (con contenido válido).
+Actualmente, permite exportar e importar a/desde: `DOMDocument`, `DOMElement`, `SimpleXmlElement` y `string` (con contenido válido).
 
 **Advertencias:**
 
-- Los nodos no tienen campo de contenido y no son una reescritura fiel de DOM.
-- Los nodos solo contienen atributos e hijos.
-- Importar XML que no siga la estructura de atributos/hijos exclusivamente puede resultar en pérdida de datos.
+- Los nodos no son una reescritura fiel de DOM.
+- Los nodos solo contienen atributos, hijos y contenido textual simple.
+- Importar XML que no siga la estructura de atributos, hijos y contenido textual simple exclusivamente puede resultar en pérdida de datos.
+
+## Contenido de texto
+
+Tradicionalmente, los CFDI Regulares, CFDI de Retenciones e Información de Pagos, así como sus complementos,
+siguen la estructura de elementos con valores en los atributos y sin texto.
+
+Sin embargo, el SAT —en su infinita consistencia— tiene el *Complemento de facturas del sector de ventas al detalle*
+disponible en <https://www.sat.gob.mx/consulta/76197/complemento-para-factura-electronica> donde, en lugar de poner
+los valores en atributos, pone los valores en el contenido textual del elemento, además de otros cambios como usar
+nombres de nodos en inglés.
+
+Por lo anterior, se introdujo la interfaz `NodeHasValueInterface` que contiene los métodos `value(): string` y
+`setValue(string $string): void` con lo que se puede escribir y leer este contenido simple.
+
+Los objetos de tipo `Node` ya implementan esta interfaz, sin embargo, por compatibilidad con la versión `2.x`,
+los métodos que retornan y obtienen parámetros de tipo `NodeInterface` no se han alterado.
+Esto cambiará en la versión `3.x` donde `NodeHasValueInterface` y `NodeInterface` se fusionarán en una sola interfaz.

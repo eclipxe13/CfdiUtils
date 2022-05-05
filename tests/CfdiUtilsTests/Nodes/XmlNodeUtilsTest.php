@@ -3,6 +3,8 @@
 namespace CfdiUtilsTests\Nodes;
 
 use CfdiUtils\Nodes\Node;
+use CfdiUtils\Nodes\NodeHasValueInterface;
+use CfdiUtils\Nodes\NodeInterface;
 use CfdiUtils\Nodes\XmlNodeUtils;
 use CfdiUtils\Utils\Xml;
 use CfdiUtilsTests\TestCase;
@@ -13,6 +15,7 @@ final class XmlNodeUtilsTest extends TestCase
     {
         return [
             'simple-xml' => [$this->utilAsset('nodes/sample.xml')],
+            'with-texts-xml' => [$this->utilAsset('nodes/sample-with-texts.xml')],
             'cfdi' => [$this->utilAsset('cfdi33-valid.xml')],
         ];
     }
@@ -80,5 +83,55 @@ final class XmlNodeUtilsTest extends TestCase
             $this->fail('The specimen does not have the required test case');
         }
         $this->assertSame('http://external.com/inner', $inspected['xmlns']);
+    }
+
+    public function testXmlWithValueWithSpecialChars()
+    {
+        $expectedValue = 'ampersand: &';
+        $content = '<root>ampersand: &amp;</root>';
+
+        /** @var NodeInterface&NodeHasValueInterface $node */
+        $node = XmlNodeUtils::nodeFromXmlString($content);
+
+        $this->assertSame($expectedValue, $node->value());
+        $this->assertSame($content, XmlNodeUtils::nodeToXmlString($node));
+    }
+
+    public function testXmlWithValueWithInnerComment()
+    {
+        $expectedValue = 'ampersand: &';
+        $content = '<root>ampersand: <!-- comment -->&amp;</root>';
+        $expectedContent = '<root>ampersand: &amp;</root>';
+
+        /** @var NodeInterface&NodeHasValueInterface $node */
+        $node = XmlNodeUtils::nodeFromXmlString($content);
+
+        $this->assertSame($expectedValue, $node->value());
+        $this->assertSame($expectedContent, XmlNodeUtils::nodeToXmlString($node));
+    }
+
+    public function testXmlWithValueWithInnerWhiteSpace()
+    {
+        $expectedValue = "\n\nfirst line\n\tsecond line\n\t third line \t\nfourth line\n\n";
+        $content = "<root>$expectedValue</root>";
+
+        /** @var NodeInterface&NodeHasValueInterface $node */
+        $node = XmlNodeUtils::nodeFromXmlString($content);
+
+        $this->assertSame($expectedValue, $node->value());
+        $this->assertSame($content, XmlNodeUtils::nodeToXmlString($node));
+    }
+
+    public function testXmlWithValueWithInnerElement()
+    {
+        $expectedValue = 'ampersand: &';
+        $content = '<root>ampersand: <inner/>&amp;</root>';
+        $expectedContent = '<root><inner/>ampersand: &amp;</root>';
+
+        /** @var NodeInterface&NodeHasValueInterface $node */
+        $node = XmlNodeUtils::nodeFromXmlString($content);
+
+        $this->assertSame($expectedValue, $node->value());
+        $this->assertSame($expectedContent, XmlNodeUtils::nodeToXmlString($node));
     }
 }

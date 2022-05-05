@@ -2,12 +2,14 @@
 
 namespace CfdiUtils\Nodes;
 
-use \DOMElement;
+use DOMElement;
+use DOMNode;
+use DOMText;
 
 class XmlNodeImporter
 {
     /**
-     * Local record for registered namespaces to avoid set the namespace declaration in every children
+     * Local record for registered namespaces to avoid set the namespace declaration in every child
      * @var string[]
      */
     private $registeredNamespaces = [];
@@ -15,12 +17,15 @@ class XmlNodeImporter
     public function import(DOMElement $element): NodeInterface
     {
         $node = new Node($element->tagName);
+
+        $node->setValue($this->extractValue($element));
+
         if ('' !== $element->prefix) {
             $this->registerNamespace($node, 'xmlns:' . $element->prefix, $element->namespaceURI);
             $this->registerNamespace($node, 'xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
         }
 
-        /** @var \DOMNode $attribute */
+        /** @var DOMNode $attribute */
         foreach ($element->attributes as $attribute) {
             $node[$attribute->nodeName] = $attribute->nodeValue;
         }
@@ -48,5 +53,18 @@ class XmlNodeImporter
         }
         $this->registeredNamespaces[$prefix] = $uri;
         $node[$prefix] = $uri;
+    }
+
+    private function extractValue(DOMElement $element): string
+    {
+        $values = [];
+        foreach ($element->childNodes as $childElement) {
+            if (! $childElement instanceof DOMText) {
+                continue;
+            }
+            $values[] = $childElement->wholeText;
+        }
+
+        return implode('', $values);
     }
 }
