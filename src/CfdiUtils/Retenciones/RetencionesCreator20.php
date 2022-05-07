@@ -8,12 +8,12 @@ use CfdiUtils\CadenaOrigen\XsltBuilderPropertyTrait;
 use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\Certificado\CertificadoPropertyInterface;
 use CfdiUtils\Certificado\CertificadoPropertyTrait;
-use CfdiUtils\Elements\Retenciones10\Retenciones;
+use CfdiUtils\Elements\Retenciones20\Retenciones;
 use CfdiUtils\XmlResolver\XmlResolver;
 use CfdiUtils\XmlResolver\XmlResolverPropertyInterface;
 use CfdiUtils\XmlResolver\XmlResolverPropertyTrait;
 
-class RetencionesCreator10 implements
+class RetencionesCreator20 implements
     CertificadoPropertyInterface,
     XmlResolverPropertyInterface,
     XsltBuilderPropertyInterface
@@ -44,8 +44,9 @@ class RetencionesCreator10 implements
     public function putCertificado(Certificado $certificado)
     {
         $this->setCertificado($certificado);
-        $this->retenciones['NumCert'] = $certificado->getSerial();
-        $this->retenciones['Cert'] = $certificado->getPemContentsOneLine();
+        $this->retenciones['NoCertificado'] = $certificado->getSerial();
+        $this->retenciones['Certificado'] = $certificado->getPemContentsOneLine();
+        // maybe put Emisor values from Certificate, as in CfdiCreatorTrait
     }
 
     public function buildCadenaDeOrigen(): string
@@ -55,7 +56,7 @@ class RetencionesCreator10 implements
         }
         $xmlResolver = $this->getXmlResolver();
         $xsltLocation = $xmlResolver->resolve(
-            'http://www.sat.gob.mx/esquemas/retencionpago/1/retenciones.xslt',
+            'http://www.sat.gob.mx/esquemas/retencionpago/2/retenciones.xslt',
             $xmlResolver::TYPE_XSLT
         );
         return $this->getXsltBuilder()->build($this->asXml(), $xsltLocation);
