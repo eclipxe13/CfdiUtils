@@ -12,16 +12,15 @@ class Retenciones extends AbstractElement
         return 'retenciones:Retenciones';
     }
 
-    public function getCfdiRelacionado(): CfdiRetenRelacionados
+    public function getCfdiRetenRelacionados(): CfdiRetenRelacionados
     {
         return $this->helperGetOrAdd(new CfdiRetenRelacionados());
     }
 
-    public function addCfdiRelacionado(array $attributes = []): CfdiRetenRelacionados
+    public function addCfdiRetenRelacionados(array $attributes = []): CfdiRetenRelacionados
     {
-        $cfdiRelacionado = $this->getCfdiRelacionado();
+        $cfdiRelacionado = $this->getCfdiRetenRelacionados();
         $cfdiRelacionado->addAttributes($attributes);
-        $this->addChild($cfdiRelacionado);
         return $cfdiRelacionado;
     }
 

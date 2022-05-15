@@ -28,7 +28,7 @@ final class RetencionesCreator20Test extends TestCase
         $retenciones = $creator->retenciones();
 
         // available on RET 2.0
-        $retenciones->addCfdiRelacionado([
+        $retenciones->addCfdiRetenRelacionados([
             'TipoRelacion' => '01',
             'UUID' => '1474b7d3-61fc-41c4-a8b8-3f22e1161bb4',
         ]);

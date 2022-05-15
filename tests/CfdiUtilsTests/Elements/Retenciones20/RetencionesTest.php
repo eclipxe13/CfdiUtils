@@ -6,200 +6,140 @@ use CfdiUtils\Elements\Retenciones20\Addenda;
 use CfdiUtils\Elements\Retenciones20\CfdiRetenRelacionados;
 use CfdiUtils\Elements\Retenciones20\Complemento;
 use CfdiUtils\Elements\Retenciones20\Emisor;
+use CfdiUtils\Elements\Retenciones20\Extranjero;
 use CfdiUtils\Elements\Retenciones20\ImpRetenidos;
+use CfdiUtils\Elements\Retenciones20\Nacional;
 use CfdiUtils\Elements\Retenciones20\Periodo;
 use CfdiUtils\Elements\Retenciones20\Receptor;
 use CfdiUtils\Elements\Retenciones20\Retenciones;
 use CfdiUtils\Elements\Retenciones20\Totales;
-use CfdiUtils\Nodes\Node;
-use PHPUnit\Framework\TestCase;
+use CfdiUtils\Nodes\NodeInterface;
+use CfdiUtilsTests\Elements\ElementTestCase;
 
-final class RetencionesTest extends TestCase
+final class RetencionesTest extends ElementTestCase
 {
-    /** @var Retenciones */
-    public $element;
-
-    protected function setUp(): void
+    public function testRetenciones()
     {
-        parent::setUp();
-        $this->element = new Retenciones();
+        $element = new Retenciones();
+        $this->assertElementHasName($element, 'retenciones:Retenciones');
+        $this->assertElementHasFixedAttributes($element, [
+            'xmlns:retenciones' => 'http://www.sat.gob.mx/esquemas/retencionpago/2',
+            'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
+            'xsi:schemaLocation' => vsprintf('%s %s', [
+                'http://www.sat.gob.mx/esquemas/retencionpago/2',
+                'http://www.sat.gob.mx/esquemas/retencionpago/2/retencionpagov2.xsd',
+            ]),
+            'Version' => '2.0',
+        ]);
+        $this->assertElementHasChildSingle($element, CfdiRetenRelacionados::class);
+        $this->assertElementHasChildSingle($element, Emisor::class);
+        $this->assertElementHasChildSingle($element, Receptor::class);
+        $this->assertElementHasChildSingle($element, Periodo::class);
+        $this->assertElementHasChildSingle($element, Totales::class);
+        $this->assertElementHasChildSingleAddChild($element, Complemento::class);
+        $this->assertElementHasChildSingleAddChild($element, Addenda::class);
+        $this->assertElementHasOrder($element, [
+            'retenciones:CfdiRetenRelacionados',
+            'retenciones:Emisor',
+            'retenciones:Receptor',
+            'retenciones:Periodo',
+            'retenciones:Totales',
+            'retenciones:Complemento',
+            'retenciones:Addenda',
+        ]);
     }
 
-    public function testGetElementName()
+    public function testCfdiRetenRelacionados()
     {
-        $this->assertSame('retenciones:Retenciones', $this->element->getElementName());
+        $element = new CfdiRetenRelacionados();
+        $this->assertElementHasName($element, 'retenciones:CfdiRetenRelacionados');
     }
 
-    public function testGetCfdiRelacionado()
+    public function testEmisor()
     {
-        $this->assertNull($this->element->searchNode('retenciones:CfdiRetenRelacionados'));
-        $child = $this->element->getCfdiRelacionado();
-        $this->assertInstanceOf(CfdiRetenRelacionados::class, $child);
-        $this->assertSame($child, $this->element->searchNode('retenciones:CfdiRetenRelacionados'));
+        $element = new Emisor();
+        $this->assertElementHasName($element, 'retenciones:Emisor');
     }
 
-    public function testGetEmisor()
+    public function testReceptor()
     {
-        $this->assertNull($this->element->searchNode('retenciones:Emisor'));
-        $child = $this->element->getEmisor();
-        $this->assertInstanceOf(Emisor::class, $child);
-        $this->assertSame($child, $this->element->searchNode('retenciones:Emisor'));
+        $element = new Receptor();
+        $this->assertElementHasName($element, 'retenciones:Receptor');
+        $this->assertElementHasChildSingle($element, Nacional::class);
+        $this->assertElementHasChildSingle($element, Extranjero::class);
     }
 
-    public function testAddEmisor()
+    public function testNacional()
     {
-        $first = $this->element->addEmisor(['Rfc' => 'FOO']);
-        $this->assertInstanceOf(Emisor::class, $first);
-        $this->assertSame('FOO', $first['Rfc']);
-
-        $second = $this->element->addEmisor(['Rfc' => 'BAR']);
-        $this->assertSame($first, $second);
-        $this->assertSame('BAR', $first['Rfc']);
+        $element = new Nacional();
+        $this->assertElementHasName($element, 'retenciones:Nacional');
     }
 
-    public function testGetReceptor()
+    public function testExtranjero()
     {
-        $this->assertNull($this->element->searchNode('retenciones:Receptor'));
-        $child = $this->element->getReceptor();
-        $this->assertInstanceOf(Receptor::class, $child);
-        $this->assertSame($child, $this->element->searchNode('retenciones:Receptor'));
+        $element = new Extranjero();
+        $this->assertElementHasName($element, 'retenciones:Extranjero');
     }
 
-    public function testAddReceptor()
+    public function testPeriodo()
     {
-        $first = $this->element->addReceptor(['Rfc' => 'BAZ']);
-        $this->assertInstanceOf(Receptor::class, $first);
-        $this->assertSame('BAZ', $first['Rfc']);
-
-        $second = $this->element->addReceptor(['Rfc' => 'BAR']);
-        $this->assertSame($first, $second);
-        $this->assertSame('BAR', $first['Rfc']);
+        $element = new Periodo();
+        $this->assertElementHasName($element, 'retenciones:Periodo');
     }
 
-    public function testGetPeriodo()
+    public function testTotales()
     {
-        $this->assertNull($this->element->searchNode('retenciones:Periodo'));
-        $child = $this->element->getPeriodo();
-        $this->assertInstanceOf(Periodo::class, $child);
-        $this->assertSame($child, $this->element->searchNode('retenciones:Periodo'));
+        $element = new Totales();
+        $this->assertElementHasName($element, 'retenciones:Totales');
+        $this->assertElementHasChildMultiple($element, ImpRetenidos::class);
     }
 
-    public function testAddPeriodo()
+    public function testImpRetenidos()
     {
-        $first = $this->element->addPeriodo(['Rfc' => 'BAZ']);
-        $this->assertInstanceOf(Periodo::class, $first);
-        $this->assertSame('BAZ', $first['Rfc']);
-
-        $second = $this->element->addPeriodo(['Rfc' => 'BAR']);
-        $this->assertSame($first, $second);
-        $this->assertSame('BAR', $first['Rfc']);
+        $element = new ImpRetenidos();
+        $this->assertElementHasName($element, 'retenciones:ImpRetenidos');
     }
 
-    public function testGetTotales()
+    public function testComplemento()
     {
-        $this->assertNull($this->element->searchNode('retenciones:Totales'));
-        $child = $this->element->getTotales();
-        $this->assertInstanceOf(Totales::class, $child);
-        $this->assertSame($child, $this->element->searchNode('retenciones:Totales'));
+        $element = new Complemento();
+        $this->assertElementHasName($element, 'retenciones:Complemento');
     }
 
-    public function testAddTotales()
+    public function testAddenda()
     {
-        $first = $this->element->addTotales(['Foo' => 'Bar']);
-        $this->assertInstanceOf(Totales::class, $first);
-        $this->assertSame('Bar', $first['Foo']);
-
-        $second = $this->element->addTotales(['Foo' => 'BAR']);
-        $this->assertSame($first, $second);
-        $this->assertSame('BAR', $first['Foo']);
+        $element = new Addenda();
+        $this->assertElementHasName($element, 'retenciones:Addenda');
     }
 
-    public function testAddImpRetenidos()
+    public function testShortcutRetencionImpRetenidos()
     {
-        $first = $this->element->addImpRetenidos(['UUID' => 'FOO']);
-        $this->assertInstanceOf(ImpRetenidos::class, $first);
-        $this->assertSame('FOO', $first['UUID']);
-        $this->assertCount(1, $this->element->getTotales());
-    }
+        $element = new Retenciones();
 
-    public function testMultiImpRetenidos()
-    {
-        $self = $this->element->multiImpRetenidos(
-            ['UUID' => 'FOO'],
-            ['UUID' => 'BAR']
+        $first = $element->addImpRetenidos(['id' => '1']);
+        $this->assertCount(1, $element->getTotales()->children());
+        $this->assertTrue($element->getTotales()->children()->exists($first));
+
+        $second = $element->addImpRetenidos(['id' => '2']);
+        $this->assertCount(2, $element->getTotales()->children());
+        $this->assertTrue($element->getTotales()->children()->exists($second));
+
+        $this->assertSame(
+            $element,
+            $element->multiImpRetenidos(['id' => '3'], ['id' => '4']),
+            'Method Retenciones::multiImpRetenidos should return retenciones self instance'
         );
-        $this->assertSame($this->element, $self);
-        $parent = $this->element->getTotales();
-        $this->assertCount(2, $parent);
-        $this->assertSame('FOO', $parent->children()->get(0)['UUID']);
-        $this->assertSame('BAR', $parent->children()->get(1)['UUID']);
-    }
+        $this->assertCount(4, $element->getTotales()->children());
 
-    public function testGetComplemento()
-    {
-        $this->assertNull($this->element->searchNode('retenciones:Complemento'));
-        $child = $this->element->getComplemento();
-        $this->assertInstanceOf(Complemento::class, $child);
-        $this->assertSame($child, $this->element->searchNode('retenciones:Complemento'));
-    }
-
-    public function testAddComplemento()
-    {
-        $this->assertCount(0, $this->element);
-
-        $child = new Node('first');
-        $addReturn = $this->element->addComplemento($child);
-        $this->assertCount(1, $this->element);
-        $this->assertSame($child, $this->element->searchNode('retenciones:Complemento', 'first'));
-        $this->assertSame($addReturn, $this->element);
-    }
-
-    public function testGetAddenda()
-    {
-        $this->assertNull($this->element->searchNode('retenciones:Addenda'));
-        $child = $this->element->getAddenda();
-        $this->assertInstanceOf(Addenda::class, $child);
-        $this->assertSame($child, $this->element->searchNode('retenciones:Addenda'));
-    }
-
-    public function testAddAddenda()
-    {
-        $this->assertCount(0, $this->element);
-
-        $child = new Node('first');
-        $addReturn = $this->element->addAddenda($child);
-        $this->assertCount(1, $this->element);
-        $this->assertSame($child, $this->element->searchNode('retenciones:Addenda', 'first'));
-        $this->assertSame($addReturn, $this->element);
-    }
-
-    public function testHasFixedAttributes()
-    {
-        $namespace = 'http://www.sat.gob.mx/esquemas/retencionpago/2';
-        $this->assertSame('2.0', $this->element['Version']);
-        $this->assertSame($namespace, $this->element['xmlns:retenciones']);
-        $this->assertStringStartsWith($namespace . ' http://', $this->element['xsi:schemaLocation']);
-        $this->assertNotEmpty($this->element['xmlns:xsi']);
-    }
-
-    public function testChildrenOrder()
-    {
-        // add in inverse order
-        $this->element->getAddenda();
-        $this->element->getComplemento();
-        $this->element->getTotales();
-        $this->element->getPeriodo();
-        $this->element->getReceptor();
-        $this->element->getEmisor();
-        $this->element->getCfdiRelacionado();
-
-        // retrieve in correct order
-        $this->assertInstanceOf(CfdiRetenRelacionados::class, $this->element->children()->get(0));
-        $this->assertInstanceOf(Emisor::class, $this->element->children()->get(1));
-        $this->assertInstanceOf(Receptor::class, $this->element->children()->get(2));
-        $this->assertInstanceOf(Periodo::class, $this->element->children()->get(3));
-        $this->assertInstanceOf(Totales::class, $this->element->children()->get(4));
-        $this->assertInstanceOf(Complemento::class, $this->element->children()->get(5));
-        $this->assertInstanceOf(Addenda::class, $this->element->children()->get(6));
+        $this->assertSame(
+            ['1', '2', '3', '4'],
+            array_map(
+                function (NodeInterface $element): string {
+                    return $element['id'];
+                },
+                iterator_to_array($element->getTotales()->children())
+            ),
+            'All elements added should exists with expected values'
+        );
     }
 }
