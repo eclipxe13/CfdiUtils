@@ -61,4 +61,10 @@ class RetencionesCreator20 implements
         );
         return $this->getXsltBuilder()->build($this->asXml(), $xsltLocation);
     }
+
+    /** @internal This function is required by RetencionesCreatorTrait::addSello */
+    private function getSelloAlgorithm(): int
+    {
+        return OPENSSL_ALGO_SHA256;
+    }
 }

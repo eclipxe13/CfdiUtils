@@ -27,13 +27,13 @@ final class RetencionesCreator20Test extends TestCase
         ], $xmlResolver, $xsltBuilder);
         $retenciones = $creator->retenciones();
 
-        // new node
+        // available on RET 2.0
         $retenciones->addCfdiRelacionado([
             'TipoRelacion' => '01',
             'UUID' => '1474b7d3-61fc-41c4-a8b8-3f22e1161bb4',
         ]);
         $retenciones->addEmisor([
-            'RfcE' => 'EKU9003173C9', // this attribute was renamed
+            'RfcE' => 'EKU9003173C9',
             'NomDenRazSocE' => 'ESCUELA KEMPER URGATE',
             'RegimenFiscalE' => '601',
         ]);
@@ -53,7 +53,7 @@ final class RetencionesCreator20Test extends TestCase
         $retenciones->addImpRetenidos([
             'BaseRet' => '0',
             'ImpuestoRet' => '001', // same as CFDI
-            'TipoPagoRet' => '01', // now, is a enum
+            'TipoPagoRet' => '01',
             'MontoRet' => '200.00',
         ]);
 

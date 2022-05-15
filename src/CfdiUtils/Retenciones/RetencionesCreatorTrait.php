@@ -57,7 +57,7 @@ trait RetencionesCreatorTrait
 
         // create sign and set into Sello attribute
         $this->retenciones['Sello'] = base64_encode(
-            $privateKey->sign($this->buildCadenaDeOrigen(), OPENSSL_ALGO_SHA1)
+            $privateKey->sign($this->buildCadenaDeOrigen(), $this->getSelloAlgorithm())
         );
     }
 
