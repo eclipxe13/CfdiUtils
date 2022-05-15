@@ -16,7 +16,6 @@ use CfdiUtils\VersionDiscovery\VersionDiscoverer;
  */
 class RetencionVersion extends VersionDiscoverer
 {
-
     use StaticMethodsCompatTrait;
 
     protected static function createDiscoverer(): VersionDiscoverer

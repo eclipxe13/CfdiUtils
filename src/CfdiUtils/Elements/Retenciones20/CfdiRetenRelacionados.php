@@ -6,7 +6,6 @@ use CfdiUtils\Elements\Common\AbstractElement;
 
 class CfdiRetenRelacionados extends AbstractElement
 {
-
     public function getElementName(): string
     {
         return 'retenciones:CfdiRetenRelacionados';
