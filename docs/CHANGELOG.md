@@ -11,7 +11,7 @@
 - Remove `static` methods from `\CfdiUtils\CfdiVersion`, instead create an instance of the class
 - Remove `static` methods from `\CfdiUtils\TimbreFiscalDigital\TfdVersion`, instead create an instance of the class
 - Remove `trigger_error` on `\CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados` when called with arguments.
-- Change signature of `CfdiUtils\Elements\Cfdi33\CfdiRelacionados::multiCfdiRelacionado` to receive as paremers
+- Change signature of `CfdiUtils\Elements\Cfdi33\CfdiRelacionados::multiCfdiRelacionado` to receive as parameters
   `array ...$elementAttributes` instead of `array $elementAttributes`.
 - Refactor `\CfdiUtils\Certificado\SerialNumber` to be immutable, this change will remove `loadHexadecimal`,
   `loadDecimal` and `loadAscii`.
@@ -30,6 +30,20 @@
 - Remove `CfdiUtils\Validate\Cfdi33\Xml\XmlFollowSchema`.
 - Remove classes `CfdiUtils\Elements\Cfdi33\Helpers\SumasConceptosWriter` and `CfdiUtils\Elements\Cfdi40\Helpers\SumasConceptosWriter`.
 - Merge methods from `\CfdiUtils\Nodes\NodeHasValueInterface` into `\CfdiUtils\Nodes\NodeInterface`.
+- Remove deprecated constant `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`.
+
+## Version 2.22.0 2022-05-15
+
+Add support to read and create a RET 1.0 (*Retenciones e información de pagos 2.0*) document.
+
+- Add helper elements on namespace `CfdiUtils\Elements\Retenciones20`.
+- Add `CfdiUtils\Retenciones\RetencionVersion`.
+- Add `CfdiUtils\Retenciones\RetencionesCreator20`.
+- Move shared methods from `CfdiUtils\Retenciones\RetencionesCreator10` to `CfdiUtils\Retenciones\RetencionesCreatorTrait`.
+- Refactor `CfdiUtils\Retenciones\Retenciones` to read versions 1.0 and 2.0.
+- Improve documentation about RET 2.0.
+
+Thanks `@gam04` for your contribution.
 
 ## Version 2.21.0 2022-04-29
 
@@ -39,7 +53,7 @@
 
 ## Version 2.20.2 2022-04-05
 
-Allow installing Genkgo/Xsl version 1.1.0; used for PHP >= 7.4.
+Allow installing `Genkgo/Xsl` version 1.1.0; used for PHP >= 7.4.
 
 Test: Fix test that was overriding `retenciones/sample-before-tfd.xml` file.
 
@@ -81,7 +95,7 @@ Thanks @EmmanuelJCS.
 
 ## Version 2.19.1 2022-02-09
 
-Fix `EmisorRegimenFiscal` validation. Add `626 - RESICO`. Thanks @celli33.
+Fix `EmisorRegimenFiscal` validation. Add `626 - RESICO`. Thanks `@celli33`.
 
 The following changes apply only to development and has been applied to main branch.
 
@@ -141,7 +155,7 @@ Other changes:
 
 ## Version 2.18.3 2022-01-15
 
-Fix *Carta Porte 1.0* add missing element `Notificado`. Thanks @celli33.
+Fix *Carta Porte 1.0* add missing element `Notificado`. Thanks `@celli33`.
 
 
 ## Version 2.18.2 2021-12-17
@@ -166,14 +180,14 @@ Fix `dev:coverage` composer script.
 ## Version 2.17.0 2021-12-10
 
 The helper object `SumasConceptosWriter` also writes the sum of *impuestos locales* when they are present.
-Thanks, @ccelli33 and @luffinando for your help.
+Thanks, `@celli33` and `@luffinando` for your help.
 
 
 ## Version 2.16.1 2021-12-08
 
 Fix bug when create expression to query for the SAT status and the RFC (*emisor* or *receptor*) contains
 the characters `&` or `Ñ`. The service requires that the expression is XML "encoded".
-Thanks, @ramboram and @TheSpectroMX for your help.
+Thanks, `@ramboram` and `@TheSpectroMX` for your help.
 
 Refactor test script `tests/estadosat.php`.
 
@@ -220,22 +234,22 @@ General:
 - Upgrade to PHPUnit 9.5 and upgrade test suite.
 - Test classes are declared as final.
 - Remove support for PHP 7.0, PHP 7.1 and PHP 7.2.
-- Compatilize with PHP 8.0 / OpenSSL:
+- Compatibilize with PHP 8.0 / OpenSSL:
     - openssl functions does not return resources but objects.
     - On deprecated functions run only if PHP version is lower than 8.0 and put annotations for `phpcs`.
 
 Bugfixes:
 
-- Validation `SELLO04` fails when there are special caracters like `é` and `LC_CTYPE` is not setup.
+- Validation `SELLO04` fails when there are special characters like `é` and `LC_CTYPE` is not setup.
 - Fix `COMPIMPUESTOSC01` description typo.
 
 There are some soft backwards incompatibility changes:
 
-- Method __construct() of class CfdiUtils\Validate\Cfdi33\Standard\FechaComprobante became final
-- Method __construct() of class CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pago became final
-- The return type of CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pago#getValidators() changed from no type to array
-- The parameter $decimals of CfdiUtils\Utils\Format::number() changed from no type to a non-contravariant int
-- The parameter $content of CfdiUtils\Cleaner\Cleaner::staticClean() changed from no type to a non-contravariant string.
+- Method `__construct()` of class `CfdiUtils\Validate\Cfdi33\Standard\FechaComprobante` became final
+- Method `__construct()` of class `CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pago` became final
+- The return type of `CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pago#getValidators()` changed from no type to array
+- The parameter $decimals of `CfdiUtils\Utils\Format::number()` changed from no type to a non-contravariant int
+- The parameter $content of `CfdiUtils\Cleaner\Cleaner::staticClean()` changed from no type to a non-contravariant string.
 
 Development environment:
 
@@ -256,7 +270,7 @@ Development environment:
 
 ### `MetodoPago` on `N - Nómina`
 
-- Remove redundant valiations `METPAG01` and `METPAG02`.
+- Remove redundant validations `METPAG01` and `METPAG02`.
 - Validation `TIPOCOMP04` does not apply on documents type `N - Nómina`.
 
 ### Download certificates (unreleased 2020-10-08)
@@ -296,7 +310,7 @@ Development environment:
 ## Version 2.12.11 2020-08-16
 
 - Fix TimbreFiscalDigital XSLT URL locations, updated from SAT documentation.
-  For more information check [phpcfdi/sat-ns-registry](https://github.com/phpcfdi/sat-ns-registry) project.
+  For more information check [`phpcfdi/sat-ns-registry`](https://github.com/phpcfdi/sat-ns-registry) project.
 
 
 ## Version 2.12.10 2020-07-18
@@ -326,7 +340,7 @@ with `http://www.sat.gob.mx/sitio_internet/cfd/TimbreFiscalDigital/TimbreFiscalD
 
 - Improve explanation on `TFDSELLO01` when unable to get certificate.
 
-The assert `TFDSELLO01` *El Sello SAT del Timbre Fiscal Digital corresponde al certificado SAT*, now includes the
+The assertion `TFDSELLO01` *El Sello SAT del Timbre Fiscal Digital corresponde al certificado SAT*, now includes the
 exception message when unable to obtain a certificate.
 
 - Remove insecure downloader from testing.
@@ -338,8 +352,8 @@ This problem does not exist anymore (since 2019-10-24).
 ## Version 2.12.9 2020-04-25
 
 - Review and fix `CreateComprobantePagosCaseTest`.
-- Add docblocks on `StatusResponse` and fix script `tests/estadosat.php`.
-- Remove `overtrue/phplint` from development dependences.
+- Add doc-blocks on `StatusResponse` and fix script `tests/estadosat.php`.
+- Remove `overtrue/phplint` from development dependencies.
 
 
 ## Version 2.12.8 2020-01-07
@@ -406,7 +420,7 @@ This problem does not exist anymore (since 2019-10-24).
 
 ## Version 2.12.2 2019-09-24
 
-- When cannot load an Xml string include `LibXMLError` information into exception, like:
+- When cannot load a Xml string include `LibXMLError` information into exception, like:
 
     ```text
     Cannot create a DOM Document from xml string
@@ -425,7 +439,7 @@ This problem does not exist anymore (since 2019-10-24).
 - Remove several development files from final package
 - Development:
     - Fix `.editorconfig`
-    - Integrate codeclimate, evaluate for a while to consider a replacement for scrutinizer
+    - Integrate `codeclimate`, evaluate for a while to consider a replacement for `scrutinizer`
     - Add PHP 7.4snapshot
     - Remove Symfony Insight config file
     - On `composer dev:build` it also calls `composer dev:check-style`
@@ -452,19 +466,19 @@ This problem does not exist anymore (since 2019-10-24).
   and that collapsing removes the issues and do not change the *"cadena de origen"*.
 - Document SAT issue with multiple `cfdi:Complemento` (problems and clean).
 - Travis: since `mkdocs` version is newer, there is no need to change `nav` to `pages` to compile docs.
-- phpstan: create `phpstan.neon.dist` with `inferPrivatePropertyTypeFromConstructor`.
+- PHPStan: create `phpstan.neon.dist` with `inferPrivatePropertyTypeFromConstructor`.
 
 
 ## Version 2.10.4 2019-06-27
 
-- Add `Xml::createElement` and `Xml::createElementNS` to deal with non scaped ampersand `&`
+- Add `Xml::createElement` and `Xml::createElementNS` to deal with non escaped ampersand `&`
   on `DOMDocument::createElement` and `DOMDocument::createElementNS`.
 - Improve `Rfc::obtainDate` with invalid length dates and tests
 
 
 ## Version 2.10.3 2019-05-29
 
-- Add static methods to `CfdiUtils\Utils\Xml`, this methods are created to help fixing issues found by `phpstan`:
+- Add static methods to `CfdiUtils\Utils\Xml`, these methods are created to help to fix issues found by `phpstan`:
     - `Xml::documentElement(DOMDocument $document): DOMElement`: Safe helper to get `$document->documentElement`
     - `Xml::ownerDocument(DOMNode $node): DOMDocument`: Safe helper to get `$node->ownerDocument`
 - Fix [`phpstan`](https://github.com/phpstan/phpstan) 0.11.6 issues, this must solve all travis build
@@ -473,7 +487,7 @@ This problem does not exist anymore (since 2019-10-24).
 ## Version 2.10.2 2019-04-08
 
 - Fix bug on `QuickReader` getting the content of falsy values (like `"0"`) return an empty string.
-  Thanks @jaimeres. (Closes #48)
+  Thanks `@jaimeres`. (Closes #48)
 
 
 ## Version 2.10.1 2019-04-02
@@ -517,14 +531,14 @@ This problem does not exist anymore (since 2019-10-24).
     - Cover `SumasConceptosWriter::getComprobante()`.
     - Cover `CfdiUtils\Certificado\SerialNumber::loadHexadecimal` when throw exception.
     - Cover `CfdiUtils\Nodes\Attributes::import` (and constructor) when throw exception.
-- Genkgo/Xsl upgrated to 0.6 (compatible with PHP 7.0), also fix siggestion on `composer.json` file.
+- `Genkgo/Xsl` upgraded to 0.6 (compatible with PHP 7.0), also fix suggestion on `composer.json` file.
 - Internal: `TemporaryFile` now is able to cast itself to string returning the path to file,
   retrieve contents, store contents and remove file after run some function even if exception was thrown.
 - Internal: Add `ShellExec` class that works around with `symfony/process` component. Also added:
     - `ShellExecResponse`: contains the response of ShellExec::run().
     - `ShellExecTemplate`: basic command array creation from a string template.
 - Internal: Move internal to `CfdiUtils\Internal`. Check `@internal` annotation on all elements. Add README.md
-- CI: AppVeyor complete refactory, now uses correctly caches and upgrade php if required.
+- CI: `AppVeyor` complete refactor, now uses correctly caches and upgrade php if required.
 - CI: Only run `phpstan` on PHP 7.3.
 - Dev: `composer dev:build` now runs `phpunit  --testdox --verbose --stop-on-failure`.
 
@@ -533,12 +547,12 @@ This problem does not exist anymore (since 2019-10-24).
 
 - Extract base convert logic from `CfdiUtils\Certificado\SerialNumber::baseConvert` to new internal classes:
     - `CfdiUtils\Utils\Internal\BaseConverterSequence` Value object to store the character maps.
-    - `CfdiUtils\Utils\Internal\BaseConverter` Object that perform the convertion.
+    - `CfdiUtils\Utils\Internal\BaseConverter` Object that perform the conversion.
 - Fix possible bug converting from an inferior to a superior base thanks to new test on `BaseConverter`.
 - Classes inside `CfdiUtils\Utils\Internal\` namespace should not be used outside the library.
   Changing this will not be considered a backward compatibility break.
 - Deprecate `CfdiUtils\Certificado\SerialNumber::baseConvert`.
-- Create `CfdiUtils\Utils\Internal\TemporaryFile` to aviod using directly `\tempnam` and throw `\RuntimeException`
+- Create `CfdiUtils\Utils\Internal\TemporaryFile` to avoid using directly `\tempnam` and throw `\RuntimeException`
 - Replace usages of `\tempnam` with `TemporaryFile::create()` on:
     - `CfdiUtils\CadenaOrigen\SaxonbCliBuilder`
     - `CfdiUtils\Certificado\NodeCertificado`
@@ -546,7 +560,7 @@ This problem does not exist anymore (since 2019-10-24).
     - `CfdiUtilsTests\Certificado\NodeCertificadoTest`
 - Fix possible bug on `CfdiUtils\Cleaner\Cleaner` when making an XPath query.
 - Fix docblock on `CfdiUtils\QuickReader\QuickReader` on magic method `__get`.
-- Fix issues on functions expecting a variable of certain type but receiving false instead. Thanks phpstan!
+- Fix issues on functions expecting a variable of certain type but receiving false instead. Thanks `phpstan`!
 - Call `NodeInderface::offsetExists($name)` instead of `isset(NodeInderface[$name])`.
   The reasons behind this change are:
     - `isset` is not a *function* but a *keyword*, making `phpstan` or other tools to fail on this.
@@ -555,12 +569,12 @@ This problem does not exist anymore (since 2019-10-24).
   The previous change does not have to be replicated in the users of this library. It is internal.
   In future version (when BCB are allowed) will introduce a better method for this operation
   `NodeInderface::exists(string $name): bool` and will fix documentation to better use this method instead of `isset`.
-- Fix documentation on `docs/leer/leer-cfdi.md` about method `NodeInterface::getNode()`. Thanks @ReynerHL.
+- Fix documentation on `docs/leer/leer-cfdi.md` about method `NodeInterface::getNode()`. Thanks `@ReynerHL`.
 
 
 ## Version 2.8.0 2019-01-29
 
-- Initial attempt to create a *CFDI de retenciones e información de pagos*:
+- Initial attempt to create a RET 1.0 (*CFDI de retenciones e información de pagos*):
     - Add namespace `\CfdiUtils\Retenciones`.
     - Add class `\CfdiUtils\Retenciones\RetencionesCreator10`.
     - Add test for green path on creating a CFDI without TFD.
@@ -638,24 +652,24 @@ This problem does not exist anymore (since 2019-10-24).
 - Honor status from `ValidatePagoException` or `ValidateDoctoException`
 - Tests use XmlResolver from `CfdiUtilsTests\TestCase` instead of creating a new one
 - Fix docblock `CfdiUtils\Nodes\Nodes::searchNodes`
-- Improve docblocks on `CfdiUtils\Certificado\Certificado`
+- Improve doc-blocks on `CfdiUtils\Certificado\Certificado`
 - Documentation:
     - Create `docs/problemas/contradicciones-pagos.md`
     - Create `docs/problemas/descarga-certificados.md` to document error `TFDSELLO01`
     - Create examples on `docs/componentes/certificado.md` on object creation
 - Change tests to not ssl verify peer due SAT web server configuration errors (expired certificate)
     - Add `CfdiUtilsTests\TestCase::newInsecurePhpDownloader(): DownloaderInterface`
-    - Use insecure downlader in `CfdiUtilsTests\CfdiValidator33Test`
-    - Use insecure downlader in `CfdiUtilsTests\Validate\Cfdi33\Standard\TimbreFiscalDigitalSelloTest`
-    - Use insecure downlader in `CfdiUtilsTests\Certificado\CerRetrieverTest`
+    - Use insecure downloader in `CfdiUtilsTests\CfdiValidator33Test`
+    - Use insecure downloader in `CfdiUtilsTests\Validate\Cfdi33\Standard\TimbreFiscalDigitalSelloTest`
+    - Use insecure downloader in `CfdiUtilsTests\Certificado\CerRetrieverTest`
     - Also add note to `docs/TODO.md` to remove this insecure downloader when SAT server is fine
 - Change composer scripts and prefix `dev:`, commands are now:
     - `dev:build`: run dev:fix-style dev:tests and dev:docs, run before pull request
     - `dev:check-style`: search for code style errors using php-cs-fixer and phpcs
     - `dev:fix-style`: fix code style errors using php-cs-fixer and phpcbf
-    - `dev:docs`: search for code style errors unsing markdownlint and build docs using mkdocs
-    - `dev:test`: run phplint, phpunit and phpstan
-    - `dev:coverage`: run phpunit with xdebug and storage coverage in build/coverage/html
+    - `dev:docs`: search for code style errors using `markdownlint` and build docs using `mkdocs`
+    - `dev:test`: run `phplint`, `phpunit` and `phpstan`
+    - `dev:coverage`: run `phpunit` with `xdebug` and storage coverage in `build/coverage/html`
 
 
 ## Version 2.6.6 2018-10-04
@@ -684,25 +698,25 @@ This problem does not exist anymore (since 2019-10-24).
       Now it allows any value equals to `1` considering 6 decimal numbers, so the following values
       are valid: `"1"`, `"1.00"`, `"1.000000"`
     - Change description from `... debe ser "1"...` to `... debe tener el valor "1"...`
-- Fix scrutinizer issue in `Validate/Cfdi33/Standard/ComprobanteImpuestos.php`:
+- Fix Scrutinizer issue in `Validate/Cfdi33/Standard/ComprobanteImpuestos.php`:
   *Using logical operators such as and instead of && is generally not recommended*
-- `CfdiUtils\ConsultaCfdiSat\WebService` is using SAT Web Service but since 2018-08 it is ramdomly failing.
+- `CfdiUtils\ConsultaCfdiSat\WebService` is using SAT Web Service but since 2018-08 it is randomly failing.
     The test that are consuming <https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc?singleWsdl>
     was moved to a different test case class `WebServiceConsumingTest` and are marked as skipped when `\SoapFault`
     is thrown instead of fail
 - Fix `xmlns:xsi` definition case to `XMLSchema`
-- Allow install phpunit 7 if php >= 7.1
+- Allow to install phpunit 7 if php >= 7.1
 - Fix `phpunit.xml.dist` configuration file removing redundant options and setting missing options
-- Solve phpstan 0.10.x issues, not yet upgraded since it contains several bugfixes
+- Solve PHPStan 0.10.x issues, not yet upgraded since it contains several bugfixes
 
 
 ## Version 2.6.3 2018-08-21
 
 - Fix validations `COMPIMPUESTOSC02` and `COMPIMPUESTOSC03`
-    Previously both or any should exists (`xnor`): nodes `Traslado|Retencion` and attributes `TotalImpuestosTrasladados|TotalImpuestosRetenidos`
-    Now it allows to have `Impuestos` totals even when related nodes does not exists
+    Previously both or any should exist (`xnor`): nodes `Traslado|Retencion` and attributes `TotalImpuestosTrasladados|TotalImpuestosRetenidos`
+    Now it allows to have `Impuestos` totals even when related nodes does not exist
     This is because is not mandatory by Anexo 20
-    What is mandatory is that if nodes exists then totals must exists
+    What is mandatory is that if nodes exists then totals must exist
 - Add helper method to create a `RequestParameters` from a `Cfdi`
 - Fix: add missing dependence `ext-iconv` into `composer.json`
 - Testing: add helper development script `tests/estadosat.php`
@@ -713,24 +727,24 @@ This problem does not exist anymore (since 2019-10-24).
 
 - Dependence on <https://github.com/eclipxe13/XmlSchemaValidator> has been set to `^2.0.1`
   to fix validation using XSD local repository on MS Windows.
-- Improve docblocks in property traits
+- Improve doc-blocks in property traits
 - Restore previous error handler on `ComprobanteGetCfdiRelacionadosTest`
 - Make sure that input file on `PemPrivateKey` is not a directory and is readable
 - On MS Windows send to `NUL` instead of `/dev/null`
 - Convert from `UTF-8` to `ASCII//TRANSLIT` can add single quotes, remove it.
 - Add [AppVeyor](https://ci.appveyor.com/project/eclipxe13/cfdiutils) continuous integration
-- Add documentation about developing this library on windows
+- Add documentation about developing this library on Windows
 - Allow to set `saxonb` path using environment variable `saxonb-path`
 
 
 ## Version 2.6.1 2018-07-16
 
-- Fix order of `Impuestos` children (thanks @aldolinares):
+- Fix order of `Impuestos` children (thanks `@aldolinares`):
     - When is inside `Comprobante` the order is `Retenciones` then `Traslados`
     - When is inside `Concepto` the order is `Traslados` then `Retenciones`
 - Add `testMultiRelacionado` in `ComprobanteTest`
-- Fix markdown syntax errors in a lot of documents
-- Use self instead of static in docblocks, static is not standard
+- Fix Markdown syntax errors in a lot of documents
+- Use self instead of static in doc-blocks, static is not standard
 - Add badges to `docs/index.md`
 
 
@@ -742,17 +756,17 @@ This problem does not exist anymore (since 2019-10-24).
 - Fix tests that expect Rfc checksum failure
 - Fix tests comments on `testDescuentoNotSetIfAllConceptosDoesNotHaveDescuento`
 - Fix `CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados` to don't receive a parameter.
-    - For backwards compatibility when it receive a parameter do the same thing but trigger a E_USER_NOTICE
-    - Create an special test case `ComprobanteGetCfdiRelacionadosTest` that catched the E_USER_NOTICE error
+    - For backwards compatibility when it receives a parameter do the same thing but trigger a `E_USER_NOTICE`
+    - Create a special test case `ComprobanteGetCfdiRelacionadosTest` that catch the `E_USER_NOTICE` error
 - Add `CfdiUtils\Elements\Cfdi33\Comprobante::addCfdiRelacionados(array $attributes)`
 - Add `CfdiUtils\Elements\Cfdi33\Comprobante::multiCfdiRelacionado(array $attributes)`
 - Add tests to assert that `Comprobante/Impuestos/(Traslados/Traslado|Retenciones/Retencion)@Impuesto` is rounded
-- Minor fix at docblocks for packed arguments
+- Minor fix at doc-blocks for packed arguments
 - Change all documentation to move from GitHub Wiki to ReadTheDocs <https://cfdiutils.readthedocs.io/>
     - More documentation pages & a lot of fixes
     - Add `.markdownlint.json` to run with `markdownlint-cli` (`node`), add to travis build process
     - Add `mkdocs.yml` to run with `mkdocs` (`python`), add to travis build process
-    - Fix markdown files according to markdownlint
+    - Fix markdown files according to `markdownlint`
     - Add `composer docs` and append to general `composer build`
 
 
@@ -770,39 +784,39 @@ This problem does not exist anymore (since 2019-10-24).
 
 - Add validations for `http://www.sat.gob.mx/Pagos` at namespace `\CfdiUtils\Validate\Cfdi33\RecepcionPagos`
     This is a big change that includes more than 50 validators that work in cascade.
-    It implements almost all of the validations from the SAT "Matriz de errores".
+    It implements almost all the validations from the SAT "Matriz de errores".
 - Append it to `\CfdiUtils\Validate\MultiValidatorFactory`
-- Remove non existent validators discovery `Cfdi33/Timbre`
+- Remove non-existent validators discovery `Cfdi33/Timbre`
 - Move logic of version discovery to a new class, change `CfdiVersion` and `TfdVersion` to implement this logic
 - Deprecate `static` methods from `\CfdiUtils\CfdiVersion`, instead create an instance of the class
 - Deprecate `static` methods from `\CfdiUtils\TimbreFiscalDigital\TfdVersion`, instead create an instance of the class
-- Fix deprecation notices existent docblocks
+- Fix deprecation notices existent doc-blocks
 - Update deprecation notice to README
 - Replace TODO with a more explained version
 
 
 ## Version 2.4.6 2018-05-24
 
-- Fix validation of TIPOCOMP06, it was not checking correctly.
+- Fix validation of `TIPOCOMP06`, it was not checking correctly.
 - Fix bug in validators that does not respect when the resolver does not have local path:
     - `CfdiUtils\Validate\Cfdi33\Standard\TimbreFiscalDigitalSello`
     - `CfdiUtils\Validate\Cfdi33\Xml\XmlFollowSchema`
 - Fix bug when removing a `schemaLocation` attribute in `CfdiUtils\Cleaner\Cleaner`
 - Refactor `CfdiUtils\ConsultaCfdiSat\WebService::request` and move the SOAP call
-  to a protected method, this allow better testing of the class by mocking the call
+  to a protected method, this allows better testing of the class by mocking the call
 - In `CfdiUtils\PemPrivateKey\PemPrivateKey` deprecate `isOpened` and add `isOpen`
 - In `CfdiUtils\Cfdi::getNode` use `XmlNodeUtils` instead of `XmlNodeImporter`
 - In `CfdiUtils\Cfdi::newFromString` create `new self` instead of `new static`.
-  If using `new static` the constructor might be different and it would fail.
+  If using `new static` the constructor might be different, and it would fail.
 - In `CfdiUtils\CfdiVersion::fromXmlString` it no longer create a Cfdi object,
   it will just create a `DOMObject` and delegate to
   `fromDOMDocument` as in `TfdVersion`.
 - Remove `CfdiUtils\Elements\Pagos10\Pago::multiImpuestos`,
-  it should never exists and must not have any use case.
+  it should never exist and must not have any use case.
 - Improve testing on:
     - `CfdiUtils\Elements\Pagos10\Pagos`
     - `CfdiUtils\Validate\Cfdi33\Standard\ConceptoImpuestos`
-- Improve docblocks and fix typos in several files
+- Improve doc-blocks and fix typos in several files
 - Add new parameter to development script `tests/validate.php`:
   `--no-cache` that tell resolver to not use local cache.
 - Improve travis disabling xdebug always and only use it in phpunit code coverage
@@ -822,15 +836,15 @@ This problem does not exist anymore (since 2019-10-24).
 - Add `\CfdiUtils\Validate\Cfdi33\Standard\EmisorRfc` to validate the RFC of the CFDI emitter
     - Fix `CfdiUtilsTests\CfdiValidator33Test::testValidateWithCorrectData` since used RFC is not valid
     - Fix `CfdiUtilsTests\CreateComprobanteCaseTest::testCreateCfdiUsingComprobanteElement` since used RFC is not valid
-- Add docblocks to `CfdiUtils\Cfdi`
+- Add doc-blocks to `CfdiUtils\Cfdi`
 - Building:
-    - Add .phplint.yml to export-ignore (standard line)
+    - Add `.phplint.yml` to export-ignore (standard line)
     - Travis-CI: Declare `FULL_BUILD_PHP_VERSION` for easy understanding
-- Add more dependences: `ext-dom`, `ext-xsl`, `ext-simplexml`, `ext-mbstring`
+- Add more dependencies: `ext-dom`, `ext-xsl`, `ext-simplexml`, `ext-mbstring`
 
 ## Version 2.4.4 2018-05-11
 
-- FIX: Unable to load a PEM file using filename on windows (Closes #33)
+- FIX: Unable to load a PEM file using filename on Windows (Closes #33)
 - Do not use bcmath function to convert from decimal to hexadecimal the serial number of a certificate
 
 ## Version 2.4.3 2018-04-26
@@ -887,9 +901,9 @@ This problem does not exist anymore (since 2019-10-24).
 - Add a client `\CfdiUtils\ConsultaCfdiSat\WebService` for the SAT WebService
   `https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc?singleWsdl`
 - Fix bug, must use `children()` method instead of `children` property.
-  Did not appears before because the variable using the property was always
+  Did not appear before because the variable using the property was always
   a `Node` but other implementation of `NodeInterface` would cause this to break.
-- Add a lot of fixes in docblocks to move `@param $var` to `@param type $var`.
+- Add a lot of fixes in doc-blocks to move `@param $var` to `@param type $var`.
 - Add extensions requirements to composer.json: libxml, openssl & soap.
 - Upgrade `phpstan/phpstan-shim` to version 0.9.1, the not-simple-to-see bug fixed
   in this version was found by `phpstan` - <https://github.com/phpstan/phpstan>
@@ -900,8 +914,8 @@ This problem does not exist anymore (since 2019-10-24).
 - Refactor namespace `\CfdiUtils\CadenaOrigen` (backwards compatible):
     - Instead of one only xslt builder now it includes:
     - `DOMBuilder`: Uses the regular PHP based method
-    - `GenkgoXslBuilder`: Uses the library genkgo/xsl xslt version 2 library
-    - `SaxonbCliBuilder`: Uses the command line saxonb-xslt command
+    - `GenkgoXslBuilder`: Uses the library `genkgo/xsl` xslt version 2 library
+    - `SaxonbCliBuilder`: Uses the command line `saxonb-xslt` command
     - Build process implementations must return `XsltBuildException` (before they return `RuntimeException`)
     - All builders must implement `XsltBuilderInterface`
     - Add `XsltBuilderPropertyInterface` and `XsltBuilderPropertyTrait`.
@@ -925,14 +939,14 @@ This problem does not exist anymore (since 2019-10-24).
   a certificate from the SAT repository
 - Add a new validator `CfdiUtils\Validate\Cfdi33\Standard\TimbreFiscalDigitalSello` to validate that the SelloSAT
   is actually the signature of the Timbre Fiscal Digital. If not then the CFDI was modified
-- Add a new real and valid CFDI to test, this allow `TimbreFiscalDigitalSello` to check real data and pass
+- Add a new real and valid CFDI to test, this allows `TimbreFiscalDigitalSello` to check real data and pass
 - Update test with `cfdi33-valid.xml` to allow fail `TimbreFiscalDigitalSello`
 - Travis: Remove xdebug for all but PHP 7.0
 
 ## Version 2.0.1 2018-01-03
 
-- Small bugfixes thanks to scrutinizer-ci.com
-- Fix some docblocks
+- Small bugfixes thanks to Scrutinizer
+- Fix some doc-blocks
 - Travis: Build also with PHP 7.2
 
 ## Version 2.0.0 2018-01-01
@@ -957,16 +971,16 @@ This problem does not exist anymore (since 2019-10-24).
 
 - After using `phpstan/phpstan` change the execution plan on `CadenaOrigenLocations`.
   The function previous function `throwLibXmlErrorOrMessage(string $message)` always
-  throw an exception but it was not clear in the flow of `build` method.
+  throw an exception, but it was not clear in the flow of `build` method.
   Now it returns a \RuntimeException and that is thrown. So it is easy for an analysis tool
   to know that the flow has been stopped.
 - Also fix case of calls `XSLTProcessor::importStylesheet` and `XSLTProcessor::transformToXml`
-- Check with `isset` that `LibXMLError::$message` exists, phpstan was failing for this.
+- Check with `isset` that `LibXMLError::$message` exists, `phpstan` was failing for this.
 
 
 ## Version 1.0.1 2017-09-27
 
-- Remove Travis CI PHP nightly builds, it fail with require-dev dependencies.
+- Remove Travis CI PHP nightly builds, it fails with require-dev dependencies.
 
 
 ## Version 1.0.0 2017-09-27

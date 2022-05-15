@@ -2,6 +2,7 @@
 
 namespace CfdiUtilsTests\Retenciones;
 
+use CfdiUtils\CfdiCreateObjectException;
 use CfdiUtils\Retenciones\Retenciones;
 use CfdiUtils\Utils\Xml;
 use CfdiUtilsTests\TestCase;
@@ -11,6 +12,18 @@ final class RetencionesTest extends TestCase
     const XML_MINIMAL_DEFINITION = <<<XML
 <retenciones:Retenciones xmlns:retenciones="http://www.sat.gob.mx/esquemas/retencionpago/1" Version="1.0"/>
 XML;
+
+    const XML_20_MINIMAL_DEFINITION = <<<XML
+<retenciones:Retenciones xmlns:retenciones="http://www.sat.gob.mx/esquemas/retencionpago/2" Version="2.0"/>
+XML;
+
+    public function providerRetencionesVersionNamespace(): array
+    {
+        return [
+            '2.0' => ['2.0', 'http://www.sat.gob.mx/esquemas/retencionpago/2'],
+            '1.0' => ['1.0', 'http://www.sat.gob.mx/esquemas/retencionpago/1'],
+        ];
+    }
 
     public function testNewFromStringWithEmptyXml()
     {
@@ -26,53 +39,73 @@ XML;
         Retenciones::newFromString(' ');
     }
 
-    public function testConstructWithoutNamespace()
+    /** @dataProvider providerRetencionesVersionNamespace */
+    public function testConstructWithoutNamespace(string $version, string $namespace)
     {
-        $this->expectException(\UnexpectedValueException::class);
-        $this->expectExceptionMessage('namespace http://www.sat.gob.mx/esquemas/retencionpago/1');
-        Retenciones::newFromString('<Retenciones version="1.0"' . '/>');
-    }
-
-    public function testConstructWithEmptyDomDocument()
-    {
-        $this->expectException(\UnexpectedValueException::class);
-        $this->expectExceptionMessage('DOM Document does not have root element');
-        new Retenciones(new \DOMDocument());
-    }
-
-    public function testInvalidCfdiRootIsNotComprobante()
-    {
-        $this->expectException(\UnexpectedValueException::class);
-        $this->expectExceptionMessage('Root element is not retenciones:Retenciones');
-
-        Retenciones::newFromString(
-            str_replace('<retenciones:Retenciones', '<retenciones:foo', self::XML_MINIMAL_DEFINITION)
+        $exception = $this->captureException(function () {
+            Retenciones::newFromString('<Retenciones ' . '/>');
+        });
+        $this->assertInstanceOf(CfdiCreateObjectException::class, $exception);
+        /** @var CfdiCreateObjectException $exception */
+        $this->assertStringContainsString(
+            'namespace ' . $namespace,
+            $exception->getExceptionByVersion($version)->getMessage()
         );
     }
 
-    public function testInvalidCfdiRootIsPrefixedWithUnexpectedName()
+    /** @dataProvider providerRetencionesVersionNamespace */
+    public function testConstructWithEmptyDomDocument(string $version)
     {
-        $this->expectException(\UnexpectedValueException::class);
-        $this->expectExceptionMessage(
-            'Prefix for namespace http://www.sat.gob.mx/esquemas/retencionpago/1 is not "retenciones"'
-        );
-
-        Retenciones::newFromString(
-            str_replace(
-                ['<retenciones:', 'xmlns:retenciones'],
-                ['<foo:', 'xmlns:foo'],
-                self::XML_MINIMAL_DEFINITION
-            )
+        $exception = $this->captureException(function () {
+            new Retenciones(new \DOMDocument());
+        });
+        $this->assertInstanceOf(CfdiCreateObjectException::class, $exception);
+        /** @var CfdiCreateObjectException $exception */
+        $this->assertStringContainsString(
+            'DOM Document does not have root element',
+            $exception->getExceptionByVersion($version)->getMessage()
         );
     }
 
-    public function testInvalidCfdiRootPrefixDoesNotMatchWithNamespaceDeclaration()
+    /** @dataProvider providerRetencionesVersionNamespace */
+    public function testInvalidCfdiRootIsNotComprobante(string $version, string $namespace)
     {
-        $this->expectException(\UnexpectedValueException::class);
-        $this->expectExceptionMessage('Root element is not retenciones:Retenciones');
+        $exception = $this->captureException(function () use ($namespace) {
+            Retenciones::newFromString(sprintf('<retenciones:X xmlns:retenciones="%s"/>', $namespace));
+        });
+        $this->assertInstanceOf(CfdiCreateObjectException::class, $exception);
+        /** @var CfdiCreateObjectException $exception */
+        $this->assertStringContainsString(
+            'Root element is not retenciones:Retenciones',
+            $exception->getExceptionByVersion($version)->getMessage()
+        );
+    }
 
-        Retenciones::newFromString(
-            str_replace('<retenciones:Retenciones', '<foo:Retenciones', self::XML_MINIMAL_DEFINITION)
+    /** @dataProvider providerRetencionesVersionNamespace */
+    public function testInvalidCfdiRootIsPrefixedWithUnexpectedName(string $version, string $namespace)
+    {
+        $exception = $this->captureException(function () use ($namespace) {
+            Retenciones::newFromString(sprintf('<x:Retenciones xmlns:x="%s"/>', $namespace));
+        });
+        $this->assertInstanceOf(CfdiCreateObjectException::class, $exception);
+        /** @var CfdiCreateObjectException $exception */
+        $this->assertStringContainsString(
+            "Prefix for namespace $namespace is not \"retenciones\"",
+            $exception->getExceptionByVersion($version)->getMessage()
+        );
+    }
+
+    /** @dataProvider providerRetencionesVersionNamespace */
+    public function testInvalidCfdiRootPrefixDoesNotMatchWithNamespaceDeclaration(string $version, string $namespace)
+    {
+        $exception = $this->captureException(function () use ($namespace) {
+            Retenciones::newFromString(sprintf('<x:Retenciones xmlns:retenciones="%s"/>', $namespace));
+        });
+        $this->assertInstanceOf(CfdiCreateObjectException::class, $exception);
+        /** @var CfdiCreateObjectException $exception */
+        $this->assertStringContainsString(
+            'Root element is not retenciones:Retenciones',
+            $exception->getExceptionByVersion($version)->getMessage()
         );
     }
 
@@ -81,6 +114,13 @@ XML;
         $retencion = Retenciones::newFromString(self::XML_MINIMAL_DEFINITION);
 
         $this->assertEquals('1.0', $retencion->getVersion());
+    }
+
+    public function testValida20()
+    {
+        $retencion = Retenciones::newFromString(self::XML_20_MINIMAL_DEFINITION);
+
+        $this->assertEquals('2.0', $retencion->getVersion());
     }
 
     public function testValid10WithXmlHeader()

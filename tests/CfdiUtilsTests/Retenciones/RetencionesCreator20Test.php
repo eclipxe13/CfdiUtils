@@ -5,10 +5,10 @@ namespace CfdiUtilsTests\Retenciones;
 use CfdiUtils\CadenaOrigen\DOMBuilder;
 use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\Elements\Dividendos10\Dividendos;
-use CfdiUtils\Retenciones\RetencionesCreator10;
+use CfdiUtils\Retenciones\RetencionesCreator20;
 use CfdiUtilsTests\TestCase;
 
-final class RetencionesCreator10Test extends TestCase
+final class RetencionesCreator20Test extends TestCase
 {
     public function testCreatePreCfdiWithAllCorrectValues()
     {
@@ -20,31 +20,41 @@ final class RetencionesCreator10Test extends TestCase
         $xsltBuilder = new DOMBuilder();
 
         // create object
-        $creator = new RetencionesCreator10([
-            'FechaExp' => '2021-01-13T14:15:16-06:00',
+        $creator = new RetencionesCreator20([
+            'FechaExp' => '2022-01-13T14:15:16',
             'CveRetenc' => '14', // Dividendos o utilidades distribuidos
+            'LugarExpRetenc' => '91778',
         ], $xmlResolver, $xsltBuilder);
         $retenciones = $creator->retenciones();
+
+        // available on RET 2.0
+        $retenciones->addCfdiRetenRelacionados([
+            'TipoRelacion' => '01',
+            'UUID' => '1474b7d3-61fc-41c4-a8b8-3f22e1161bb4',
+        ]);
         $retenciones->addEmisor([
-            'RFCEmisor' => 'EKU9003173C9',
-            'NomDenRazSocE' => 'ESCUELA KEMPER URGATE SA DE CV',
+            'RfcE' => 'EKU9003173C9',
+            'NomDenRazSocE' => 'ESCUELA KEMPER URGATE',
+            'RegimenFiscalE' => '601',
         ]);
         $retenciones->getReceptor()->addExtranjero([
-            'NumRegIdTrib' => '998877665544332211',
+            'NumRegIdTribR' => '998877665544332211',
             'NomDenRazSocR' => 'WORLD WIDE COMPANY INC',
         ]);
-        $retenciones->addPeriodo(['MesIni' => '5', 'MesFin' => '5', 'Ejerc' => '2018']);
+        $retenciones->addPeriodo(['MesIni' => '05', 'MesFin' => '05', 'Ejercicio' => '2021']);
         $retenciones->addTotales([
-            'montoTotOperacion' => '55578643',
-            'montoTotGrav' => '0',
-            'montoTotExent' => '55578643',
-            'montoTotRet' => '0',
+            'MontoTotOperacion' => '55578643',
+            'MontoTotGrav' => '0',
+            'MontoTotExent' => '55578643',
+            'MontoTotRet' => '0',
+            'UtilidadBimestral' => '0.1',
+            'ISRCorrespondiente' => '0.1',
         ]);
         $retenciones->addImpRetenidos([
             'BaseRet' => '0',
-            'Impuesto' => '01', // 01 - ISR
-            'montoRet' => '0',
-            'TipoPagoRet' => 'Pago provisional',
+            'ImpuestoRet' => '001', // same as CFDI
+            'TipoPagoRet' => '01',
+            'MontoRet' => '200.00',
         ]);
 
         $dividendos = new Dividendos();
@@ -66,7 +76,7 @@ final class RetencionesCreator10Test extends TestCase
 
         // verify root node
         $root = $creator->retenciones();
-        $this->assertSame('1.0', $root['Version']);
+        $this->assertSame('2.0', $root['Version']);
 
         // put additional content using helpers
         $creator->putCertificado($certificado);
@@ -80,12 +90,12 @@ final class RetencionesCreator10Test extends TestCase
         $this->assertFalse($asserts->hasErrors());
 
         // check against known content
-        $this->assertXmlStringEqualsXmlFile($this->utilAsset('retenciones/retenciones10.xml'), $creator->asXml());
+        $this->assertXmlStringEqualsXmlFile($this->utilAsset('retenciones/retenciones20.xml'), $creator->asXml());
     }
 
     public function testValidateIsCheckingAgainstXsdViolations()
     {
-        $retencion = new RetencionesCreator10();
+        $retencion = new RetencionesCreator20();
         $retencion->setXmlResolver($this->newResolver());
         $assert = $retencion->validate()->get('XSD01');
         $this->assertTrue($assert->getStatus()->isError());
@@ -96,7 +106,7 @@ final class RetencionesCreator10Test extends TestCase
         $pemFile = $this->utilAsset('certs/EKU9003173C9_password.key.pem');
         $passPhrase = '_worng_passphrase_';
 
-        $retencion = new RetencionesCreator10();
+        $retencion = new RetencionesCreator20();
         $retencion->setXmlResolver($this->newResolver());
 
         $this->expectException(\RuntimeException::class);
@@ -111,7 +121,7 @@ final class RetencionesCreator10Test extends TestCase
         $passPhrase = '';
         $certificado = new Certificado($cerFile);
 
-        $retencion = new RetencionesCreator10();
+        $retencion = new RetencionesCreator20();
         $retencion->setXmlResolver($this->newResolver());
 
         $retencion->putCertificado($certificado);

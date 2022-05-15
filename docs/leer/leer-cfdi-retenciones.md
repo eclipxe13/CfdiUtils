@@ -85,9 +85,13 @@ no tendrán un impacto en el contenedor.
 
 ### Versión
 
-El CFDI de retenciones solo tiene la versión 1.0, en caso de que se fabrique un objeto que contiene un número de versión
+El CFDI de retenciones abarca las versiones 1.0 y 2.0, en caso de que se fabrique un objeto que contiene un número de versión
 diferente, entonces el método `Retenciones::getVersion()` devolverá una cadena vacía. Esto es por homogeneidad con la
 lectura de CFDI regulares.
+
+Es importante notar cambios en la estructura y que muchos de los atributos usados en la versión 1.0
+cambian de nombre o contenido en la versión 2.0, por lo que se recomienda utilizar
+diferentes lectores según la versión del comprobante.
 
 ### Lectura formal
 
@@ -117,5 +121,31 @@ echo $nodeRetenciones->searchAttribute('retenciones:Emisor', 'RFCEmisor'); // EK
 
 // obtener el QuickReader para lectura rápida
 $qrRetenciones = $reader->getQuickReader();
-echo $qrRetenciones->emisor['rfcemisor']; // EKU9003173C9
+echo $qrRetenciones->emisor['NomDenRazSocE']; // Nombre del emisor
 ```
+
+
+## Obteniendo la versión de un CFDI de Retenciones sin la clase `CfdiUtils\Retenciones\Retenciones`
+
+Obtener la versión de un CFDI de Retenciones es sencillo con la clase `CfdiUtils\Retenciones\RetencionVersion`.
+
+El método que usarás para obtener la versión depende de la información que ya
+tengas cargada:
+
+- `getFromXmlString()`: Cuando ya tienes el contenido del XML en una variable
+- `getFromNode()`: Cuando tienes el nodo principal en un objeto de tipo `CfdiUtils\Nodes\NodeInterface`
+- `getFromDOMDocument()` y `getFromDOMElement()`: Cuando tienes el contenido XML cargado en un objeto de tipo DOM.
+
+El resultado de estos métodos será un string con el número de versión y vacío en
+caso de no encontrarse un número de versión compatible.
+
+```php
+<?php
+$retencionFile = '/retencion/archivo-retencion.xml';
+$xmlContents = file_get_contents($retencionFile);
+$cfdiVersion = new \CfdiUtils\Retenciones\RetencionVersion();
+$version = $cfdiVersion->getFromXmlString($xmlContents);
+```
+
+Nota: la clase `CfdiUtils\Retenciones\Retenciones` ya realiza este proceso por lo que no es recomendado
+duplicar el trabajo de averiguar la versión.
