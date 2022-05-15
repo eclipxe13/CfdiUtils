@@ -59,14 +59,14 @@ composer require eclipxe/cfdiutils
 - Version 3.x **future** will be released with backward compatibility breaks.
     - See [docs/CHANGELOG.md](docs/CHANGELOG.md) for backward compatibility breaks.
     - It may change to PHP 8.0.
-    - It could be possible to migrate to phpcfdi/cfdi-utils under [phpCfdi][] organization.
+    - It could be possible to migrate to `phpcfdi/cfdi-utils` under [phpCfdi][] organization.
 
 
 ## PHP Support
 
 This library is compatible with **PHP 7.3 and above**. Please, try to use the language's full potential.
 
-The intended support is to be aligned with oldest *Active support* PHP Branch.
+The intended support is to be aligned with the oldest *Active support* PHP Branch.
 See <https://www.php.net/supported-versions.php> for more details.
 
 | CfdiUtils | PHP Supported versions  | Since      |

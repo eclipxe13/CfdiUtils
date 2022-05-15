@@ -89,6 +89,10 @@ El CFDI de retenciones abarca las versiones 1.0 y 2.0, en caso de que se fabriqu
 diferente, entonces el método `Retenciones::getVersion()` devolverá una cadena vacía. Esto es por homogeneidad con la
 lectura de CFDI regulares.
 
+Es importante notar cambios en la estructura y que muchos de los atributos usados en la versión 1.0
+cambian de nombre o contenido en la versión 2.0, por lo que se recomienda utilizar
+diferentes lectores según la versión del comprobante.
+
 ### Lectura formal
 
 La lectura formal utiliza [nodos](../componentes/nodes.md), que es una representación en memoria del contenido
@@ -117,7 +121,7 @@ echo $nodeRetenciones->searchAttribute('retenciones:Emisor', 'RFCEmisor'); // EK
 
 // obtener el QuickReader para lectura rápida
 $qrRetenciones = $reader->getQuickReader();
-echo $qrRetenciones->emisor['rfcemisor']; // EKU9003173C9
+echo $qrRetenciones->emisor['NomDenRazSocE']; // Nombre del emisor
 ```
 
 
