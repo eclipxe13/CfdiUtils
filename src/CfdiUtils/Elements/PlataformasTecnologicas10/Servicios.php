@@ -10,6 +10,7 @@ class Servicios extends AbstractElement
     {
         return 'plataformasTecnologicas:Servicios';
     }
+
     public function addDetallesDelServicio(array $attributes = []): DetallesDelServicio
     {
         $subject = new DetallesDelServicio($attributes);

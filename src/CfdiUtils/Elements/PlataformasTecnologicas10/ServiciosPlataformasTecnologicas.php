@@ -14,11 +14,12 @@ class ServiciosPlataformasTecnologicas extends AbstractElement
     public function getFixedAttributes(): array
     {
         return [
-        'xmlns:plataformasTecnologicas' => 'http://www.sat.gob.mx/esquemas/retencionpago/1/PlataformasTecnologicas10',
-        'xsi:schemaLocation' => 'http://www.sat.gob.mx/esquemas/retencionpago/1/PlataformasTecnologicas10'
-            . ' http://www.sat.gob.mx/esquemas/retencionpago/1/PlataformasTecnologicas10'
-            . '/ServiciosPlataformasTecnologicas10.xsd',
-        'Version' => '1.0',
+            'xmlns:plataformasTecnologicas' => 'http://www.sat.gob.mx/esquemas/retencionpago/1'
+                . '/PlataformasTecnologicas10',
+            'xsi:schemaLocation' => 'http://www.sat.gob.mx/esquemas/retencionpago/1/PlataformasTecnologicas10'
+                . ' http://www.sat.gob.mx/esquemas/retencionpago/1/PlataformasTecnologicas10'
+                . '/ServiciosPlataformasTecnologicas10.xsd',
+            'Version' => '1.0',
         ];
     }
 

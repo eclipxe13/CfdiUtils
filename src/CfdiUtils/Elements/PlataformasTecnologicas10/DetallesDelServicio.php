@@ -10,13 +10,16 @@ class DetallesDelServicio extends AbstractElement
     {
         return 'plataformasTecnologicas:DetallesDelServicio';
     }
+
     public function getChildrenOrder(): array
     {
         return [
-        'plataformasTecnologicas:ImpuestosTrasladadosdelServicio',
-        'plataformasTecnologicas:ContribucionGubernamental',
-        'plataformasTecnologicas:ComisionDelServicio'];
+            'plataformasTecnologicas:ImpuestosTrasladadosdelServicio',
+            'plataformasTecnologicas:ContribucionGubernamental',
+            'plataformasTecnologicas:ComisionDelServicio',
+        ];
     }
+
     public function getImpuestosTrasladadosdelServicio(): ImpuestosTrasladadosdelServicio
     {
         return $this->helperGetOrAdd(new ImpuestosTrasladadosdelServicio());
@@ -28,6 +31,7 @@ class DetallesDelServicio extends AbstractElement
         $subject->addAttributes($attributes);
         return $subject;
     }
+
     public function getContribucionGubernamental(): ContribucionGubernamental
     {
         return $this->helperGetOrAdd(new ContribucionGubernamental());
@@ -39,6 +43,7 @@ class DetallesDelServicio extends AbstractElement
         $subject->addAttributes($attributes);
         return $subject;
     }
+
     public function getComisionDelServicio(): ComisionDelServicio
     {
         return $this->helperGetOrAdd(new ComisionDelServicio());
