@@ -32,9 +32,15 @@
 - Merge methods from `\CfdiUtils\Nodes\NodeHasValueInterface` into `\CfdiUtils\Nodes\NodeInterface`.
 - Remove deprecated constant `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`.
 
+## Version 2.23.0 2022-06-15
+
+Add `CfdiUtils\Elements\PlataformasTecnologicas10` *Elements* to work with "Complemento Servicios de Plataformas Tecnológicas".
+
+Thanks `@gam04` for your contribution.
+
 ## Version 2.22.0 2022-05-15
 
-Add support to read and create a RET 1.0 (*Retenciones e información de pagos 2.0*) document.
+Add support to read and create a RET 2.0 (*Retenciones e información de pagos 2.0*) document.
 
 - Add helper elements on namespace `CfdiUtils\Elements\Retenciones20`.
 - Add `CfdiUtils\Retenciones\RetencionVersion`.
