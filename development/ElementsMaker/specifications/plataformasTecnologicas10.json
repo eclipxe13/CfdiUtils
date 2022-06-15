@@ -1,0 +1,19 @@
+{
+    "php-namespace": "CfdiUtils\\Elements\\PlataformasTecnologicas10",
+    "prefix": "plataformasTecnologicas",
+    "xml-namespace": "http://www.sat.gob.mx/esquemas/retencionpago/1/PlataformasTecnologicas10",
+    "xml-schemalocation": "http://www.sat.gob.mx/esquemas/retencionpago/1/PlataformasTecnologicas10/ServiciosPlataformasTecnologicas10.xsd",
+    "version-attribute": "Version",
+    "version-value": "1.0",
+    "root-element": "ServiciosPlataformasTecnologicas",
+    "structure": {
+        "Servicios": {
+            "DetallesDelServicio": {
+                "multiple": true,
+                "ImpuestosTrasladadosdelServicio": {},
+                "ContribucionGubernamental": {},
+                "ComisionDelServicio": {}
+            }
+        }
+    }
+}
