@@ -32,19 +32,20 @@ final class EmisorRegimenFiscalTest extends Validate33TestCase
             ['AAA010101AAA', '624'],
             ['AAAA010101AA', '626'],
             ['AAA010101AAA', '628'],
-            ['AAA010101AAA', '607'],
             ['ÑAA010101AAA', '601'], // with Ñ
             // personas físicas
             ['AAAA010101AAA', '605'],
             ['AAAA010101AAA', '606'],
+            ['AAAA010101AAA', '607'],
             ['AAAA010101AAA', '608'],
             ['AAAA010101AAA', '610'],
             ['AAAA010101AAA', '611'],
             ['AAAA010101AAA', '612'],
             ['AAAA010101AAA', '614'],
+            ['AAAA010101AAA', '615'],
             ['AAAA010101AAA', '616'],
             ['AAAA010101AAA', '621'],
-            ['AAAA010101AAA', '622'],
+            ['AAAA010101AAA', '625'],
             ['AAAA010101AAA', '629'],
             ['AAAA010101AAA', '630'],
             ['AAAA010101AAA', '626'], // regimen RESICO
