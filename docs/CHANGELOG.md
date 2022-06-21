@@ -32,6 +32,12 @@
 - Merge methods from `\CfdiUtils\Nodes\NodeHasValueInterface` into `\CfdiUtils\Nodes\NodeInterface`.
 - Remove deprecated constant `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`.
 
+## Version 2.23.1 2022-06-20
+
+Fix hardcoded *Regímenes* catalog to fix CFDI33 validation `EmisorRegimenFiscal`.
+
+Thanks `@celli33` for your contribution.
+
 ## Version 2.23.0 2022-06-15
 
 Add `CfdiUtils\Elements\PlataformasTecnologicas10` *Elements* to work with "Complemento Servicios de Plataformas Tecnológicas".
