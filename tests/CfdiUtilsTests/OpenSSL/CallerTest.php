@@ -2,13 +2,12 @@
 
 namespace CfdiUtilsTests\OpenSSL;
 
-use CfdiUtils\Internals\ShellExec;
-use CfdiUtils\Internals\ShellExecResult;
 use CfdiUtils\OpenSSL\Caller;
 use CfdiUtils\OpenSSL\OpenSSLCallerException;
 use CfdiUtils\OpenSSL\OpenSSLException;
-use CfdiUtilsTests\Internals\FakeShellExec;
 use CfdiUtilsTests\TestCase;
+use PHPUnit\Framework\MockObject\MockObject;
+use Symfony\Component\Process\Process;
 
 final class CallerTest extends TestCase
 {
@@ -31,23 +30,36 @@ final class CallerTest extends TestCase
         $caller->call('?', ["\0"]);
     }
 
-    public function testCallerWithNullCharacterOnEnvironment()
+    private function createFakeCaller(string $command, int $exitCode, string $output, string $errors): Caller
     {
-        $caller = new Caller();
-        $this->expectException(OpenSSLException::class);
-        $caller->call('', [], ['env' => "\0"]);
-    }
+        /** @var MockObject&Process $process */
+        $process = $this->createMock(Process::class);
+        $process->method('run')->willReturn($exitCode);
+        $process->method('getCommandLine')->willReturn($command);
+        $process->method('getOutput')->willReturn($output);
+        $process->method('getErrorOutput')->willReturn($errors);
 
-    public function testRunUsingMockedShellExecExpectingError()
-    {
-        $caller = new class() extends Caller {
-            // change method visibility
-            public function createShellExec(array $command, array $environment): ShellExec
+        return new class($process) extends Caller {
+            /** @var Process */
+            private $process;
+
+            public function __construct(Process $process)
             {
-                $result = new ShellExecResult('command', 15, 'output', 'errors');
-                return new FakeShellExec($command, $environment, $result);
+                parent::__construct('command');
+                $this->process = $process;
+            }
+
+            // change method visibility
+            public function createProcess(array $command, array $environment): Process
+            {
+                return $this->process;
             }
         };
+    }
+
+    public function testRunUsingMockedProcessExpectingError()
+    {
+        $caller = $this->createFakeCaller('command', 15, 'output', 'errors');
 
         try {
             $caller->call('foo', []);
@@ -61,20 +73,14 @@ final class CallerTest extends TestCase
         }
     }
 
-    public function testRunUsingMockedShellExecExpectingSuccess()
+    public function testRunUsingMockedProcessExpectingSuccess()
     {
-        $caller = new class() extends Caller {
-            public function createShellExec(array $command, array $environment): ShellExec
-            {
-                $result = new ShellExecResult('command', 0, 'output', 'errors');
-                return new FakeShellExec($command, $environment, $result);
-            }
-        };
+        $caller = $this->createFakeCaller('openssl', 0, 'OK', '');
 
         $callResponse = $caller->call('foo', []);
         $this->assertSame(0, $callResponse->exitStatus());
-        $this->assertSame('command', $callResponse->commandLine());
-        $this->assertSame('output', $callResponse->output());
-        $this->assertSame('errors', $callResponse->errors());
+        $this->assertSame('openssl', $callResponse->commandLine());
+        $this->assertSame('OK', $callResponse->output());
+        $this->assertSame('', $callResponse->errors());
     }
 }
