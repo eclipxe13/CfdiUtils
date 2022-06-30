@@ -25,6 +25,9 @@ final class CallerTest extends TestCase
 
     public function testCallerWithNullCharacterOnTemplate()
     {
+        if (in_array(PHP_OS_FAMILY, ['Windows', 'Unknown'])) {
+            $this->markTestSkipped('Expected exception on non-windows systems');
+        }
         $caller = new Caller();
         $this->expectException(OpenSSLException::class);
         $caller->call('?', ["\0"]);
