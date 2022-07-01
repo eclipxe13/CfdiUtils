@@ -2,8 +2,8 @@
 
 namespace CfdiUtils\CadenaOrigen;
 
-use CfdiUtils\Internals\ShellExec;
 use CfdiUtils\Internals\TemporaryFile;
+use Symfony\Component\Process\Process;
 
 class SaxonbCliBuilder extends AbstractXsltBuilder
 {
@@ -78,15 +78,20 @@ class SaxonbCliBuilder extends AbstractXsltBuilder
                     '-warnings:silent', // default recover
                 ];
 
-                $execution = (new ShellExec($command))->run();
+                $process = new Process($command);
 
-                if (0 !== $execution->exitStatus()) {
-                    throw new XsltBuildException('Transformation error');
+                $exitCode = $process->run();
+                if (0 !== $exitCode) {
+                    throw new XsltBuildException(
+                        sprintf('Transformation error: %s', $process->getErrorOutput() ?: '(no output error)')
+                    );
                 }
-                $output = trim($execution->output());
+
+                $output = trim($process->getOutput());
                 if ('<?xml version="1.0" encoding="UTF-8"?>' === $output) {
-                    throw new XsltBuildException('Transformation error');
+                    throw new XsltBuildException('Transformation error: XML without root element');
                 }
+
                 return $output;
             }
         );

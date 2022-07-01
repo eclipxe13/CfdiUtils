@@ -2,10 +2,10 @@
 
 namespace CfdiUtilsTests\Internals;
 
-use CfdiUtils\Internals\ShellExecTemplate;
+use CfdiUtils\Internals\CommandTemplate;
 use CfdiUtilsTests\TestCase;
 
-final class ShellExecTemplateTest extends TestCase
+final class CommandTemplateTest extends TestCase
 {
     public function providerTemplateCommandToArrayArguments(): array
     {
@@ -27,7 +27,7 @@ final class ShellExecTemplateTest extends TestCase
      */
     public function testCreateCommandFromTemplate(string $template, array $arguments, array $expected)
     {
-        $builder = new ShellExecTemplate();
+        $builder = new CommandTemplate();
 
         $command = $builder->create($template, $arguments);
         $this->assertSame($expected, $command);

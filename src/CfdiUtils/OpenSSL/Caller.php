@@ -2,8 +2,9 @@
 
 namespace CfdiUtils\OpenSSL;
 
-use CfdiUtils\Internals\ShellExec;
-use CfdiUtils\Internals\ShellExecTemplate;
+use CfdiUtils\Internals\CommandTemplate;
+use Symfony\Component\Process\Process;
+use Throwable;
 
 class Caller
 {
@@ -25,42 +26,42 @@ class Caller
     public function call(string $template, array $arguments, array $environment = []): CallResponse
     {
         try {
-            // build command for shellExec
+            // build command for process run
             array_unshift($arguments, $this->getExecutable());
-            $command = ($this->createShellExecTemplate())->create('? ' . $template, $arguments);
+            $command = $this->createCommandTemplate()->create('? ' . $template, $arguments);
 
-            // create ShellExec
-            $shellExec = $this->createShellExec($command, $environment);
-        } catch (\Throwable $exception) {
+            // create Process
+            $process = $this->createProcess($command, $environment);
+        } catch (Throwable $exception) {
             throw new OpenSSLException('Unable to build command', 0, $exception);
         }
 
-        // execute ShellExec
-        $execution = $shellExec->run();
+        // execute process
+        $execution = $process->run();
 
         // build response
         $callResponse = new CallResponse(
-            $execution->commandLine(),
-            $execution->output(),
-            $execution->errors(),
-            $execution->exitStatus()
+            $process->getCommandLine(),
+            $process->getOutput(),
+            $process->getErrorOutput(),
+            $execution
         );
 
         // eval response
-        if (0 !== $callResponse->exitStatus()) {
+        if (0 !== $execution) {
             throw new OpenSSLCallerException($callResponse);
         }
 
         return $callResponse;
     }
 
-    protected function createShellExec(array $command, array $environment): ShellExec
+    protected function createProcess(array $command, array $environment): Process
     {
-        return new ShellExec($command, $environment);
+        return new Process($command, null, $environment);
     }
 
-    protected function createShellExecTemplate(): ShellExecTemplate
+    protected function createCommandTemplate(): CommandTemplate
     {
-        return new ShellExecTemplate();
+        return new CommandTemplate();
     }
 }

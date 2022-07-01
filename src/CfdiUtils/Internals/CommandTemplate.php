@@ -8,7 +8,7 @@ namespace CfdiUtils\Internals;
  * NOTE: Changes will not be considering a bracking compatibility change since this utility is for internal usage only
  * @internal
  */
-class ShellExecTemplate
+class CommandTemplate
 {
     public function create(string $template, array $arguments): array
     {

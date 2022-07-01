@@ -32,6 +32,12 @@
 - Merge methods from `\CfdiUtils\Nodes\NodeHasValueInterface` into `\CfdiUtils\Nodes\NodeInterface`.
 - Remove deprecated constant `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`.
 
+## Version 2.23.2 2022-06-29
+
+Use `Symfony/Process` instead of `ShellExec`.
+Remove internal classes `ShellExec` and `ShellExecResult`.
+Rename internal class `ShellExecTemplate` to `CommandTemplate`.
+
 ## Version 2.23.1 2022-06-20
 
 Fix hardcoded *Regímenes* catalog to fix CFDI33 validation `EmisorRegimenFiscal`.
