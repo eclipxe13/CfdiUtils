@@ -32,6 +32,14 @@
 - Merge methods from `\CfdiUtils\Nodes\NodeHasValueInterface` into `\CfdiUtils\Nodes\NodeInterface`.
 - Remove deprecated constant `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`.
 
+## Version 2.23.3 2022-08-11
+
+Fix CFDI 4.0, must include `Comprobante/Impuestos/Traslados/Traslado@TipoFactor=Exento` when exists at least one
+node `Comprobante/Conceptos/Concepto/Impuestos/Traslados/Traslado@TipoFactor=Exento`.
+The node must contain attribute `TipoFactor=Exento` and the rounded sum of the attributes `Base`
+grouped by attribute `Impuesto`.
+Thanks `BrodyAG` for noticing this issue, and `@yairtestas` for your guidance to find the solution.
+
 ## Version 2.23.2 2022-06-29
 
 Use `Symfony/Process` instead of `ShellExec`.

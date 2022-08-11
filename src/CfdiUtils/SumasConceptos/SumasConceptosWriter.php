@@ -21,6 +21,9 @@ class SumasConceptosWriter
     /** @var bool */
     private $writeImpuestoBase;
 
+    /** @var bool */
+    private $writeExentos;
+
     /**
      * Writer constructor.
      * @param Comprobante33|Comprobante40 $comprobante
@@ -34,8 +37,10 @@ class SumasConceptosWriter
     ) {
         if ($comprobante instanceof Comprobante33) {
             $this->writeImpuestoBase = false;
+            $this->writeExentos = false;
         } elseif ($comprobante instanceof Comprobante40) {
             $this->writeImpuestoBase = true;
+            $this->writeExentos = true;
         } else {
             throw new InvalidArgumentException(
                 'The argument $comprobante must be a Comprobante (CFDI 3.3 or CFDI 4.0) element'
@@ -69,7 +74,10 @@ class SumasConceptosWriter
         // obtain node reference
         $impuestos = $this->comprobante->getImpuestos();
         // if there is nothing to write then remove the children and exit
-        if (! $this->sumas->hasTraslados() && ! $this->sumas->hasRetenciones()) {
+        if (! $this->sumas->hasTraslados()
+            && ! $this->sumas->hasRetenciones()
+            && ! ($this->writeExentos && $this->sumas->hasExentos())
+        ) {
             $this->comprobante->children()->remove($impuestos);
             return;
         }
@@ -79,14 +87,19 @@ class SumasConceptosWriter
         if ($this->sumas->hasTraslados()) {
             $impuestos['TotalImpuestosTrasladados'] = $this->format($this->sumas->getImpuestosTrasladados());
             $impuestos->getTraslados()->multiTraslado(
-                ...$this->getImpuestosContents($this->sumas->getTraslados(), $this->writeImpuestoBase)
+                ...$this->getImpuestosContents($this->sumas->getTraslados(), $this->writeImpuestoBase, true)
+            );
+        }
+        if ($this->writeExentos && $this->sumas->hasExentos()) {
+            $impuestos->getTraslados()->multiTraslado(
+                ...$this->getImpuestosContents($this->sumas->getExentos(), $this->writeImpuestoBase, false)
             );
         }
         // add retenciones when needed
         if ($this->sumas->hasRetenciones()) {
             $impuestos['TotalImpuestosRetenidos'] = $this->format($this->sumas->getImpuestosRetenidos());
             $impuestos->getRetenciones()->multiRetencion(
-                ...$this->getImpuestosContents($this->sumas->getRetenciones(), false)
+                ...$this->getImpuestosContents($this->sumas->getRetenciones(), false, true)
             );
         }
     }
@@ -110,16 +123,15 @@ class SumasConceptosWriter
         $impLocal->attributes()->set('TotaldeTraslados', $this->format($this->sumas->getLocalesImpuestosTrasladados()));
     }
 
-    private function getImpuestosContents(array $impuestos, bool $hasBase): array
+    private function getImpuestosContents(array $impuestos, bool $hasBase, bool $hasImporte): array
     {
         $return = [];
         foreach ($impuestos as $impuesto) {
-            $impuesto['Base'] = $this->format($impuesto['Base'] ?? 0);
-            $impuesto['Importe'] = $this->format($impuesto['Importe']);
-            if (! $hasBase) {
-                unset($impuesto['Base']);
-            }
-            $return[] = $impuesto;
+            $impuesto['Base'] = ($hasBase) ? $this->format($impuesto['Base'] ?? 0) : null;
+            $impuesto['Importe'] = ($hasImporte) ? $this->format($impuesto['Importe']) : null;
+            $return[] = array_filter($impuesto, function ($value): bool {
+                return null !== $value;
+            });
         }
         return $return;
     }
@@ -153,5 +165,10 @@ class SumasConceptosWriter
     public function hasWriteImpuestoBase(): bool
     {
         return $this->writeImpuestoBase;
+    }
+
+    public function hasWriteExentos(): bool
+    {
+        return $this->writeExentos;
     }
 }

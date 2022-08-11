@@ -27,6 +27,11 @@ class SumasConceptos
     private $traslados = [];
 
     /**
+     * @var array<string, array{Impuesto:string, TipoFactor:string, Base:float}>
+     */
+    private $exentos = [];
+
+    /**
      * @var array<string, array{Impuesto:string, Importe:float}>
      */
     private $retenciones = [];
@@ -109,7 +114,9 @@ class SumasConceptos
 
         $traslados = $concepto->searchNodes('cfdi:Impuestos', 'cfdi:Traslados', 'cfdi:Traslado');
         foreach ($traslados as $traslado) {
-            if ('Exento' !== $traslado['TipoFactor']) {
+            if ('Exento' === $traslado['TipoFactor']) {
+                $this->addExento($traslado);
+            } else {
                 $this->addTraslado($traslado);
             }
         }
@@ -168,6 +175,19 @@ class SumasConceptos
         $this->traslados[$key]['Base'] += (float) $traslado['Base'];
     }
 
+    private function addExento(NodeInterface $exento)
+    {
+        $key = $this->impuestoKey($exento['Impuesto'], $exento['TipoFactor'], '');
+        if (! array_key_exists($key, $this->exentos)) {
+            $this->exentos[$key] = [
+                'TipoFactor' => $exento['TipoFactor'],
+                'Impuesto' => $exento['Impuesto'],
+                'Base' => 0.0,
+            ];
+        }
+        $this->exentos[$key]['Base'] += (float) $exento['Base'];
+    }
+
     private function addRetencion(NodeInterface $retencion)
     {
         $key = $this->impuestoKey($retencion['Impuesto']);
@@ -213,6 +233,14 @@ class SumasConceptos
     }
 
     /**
+     * @return array<string, array{Impuesto:string, TipoFactor:string, Base:float}>
+     */
+    public function getExentos(): array
+    {
+        return $this->exentos;
+    }
+
+    /**
      * @return array<string, array{Impuesto:string, Importe:float}>
      */
     public function getRetenciones(): array
@@ -223,6 +251,11 @@ class SumasConceptos
     public function hasTraslados(): bool
     {
         return ([] !== $this->traslados);
+    }
+
+    public function hasExentos(): bool
+    {
+        return ([] !== $this->exentos);
     }
 
     public function hasRetenciones(): bool
