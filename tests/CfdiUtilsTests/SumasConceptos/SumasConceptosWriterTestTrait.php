@@ -169,20 +169,34 @@ trait SumasConceptosWriterTestTrait
     public function testOnComplementoImpuestosImporteSumIsRoundedCfdi()
     {
         $comprobante = $this->createComprobante();
-        $comprobante->addConcepto()->addTraslado([
-            'Base' => '48.611106',
-            'Importe' => '7.777777',
-            'Impuesto' => '002',
-            'TipoFactor' => 'Tasa',
-            'TasaOCuota' => '0.160000',
-        ]);
-        $comprobante->addConcepto()->addTraslado([
-            'Base' => '13.888888',
-            'Importe' => '2.222222',
-            'Impuesto' => '002',
-            'TipoFactor' => 'Tasa',
-            'TasaOCuota' => '0.160000',
-        ]);
+        $comprobante->addConcepto()->multiTraslado(
+            [
+                'Base' => '48.611106',
+                'Importe' => '7.777777',
+                'Impuesto' => '002',
+                'TipoFactor' => 'Tasa',
+                'TasaOCuota' => '0.160000',
+            ],
+            [
+                'Base' => '48.611106',
+                'Impuesto' => '002',
+                'TipoFactor' => 'Exento',
+            ],
+        );
+        $comprobante->addConcepto()->multiTraslado(
+            [
+                'Base' => '13.888888',
+                'Importe' => '2.222222',
+                'Impuesto' => '002',
+                'TipoFactor' => 'Tasa',
+                'TasaOCuota' => '0.160000',
+            ],
+            [
+                'Base' => '13.888888',
+                'Impuesto' => '002',
+                'TipoFactor' => 'Exento',
+            ],
+        );
 
         $precision = 3;
         $sumasConceptos = new SumasConceptos($comprobante, $precision);
@@ -196,6 +210,11 @@ trait SumasConceptosWriterTestTrait
             $this->assertSame('62.500', $traslado['Base']);
         } else {
             $this->assertFalse(isset($traslado['Base']));
+        }
+
+        if ($writer->hasWriteExentos()) {
+            $exento = $comprobante->searchNodes('cfdi:Impuestos', 'cfdi:Traslados', 'cfdi:Traslado')->get(1);
+            $this->assertSame('62.500', $exento['Base']);
         }
     }
 
@@ -218,13 +237,32 @@ trait SumasConceptosWriterTestTrait
         $writer = new SumasConceptosWriter($comprobante, $sumasConceptos, $precision);
         $writer->put();
 
-        $expected = <<<EOT
-            <cfdi:Impuestos TotalImpuestosRetenidos="40.00">
-              <cfdi:Retenciones>
-                <cfdi:Retencion Impuesto="001" Importe="40.00"/>
-              </cfdi:Retenciones>
-            </cfdi:Impuestos>
-            EOT;
+        $this->assertSame(
+            $writer->hasWriteExentos(),
+            $writer->hasWriteImpuestoBase(),
+            'When has to write "exentos" also has to write "impuesto base" and vice versa'
+        );
+
+        if ($writer->hasWriteExentos()) {
+            $expected = <<<EOT
+                <cfdi:Impuestos TotalImpuestosRetenidos="40.00">
+                  <cfdi:Retenciones>
+                    <cfdi:Retencion Impuesto="001" Importe="40.00"/>
+                  </cfdi:Retenciones>
+                  <cfdi:Traslados>
+                    <cfdi:Traslado Impuesto="002" Base="2000.00" TipoFactor="Exento"/>
+                  </cfdi:Traslados>
+                </cfdi:Impuestos>
+                EOT;
+        } else {
+            $expected = <<<EOT
+                <cfdi:Impuestos TotalImpuestosRetenidos="40.00">
+                  <cfdi:Retenciones>
+                    <cfdi:Retencion Impuesto="001" Importe="40.00"/>
+                  </cfdi:Retenciones>
+                </cfdi:Impuestos>
+                EOT;
+        }
         $this->assertXmlStringEqualsXmlString($expected, XmlNodeUtils::nodeToXmlString($comprobante->getImpuestos()));
     }
 

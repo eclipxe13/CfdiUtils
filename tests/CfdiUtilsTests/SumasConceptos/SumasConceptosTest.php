@@ -24,10 +24,12 @@ final class SumasConceptosTest extends TestCase
         $this->assertEqualsWithDelta(0, $sc->getLocalesImpuestosTrasladados(), $maxDiff);
         $this->assertCount(0, $sc->getRetenciones());
         $this->assertCount(0, $sc->getTraslados());
+        $this->assertCount(0, $sc->getExentos());
         $this->assertCount(0, $sc->getLocalesRetenciones());
         $this->assertCount(0, $sc->getLocalesTraslados());
         $this->assertFalse($sc->hasRetenciones());
         $this->assertFalse($sc->hasTraslados());
+        $this->assertFalse($sc->hasExentos());
         $this->assertFalse($sc->hasLocalesRetenciones());
         $this->assertFalse($sc->hasLocalesTraslados());
     }
@@ -77,10 +79,11 @@ final class SumasConceptosTest extends TestCase
         $this->assertEqualsWithDelta($subtotal, $sc->getSubTotal(), $maxDiff);
         $this->assertEqualsWithDelta($traslados, $sc->getImpuestosTrasladados(), $maxDiff);
         $this->assertEqualsWithDelta($total, $sc->getTotal(), $maxDiff);
-        // this are zero
+        // these are zero
         $this->assertEqualsWithDelta(0, $sc->getDescuento(), $maxDiff);
         $this->assertEqualsWithDelta(0, $sc->getImpuestosRetenidos(), $maxDiff);
         $this->assertCount(0, $sc->getRetenciones());
+        $this->assertCount(0, $sc->getExentos());
     }
 
     public function testWithImpuestosLocales()
@@ -123,7 +126,7 @@ final class SumasConceptosTest extends TestCase
         $this->assertEqualsWithDelta(53.33, $sc->getImpuestosTrasladados(), $maxDiff);
         $this->assertEqualsWithDelta(8.33, $sc->getLocalesImpuestosTrasladados(), $maxDiff);
         $this->assertEqualsWithDelta(333.33 + 53.33 + 8.33, $sc->getTotal(), $maxDiff);
-        // this are zero
+        // these are zero
         $this->assertEqualsWithDelta(0, $sc->getDescuento(), $maxDiff);
         $this->assertEqualsWithDelta(0, $sc->getImpuestosRetenidos(), $maxDiff);
         $this->assertCount(0, $sc->getRetenciones());
@@ -172,33 +175,44 @@ final class SumasConceptosTest extends TestCase
     public function testImpuestoWithTrasladosTasaAndExento()
     {
         $comprobante = new Comprobante();
-        $comprobante->addConcepto()->multiTraslado(...[
-            ['Impuesto' => '002', 'TipoFactor' => 'Exento'],
+        $comprobante->addConcepto()->multiTraslado(
+            [
+                'Impuesto' => '002',
+                'TipoFactor' => 'Exento',
+                'Base' => '1000',
+            ],
             [
                 'Impuesto' => '002',
                 'TipoFactor' => 'Tasa',
                 'TasaOCuota' => '0.160000',
                 'Base' => '1000',
                 'Importe' => '160',
-            ],
+            ]
+        );
+        $comprobante->addConcepto()->addTraslado([
+            'Impuesto' => '002',
+            'TipoFactor' => 'Tasa',
+            'TasaOCuota' => '0.160000',
+            'Base' => '1000',
+            'Importe' => '160',
         ]);
-        $comprobante->addConcepto()->multiTraslado(...[
-            [
-                'Impuesto' => '002',
-                'TipoFactor' => 'Tasa',
-                'TasaOCuota' => '0.160000',
-                'Base' => '1000',
-                'Importe' => '160',
-            ],
+        $comprobante->addConcepto()->addTraslado([
+            'Impuesto' => '002',
+            'TipoFactor' => 'Exento',
+            'Base' => '234.56',
         ]);
 
         $sumas = new SumasConceptos($comprobante, 2);
         $this->assertTrue($sumas->hasTraslados());
         $this->assertEqualsWithDelta(320.0, $sumas->getImpuestosTrasladados(), 0.001);
         $this->assertCount(1, $sumas->getTraslados());
+
+        $this->assertTrue($sumas->hasExentos());
+        $this->assertCount(1, $sumas->getExentos());
+        $this->assertEqualsWithDelta(1234.56, array_sum(array_column($sumas->getExentos(), 'Base')), 0.001);
     }
 
-    public function testImpuestoWithTrasladosAndOnlyExento()
+    public function testImpuestoWithTrasladosAndOnlyExentosWithoutBase()
     {
         $comprobante = new Comprobante();
         $comprobante->addConcepto()->multiTraslado(
@@ -212,5 +226,38 @@ final class SumasConceptosTest extends TestCase
         $this->assertFalse($sumas->hasTraslados());
         $this->assertEqualsWithDelta(0, $sumas->getImpuestosTrasladados(), 0.001);
         $this->assertCount(0, $sumas->getTraslados());
+
+        $this->assertTrue($sumas->hasExentos());
+        $this->assertEqualsWithDelta(0, array_sum(array_column($sumas->getExentos(), 'Base')), 0.001);
+    }
+
+    public function testImpuestoWithTrasladosAndOnlyExentosWithBase()
+    {
+        $comprobante = new Comprobante();
+        $comprobante->addConcepto()->multiTraslado(
+            ['Impuesto' => '002', 'TipoFactor' => 'Exento', 'Base' => '123.45'],
+        );
+        $comprobante->addConcepto()->multiTraslado(
+            ['Impuesto' => '002', 'TipoFactor' => 'Exento', 'Base' => '543.21'],
+            ['Impuesto' => '001', 'TipoFactor' => 'Exento', 'Base' => '100'],
+        );
+        $comprobante->addConcepto()->multiTraslado(
+            ['Impuesto' => '001', 'TipoFactor' => 'Exento', 'Base' => '150'],
+        );
+
+        $sumas = new SumasConceptos($comprobante, 2);
+        $this->assertFalse($sumas->hasTraslados());
+        $this->assertEqualsWithDelta(0, $sumas->getImpuestosTrasladados(), 0.001);
+        $this->assertCount(0, $sumas->getTraslados());
+
+        $this->assertTrue($sumas->hasExentos());
+        $exentos001 = array_filter($sumas->getExentos(), function (array $values): bool {
+            return '001' === strval($values['Impuesto'] ?? '');
+        });
+        $exentos002 = array_filter($sumas->getExentos(), function (array $values): bool {
+            return '002' === strval($values['Impuesto'] ?? '');
+        });
+        $this->assertEqualsWithDelta(250.00, array_sum(array_column($exentos001, 'Base')), 0.001);
+        $this->assertEqualsWithDelta(666.66, array_sum(array_column($exentos002, 'Base')), 0.001);
     }
 }
