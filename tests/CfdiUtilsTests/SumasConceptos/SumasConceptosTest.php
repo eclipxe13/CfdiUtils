@@ -251,13 +251,15 @@ final class SumasConceptosTest extends TestCase
         $this->assertCount(0, $sumas->getTraslados());
 
         $this->assertTrue($sumas->hasExentos());
+
         $exentos001 = array_filter($sumas->getExentos(), function (array $values): bool {
-            return '001' === strval($values['Impuesto'] ?? '');
-        });
-        $exentos002 = array_filter($sumas->getExentos(), function (array $values): bool {
-            return '002' === strval($values['Impuesto'] ?? '');
+            return '001' === $values['Impuesto'];
         });
         $this->assertEqualsWithDelta(250.00, array_sum(array_column($exentos001, 'Base')), 0.001);
+
+        $exentos002 = array_filter($sumas->getExentos(), function (array $values): bool {
+            return '002' === $values['Impuesto'];
+        });
         $this->assertEqualsWithDelta(666.66, array_sum(array_column($exentos002, 'Base')), 0.001);
     }
 }
