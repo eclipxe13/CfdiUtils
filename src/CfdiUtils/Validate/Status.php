@@ -4,7 +4,7 @@ namespace CfdiUtils\Validate;
 
 /**
  * Status (immutable value object)
- * Define the status used in an assert
+ * Define the status used in an assertion
  */
 class Status
 {
@@ -90,12 +90,12 @@ class Status
         return $this->comparableValue($this) <=> $this->comparableValue($status);
     }
 
-    public static function comparableValue(self $status)
+    public static function comparableValue(self $status): int
     {
         return self::ORDER_MAP[$status->status];
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->status;
     }

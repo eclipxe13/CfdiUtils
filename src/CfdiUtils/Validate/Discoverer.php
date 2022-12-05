@@ -35,7 +35,7 @@ class Discoverer
      * @param string $filename
      * @return ValidatorInterface|null
      */
-    public function discoverInFile(string $namespacePrefix, string $filename)
+    public function discoverInFile(string $namespacePrefix, string $filename): ?ValidatorInterface
     {
         $basename = basename($filename);
         $classname = $this->castNamespacePrefix($namespacePrefix) . substr($basename, 0, strlen($basename) - 4);
