@@ -37,7 +37,7 @@ final class CertificadoTest extends TestCase
             '/serialNumber= / XIQB891116MGRMZR05',
             '/OU=Escuela Kemper Urgate',
         ]);
-        $this->assertSame($certificateName, $certificado->getCertificateName());
+        $this->assertSame($certificateName, str_replace('\/', '/', $certificado->getCertificateName()));
         $this->assertSame('ESCUELA KEMPER URGATE SA DE CV', $certificado->getName());
         $this->assertSame('EKU9003173C9', $certificado->getRfc());
         $this->assertSame('30001000000400002434', $certificado->getSerial());
