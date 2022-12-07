@@ -16,7 +16,93 @@ on:
 
 jobs:
 
-  # this job performs phpunit tests on linux, windows and all php supported versions
+  phpcs:
+    name: Code style (phpcs)
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2 # see https://github.com/marketplace/actions/setup-php-action
+        with:
+          php-version: '8.1'
+          coverage: none
+          tools: cs2pr, phpcs
+        env:
+          fail-fast: true
+      - name: Code style (phpcs)
+        run: phpcs -q --report=checkstyle src/ tests/ | cs2pr
+
+  php-cs-fixer:
+    name: Code style (php-cs-fixer)
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2 # see https://github.com/marketplace/actions/setup-php-action
+        with:
+          php-version: '8.1'
+          coverage: none
+          tools: cs2pr, php-cs-fixer
+        env:
+          fail-fast: true
+      - name: Code style (php-cs-fixer)
+        run: php-cs-fixer fix --dry-run --format=checkstyle | cs2pr
+
+  markdownlint:
+    name: Markdown style (markdownlint)
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Code style (markdownlint-cli)
+        uses: nosborn/github-action-markdown-cli@v3.2.0
+        with:
+          files: '*.md docs/'
+          config_file: '.markdownlint.json'
+
+  mkdocs:
+    name: Test docs building
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Run mkdocs
+        uses: Tiryoh/actions-mkdocs@v0
+        with:
+          mkdocs_version: 'latest'
+          configfile: 'mkdocs.yml'
+
+  phpstan:
+    name: Code analysis (phpstan)
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: soap
+          coverage: none
+          tools: composer:v2, phpstan
+        env:
+          fail-fast: true
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-
+      - name: Install project dependencies
+        run: composer upgrade --no-interaction --no-progress --prefer-dist
+      - name: PHPStan
+        run: phpstan analyse --no-progress --verbose src/ tests/
+
   tests:
     name: PHP ${{ matrix.php-versions }} on ${{ matrix.operating-systems }}
     runs-on: ${{ matrix.operating-systems }}
@@ -77,9 +163,8 @@ jobs:
         env:
           saxonb-path: 'C:\ProgramData\chocolatey\bin\SaxonHE\bin\Transform.exe'
 
-  # this job performs a full build (check style, testing with coverage, code analysis and build docs)
-  full-build:
-    name: Full build
+  code-coverage:
+    name: Code coverage
     runs-on: "ubuntu-latest"
     steps:
       - name: Checkout
@@ -117,26 +202,10 @@ jobs:
         run: bash tests/resource-sat-xml-download build/
       - name: Install project dependencies
         run: composer upgrade --no-interaction --no-progress --prefer-dist
-      - name: Code style (markdownlint-cli)
-        uses: nosborn/github-action-markdown-cli@v1.1.1
-        with:
-          files: '*.md docs/'
-          config_file: '.markdownlint.json'
-      - name: Code style (phpcs)
-        run: vendor/bin/phpcs -q --report=checkstyle src/ tests/ | cs2pr
-      - name: Code style (php-cs-fixer)
-        run: vendor/bin/php-cs-fixer fix --dry-run --format=checkstyle | cs2pr
-      - name: Tests (phpunit)
+      - name: Create code coverage (phpunit)
         run: vendor/bin/phpunit --testdox --verbose --coverage-clover=build/coverage-clover.xml
-      - name: Code analysis (phpstan)
-        run: vendor/bin/phpstan analyse --no-progress --verbose src/ tests/
       - name: Upload code coverage to scrutinizer
         run: |
           mkdir -p build/scrutinizer
           composer require scrutinizer/ocular:dev-master --working-dir=build/scrutinizer --no-progress
           php build/scrutinizer/vendor/bin/ocular code-coverage:upload -vvv --no-interaction --format=php-clover build/coverage-clover.xml
-      - name: Run mkdocs
-        uses: Tiryoh/actions-mkdocs@v0
-        with:
-          mkdocs_version: 'latest'
-          configfile: 'mkdocs.yml'
