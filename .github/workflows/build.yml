@@ -105,7 +105,7 @@ jobs:
 
   tests-linux:
     name: PHP ${{ matrix.php-versions }} on Linux
-    runs-on: ${{ matrix.operating-systems }}
+    runs-on: "ubuntu-latest"
     strategy:
       matrix:
         php-versions: [ '7.3', '7.4', '8.0', '8.1' ]
@@ -157,7 +157,7 @@ jobs:
 
   tests-windows:
     name: PHP ${{ matrix.php-versions }} on Windows
-    runs-on: ${{ matrix.operating-systems }}
+    runs-on: "windows-latest"
     strategy:
       matrix:
         php-versions: [ '7.3', '7.4', '8.0', '8.1' ]
