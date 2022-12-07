@@ -7,15 +7,25 @@ else
 fi
 
 WORKDIR="$(mktemp --directory)"
+SOURCEFILE=https://github.com/phpcfdi/resources-sat-xml/archive/master.zip
 ZIPFILE="$WORKDIR/resources-sat-xml.zip"
 
 # download latest archive from github as resources-sat-xml.zip
-echo "Downloading https://github.com/phpcfdi/resources-sat-xml/archive/master.zip to $ZIPFILE"
-wget -O "$ZIPFILE" https://github.com/phpcfdi/resources-sat-xml/archive/master.zip
+echo "Downloading $SOURCEFILE to $ZIPFILE"
+wget -O "$ZIPFILE" "$SOURCEFILE"
+if [ $? -ne 0 ]; then
+    echo "Error while downloading $SOURCEFILE" >&2
+    exit 1
+fi
 
 # unzip the "resources" folder contents and place then into my-resources
 echo "Extract resources from $ZIPFILE"
 unzip "$ZIPFILE" 'resources-sat-xml-master/resources/*' -d "$WORKDIR"
+wget -O "$ZIPFILE" "$SOURCEFILE"
+if [ $? -ne 0 ]; then
+    echo "Error while extract resources from $ZIPFILE" >&2
+    exit 1
+fi
 
 echo "Copy $WORKDIR/resources-sat-xml-master/resources/ to $DESTINATION"
 rm -rf "$DESTINATION/resources/www.sat.gob.mx"
