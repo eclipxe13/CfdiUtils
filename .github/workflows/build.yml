@@ -27,6 +27,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Install dependencies running on nektos/act
+        if: matrix.operating-systems == 'ubuntu-latest' && github.actor == 'nektos/act'
+        run: |
+          sudo apt-get update -y -qq
+          sudo apt-get install -y -qq zstd wget
       - name: Install libsaxonb-java on linux
         if: matrix.operating-systems == 'ubuntu-latest'
         run: |
