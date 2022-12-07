@@ -32,7 +32,7 @@
 - Merge methods from `\CfdiUtils\Nodes\NodeHasValueInterface` into `\CfdiUtils\Nodes\NodeInterface`.
 - Remove deprecated constant `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`.
 
-## Version 2.23.4 2022-12-05
+## Version 2.23.4 2022-12-07
 
 This is a maintenance release fo fix the continuous integration workflow and append pending development changes.
 
