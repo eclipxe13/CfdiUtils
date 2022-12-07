@@ -103,29 +103,24 @@ jobs:
       - name: PHPStan
         run: phpstan analyse --no-progress --verbose src/ tests/
 
-  tests:
-    name: PHP ${{ matrix.php-versions }} on ${{ matrix.operating-systems }}
+  tests-linux:
+    name: PHP ${{ matrix.php-versions }} on Linux
     runs-on: ${{ matrix.operating-systems }}
     strategy:
       matrix:
-        operating-systems: [ "ubuntu-latest", "windows-latest" ]
         php-versions: [ '7.3', '7.4', '8.0', '8.1' ]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Install dependencies running on nektos/act
-        if: matrix.operating-systems == 'ubuntu-latest' && github.actor == 'nektos/act'
+        if: github.actor == 'nektos/act'
         run: |
           sudo apt-get update -y -qq
           sudo apt-get install -y -qq zstd wget
       - name: Install libsaxonb-java on linux
-        if: matrix.operating-systems == 'ubuntu-latest'
         run: |
           sudo apt-get update -y -qq
           sudo apt-get install -y -qq default-jre libsaxonb-java
-      - name: Install saxonhe on windows
-        if: matrix.operating-systems == 'windows-latest'
-        run: choco install --ignore-checksums --no-progress --yes saxonhe
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -155,16 +150,53 @@ jobs:
           composer remove squizlabs/php_codesniffer friendsofphp/php-cs-fixer phpstan/phpstan --dev --no-interaction --no-progress --no-update
           composer upgrade --no-interaction --no-progress --prefer-dist
       - name: Tests (phpunit) on linux
-        if: matrix.operating-systems == 'ubuntu-latest'
         run: vendor/bin/phpunit --testdox --verbose --coverage-clover=build/coverage-clover.xml
-      - name: Tests (phpunit) on windows
-        if: matrix.operating-systems == 'windows-latest'
-        run: vendor/bin/phpunit --testdox --verbose
-        env:
-          saxonb-path: 'C:\ProgramData\chocolatey\bin\SaxonHE\bin\Transform.exe'
       - name: Upload code coverage to scrutinizer
-        if: matrix.operating-systems == 'ubuntu-latest'
         run: |
           mkdir -p build/scrutinizer
           composer require scrutinizer/ocular:dev-master --working-dir=build/scrutinizer --no-progress
           php build/scrutinizer/vendor/bin/ocular code-coverage:upload -vvv --no-interaction --format=php-clover build/coverage-clover.xml
+
+  tests-windows:
+    name: PHP ${{ matrix.php-versions }} on Windows
+    runs-on: ${{ matrix.operating-systems }}
+    strategy:
+      matrix:
+        php-versions: [ '7.3', '7.4', '8.0', '8.1' ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install saxonhe
+        run: choco install --ignore-checksums --no-progress --yes saxonhe
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: soap
+          coverage: none
+          tools: composer:v2
+        env:
+          fail-fast: true
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-
+      - name: Install SAT XML resources
+        shell: bash
+        run: |
+          git clone --depth 1 https://github.com/phpcfdi/resources-sat-xml resources-sat-xml-cloned
+          mv resources-sat-xml-cloned/resources build/resources
+          rm -r -f resources-sat-xml-cloned
+      - name: Install project dependencies
+        run: |
+          composer remove squizlabs/php_codesniffer friendsofphp/php-cs-fixer phpstan/phpstan --dev --no-interaction --no-progress --no-update
+          composer upgrade --no-interaction --no-progress --prefer-dist
+      - name: Tests (phpunit)
+        run: vendor/bin/phpunit --testdox --verbose
+        env:
+          saxonb-path: 'C:\ProgramData\chocolatey\bin\SaxonHE\bin\Transform.exe'
