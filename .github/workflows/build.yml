@@ -84,7 +84,6 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.1'
-          extensions: soap
           coverage: none
           tools: composer:v2, phpstan
         env:
@@ -125,7 +124,6 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
-          extensions: soap
           coverage: xdebug
           tools: composer:v2
         env:
@@ -172,7 +170,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
-          extensions: soap
+          extensions: soap, intl, xsl, fileinfo
           coverage: none
           tools: composer:v2
         env:
