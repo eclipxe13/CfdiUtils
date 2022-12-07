@@ -32,6 +32,23 @@
 - Merge methods from `\CfdiUtils\Nodes\NodeHasValueInterface` into `\CfdiUtils\Nodes\NodeInterface`.
 - Remove deprecated constant `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`.
 
+## Version 2.23.4 2022-12-07
+
+This is a maintenance release fo fix the continuous integration workflow and append pending development changes.
+
+- Fix test  `CertificadoTest::testConstructWithValidExample()` to allow quoted slashes on name.
+- Add *phpdoc* to the method `Certificate::getCertificateName()`.
+  The value can contain quoted slashes `\/` depending on the OpenSSL version.
+- Update script `tests/validate.php` to validate CFDI 3.3 or CFDI 4.0.
+- Add return types to some methods:
+    - `Status::comparableValue` and `Status::__toString`.
+    - `Discoverer::discoverInFile`.
+- Improve `TestCase::installCertificate()`: It doesn't depend on the certificate's file name to install correctly.
+- Update GitHub build workflow:
+    - Update GH Workflows: Remove deprecated `::set-output` & `::save-state`.
+    - Split **full build** actions to individual jobs.
+    - Split Windows and Linux testing.
+
 ## Version 2.23.3 2022-08-11
 
 Fix CFDI 4.0, must include `Comprobante/Impuestos/Traslados/Traslado@TipoFactor=Exento` when exists at least one

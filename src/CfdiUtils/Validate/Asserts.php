@@ -62,7 +62,7 @@ class Asserts implements \Countable, \IteratorAggregate
 
     /**
      * Get and or set the flag that alerts about stop flow
-     * Consider this flag as: "Something was found, you chould not continue"
+     * Consider this flag as: "Something was found, you must not continue"
      *
      * @param bool|null $newValue value of the flag, if null then will not change the flag
      * @return bool the previous value of the flag
@@ -96,7 +96,7 @@ class Asserts implements \Countable, \IteratorAggregate
      * @param Status $status
      * @return Assert|null
      */
-    public function getFirstStatus(Status $status)
+    public function getFirstStatus(Status $status): ?Assert
     {
         foreach ($this->asserts as $assert) {
             if ($status->equalsTo($assert->getStatus())) {
@@ -127,7 +127,7 @@ class Asserts implements \Countable, \IteratorAggregate
         throw new \RuntimeException("There is no assert with code $code");
     }
 
-    public function exists(string $code)
+    public function exists(string $code): bool
     {
         return array_key_exists($code, $this->asserts);
     }

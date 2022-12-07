@@ -13,17 +13,17 @@ final class CertificadoTest extends TestCase
         // openssl x509 -nameopt utf8,sep_multiline,lname -inform DER -noout -dates -serial -subject \
         //         -fingerprint -pubkey -in tests/assets/certs/EKU9003173C9.cer
         $expectedPublicKey = <<< EOD
------BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjdKXiqYHzi++YmEb9X6q
-vqFWLCz1VEfxom2JhinPSJxxcuZWBejk2I5yCL5pDnUaG2xpQlMTkV/7S7JfGGvY
-JumKO4R5zg0QSA7qdxiEhcwf/ekfSvzM2EDnLHDCKAQwEWsnJy78uxZTLzu/65VZ
-7EgEcWUTvCs/GZJLI9s6XmKY2SMmv9+vfqBqkJNXE0ZB6OfSbyeE325P94iMn+B/
-yJ4vZwXvXGFqNDJyqG+ww7f77HYubQPJjLQPedy2qTcgmSAwkUEJVBjYA6mPf/Be
-ZlL1YJHHM7CIBnb3/bzED0n944woio+4+rnMZdfhcCVpm74DZomlEf9KuJtq5u/J
-RQIDAQAB
------END PUBLIC KEY-----
+            -----BEGIN PUBLIC KEY-----
+            MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjdKXiqYHzi++YmEb9X6q
+            vqFWLCz1VEfxom2JhinPSJxxcuZWBejk2I5yCL5pDnUaG2xpQlMTkV/7S7JfGGvY
+            JumKO4R5zg0QSA7qdxiEhcwf/ekfSvzM2EDnLHDCKAQwEWsnJy78uxZTLzu/65VZ
+            7EgEcWUTvCs/GZJLI9s6XmKY2SMmv9+vfqBqkJNXE0ZB6OfSbyeE325P94iMn+B/
+            yJ4vZwXvXGFqNDJyqG+ww7f77HYubQPJjLQPedy2qTcgmSAwkUEJVBjYA6mPf/Be
+            ZlL1YJHHM7CIBnb3/bzED0n944woio+4+rnMZdfhcCVpm74DZomlEf9KuJtq5u/J
+            RQIDAQAB
+            -----END PUBLIC KEY-----
 
-EOD;
+            EOD;
         $cerfile = $this->utilAsset('certs/EKU9003173C9.cer');
 
         $certificado = new Certificado($cerfile);
@@ -37,7 +37,7 @@ EOD;
             '/serialNumber= / XIQB891116MGRMZR05',
             '/OU=Escuela Kemper Urgate',
         ]);
-        $this->assertSame($certificateName, $certificado->getCertificateName());
+        $this->assertSame($certificateName, str_replace('\/', '/', $certificado->getCertificateName()));
         $this->assertSame('ESCUELA KEMPER URGATE SA DE CV', $certificado->getName());
         $this->assertSame('EKU9003173C9', $certificado->getRfc());
         $this->assertSame('30001000000400002434', $certificado->getSerial());

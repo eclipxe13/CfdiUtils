@@ -2,6 +2,7 @@
 
 namespace CfdiUtilsTests;
 
+use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\Certificado\SatCertificateNumber;
 use CfdiUtils\XmlResolver\XmlResolver;
 
@@ -57,11 +58,13 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
     protected function installCertificate(string $cerfile): string
     {
-        $certificateNumber = substr(basename($cerfile), 0, 20);
+        $resolver = $this->newResolver();
+
+        $certificate = new Certificado('file://' . $cerfile);
+        $certificateNumber = $certificate->getSerial();
         $satCertificateNumber = new SatCertificateNumber($certificateNumber);
 
-        $cerRetriever = $this->newResolver()->newCerRetriever();
-
+        $cerRetriever = $resolver->newCerRetriever();
         $installationPath = $cerRetriever->buildPath($satCertificateNumber->remoteUrl());
         if (file_exists($installationPath)) {
             return $installationPath;

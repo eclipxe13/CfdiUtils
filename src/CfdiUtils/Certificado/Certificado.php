@@ -41,7 +41,7 @@ class Certificado
      *
      * @param string $filename Allows filename or certificate contents (PEM or DER)
      * @param OpenSSL|null $openSSL
-     * @throws \UnexpectedValueException when the certificate does not exists or is not readable
+     * @throws \UnexpectedValueException when the certificate does not exist or is not readable
      * @throws \UnexpectedValueException when cannot read the certificate or is empty
      * @throws \RuntimeException when cannot parse the certificate or is empty
      * @throws \RuntimeException when cannot get serialNumberHex or serialNumber from certificate
@@ -100,7 +100,7 @@ class Certificado
     {
         $openssl = $this->getOpenSSL();
         $decoded = @base64_decode($contents, true) ?: '';
-        if ('' !== $decoded && $contents === base64_encode($decoded)) { // is a one liner certificate
+        if ('' !== $decoded && $contents === base64_encode($decoded)) { // is a one-liner certificate
             $doubleEncoded = $openssl->readPemContents($decoded)->certificate();
             if ('' !== $doubleEncoded) {
                 return $doubleEncoded;
@@ -129,9 +129,9 @@ class Certificado
      *
      * @return bool
      *
-     * @throws \UnexpectedValueException if the file does not exists or is not readable
+     * @throws \UnexpectedValueException if the file does not exist or is not readable
      * @throws \UnexpectedValueException if the file is not a PEM private key
-     * @throws \RuntimeException if cannot open the private key file
+     * @throws \RuntimeException if the private key file cannot be opened
      */
     public function belongsTo(string $pemKeyFile, string $passPhrase = ''): bool
     {
@@ -165,6 +165,12 @@ class Certificado
         return $this->rfc;
     }
 
+    /**
+     * Certificate name value as returned by openssl.
+     * In come cases (openssl version 3) it contains quoted slashes (\/)
+     *
+     * @return string
+     */
     public function getCertificateName(): string
     {
         return $this->certificateName;
@@ -180,7 +186,7 @@ class Certificado
     }
 
     /**
-     * Certificate serial number as ASCII, this data is in the format required by CFDI
+     * Return the certificate serial number ASCII formatted, this data is in the format required by CFDI
      * @return string
      */
     public function getSerial(): string
@@ -221,7 +227,7 @@ class Certificado
     }
 
     /**
-     * Place where the certificate was when loaded, it might not exists on the file system
+     * Place where the certificate was when loaded, it might not exist on the file system
      * @return string
      */
     public function getFilename(): string
@@ -256,7 +262,7 @@ class Certificado
      *
      * @return bool
      *
-     * @throws \RuntimeException if cannot open the public key from certificate
+     * @throws \RuntimeException if the public key on the certificate cannot be opened
      * @throws \RuntimeException if openssl report an error
      */
     public function verify(string $data, string $signature, int $algorithm = OPENSSL_ALGO_SHA256): bool
@@ -281,7 +287,7 @@ class Certificado
 
     /**
      * @param string $filename
-     * @throws \UnexpectedValueException when the file does not exists or is not readable
+     * @throws \UnexpectedValueException when the file does not exist or is not readable
      * @return void
      */
     protected function assertFileExists(string $filename)
@@ -289,7 +295,7 @@ class Certificado
         $exists = false;
         $previous = null;
         try {
-            if (boolval(preg_match('/[[:cntrl:]]/', $filename))) {
+            if (preg_match('/[[:cntrl:]]/', $filename)) {
                 $filename = '(invalid file name)';
                 throw new \RuntimeException('The file name contains control characters, it might be a DER content');
             }

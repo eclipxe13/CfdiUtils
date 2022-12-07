@@ -202,23 +202,23 @@ final class CleanerTest extends TestCase
     public function testCollapseComprobanteComplemento()
     {
         $source = <<<'EOT'
-<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version="3.3">
-    <cfdi:Complemento><a/><b/></cfdi:Complemento>
-    <cfdi:Complemento><c/><d/></cfdi:Complemento>
-    <cfdi:Complemento><cfdi:Complemento info="malformed"/></cfdi:Complemento>
-    <cfdi:Complemento><e/><f/></cfdi:Complemento>
-</cfdi:Comprobante>
-EOT;
+            <cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version="3.3">
+                <cfdi:Complemento><a/><b/></cfdi:Complemento>
+                <cfdi:Complemento><c/><d/></cfdi:Complemento>
+                <cfdi:Complemento><cfdi:Complemento info="malformed"/></cfdi:Complemento>
+                <cfdi:Complemento><e/><f/></cfdi:Complemento>
+            </cfdi:Comprobante>
+            EOT;
         $expected = <<<'EOT'
-<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version="3.3">
-    <cfdi:Complemento>
-        <a/><b/>
-        <c/><d/>
-        <cfdi:Complemento info="malformed"/>
-        <e/><f/>
-    </cfdi:Complemento>
-</cfdi:Comprobante>
-EOT;
+            <cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version="3.3">
+                <cfdi:Complemento>
+                    <a/><b/>
+                    <c/><d/>
+                    <cfdi:Complemento info="malformed"/>
+                    <e/><f/>
+                </cfdi:Complemento>
+            </cfdi:Comprobante>
+            EOT;
         $cleaner = new Cleaner($source);
         $cleaner->collapseComprobanteComplemento();
         $this->assertXmlStringEqualsXmlString($expected, $cleaner->retrieveXml());

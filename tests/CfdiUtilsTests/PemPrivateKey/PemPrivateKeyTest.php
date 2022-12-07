@@ -130,12 +130,12 @@ final class PemPrivateKeyTest extends TestCase
 
         $content = 'lorem ipsum';
         $expectedSign = <<< EOC
-CzjYgB2dOp4P76kYBSGymRJdQo9hjErCF+5mvoiVWVnvcV/eg9IkW+1DnOem5slYzU9+lzOo+I79wcOe
-0gRtsmybGnViXxAQ8rr7YciFCoyqtKhxGjdgBpvO2NMT84n6U8ChYb8v7O/s4Gi5yTPj9D113rNsQGb8
-5nXerA+N6G6axy0F/IcUMZ6VPkDDjATcwjEj5A3q7qORG/l2cAKaV4nGKjn8V82bZ40ys7PGvFfZfirZ
-BeKg1QPUqf2fpgVI6wf/IM4YRD6ZbTgtFiYH30/dlzowZTAR1NMHJXa4uxCdTY7mQVekTw0FNDxrAZr/
-5lLezLMMyEezIz+EQKgAvg==
-EOC;
+            CzjYgB2dOp4P76kYBSGymRJdQo9hjErCF+5mvoiVWVnvcV/eg9IkW+1DnOem5slYzU9+lzOo+I79wcOe
+            0gRtsmybGnViXxAQ8rr7YciFCoyqtKhxGjdgBpvO2NMT84n6U8ChYb8v7O/s4Gi5yTPj9D113rNsQGb8
+            5nXerA+N6G6axy0F/IcUMZ6VPkDDjATcwjEj5A3q7qORG/l2cAKaV4nGKjn8V82bZ40ys7PGvFfZfirZ
+            BeKg1QPUqf2fpgVI6wf/IM4YRD6ZbTgtFiYH30/dlzowZTAR1NMHJXa4uxCdTY7mQVekTw0FNDxrAZr/
+            5lLezLMMyEezIz+EQKgAvg==
+            EOC;
         $sign = chunk_split(base64_encode($privateKey->sign($content, OPENSSL_ALGO_SHA256)), 80, "\n");
         $this->assertEquals($expectedSign, rtrim($sign));
     }

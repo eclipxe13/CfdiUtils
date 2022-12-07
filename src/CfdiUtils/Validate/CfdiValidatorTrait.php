@@ -33,11 +33,11 @@ trait CfdiValidatorTrait
     /**
      * Validate and return the asserts from the validation process.
      * This method can use a xml string and a NodeInterface,
-     * is your responsability that the node is the representation of the content.
+     * is your responsibility that the node is the representation of the content.
      *
      * @param string $xmlString
      * @param NodeInterface $node
-     * @return Asserts|\CfdiUtils\Validate\Assert[]
+     * @return Asserts|Assert[]
      */
     public function validate(string $xmlString, NodeInterface $node): Asserts
     {
@@ -63,7 +63,7 @@ trait CfdiValidatorTrait
      * Validate and return the asserts from the validation process based on a xml string
      *
      * @param string $xmlString
-     * @return Asserts|\CfdiUtils\Validate\Assert[]
+     * @return Asserts|Assert[]
      */
     public function validateXml(string $xmlString): Asserts
     {
@@ -74,7 +74,7 @@ trait CfdiValidatorTrait
      * Validate and return the asserts from the validation process based on a node interface object
      *
      * @param NodeInterface $node
-     * @return Asserts|\CfdiUtils\Validate\Assert[]
+     * @return Asserts|Assert[]
      */
     public function validateNode(NodeInterface $node): Asserts
     {
