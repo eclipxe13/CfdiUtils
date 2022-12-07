@@ -40,7 +40,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
-          extensions: libxml, dom, xsl, simplexml, mbstring, openssl, soap, iconv, json, intl, fileinfo
+          extensions: soap
           coverage: none
           tools: composer:v2
         env:
@@ -101,7 +101,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: "8.0"
-          extensions: libxml, dom, xsl, simplexml, mbstring, openssl, soap, iconv, json, intl, fileinfo
+          extensions: soap
           coverage: xdebug
           tools: composer:v2, cs2pr
         env:
