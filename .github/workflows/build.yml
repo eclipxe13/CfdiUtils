@@ -104,7 +104,7 @@ jobs:
         run: phpstan analyse --no-progress --verbose src/ tests/
 
   tests-linux:
-    name: PHP ${{ matrix.php-versions }} on Linux
+    name: Test PHP ${{ matrix.php-versions }} on Linux
     runs-on: "ubuntu-latest"
     strategy:
       matrix:
@@ -156,7 +156,7 @@ jobs:
           php build/scrutinizer/vendor/bin/ocular code-coverage:upload -vvv --no-interaction --format=php-clover build/coverage-clover.xml
 
   tests-windows:
-    name: PHP ${{ matrix.php-versions }} on Windows
+    name: Tests PHP ${{ matrix.php-versions }} on Windows
     runs-on: "windows-latest"
     strategy:
       matrix:
@@ -177,6 +177,7 @@ jobs:
           fail-fast: true
       - name: Get composer cache directory
         id: composer-cache
+        shell: bash
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Cache dependencies
         uses: actions/cache@v2
