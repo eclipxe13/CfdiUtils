@@ -131,7 +131,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-versions }}
           extensions: soap
-          coverage: none
+          coverage: xdebug
           tools: composer:v2
         env:
           fail-fast: true
@@ -156,55 +156,14 @@ jobs:
           composer upgrade --no-interaction --no-progress --prefer-dist
       - name: Tests (phpunit) on linux
         if: matrix.operating-systems == 'ubuntu-latest'
-        run: vendor/bin/phpunit --testdox --verbose
+        run: vendor/bin/phpunit --testdox --verbose --coverage-clover=build/coverage-clover.xml
       - name: Tests (phpunit) on windows
         if: matrix.operating-systems == 'windows-latest'
         run: vendor/bin/phpunit --testdox --verbose
         env:
           saxonb-path: 'C:\ProgramData\chocolatey\bin\SaxonHE\bin\Transform.exe'
-
-  code-coverage:
-    name: Code coverage
-    runs-on: "ubuntu-latest"
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Install dependencies running on nektos/act
-        if: github.actor == 'nektos/act'
-        run: |
-          sudo apt-get update -y -qq
-          sudo apt-get install -y -qq zstd wget
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: "8.0"
-          extensions: soap
-          coverage: xdebug
-          tools: composer:v2, cs2pr
-        env:
-          fail-fast: true
-      - name: Install libsaxonb-java
-        run: |
-          sudo apt-get update -y -qq
-          sudo apt-get install -y -qq default-jre libsaxonb-java
-      - name: Get composer cache directory
-        id: composer-cache
-        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
-          restore-keys: ${{ runner.os }}-composer-
-      - name: Install SAT XML resources
-        run: bash tests/resource-sat-xml-download build/
-      - name: Install project dependencies
-        run: composer upgrade --no-interaction --no-progress --prefer-dist
-      - name: Create code coverage (phpunit)
-        run: vendor/bin/phpunit --testdox --verbose --coverage-clover=build/coverage-clover.xml
       - name: Upload code coverage to scrutinizer
+        if: matrix.operating-systems == 'ubuntu-latest'
         run: |
           mkdir -p build/scrutinizer
           composer require scrutinizer/ocular:dev-master --working-dir=build/scrutinizer --no-progress
