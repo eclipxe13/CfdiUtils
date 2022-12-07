@@ -107,8 +107,7 @@ jobs:
         env:
           fail-fast: true
 
-      - name: Install libsaxonb-java on linux
-        if: matrix.operating-systems == 'ubuntu-latest'
+      - name: Install libsaxonb-java
         run: |
           sudo apt-get update -y -qq
           sudo apt-get install -y -qq default-jre libsaxonb-java
