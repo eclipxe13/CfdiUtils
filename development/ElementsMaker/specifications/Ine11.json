@@ -1,0 +1,11 @@
+{
+    "php-namespace": "CfdiUtils\\Elements\\Ine11",
+    "prefix": "ine",
+    "xml-namespace": "http://www.sat.gob.mx/ine",
+    "xml-schemalocation": "http://www.sat.gob.mx/sitio_internet/cfd/ine/ine11.xsd",
+    "version-attribute": "Version",
+    "version-value": "1.1",
+    "root-element": "Ine",
+    "structure": {
+    }
+}
