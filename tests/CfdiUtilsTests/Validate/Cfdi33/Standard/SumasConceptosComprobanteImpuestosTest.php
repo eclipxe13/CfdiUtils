@@ -145,8 +145,15 @@ final class SumasConceptosComprobanteImpuestosTest extends Validate33TestCase
                 'Importe' => '50.00',
             ]));
         }
+
         $this->runValidate();
-        $this->assertStatusEqualsCode(Status::error(), 'SUMAS07');
+        $assert = $this->getAssertByCodeOrFail('SUMAS07');
+
+        $this->assertTrue($assert->getStatus()->isError());
+        $this->assertEquals(
+            'No encontrados: 1 impuestos. Impuesto: XXX, TipoFactor: 0.050000, TasaOCuota: tasa, Importe: 50.00.',
+            $assert->getExplanation()
+        );
     }
 
     public function testValidateUnsetTotalImpuestosRetenidos()
