@@ -24,7 +24,7 @@ return (new PhpCsFixer\Config())
         'binary_operator_spaces' => true,
         'phpdoc_scalar' => true,
         'self_accessor' => true,
-        'no_trailing_comma_in_singleline_array' => true,
+        'no_trailing_comma_in_singleline' => true,
         'single_quote' => true,
         'no_singleline_whitespace_before_semicolons' => true,
         'no_unused_imports' => true,
