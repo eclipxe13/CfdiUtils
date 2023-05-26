@@ -32,6 +32,25 @@
 - Merge methods from `\CfdiUtils\Nodes\NodeHasValueInterface` into `\CfdiUtils\Nodes\NodeInterface`.
 - Remove deprecated constant `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`.
 
+## Version 2.23.5 2023-05-25
+
+- Fix `SELLO04` false positives on CFDI 4.0.
+    - If name is empty then status is *error* since it is mandatory.
+    - If *Persona Moral* then status is *none* since it is not possible to compare names.
+    - If *Persona Física* then status is *ok* when name is **identical** to certificate name.
+- Improve `SUMAS07` explanation.
+- Fix PHPStan false positives.
+- Update license year.
+- Update `php-cs-fixer` configuration file.
+- Fix `genkgo/xsl` dependency version.
+- GitHub Workflow:
+    - Add PHP 8.2 to test matrix.
+    - Jobs run in PHP 8.2.
+    - Remove development tools before install project dependencies.
+- Fix build badge.
+- When testing using Genkgo, ignore deprecation errors.
+- Replace `utf8_decode` calls with `mb_convert_encoding`.
+
 ## Version 2.23.4 2022-12-07
 
 This is a maintenance release to fix the continuous integration workflow and append pending development changes.
