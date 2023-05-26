@@ -99,7 +99,9 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
           restore-keys: ${{ runner.os }}-composer-
       - name: Install project dependencies
-        run: composer upgrade --no-interaction --no-progress --prefer-dist
+        run: |
+          composer remove squizlabs/php_codesniffer friendsofphp/php-cs-fixer phpstan/phpstan --dev --no-interaction --no-progress --no-update
+          composer upgrade --no-interaction --no-progress --prefer-dist
       - name: PHPStan
         run: phpstan analyse --no-progress --verbose src/ tests/
 
