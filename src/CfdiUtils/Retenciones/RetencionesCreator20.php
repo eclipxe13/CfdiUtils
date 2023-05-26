@@ -38,6 +38,7 @@ class RetencionesCreator20 implements
 
     public function retenciones(): Retenciones
     {
+        /** @phpstan-var Retenciones PHPStan 1.10.13 identify retenciones as AbstractElement */
         return $this->retenciones;
     }
 

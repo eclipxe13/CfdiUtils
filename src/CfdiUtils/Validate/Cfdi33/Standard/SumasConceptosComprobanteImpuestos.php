@@ -218,20 +218,34 @@ class SumasConceptosComprobanteImpuestos extends AbstractDiscoverableVersion33
             $thisValueMatch = $this->validateImpuestoImporte($type, $code, $expectedItem, $extractedItem);
             $allValuesMatch = $allValuesMatch && $thisValueMatch;
         }
-        $extractedWithoutMatch = array_reduce($extractedItems, function (int $carry, array $item) {
-            return $carry + (($item['Encontrado']) ? 0 : 1);
-        }, 0);
+        $extractedWithoutMatch = array_filter($extractedItems, function (array $item): bool {
+            return ! $item['Encontrado'];
+        });
 
         $this->asserts->putStatus(sprintf('SUMAS%02d', $assertOffset), Status::when($allExpectedAreFound));
         $this->asserts->putStatus(sprintf('SUMAS%02d', $assertOffset + 1), Status::when($allValuesMatch));
         $this->asserts->putStatus(
-            sprintf('SUMAS%02d', $assertOffset + 2),
-            Status::when(0 === $extractedWithoutMatch),
-            sprintf('No encontrados: %d', $extractedWithoutMatch)
+            sprintf('SUMAS%02d', $assertOffset + 2), // SUMAS07
+            Status::when([] === $extractedWithoutMatch),
+            sprintf(
+                'No encontrados: %d impuestos. %s.',
+                count($extractedWithoutMatch),
+                implode('; ', array_map(
+                    function (array $values): string {
+                        unset($values['Encontrado']);
+                        $text = [];
+                        foreach ($values as $key => $value) {
+                            $text[] = sprintf('%s: %s', $key, $value);
+                        }
+                        return implode(', ', $text);
+                    },
+                    $extractedWithoutMatch,
+                ))
+            )
         );
     }
 
-    private function validateImpuestoImporte(string $type, string $code, array $expected, array $extracted)
+    private function validateImpuestoImporte(string $type, string $code, array $expected, array $extracted): bool
     {
         $label = sprintf('Grupo %s Impuesto %s', $type, $expected['Impuesto']);
         if (array_key_exists('TipoFactor', $expected)) {

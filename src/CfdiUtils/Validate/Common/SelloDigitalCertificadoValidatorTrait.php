@@ -72,7 +72,10 @@ trait SelloDigitalCertificadoValidatorTrait
             // validate emisor rfc
             $this->validateRfc($comprobante->searchAttribute('cfdi:Emisor', 'Rfc'));
             // validate emisor nombre
-            $this->validateNombre($comprobante->searchAttribute('cfdi:Emisor', 'Nombre'));
+            $this->validateNombre(
+                $comprobante->searchAttribute('cfdi:Emisor', 'Nombre'),
+                $comprobante->searchAttribute('cfdi:Emisor', 'Rfc')
+            );
         }
         $this->validateFecha($comprobante['Fecha']);
 
@@ -106,17 +109,8 @@ trait SelloDigitalCertificadoValidatorTrait
         );
     }
 
-    private function validateNombre(string $emisorNombre)
-    {
-        if ('' === $emisorNombre) {
-            return;
-        }
-        $this->asserts->putStatus(
-            'SELLO04',
-            Status::when($this->compareNames($this->certificado->getName(), $emisorNombre)),
-            sprintf('Nombre certificado: %s, Nombre comprobante: %s', $this->certificado->getName(), $emisorNombre)
-        );
-    }
+    /** @return void */
+    abstract protected function validateNombre(string $emisorNombre, string $rfc);
 
     private function validateFecha(string $fechaSource)
     {

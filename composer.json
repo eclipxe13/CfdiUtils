@@ -14,7 +14,7 @@
         {
             "name": "Carlos C Soto",
             "email": "eclipxe13@gmail.com",
-            "homepage": "http://eclipxe.com.mx/"
+            "homepage": "https://eclipxe.com.mx/"
         }
     ],
     "config": {
@@ -42,7 +42,7 @@
         "genkgo/xsl": "Allows usage of Genkgo/Xsl transformations"
     },
     "require-dev": {
-        "genkgo/xsl": "^1.0.8|^1.1.0",
+        "genkgo/xsl": "^1.0.8",
         "phpunit/phpunit": "^9.5",
         "squizlabs/php_codesniffer": "^3.6",
         "friendsofphp/php-cs-fixer": "^3.0",

@@ -7,6 +7,7 @@ use CfdiUtils\Validate\Common\SelloDigitalCertificadoValidatorTrait;
 use CfdiUtils\Validate\Contracts\RequireXmlResolverInterface;
 use CfdiUtils\Validate\Contracts\RequireXmlStringInterface;
 use CfdiUtils\Validate\Contracts\RequireXsltBuilderInterface;
+use CfdiUtils\Validate\Status;
 
 /**
  * SelloDigitalCertificado
@@ -27,4 +28,25 @@ class SelloDigitalCertificado extends AbstractDiscoverableVersion40 implements
     RequireXsltBuilderInterface
 {
     use SelloDigitalCertificadoValidatorTrait;
+
+    protected function validateNombre(string $emisorNombre, string $rfc)
+    {
+        if ('' === $emisorNombre) {
+            $this->asserts->putStatus('SELLO04', Status::error(), 'Nombre del emisor vacío');
+            return;
+        }
+
+        $isMoralPerson = 12 === mb_strlen($rfc);
+        if ($isMoralPerson) {
+            $explanation = 'No es posible realizar la validación en Personas Morales';
+            $this->asserts->putStatus('SELLO04', Status::none(), $explanation);
+            return;
+        }
+
+        $this->asserts->putStatus(
+            'SELLO04',
+            Status::when($this->certificado->getName() === $emisorNombre),
+            sprintf('Nombre certificado: %s, Nombre comprobante: %s.', $this->certificado->getName(), $emisorNombre)
+        );
+    }
 }

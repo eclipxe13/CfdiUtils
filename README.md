@@ -111,7 +111,7 @@ and licensed for use under the MIT License (MIT). Please see [LICENSE][] for mor
 [badge-discord]: https://img.shields.io/discord/459860554090283019?logo=discord&style=flat-square
 [badge-release]: https://img.shields.io/github/release/eclipxe13/CfdiUtils?logo=git&style=flat-square
 [badge-license]: https://img.shields.io/github/license/eclipxe13/CfdiUtils?logo=open-source-initiative&style=flat-square
-[badge-build]: https://img.shields.io/github/workflow/status/eclipxe13/CfdiUtils/build/master?logo=github-actions&style=flat-square
+[badge-build]: https://img.shields.io/github/actions/workflow/status/eclipxe13/CfdiUtils/build.yml?branch=master&logo=github-actions&style=flat-square
 [badge-quality]: https://img.shields.io/scrutinizer/g/eclipxe13/CfdiUtils/master?logo=scrutinizer-ci&style=flat-square
 [badge-coverage]: https://img.shields.io/scrutinizer/coverage/g/eclipxe13/CfdiUtils/master?logo=scrutinizer-ci&style=flat-square
 [badge-downloads]: https://img.shields.io/packagist/dt/eclipxe/CfdiUtils?logo=composer&style=flat-square
