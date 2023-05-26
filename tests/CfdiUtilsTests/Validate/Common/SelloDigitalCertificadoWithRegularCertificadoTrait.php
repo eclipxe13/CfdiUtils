@@ -53,19 +53,6 @@ trait SelloDigitalCertificadoWithRegularCertificadoTrait
         $this->assertStatusEqualsCode(Status::error(), 'SELLO04');
     }
 
-    public function testValidateWithEqualButNotIdenticalName()
-    {
-        //    change case, and punctuation to original name
-        //                   ESCUELA KEMPER URGATE SA DE CV
-        $this->setUpCertificado([], [
-            'Nombre' => 'ESCUELA - Kemper Urgate, S.A. DE C.V.',
-        ]);
-
-        $this->runValidate();
-
-        $this->assertStatusEqualsCode(Status::ok(), 'SELLO04');
-    }
-
     public function testValidateBadLowerFecha()
     {
         $validLowerDate = strtotime('2019-06-17T19:44:13+00:00');
@@ -124,6 +111,10 @@ trait SelloDigitalCertificadoWithRegularCertificadoTrait
         $validator = new class() {
             use SelloDigitalCertificadoValidatorTrait;
 
+            protected function validateNombre(string $emisorNombre, string $rfc)
+            {
+            }
+
             public function testCompareNames(string $first, string $second): bool
             {
                 return $this->compareNames($first, $second);
@@ -146,6 +137,10 @@ trait SelloDigitalCertificadoWithRegularCertificadoTrait
     {
         $validator = new class() {
             use SelloDigitalCertificadoValidatorTrait;
+
+            protected function validateNombre(string $emisorNombre, string $rfc)
+            {
+            }
 
             public function testCompareNames(string $first, string $second): bool
             {

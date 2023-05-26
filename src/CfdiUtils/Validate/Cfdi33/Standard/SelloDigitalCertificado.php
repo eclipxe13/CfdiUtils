@@ -7,6 +7,7 @@ use CfdiUtils\Validate\Common\SelloDigitalCertificadoValidatorTrait;
 use CfdiUtils\Validate\Contracts\RequireXmlResolverInterface;
 use CfdiUtils\Validate\Contracts\RequireXmlStringInterface;
 use CfdiUtils\Validate\Contracts\RequireXsltBuilderInterface;
+use CfdiUtils\Validate\Status;
 
 /**
  * SelloDigitalCertificado
@@ -27,4 +28,16 @@ class SelloDigitalCertificado extends AbstractDiscoverableVersion33 implements
     RequireXsltBuilderInterface
 {
     use SelloDigitalCertificadoValidatorTrait;
+
+    protected function validateNombre(string $emisorNombre, string $rfc)
+    {
+        if ('' === $emisorNombre) {
+            return; // name is optional
+        }
+        $this->asserts->putStatus(
+            'SELLO04',
+            Status::when($this->compareNames($this->certificado->getName(), $emisorNombre)),
+            sprintf('Nombre certificado: %s, Nombre comprobante: %s.', $this->certificado->getName(), $emisorNombre)
+        );
+    }
 }
