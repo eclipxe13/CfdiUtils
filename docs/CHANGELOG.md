@@ -43,6 +43,7 @@ and (if not found) `Pagos\Pago[]@Monto`. This feature is also documented.
 
 Changes on development environment and documentation:
 
+- Remove GitHub code language detection on `tests/assets/`.
 - Update `markdownlint-cli` tool.
 - Fix issues found by `markdownlint-cli`.
 
