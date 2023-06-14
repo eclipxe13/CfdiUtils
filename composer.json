@@ -39,9 +39,11 @@
         "eclipxe/xmlschemavalidator": "^3.0.2"
     },
     "suggest": {
+        "ext-bcmath": "Allows calculate totals and taxes on Pagos 2.0",
         "genkgo/xsl": "Allows usage of Genkgo/Xsl transformations"
     },
     "require-dev": {
+        "ext-bcmath": "*",
         "genkgo/xsl": "^1.0.8",
         "phpunit/phpunit": "^9.5",
         "squizlabs/php_codesniffer": "^3.6",

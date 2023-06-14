@@ -79,6 +79,7 @@ Solo hay métodos específicos para CFDI 3.3 y CFDI 4.0.
 ## Utilerías
 
 - [OpenSSL](utilerias/openssl.md)
+- [Cálculo de CFDI con complemento de pagos 2.0](utilerias/calculo-pagos20.md)
 
 
 ## Contribuciones

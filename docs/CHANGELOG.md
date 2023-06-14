@@ -32,7 +32,12 @@
 - Merge methods from `\CfdiUtils\Nodes\NodeHasValueInterface` into `\CfdiUtils\Nodes\NodeInterface`.
 - Remove deprecated constant `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`.
 
-## Version 2.23.6 2023-06-14
+## Version 2.24.0 2023-06-14
+
+- Add a calculator and writer for complement *Pagos 2.0*.
+
+This tool takes a *Pre-CFDI* elements to write `Pagos\Totales`, `Pagos\Pago[]\ImpuestosP`
+and (if not found) `Pagos\Pago[]@Monto`. This feature is also documented.
 
 - Add element helpers for complement *Servicios parciales de construcción 1.0*.
 

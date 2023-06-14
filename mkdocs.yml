@@ -40,6 +40,7 @@ nav:
     - componentes/certificado.md
   - "Utilerías":
     - utilerias/openssl.md
+    - utilerias/calculo-pagos20.md
   - "Contribuir":
     - contribuir/guia-desarrollador.md
     - contribuir/guia-documentador.md
