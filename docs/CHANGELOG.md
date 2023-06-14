@@ -32,6 +32,11 @@
 - Merge methods from `\CfdiUtils\Nodes\NodeHasValueInterface` into `\CfdiUtils\Nodes\NodeInterface`.
 - Remove deprecated constant `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`.
 
+## Maintenance 2023-06-14
+
+- Update `markdownlint-cli` tool.
+- Fix issues found by `markdownlint-cli`.
+
 ## Version 2.23.5 2023-05-25
 
 - Fix `SELLO04` false positives on CFDI 4.0.
