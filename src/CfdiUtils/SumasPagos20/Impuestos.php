@@ -17,6 +17,14 @@ final class Impuestos implements JsonSerializable
         }
     }
 
+    /** @param array<string, Impuesto> $impuestos */
+    private static function withImpuestos(array $impuestos): self
+    {
+        $object = new self();
+        $object->impuestos = $impuestos;
+        return $object;
+    }
+
     public function find(string $tipo, string $impuesto, string $tipoFactor = '', string $tasaCuota = ''): ?Impuesto
     {
         $key = Impuesto::buildKey($tipo, $impuesto, $tipoFactor, $tasaCuota);
@@ -41,32 +49,21 @@ final class Impuestos implements JsonSerializable
         return $impuesto;
     }
 
-    public function getTraslado(string $impuesto, string $tipoFactor, string $tasaCuota): Impuesto
-    {
-        return $this->get('Traslado', $impuesto, $tipoFactor, $tasaCuota);
-    }
-
-    /** @return Impuesto[] */
-    public function getRetenciones(): array
-    {
-        return $this->filterByTipo('Retencion');
-    }
-
-    /** @return Impuesto[] */
+    /** @return list<Impuesto> */
     public function getTraslados(): array
     {
         return $this->filterByTipo('Traslado');
     }
 
-    /** @return Impuesto[] */
-    private function filterByTipo(string $tipo): array
+    public function getTraslado(string $impuesto, string $tipoFactor, string $tasaCuota): Impuesto
     {
-        return array_values(array_filter(
-            $this->impuestos,
-            function (Impuesto $impuesto) use ($tipo): bool {
-                return $impuesto->getTipo() === $tipo;
-            }
-        ));
+        return $this->get('Traslado', $impuesto, $tipoFactor, $tasaCuota);
+    }
+
+    /** @return list<Impuesto> */
+    public function getRetenciones(): array
+    {
+        return $this->filterByTipo('Retencion');
     }
 
     public function getRetencion(string $impuesto): Impuesto
@@ -80,7 +77,7 @@ final class Impuestos implements JsonSerializable
         foreach ($other->impuestos as $key => $impuesto) {
             $impuestos[$key] = (isset($impuestos[$key])) ? $impuesto->add($impuestos[$key]) : $impuesto;
         }
-        return new self(...array_values($impuestos));
+        return self::withImpuestos($impuestos);
     }
 
     public function truncate(int $decimals): self
@@ -89,7 +86,7 @@ final class Impuestos implements JsonSerializable
         foreach ($impuestos as $key => $impuesto) {
             $impuestos[$key] = $impuesto->truncate($decimals);
         }
-        return new self(...array_values($impuestos));
+        return self::withImpuestos($impuestos);
     }
 
     public function multiply(Decimal $value): self
@@ -98,7 +95,7 @@ final class Impuestos implements JsonSerializable
         foreach ($impuestos as $key => $impuesto) {
             $impuestos[$key] = $impuesto->multiply($value);
         }
-        return new self(...array_values($impuestos));
+        return self::withImpuestos($impuestos);
     }
 
     public function round(int $decimals): self
@@ -107,12 +104,23 @@ final class Impuestos implements JsonSerializable
         foreach ($impuestos as $key => $impuesto) {
             $impuestos[$key] = $impuesto->round($decimals);
         }
-        return new self(...array_values($impuestos));
+        return self::withImpuestos($impuestos);
     }
 
     /** @return array<string, Impuesto> */
     public function jsonSerialize(): array
     {
         return $this->impuestos;
+    }
+
+    /** @return list<Impuesto> */
+    private function filterByTipo(string $tipo): array
+    {
+        return array_values(array_filter(
+            $this->impuestos,
+            function (Impuesto $impuesto) use ($tipo): bool {
+                return $impuesto->getTipo() === $tipo;
+            }
+        ));
     }
 }
