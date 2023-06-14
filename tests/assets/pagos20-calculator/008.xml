@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante xmlns:pago20="http://www.sat.gob.mx/Pagos20" xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cfdi="http://www.sat.gob.mx/cfd/4" xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd http://www.sat.gob.mx/Pagos20 http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos20.xsd http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/sitio_internet/cfd/TimbreFiscalDigital/TimbreFiscalDigitalv11.xsd" Version="4.0" Fecha="2023-02-17T13:24:35" NoCertificado="" SubTotal="0" Moneda="XXX" Total="0" TipoDeComprobante="P" Exportacion="01" LugarExpedicion="32500">
+  <cfdi:Emisor Rfc="" Nombre="TRANSPORTES" RegimenFiscal="626"/>
+  <cfdi:Receptor Rfc="" Nombre="FLETES" DomicilioFiscalReceptor="32530" RegimenFiscalReceptor="624" UsoCFDI="CP01"/>
+  <cfdi:Conceptos>
+    <cfdi:Concepto ClaveProdServ="84111506" Cantidad="1" ClaveUnidad="ACT" Descripcion="Pago" ValorUnitario="0" Importe="0" ObjetoImp="01"/>
+  </cfdi:Conceptos>
+  <cfdi:Complemento>
+    <pago20:Pagos xmlns:pago20="http://www.sat.gob.mx/Pagos20" Version="2.0">
+      <pago20:Totales TotalRetencionesIVA="6006.00" TotalTrasladosBaseIVA16="150150.00" TotalTrasladosImpuestoIVA16="24024.00" MontoTotalPagos="168168.00"/>
+      <pago20:Pago FechaPago="2023-02-17T13:19:11" FormaDePagoP="03" MonedaP="MXN" TipoCambioP="1" Monto="168168.00" NumOperacion="1328" RfcEmisorCtaOrd="" CtaOrdenante="" RfcEmisorCtaBen="" CtaBeneficiario="" NomBancoOrdExt="BANCO MERCANTIL DEL NORTE S.A.">
+        <pago20:DoctoRelacionado MonedaDR="USD" EquivalenciaDR="0.0512820513" NumParcialidad="1" ImpSaldoAnt="2016.00" ImpPagado="2016.00" ImpSaldoInsoluto="0.00" ObjetoImpDR="02">
+          <pago20:ImpuestosDR>
+            <pago20:RetencionesDR>
+              <pago20:RetencionDR BaseDR="1800.00" ImpuestoDR="002" TipoFactorDR="Tasa" TasaOCuotaDR="0.040000" ImporteDR="72.00"/>
+            </pago20:RetencionesDR>
+            <pago20:TrasladosDR>
+              <pago20:TrasladoDR BaseDR="1800.00" ImpuestoDR="002" TipoFactorDR="Tasa" TasaOCuotaDR="0.160000" ImporteDR="288.00"/>
+            </pago20:TrasladosDR>
+          </pago20:ImpuestosDR>
+        </pago20:DoctoRelacionado>
+        <pago20:DoctoRelacionado MonedaDR="USD" EquivalenciaDR="0.0512820513" NumParcialidad="1" ImpSaldoAnt="1456.00" ImpPagado="1456.00" ImpSaldoInsoluto="0.00" ObjetoImpDR="02">
+          <pago20:ImpuestosDR>
+            <pago20:RetencionesDR>
+              <pago20:RetencionDR BaseDR="1300.00" ImpuestoDR="002" TipoFactorDR="Tasa" TasaOCuotaDR="0.040000" ImporteDR="52.00"/>
+            </pago20:RetencionesDR>
+            <pago20:TrasladosDR>
+              <pago20:TrasladoDR BaseDR="1300.00" ImpuestoDR="002" TipoFactorDR="Tasa" TasaOCuotaDR="0.160000" ImporteDR="208.00"/>
+            </pago20:TrasladosDR>
+          </pago20:ImpuestosDR>
+        </pago20:DoctoRelacionado>
+        <pago20:DoctoRelacionado MonedaDR="USD" EquivalenciaDR="0.0512820513" NumParcialidad="1" ImpSaldoAnt="2576.00" ImpPagado="2576.00" ImpSaldoInsoluto="0.00" ObjetoImpDR="02">
+          <pago20:ImpuestosDR>
+            <pago20:RetencionesDR>
+              <pago20:RetencionDR BaseDR="2300.00" ImpuestoDR="002" TipoFactorDR="Tasa" TasaOCuotaDR="0.040000" ImporteDR="92.00"/>
+            </pago20:RetencionesDR>
+            <pago20:TrasladosDR>
+              <pago20:TrasladoDR BaseDR="2300.00" ImpuestoDR="002" TipoFactorDR="Tasa" TasaOCuotaDR="0.160000" ImporteDR="368.00"/>
+            </pago20:TrasladosDR>
+          </pago20:ImpuestosDR>
+        </pago20:DoctoRelacionado>
+        <pago20:DoctoRelacionado MonedaDR="USD" EquivalenciaDR="0.0512820513" NumParcialidad="1" ImpSaldoAnt="2576.00" ImpPagado="2576.00" ImpSaldoInsoluto="0.00" ObjetoImpDR="02">
+          <pago20:ImpuestosDR>
+            <pago20:RetencionesDR>
+              <pago20:RetencionDR BaseDR="2300.00" ImpuestoDR="002" TipoFactorDR="Tasa" TasaOCuotaDR="0.040000" ImporteDR="92.00"/>
+            </pago20:RetencionesDR>
+            <pago20:TrasladosDR>
+              <pago20:TrasladoDR BaseDR="2300.00" ImpuestoDR="002" TipoFactorDR="Tasa" TasaOCuotaDR="0.160000" ImporteDR="368.00"/>
+            </pago20:TrasladosDR>
+          </pago20:ImpuestosDR>
+        </pago20:DoctoRelacionado>
+        <pago20:ImpuestosP>
+          <pago20:RetencionesP>
+            <pago20:RetencionP ImpuestoP="002" ImporteP="6005.999997"/>
+          </pago20:RetencionesP>
+          <pago20:TrasladosP>
+            <pago20:TrasladoP BaseP="150149.999947" ImpuestoP="002" TipoFactorP="Tasa" TasaOCuotaP="0.160000" ImporteP="24023.999991"/>
+          </pago20:TrasladosP>
+        </pago20:ImpuestosP>
+      </pago20:Pago>
+    </pago20:Pagos>
+    <tfd:TimbreFiscalDigital xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" Version="1.1" UUID="" FechaTimbrado="2023-02-17T14:24:36" RfcProvCertif="CVD110412TF6" SelloCFD="DEuZfWE1NGncAjR1XW3mIPhffWL2Iydysuc99lTrPLVP3ZdF7BY+CohTpMltO1x5EZ+f98ZYO1WH8wt5WrSxmIe+/qPoqfk4ACeyHkIS8xQAPghWiOqXCtLgNRoAdzbrEQKvPdAP5RY72efrq/8JXGgRulUu1Vak2kTl9veYwNWrgeaU9Mo6xCWmpoUY8gfizi9mWQ2erqzwIBlKsbOFReMsy6EO8ranvyAGS8+SdMvQsNDxosr35tV8gtKJJW2QUymgbi6vmC6Mt0kB/eYv6rj6cj4qXrL+s74Z488Gn+3DbW2EQjnEC7dmzmSMAH9MdHNBnwFSLu19BaCYivGV+Q==" NoCertificadoSAT="00001000000504204441" SelloSAT="khaz5J2F/Ap+SwzEoeWKlWMYHYH6iZCW1svy/RULauUJ1reDXD5XT2X8yDu/v4hwqpZrEj43CQJlBe6v902HUQF1On3/awl95Y4k3eTkELq+YqFYR/lsqZNnjq02RsmRV/JVeQ7y1pm1Sc3m1JvTCaLOw1QJeVGfitzri2evu+OEWePk1KwehOOIAiTxMcGJxBLZdYxrDaaoZ8FgHfb7CrKrc/tpLtduntlc6xARSnupfWSv0p2f+3PPpCd7NHcMj4SAyDvQaFWbq7sy3tbf0rMV7MMxi+xSSsTgU6WY020Cnrz2jCuEY859CkI1GccA2+qRdaMlcDq3yEwBpUQSbw=="/>
+  </cfdi:Complemento>
+</cfdi:Comprobante>
