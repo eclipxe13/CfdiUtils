@@ -1,6 +1,6 @@
 <?php
 
-namespace CfdiUtils\Elements\ParcialesContruccion10;
+namespace CfdiUtils\Elements\ParcialesConstruccion10;
 
 use CfdiUtils\Elements\Common\AbstractElement;
 

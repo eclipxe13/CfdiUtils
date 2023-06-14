@@ -1,14 +1,14 @@
 <?php
 
-namespace CfdiUtilsTests\Elements\ParcialesContruccion10;
+namespace CfdiUtilsTests\Elements\ParcialesConstruccion10;
 
-use CfdiUtils\Elements\ParcialesContruccion10\Inmueble;
-use CfdiUtils\Elements\ParcialesContruccion10\ParcialesConstruccion;
+use CfdiUtils\Elements\ParcialesConstruccion10\Inmueble;
+use CfdiUtils\Elements\ParcialesConstruccion10\ParcialesConstruccion;
 use CfdiUtilsTests\Elements\ElementTestCase;
 
-class ParcialesContruccion10Test extends ElementTestCase
+class ParcialesConstruccion10Test extends ElementTestCase
 {
-    public function testParcialesContruccion(): void
+    public function testParcialesConstruccion(): void
     {
         $element = new ParcialesConstruccion();
         $this->assertElementHasName($element, 'servicioparcial:parcialesconstruccion');

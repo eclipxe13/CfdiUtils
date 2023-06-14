@@ -1,5 +1,5 @@
 {
-    "php-namespace": "CfdiUtils\\Elements\\ParcialesContruccion10",
+    "php-namespace": "CfdiUtils\\Elements\\ParcialesConstruccion10",
     "prefix": "servicioparcial",
     "xml-namespace": "http://www.sat.gob.mx/servicioparcialconstruccion",
     "xml-schemalocation": "http://www.sat.gob.mx/sitio_internet/cfd/servicioparcialconstruccion/servicioparcialconstruccion.xsd",
