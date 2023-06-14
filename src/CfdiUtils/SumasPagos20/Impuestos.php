@@ -80,7 +80,7 @@ final class Impuestos implements JsonSerializable
         foreach ($other->impuestos as $key => $impuesto) {
             $impuestos[$key] = (isset($impuestos[$key])) ? $impuesto->add($impuestos[$key]) : $impuesto;
         }
-        return new self(...$impuestos);
+        return new self(...array_values($impuestos));
     }
 
     public function truncate(int $decimals): self
@@ -89,7 +89,7 @@ final class Impuestos implements JsonSerializable
         foreach ($impuestos as $key => $impuesto) {
             $impuestos[$key] = $impuesto->truncate($decimals);
         }
-        return new self(...$impuestos);
+        return new self(...array_values($impuestos));
     }
 
     public function multiply(Decimal $value): self
@@ -98,7 +98,7 @@ final class Impuestos implements JsonSerializable
         foreach ($impuestos as $key => $impuesto) {
             $impuestos[$key] = $impuesto->multiply($value);
         }
-        return new self(...$impuestos);
+        return new self(...array_values($impuestos));
     }
 
     public function round(int $decimals): self
@@ -107,7 +107,7 @@ final class Impuestos implements JsonSerializable
         foreach ($impuestos as $key => $impuesto) {
             $impuestos[$key] = $impuesto->round($decimals);
         }
-        return new self(...$impuestos);
+        return new self(...array_values($impuestos));
     }
 
     /** @return array<string, Impuesto> */

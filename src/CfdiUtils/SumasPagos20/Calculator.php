@@ -66,7 +66,7 @@ class Calculator
         return new DoctoRelacionado($impPagado, $impuestos);
     }
 
-    /** @return array<Impuesto> */
+    /** @return list<Impuesto> */
     private function processImpuestosTraslados(Decimal $equivalenciaDr, Nodes $nodeImpuestos): array
     {
         $impuestos = [];
@@ -85,7 +85,7 @@ class Calculator
         return $impuestos;
     }
 
-    /** @return array<Impuesto> */
+    /** @return list<Impuesto> */
     private function processImpuestosRetenciones(Decimal $equivalenciaDr, Nodes $nodeImpuestos): array
     {
         $impuestos = [];
