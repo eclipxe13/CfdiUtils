@@ -40,6 +40,7 @@ This tool takes a *Pre-CFDI* elements to write `Pagos\Totales`, `Pagos\Pago[]\Im
 and (if not found) `Pagos\Pago[]@Monto`. This feature is also documented.
 
 - Add element helpers for complement *Servicios parciales de construcción 1.0*.
+- Add element helpers for complement *Consumo de combustibles 1.1*.
 
 Changes on development environment and documentation:
 

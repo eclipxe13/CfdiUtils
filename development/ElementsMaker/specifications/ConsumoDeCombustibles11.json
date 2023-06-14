@@ -11,7 +11,9 @@
             "ConceptoConsumoDeCombustibles": {
                 "multiple": true,
                 "Determinados": {
-                    "Determinado": {}
+                    "Determinado": {
+                        "multiple": true
+                    }
                 }
             }
         }

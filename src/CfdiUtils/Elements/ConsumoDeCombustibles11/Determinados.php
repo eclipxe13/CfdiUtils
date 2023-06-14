@@ -11,15 +11,18 @@ class Determinados extends AbstractElement
         return 'consumodecombustibles11:Determinados';
     }
 
-    public function getDeterminado(): Determinado
-    {
-        return $this->helperGetOrAdd(new Determinado());
-    }
-
     public function addDeterminado(array $attributes = []): Determinado
     {
-        $subject = $this->getDeterminado();
-        $subject->addAttributes($attributes);
+        $subject = new Determinado($attributes);
+        $this->addChild($subject);
         return $subject;
+    }
+
+    public function multiDeterminado(array ...$elementAttributes): self
+    {
+        foreach ($elementAttributes as $attributes) {
+            $this->addDeterminado($attributes);
+        }
+        return $this;
     }
 }
