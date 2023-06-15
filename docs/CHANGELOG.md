@@ -39,6 +39,8 @@ Add a calculator and writer for complement *Pagos 2.0*.
 This tool takes a *Pre-CFDI* elements to write `Pagos\Totales`, `Pagos\Pago[]\ImpuestosP`
 and (if not found) `Pagos\Pago[]@Monto`. This feature is also documented.
 
+Make SOAP extension requirement optional.
+
 - Add element helpers for complement *Servicios parciales de construcción 1.0*.
 - Add element helpers for complement *Consumo de combustibles 1.1*.
 - Add element helpers for complement *Donatarias 1.1*.

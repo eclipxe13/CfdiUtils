@@ -13,10 +13,10 @@ use SoapFault;
 /**
  * This test case is performing real request to SAT WebService.
  *
- * The problem is that since 2018-08 the service is failing on request
- * and it make the tests fail ramdomly.
+ * The problem is that since 2018-08 the service is failing on request,
+ * and it makes the tests fail randomly.
  *
- * The work around is to mark test skipped if we get a SoapFault when call
+ * The workaround is to mark test skipped if we get a SoapFault when call
  * request or getSoapClient methods
  */
 final class WebServiceConsumingTest extends TestCase
