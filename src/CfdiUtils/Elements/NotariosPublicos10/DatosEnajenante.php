@@ -11,6 +11,13 @@ class DatosEnajenante extends AbstractElement
         return 'notariospublicos:DatosEnajenante';
     }
 
+    public function getChildrenOrder(): array
+    {
+        return [
+        'notariospublicos:DatosUnEnajenante',
+        'notariospublicos:DatosEnajenantesCopSC'];
+    }
+
     public function getDatosUnEnajenante(): DatosUnEnajenante
     {
         return $this->helperGetOrAdd(new DatosUnEnajenante());
@@ -19,6 +26,18 @@ class DatosEnajenante extends AbstractElement
     public function addDatosUnEnajenante(array $attributes = []): DatosUnEnajenante
     {
         $subject = $this->getDatosUnEnajenante();
+        $subject->addAttributes($attributes);
+        return $subject;
+    }
+
+    public function getDatosEnajenantesCopSC(): DatosEnajenantesCopSC
+    {
+        return $this->helperGetOrAdd(new DatosEnajenantesCopSC());
+    }
+
+    public function addDatosEnajenantesCopSC(array $attributes = []): DatosEnajenantesCopSC
+    {
+        $subject = $this->getDatosEnajenantesCopSC();
         $subject->addAttributes($attributes);
         return $subject;
     }

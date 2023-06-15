@@ -45,6 +45,9 @@ and (if not found) `Pagos\Pago[]@Monto`. This feature is also documented.
 - Add element helpers for complement *Instituciones educativas privadas 1.0*.
 - Add element helpers for complement *INE 1.1*.
 - Add element helpers for complement *Leyendas Fiscales 1.0*.
+- Add element helpers for complement *Notarios Públicos 10*.
+
+Thanks `@BlakePro` for the initial work on these improvements.
 
 Changes on development environment and documentation:
 

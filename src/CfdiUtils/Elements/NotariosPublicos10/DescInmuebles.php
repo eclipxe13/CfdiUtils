@@ -11,15 +11,18 @@ class DescInmuebles extends AbstractElement
         return 'notariospublicos:DescInmuebles';
     }
 
-    public function getDescInmueble(): DescInmueble
-    {
-        return $this->helperGetOrAdd(new DescInmueble());
-    }
-
     public function addDescInmueble(array $attributes = []): DescInmueble
     {
-        $subject = $this->getDescInmueble();
-        $subject->addAttributes($attributes);
+        $subject = new DescInmueble($attributes);
+        $this->addChild($subject);
         return $subject;
+    }
+
+    public function multiDescInmueble(array ...$elementAttributes): self
+    {
+        foreach ($elementAttributes as $attributes) {
+            $this->addDescInmueble($attributes);
+        }
+        return $this;
     }
 }

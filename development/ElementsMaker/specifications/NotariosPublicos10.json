@@ -8,15 +8,27 @@
     "root-element": "NotariosPublicos",
     "structure": {
         "DescInmuebles": {
-            "DescInmueble": {}
+            "DescInmueble": {
+                "multiple": true
+            }
         },
         "DatosOperacion": {},
         "DatosNotario": {},
         "DatosEnajenante": {
-            "DatosUnEnajenante": {}
+            "DatosUnEnajenante": {},
+            "DatosEnajenantesCopSC": {
+                "DatosEnajenanteCopSC": {
+                    "multiple": true
+                }
+            }
         },
         "DatosAdquiriente": {
-            "DatosUnAdquiriente": {}
+            "DatosUnAdquiriente": {},
+            "DatosAdquirientesCopSC": {
+                "DatosAdquirienteCopSC": {
+                    "multiple": true
+                }
+            }
         }
     }
 }

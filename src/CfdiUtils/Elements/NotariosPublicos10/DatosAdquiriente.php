@@ -11,6 +11,13 @@ class DatosAdquiriente extends AbstractElement
         return 'notariospublicos:DatosAdquiriente';
     }
 
+    public function getChildrenOrder(): array
+    {
+        return [
+        'notariospublicos:DatosUnAdquiriente',
+        'notariospublicos:DatosAdquirientesCopSC'];
+    }
+
     public function getDatosUnAdquiriente(): DatosUnAdquiriente
     {
         return $this->helperGetOrAdd(new DatosUnAdquiriente());
@@ -19,6 +26,18 @@ class DatosAdquiriente extends AbstractElement
     public function addDatosUnAdquiriente(array $attributes = []): DatosUnAdquiriente
     {
         $subject = $this->getDatosUnAdquiriente();
+        $subject->addAttributes($attributes);
+        return $subject;
+    }
+
+    public function getDatosAdquirientesCopSC(): DatosAdquirientesCopSC
+    {
+        return $this->helperGetOrAdd(new DatosAdquirientesCopSC());
+    }
+
+    public function addDatosAdquirientesCopSC(array $attributes = []): DatosAdquirientesCopSC
+    {
+        $subject = $this->getDatosAdquirientesCopSC();
         $subject->addAttributes($attributes);
         return $subject;
     }
