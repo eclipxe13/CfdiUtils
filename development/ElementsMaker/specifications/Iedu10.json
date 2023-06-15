@@ -5,7 +5,7 @@
     "xml-schemalocation": "http://www.sat.gob.mx/sitio_internet/cfd/iedu/iedu.xsd",
     "version-attribute": "version",
     "version-value": "1.0",
-    "root-element": "InstEducativas",
+    "root-element": "instEducativas",
     "structure": {
     }
 }

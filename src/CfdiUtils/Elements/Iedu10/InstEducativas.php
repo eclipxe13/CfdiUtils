@@ -8,7 +8,7 @@ class InstEducativas extends AbstractElement
 {
     public function getElementName(): string
     {
-        return 'iedu:InstEducativas';
+        return 'iedu:instEducativas';
     }
 
     public function getFixedAttributes(): array
