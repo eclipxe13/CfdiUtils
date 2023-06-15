@@ -5,7 +5,7 @@
     "xml-schemalocation": "http://www.sat.gob.mx/sitio_internet/cfd/ine/ine11.xsd",
     "version-attribute": "Version",
     "version-value": "1.1",
-    "root-element": "Ine",
+    "root-element": "INE",
     "structure": {
     }
 }

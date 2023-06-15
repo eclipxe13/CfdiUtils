@@ -43,6 +43,7 @@ and (if not found) `Pagos\Pago[]@Monto`. This feature is also documented.
 - Add element helpers for complement *Consumo de combustibles 1.1*.
 - Add element helpers for complement *Donatarias 1.1*.
 - Add element helpers for complement *Instituciones educativas privadas 1.0*.
+- Add element helpers for complement *INE 1.1*.
 
 Changes on development environment and documentation:
 

@@ -8,7 +8,7 @@ class Ine extends AbstractElement
 {
     public function getElementName(): string
     {
-        return 'ine:Ine';
+        return 'ine:INE';
     }
 
     public function getFixedAttributes(): array
