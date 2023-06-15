@@ -46,7 +46,7 @@ Estas herramientas te ayudarán para realizar la documentación y no tener probl
 
 La documentación del proyecto se encuentra en el [repositorio de CfdiUtils](https://github.com/eclipxe13/cfdiutils)
 en la carpeta `docs/` y sus cambios serán aprobados usando un *pull request* tradicional.
-Si va a agregar nuevas páginas debe agregarlas a el archivo `mkdocs.yml` en la carpeta base del proyecto.
+Si va a agregar nuevas páginas debe agregarlas al archivo `mkdocs.yml` en la carpeta base del proyecto.
 
 ```shell
 git clone https://github.com/eclipxe13/cfdiutils
@@ -107,7 +107,7 @@ node node_modules/markdownlint-cli/markdownlint.js
 !!! note "mkdocs"
     Herramienta de `python` para crear la documentación en formato html
 
-Revisa la página de <https://www.mkdocs.org/#installation>.
+Revisa la página <https://www.mkdocs.org/#installation>.
 
 En Debian GNU/Linux y derivados lo puedes instalar usando:
 

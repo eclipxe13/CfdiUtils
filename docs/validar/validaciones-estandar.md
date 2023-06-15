@@ -164,13 +164,13 @@ el CFDI no fue modificado después de haber sido sellado.
 Esto lo hace de la siguiente forma:
 
 1. Obtiene el TimbreFiscalDigital, si no existe entonces no hay qué validar.
-1. Corrobora que sea versión 1.1, si no lo es entonces no hay qué validar
-1. Se asegura que cuente con SelloCFD y que coincida con el Sello del comprobante.
-1. Se asegura que NoCertificadoSAT contenga un número válido.
-1. Obtiene el certificado con el que fue sellado desde el sitio del SAT `https://rdc.sat.gob.mx/`.  
+2. Corrobora que sea versión 1.1, si no lo es entonces no hay qué validar
+3. Se asegura que cuente con SelloCFD y que coincida con el Sello del comprobante.
+4. Se asegura que NoCertificadoSAT contenga un número válido.
+5. Obtiene el certificado con el que fue sellado desde el sitio del SAT `https://rdc.sat.gob.mx/`.  
    Si no se pudo obtener entonces el resultado será de error.
-1. Fabrica la cadena de origen del TimbreFiscalDigital.
-1. Verifica que el sello corresponde con la cadena de origen usando el certificado.
+6. Fabrica la cadena de origen del TimbreFiscalDigital.
+7. Verifica que el sello corresponde con la cadena de origen usando el certificado.
 
 Es posible que un emisor intente modificar el comprobante, simplemente debe alterar el contenido
 sin modificar el TimbreFiscalDigital ni el atributo Sello del comprobante.

@@ -12,7 +12,7 @@ Para la mayoría de comandos ejecuta externamente openssl para poder funcionar.
 ### Archivos de certificado CER
 
 Los archivos de certificado provistos por el SAT se encuentran en formato X509 DER.
-PHP no puede trabajar con estos archivos en la forma original pues requiere el formato PEM.
+PHP no puede trabajar con estos archivos en la forma original, pues requiere el formato PEM.
 
 Cambiar a formato PEM solo requiere codificar en base 64 y cierto formato.
 Por lo tanto, se puede hacer utilizando solamente PHP o bien utilizando `openssl`.
@@ -25,7 +25,7 @@ Esta utilería le entrega ambas formas de hacerlo.
 ### Archivos de llave privada KEY
 
 Los archivos de llave privada provistos por el SAT se encuentran en formato PKCS#8 DER.
-PHP no puede trabajar con estos archivos en la forma original pues requiere el formato PEM.
+PHP no puede trabajar con estos archivos en la forma original, pues requiere el formato PEM.
 
 Convertir archivos PKCS#8 DER a PEM no es una actividad que pueda hacer PHP.
 Por esta razón estamos obligados a utilizar el comando externo `openssl`.
@@ -40,7 +40,7 @@ Este es un ejemplo válido del contenido en formato PEM.
 
 ```text
 -----BEGIN MY INFORMATION-----
-UXXDqSBjdXJpb3NvIHNvcyB2b3MhCg==
+UXXDqSBjdXJpb3NvIHNvCyB2b3MhCg==
 -----END MY INFORMATION-----
 ```
 
@@ -51,7 +51,7 @@ Para el caso de certificados, llaves públicas y llaves privadas:
 
 - El contenido de una sección debería ser un texto en [base 64](https://en.wikipedia.org/wiki/Base64#Base64_table).
 
-- También puede incluir `LF` o `CRLF` como finales de línea de el contenido a 64 caracteres.
+- También puede incluir `LF` o `CRLF` como finales de línea del contenido a 64 caracteres.
 
 - Para `RSA PRIVATE KEY` también incluye texto que **no es base 64**:
 
@@ -64,7 +64,7 @@ WqPzvGCc ...
 
 - Un archivo o contenido PEM puede incluir (entre otras cosas):
     - el certificado, en la sección `CERTIFICATE`,
-    - la llave publica, en la sección `PUBLIC KEY`,
+    - la llave pública, en la sección `PUBLIC KEY`,
     - la llave privada, en la sección `PRIVATE KEY`, `RSA PRIVATE KEY` o `ENCRYPTED PRIVATE KEY`.
 
 Aunque su uso más frecuente es que un archivo PEM contenga solamente un contenido y no múltiples,
@@ -89,8 +89,8 @@ que devuelven un objeto `PemContainer` con finales de línea normalizados y sin 
 
 De forma general, tenga en cuenta estas consideraciones:
 
-- Cuando se trabaja con un archivo de entrada se valida que exista y que su tamaño sea mayor a cero.
-- Cuando se trabaja con un archivo de salida se valida que no exista pero que sí exista su directorio.
+- Cuando se trabaja con un archivo de entrada se verifica que exista y que su tamaño sea mayor a cero.
+- Cuando se trabaja con un archivo de salida se verifica que no exista, pero que sí exista su directorio.
   En caso de que exista su tamaño debe ser cero.
 - Ninguna ejecución con el comando `openssl` puede contener caracteres de control excepto `CR` y `LF`.
 - Las contraseñas pasadas al comando `openssl` se pasan por el entorno y no por la línea de comandos.
@@ -166,7 +166,7 @@ e información específica de `RSA PRIVATE KEY`.
 
 El extractor **no verifica** si el contenido en Base 64 está correctamente codificado.
 
-Por ejemplo, el siguiente contenido generará la extración de `"FOO-BAR"` como el contenido de `certificate()`,
+Por ejemplo, el siguiente contenido generará la extracción de `"FOO-BAR"` como el contenido de `certificate()`,
 una cadena vacía para `publicKey()` por tener caracteres indebidos como espacios en blanco
 y una cadena vacía para `privateKey()` porque no se encuentra.
 

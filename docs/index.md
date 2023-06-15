@@ -58,9 +58,9 @@ Validadores para CFDI 3.3 y CFDI 4.0.
 
 Solo hay métodos específicos para CFDI 3.3 y CFDI 4.0.
 
-- [Crear un CFDI 3.3](crear/crear-cfdi.md)
-- [Elementos de CFDI 3.3](crear/elements-cfdi33.md)
+- [Crear un CFDI 3.3](crear/crear-cfdi-33.md)
 - [Crear un CFDI 4.0](crear/crear-cfdi-40.md)
+- [Elementos de CFDI 3.3](crear/elements-cfdi-40.md)
 - [Elementos de Nómina 1.2 revisión B](crear/complemento-nomina12b.md)
 - [Agregar complementos](crear/complementos-aun-no-implementados.md)
 - [CFDI Retenciones](crear/cfdi-de-retenciones-e-informacion-de-pagos.md)

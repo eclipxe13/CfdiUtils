@@ -44,7 +44,7 @@ $comprobante = $cfdi->getNode(); // Nodo de trabajo del nodo cfdi:Comprobante
 El método estático `CfdiUtils\Cfdi::newFromString` verifica que el contenido XML
 no esté vacío y no contenga errores (se pueda crear un `DOMDocument` a partir
 de este contenido).
-Posteriormente invoca la creación de un objeto de tipo `CfdiUtils\Cfdi` pasando
+Posteriormente, invoca la creación de un objeto de tipo `CfdiUtils\Cfdi` pasando
 el objeto `DOMDocument` como parámetro.
 
 
@@ -53,9 +53,10 @@ el objeto `DOMDocument` como parámetro.
 Al crear un objeto de tipo `CfdiUtils\Cfdi` se verifican las siguientes reglas
 del objeto `DOMDocument`:
 
-1. el documento implementa el espacio de nombres del cfdi `http://www.sat.gob.mx/cfd/3`
-1. con el prefijo `cfdi`
-1. en el elemento raíz `<cfdi:Comprobante>`
+- El documento implementa el espacio de nombres del CFDI `http://www.sat.gob.mx/cfd/3` o `http://www.sat.gob.mx/cfd/4`.
+- El espacio de nombres tiene el prefijo `cfdi`.
+- El elemento raíz tiene el nombre `cfdi:Comprobante`.
+- El atributo de versión coincide con el espacio de nombres.
 
 No realiza ninguna validación. La validación de un CFDI está fuera de los límites de esta clase.
 

@@ -16,7 +16,7 @@ Las ventajas de usar composer son:
 ## Qué incluye el paquete de distribución
 
 No es lo mismo el proyecto de la librería que el paquete publicado en composer, esto es porque en el
-proyecto se excluyen componentes relacionados con el desarrollo del proyecto, integración contínua, tests
+proyecto se excluyen componentes relacionados con el desarrollo del proyecto, integración continua, pruebas
 y dependencias de desarrollo.
 
 Lo que encontrarás en `vendor/eclipxe/cfdiutils/` es:
@@ -35,8 +35,7 @@ Si tu proyecto no utiliza composer, te puede convenir usar este truco:
 ```shell
 cd mi_proyecto
 mkdir cfdiutils
-cd cfdiutils
-composer require eclipxe/cfdiutils
+composer require --working-dir=cfdiutils eclipxe/cfdiutils
 ```
 
 Dentro del script de PHP donde deseas incluir php incluye el archivo autoload generado:

@@ -89,7 +89,7 @@ Se refiere a que si en el momento de la consulta el CFDI se puede cancelar.
 
 - `No cancelable`: No se puede cancelar, tal vez ya hay documentos relacionados.
 - `Cancelable sin aceptación`: Se puede cancelar de inmediato.
-- `Cancelable con aceptación`: Se puede cancelar pero se va a tener que esperar respuesta.
+- `Cancelable con aceptación`: Se puede cancelar, pero se va a tener que esperar respuesta.
 
 ### EstatusCancelacion (estado de cancelación)
 
@@ -106,7 +106,7 @@ Se refiere al estado de la cancelación solicitada previamente.
 
 El WebService del SAT devuelve dos códigos que asumimos se refieren al emisor del CFDI:
 
-- 200: No se enctró en el listado de EFOS.
+- 200: No se encontró en el listado de EFOS.
 - 100: Se encontró en el listado de EFOS.
 
 Desconocemos si el código se refiere a si estaba listado en el momento de la emisión del CFDI,
@@ -114,18 +114,17 @@ al momento de ser reportado el CFDI al SAT o al momento de consulta.
 
 ## Estados mutuamente excluyentes
 
-CodigoEstatus | Estado        | EsCancelable              | EstatusCancelacion       | Explicación
-------------- | ------------- | ------------------------- | ------------------------ | -----------------------------------------------------
-N - ...       | *             | *                         | *                        | El SAT no sabe del CFDI con los datos ofrecidos
-S - ...       | Cancelado     | *                         | Plazo vencido            | Cancelado por plazo vencido
-S - ...       | Cancelado     | *                         | Cancelado con aceptación | Cancelado con aceptación del receptor
-S - ...       | Cancelado     | *                         | Cancelado sin aceptación | No fue requerido preguntarle al receptor y se canceló
-S - ...       | Vigente       | No cancelable             | *                        | No se puede cancelar
-S - ...       | Vigente       | Cancelable sin aceptación | *                        | Se puede cancelar pero no se ha realizado solicitud
-S - ...       | Vigente       | Cancelable con aceptación | (ninguno)                | Se puede cancelar pero no se ha realizado solicitud
-S - ...       | Vigente       | Cancelable con aceptación | En proceso               | Se hizo la solicitud y se está en espera
-S - ...       | Vigente       | Cancelable con aceptación | Solicitud rechazada      | Se hizo la solicitud y fue rechazada
-
+| `CodigoEstatus` | `Estado`  | `EsCancelable`            | `EstatusCancelacion`     | `Explicación`                                         |
+|-----------------|-----------|---------------------------|--------------------------|-------------------------------------------------------|
+| N - ...         | *         | *                         | *                        | El SAT no sabe del CFDI con los datos ofrecidos       |
+| S - ...         | Cancelado | *                         | Plazo vencido            | Cancelado por plazo vencido                           |
+| S - ...         | Cancelado | *                         | Cancelado con aceptación | Cancelado con aceptación del receptor                 |
+| S - ...         | Cancelado | *                         | Cancelado sin aceptación | No fue requerido preguntarle al receptor y se canceló |
+| S - ...         | Vigente   | No cancelable             | *                        | No se puede cancelar                                  |
+| S - ...         | Vigente   | Cancelable sin aceptación | *                        | Se puede cancelar pero no se ha realizado solicitud   |
+| S - ...         | Vigente   | Cancelable con aceptación | (ninguno)                | Se puede cancelar pero no se ha realizado solicitud   |
+| S - ...         | Vigente   | Cancelable con aceptación | En proceso               | Se hizo la solicitud y se está en espera              |
+| S - ...         | Vigente   | Cancelable con aceptación | Solicitud rechazada      | Se hizo la solicitud y fue rechazada                  |
 
 ## Ejemplo de uso a partir de un archivo
 
@@ -183,7 +182,7 @@ Hasta antes de la versión 2.10 se necesitaba un archivo WSDL,
 a partir de 2.10 ya no se necesita y la llamada SOAP se hace correctamente.
 
 
-## Posibles futuros cambios
+## Futuros cambios
 
 Usar alguna librería como <https://github.com/phpro/soap-client> o <https://github.com/meng-tian/async-soap-guzzle>
 en lugar de la extensión SOAP de PHP.

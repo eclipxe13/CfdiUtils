@@ -85,11 +85,11 @@ $location = $resolver->resolveCadenaOrigenLocation('3.3');
 
 // fabricar la cadena de origen
 $builder = new DOMBuilder();
-$cadenaorigen = $builder->build($xmlContent, $location);
+$cadenaOrigen = $builder->build($xmlContent, $location);
 ```
 
 Sin embargo, en la práctica es poco probable que desees generar la cadena de origen.
-Básicamente porque si estás creando un CFDI esta será generada automáticamente.
+Básicamente, porque si estás creando un CFDI esta será generada automáticamente.
 Si estás leyendo o validando también será generada automáticamente por los validadores.
 
 
@@ -137,7 +137,7 @@ $tfdXmlString = \CfdiUtils\Nodes\XmlNodeUtils::nodeToXmlString($tfd);
 ## PHP y XSLT versión 2
 
 Es importante notar que hasta el momento (enero/2019) no es posible en PHP
-procesar XSLT versión 2.0. Sin embargo el procesador que sí tiene PHP genera
+procesar XSLT versión 2.0. Sin embargo, el procesador que sí tiene PHP genera
 las cadenas de origen a pesar de la versión.
 Esto no garantiza que si el SAT modifica los archivos XSLT utilizando
 características incompatibles se producirá el resultado correcto.

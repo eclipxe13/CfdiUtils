@@ -34,7 +34,7 @@
 
 ## Version 2.24.0 2023-06-14
 
-- Add a calculator and writer for complement *Pagos 2.0*.
+Add a calculator and writer for complement *Pagos 2.0*.
 
 This tool takes a *Pre-CFDI* elements to write `Pagos\Totales`, `Pagos\Pago[]\ImpuestosP`
 and (if not found) `Pagos\Pago[]@Monto`. This feature is also documented.
@@ -45,12 +45,16 @@ and (if not found) `Pagos\Pago[]@Monto`. This feature is also documented.
 - Add element helpers for complement *Instituciones educativas privadas 1.0*.
 - Add element helpers for complement *INE 1.1*.
 - Add element helpers for complement *Leyendas Fiscales 1.0*.
-- Add element helpers for complement *Notarios Públicos 10*.
+- Add element helpers for complement *Notarios Públicos 1.0*.
 
 Thanks `@BlakePro` for the initial work on these improvements.
 
 Changes on development environment and documentation:
 
+- Move CFDI creation from 3.3 to 4.0.
+- Review all files and fix almost all typos and phrasing errors, thanks PhpStorm.
+- Add usage of phpcfdi/credentials.
+- Add support for PHP 8.2 on README.md
 - Remove GitHub code language detection on `tests/assets/`.
 - Update `markdownlint-cli` tool.
 - Fix issues found by `markdownlint-cli`.

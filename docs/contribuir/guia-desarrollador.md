@@ -4,7 +4,7 @@ Esta es una guía rápida que pretende guiarte para que puedas desarrollar la li
 
 ## Código de conducta
 
-Revisa nuesto [COC][] y nuestra página de [CONTRIBUTING][].
+Revisa nuestro [COC][] y nuestra página de [CONTRIBUTING][].
 
 En resumen:
 
@@ -21,7 +21,7 @@ Requieres tener instalado y disponible `git` `composer` y `php`.
 Opcionalmente podrías tener instalado `saxonb-xslt`.
 
 El proyecto es compatible con PHP 7.0.
-Respeta esta compatilibilidad, no agregues características de versiones superiores.
+Respeta esta compatibilidad, no agregues características de versiones superiores.
 
 ## Primeros pasos
 

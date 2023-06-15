@@ -12,7 +12,8 @@ los recursos más usuales son:
   que una firma es válida con respecto a un emisor.
   La firma es lo que el sat llama sello y el emisor se distingue por un certificado.
 
-Estos recursos están disponibles en internet, pero son grandes  y tienen cambios esporádicos. Por ejemplo, el archivo de catálogos del SAT mide 6.3 MB.
+Estos recursos están disponibles en internet, pero son grandes y tienen cambios esporádicos.
+Por ejemplo, el archivo de catálogos del SAT mide 6.3 MB.
 Por ello es conveniente tener una copia local de los recursos.
 
 El problema viene cuando esos recursos no se pueden simplemente descargar y almacenar.
@@ -93,7 +94,7 @@ La librería por defecto no puede obtener los recursos que necesita.
 Sin embargo, para ello existe la interface `\XmlResourceRetriever\Downloader\DownloaderInterface`
 (esta interface no pertenece a este proyecto, pertenece a `XmlResourceRetriever`).
 
-Tu puedes implementar el `DownloaderInterface` en una clase que utilice `curl` o `guzzle`
+Tú puedes implementar la interface `DownloaderInterface` en una clase que utilice `curl` o `guzzle`
 o ejecute un comando en la shell como `wget` y luego crear tu objeto `XmlResolver` con este descargador.
 
 ```php
