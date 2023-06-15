@@ -25,13 +25,13 @@ Guía de llenado: La suma de los valores registrados en el nodo DoctoRelacionado
 debe ser menor o igual que el valor de este campo.
 
 - Se debe considerar la conversión a la moneda del pago registrada en el campo MonedaP
-  y el margen de variación por efecto de redondeo de acuerdo a la siguiente formula:
+  y el margen de variación por efecto de redondeo de acuerdo a la siguiente fórmula:
     - Calcular el límite inferior como:
             `(ImportePagado - (10^-NumDecimalesImportePagado/2) / (TipoCambioDR + (10^-NumDecimalesTipoCambioDR)/2-0.0000000001)`
     - Calcular el límite superior como:
             `(ImportePagado + (10^-NumDecimalesImportePagado ) / 2-0.0000000001) / (TipoCambioDR - (10^-NumDecimalesTipoCambioDR /2)`
 
-...por lo visto el SAT no sabe abrir y cerrar paréntesis, ni precedencia de operadores, ni precisiones de números.
+... Por lo visto el SAT no sabe abrir y cerrar paréntesis, ni precedencia de operadores, ni precisiones de números.
 
 ### Entendimiento de la fórmula
 
@@ -62,7 +62,7 @@ Pero bien sabemos que no se pueden cumplir ambas condiciones en todos los casos.
 Haz este ejercicio: Te pagan una factura por un monto de 5,137.42 USD,
 en tu banco entraron 96,426.29 MXN al TC de operaciones comerciales según el DOF de 18.7694.
 
-El `DoctoRelacionado@TipoCambioDR` debe ser `1/18.7694`, es decir `0.0532782081`.
+El atributo `DoctoRelacionado@TipoCambioDR` debe ser `1/18.7694`, es decir `0.0532782081`.
 ¿Qué valor se pone, dado que `TipoCambioDR` solo admite 6 decimales? `0.053278` o `0.053279`.
 
 Si se pone `0.053278` en la suma de los importes pagados traducidos a la moneda del pago
@@ -151,19 +151,19 @@ Según la [Matriz de validaciones para el Comprobante fiscal digital por Interne
 > CFDI33136 - Para registrar el campo NumRegIdTrib, el CFDI debe contener el complemento de comercio exterior
 > y el RFC del receptor debe ser un RFC genérico extranjero.
 
-La primer inconsistencia existe en la propia regla, dado que en el primer parte establece:
+La primera inconsistencia existe en la propia regla, dado que en el primer parte establece:
 `Si A y B entonces debe existir C` y en la segunda parte establece: `Para que exista C entonces A y B`.
 
-Este es un error lógico pues en la `regla` establece que una obligatoriedad a partir de que dos condiciones sean verdaderas.
-En cambio, en el `error` establece una obligatoriedad de condiciones si el resultado está presente.
+Este es un error lógico, pues en la *regla* establece que una obligatoriedad a partir de que dos condiciones sean verdaderas.
+En cambio, en el *error* establece una obligatoriedad de condiciones si el resultado está presente.
 
-Con la primer parte, `Si A y B entonces debe existir C`, `C` puede o no existir en otros escenarios,
+Con la primera parte, `Si A y B entonces debe existir C`, `C` puede o no existir en otros escenarios,
 pero si se cumple `A y B` entonces su existencia está obligada.
 
 Con la segunda parte. `Para que exista C entonces A y B`, `C` solamente puede existir en los escenarios donde
 se cumpla `A y B` y en ningún otro.
 
-Esto era una insonsistencia, aunque no un problema tangible dado que en ningún lugar se exigía establecer
+Esto era una inconsistencia, aunque no un problema tangible dado que en ningún lugar se exigía establecer
 el atributo de Residencia Fiscal con excepción de la *Guía de llenado del comprobante al que se le incorpore el complemento para comercio exterior*.
 
 Sin embargo, esto cambió en la guía de llenado del complemento de pagos, donde en la página 14 establece:
@@ -172,7 +172,7 @@ Sin embargo, esto cambió en la guía de llenado del complemento de pagos, donde
 > país de residencia para efectos fiscales del receptor del comprobante.
 > Este campo es obligatorio cuando se registre una clave en el RFC genérica extranjera.
 >
-> Se captura el número de registro de identidad fiscal del receptor del comprobante fiscal cuando éste
+> Se captura el número de registro de identidad fiscal del receptor del comprobante fiscal cuando este
 > sea residente en el extranjero.
 
 La inconsistencia se presenta en que:
@@ -183,14 +183,14 @@ La inconsistencia se presenta en que:
 Posibles soluciones:
 
 1. Que el SAT aclare el error 38 de la matriz y establezca que lo que se debe validar es la `Regla` y no el mensaje de error.
-2. Que el SAT aclare que tiene más peso la matriz de errores a las guía de llenado, a pesar de sus fechas de publicación.
+2. Que el SAT aclare que tiene más peso la matriz de errores a las guías de llenado, a pesar de sus fechas de publicación.
 
 Mientras tanto, en la librería no existe ninguna validación en su versión original que marque algún error al respecto.
 
 Si tu PAC no te deja timbrar un CFDI con `NumRegIdTrib` exígele el sustento legal o la aclaración del SAT al respecto.
 
-Al 2018-10-01 [FinkOk](https://www.finkok.com/) no marca error de timbrado si se agrega el `NumRegIdTrib`.
-Está interpretando la `Reglas de validación` y no el `Error`.
+Al 2018-10-01 [FinkOk](https://www.finkok.com/) no marca error de timbrado si se agrega el atributo `NumRegIdTrib`.
+Está interpretando la *Regla de validación* y no el *Error*.
 
-Al 2018-10-01 [Facturaxion](https://www.facturaxion.com/) marca error de timbrado si se agrega el `NumRegIdTrib`.
-Está interpretando el `Error` y no la `Regla de validación`.
+Al 2018-10-01 [Facturaxion](https://www.facturaxion.com/) marca error de timbrado si se agrega el atributo `NumRegIdTrib`.
+Está interpretando el *Error* y no la *Regla de validación*.

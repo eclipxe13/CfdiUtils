@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pago20="http://www.sat.gob.mx/Pagos20" Version="4.0" xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd http://www.sat.gob.mx/Pagos20 http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos20.xsd" Serie="P20" Folio="4" Fecha="2023-05-23T22:14:05" NoCertificado="30001000000400002434" SubTotal="0" Moneda="XXX" Total="0" TipoDeComprobante="P" Exportacion="01" LugarExpedicion="77516">
+  <cfdi:Emisor Rfc="EKU9003173C9" Nombre="ESCUELA KEMPER URGATE" RegimenFiscal="601"/>
+  <cfdi:Receptor Rfc="AABF800614HI0" Nombre="FELIX MANUEL ANDRADE BALLADO" DomicilioFiscalReceptor="86400" RegimenFiscalReceptor="616" UsoCFDI="CP01"/>
+  <cfdi:Conceptos>
+    <cfdi:Concepto ClaveProdServ="84111506" Cantidad="1" ClaveUnidad="ACT" Descripcion="Pago" ValorUnitario="0" Importe="0" ObjetoImp="01"/>
+  </cfdi:Conceptos>
+  <cfdi:Complemento>
+    <pago20:Pagos Version="2.0">
+      <pago20:Totales MontoTotalPagos="16386.33" TotalRetencionesISR="242.70" TotalRetencionesIVA="258.96" TotalTrasladosBaseIVA16="14558.61" TotalTrasladosImpuestoIVA16="2329.38"/>
+      <pago20:Pago FechaPago="2023-05-20T22:15:29" FormaDePagoP="03" MonedaP="MXN" TipoCambioP="1" Monto="14072.73">
+        <pago20:DoctoRelacionado IdDocumento="555E3C48-C6C5-5FCC-BAF5-18C9E953FE59" Serie="V40" Folio="27" MonedaDR="MXN" EquivalenciaDR="1" NumParcialidad="1" ImpSaldoAnt="14072.73" ImpPagado="14072.73" ImpSaldoInsoluto="0.00" ObjetoImpDR="02">
+          <pago20:ImpuestosDR>
+            <pago20:TrasladosDR>
+              <pago20:TrasladoDR BaseDR="12131.6600" ImpuestoDR="002" TipoFactorDR="Tasa" TasaOCuotaDR="0.160000" ImporteDR="1941.0656"/>
+            </pago20:TrasladosDR>
+          </pago20:ImpuestosDR>
+        </pago20:DoctoRelacionado>
+        <pago20:ImpuestosP>
+          <pago20:TrasladosP>
+            <pago20:TrasladoP BaseP="12131.6600" ImpuestoP="002" TipoFactorP="Tasa" TasaOCuotaP="0.160000" ImporteP="1941.0656"/>
+          </pago20:TrasladosP>
+        </pago20:ImpuestosP>
+      </pago20:Pago>
+      <pago20:Pago FechaPago="2023-05-22T22:15:59" FormaDePagoP="03" MonedaP="MXN" TipoCambioP="1" Monto="2313.60">
+        <pago20:DoctoRelacionado IdDocumento="AB595AD4-E1A8-5A8B-B1B1-E7EE6D4AB7B0" Serie="V40" Folio="26" MonedaDR="MXN" EquivalenciaDR="1" NumParcialidad="1" ImpSaldoAnt="2313.60" ImpPagado="2313.60" ImpSaldoInsoluto="0.00" ObjetoImpDR="02">
+          <pago20:ImpuestosDR>
+            <pago20:RetencionesDR>
+              <pago20:RetencionDR BaseDR="2426.9500" ImpuestoDR="001" TipoFactorDR="Tasa" TasaOCuotaDR="0.100000" ImporteDR="242.6950"/>
+              <pago20:RetencionDR BaseDR="2426.9500" ImpuestoDR="002" TipoFactorDR="Tasa" TasaOCuotaDR="0.106700" ImporteDR="258.9556"/>
+            </pago20:RetencionesDR>
+            <pago20:TrasladosDR>
+              <pago20:TrasladoDR BaseDR="2426.9500" ImpuestoDR="002" TipoFactorDR="Tasa" TasaOCuotaDR="0.160000" ImporteDR="388.3120"/>
+            </pago20:TrasladosDR>
+          </pago20:ImpuestosDR>
+        </pago20:DoctoRelacionado>
+        <pago20:ImpuestosP>
+          <pago20:RetencionesP>
+            <pago20:RetencionP ImpuestoP="001" ImporteP="242.6950"/>
+            <pago20:RetencionP ImpuestoP="002" ImporteP="258.9556"/>
+          </pago20:RetencionesP>
+          <pago20:TrasladosP>
+            <pago20:TrasladoP BaseP="2426.9500" ImpuestoP="002" TipoFactorP="Tasa" TasaOCuotaP="0.160000" ImporteP="388.3120"/>
+          </pago20:TrasladosP>
+        </pago20:ImpuestosP>
+      </pago20:Pago>
+    </pago20:Pagos>
+    <tfd:TimbreFiscalDigital xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" xsi:schemaLocation="http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/sitio_internet/cfd/TimbreFiscalDigital/TimbreFiscalDigitalv11.xsd" Version="1.1" SelloCFD="IBwIS6IANNFXq3hV9I0kiKBw/ffb1OAoatMzN0qBax2gWcw6uT7X+zOK17sDzE4Vh5TWhf9NIVoer7wAYjHnHlI43ZZjHFYZnxv/jD92+C3w5zBRGVbRhVtyP7QH1CojRAA2Bo6fogRZ05hB7HsrWnrR1GUMdXk7Dpa12wnoggK7w64JiBTkgUbnlMzieZy0kS3HNBUSJdFxG4i/nNy29mfWDYARI+lGCwsH0xkrvS027YUi/dYwwo9pVNtwPb/JQ7iWaHqCa04dvV7hCxcTJrGxbbnR2Cps9lr0JpI/GMl2hIw8QZXfI1MpK20xlzPjjJmYyMBUFv+b1PZfCudr0g==" NoCertificadoSAT="30001000000400002495" RfcProvCertif="CVD110412TF6" UUID="AF5FFF1F-8AA2-5279-BFA3-737F39C6EE9F" FechaTimbrado="2023-05-23T21:16:57" SelloSAT="SDTJd5HAWMoqTxXy/rCS3rX6wdo9JrjNh29CUy2aKVOqZ8CQ182x5MqwoeWDaQyCYZPcRh4uyyX7p1StC+A7IsiU6zaxGfqaY7Vcn4G4adHYu4wVJKfFcdvrkiS8DvWj0gF6pDgM6ezdYHAtRhIlvOJtzNNKNfT5PwgKyGhRcbT2NQbQckzirUYfNqoGeu49BxMv5dkG8HCv0nSUxtVADLkt8poPKMwo3y9C0CICbM6otjd0CqHxStZ3ldwl5ymyRLSfqI52wook8SCzeeVCph2pb9Br3Y6JBE+l+1Kf0KppXpiY8YawugNpa7b9uUT6CMxd4+fqMthOIT3idjJQZg=="/>
+  </cfdi:Complemento>
+</cfdi:Comprobante>

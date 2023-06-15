@@ -6,6 +6,7 @@ use CfdiUtils\ConsultaCfdiSat\Config;
 use CfdiUtils\ConsultaCfdiSat\RequestParameters;
 use CfdiUtils\ConsultaCfdiSat\WebService;
 use CfdiUtilsTests\TestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class WebServiceTest extends TestCase
 {
@@ -53,7 +54,7 @@ final class WebServiceTest extends TestCase
      */
     public function testRequestWithBadRawResponse(?\stdClass $rawResponse, string $expectedMessage)
     {
-        /** @var WebService&\PHPUnit\Framework\MockObject\MockObject $webService */
+        /** @var WebService&MockObject $webService */
         $webService = $this->getMockBuilder(WebService::class)
             ->setMethodsExcept(['request'])
             ->setMethods(['doRequestConsulta'])

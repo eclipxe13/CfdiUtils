@@ -47,16 +47,16 @@ entonces `Comprobante::addEmisor(['RegimenFiscal' => '601'])` tiene este comport
 
 - Se obtiene el elemento `Emisor`, si no existe se crea uno vacío.
 - Se escriben los atributos pasados al elemento obtenido.
-- Se devuelve el elemento.
+- Se devuelve el elemento creado `Emisor`.
 
-Por el contrario, como puede haber varios Cfdi Relacionados, entonces
-`CfdiRelacionados::addCfdiRelacionado(['UUID' => $uuid])` tiene este comportamiento:
+Por el contrario, como puede haber varios conceptos, entonces
+`Conceptos::addConcepto([/* attributes */])` tiene este comportamiento:
 
-- Se crea un elemento de tipo `CfdiRelacionado` con los atributos pasados.
-- Se agrega el elemento recién creado a los hijos de `CfdiRelacionados`.
-- Se devuelve el elemento creado.
+- Se crea un elemento de tipo `Concepto` con los atributos pasados.
+- Se agrega el elemento recién creado a los hijos de `Conceptos`.
+- Se devuelve el elemento creado `Concepto`.
 
-Existe un caso donde lo que se espera entregar como atributo al prefijo `add*` es en realidad un hijo.
+Existe algunos casos donde, lo que se espera entregar como argumento al prefijo `add*`, es en realidad un hijo.
 Esto sucede en `addComplemento` y `addAddenda`.
 
 
@@ -66,7 +66,8 @@ La nomenclatura con el prefijo `multi*` se escribe la forma `ElementoPadre::mult
 y se espera crear múltiples una instancia de `ElementoHijo` con los atributos datos, agregarla a los hijos de `ElementoPadre`
 y la instancia de `ElementoPadre` creada.
 
-Otra forma de decirlo: es como los métodos `add*` pero se le pueden mandar varios arreglos de atributos y se creará un elemento para cada parámetro enviado.
+Otra forma de decirlo: es como los métodos `add*` pero se le pueden mandar varios arreglos de atributos y
+se creará un elemento para cada parámetro enviado.
 
 Por lo anterior, `CfdiRelacionados::multiCfdiRelacionado([ ['UUID' => $uuid1], ['UUID' => $uuid2] ])` agregará dos hijos
-y devolverá la misma instancia del objeto llamado.
+y devolverá la misma instancia del objeto `CfdiRelacionados` llamado.

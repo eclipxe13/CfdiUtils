@@ -18,4 +18,4 @@ build:
 
 tools:
   external_code_coverage:
-    timeout: 600 # default is 300 seconds
+    timeout: 120 # default is 300 seconds

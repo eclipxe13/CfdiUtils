@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd http://www.sat.gob.mx/Pagos20 http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos20.xsd" Version="4.0" Serie="REC" Folio="4051" Fecha="2023-06-13T16:02:51" Moneda="XXX" TipoDeComprobante="P" LugarExpedicion="52000" Exportacion="01" NoCertificado="00001000000502946368" SubTotal="0" Total="0">
+  <cfdi:Emisor Nombre="ESCUELA KEMPER URGATE" Rfc="EKU9003173C9" RegimenFiscal="601"/>
+  <cfdi:Receptor Rfc="XEXX010101000" Nombre="FOREIGN COMPANY INC" UsoCFDI="CP01" DomicilioFiscalReceptor="52000" RegimenFiscalReceptor="616" ResidenciaFiscal="PER" NumRegIdTrib="20000123456"/>
+  <cfdi:Conceptos>
+    <cfdi:Concepto ClaveProdServ="84111506" Cantidad="1" ClaveUnidad="ACT" Descripcion="Pago" ValorUnitario="0" Importe="0" ObjetoImp="01"/>
+  </cfdi:Conceptos>
+  <cfdi:Complemento>
+    <pago20:Pagos xmlns:pago20="http://www.sat.gob.mx/Pagos20" Version="2.0">
+      <pago20:Totales MontoTotalPagos="999685.44"/>
+      <pago20:Pago FechaPago="2022-12-19T12:00:00" FormaDePagoP="03" MonedaP="USD" TipoCambioP="19.7963" Monto="50498.60">
+        <pago20:DoctoRelacionado MonedaDR="USD" EquivalenciaDR="1" NumParcialidad="2" ImpSaldoAnt="50498.60" ImpPagado="50498.60" ImpSaldoInsoluto="0.00" ObjetoImpDR="01"/>
+      </pago20:Pago>
+    </pago20:Pagos>
+  </cfdi:Complemento>
+</cfdi:Comprobante>

@@ -63,7 +63,7 @@ Dado el ejemplo anterior, el comprobante contendrá la siguiente información:
         <!-- ... otros complementos ... -->
         <leyendasFisc:LeyendasFiscales version="1.0" xmlns:leyendasFisc="http://www.sat.gob.mx/leyendasFiscales"
             xsi:schemaLocation = "http://www.sat.gob.mx/leyendasFiscales http://www.sat.gob.mx/sitio_internet/cfd/leyendasFiscales/leyendasFisc.xsd">
-            <leyendasFisc:Leyenda disposicionFiscal="RESDERAUTH" norma = "Artíclo 2. Fracción IV." textoLeyenda = "El software desarrollado se entrega con licencia MIT" />
+            <leyendasFisc:Leyenda disposicionFiscal="RESDERAUTH" norma = "Artículo 2. Fracción IV." textoLeyenda = "El software desarrollado se entrega con licencia MIT" />
         </leyendasFisc:LeyendasFiscales>
     </cfdi:Complemento>
 </cfdi:Comprobante>

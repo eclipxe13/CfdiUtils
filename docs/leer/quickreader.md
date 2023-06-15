@@ -3,7 +3,7 @@
 El lector rápido ofrece una forma simple y rápida de acceder a los contenidos
 de un CFDI.
 
-El `QuickReader` permite poder acceder a los atributos y los elementos sin importar
+El objeto `QuickReader` permite poder acceder a los atributos y los elementos sin importar
 las mayúsculas y minúsculas y también omite la información del namespace XML.
 
 * Atributos: Se accede a su información usando la notación de arreglo.
@@ -17,7 +17,7 @@ Si accedes a una propiedad o elemento que no existe **no habrá ningún error**.
 
 El lector rápido fue creado para casos en donde requieres información rápida y lo que más necesitas es una
 navegación ágil dentro de la estructura de un CFDI, por ejemplo, en la exportación de los datos a una estructura
-específica de JSON o bien en la exportación de los datos a un template para luego crear un PDF.
+específica de JSON o bien en la exportación de los datos a una plantilla para luego crear un PDF.
 
 El lector rápido es una transformación con pérdida de datos, para empezar se pierde en espacio de nombres XML, así como la diferenciación de mayúsculas y minúsculas. Es por eso que no debes pensar en este objeto como una forma fácil de escribir un XML, fue creado expresamente para lectura. También ten en cuenta que no puede interpretar todo el contenido del XML, solo los elementos (tags) y sus atributos, no puede interpretar nodos de tipo texto o comentarios.
 

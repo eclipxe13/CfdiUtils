@@ -40,8 +40,8 @@ a un PAC para poderlos emitir.
 Por otro lado, el SAT no les ha exigido a los PAC que cuenten con herramientas gratuitas para elaborarlos,
 por lo que generalmente se requerirá contratar el uso de una aplicación o bien contratar los servicios de timbrado.
 
-Con `CfdiUtils` podrás generar el *precfdi* y mandarlo timbrar con tu PAC habitual, el PAC te devolverá el *cfdi*
-incluyendo el timbre fiscal digital y este es el comprobante legal.
+Con `CfdiUtils` podrás generar el *Pre-CFDI* y mandarlo timbrar con tu PAC habitual, el PAC te devolverá el *CFDI*
+incluyendo el *Timbre Fiscal Digital* y este es el comprobante legal.
 
 
 ### Más información

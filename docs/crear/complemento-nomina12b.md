@@ -6,10 +6,10 @@ vigente a partir del 01 de enero del 2020.
 
 La documentación del complemento la puedes encontrar en el sitio oficial del SAT:
 
-- Recibo de nómina <https://www.sat.gob.mx/consultas/97722/comprobante-de-nomina>
+- Recibo de nómina: <https://www.sat.gob.mx/consultas/97722/comprobante-de-nomina>
   y <http://omawww.sat.gob.mx/tramitesyservicios/Paginas/complemento_nomina.htm>.
-- Estándar técnico <http://omawww.sat.gob.mx/tramitesyservicios/Paginas/documentos/Nomina111219.pdf>.
-- Catálogos <http://www.sat.gob.mx/sitio_internet/cfd/catalogos/Nomina/catNomina.xsd>.
+- Estándar técnico: <http://omawww.sat.gob.mx/tramitesyservicios/Paginas/documentos/Nomina111219.pdf>.
+- Catálogos: <http://www.sat.gob.mx/sitio_internet/cfd/catalogos/Nomina/catNomina.xsd>.
 
 Según la documentación técnica el XML **debe cumplir** con la siguiente especificación:
 

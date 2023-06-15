@@ -15,7 +15,7 @@ Una vez cargado el certificado permite obtener los siguientes datos utilizando *
 - Llave pública
 - Nombre del archivo cargado
 
-Adicionalmente cuenta con los métodos:
+Adicionalmente, cuenta con los métodos:
 
 - Permite verificar si una llave privada corresponde a este certificado:
 
@@ -64,7 +64,7 @@ var_dump($certificate->getRfc()); // algo como COSC8001137NA
 
 ## Números de serie del certificado
 
-En el número de serie requerido en los CFDI se utiliza una representación ASCII y no hexadecimal, sin embargo
+En el número de serie requerido en los CFDI se utiliza una representación ASCII y no hexadecimal, sin embargo,
 en algunas ocasiones se podría necesitar el número en formato hexadecimal de dos dígitos o la representación decimal.
 
 El objeto `Certificado` contiene internamente un objeto de tipo `SerialNumber` que del que se puede obtener **una copia**

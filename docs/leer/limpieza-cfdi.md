@@ -1,9 +1,9 @@
 # Limpieza de un CFDI
 
-Frecuentemente se reciben archivos de CFDI que fueron firmados y son válidos pero contienen errores.
+Frecuentemente, se reciben archivos de CFDI que fueron firmados y son válidos pero contienen errores.
 
 Sucede que, después de que el SAT (o el PAC en nombre del SAT) ha firmado un CFDI estos suelen ser alterados
-con información que no pertenece a la cadena de origen. Lamentablemente esto es permitido por el SAT.
+con información que no pertenece a la cadena de origen. Lamentablemente, esto es permitido por el SAT.
 
 Un caso común de alteración es agregar más nodos al nodo `cfdi:Addenda`, como la información contenida
 no pertenece a la cadena de origen entonces no se considera que el documento ha sido alterado.
@@ -16,8 +16,8 @@ Algunos de estos errores son:
 - Existen espacios de nombres XML definidos que no pertenecen al SAT y no está disponible su archivo XSD
 - La especificación XSD no puede ser obtenida
 - Los datos en el nodo `cfdi:Addenda` no cumplen con la especificación XSD
-- Múltiples nodos `cfdi:Complemento`, en el Anexo 20 está especificado que solo puede haber uno pero
-  en el archivo XSD está especificado que pueden haber muchos.
+- Múltiples nodos `cfdi:Complemento`, en el Anexo 20 está especificado que solo puede haber uno,
+  pero en el archivo XSD está especificado que pueden existir muchos.
 
 Estos errores comunes terminan en un error de validación.
 
@@ -26,16 +26,16 @@ Estos errores comunes terminan en un error de validación.
 Para evitar estos errores se puede usar el objeto `CfdiUtils\Cleaner\Cleaner`.
 Este objeto requiere una cadena de texto con XML válido. Y limpia el XML siguiendo estos pasos:
 
-1. Cambiar la defición incorrecta en algunos CFDI del SAT `xmlns:schemaLocation` por `xsi:schemaLocation`.
-1. Remover la definición de CFDI 3 si no tiene prefijo `xmlns="http://www.sat.gob.mx/cfd/3"` siempre que la definición
+1. Cambiar la definición incorrecta en algunos CFDI del SAT `xmlns:schemaLocation` por `xsi:schemaLocation`.
+2. Remover la definición de CFDI 3 si no tiene prefijo `xmlns="http://www.sat.gob.mx/cfd/3"` siempre que la definición
    con prefijo `xmlns:cfdi="http://www.sat.gob.mx/cfd/3"` sí esté presente.
-1. Remueve el nodo `cfdi:Addenda`.
-1. Remueve dentro de las locaciones de espacios de nombre `xsi:schemaLocation` los namespaces que no tengan
+3. Remueve el nodo `cfdi:Addenda`.
+4. Remueve dentro de las locaciones de espacios de nombre `xsi:schemaLocation` los namespaces que no tengan
    a continuación una uri que termine en `.xsd`.
-1. Remueve todos los nodos que no tengan relación con el SAT (los que no contengan `http://www.sat.gob.mx/`).
-1. Remueve todos los pares de espacio de nombre y archivo xsd de los `xsi:schemaLocation` que no tengan relación con el SAT.
-1. Remueve todos los espacios de nombres listados que no están en uso.
-1. Colapsa los nodos `cfdi:Complemento` en uno solo, respetando el mismo orden de aparición para que se genere
+5. Remueve todos los nodos que no tengan relación con el SAT (los que no contengan `http://www.sat.gob.mx/`).
+6. Remueve todos los pares de espacio de nombre y archivo xsd de los `xsi:schemaLocation` que no tengan relación con el SAT.
+7. Remueve todos los espacios de nombres listados que no están en uso.
+8. Colapsa los nodos `cfdi:Complemento` en uno solo, respetando el mismo orden de aparición para que se genere
    exactamente la misma cadena de origen.
 
 Las primeras dos formas no trabajan con el CFDI como XML, lo trabajan como una cadena de texto.
@@ -50,7 +50,7 @@ $possibleDirty = '... el xml del cfdi ...';
 $cleanContent = CfdiUtils\Cleaner\Cleaner::staticClean($possibleDirty);
 ```
 
-También se puede instanciar un objeto de la clase `CfdiUtils\Cleaner\Cleaner` y usar estos métodos:
+También se puede crear un objeto de la clase `CfdiUtils\Cleaner\Cleaner` y usar estos métodos:
 
 - `load(string $content)`: Carga un contenido XML "sucio"
 - `clean()`: Realiza la limpieza

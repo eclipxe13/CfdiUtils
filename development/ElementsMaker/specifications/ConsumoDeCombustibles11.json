@@ -1,0 +1,21 @@
+{
+    "php-namespace": "CfdiUtils\\Elements\\ConsumoDeCombustibles11",
+    "prefix": "consumodecombustibles11",
+    "xml-namespace": "http://www.sat.gob.mx/ConsumoDeCombustibles11",
+    "xml-schemalocation": "http://www.sat.gob.mx/sitio_internet/cfd/consumodecombustibles/consumodeCombustibles11.xsd",
+    "version-attribute": "version",
+    "version-value": "1.1",
+    "root-element": "ConsumoDeCombustibles",
+    "structure": {
+        "Conceptos": {
+            "ConceptoConsumoDeCombustibles": {
+                "multiple": true,
+                "Determinados": {
+                    "Determinado": {
+                        "multiple": true
+                    }
+                }
+            }
+        }
+    }
+}

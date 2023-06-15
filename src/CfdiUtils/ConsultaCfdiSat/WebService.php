@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpComposerExtensionStubsInspection */
+
 namespace CfdiUtils\ConsultaCfdiSat;
 
 use RuntimeException;

@@ -5,7 +5,7 @@ ahí encontrarás más información de referencia.
 
 En esta sección encontrarás el ejemplo para poder crear un CFDI de este tipo.
 
-La estrategia para crear este un CFDI de retenciones es la misma que para [crear un CFDI 3.3](../crear/crear-cfdi.md).
+La estrategia para crear este un CFDI de retenciones es la misma que para [crear un CFDI 4.0](../crear/crear-cfdi-40.md).
 Consulta la información relacionada con el uso de [elementos](../componentes/elements.md),
 [nodos](../componentes/nodes.md) y [complementos no implementados](../crear/complementos-aun-no-implementados.md).
 

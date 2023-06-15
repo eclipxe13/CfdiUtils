@@ -13,7 +13,7 @@ para el protocolo `https` vigentes y expirados:
 - Expirado: `4D:CE:6C:8E:0D:C6:4C:E3` vigente hasta `2018-09-22 16:07:04 GMT`
 - Vigente: `00:A7:06:AA:42:44:4E:E4:E9:00:00:00:00:58:08:91:5B` vigente hasta `2020-09-12 16:41:28 GMT`
 
-No hay una tendencia, de una muestra de 1,000 descargas realizada el `2018-10-17 17:30 GMT-5` el resultado fue
+No hay una tendencia, de una muestra de 1,000 descargas realizada el `2018-10-17 17:30 GMT-5` el resultado fue:
 incorrectas 2,853 (28.53%) y correctas 7,147 (71.47%) por lo que la posibilidad de obtener un certificado incorrecto
 es cercana al 30%.
 
@@ -49,7 +49,7 @@ do {
 // $asserts podría tener el código 'TFDSELLO01' con estado de error después de haberlo intentado 10 veces
 ```
 
-Personalmente no recomiendo desabilitar la seguridad del protocolo HTTPS, pero es una posible solución.
+Personalmente, no recomiendo deshabilitar la seguridad del protocolo HTTPS, pero es una posible solución.
 
 Se puede desactivar usando el downloader genérico `XmlResourceRetriever\Downloader\PhpDownloader`
 y estableciendo un contexto que desactive la verificación de la siguiente manera.

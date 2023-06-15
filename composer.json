@@ -31,7 +31,6 @@
         "ext-simplexml": "*",
         "ext-mbstring": "*",
         "ext-openssl": "*",
-        "ext-soap": "*",
         "ext-iconv": "*",
         "ext-json": "*",
         "symfony/process": "^3.4|^4.2|^5.0|^6.0",
@@ -39,9 +38,13 @@
         "eclipxe/xmlschemavalidator": "^3.0.2"
     },
     "suggest": {
+        "ext-bcmath": "Allows calculate totals and taxes on Pagos 2.0",
+        "ext-soap": "Allows consume the CFDI Status SAT Web Service",
         "genkgo/xsl": "Allows usage of Genkgo/Xsl transformations"
     },
     "require-dev": {
+        "ext-bcmath": "*",
+        "ext-soap": "*",
         "genkgo/xsl": "^1.0.8",
         "phpunit/phpunit": "^9.5",
         "squizlabs/php_codesniffer": "^3.6",

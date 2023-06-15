@@ -18,7 +18,7 @@ Sin embargo, en el archivo de definición de esquema XSD de CFDI 3.3 ubicado en
 ```
 
 Por lo tanto, el problema es que las dos definiciones técnicas publicadas por la autoridad se contradicen.
-Por un lado el Anexo 20 define una cardinalidad de `(0, 1)` y el esquema XSD define `(0, N)`.
+Por un lado, el Anexo 20 define una cardinalidad de `(0, 1)` y el esquema XSD define `(0, N)`.
 
 Dado lo anterior, y que no existe ninguna regla en la Matriz de errores que prevenga esta situación,
 es posible que existan comprobantes con múltiples `cfdi:Complemento` y una controversia de si son o no correctos.
@@ -36,12 +36,12 @@ esta recomendación, además, al llamar al método `clean()` también se colapsa
 
 * **Complemento de concepto**
 
-El otro lugar donde se pueden poner complementos en en el nodo
+El otro lugar donde se pueden poner complementos en el nodo
 `cfdi:Comprobante/cfdi:Conceptos/cfdi:Concepto/cfdi:ComplementoConcepto`,
-sin embargo este nodo no tiene el mismo problema de cardinalidad, en Anexo 20 y XSD esta definido como `(0, 1)`.
+sin embargo este nodo no tiene el mismo problema de cardinalidad, en Anexo 20 y XSD está definido como `(0, 1)`.
 
 * **Complemento de retención e información de pagos**
 
 Los documentos de CFDI de Retención e información de pagos también admiten complementos en el nodo
 `cfdi:Comprobante/cfdi:Complemento`,
-sin embargo este nodo no tiene el mismo problema de cardinalidad, en Anexo 20 y XSD esta definido como `(0, 1)`.
+sin embargo este nodo no tiene el mismo problema de cardinalidad, en Anexo 20 y XSD está definido como `(0, 1)`.
