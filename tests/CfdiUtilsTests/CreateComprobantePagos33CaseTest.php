@@ -14,8 +14,8 @@ final class CreateComprobantePagos33CaseTest extends TestCase
         $cerfile = $this->utilAsset('certs/EKU9003173C9.cer');
         $keyfile = $this->utilAsset('certs/EKU9003173C9.key.pem');
         $certificado = new Certificado($cerfile);
-        $fecha = strtotime('2021-01-13 14:15:16');
-        $fechaPago = strtotime('2020-12-13 17:18:19');
+        $fecha = strtotime('2023-06-18 19:20:21');
+        $fechaPago = strtotime('2023-05-06 07:08:09');
 
         $creator = new CfdiCreator33();
         $comprobante = $creator->comprobante();
@@ -99,6 +99,7 @@ final class CreateComprobantePagos33CaseTest extends TestCase
         );
 
         // test that the file is the same as expected
+        /** @see tests/assets/created-pago-with-ns-at-root-33.xml */
         $expectedFile = $this->utilAsset('created-pago-with-ns-at-root-33.xml');
         $this->assertXmlStringEqualsXmlFile($expectedFile, $creator->asXml());
     }

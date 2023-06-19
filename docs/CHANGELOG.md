@@ -32,6 +32,13 @@
 - Merge methods from `\CfdiUtils\Nodes\NodeHasValueInterface` into `\CfdiUtils\Nodes\NodeInterface`.
 - Remove deprecated constant `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`.
 
+## Maintenance 2023-06-19
+
+The certificate for RFC `EKU9003173C9` expired and is replaced for a new one.
+This change require several changes on tests.
+
+Replace deprecated rule `single_blank_line_before_namespace` with `blank_lines_before_namespace` for `php-cs-fixer`.
+
 ## Version 2.24.0 2023-06-14
 
 Add a calculator and writer for complement *Pagos 2.0*.

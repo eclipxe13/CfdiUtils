@@ -14,7 +14,7 @@ final class CreateComprobante40CaseTest extends TestCase
         $cerfile = $this->utilAsset('certs/EKU9003173C9.cer');
         $keyfile = $this->utilAsset('certs/EKU9003173C9.key.pem');
         $certificado = new Certificado($cerfile);
-        $fecha = mktime(14, 15, 16, 1, 13, 2021); // 2021-01-13 14:15:16
+        $fecha = strtotime('2023-06-18 19:20:21');
 
         // create comprobante using creator with attributes
         // did not set the XmlResolver then a new XmlResolver is created using the default location

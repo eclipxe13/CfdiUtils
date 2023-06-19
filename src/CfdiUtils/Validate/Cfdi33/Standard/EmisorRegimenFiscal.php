@@ -3,7 +3,6 @@
 namespace CfdiUtils\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Nodes\NodeInterface;
-use CfdiUtils\Utils\Rfc;
 use CfdiUtils\Validate\Asserts;
 use CfdiUtils\Validate\Cfdi33\Abstracts\AbstractDiscoverableVersion33;
 use CfdiUtils\Validate\Status;
