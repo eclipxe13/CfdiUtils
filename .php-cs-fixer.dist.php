@@ -34,7 +34,7 @@ return (new PhpCsFixer\Config())
         // contrib
         'concat_space' => ['spacing' => 'one'],
         'not_operator_with_successor_space' => true,
-        'single_blank_line_before_namespace' => true,
+        'blank_lines_before_namespace' => true,
         'linebreak_after_opening_tag' => true,
         'blank_line_after_opening_tag' => true,
         'ordered_imports' => true,
