@@ -90,6 +90,7 @@ final class RetencionesCreator20Test extends TestCase
         $this->assertFalse($asserts->hasErrors());
 
         // check against known content
+        /** @see tests/assets/retenciones/retenciones20.xml */
         $this->assertXmlStringEqualsXmlFile($this->utilAsset('retenciones/retenciones20.xml'), $creator->asXml());
     }
 

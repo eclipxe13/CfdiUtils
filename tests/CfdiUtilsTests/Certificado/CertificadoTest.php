@@ -14,13 +14,13 @@ final class CertificadoTest extends TestCase
         //         -fingerprint -pubkey -in tests/assets/certs/EKU9003173C9.cer
         $expectedPublicKey = <<< EOD
             -----BEGIN PUBLIC KEY-----
-            MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjdKXiqYHzi++YmEb9X6q
-            vqFWLCz1VEfxom2JhinPSJxxcuZWBejk2I5yCL5pDnUaG2xpQlMTkV/7S7JfGGvY
-            JumKO4R5zg0QSA7qdxiEhcwf/ekfSvzM2EDnLHDCKAQwEWsnJy78uxZTLzu/65VZ
-            7EgEcWUTvCs/GZJLI9s6XmKY2SMmv9+vfqBqkJNXE0ZB6OfSbyeE325P94iMn+B/
-            yJ4vZwXvXGFqNDJyqG+ww7f77HYubQPJjLQPedy2qTcgmSAwkUEJVBjYA6mPf/Be
-            ZlL1YJHHM7CIBnb3/bzED0n944woio+4+rnMZdfhcCVpm74DZomlEf9KuJtq5u/J
-            RQIDAQAB
+            MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtmecO6n2GS0zL025gbHG
+            QVxznPDICoXzR2uUngz4DqxVUC/w9cE6FxSiXm2ap8Gcjg7wmcZfm85EBaxCx/0J
+            2u5CqnhzIoGCdhBPuhWQnIh5TLgj/X6uNquwZkKChbNe9aeFirU/JbyN7Egia9oK
+            H9KZUsodiM/pWAH00PCtoKJ9OBcSHMq8Rqa3KKoBcfkg1ZrgueffwRLws9yOcRWL
+            b02sDOPzGIm/jEFicVYt2Hw1qdRE5xmTZ7AGG0UHs+unkGjpCVeJ+BEBn0JPLWVv
+            DKHZAQMj6s5Bku35+d/MyATkpOPsGT/VTnsouxekDfikJD1f7A1ZpJbqDpkJnss3
+            vQIDAQAB
             -----END PUBLIC KEY-----
 
             EOD;
@@ -33,20 +33,20 @@ final class CertificadoTest extends TestCase
             '/CN=ESCUELA KEMPER URGATE SA DE CV',
             '/name=ESCUELA KEMPER URGATE SA DE CV',
             '/O=ESCUELA KEMPER URGATE SA DE CV',
-            '/x500UniqueIdentifier=EKU9003173C9 / XIQB891116QE4',
-            '/serialNumber= / XIQB891116MGRMZR05',
-            '/OU=Escuela Kemper Urgate',
+            '/x500UniqueIdentifier=EKU9003173C9 / VADA800927DJ3',
+            '/serialNumber= / VADA800927HSRSRL05',
+            '/OU=Sucursal 1',
         ]);
         $this->assertSame($certificateName, str_replace('\/', '/', $certificado->getCertificateName()));
         $this->assertSame('ESCUELA KEMPER URGATE SA DE CV', $certificado->getName());
         $this->assertSame('EKU9003173C9', $certificado->getRfc());
-        $this->assertSame('30001000000400002434', $certificado->getSerial());
+        $this->assertSame('30001000000500003416', $certificado->getSerial());
         $this->assertSame(
-            '3330303031303030303030343030303032343334',
+            '3330303031303030303030353030303033343136',
             $certificado->getSerialObject()->getHexadecimal()
         );
-        $this->assertSame(strtotime('2019-06-17T14:44:14-05:00'), $certificado->getValidFrom());
-        $this->assertSame(strtotime('2023-06-17T14:44:14-05:00'), $certificado->getValidTo());
+        $this->assertSame(strtotime('2023-05-18T11:43:51+00:00'), $certificado->getValidFrom());
+        $this->assertSame(strtotime('2027-05-18T11:43:51+00:00'), $certificado->getValidTo());
         $this->assertSame($expectedPublicKey, $certificado->getPubkey());
     }
 
@@ -138,7 +138,7 @@ final class CertificadoTest extends TestCase
         chdir($workingdir);
         try {
             $certificate = new Certificado('EKU9003173C9.cer');
-            $this->assertSame('30001000000400002434', $certificate->getSerial());
+            $this->assertSame('30001000000500003416', $certificate->getSerial());
         } finally {
             chdir($previousPath);
         }

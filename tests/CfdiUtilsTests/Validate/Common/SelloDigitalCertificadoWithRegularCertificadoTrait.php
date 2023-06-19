@@ -53,19 +53,31 @@ trait SelloDigitalCertificadoWithRegularCertificadoTrait
         $this->assertStatusEqualsCode(Status::error(), 'SELLO04');
     }
 
+    public function testValidateOkLowerFecha()
+    {
+        // Fecha inicial de vigencia del certificado
+        $validLowerDate = strtotime('2023-05-18T11:43:51+00:00');
+        $this->setUpCertificado(['Fecha' => Format::datetime($validLowerDate)]);
+        $this->runValidate();
+        $this->assertStatusEqualsCode(Status::ok(), 'SELLO05');
+        $this->assertStatusEqualsCode(Status::ok(), 'SELLO06');
+    }
+
     public function testValidateBadLowerFecha()
     {
-        $validLowerDate = strtotime('2019-06-17T19:44:13+00:00');
+        // Fecha inicial de vigencia del certificado - 1
+        $validLowerDate = strtotime('2023-05-18T11:43:50+00:00');
         $this->setUpCertificado(['Fecha' => Format::datetime($validLowerDate - 1)]);
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::error(), 'SELLO05');
         $this->assertStatusEqualsCode(Status::ok(), 'SELLO06');
     }
 
-    public function testValidateOkLowerFecha()
+    public function testValidateOkHigherFecha()
     {
-        $validLowerDate = strtotime('2019-06-17T19:44:14+00:00');
-        $this->setUpCertificado(['Fecha' => Format::datetime($validLowerDate)]);
+        // Fecha final de vigencia del certificado
+        $validHigherDate = strtotime('2023-06-17T19:44:13+00:00');
+        $this->setUpCertificado(['Fecha' => Format::datetime($validHigherDate)]);
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::ok(), 'SELLO05');
         $this->assertStatusEqualsCode(Status::ok(), 'SELLO06');
@@ -73,20 +85,12 @@ trait SelloDigitalCertificadoWithRegularCertificadoTrait
 
     public function testValidateBadHigherFecha()
     {
-        $validHigherDate = strtotime('2023-06-17T19:44:15+00:00');
+        // Fecha final de vigencia del certificado + 1
+        $validHigherDate = strtotime('2027-05-18T11:43:52+00:00');
         $this->setUpCertificado(['Fecha' => Format::datetime($validHigherDate + 1)]);
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::ok(), 'SELLO05');
         $this->assertStatusEqualsCode(Status::error(), 'SELLO06');
-    }
-
-    public function testValidateOkHigherFecha()
-    {
-        $validHigherDate = strtotime('2023-06-17T19:44:14+00:00');
-        $this->setUpCertificado(['Fecha' => Format::datetime($validHigherDate)]);
-        $this->runValidate();
-        $this->assertStatusEqualsCode(Status::ok(), 'SELLO05');
-        $this->assertStatusEqualsCode(Status::ok(), 'SELLO06');
     }
 
     public function testValidateBadSelloBase64()
