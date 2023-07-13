@@ -4,10 +4,40 @@ namespace CfdiUtilsTests\SumasPagos20;
 
 use CfdiUtils\Nodes\XmlNodeUtils;
 use CfdiUtils\SumasPagos20\Calculator;
+use CfdiUtils\SumasPagos20\Currencies;
 use CfdiUtilsTests\TestCase;
 
 final class CalculatorTest extends TestCase
 {
+    public function testCalculatorDefaultProperties(): void
+    {
+        $calculator = new Calculator();
+        $this->assertSame(6, $calculator->getPaymentTaxesPrecision());
+        $this->assertInstanceOf(Currencies::class, $calculator->getCurrencies());
+    }
+
+    public function testCalculatorProperties(): void
+    {
+        $precision = 4;
+        $currencies = $this->createMock(Currencies::class);
+        $calculator = new Calculator($precision, $currencies);
+        $this->assertSame($precision, $calculator->getPaymentTaxesPrecision());
+        $this->assertSame($currencies, $calculator->getCurrencies());
+    }
+
+    public function testCalculatorChangeProperties(): void
+    {
+        $calculator = new Calculator();
+
+        $precision = 4;
+        $calculator->setPaymentTaxesPrecision($precision);
+        $this->assertSame($precision, $calculator->getPaymentTaxesPrecision());
+
+        $currencies = $this->createMock(Currencies::class);
+        $calculator->setCurrencies($currencies);
+        $this->assertSame($currencies, $calculator->getCurrencies());
+    }
+
     public function testCalculateMinimal(): void
     {
         $xml = <<< XML
@@ -34,8 +64,14 @@ final class CalculatorTest extends TestCase
         $this->assertSame('0.02', (string) $result->getTotales()->getTrasladoIva16Importe());
 
         $impuesto = $result->getPago(0)->getImpuestos()->getTraslado('002', 'Tasa', '0.160000');
-        $this->assertSame('0.123456', (string) $impuesto->getBase());
+        $this->assertSame('0.123457', (string) $impuesto->getBase());
         $this->assertSame('0.019753', (string) $impuesto->getImporte());
+
+        $calculator = new Calculator(4);
+        $result = $calculator->calculate($pagos);
+        $impuesto = $result->getPago(0)->getImpuestos()->getTraslado('002', 'Tasa', '0.160000');
+        $this->assertSame('0.1235', (string) $impuesto->getBase());
+        $this->assertSame('0.0198', (string) $impuesto->getImporte());
     }
 
     public function testCalculateTwoDocuments(): void
@@ -72,8 +108,8 @@ final class CalculatorTest extends TestCase
         $this->assertSame('0.22', (string) $result->getTotales()->getTrasladoIva16Importe());
 
         $impuesto = $result->getPago(0)->getImpuestos()->getTraslado('002', 'Tasa', '0.160000');
-        $this->assertSame('1.358024', (string) $impuesto->getBase());
-        $this->assertSame('0.217283', (string) $impuesto->getImporte());
+        $this->assertSame('1.358025', (string) $impuesto->getBase());
+        $this->assertSame('0.217284', (string) $impuesto->getImporte());
     }
 
     /**
@@ -138,8 +174,8 @@ final class CalculatorTest extends TestCase
                                 "impuesto": "002",
                                 "tipoFactor": "Tasa",
                                 "tasaCuota": "0.160000",
-                                "base": "3.532679",
-                                "importe": "0.565228"
+                                "base": "3.532680",
+                                "importe": "0.565229"
                             },
                             "T:Traslado|I:002|F:Tasa|C:0.000000": {
                                 "tipo": "Traslado",

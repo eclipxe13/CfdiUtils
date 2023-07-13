@@ -20,7 +20,7 @@
         </pago20:DoctoRelacionado>
         <pago20:ImpuestosP>
           <pago20:TrasladosP>
-            <pago20:TrasladoP TasaOCuotaP="0.160000" ImporteP="14.954652" BaseP="93.46658" ImpuestoP="002" TipoFactorP="Tasa"/>
+            <pago20:TrasladoP TasaOCuotaP="0.160000" ImporteP="14.954653" BaseP="93.46658" ImpuestoP="002" TipoFactorP="Tasa"/>
             <pago20:TrasladoP TasaOCuotaP="0.000000" ImporteP="0" BaseP="3.595631" ImpuestoP="002" TipoFactorP="Tasa"/>
             <pago20:TrasladoP BaseP="11.433232" ImpuestoP="002" TipoFactorP="Exento"/>
           </pago20:TrasladosP>
@@ -38,9 +38,9 @@
         </pago20:DoctoRelacionado>
         <pago20:ImpuestosP>
           <pago20:TrasladosP>
-            <pago20:TrasladoP TasaOCuotaP="0.160000" ImporteP="0.460567" BaseP="2.878547" ImpuestoP="002" TipoFactorP="Tasa"/>
-            <pago20:TrasladoP TasaOCuotaP="0.000000" ImporteP="0" BaseP="0.098303" ImpuestoP="002" TipoFactorP="Tasa"/>
-            <pago20:TrasladoP BaseP="0.312582" ImpuestoP="002" TipoFactorP="Exento"/>
+            <pago20:TrasladoP TasaOCuotaP="0.160000" ImporteP="0.460568" BaseP="2.878548" ImpuestoP="002" TipoFactorP="Tasa"/>
+            <pago20:TrasladoP TasaOCuotaP="0.000000" ImporteP="0" BaseP="0.098304" ImpuestoP="002" TipoFactorP="Tasa"/>
+            <pago20:TrasladoP BaseP="0.312583" ImpuestoP="002" TipoFactorP="Exento"/>
           </pago20:TrasladosP>
         </pago20:ImpuestosP>
       </pago20:Pago>
@@ -54,7 +54,7 @@
         </pago20:DoctoRelacionado>
         <pago20:ImpuestosP>
           <pago20:TrasladosP>
-            <pago20:TrasladoP TasaOCuotaP="0.160000" ImporteP="0.031724" BaseP="0.198275" ImpuestoP="002" TipoFactorP="Tasa"/>
+            <pago20:TrasladoP TasaOCuotaP="0.160000" ImporteP="0.031724" BaseP="0.198276" ImpuestoP="002" TipoFactorP="Tasa"/>
           </pago20:TrasladosP>
         </pago20:ImpuestosP>
       </pago20:Pago>

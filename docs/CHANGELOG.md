@@ -32,6 +32,14 @@
 - Merge methods from `\CfdiUtils\Nodes\NodeHasValueInterface` into `\CfdiUtils\Nodes\NodeInterface`.
 - Remove deprecated constant `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`.
 
+## Version 2.24.0 2023-07-12
+
+Fix calculator for complement *Pagos 2.0*.
+For attributes `BaseP` and `ImporteP` the value was truncated. Now, the value has to be rounded.
+Some vendors communicate this change, such as Finkok. 
+
+Improve calculator with new getter and setter for `paymentTaxesPrecision` and `currencies`.
+
 ## Maintenance 2023-06-19
 
 The certificate for RFC `EKU9003173C9` expired and is replaced for a new one.

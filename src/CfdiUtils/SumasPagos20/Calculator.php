@@ -8,15 +8,35 @@ use CfdiUtils\Nodes\Nodes;
 class Calculator
 {
     /** @var int */
-    private $paymentTaxesTruncate;
+    private $paymentTaxesPrecision;
 
     /** @var Currencies */
     private $currencies;
 
-    public function __construct(int $paymentTaxesTruncate = 6, Currencies $currencies = null)
+    public function __construct(int $paymentTaxesPrecision = 6, ?Currencies $currencies = null)
     {
-        $this->paymentTaxesTruncate = min(6, max(0, $paymentTaxesTruncate));
+        $this->setPaymentTaxesPrecision($paymentTaxesPrecision);
         $this->currencies = $currencies ?? new Currencies(['MXN' => 2, 'USD' => 2]);
+    }
+
+    public function getPaymentTaxesPrecision(): int
+    {
+        return $this->paymentTaxesPrecision;
+    }
+
+    public function setPaymentTaxesPrecision(int $paymentTaxesPrecision): void
+    {
+        $this->paymentTaxesPrecision = min(6, max(0, $paymentTaxesPrecision));
+    }
+
+    public function getCurrencies(): Currencies
+    {
+        return $this->currencies;
+    }
+
+    public function setCurrencies(Currencies $currencies): void
+    {
+        $this->currencies = $currencies;
     }
 
     public function calculate(NodeInterface $nodePagos): Pagos
@@ -41,7 +61,7 @@ class Calculator
         }
         $montoMinimo = $sumMonto->truncate($this->currencies->get($nodePago['MonedaP']));
         $monto = (isset($nodePago['Monto'])) ? new Decimal($nodePago['Monto']) : $montoMinimo;
-        $impuestos = $impuestos->truncate($this->paymentTaxesTruncate);
+        $impuestos = $impuestos->round($this->paymentTaxesPrecision);
         $tipoCambioP = new Decimal($nodePago['TipoCambioP']);
         return new Pago($monto, $montoMinimo, $tipoCambioP, $impuestos);
     }

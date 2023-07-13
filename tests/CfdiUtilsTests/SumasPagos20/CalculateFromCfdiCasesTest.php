@@ -12,6 +12,7 @@ use LogicException;
 
 final class CalculateFromCfdiCasesTest extends TestCase
 {
+    /** @return array<string, array{string}> */
     public function providerPredefinedCfdi(): array
     {
         return [
@@ -19,14 +20,14 @@ final class CalculateFromCfdiCasesTest extends TestCase
              * @see \CfdiUtilsTests\CreateComprobantePagos40CaseTest
              * @see file://tests/assets/created-cfdi40-pago20-valid.xml
              */
-            [self::utilAsset('created-cfdi40-pago20-valid.xml')],
+            'created-cfdi40-pago20-valid.xml' => [self::utilAsset('created-cfdi40-pago20-valid.xml')],
             /**
              * 1 pago MXN pagando a 4 doctos MXN con tasa 16, 0 y exento.
              * 1 pago USD pagando a 1 docto MXN con tasa 16.
              *
              * @see file://tests/assets/pagos20-calculator/001.xml
              */
-            [self::utilAsset('pagos20-calculator/001.xml')],
+            'pagos20-calculator/001.xml' => [self::utilAsset('pagos20-calculator/001.xml')],
             /**
              * 1 Pago en MXN, con 1 documento relacionado MXN, con impuestos:
              * - ISR Retenido
@@ -36,7 +37,7 @@ final class CalculateFromCfdiCasesTest extends TestCase
              *
              * @see file://tests/assets/pagos20-calculator/002.xml
              */
-            [self::utilAsset('pagos20-calculator/002.xml')],
+            'pagos20-calculator/002.xml' => [self::utilAsset('pagos20-calculator/002.xml')],
             /**
              * 2 Pago en MXN, con 1 documento relacionado MXN cada uno, con impuestos:
              * - IVA Retenido
@@ -45,37 +46,40 @@ final class CalculateFromCfdiCasesTest extends TestCase
              *
              * @see file://tests/assets/pagos20-calculator/003.xml
              */
-            [self::utilAsset('pagos20-calculator/003.xml')],
+            'pagos20-calculator/003.xml' => [self::utilAsset('pagos20-calculator/003.xml')],
             /**
              * 1 Pago en MXN, 43 documentos relacionados en USD con impuestos de traslado IVA 16%
+             * El cálculo de la sumatoria de impuestos es sensible a truncado o redondeo
              *
              * @see file://tests/assets/pagos20-calculator/004.xml
              */
-            [self::utilAsset('pagos20-calculator/004.xml')],
+            'pagos20-calculator/004.xml' => [self::utilAsset('pagos20-calculator/004.xml')],
             /**
              * Este pago incluye únicamente CFDI que no son objetos de pago. No tiene impuestos.
              *
              * @see file://tests/assets/pagos20-calculator/005.xml
              */
-            [self::utilAsset('pagos20-calculator/005.xml')],
+            'pagos20-calculator/005.xml' => [self::utilAsset('pagos20-calculator/005.xml')],
             /**
              * 3 Pagos, cada uno con 1 documento relacionado, IVA16, IVA0 e IVA Exento
+             * El cálculo de la sumatoria de impuestos es sensible a truncado o redondeo
              *
              * @see file://tests/assets/pagos20-calculator/006.xml
              */
-            [self::utilAsset('pagos20-calculator/006.xml')],
+            'pagos20-calculator/006.xml' => [self::utilAsset('pagos20-calculator/006.xml')],
             /**
              * 1 Pago, 38 documentos relacionados con IVA0
              *
              * @see file://tests/assets/pagos20-calculator/007.xml
              */
-            [self::utilAsset('pagos20-calculator/007.xml')],
+            'pagos20-calculator/007.xml' => [self::utilAsset('pagos20-calculator/007.xml')],
             /**
              * 1 Pago, el monto (168168.00) es mayor al mínimo (168167.99), tiene IVA Retenido y Trasladado
+             * El cálculo de la sumatoria de impuestos es sensible a truncado o redondeo
              *
              * @see file://tests/assets/pagos20-calculator/008.xml
              */
-            [self::utilAsset('pagos20-calculator/008.xml')],
+            'pagos20-calculator/008.xml' => [self::utilAsset('pagos20-calculator/008.xml')],
         ];
     }
 
@@ -121,7 +125,7 @@ final class CalculateFromCfdiCasesTest extends TestCase
             $nodeRetenciones = $nodePago->searchNodes('pago20:ImpuestosP', 'pago20:RetencionesP', 'pago20:RetencionP');
             foreach ($nodeRetenciones as $nodeRetencion) {
                 $retencion = $pago->getImpuestos()->getRetencion($nodeRetencion['ImpuestoP']);
-                $this->checkDecimalEquals(new Decimal($nodeRetencion['ImporteP']), $retencion->getImporte(), '');
+                $this->checkDecimalEquals($retencion->getImporte(), new Decimal($nodeRetencion['ImporteP']));
             }
             $nodeTraslados = $nodePago->searchNodes('pago20:ImpuestosP', 'pago20:TrasladosP', 'pago20:TrasladoP');
             foreach ($nodeTraslados as $nodeTraslado) {
@@ -130,8 +134,8 @@ final class CalculateFromCfdiCasesTest extends TestCase
                     $nodeTraslado['TipoFactorP'],
                     $nodeTraslado['TasaOCuotaP']
                 );
-                $this->checkDecimalEquals(new Decimal($nodeTraslado['BaseP']), $traslado->getBase(), '');
-                $this->checkDecimalEquals(new Decimal($nodeTraslado['ImporteP']), $traslado->getImporte(), '');
+                $this->checkDecimalEquals($traslado->getBase(), new Decimal($nodeTraslado['BaseP']));
+                $this->checkDecimalEquals($traslado->getImporte(), new Decimal($nodeTraslado['ImporteP']));
             }
         }
 
@@ -148,18 +152,21 @@ final class CalculateFromCfdiCasesTest extends TestCase
     private function checkAttributeDecimal(NodeInterface $node, string $attribute, ?Decimal $value): void
     {
         if (! isset($node[$attribute])) {
-            $this->assertNull($value, "Since attribute $attribute exists, then value must exists");
+            $this->assertNull($value, "Since attribute $attribute does not exists, then value must be null");
         } else {
             $this->checkDecimalEquals(
-                new Decimal($node[$attribute]),
                 $value,
-                "Attribute $attribute does not match with value"
+                new Decimal($node[$attribute]),
+                "Attribute {$node->name()}@$attribute does not match with value"
             );
         }
     }
 
     private function checkDecimalEquals(Decimal $expected, Decimal $value, string $message = ''): void
     {
-        $this->assertTrue(0 === $expected->compareTo($value), $message);
+        $this->assertTrue(
+            0 === $expected->compareTo($value),
+            sprintf("%s\nExpected: %s Actual: %s", $message, $expected->getValue(), $value->getValue())
+        );
     }
 }
