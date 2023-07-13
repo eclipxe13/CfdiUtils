@@ -112,7 +112,7 @@ trait SelloDigitalCertificadoWithRegularCertificadoTrait
      */
     public function testCompareNamesBasicChars(bool $expected, string $first, string $second)
     {
-        $validator = new class() {
+        $validator = new class () {
             use SelloDigitalCertificadoValidatorTrait;
 
             protected function validateNombre(string $emisorNombre, string $rfc)
@@ -139,7 +139,7 @@ trait SelloDigitalCertificadoWithRegularCertificadoTrait
      */
     public function testCompareNamesExtendedChars(string $first, string $second)
     {
-        $validator = new class() {
+        $validator = new class () {
             use SelloDigitalCertificadoValidatorTrait;
 
             protected function validateNombre(string $emisorNombre, string $rfc)

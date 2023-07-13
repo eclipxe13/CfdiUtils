@@ -15,7 +15,7 @@ final class XmlResolverPropertyTraitTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->specimen = new class() implements XmlResolverPropertyInterface {
+        $this->specimen = new class () implements XmlResolverPropertyInterface {
             use XmlResolverPropertyTrait;
         };
     }

@@ -32,11 +32,11 @@ trait CfdiCreatorTrait
         XsltBuilderInterface $xsltBuilder = null
     ): void {
         $this->comprobante->addAttributes($comprobanteAttributes);
-        $this->setXmlResolver($xmlResolver ? : new XmlResolver());
+        $this->setXmlResolver($xmlResolver ?: new XmlResolver());
         if (null !== $certificado) {
             $this->putCertificado($certificado);
         }
-        $this->setXsltBuilder($xsltBuilder ? : new DOMBuilder());
+        $this->setXsltBuilder($xsltBuilder ?: new DOMBuilder());
     }
 
     public static function newUsingNode(

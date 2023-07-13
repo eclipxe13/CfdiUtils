@@ -9,7 +9,7 @@ use CfdiUtils\Validate\Asserts;
 
 require __DIR__ . '/bootstrap.php';
 
-exit(call_user_func(new class(...$argv) {
+exit(call_user_func(new class (...$argv) {
     /** @var string */
     private $command;
 
@@ -95,23 +95,23 @@ exit(call_user_func(new class(...$argv) {
     {
         $command = basename($this->command);
         echo <<< EOH
-        $command Validates CFDI files
-        Syntax:
-            $command [-h|--help] [-c|--clean] [--no-cache] cfdi.xml ...
-        Arguments:
-            -h, --help   Show this help
-            -c, --clean  Clean CFDI before validation
-            --no-cache   Tell resolver to not use local cache
-            cfdi.xml     Files to check, as many as needed
-        Exit codes:
-            0 - All files were validated with success
-            1 - At least one file contains errors or warnings
-            2 - At least one file produce an exception
+            $command Validates CFDI files
+            Syntax:
+                $command [-h|--help] [-c|--clean] [--no-cache] cfdi.xml ...
+            Arguments:
+                -h, --help   Show this help
+                -c, --clean  Clean CFDI before validation
+                --no-cache   Tell resolver to not use local cache
+                cfdi.xml     Files to check, as many as needed
+            Exit codes:
+                0 - All files were validated with success
+                1 - At least one file contains errors or warnings
+                2 - At least one file produce an exception
 
-        WARNING: This program can change at any time! Do not depend on this file or its results!
+            WARNING: This program can change at any time! Do not depend on this file or its results!
 
 
-        EOH;
+            EOH;
     }
 
     private function printAsserts(Asserts $asserts): bool

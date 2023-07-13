@@ -42,7 +42,7 @@ final class CallerTest extends TestCase
         $process->method('getOutput')->willReturn($output);
         $process->method('getErrorOutput')->willReturn($errors);
 
-        return new class($process) extends Caller {
+        return new class ($process) extends Caller {
             /** @var Process */
             private $process;
 

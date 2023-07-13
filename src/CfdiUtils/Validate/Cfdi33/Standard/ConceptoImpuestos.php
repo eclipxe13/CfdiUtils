@@ -103,8 +103,10 @@ class ConceptoImpuestos extends AbstractDiscoverableVersion33
         if (null === $impuestos) {
             return true;
         }
-        if ($impuestos->searchNodes('cfdi:Traslados', 'cfdi:Traslado')->count()
-            || $impuestos->searchNodes('cfdi:Retenciones', 'cfdi:Retencion')->count()) {
+        if (
+            $impuestos->searchNodes('cfdi:Traslados', 'cfdi:Traslado')->count()
+            || $impuestos->searchNodes('cfdi:Retenciones', 'cfdi:Retencion')->count()
+        ) {
             return true;
         }
         return false;

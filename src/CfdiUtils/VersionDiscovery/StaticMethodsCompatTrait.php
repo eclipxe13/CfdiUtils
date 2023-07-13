@@ -2,9 +2,9 @@
 
 namespace CfdiUtils\VersionDiscovery;
 
-use \DOMDocument;
-use \DOMElement;
 use CfdiUtils\Nodes\NodeInterface;
+use DOMDocument;
+use DOMElement;
 
 /**
  * Use this trait for compatibility only, all methods are deprecated.

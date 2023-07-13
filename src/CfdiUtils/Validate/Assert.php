@@ -30,7 +30,7 @@ class Assert
         }
         $this->code = $code;
         $this->title = $title;
-        $this->setStatus($status ? : Status::none());
+        $this->setStatus($status ?: Status::none());
         $this->explanation = $explanation;
     }
 

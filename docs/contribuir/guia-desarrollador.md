@@ -43,7 +43,7 @@ composer install
 Para probar que no se están violando las reglas de estilo
 
 ```shell
-vendor/bin/phpcs -sp --colors src/ tests/
+vendor/bin/phpcs -sp --colors
 vendor/bin/php-cs-fixer fix --using-cache=no --dry-run --verbose
 ```
 
@@ -67,7 +67,7 @@ Para corregir todos los problemas de estilo que encuentre
 
 ```shell
 vendor/bin/php-cs-fixer fix --verbose
-vendor/bin/phpcbf --colors -sp src/ tests/
+vendor/bin/phpcbf --colors -sp
 ```
 
 

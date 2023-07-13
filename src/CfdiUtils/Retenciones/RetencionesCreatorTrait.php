@@ -33,11 +33,11 @@ trait RetencionesCreatorTrait
         XsltBuilderInterface $xsltBuilder = null
     ): void {
         $this->retenciones->addAttributes($retencionesAttributes);
-        $this->setXmlResolver($xmlResolver ? : new XmlResolver());
+        $this->setXmlResolver($xmlResolver ?: new XmlResolver());
         if (null !== $certificado) {
             $this->putCertificado($certificado);
         }
-        $this->setXsltBuilder($xsltBuilder ? : new DOMBuilder());
+        $this->setXsltBuilder($xsltBuilder ?: new DOMBuilder());
     }
 
     public function addSello(string $key, string $passPhrase = '')

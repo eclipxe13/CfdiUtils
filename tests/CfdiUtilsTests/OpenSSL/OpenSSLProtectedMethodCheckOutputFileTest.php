@@ -10,7 +10,7 @@ final class OpenSSLProtectedMethodCheckOutputFileTest extends TestCase
 {
     private function openSSL(): object
     {
-        return new class() extends OpenSSL {
+        return new class () extends OpenSSL {
             public function checkOutputFile(string $path)
             {
                 parent::checkOutputFile($path);

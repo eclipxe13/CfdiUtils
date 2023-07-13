@@ -8,7 +8,7 @@ class Config
      * Default value of SAT web service
      * @var string
      */
-    const DEFAULT_SERVICE_URL = 'https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc';
+    public const DEFAULT_SERVICE_URL = 'https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc';
 
     /**
      * This library does not use WSDL anymore
@@ -17,7 +17,7 @@ class Config
      * @see self::DEFAULT_SERVICE_URL
      * @var string
      */
-    const DEFAULT_WSDL_URL = 'https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc?singleWsdl';
+    public const DEFAULT_WSDL_URL = self::DEFAULT_SERVICE_URL . '?singleWsdl';
 
     /** @var int */
     private $timeout;
@@ -39,7 +39,7 @@ class Config
     ) {
         $this->timeout = $timeout;
         $this->verifyPeer = $verifyPeer;
-        $this->serviceUrl = $serviceUrl ? : static::DEFAULT_SERVICE_URL;
+        $this->serviceUrl = $serviceUrl ?: static::DEFAULT_SERVICE_URL;
         $this->wsdlLocation = $wsdlLocation;
         if ('' !== $this->wsdlLocation) {
             trigger_error(__CLASS__ . ' deprecated WSDL location', E_USER_DEPRECATED);

@@ -36,7 +36,7 @@
 
 Fix calculator for complement *Pagos 2.0*.
 For attributes `BaseP` and `ImporteP` the value was truncated. Now, the value has to be rounded.
-Some vendors communicate this change, such as Finkok. 
+Some vendors communicate this change, such as Finkok.
 
 Improve calculator with new getter and setter for `paymentTaxesPrecision` and `currencies`.
 

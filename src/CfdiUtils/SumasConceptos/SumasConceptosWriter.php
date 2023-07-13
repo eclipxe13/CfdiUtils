@@ -63,8 +63,10 @@ class SumasConceptosWriter
         $this->comprobante['SubTotal'] = $this->format($this->sumas->getSubTotal());
         $this->comprobante['Total'] = $this->format($this->sumas->getTotal());
         $this->comprobante['Descuento'] = $this->format($this->sumas->getDescuento());
-        if (! $this->sumas->foundAnyConceptWithDiscount()
-            && ! $this->valueGreaterThanZero($this->sumas->getDescuento())) {
+        if (
+            ! $this->sumas->foundAnyConceptWithDiscount()
+            && ! $this->valueGreaterThanZero($this->sumas->getDescuento())
+        ) {
             unset($this->comprobante['Descuento']);
         }
     }
@@ -74,7 +76,8 @@ class SumasConceptosWriter
         // obtain node reference
         $impuestos = $this->comprobante->getImpuestos();
         // if there is nothing to write then remove the children and exit
-        if (! $this->sumas->hasTraslados()
+        if (
+            ! $this->sumas->hasTraslados()
             && ! $this->sumas->hasRetenciones()
             && ! ($this->writeExentos && $this->sumas->hasExentos())
         ) {

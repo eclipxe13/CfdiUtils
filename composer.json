@@ -70,11 +70,11 @@
         ],
         "dev:check-style": [
             "@php vendor/bin/php-cs-fixer fix --dry-run --verbose",
-            "@php vendor/bin/phpcs --colors -sp src/ tests/"
+            "@php vendor/bin/phpcs --colors -sp"
         ],
         "dev:fix-style": [
             "@php vendor/bin/php-cs-fixer fix --verbose",
-            "@php vendor/bin/phpcbf --colors -sp src/ tests/"
+            "@php vendor/bin/phpcbf --colors -sp"
         ],
         "dev:docs": [
             "node_modules/markdownlint-cli/markdownlint.js *.md docs/",

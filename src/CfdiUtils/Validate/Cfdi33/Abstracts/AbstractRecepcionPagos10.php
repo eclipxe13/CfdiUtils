@@ -19,7 +19,8 @@ abstract class AbstractRecepcionPagos10 extends AbstractVersion33 implements Dis
     {
         // do not run anything if not found
         $pagos10 = $comprobante->searchNode('cfdi:Complemento', 'pago10:Pagos');
-        if ('3.3' !== $comprobante['Version']
+        if (
+            '3.3' !== $comprobante['Version']
             || 'P' !== $comprobante['TipoDeComprobante']
             || null === $pagos10
             || '1.0' !== $pagos10['Version']

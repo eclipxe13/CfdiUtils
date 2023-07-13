@@ -15,14 +15,14 @@ class TfdCadenaDeOrigen implements XmlResolverPropertyInterface, XsltBuilderProp
     use XmlResolverPropertyTrait;
     use XsltBuilderPropertyTrait;
 
-    const TFD_10 = 'http://www.sat.gob.mx/sitio_internet/timbrefiscaldigital/cadenaoriginal_TFD_1_0.xslt';
+    public const TFD_10 = 'http://www.sat.gob.mx/sitio_internet/timbrefiscaldigital/cadenaoriginal_TFD_1_0.xslt';
 
-    const TFD_11 = 'http://www.sat.gob.mx/sitio_internet/cfd/TimbreFiscalDigital/cadenaoriginal_TFD_1_1.xslt';
+    public const TFD_11 = 'http://www.sat.gob.mx/sitio_internet/cfd/TimbreFiscalDigital/cadenaoriginal_TFD_1_1.xslt';
 
     public function __construct(XmlResolver $xmlResolver = null, XsltBuilderInterface $xsltBuilder = null)
     {
-        $this->setXmlResolver($xmlResolver ? : new XmlResolver());
-        $this->setXsltBuilder($xsltBuilder ? : new DOMBuilder());
+        $this->setXmlResolver($xmlResolver ?: new XmlResolver());
+        $this->setXsltBuilder($xsltBuilder ?: new DOMBuilder());
     }
 
     public function build(string $tdfXmlString, string $version = ''): string

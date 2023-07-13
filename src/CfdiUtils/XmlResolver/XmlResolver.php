@@ -21,11 +21,11 @@ class XmlResolver
     /** @var DownloaderInterface */
     private $downloader;
 
-    const TYPE_XSD = 'XSD';
+    public const TYPE_XSD = 'XSD';
 
-    const TYPE_XSLT = 'XSLT';
+    public const TYPE_XSLT = 'XSLT';
 
-    const TYPE_CER = 'CER';
+    public const TYPE_CER = 'CER';
 
     /**
      * XmlResolver constructor.

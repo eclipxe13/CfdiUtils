@@ -8,7 +8,7 @@ use JsonSerializable;
 
 final class Decimal implements JsonSerializable
 {
-    const SCALE = 24;
+    public const SCALE = 24;
 
     /** @var string */
     private $value;

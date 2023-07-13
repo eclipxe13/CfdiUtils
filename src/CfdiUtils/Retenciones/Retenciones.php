@@ -29,7 +29,7 @@ class Retenciones
      * @deprecated :3.0.0
      * @internal Preserve this constant to not break compatibility
      */
-    const RET_NAMESPACE = 'http://www.sat.gob.mx/esquemas/retencionpago/1';
+    public const RET_NAMESPACE = 'http://www.sat.gob.mx/esquemas/retencionpago/1';
 
     /** @var array<string, string> Dictionary of versions and namespaces  */
     private const RET_SPECS = [
