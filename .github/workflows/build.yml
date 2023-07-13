@@ -104,7 +104,7 @@ jobs:
           composer remove squizlabs/php_codesniffer friendsofphp/php-cs-fixer phpstan/phpstan --dev --no-interaction --no-progress --no-update
           composer upgrade --no-interaction --no-progress --prefer-dist
       - name: PHPStan
-        run: phpstan analyse --no-progress --verbose src/ tests/
+        run: phpstan analyse --no-progress --verbose
 
   tests-linux:
     name: Test PHP ${{ matrix.php-versions }} on Linux

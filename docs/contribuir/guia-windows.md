@@ -41,11 +41,11 @@ Para que puedas ejecutar los comandos que forman las pruebas del proyecto (lo "c
 
 ```shell
 :: verificar que se están compliendo las reglas de estilo
-vendor\bin\phpcs -sp src tests
+vendor\bin\phpcs -sp
 vendor\bin\php-cs-fixer fix --dry-run --verbose
 
 :: hacer las correcciones de estilo de forma automática
-vendor\bin\phpcbf -sp src tests
+vendor\bin\phpcbf -sp
 vendor\bin\php-cs-fixer fix --verbose
 
 
@@ -53,7 +53,7 @@ vendor\bin\php-cs-fixer fix --verbose
 vendor\bin\phpunit
 
 :: ejecutar el analizador el analizador estático
-vendor\bin\phpstan.bat --no-progress analyse --level max src tests
+vendor\bin\phpstan.bat --no-progress analyse
 ```
 
 Lamentablemente, no se puede ejecutar `composer dev:build` o alguno de los comandos personalizados
