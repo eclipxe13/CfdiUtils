@@ -4,13 +4,13 @@ namespace CfdiUtils\Utils;
 
 class Rfc
 {
-    const RFC_GENERIC = 'XAXX010101000';
+    public const RFC_GENERIC = 'XAXX010101000';
 
-    const RFC_FOREIGN = 'XEXX010101000';
+    public const RFC_FOREIGN = 'XEXX010101000';
 
-    const DISALLOW_GENERIC = 1;
+    public const DISALLOW_GENERIC = 1;
 
-    const DISALLOW_FOREIGN = 2;
+    public const DISALLOW_FOREIGN = 2;
 
     /** @var string */
     private $rfc;

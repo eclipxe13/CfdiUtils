@@ -1,8 +1,8 @@
 <?php
 
-use \CfdiUtils\ConsultaCfdiSat\WebService;
 use CfdiUtils\Cfdi;
 use CfdiUtils\ConsultaCfdiSat\RequestParameters;
+use CfdiUtils\ConsultaCfdiSat\WebService;
 
 require __DIR__ . '/bootstrap.php';
 

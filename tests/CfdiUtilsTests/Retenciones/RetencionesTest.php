@@ -9,13 +9,13 @@ use CfdiUtilsTests\TestCase;
 
 final class RetencionesTest extends TestCase
 {
-    const XML_MINIMAL_DEFINITION = <<<XML
-<retenciones:Retenciones xmlns:retenciones="http://www.sat.gob.mx/esquemas/retencionpago/1" Version="1.0"/>
-XML;
+    public const XML_MINIMAL_DEFINITION = <<<XML
+        <retenciones:Retenciones xmlns:retenciones="http://www.sat.gob.mx/esquemas/retencionpago/1" Version="1.0"/>
+        XML;
 
-    const XML_20_MINIMAL_DEFINITION = <<<XML
-<retenciones:Retenciones xmlns:retenciones="http://www.sat.gob.mx/esquemas/retencionpago/2" Version="2.0"/>
-XML;
+    public const XML_20_MINIMAL_DEFINITION = <<<XML
+        <retenciones:Retenciones xmlns:retenciones="http://www.sat.gob.mx/esquemas/retencionpago/2" Version="2.0"/>
+        XML;
 
     public function providerRetencionesVersionNamespace(): array
     {

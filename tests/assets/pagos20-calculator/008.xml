@@ -51,10 +51,10 @@
         </pago20:DoctoRelacionado>
         <pago20:ImpuestosP>
           <pago20:RetencionesP>
-            <pago20:RetencionP ImpuestoP="002" ImporteP="6005.999997"/>
+            <pago20:RetencionP ImpuestoP="002" ImporteP="6005.999998"/>
           </pago20:RetencionesP>
           <pago20:TrasladosP>
-            <pago20:TrasladoP BaseP="150149.999947" ImpuestoP="002" TipoFactorP="Tasa" TasaOCuotaP="0.160000" ImporteP="24023.999991"/>
+            <pago20:TrasladoP BaseP="150149.999947" ImpuestoP="002" TipoFactorP="Tasa" TasaOCuotaP="0.160000" ImporteP="24023.999992"/>
           </pago20:TrasladosP>
         </pago20:ImpuestosP>
       </pago20:Pago>

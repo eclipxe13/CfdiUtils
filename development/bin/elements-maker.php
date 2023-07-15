@@ -5,7 +5,7 @@ use CfdiUtils\Development\ElementsMaker\ElementsMaker;
 
 require __DIR__ . '/../../vendor/autoload.php';
 
-exit(call_user_func(new class(...$argv) extends BaseCliApplication {
+exit(call_user_func(new class (...$argv) extends BaseCliApplication {
     public function printHelp(): void
     {
         $command = basename($this->getCommand());

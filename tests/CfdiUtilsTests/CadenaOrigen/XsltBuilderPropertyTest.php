@@ -34,7 +34,7 @@ final class XsltBuilderPropertyTest extends TestCase
 
     protected function createImplementation(): XsltBuilderPropertyInterface
     {
-        return new class() implements XsltBuilderPropertyInterface {
+        return new class () implements XsltBuilderPropertyInterface {
             use XsltBuilderPropertyTrait;
         };
     }

@@ -26,8 +26,8 @@ trait CfdiValidatorTrait
      */
     public function __construct(XmlResolver $xmlResolver = null, XsltBuilderInterface $xsltBuilder = null)
     {
-        $this->setXmlResolver($xmlResolver ? : new XmlResolver());
-        $this->setXsltBuilder($xsltBuilder ? : new DOMBuilder());
+        $this->setXmlResolver($xmlResolver ?: new XmlResolver());
+        $this->setXsltBuilder($xsltBuilder ?: new DOMBuilder());
     }
 
     /**

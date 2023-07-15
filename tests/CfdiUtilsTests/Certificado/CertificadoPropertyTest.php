@@ -11,7 +11,7 @@ final class CertificadoPropertyTest extends TestCase
 {
     public function testCertificadoProperty()
     {
-        $implementation = new class() implements CertificadoPropertyInterface {
+        $implementation = new class () implements CertificadoPropertyInterface {
             use CertificadoPropertyTrait;
         };
 

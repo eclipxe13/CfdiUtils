@@ -10,7 +10,7 @@ final class OpenSSLPropertyTest extends TestCase
 {
     public function testCorrectImplementer()
     {
-        $object = new class() {
+        $object = new class () {
             use OpenSSLPropertyTrait;
 
             public function __construct(OpenSSL $openSSL = null)
@@ -24,7 +24,7 @@ final class OpenSSLPropertyTest extends TestCase
 
     public function testNotInstantiatedImplementer()
     {
-        $object = new class() {
+        $object = new class () {
             use OpenSSLPropertyTrait;
         };
 
@@ -35,7 +35,7 @@ final class OpenSSLPropertyTest extends TestCase
 
     public function testWithDefaultSetterVisibility()
     {
-        $object = new class() {
+        $object = new class () {
             use OpenSSLPropertyTrait;
         };
         $this->assertFalse(is_callable([$object, 'setOpenSSL']), 'setOpenSSL must not be public accesible');

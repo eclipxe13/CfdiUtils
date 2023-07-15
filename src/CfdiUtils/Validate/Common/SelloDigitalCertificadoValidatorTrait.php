@@ -13,15 +13,15 @@ use CfdiUtils\XmlResolver\XmlResolverPropertyTrait;
 
 trait SelloDigitalCertificadoValidatorTrait
 {
+    use XmlResolverPropertyTrait;
+    use XmlStringPropertyTrait;
+    use XsltBuilderPropertyTrait;
+
     /** @var Asserts */
     private $asserts;
 
     /** @var Certificado */
     private $certificado;
-
-    use XmlResolverPropertyTrait;
-    use XmlStringPropertyTrait;
-    use XsltBuilderPropertyTrait;
 
     private function registerAsserts()
     {

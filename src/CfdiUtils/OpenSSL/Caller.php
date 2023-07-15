@@ -8,7 +8,7 @@ use Throwable;
 
 class Caller
 {
-    const DEFAULT_OPENSSL_EXECUTABLE = 'openssl';
+    public const DEFAULT_OPENSSL_EXECUTABLE = 'openssl';
 
     /** @var string */
     private $executable;

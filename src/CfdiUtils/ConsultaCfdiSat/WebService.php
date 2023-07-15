@@ -19,7 +19,7 @@ class WebService
 
     public function __construct(Config $config = null)
     {
-        $this->config = $config ? : new Config();
+        $this->config = $config ?: new Config();
     }
 
     public function getConfig(): Config

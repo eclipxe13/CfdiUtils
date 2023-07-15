@@ -3,7 +3,6 @@
 namespace CfdiUtilsTests\QuickReader;
 
 use CfdiUtils\QuickReader\QuickReader;
-
 use PHPUnit\Framework\TestCase;
 
 final class QuickReaderTest extends TestCase

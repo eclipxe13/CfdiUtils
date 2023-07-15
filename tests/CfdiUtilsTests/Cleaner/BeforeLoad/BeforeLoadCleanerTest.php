@@ -22,13 +22,13 @@ final class BeforeLoadCleanerTest extends TestCase
 
     public function testCleanCallsCleaners()
     {
-        $returnFoo = new class() implements BeforeLoadCleanerInterface {
+        $returnFoo = new class () implements BeforeLoadCleanerInterface {
             public function clean(string $content): string
             {
                 return str_replace('foo', 'FOO', $content);
             }
         };
-        $returnBar = new class() implements BeforeLoadCleanerInterface {
+        $returnBar = new class () implements BeforeLoadCleanerInterface {
             public function clean(string $content): string
             {
                 return str_replace('bar', 'BAR', $content);

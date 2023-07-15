@@ -189,7 +189,7 @@ final class AttributesTest extends TestCase
     public function testSetWithObjectToString()
     {
         $expectedValue = 'foo';
-        $toStringObject = new class('foo') {
+        $toStringObject = new class ('foo') {
             /** @var string */
             private $value;
 

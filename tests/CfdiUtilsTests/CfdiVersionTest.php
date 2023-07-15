@@ -11,7 +11,7 @@ final class CfdiVersionTest extends TestCase
 {
     public function testCreateDiscoverer(): void
     {
-        $extended = new class() extends CfdiVersion {
+        $extended = new class () extends CfdiVersion {
             public static function exposeCreateDiscoverer(): VersionDiscoverer
             {
                 return static::createDiscoverer();

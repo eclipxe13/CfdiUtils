@@ -12,7 +12,7 @@ final class RetencionVersionTest extends TestCase
 {
     public function testCreateDiscoverer(): void
     {
-        $extended = new class() extends RetencionVersion {
+        $extended = new class () extends RetencionVersion {
             public static function exposeCreateDiscoverer(): VersionDiscoverer
             {
                 return static::createDiscoverer();

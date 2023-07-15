@@ -114,7 +114,7 @@ final class XmlResolverTest extends TestCase
         $remoteUrl = $cerNumber->remoteUrl();
 
         // this downloader will throw an exception if downloadTo is called
-        $nullDownloader = new class() implements DownloaderInterface {
+        $nullDownloader = new class () implements DownloaderInterface {
             public function downloadTo(string $source, string $destination)
             {
                 throw new \RuntimeException("$source will not be downloaded to $destination");

@@ -5,7 +5,6 @@ namespace CfdiUtilsTests\QuickReader;
 use CfdiUtils\QuickReader\QuickReader;
 use CfdiUtils\QuickReader\QuickReaderImporter;
 use DOMDocument;
-
 use PHPUnit\Framework\TestCase;
 
 final class QuickReaderImporterTest extends TestCase

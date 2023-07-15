@@ -19,9 +19,11 @@ class TipoCambioValor extends AbstractDoctoRelacionadoValidator
     {
         $pago = $this->getPago();
 
-        if ('MXN' === $docto['MonedaDR']
+        if (
+            'MXN' === $docto['MonedaDR']
             && $pago['MonedaP'] !== $docto['MonedaDR']
-            && '1' !== $docto['TipoCambioDR']) {
+            && '1' !== $docto['TipoCambioDR']
+        ) {
             throw $this->exception(sprintf(
                 'Moneda pago: "%s", Moneda documento: "%s", Tipo cambio docto: "%s"',
                 $pago['MonedaP'],
