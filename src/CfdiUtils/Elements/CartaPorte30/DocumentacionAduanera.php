@@ -8,6 +8,6 @@ class DocumentacionAduanera extends AbstractElement
 {
     public function getElementName(): string
     {
-        return 'cartaporte30:DocumentacionAduananera';
+        return 'cartaporte30:DocumentacionAduanera';
     }
 }
