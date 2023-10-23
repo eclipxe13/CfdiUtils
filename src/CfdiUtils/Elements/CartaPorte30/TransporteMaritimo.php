@@ -34,18 +34,15 @@ class TransporteMaritimo extends AbstractElement
         return $this;
     }
 
-    public function addRemolquesCCP(array $attributes = []): RemolquesCCP
+    public function getRemolquesCCP(): RemolquesCCP
     {
-        $subject = new RemolquesCCP($attributes);
-        $this->addChild($subject);
-        return $subject;
+        return $this->helperGetOrAdd(new RemolquesCCP());
     }
 
-    public function multiRemolquesCCP(array ...$elementAttributes): self
+    public function addRemolquesCCP(array $attributes = []): RemolquesCCP
     {
-        foreach ($elementAttributes as $attributes) {
-            $this->addRemolquesCCP($attributes);
-        }
-        return $this;
+        $subject = $this->getRemolquesCCP();
+        $subject->addAttributes($attributes);
+        return $subject;
     }
 }
