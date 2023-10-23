@@ -10,4 +10,19 @@ class RemolquesCCP extends AbstractElement
     {
         return 'cartaporte30:RemolquesCCP';
     }
+
+    public function addRemolqueCCP(array $attributes = []): RemolqueCCP
+    {
+        $subject = new RemolqueCCP($attributes);
+        $this->addChild($subject);
+        return $subject;
+    }
+
+    public function multiRemolqueCCP(array ...$elementAttributes): self
+    {
+        foreach ($elementAttributes as $attributes) {
+            $this->addRemolqueCCP($attributes);
+        }
+        return $this;
+    }
 }
