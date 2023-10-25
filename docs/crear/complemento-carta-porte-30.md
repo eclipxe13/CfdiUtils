@@ -6,24 +6,24 @@ partir del 01 de enero del 2024.
 
 La documentación del complemento la puedes encontrar en el sitio oficial del SAT:
 
-- La ruta del archivo de excel con los nuevos catálogos: http://omawww.sat.gob.mx/tramitesyservicios/Paginas/documentos/CatalogosCartaPorte30.xls
-- Ruta del XSD del CCP 3.0: http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte30.xsd
-- Ruta del XSLT para la secuencia de cadena original CCP 3.0: http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte30.xslt
-- Ruta matriz de errores CCP 3.0: http://omawww.sat.gob.mx/tramitesyservicios/Paginas/documentos/Matriz_Errores_CCP_V30.xls
-- Ruta XSD catálogos CCP 3.0: http://www.sat.gob.mx/sitio_internet/cfd/catalogos/CartaPorte/catCartaPorte.xsd
-- Ruta del estándar: http://omawww.sat.gob.mx/tramitesyservicios/Paginas/documentos/Carta_Porte_30.pdf
+- La ruta del archivo de excel con los nuevos catálogos: <http://omawww.sat.gob.mx/tramitesyservicios/Paginas/documentos/CatalogosCartaPorte30.xls>.
+- Ruta del XSD del CCP 3.0: <http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte30.xsd>.
+- Ruta del XSLT para la secuencia de cadena original CCP 3.0: <http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte30.xslt>.
+- Ruta matriz de errores CCP 3.0: <http://omawww.sat.gob.mx/tramitesyservicios/Paginas/documentos/Matriz_Errores_CCP_V30.xls>.
+- Ruta XSD catálogos CCP 3.0: <http://www.sat.gob.mx/sitio_internet/cfd/catalogos/CartaPorte/catCartaPorte.xsd>.
+- Ruta del estándar: <http://omawww.sat.gob.mx/tramitesyservicios/Paginas/documentos/Carta_Porte_30.pdf>.
 
 Según la documentación técnica el XML debe cumplir con la siguiente especificación:
 
-- Prefijo de namespace: cartaporte30.
-- Namespace: http://www.sat.gob.mx/CartaPorte30
-- Archivo XSD: http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte30.xsd
+- Prefijo de namespace: `cartaporte30`.
+- Namespace: <http://www.sat.gob.mx/CartaPorte30>.
+- Archivo XSD: <http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte30.xsd>.
 
 ## Jerarquía de nodos
 
 En la siguiente imagen se puede ver la jerarquía, el orden y el número de apariciones mínimas y máximas de los nodos en el Complemento Carta Porte 3.0.
 
-<img src="assets/diagrama-carta-porte-30.png">
+![Diagrama del Complemento Carta Porte 3.0](../_assets/diagrama-carta-porte-30.png)
 
 ## Métodos para agregar nodos
 
