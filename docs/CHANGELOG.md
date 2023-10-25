@@ -32,6 +32,11 @@
 - Merge methods from `\CfdiUtils\Nodes\NodeHasValueInterface` into `\CfdiUtils\Nodes\NodeInterface`.
 - Remove deprecated constant `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`.
 
+## Version 2.25.0 2023-10-22
+
+Add `CfdiUtils\Elements\CartaPorte30` *Elements* to work with "Carta Porte 3.0".
+Thanks `@alejandrogova1` for your contribution.
+
 ## Version 2.24.1 2023-07-12
 
 Fix calculator for complement *Pagos 2.0*.
