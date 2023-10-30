@@ -96,11 +96,11 @@ class SumasConceptos
 
         $this->total = round(array_sum([
             $this->importes,
-            - $this->descuento,
+            -$this->descuento,
             $this->impuestosTrasladados,
-            - $this->impuestosRetenidos,
+            -$this->impuestosRetenidos,
             $this->localesImpuestosTrasladados,
-            - $this->localesImpuestosRetenidos,
+            -$this->localesImpuestosRetenidos,
         ]), $this->precision);
     }
 

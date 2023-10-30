@@ -32,6 +32,10 @@
 - Merge methods from `\CfdiUtils\Nodes\NodeHasValueInterface` into `\CfdiUtils\Nodes\NodeInterface`.
 - Remove deprecated constant `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`.
 
+## Unreleased 2023-10-30
+
+Fix continuous integration: `php-cs-fixer:3.37.1` fixes.
+
 ## Version 2.25.0 2023-10-22
 
 Add `CfdiUtils\Elements\CartaPorte30` *Elements* to work with "Carta Porte 3.0".

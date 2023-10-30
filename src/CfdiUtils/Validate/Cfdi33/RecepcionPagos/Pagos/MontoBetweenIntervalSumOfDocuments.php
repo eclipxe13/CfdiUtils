@@ -67,13 +67,13 @@ class MontoBetweenIntervalSumOfDocuments extends AbstractPagoValidator
             ];
         }
 
-        $almostTwo = 2 - (10 ** - 10);
+        $almostTwo = 2 - (10 ** -10);
 
-        $lowerAmount = $amount - 10 ** - $numDecimalsAmount / 2;
-        $lowerExchangeRate = $exchangeRate + (10 ** (- $numDecimalsExchangeRate) / $almostTwo);
+        $lowerAmount = $amount - 10 ** -$numDecimalsAmount / 2;
+        $lowerExchangeRate = $exchangeRate + (10 ** (-$numDecimalsExchangeRate) / $almostTwo);
 
-        $upperAmount = $amount + 10 ** - $numDecimalsAmount / $almostTwo;
-        $upperExchangeRate = $exchangeRate - (10 ** (- $numDecimalsExchangeRate) / 2);
+        $upperAmount = $amount + 10 ** -$numDecimalsAmount / $almostTwo;
+        $upperExchangeRate = $exchangeRate - (10 ** (-$numDecimalsExchangeRate) / 2);
 
         return [
             'lower' => $lowerAmount / $lowerExchangeRate,
