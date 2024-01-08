@@ -9,6 +9,11 @@ es necesario agregarla tomando como ejemplo la documentación del *Complemento d
 
 ## Verificar problemas conocidos
 
+### Compatibilidad con `genkgo/xsl`
+
+A la fecha 2023-01-08 la librería `genkgo/xsl` no es compatible con PHP 8.3.
+Cuando la dependencia sea compatible, modificar la construcción del proyecto para realizar las pruebas completas.
+
 ### Descarga de certificados desde <https://rdc.sat.gob.mx/rccf/> por certificados vencidos
 
 Ver: <https://www.phpcfdi.com/sat/problemas-conocidos/descarga-certificados/#problemas-de-caducidad-de-certificados>
