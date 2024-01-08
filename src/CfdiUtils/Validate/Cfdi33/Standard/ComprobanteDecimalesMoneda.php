@@ -24,7 +24,7 @@ class ComprobanteDecimalesMoneda extends AbstractDiscoverableVersion33
     /** @var Asserts */
     private $asserts;
 
-    /** @var \CfdiUtils\Utils\CurrencyDecimals */
+    /** @var CurrencyDecimals */
     private $currency;
 
     private function registerAsserts()
