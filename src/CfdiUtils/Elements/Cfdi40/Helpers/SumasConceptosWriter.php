@@ -8,7 +8,7 @@ use CfdiUtils\SumasConceptos\SumasConceptosWriter as BaseSumasConceptosWriter;
 
 /**
  * @deprecated :3.0.0
- * @see \CfdiUtils\SumasConceptos\SumasConceptosWriter
+ * @see BaseSumasConceptosWriter
  */
 class SumasConceptosWriter extends BaseSumasConceptosWriter
 {

@@ -46,7 +46,7 @@ class SumasConceptosComprobanteImpuestos extends AbstractDiscoverableVersion33
     /** @var Asserts */
     private $asserts;
 
-    /** @var \CfdiUtils\SumasConceptos\SumasConceptos */
+    /** @var SumasConceptos */
     private $sumasConceptos;
 
     private function registerAsserts()

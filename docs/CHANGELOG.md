@@ -32,6 +32,13 @@
 - Merge methods from `\CfdiUtils\Nodes\NodeHasValueInterface` into `\CfdiUtils\Nodes\NodeInterface`.
 - Remove deprecated constant `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`.
 
+## Unreleased 2024-01-08
+
+- Fix continuous integration code style.
+- Update license year. Happy 2024!
+- Add PHP 8.3 to test matrix on Linux and Windows.
+- Remove `genkgo/xsl` on PHP 8.3 since it is not compatible yet.
+
 ## Unreleased 2023-10-30
 
 Fix continuous integration: `php-cs-fixer:3.37.1` fixes.
