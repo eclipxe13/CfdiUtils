@@ -82,6 +82,9 @@ final class RetencionesCreator20Test extends TestCase
         $creator->putCertificado($certificado);
         $creator->addSello('file://' . $pemFile, $passPhrase);
 
+        // move sat definitions
+        $creator->moveSatDefinitionsToRetenciones();
+
         // validate
         $asserts = $creator->validate();
         $this->assertGreaterThanOrEqual(1, $asserts->count());

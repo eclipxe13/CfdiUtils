@@ -8,11 +8,11 @@ use CfdiUtils\CadenaOrigen\XsltBuilderPropertyTrait;
 use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\Certificado\CertificadoPropertyTrait;
 use CfdiUtils\Nodes\NodeInterface;
-use CfdiUtils\Nodes\NodeNsDefinitionsMover;
 use CfdiUtils\Nodes\XmlNodeUtils;
 use CfdiUtils\PemPrivateKey\PemPrivateKey;
 use CfdiUtils\SumasConceptos\SumasConceptos;
 use CfdiUtils\SumasConceptos\SumasConceptosWriter;
+use CfdiUtils\Utils\SatNsDefinitionsMover;
 use CfdiUtils\Validate\Asserts;
 use CfdiUtils\Validate\Hydrater;
 use CfdiUtils\Validate\MultiValidator;
@@ -75,15 +75,10 @@ trait CfdiCreatorTrait
         return XmlNodeUtils::nodeToXmlString($this->comprobante, true);
     }
 
-    public function moveSatDefinitionsToComprobante()
+    public function moveSatDefinitionsToComprobante(): void
     {
-        $nodeNsDefinitionsMover = new NodeNsDefinitionsMover();
-        $nodeNsDefinitionsMover->setNamespaceFilter(
-            function (string $namespaceUri): bool {
-                return ('http://www.sat.gob.mx/' === (substr($namespaceUri, 0, 22) ?: ''));
-            }
-        );
-        $nodeNsDefinitionsMover->process($this->comprobante);
+        $mover = new SatNsDefinitionsMover();
+        $mover->move($this->comprobante);
     }
 
     public function saveXml(string $filename): bool

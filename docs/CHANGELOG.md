@@ -32,9 +32,17 @@
 - Merge methods from `\CfdiUtils\Nodes\NodeHasValueInterface` into `\CfdiUtils\Nodes\NodeInterface`.
 - Remove deprecated constant `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`.
 
-## Version 2.25.0 2024-01-10
+## Version 2.26.0 2024-01-10
 
 Add `CfdiUtils\Elements\Cce30` *Elements* to work with "Complemento de Comercio Exterior 3.0".
+
+Extract logic to move SAT definitions to root element to a helper in order to use it on other creators:
+
+- Add `SatNsDefinitionsMover` helper.
+- Change `CfdiCreatorTrait::moveSatDefinitionsToComprobante` to use helper.
+- Add `RetencionesCreatorTrait::moveSatDefinitionsToRetenciones`.
+- Document samples using `$creator->moveSatDefinitionsToRetenciones()`.
+- Fix tests sample files with sat definitions on root element.
 
 ## Unreleased 2024-01-08
 
