@@ -1,0 +1,34 @@
+{
+    "php-namespace": "CfdiUtils\\Elements\\Cce20",
+    "prefix": "cce20",
+    "xml-namespace": "http://www.sat.gob.mx/ComercioExterior20",
+    "xml-schemalocation": "http://www.sat.gob.mx/sitio_internet/cfd/ComercioExterior20/ComercioExterior20.xsd",
+    "version-attribute": "Version",
+    "version-value": "2.0",
+    "root-element": "ComercioExterior",
+    "structure": {
+        "Emisor": {
+            "Domicilio": {}
+        },
+        "Propietario": {
+            "multiple": true
+        },
+        "Receptor": {
+            "Domicilio": {}
+        },
+        "Destinatario": {
+            "multiple": true,
+            "Domicilio": {
+                "multiple": true
+            }
+        },
+        "Mercancias": {
+            "Mercancia": {
+                "multiple": true,
+                "DescripcionesEspecificas": {
+                    "multiple": true
+                }
+            }
+        }
+    }
+}

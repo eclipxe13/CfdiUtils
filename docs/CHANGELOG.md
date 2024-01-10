@@ -32,6 +32,10 @@
 - Merge methods from `\CfdiUtils\Nodes\NodeHasValueInterface` into `\CfdiUtils\Nodes\NodeInterface`.
 - Remove deprecated constant `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`.
 
+## Version 2.25.0 2024-01-10
+
+Add `CfdiUtils\Elements\Cce30` *Elements* to work with "Complemento de Comercio Exterior 3.0".
+
 ## Unreleased 2024-01-08
 
 - Fix continuous integration code style.
