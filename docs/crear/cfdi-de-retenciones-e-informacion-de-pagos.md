@@ -66,6 +66,9 @@ $retenciones->addComplemento($dividendos);
 $creator->putCertificado(new \CfdiUtils\Certificado\Certificado('archivo.cer'));
 $creator->addSello('file://archivo.key.pem', 'la contraseña');
 
+// método de ayuda para mover las declaraciones de espacios de nombre al nodo raíz
+$creator->moveSatDefinitionsToRetenciones();
+
 // Asserts contendrá el resultado de la validación
 $asserts = $creator->validate();
 
@@ -131,6 +134,9 @@ $retenciones->addComplemento($dividendos);
 // poner certificado y sellar el precfdi, después de sellar no debes hacer cambios
 $creator->putCertificado(new \CfdiUtils\Certificado\Certificado('archivo.cer'));
 $creator->addSello('file://archivo.key.pem', 'la contraseña');
+
+// método de ayuda para mover las declaraciones de espacios de nombre al nodo raíz
+$creator->moveSatDefinitionsToRetenciones();
 
 // Asserts contendrá el resultado de la validación
 $asserts = $creator->validate();

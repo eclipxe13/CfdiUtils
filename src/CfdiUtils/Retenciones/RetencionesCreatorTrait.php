@@ -10,6 +10,7 @@ use CfdiUtils\Certificado\CertificadoPropertyTrait;
 use CfdiUtils\Elements\Common\AbstractElement;
 use CfdiUtils\Nodes\XmlNodeUtils;
 use CfdiUtils\PemPrivateKey\PemPrivateKey;
+use CfdiUtils\Utils\SatNsDefinitionsMover;
 use CfdiUtils\Validate\Asserts;
 use CfdiUtils\Validate\Xml\XmlFollowSchema;
 use CfdiUtils\XmlResolver\XmlResolver;
@@ -73,5 +74,11 @@ trait RetencionesCreatorTrait
     public function asXml(): string
     {
         return XmlNodeUtils::nodeToXmlString($this->retenciones, true);
+    }
+
+    public function moveSatDefinitionsToRetenciones(): void
+    {
+        $mover = new SatNsDefinitionsMover();
+        $mover->move($this->retenciones);
     }
 }
