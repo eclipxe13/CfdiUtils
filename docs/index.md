@@ -63,6 +63,7 @@ Solo hay métodos específicos para CFDI 3.3 y CFDI 4.0.
 - [Elementos de CFDI 3.3](crear/elements-cfdi-40.md)
 - [Elementos de Nómina 1.2 revisión B](crear/complemento-nomina12b.md)
 - [Elementos de Carta Porte 3.0](crear/complemento-carta-porte-30.md)
+- [Elementos de Comercio Exterior 2.0](crear/complemento-comercio-exterior-20.md)
 - [Agregar complementos](crear/complementos-aun-no-implementados.md)
 - [CFDI Retenciones](crear/cfdi-de-retenciones-e-informacion-de-pagos.md)
 
