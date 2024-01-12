@@ -32,13 +32,18 @@
 - Merge methods from `\CfdiUtils\Nodes\NodeHasValueInterface` into `\CfdiUtils\Nodes\NodeInterface`.
 - Remove deprecated constant `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`.
 
+## Version 2.27.1 2024-01-12
+
+- Add *Complemento Comercio Exterior 2.0* documentation.
+- Fix `CHANGELOG` for `2.26.0`: it was saying that CCE had version 3.0 when it was 2.0.
+
 ## Version 2.27.0 2024-01-12
 
 Add `CfdiUtils\Utils\Crp20277Fixer` to work with new rule `CRP20277` (apply since 2024-01-15).
 
 ## Version 2.26.0 2024-01-10
 
-Add `CfdiUtils\Elements\Cce30` *Elements* to work with "Complemento de Comercio Exterior 3.0".
+Add `CfdiUtils\Elements\Cce20` *Elements* to work with "Complemento de Comercio Exterior 2.0".
 
 Extract logic to move SAT definitions to root element to a helper in order to use it on other creators:
 
