@@ -35,7 +35,8 @@
 
 ## Version 2.28.0 2024-01-17
 
-Deprecate `CfdiUtils\Utils\Crp20277Fixer` since SAT changed the rule `CRP20277`.
+- Deprecate `CfdiUtils\Utils\Crp20277Fixer` since SAT changed the rule `CRP20277`.
+- Fix code style (use same case for `XsltProcessor`).
 
 ## Version 2.27.1 2024-01-12
 
