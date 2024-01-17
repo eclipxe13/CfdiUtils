@@ -37,6 +37,7 @@
 
 - Deprecate `CfdiUtils\Utils\Crp20277Fixer` since SAT changed the rule `CRP20277`.
 - Fix code style (use same case for `XsltProcessor`).
+- Run GitHub jobs using PHP 8.3.
 
 ## Version 2.27.1 2024-01-12
 

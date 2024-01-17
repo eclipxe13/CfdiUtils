@@ -26,7 +26,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2 # see https://github.com/marketplace/actions/setup-php-action
         with:
-          php-version: '8.2'
+          php-version: '8.3'
           coverage: none
           tools: cs2pr, phpcs
         env:
@@ -43,7 +43,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2 # see https://github.com/marketplace/actions/setup-php-action
         with:
-          php-version: '8.2'
+          php-version: '8.3'
           coverage: none
           tools: cs2pr, php-cs-fixer
         env:
@@ -84,7 +84,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.3'
           extensions: soap, intl, xsl, fileinfo, bcmath
           coverage: none
           tools: composer:v2, phpstan
