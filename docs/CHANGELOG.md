@@ -31,6 +31,13 @@
 - Remove classes `CfdiUtils\Elements\Cfdi33\Helpers\SumasConceptosWriter` and `CfdiUtils\Elements\Cfdi40\Helpers\SumasConceptosWriter`.
 - Merge methods from `\CfdiUtils\Nodes\NodeHasValueInterface` into `\CfdiUtils\Nodes\NodeInterface`.
 - Remove deprecated constant `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`.
+- Remove deprecated class `CfdiUtils\Utils\Crp20277Fixer`.
+
+## Version 2.28.0 2024-01-22
+
+- Deprecate `CfdiUtils\Utils\Crp20277Fixer` since SAT changed the rule `CRP20277`.
+- Fix code style (use same case for `XsltProcessor`).
+- Run GitHub jobs using PHP 8.3.
 
 ## Version 2.27.1 2024-01-12
 

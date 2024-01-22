@@ -18,7 +18,7 @@ class GenkgoXslBuilder extends DOMBuilder
 
     protected function transform(DOMDocument $xml, DOMDocument $xsl): string
     {
-        $xslt = new XSLTProcessor(new NullCache());
+        $xslt = new XsltProcessor(new NullCache());
         $xslt->importStyleSheet($xsl);
 
         try {

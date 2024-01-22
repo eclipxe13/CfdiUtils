@@ -18,7 +18,13 @@ use CfdiUtils\Nodes\NodeInterface;
  *   El campo EquivalenciaDR debe contener el valor "1.0000000000".
  * Esta regla cambia lo especificado en la regla CRP20238.
  *
+ * Deprecación:
+ * El código de error cambió el 2024-01-16 a:
+ *   El valor de EquivalenciaDR para la fórmula del cálculo del margen de variación debe ser “1.0000000000”.
+ * Por lo tanto, no es necesario hacer el cambio de valores en el CFDI.
+ *
  * @see http://omawww.sat.gob.mx/tramitesyservicios/Paginas/recepcion_de_pagos.htm
+ * @deprecated 2.28.0 No es necesario mantener esta clase y será removida en una nueva versión mayor.
  */
 final class Crp20277Fixer
 {

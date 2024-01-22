@@ -1,5 +1,8 @@
 # Regla CRP20277 del complemento de pagos 2.0
 
+!!! note ""
+Esta regla fue modificada el 2024-01-16 y no es necesario cambiar el valor de `EquivalenciaDR`.
+
 El SAT creó la regla `CRP20277` en los Documentos técnicos del complemento de recepción de pagos 2.0, revisión B,
 vigente a partir del 15 de enero de 2024, en la Matriz de errores. Donde dice:
 
@@ -8,67 +11,40 @@ vigente a partir del 15 de enero de 2024, en la Matriz de errores. Donde dice:
   la misma moneda que la del Pago, para la fórmula en el cálculo del margen de variación se deben
   considerar 10 decimales en la EquivalenciaDR cuando el valor sea 1.*
 - Código de error:
-  *El campo EquivalenciaDR debe contener el valor "1.0000000000".*
+  ~~*El campo EquivalenciaDR debe contener el valor "1.0000000000".*~~
+  *El valor de EquivalenciaDR  para la fórmula del cálculo del margen de variación debe ser “1.0000000000”.*
 
-Esta regla cambia lo especificado en la regla `CRP20238`. Que establece que si el atributo `Pago@MonedaP` es igual
+Esta regla **no cambia** lo especificado en la regla `CRP20238`. Que establece que si el atributo `Pago@MonedaP` es igual
 a `DoctoRelacionado@MonedaDR` entonces el valor de `DoctoRelacionado@EquivalenciaDR` debe ser `"1"`.
 
-La regla `CRP20277` establece entonces que el valor debe ser `"1.0000000000"`, siempre que se cumplan las siguientes condiciones para el pago:
+La regla `CRP20277` establece entonces que el valor debe **considerarse** como `"1.0000000000"`,
+siempre que se cumplan las siguientes condiciones para el pago:
 
 - *con más de un documento relacionado*:
   Es decir, no aplica para cuando hay solo 1 `DoctoRelacionado`, debe haber al menos 2.
 - *al menos uno de ellos contenga la misma moneda que la del Pago*:
   Es decir, aplica con que exista 1 `DoctoRelacionado` donde el valor de `Pago@MonedaP` es el mismo que `DoctoRelacionado@MonedaDR`.
 - *se deben considerar 10 decimales en la EquivalenciaDR cuando el valor sea 1*:
-  Es decir, `DoctoRelacionado@EquivalenciaDR` debe ser `"1"` (y va a cambiar a `"1.0000000000"`).
+  Es decir, `DoctoRelacionado@EquivalenciaDR` debe ser `"1"` (y se considerará para la validación como `"1.0000000000"`).
 
 Y si las tres condiciones se cumplen:
 
-- (a) *se deben considerar 10 decimales*, (b) *el campo EquivalenciaDR debe contener el valor "1.0000000000"*:
-  Es decir, el valor de `DoctoRelacionado@EquivalenciaDR` cambia de `"1"` a `"1.0000000000"`.
+- (a) *se deben considerar 10 decimales*, ~~(b) *el campo EquivalenciaDR debe contener el valor "1.0000000000"*~~:
+  Es decir, el valor de `DoctoRelacionado@EquivalenciaDR` se considera como `"1.0000000000"` y no como `"1"`.
 
 ## Utilería `Crp20277Fixer`
 
-Para facilitar la aplicación de la regla `CRP20277` y modificar `@EquivalenciaDR`, se ha creado
-la clase `Crp20277Fixer`, que hace las revisiones necesarias para cuando es necesario cambiar
+Para facilitar la aplicación de la regla `CRP20277` y modificar `@EquivalenciaDR` cuando era necesario,
+se creó la clase `Crp20277Fixer`, que hace las revisiones necesarias para cuando era necesario cambiar
 el valor de `DoctoRelacionado@EquivalenciaDR` de `"1"` a `"1.0000000000"`.
 
-Recomendación de uso:
-
-- Fabrica el *Pre-CFDI* considerando el valor `1` cuando `Pago@MonedaP` es igual a `DoctoRelacionado@MonedaDR`,
-  tal como do dice la regla `CRP20238`.
-- Después de llenar el complemento y antes de firmar el *Pre-CFDI*, llama al método `Crp20277Fixer::staticFix()`.
-
-Para el siguiente ejemplo se omite la lógica de cómo crear o llenar un CFDI 4.0 con Complemento de pagos 2.0,
-la parte importante es ilustrar el llamado a `Crp20277Fixer::staticFix()`.
-
-```php
-<?php
-
-use CfdiUtils\CfdiCreator40;
-use CfdiUtils\Elements\Pagos20\Pagos;
-use CfdiUtils\Utils\Crp20277Fixer;
-
-// se fabrica el creador de CFDI 4.0
-$creator = new CfdiCreator40(/* atributos del comprobante */);
-
-// se crea el complemento de pagos
-$complementoPagos = new Pagos();
-// se agrega un pago
-$pago = $complementoPagos->addPago([/* atributos del pago */]);
-// se agrega uno o más documentos
-$pago->addDoctoRelacionado([/* atributos del documento relacionado */]);
-
-
-// se llama a la utilería para cambiar los valores DoctoRelacionado@MonedaDR de 1 a 1.0000000000 cuando sea necesario
-Crp20277Fixer::staticFix($complementoPagos);
-
-
-// se sigue con la lógica de firmado del Pre-CFDI, timbrado con el PAC, etc. 
-$creator->addSello($key, $password);
-```
+A partir de 2024-01-16, no es necesario hacer el cambio, dado que el valor `1` se debe mantener en el CFDI,
+y solamente para hacer las validaciones, se debe considerar como `"1.0000000000"`. Luego entonces,
+esta utilería ha sido deprecada desde la versión `2.28.0` y no se recomienda su uso.
 
 ## Reflexión de la regla
+
+### En su implementación original
 
 Creo que el SAT ha cometido un error grave en esta regla, dado que la necesidad de 10 decimales
 solamente aplica para el cálculo del margen de variación, dentro de las validaciones de un PAC.
@@ -83,3 +59,10 @@ debería decir *El campo EquivalenciaDR se debe interpretar con el valor "1.0000
 
 Pero, al no hacerlo, se tiene que implementar una doble lógica, la primera es para seguir la especificación de `CRP20238`
 y la segunda para cumplir con el requisito de la regla `CRP20277`.
+
+### En su implementación a partir de 2024-01-16
+
+Afortunadamente, el SAT ha recapacitado y ha cambiado el mensaje de error, con este cambio, se elimina la doble lógica
+y la contradicción entre `CRP20238` y `CRP20277` mencionada anteriormente.
+
+Esta modificación del valor aplica únicamente para los PAC o aquellos que calculen el margen de variación por su propia cuenta.
