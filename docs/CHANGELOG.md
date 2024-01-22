@@ -33,7 +33,7 @@
 - Remove deprecated constant `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`.
 - Remove deprecated class `CfdiUtils\Utils\Crp20277Fixer`.
 
-## Version 2.28.0 2024-01-17
+## Version 2.28.0 2024-01-22
 
 - Deprecate `CfdiUtils\Utils\Crp20277Fixer` since SAT changed the rule `CRP20277`.
 - Fix code style (use same case for `XsltProcessor`).
