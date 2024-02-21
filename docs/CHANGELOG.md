@@ -33,6 +33,11 @@
 - Remove deprecated constant `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`.
 - Remove deprecated class `CfdiUtils\Utils\Crp20277Fixer`.
 
+## Version 2.28.1 2024-02-20
+
+- Allow dependency on `symfony/process` branch `7.x`.
+- Migrate GitHub actions to version 4.
+
 ## Version 2.28.0 2024-01-22
 
 - Deprecate `CfdiUtils\Utils\Crp20277Fixer` since SAT changed the rule `CRP20277`.
