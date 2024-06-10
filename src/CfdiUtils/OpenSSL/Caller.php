@@ -37,7 +37,11 @@ class Caller
         }
 
         // execute process
-        $execution = $process->run();
+        try {
+            $execution = $process->run();
+        } catch (Throwable $exception) {
+            throw new OpenSSLException('Unable to run command', 0, $exception);
+        }
 
         // build response
         $callResponse = new CallResponse(

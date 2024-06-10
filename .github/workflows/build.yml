@@ -2,11 +2,9 @@ name: build
 on:
   workflow_dispatch:
   pull_request:
-    branches:
-      - master
+    branches: [ "master" ]
   push:
-    branches:
-      - master
+    branches: [ "master" ]
   schedule:
     - cron: '0 16 * * 0' # sunday 16:00
 
@@ -107,11 +105,11 @@ jobs:
         run: phpstan analyse --no-progress --verbose
 
   tests-linux:
-    name: Test PHP ${{ matrix.php-versions }} on Linux
+    name: Test PHP ${{ matrix.php-version }} on Linux
     runs-on: "ubuntu-latest"
     strategy:
       matrix:
-        php-versions: [ '7.3', '7.4', '8.0', '8.1', '8.2', '8.3' ]
+        php-version: [ '7.3', '7.4', '8.0', '8.1', '8.2', '8.3' ]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -127,7 +125,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-versions }}
+          php-version: ${{ matrix.php-version }}
           extensions: soap, intl, xsl, fileinfo, bcmath
           coverage: xdebug
           tools: composer:v2
@@ -149,7 +147,7 @@ jobs:
           mv resources-sat-xml-cloned/resources build/resources
           rm -r -f resources-sat-xml-cloned
       - name: Remove genkgo/xsl on PHP 8.3
-        if: matrix.php-versions == '8.3'
+        if: matrix.php-version == '8.3'
         run: |
           composer remove genkgo/xsl --dev --no-interaction --no-progress --no-update
       - name: Install project dependencies
@@ -165,11 +163,11 @@ jobs:
           php build/scrutinizer/vendor/bin/ocular code-coverage:upload -vvv --no-interaction --format=php-clover build/coverage-clover.xml
 
   tests-windows:
-    name: Tests PHP ${{ matrix.php-versions }} on Windows
+    name: Tests PHP ${{ matrix.php-version }} on Windows
     runs-on: "windows-latest"
     strategy:
       matrix:
-        php-versions: [ '7.3', '7.4', '8.0', '8.1', '8.2', '8.3' ]
+        php-version: [ '7.3', '7.4', '8.0', '8.1', '8.2', '8.3' ]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -178,7 +176,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-versions }}
+          php-version: ${{ matrix.php-version }}
           extensions: soap, intl, xsl, fileinfo, bcmath
           coverage: none
           tools: composer:v2
@@ -201,7 +199,7 @@ jobs:
           mv resources-sat-xml-cloned/resources build/resources
           rm -r -f resources-sat-xml-cloned
       - name: Remove genkgo/xsl on PHP 8.3
-        if: matrix.php-versions == '8.3'
+        if: matrix.php-version == '8.3'
         run: |
           composer remove genkgo/xsl --dev --no-interaction --no-progress --no-update
       - name: Install project dependencies

@@ -33,6 +33,15 @@
 - Remove deprecated constant `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`.
 - Remove deprecated class `CfdiUtils\Utils\Crp20277Fixer`.
 
+## Version 2.28.2 2024-02-20
+
+- Wrap OpenSSL command run on a *try/catch* block to throw OpenSSLException.
+- Refactor certificate downloader test helper. Now it uses curl instead of native PHP. It was failing on PHP 7.3.
+- Remove old dependencies for *ReadTheDocs*: `mkdocs:1.2.3` and `jinja2<3.1.0`. Thanks to `@dependabot`.
+- On build workflow:
+    - Simplify "on" section.
+    - Use `php-version` matrix value as singular.
+
 ## Version 2.28.1 2024-02-20
 
 - Allow dependency on `symfony/process` branch `7.x`.

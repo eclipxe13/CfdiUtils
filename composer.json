@@ -44,6 +44,7 @@
     },
     "require-dev": {
         "ext-bcmath": "*",
+        "ext-curl": "*",
         "ext-soap": "*",
         "genkgo/xsl": "^1.0.8",
         "phpunit/phpunit": "^9.5",
