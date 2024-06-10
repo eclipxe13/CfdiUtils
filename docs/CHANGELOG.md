@@ -37,8 +37,8 @@
 
 - Wrap OpenSSL command run on a *try/catch* block to throw OpenSSLException.
 - On build workflow:
-  - Simplify "on" section.
-  - Use `php-version` matrix value as singular.
+    - Simplify "on" section.
+    - Use `php-version` matrix value as singular.
 
 ## Version 2.28.1 2024-02-20
 
