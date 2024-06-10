@@ -36,6 +36,7 @@
 ## Version 2.28.2 2024-02-20
 
 - Wrap OpenSSL command run on a *try/catch* block to throw OpenSSLException.
+- Refactor certificate downloader test helper. Now it uses curl instead of native PHP. It was failing on PHP 7.3.
 - On build workflow:
     - Simplify "on" section.
     - Use `php-version` matrix value as singular.
