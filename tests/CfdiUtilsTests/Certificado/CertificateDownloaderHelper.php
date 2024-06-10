@@ -15,7 +15,7 @@ use XmlResourceRetriever\Downloader\DownloaderInterface;
  */
 final class CertificateDownloaderHelper implements DownloaderInterface
 {
-    const MAX_DOWNLOAD_ATTEMPTS = 8;
+    public const MAX_DOWNLOAD_ATTEMPTS = 8;
 
     public function downloadTo(string $source, string $destination)
     {
@@ -25,7 +25,7 @@ final class CertificateDownloaderHelper implements DownloaderInterface
                 $this->realDownloadTo($source, $destination);
                 break;
             } catch (Exception $exception) {
-                if ($attempt === self::MAX_DOWNLOAD_ATTEMPTS) {
+                if (self::MAX_DOWNLOAD_ATTEMPTS === $attempt) {
                     throw new Exception("Unable to download $source to $destination", 0, $exception);
                 }
                 $attempt = $attempt + 1;
