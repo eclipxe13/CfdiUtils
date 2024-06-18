@@ -11,9 +11,9 @@ class RegimenesAduaneros extends AbstractElement
         return 'cartaporte31:RegimenesAduaneros';
     }
 
-    public function addRegimenAduanerCCP(array $attributes = []): RegimenAduanerCCP
+    public function addRegimenAduaneroCCP(array $attributes = []): RegimenAduaneroCCP
     {
-        $subject = new RegimenAduanerCCP($attributes);
+        $subject = new RegimenAduaneroCCP($attributes);
         $this->addChild($subject);
         return $subject;
     }
@@ -21,7 +21,7 @@ class RegimenesAduaneros extends AbstractElement
     public function multiRegimenAduanerCCP(array ...$elementAttributes): self
     {
         foreach ($elementAttributes as $attributes) {
-            $this->addRegimenAduanerCCP($attributes);
+            $this->addRegimenAduaneroCCP($attributes);
         }
         return $this;
     }
