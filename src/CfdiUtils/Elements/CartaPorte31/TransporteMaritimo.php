@@ -11,13 +11,6 @@ class TransporteMaritimo extends AbstractElement
         return 'cartaporte31:TransporteMaritimo';
     }
 
-    public function getChildrenOrder(): array
-    {
-        return [
-        'cartaporte31:Contenedor',
-        'cartaporte31:RemolquesCCP'];
-    }
-
     public function addContenedor(array $attributes = []): Contenedor
     {
         $subject = new Contenedor($attributes);
@@ -31,17 +24,5 @@ class TransporteMaritimo extends AbstractElement
             $this->addContenedor($attributes);
         }
         return $this;
-    }
-
-    public function getRemolquesCCP(): RemolquesCCP
-    {
-        return $this->helperGetOrAdd(new RemolquesCCP());
-    }
-
-    public function addRemolquesCCP(array $attributes = []): RemolquesCCP
-    {
-        $subject = $this->getRemolquesCCP();
-        $subject->addAttributes($attributes);
-        return $subject;
     }
 }

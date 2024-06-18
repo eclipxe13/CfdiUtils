@@ -34,9 +34,11 @@
                 }
             },
             "TransporteMaritimo": {
-                "Contenedor": {"multiple": true},
-                "RemolquesCCP": {
-                    "RemolqueCCP": {"multiple": true}
+                "Contenedor": {
+                    "multiple": true,
+                    "RemolquesCCP": {
+                        "RemolqueCCP": {"multiple": true}
+                    }
                 }
             },
             "TransporteAereo": {},

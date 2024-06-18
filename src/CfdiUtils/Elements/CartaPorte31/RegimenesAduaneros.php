@@ -18,7 +18,7 @@ class RegimenesAduaneros extends AbstractElement
         return $subject;
     }
 
-    public function multiRegimenAduanerCCP(array ...$elementAttributes): self
+    public function multiRegimenAduaneroCCP(array ...$elementAttributes): self
     {
         foreach ($elementAttributes as $attributes) {
             $this->addRegimenAduaneroCCP($attributes);
