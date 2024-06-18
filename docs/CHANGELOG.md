@@ -33,6 +33,11 @@
 - Remove deprecated constant `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`.
 - Remove deprecated class `CfdiUtils\Utils\Crp20277Fixer`.
 
+## Version 2.29.0 2024-06-18
+
+Add `CfdiUtils\Elements\CartaPorte31` *Elements* to work with "Carta Porte 3.1".
+Thanks `@alejandrogova1` for your contribution.
+
 ## Version 2.28.2 2024-06-09
 
 - Wrap OpenSSL command run on a *try/catch* block to throw an `OpenSSLException` exception.
