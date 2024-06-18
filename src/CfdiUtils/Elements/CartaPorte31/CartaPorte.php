@@ -14,10 +14,11 @@ class CartaPorte extends AbstractElement
     public function getChildrenOrder(): array
     {
         return [
-        'cartaporte31:RegimenesAduaneros',
-        'cartaporte31:Ubicaciones',
-        'cartaporte31:Mercancias',
-        'cartaporte31:FiguraTransporte'];
+            'cartaporte31:RegimenesAduaneros',
+            'cartaporte31:Ubicaciones',
+            'cartaporte31:Mercancias',
+            'cartaporte31:FiguraTransporte',
+        ];
     }
 
     public function getFixedAttributes(): array

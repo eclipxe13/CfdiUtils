@@ -14,10 +14,11 @@ class Mercancia extends AbstractElement
     public function getChildrenOrder(): array
     {
         return [
-        'cartaporte31:DocumentacionAduanera',
-        'cartaporte31:GuiasIdentificacion',
-        'cartaporte31:CantidadTransporta',
-        'cartaporte31:DetalleMercancia'];
+            'cartaporte31:DocumentacionAduanera',
+            'cartaporte31:GuiasIdentificacion',
+            'cartaporte31:CantidadTransporta',
+            'cartaporte31:DetalleMercancia',
+        ];
     }
 
     public function addDocumentacionAduanera(array $attributes = []): DocumentacionAduanera
