@@ -38,10 +38,10 @@ En este caso, `addElemento` siempre agrega un nuevo elemento.
 
 ```php
 <?php
-$nomina = new \CfdiUtils\Elements\CartaPorte30\CartaPorte();
+$cartaPorte = new \CfdiUtils\Elements\CartaPorte30\CartaPorte();
 
 // acceso por prefijo get (Ubicaciones es de 1 aparición)
-$ubicaciones = $CartaPorte30->getUbicaciones();
+$ubicaciones = $cartaPorte->getUbicaciones();
 
 // agregar con prefijo add (Ubicacion es de 1 aparición)
 $ubicacion = $ubicaciones->addUbicacion(['TipoUbicacion'=> 'Origen', ...]);
@@ -55,7 +55,7 @@ $ubicacion->multiDomicilio(
 
 ### Métodos de ayuda de los elementos
 
-#### Elemento `Carta Porte`
+#### Elemento `CartaPorte`
 
 - `CartaPorte::getUbicaciones(): Ubicaciones`.
 - `CartaPorte::addUbicaciones(array $attributes): Ubicaciones`.
@@ -159,10 +159,10 @@ el elemento `CartaPorte` al comprobante.
 $creator = new \CfdiUtils\CfdiCreator40();
 // acceso al elemento Comprobante (el nodo principal del CFDI)
 $comprobante = $creator->comprobante();
-                     
-$cartaporte30 = new \CfdiUtils\Elements\CartaPorte30\CartaPorte();
-// ... llenar la información de $cartaporte30
 
-// agregar $cartaporte30 como complemento del $comprobante
-$comprobante->addComplemento($cartaporte30);
+$cartaPorte = new \CfdiUtils\Elements\CartaPorte30\CartaPorte();
+// ... llenar la información de $cartaPorte
+
+// agregar $cartaPorte como complemento del $comprobante
+$comprobante->addComplemento($cartaPorte);
 ```
