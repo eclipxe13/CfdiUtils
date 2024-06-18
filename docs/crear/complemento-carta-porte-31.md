@@ -6,16 +6,17 @@ partir del 17 de julio del 2024.
 
 La documentación del complemento la puedes encontrar en el sitio oficial del SAT:
 
+- Página del complemento: <http://omawww.sat.gob.mx/tramitesyservicios/Paginas/complemento_carta_porte.htm>.
 - La ruta del archivo de excel con los nuevos catálogos: <http://omawww.sat.gob.mx/tramitesyservicios/Paginas/documentos/CatalogosCartaPorte31.xls>.
 - Ruta del XSD del CCP 3.1: <http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte31.xsd>.
 - Ruta del XSLT para la secuencia de cadena original CCP 3.1: <http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte31.xslt>.
 - Ruta matriz de errores CCP 3.1: <http://omawww.sat.gob.mx/tramitesyservicios/Paginas/documentos/Matriz_Errores_CCP_V31.xls>.
-- Ruta XSD catálogos CCP 3.1: <http://www.sat.gob.mx/sitio_internet/cfd/catalogos/CartaPorte/catCartaPorte.xsd>.
+- Ruta XSD catálogos CCP: <http://www.sat.gob.mx/sitio_internet/cfd/catalogos/CartaPorte/catCartaPorte.xsd>.
 - Ruta del estándar: <http://omawww.sat.gob.mx/tramitesyservicios/Paginas/documentos/Carta_Porte_31.pdf>.
 
 Según la documentación técnica el XML debe cumplir con la siguiente especificación:
 
-- Prefijo de namespace: `CartaPorte31`.
+- Prefijo de namespace: `cartaporte31`.
 - Namespace: <http://www.sat.gob.mx/CartaPorte31>.
 - Archivo XSD: <http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte31.xsd>.
 
@@ -38,10 +39,10 @@ En este caso, `addElemento` siempre agrega un nuevo elemento.
 
 ```php
 <?php
-$nomina = new \CfdiUtils\Elements\CartaPorte31\CartaPorte();
+$cartaPorte = new \CfdiUtils\Elements\CartaPorte31\CartaPorte();
 
 // acceso por prefijo get (Ubicaciones es de 1 aparición)
-$ubicaciones = $CartaPorte31->getUbicaciones();
+$ubicaciones = $cartaPorte->getUbicaciones();
 
 // agregar con prefijo add (Ubicacion es de 1 aparición)
 $ubicacion = $ubicaciones->addUbicacion(['TipoUbicacion'=> 'Origen', ...]);
@@ -55,8 +56,9 @@ $ubicacion->multiDomicilio(
 
 ### Métodos de ayuda de los elementos
 
-#### Elemento `Carta Porte`
+#### Elemento `CartaPorte`
 
+- `CartaPorte::getRegimenesAduaneros(): RegimenesAduaneros`.
 - `CartaPorte::getUbicaciones(): Ubicaciones`.
 - `CartaPorte::addUbicaciones(array $attributes): Ubicaciones`.
 - `CartaPorte::getMercancias(): Mercancias`.
@@ -67,7 +69,7 @@ $ubicacion->multiDomicilio(
 #### Elemento `RegimenesAduaneros`
 
 - `RegimenesAduaneros::addRegimenAduaneroCCP(array $attributes): RegimenAduaneroCCP`.
-- `RegimenesAduaneros::multiRegimenAduaneroCCP(array $attributes): self`.
+- `RegimenesAduaneros::multiRegimenAduaneroCCP(array ...$elementAttributes): self`.
 
 #### Elemento `Ubicaciones`
 
@@ -119,13 +121,14 @@ $ubicacion->multiDomicilio(
 
 #### Elemento `TransporteMaritimo`
 
-- `TransporteMaritimo::addContenedor(array $attributes): Contenedor`.
+- `TransporteMaritimo::addContenedor(array $attributes): ContenedorMaritimo`.
 - `TransporteMaritimo::multiContenedor(array ...$elementAttributes): self`.
 
-#### Elemento `Contenedor`
+#### Elemento `ContenedorMaritimo`
 
-- `Contenedor::getRemolquesCCP(array $attributes): RemolquesCCP`.
-- `Contenedor::addRemolquesCCP(array $attributes): RemolquesCCP`.
+- El nombre del elemento es `Contenedor`.
+- `ContenedorMaritimo::getRemolquesCCP(): RemolquesCCP`.
+- `ContenedorMaritimo::addRemolquesCCP(array $attributes): RemolquesCCP`.
 
 #### Elemento `RemolquesCCP`
 
@@ -141,8 +144,12 @@ $ubicacion->multiDomicilio(
 
 #### Elemento `Carro`
 
-- `Carro::addContenedor(array $attributes): ContenedorTF`.
+- `Carro::addContenedor(array $attributes): ContenedorFerroviario`.
 - `Carro::multiContenedor(array ...$elementAttributes): self`.
+
+#### Elemento `ContenedorFerroviario`
+
+- El nombre del elemento es `Contenedor`.
 
 #### Elemento `FiguraTransporte`
 
@@ -167,10 +174,10 @@ el elemento `CartaPorte` al comprobante.
 $creator = new \CfdiUtils\CfdiCreator40();
 // acceso al elemento Comprobante (el nodo principal del CFDI)
 $comprobante = $creator->comprobante();
-                     
-$CartaPorte31 = new \CfdiUtils\Elements\CartaPorte31\CartaPorte();
-// ... llenar la información de $CartaPorte31
 
-// agregar $CartaPorte31 como complemento del $comprobante
-$comprobante->addComplemento($CartaPorte31);
+$cartaPorte = new \CfdiUtils\Elements\CartaPorte31\CartaPorte();
+// ... llenar la información de $cartaPorte
+
+// agregar $cartaPorte como complemento del $comprobante
+$comprobante->addComplemento($cartaporte);
 ```
