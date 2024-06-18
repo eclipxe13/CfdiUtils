@@ -2,6 +2,7 @@
 
 namespace CfdiUtils\Elements\CartaPorte31;
 
+use CfdiUtils\Elements\CartaPorte31\ContenedorMaritimo as Contenedor;
 use CfdiUtils\Elements\Common\AbstractElement;
 
 class TransporteMaritimo extends AbstractElement

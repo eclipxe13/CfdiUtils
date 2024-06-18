@@ -2,6 +2,7 @@
 
 namespace CfdiUtils\Elements\CartaPorte31;
 
+use CfdiUtils\Elements\CartaPorte31\ContenedorFerroviario as Contenedor;
 use CfdiUtils\Elements\Common\AbstractElement;
 
 class Carro extends AbstractElement
@@ -11,9 +12,9 @@ class Carro extends AbstractElement
         return 'cartaporte31:Carro';
     }
 
-    public function addContenedor(array $attributes = []): ContenedorTF
+    public function addContenedor(array $attributes = []): Contenedor
     {
-        $subject = new ContenedorTF($attributes);
+        $subject = new Contenedor($attributes);
         $this->addChild($subject);
         return $subject;
     }

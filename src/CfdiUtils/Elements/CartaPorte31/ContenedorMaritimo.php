@@ -4,7 +4,7 @@ namespace CfdiUtils\Elements\CartaPorte31;
 
 use CfdiUtils\Elements\Common\AbstractElement;
 
-class Contenedor extends AbstractElement
+class ContenedorMaritimo extends AbstractElement
 {
     public function getElementName(): string
     {
