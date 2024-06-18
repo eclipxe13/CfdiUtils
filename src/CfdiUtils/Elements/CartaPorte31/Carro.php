@@ -11,9 +11,9 @@ class Carro extends AbstractElement
         return 'cartaporte31:Carro';
     }
 
-    public function addContenedor(array $attributes = []): Contenedor
+    public function addContenedor(array $attributes = []): ContenedorTF
     {
-        $subject = new Contenedor($attributes);
+        $subject = new ContenedorTF($attributes);
         $this->addChild($subject);
         return $subject;
     }

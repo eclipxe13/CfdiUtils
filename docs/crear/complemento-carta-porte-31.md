@@ -122,6 +122,11 @@ $ubicacion->multiDomicilio(
 - `TransporteMaritimo::addContenedor(array $attributes): Contenedor`.
 - `TransporteMaritimo::multiContenedor(array ...$elementAttributes): self`.
 
+#### Elemento `Contenedor`
+
+- `Contenedor::getRemolquesCCP(array $attributes): RemolquesCCP`.
+- `Contenedor::addRemolquesCCP(array $attributes): RemolquesCCP`.
+
 #### Elemento `RemolquesCCP`
 
 - `RemolquesCCP::addRemolque(array $attributes): Remolque`.
@@ -136,7 +141,7 @@ $ubicacion->multiDomicilio(
 
 #### Elemento `Carro`
 
-- `Carro::addContenedor(array $attributes): Contenedor`.
+- `Carro::addContenedor(array $attributes): ContenedorTF`.
 - `Carro::multiContenedor(array ...$elementAttributes): self`.
 
 #### Elemento `FiguraTransporte`

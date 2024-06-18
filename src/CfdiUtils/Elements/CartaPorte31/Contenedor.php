@@ -10,4 +10,16 @@ class Contenedor extends AbstractElement
     {
         return 'cartaporte31:Contenedor';
     }
+
+    public function getRemolquesCCP(): RemolquesCCP
+    {
+        return $this->helperGetOrAdd(new RemolquesCCP());
+    }
+
+    public function addRemolquesCCP(array $attributes = []): RemolquesCCP
+    {
+        $subject = $this->getRemolquesCCP();
+        $subject->addAttributes($attributes);
+        return $subject;
+    }
 }
