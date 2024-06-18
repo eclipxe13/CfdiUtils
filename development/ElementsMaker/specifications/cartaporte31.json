@@ -1,0 +1,61 @@
+{
+    "php-namespace": "CfdiUtils\\Elements\\CartaPorte31",
+    "prefix": "cartaporte31",
+    "xml-namespace": "http://www.sat.gob.mx/CartaPorte31",
+    "xml-schemalocation": "http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte31.xsd",
+    "version-attribute": "Version",
+    "version-value": "3.1",
+    "root-element": "CartaPorte",
+    "structure": {
+        "RegimenesAduaneros" : {
+            "RegimenAduaneroCCP" : {
+                "multiple": true
+            }
+        },
+        "Ubicaciones": {
+            "Ubicacion": {
+                "multiple": true,
+                "Domicilio": {}
+            }
+        },
+        "Mercancias": {
+            "Mercancia": {
+                "multiple": true,
+                "DocumentacionAduanera": {"multiple": true},
+                "GuiasIdentificacion": {"multiple": true},
+                "CantidadTransporta": {"multiple": true},
+                "DetalleMercancia": {}
+            },
+            "Autotransporte": {
+                "IdentificacionVehicular": {},
+                "Seguros": {},
+                "Remolques": {
+                    "Remolque": {"multiple": true}
+                }
+            },
+            "TransporteMaritimo": {
+                "Contenedor": {
+                    "multiple": true,
+                    "RemolquesCCP": {
+                        "RemolqueCCP": {"multiple": true}
+                    }
+                }
+            },
+            "TransporteAereo": {},
+            "TransporteFerroviario": {
+                "DerechosDePaso": {"multiple": true},
+                "Carro": {
+                    "multiple": true,
+                    "Contenedor": {"multiple": true}
+                }
+            }
+        },
+        "FiguraTransporte": {
+            "TiposFigura": {
+                "multiple": true,
+                "PartesTransporte": {"multiple": true},
+                "Domicilio": {}
+            }
+        }
+    }
+}

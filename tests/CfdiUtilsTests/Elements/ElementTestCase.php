@@ -123,14 +123,17 @@ abstract class ElementTestCase extends TestCase
         );
     }
 
-    public function assertElementHasChildMultiple(AbstractElement $element, string $childClassName): void
-    {
+    public function assertElementHasChildMultiple(
+        AbstractElement $element,
+        string $childClassName,
+        string $elementName = ''
+    ): void {
         $elementClass = get_class($element);
-        $childClassBaseName = basename(str_replace('\\', '/', $childClassName));
+        $elementName = $elementName ?: basename(str_replace('\\', '/', $childClassName));
         $element->children()->removeAll();
 
         // first: add should return specific instance and added
-        $adder = 'add' . $childClassBaseName;
+        $adder = 'add' . $elementName;
         $first = $element->{$adder}(['id' => 'first']);
         $this->assertInstanceOf(
             $childClassName,
@@ -159,7 +162,7 @@ abstract class ElementTestCase extends TestCase
         $this->assertCount(2, $element->children());
 
         // multiple: add should return other instance different from first but added
-        $multier = 'multi' . $childClassBaseName;
+        $multier = 'multi' . $elementName;
         $sameAsElement = $element->{$multier}(['id' => 'third'], ['id' => 'fourth']);
         $this->assertSame(
             $element,

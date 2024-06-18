@@ -33,9 +33,14 @@
 - Remove deprecated constant `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`.
 - Remove deprecated class `CfdiUtils\Utils\Crp20277Fixer`.
 
-## Version 2.28.2 2024-02-20
+## Version 2.29.0 2024-06-18
 
-- Wrap OpenSSL command run on a *try/catch* block to throw OpenSSLException.
+Add `CfdiUtils\Elements\CartaPorte31` *Elements* to work with "Carta Porte 3.1".
+Thanks `@alejandrogova1` for your contribution.
+
+## Version 2.28.2 2024-06-09
+
+- Wrap OpenSSL command run on a *try/catch* block to throw an `OpenSSLException` exception.
 - Refactor certificate downloader test helper. Now it uses curl instead of native PHP. It was failing on PHP 7.3.
 - Remove old dependencies for *ReadTheDocs*: `mkdocs:1.2.3` and `jinja2<3.1.0`. Thanks to `@dependabot`.
 - On build workflow:
