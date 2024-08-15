@@ -58,9 +58,9 @@ class WebService
         $soapOptions = [
             'location' => $config->getServiceUrl(),
             'uri' => 'http://tempuri.org/',
-            'style' => SOAP_RPC,
-            'use' => SOAP_LITERAL,
-            'soap_version' => SOAP_1_1,
+            'style' => \SOAP_RPC,
+            'use' => \SOAP_LITERAL,
+            'soap_version' => \SOAP_1_1,
             'exceptions' => 1,
             'stream_context' => stream_context_create([
                 'ssl' => [
