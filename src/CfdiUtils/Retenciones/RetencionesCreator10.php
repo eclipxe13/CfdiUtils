@@ -28,9 +28,9 @@ class RetencionesCreator10 implements
 
     public function __construct(
         array $retencionesAttributes = [],
-        XmlResolver $xmlResolver = null,
-        XsltBuilderInterface $xsltBuilder = null,
-        Certificado $certificado = null
+        ?XmlResolver $xmlResolver = null,
+        ?XsltBuilderInterface $xsltBuilder = null,
+        ?Certificado $certificado = null
     ) {
         $this->retenciones = new Retenciones();
         $this->retencionesCreatorConstructor($retencionesAttributes, $certificado, $xmlResolver, $xsltBuilder);

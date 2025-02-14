@@ -50,7 +50,7 @@ class Certificado
      * @throws \RuntimeException when cannot parse the certificate or is empty
      * @throws \RuntimeException when cannot get serialNumberHex or serialNumber from certificate
      */
-    public function __construct(string $filename, OpenSSL $openSSL = null)
+    public function __construct(string $filename, ?OpenSSL $openSSL = null)
     {
         $this->setOpenSSL($openSSL ?: new OpenSSL());
         $contents = $this->extractPemCertificate($filename);

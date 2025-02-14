@@ -34,7 +34,7 @@ class XmlResolver
      * @param string|null $localPath values: '' => no resolve, null => use default path, anything else is the path
      * @param DownloaderInterface|null $downloader
      */
-    public function __construct(string $localPath = null, DownloaderInterface $downloader = null)
+    public function __construct(?string $localPath = null, ?DownloaderInterface $downloader = null)
     {
         $this->setLocalPath($localPath);
         $this->setDownloader($downloader);
@@ -52,7 +52,7 @@ class XmlResolver
      *
      * @param string|null $localPath values: '' => no resolve, null => default path, anything else is the path
      */
-    public function setLocalPath(string $localPath = null)
+    public function setLocalPath(?string $localPath = null)
     {
         if (null === $localPath) {
             $localPath = $this->defaultLocalPath();
@@ -87,7 +87,7 @@ class XmlResolver
      *
      * @param DownloaderInterface|null $downloader
      */
-    public function setDownloader(DownloaderInterface $downloader = null)
+    public function setDownloader(?DownloaderInterface $downloader = null)
     {
         if (null === $downloader) {
             $downloader = $this->defaultDownloader();

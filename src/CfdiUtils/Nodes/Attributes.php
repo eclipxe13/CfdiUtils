@@ -30,7 +30,7 @@ class Attributes implements \Countable, \IteratorAggregate, \ArrayAccess
      * @param string|null $value If null then it will remove the value instead of setting to empty string
      * @return self
      */
-    public function set(string $name, string $value = null): self
+    public function set(string $name, ?string $value = null): self
     {
         if (null === $value) {
             $this->remove($name);

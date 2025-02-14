@@ -39,7 +39,7 @@ class FechaComprobante extends AbstractDiscoverableVersion33
         return $this->maximumDate;
     }
 
-    public function setMaximumDate(int $maximumDate = null)
+    public function setMaximumDate(?int $maximumDate = null)
     {
         $this->maximumDate = $maximumDate;
     }

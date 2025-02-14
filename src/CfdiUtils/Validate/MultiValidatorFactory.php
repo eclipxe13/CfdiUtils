@@ -10,7 +10,7 @@ class MultiValidatorFactory
     /** @var Discoverer */
     private $discoverer;
 
-    public function __construct(Discoverer $discoverer = null)
+    public function __construct(?Discoverer $discoverer = null)
     {
         $this->discoverer = $discoverer ?: new Discoverer();
     }

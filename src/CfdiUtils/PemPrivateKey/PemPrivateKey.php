@@ -26,7 +26,7 @@ class PemPrivateKey
      * @param OpenSSL|null $openSSL
      * @throws UnexpectedValueException if the file is not PEM format
      */
-    public function __construct(string $key, OpenSSL $openSSL = null)
+    public function __construct(string $key, ?OpenSSL $openSSL = null)
     {
         $this->setOpenSSL($openSSL ?: new OpenSSL());
         try {

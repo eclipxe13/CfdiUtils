@@ -27,9 +27,9 @@ trait CfdiCreatorTrait
 
     private function cfdiCreatorConstructor(
         array $comprobanteAttributes = [],
-        Certificado $certificado = null,
-        XmlResolver $xmlResolver = null,
-        XsltBuilderInterface $xsltBuilder = null
+        ?Certificado $certificado = null,
+        ?XmlResolver $xmlResolver = null,
+        ?XsltBuilderInterface $xsltBuilder = null
     ): void {
         $this->comprobante->addAttributes($comprobanteAttributes);
         $this->setXmlResolver($xmlResolver ?: new XmlResolver());
@@ -41,8 +41,8 @@ trait CfdiCreatorTrait
 
     public static function newUsingNode(
         NodeInterface $node,
-        Certificado $certificado = null,
-        XmlResolver $xmlResolver = null
+        ?Certificado $certificado = null,
+        ?XmlResolver $xmlResolver = null
     ): self {
         $new = new self([], $certificado, $xmlResolver);
         $comprobante = $new->comprobante;
@@ -102,7 +102,7 @@ trait CfdiCreatorTrait
         return new SumasConceptos($this->comprobante, $precision);
     }
 
-    public function addSumasConceptos(SumasConceptos $sumasConceptos = null, int $precision = 2)
+    public function addSumasConceptos(?SumasConceptos $sumasConceptos = null, int $precision = 2)
     {
         if (null === $sumasConceptos) {
             $sumasConceptos = $this->buildSumasConceptos($precision);

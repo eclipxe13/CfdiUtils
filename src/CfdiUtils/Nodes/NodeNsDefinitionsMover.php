@@ -27,7 +27,7 @@ class NodeNsDefinitionsMover
         return $this->namespaceFilter;
     }
 
-    public function setNamespaceFilter(callable $filter = null): self
+    public function setNamespaceFilter(?callable $filter = null): self
     {
         $this->namespaceFilter = $filter;
         return $this;

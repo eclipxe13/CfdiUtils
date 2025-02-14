@@ -13,7 +13,7 @@ final class OpenSSLPropertyTest extends TestCase
         $object = new class () {
             use OpenSSLPropertyTrait;
 
-            public function __construct(OpenSSL $openSSL = null)
+            public function __construct(?OpenSSL $openSSL = null)
             {
                 $this->setOpenSSL($openSSL ?: new OpenSSL());
             }

@@ -270,7 +270,7 @@ class SumasConceptosComprobanteImpuestos extends AbstractDiscoverableVersion33
         float $expectedValue,
         string $compareLabel,
         float $compareValue,
-        Status $errorStatus = null
+        ?Status $errorStatus = null
     ): bool {
         $condition = $this->compareImportesAreEqual($expectedValue, $compareValue);
         $this->asserts->putStatus(
@@ -281,7 +281,7 @@ class SumasConceptosComprobanteImpuestos extends AbstractDiscoverableVersion33
         return $condition;
     }
 
-    private function compareImportesAreEqual(float $first, float $second, float $delta = null): bool
+    private function compareImportesAreEqual(float $first, float $second, ?float $delta = null): bool
     {
         if (null === $delta) {
             $delta = 0.000001;

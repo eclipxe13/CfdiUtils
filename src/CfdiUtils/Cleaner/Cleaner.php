@@ -34,7 +34,7 @@ class Cleaner
     /** @var BeforeLoadCleanerInterface */
     private $beforeLoadCleaner;
 
-    public function __construct(string $content, BeforeLoadCleanerInterface $beforeLoadCleaner = null)
+    public function __construct(string $content, ?BeforeLoadCleanerInterface $beforeLoadCleaner = null)
     {
         $this->beforeLoadCleaner = $beforeLoadCleaner ?? new BeforeLoad\BeforeLoadCleaner();
         if ('' !== $content) {
@@ -350,7 +350,7 @@ class Cleaner
      * @param DOMNode|null $element
      * @return DOMNodeList
      */
-    private function xpathQuery(string $query, DOMNode $element = null): DOMNodeList
+    private function xpathQuery(string $query, ?DOMNode $element = null): DOMNodeList
     {
         if (null === $element) {
             $document = $this->dom();

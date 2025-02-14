@@ -13,7 +13,7 @@ class OpenSSLCallerException extends OpenSSLException
         CallResponse $execResult,
         string $message = 'OpenSSL execution error',
         int $code = 0,
-        Throwable $previous = null
+        ?Throwable $previous = null
     ) {
         parent::__construct($message, $code, $previous);
         $this->execResult = $execResult;

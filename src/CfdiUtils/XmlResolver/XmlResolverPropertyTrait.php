@@ -20,7 +20,7 @@ trait XmlResolverPropertyTrait
         return $this->xmlResolver;
     }
 
-    public function setXmlResolver(XmlResolver $xmlResolver = null)
+    public function setXmlResolver(?XmlResolver $xmlResolver = null)
     {
         $this->xmlResolver = $xmlResolver;
     }

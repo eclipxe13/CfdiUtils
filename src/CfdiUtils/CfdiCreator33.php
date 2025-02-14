@@ -32,9 +32,9 @@ class CfdiCreator33 implements
      */
     public function __construct(
         array $comprobanteAttributes = [],
-        Certificado $certificado = null,
-        XmlResolver $xmlResolver = null,
-        XsltBuilderInterface $xsltBuilder = null
+        ?Certificado $certificado = null,
+        ?XmlResolver $xmlResolver = null,
+        ?XsltBuilderInterface $xsltBuilder = null
     ) {
         $this->comprobante = new Comprobante();
         $this->cfdiCreatorConstructor($comprobanteAttributes, $certificado, $xmlResolver, $xsltBuilder);

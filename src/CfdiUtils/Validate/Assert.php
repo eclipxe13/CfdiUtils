@@ -23,7 +23,7 @@ class Assert
      * @param Status|null $status If null the status will be NONE
      * @param string $explanation
      */
-    public function __construct(string $code, string $title = '', Status $status = null, string $explanation = '')
+    public function __construct(string $code, string $title = '', ?Status $status = null, string $explanation = '')
     {
         if ('' === $code) {
             throw new \UnexpectedValueException('Code cannot be an empty string');
@@ -59,7 +59,7 @@ class Assert
         $this->title = $title;
     }
 
-    public function setStatus(Status $status, string $explanation = null)
+    public function setStatus(Status $status, ?string $explanation = null)
     {
         $this->status = $status;
         if (null !== $explanation) {

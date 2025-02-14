@@ -77,7 +77,7 @@ class Status
         return self::STATUS_NONE === $this->status;
     }
 
-    public static function when(bool $condition, self $errorStatus = null): self
+    public static function when(bool $condition, ?self $errorStatus = null): self
     {
         return ($condition) ? self::ok() : ($errorStatus ?: self::error());
     }

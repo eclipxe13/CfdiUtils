@@ -29,9 +29,9 @@ trait RetencionesCreatorTrait
 
     private function retencionesCreatorConstructor(
         array $retencionesAttributes = [],
-        Certificado $certificado = null,
-        XmlResolver $xmlResolver = null,
-        XsltBuilderInterface $xsltBuilder = null
+        ?Certificado $certificado = null,
+        ?XmlResolver $xmlResolver = null,
+        ?XsltBuilderInterface $xsltBuilder = null
     ): void {
         $this->retenciones->addAttributes($retencionesAttributes);
         $this->setXmlResolver($xmlResolver ?: new XmlResolver());

@@ -24,9 +24,9 @@ class Asserts implements \Countable, \IteratorAggregate
      */
     public function put(
         string $code,
-        string $title = null,
-        Status $status = null,
-        string $explanation = null
+        ?string $title = null,
+        ?Status $status = null,
+        ?string $explanation = null
     ): Assert {
         if (! $this->exists($code)) {
             $assert = new Assert($code, (string) $title, $status, (string) $explanation);
@@ -55,7 +55,7 @@ class Asserts implements \Countable, \IteratorAggregate
      * @param string|null $explanation
      * @return Assert
      */
-    public function putStatus(string $code, Status $status = null, string $explanation = null): Assert
+    public function putStatus(string $code, ?Status $status = null, ?string $explanation = null): Assert
     {
         return $this->put($code, null, $status, $explanation);
     }
@@ -67,7 +67,7 @@ class Asserts implements \Countable, \IteratorAggregate
      * @param bool|null $newValue value of the flag, if null then will not change the flag
      * @return bool the previous value of the flag
      */
-    public function mustStop(bool $newValue = null): bool
+    public function mustStop(?bool $newValue = null): bool
     {
         if (null === $newValue) {
             return $this->mustStop;

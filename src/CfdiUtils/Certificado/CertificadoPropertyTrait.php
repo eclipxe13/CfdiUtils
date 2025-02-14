@@ -20,7 +20,7 @@ trait CertificadoPropertyTrait
         return $this->certificado;
     }
 
-    public function setCertificado(Certificado $certificado = null)
+    public function setCertificado(?Certificado $certificado = null)
     {
         $this->certificado = $certificado;
     }
