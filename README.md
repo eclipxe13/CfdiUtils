@@ -79,6 +79,11 @@ See <https://www.php.net/supported-versions.php> for more details.
 | 2.20.1    | 7.3, 7.4, 8.0, 8.1           | 2022-03-08 |
 | 2.23.5    | 7.3, 7.4, 8.0, 8.1, 8.2, 8.3 | 2023-05-26 |
 
+**About PHP 8.4**: Version 2.x is *almost* compatible with PHP 8.4.
+It shows *deprecation errors* which require a new mayor version to fix it.
+Version 2.30.0 includes a constraint to avoid install this library on PHP 8.4.
+Version 3.x will drop compatibility with unmaintained PHP versions and will include compatibility with PHP 8.4.
+
 ## Contributing
 
 Contributions are welcome! Please read [CONTRIBUTING][] for details
