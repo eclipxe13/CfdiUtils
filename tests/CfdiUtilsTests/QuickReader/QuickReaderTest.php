@@ -64,7 +64,6 @@ final class QuickReaderTest extends TestCase
     {
         $foo = new QuickReader('foo');
         $this->assertTrue(is_array($foo())); /** @phpstan-ignore-line */
-
         $xee = $foo->bar->xee;
         $this->assertTrue(is_array($xee('zee')));
         $this->assertTrue(is_array($xee->__invoke('zee')));
