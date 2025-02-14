@@ -146,10 +146,6 @@ jobs:
           git clone --depth 1 https://github.com/phpcfdi/resources-sat-xml resources-sat-xml-cloned
           mv resources-sat-xml-cloned/resources build/resources
           rm -r -f resources-sat-xml-cloned
-      - name: Remove genkgo/xsl on PHP 8.3
-        if: matrix.php-version == '8.3'
-        run: |
-          composer remove genkgo/xsl --dev --no-interaction --no-progress --no-update
       - name: Install project dependencies
         run: |
           composer remove squizlabs/php_codesniffer friendsofphp/php-cs-fixer phpstan/phpstan --dev --no-interaction --no-progress --no-update
@@ -198,10 +194,6 @@ jobs:
           git clone --depth 1 https://github.com/phpcfdi/resources-sat-xml resources-sat-xml-cloned
           mv resources-sat-xml-cloned/resources build/resources
           rm -r -f resources-sat-xml-cloned
-      - name: Remove genkgo/xsl on PHP 8.3
-        if: matrix.php-version == '8.3'
-        run: |
-          composer remove genkgo/xsl --dev --no-interaction --no-progress --no-update
       - name: Install project dependencies
         run: |
           composer remove squizlabs/php_codesniffer friendsofphp/php-cs-fixer phpstan/phpstan --dev --no-interaction --no-progress --no-update
