@@ -106,7 +106,6 @@ class WebService
      */
     protected function doRequestConsulta(string $expression): ?stdClass
     {
-        /** @var int $encoding Override because inspectors does not know that second argument can be NULL */
         $encoding = null;
         return $this->getSoapClient()->__soapCall(
             'Consulta',

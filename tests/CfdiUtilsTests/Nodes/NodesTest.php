@@ -77,9 +77,7 @@ final class NodesTest extends TestCase
         $found = $root->searchNode('child');
         $this->assertSame($child, $found);
 
-        if (null !== $found) {
-            $nodes->remove($found);
-        }
+        $nodes->remove($found);
         $this->assertFalse($nodes->exists($child));
     }
 
@@ -109,7 +107,7 @@ final class NodesTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('The element index 0 is not a NodeInterface object');
         /** @var NodeInterface $specimen Override type to avoid problems with static analyser */
-        $specimen = new \stdClass();
+        $specimen = new \stdClass(); /** @phpstan-ignore-line */
         $nodes->importFromArray([$specimen]);
     }
 

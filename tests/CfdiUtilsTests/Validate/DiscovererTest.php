@@ -27,7 +27,7 @@ final class DiscovererTest extends TestCase
         $namespace = __NAMESPACE__ . '\FakeObjects';
         $file = __DIR__ . '/FakeObjects/ImplementationDiscoverableCreateInterface.php';
         $discovered = $discoverer->discoverInFile($namespace, $file);
-        $this->assertNotNull($discoverer);
+        $this->assertNotNull($discovered);
         $this->assertInstanceOf(ValidatorInterface::class, $discovered);
     }
 }

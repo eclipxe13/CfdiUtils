@@ -22,12 +22,11 @@ class GenkgoXslBuilder extends DOMBuilder
         $xslt->importStyleSheet($xsl);
 
         try {
-            /** @var string|null|false $transform */
             $transform = $xslt->transformToXML($xml);
         } catch (TransformationException $exception) {
             throw new XsltBuildException('Error while transforming the xslt content', 0, $exception);
         }
-        if (null === $transform || false === $transform) {
+        if (null === $transform) {
             throw $this->createLibXmlErrorOrMessage('Error while transforming the xslt content');
         }
 

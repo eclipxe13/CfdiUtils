@@ -63,7 +63,7 @@ final class QuickReaderTest extends TestCase
     public function testAccessInvokeReturnsAnArray()
     {
         $foo = new QuickReader('foo');
-        $this->assertTrue(is_array($foo()));
+        $this->assertTrue(is_array($foo())); /** @phpstan-ignore-line */
 
         $xee = $foo->bar->xee;
         $this->assertTrue(is_array($xee('zee')));
@@ -154,9 +154,8 @@ final class QuickReaderTest extends TestCase
     {
         $this->expectException(\LogicException::class);
         $this->expectExceptionMessage("The attribute 'bar' has a non string value");
-        /** @var string $fakeString */
         $fakeString = new \stdClass();
-        new QuickReader('foo', ['x' => 'y', 'bar' => $fakeString]);
+        new QuickReader('foo', ['x' => 'y', 'bar' => $fakeString]); /** @phpstan-ignore-line */
     }
 
     public function testConstructThrowExceptionOnInvalidChildren()

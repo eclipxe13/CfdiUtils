@@ -22,7 +22,7 @@ final class OpenSSLProtectedMethodCheckInputFileTest extends TestCase
     public function testValidInputFile()
     {
         $this->openSSL()->checkInputFile(__FILE__);
-        $this->assertTrue(true, 'No exception thrown');
+        $this->assertTrue(true, 'No exception thrown'); /** @phpstan-ignore-line */
     }
 
     public function testThrowExceptionUsingEmptyFileName()

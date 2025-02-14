@@ -334,12 +334,7 @@ class Cleaner
         if (! $xsi) {
             return new DOMNodeList();
         }
-        /** @var DOMNodeList<DOMAttr>|false $nodeList */
-        $nodeList = $this->xpathQuery("//@$xsi:schemaLocation");
-        if (false === $nodeList) {
-            return new DOMNodeList();
-        }
-        return $nodeList;
+        return $this->xpathQuery("//@$xsi:schemaLocation");
     }
 
     /** @return string[] */

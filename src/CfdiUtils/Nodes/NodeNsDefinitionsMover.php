@@ -54,7 +54,7 @@ class NodeNsDefinitionsMover
 
     protected function moveXmlNs(NodeInterface $child, NodeInterface $root)
     {
-        $prefix = explode(':', $child->name(), 2)[0] ?? '';
+        $prefix = explode(':', $child->name(), 2)[0];
         if ($child->name() === $prefix) {
             return;  // it does not have a prefix
         }
