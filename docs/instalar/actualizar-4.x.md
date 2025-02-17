@@ -54,5 +54,6 @@ Se removió `CfdiUtils\Utils\Crp20277Fixer`, la clase era inútil y no debía ut
 
 ## Otros elementos removidos
 
-- Se elimina la constante `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`, use `RET_NAMESPACE['1.0']`.
+- Se elimina la constante `CfdiUtils\Cfdi::CFDI_NAMESPACE`, use `CFDI_SPECS['3.3']`.
+- Se elimina la constante `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`, use `RET_SPECS['1.0']`.
 - Se removió el método `CfdiUtils\Certificado\SerialNumber::baseConvert`.
