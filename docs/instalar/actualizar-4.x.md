@@ -38,6 +38,15 @@ Se recomienda usar el proyecto [`phpcfdi/sat-estado-cfdi`](https://github.com/ph
 - Se eliminó la clase `CfdiUtils\CadenaOrigen\CadenaOrigenLocations`, use `CfdiUtils\CadenaOrigen\CfdiDefaultLocations`.
 - Se eliminó la clase `CfdiUtils\CadenaOrigen\DefaultLocations`, en favor de `CfdiUtils\CadenaOrigen\CfdiDefaultLocations`.
 
+## Cambios en CFDI 3.3
+
+Estos cambios no deben ser significativos dado que ya no se deben crear CFDI versión 3.3.
+
+En el objeto de ayuda para crear un CFDI 3.3 el método `getCfdiRelacionados()` admitía parámetros,
+pero no es el comportamiento esperado, por lo que ya no es correcto llamarlo con parámetros.
+
+Se estandariza el método `multiCfdiRelacionado()`.
+
 ## `Crp20277Fixer`
 
 Se removió `CfdiUtils\Utils\Crp20277Fixer`, la clase era inútil y no debía utilizarse.

@@ -4,9 +4,6 @@
 
 - Remove `static` methods from `\CfdiUtils\CfdiVersion`, instead create an instance of the class
 - Remove `static` methods from `\CfdiUtils\TimbreFiscalDigital\TfdVersion`, instead create an instance of the class
-- Remove `trigger_error` on `\CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados` when called with arguments.
-- Change signature of `CfdiUtils\Elements\Cfdi33\CfdiRelacionados::multiCfdiRelacionado` to receive as parameters
-  `array ...$elementAttributes` instead of `array $elementAttributes`.
 - Refactor `\CfdiUtils\Certificado\SerialNumber` to be immutable, this change will remove `loadHexadecimal`,
   `loadDecimal` and `loadAscii`.
 - Add a method `NodeInderface::exists` as an alias of `NodeInderface::offsetExists`. Replace usages in code.
