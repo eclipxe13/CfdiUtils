@@ -38,10 +38,10 @@ final class CertificateDownloaderHelper implements DownloaderInterface
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $source);
-        curl_setopt($ch, CURLOPT_VERBOSE, 0); // set to 1 to debug
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_VERBOSE, false); // set to true to debug
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_HEADER, false);
         $result = (string) curl_exec($ch);
         $status = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
         curl_close($ch);

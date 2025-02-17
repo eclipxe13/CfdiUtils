@@ -29,7 +29,10 @@ final class OpenSSLPropertyTest extends TestCase
         };
 
         $this->expectException(\TypeError::class);
-        /** @noinspection PhpExpressionResultUnusedInspection */
+        /**
+         * @noinspection PhpExpressionResultUnusedInspection
+         * @phpstan-ignore-next-line
+         */
         $object->getOpenSSL();
     }
 
@@ -38,6 +41,7 @@ final class OpenSSLPropertyTest extends TestCase
         $object = new class () {
             use OpenSSLPropertyTrait;
         };
+        /** @phpstan-ignore-next-line */
         $this->assertFalse(is_callable([$object, 'setOpenSSL']), 'setOpenSSL must not be public accesible');
     }
 }

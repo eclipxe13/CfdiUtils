@@ -22,7 +22,7 @@ final class OpenSSLProtectedMethodCheckOutputFileTest extends TestCase
     public function testValidOutputFileNonExistent()
     {
         $this->openSSL()->checkOutputFile(__DIR__ . '/non-existent');
-        $this->assertTrue(true, 'No exception thrown');
+        $this->assertTrue(true, 'No exception thrown'); /** @phpstan-ignore-line */
     }
 
     public function testValidOutputFileZeroSize()
@@ -33,7 +33,7 @@ final class OpenSSLProtectedMethodCheckOutputFileTest extends TestCase
         } finally {
             $tempfile->remove();
         }
-        $this->assertTrue(true, 'No exception thrown');
+        $this->assertTrue(true, 'No exception thrown'); /** @phpstan-ignore-line */
     }
 
     public function testThrowExceptionUsingEmptyFileName()

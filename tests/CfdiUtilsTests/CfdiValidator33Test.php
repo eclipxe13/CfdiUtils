@@ -77,7 +77,7 @@ final class CfdiValidator33Test extends TestCase
             'new' => $comprobante['Sello'],
         ]);
         // echo $creator->asXml();
-        $this->assertTrue(false, 'This procedure must not run in real testing');
+        $this->fail('This procedure must not run in real testing');
     }
 
     public function testValidateThrowsExceptionIfEmptyContent()

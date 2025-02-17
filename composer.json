@@ -24,7 +24,7 @@
         "optimize-autoloader": true
     },
     "require": {
-        "php": ">=7.3",
+        "php": ">=7.3 <8.4",
         "ext-libxml": "*",
         "ext-dom": "*",
         "ext-xsl": "*",
@@ -50,7 +50,7 @@
         "phpunit/phpunit": "^9.5",
         "squizlabs/php_codesniffer": "^3.6",
         "friendsofphp/php-cs-fixer": "^3.0",
-        "phpstan/phpstan": "^1.5"
+        "phpstan/phpstan": "^2.1"
     },
     "autoload": {
         "psr-4": {

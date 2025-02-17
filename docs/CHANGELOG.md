@@ -33,6 +33,15 @@
 - Remove deprecated constant `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`.
 - Remove deprecated class `CfdiUtils\Utils\Crp20277Fixer`.
 
+## Version 2.30.0 2024-06-18
+
+This is a maintenance release to fix continuous integration.
+
+- Update license year to 2025.
+- Upgrade to PHPStan 2.1 and fix/ignore new issues.
+- Avoid PHP 8.4 due deprecation messages.
+- Remove code to avoid testing genkgo/xsl on PHP 8.3.
+
 ## Version 2.29.0 2024-06-18
 
 Add `CfdiUtils\Elements\CartaPorte31` *Elements* to work with "Carta Porte 3.1".
