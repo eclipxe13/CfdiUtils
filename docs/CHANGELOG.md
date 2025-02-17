@@ -7,7 +7,6 @@
 - Refactor `\CfdiUtils\Certificado\SerialNumber` to be immutable, this change will remove `loadHexadecimal`,
   `loadDecimal` and `loadAscii`.
 - Add a method `NodeInderface::exists` as an alias of `NodeInderface::offsetExists`. Replace usages in code.
-- Remove file `ConsultaCFDIServiceSAT.svc.xml`.
 - Change visibility of `CfdiUtils\Cleaner\Cleaner#removeIncompleteSchemaLocation()` to private.
 - Remove deprecated constant `CfdiUtils\Cfdi::CFDI_NAMESPACE`.
 - Remove `CfdiUtils\Validate\Cfdi33\Xml\XmlFollowSchema`.

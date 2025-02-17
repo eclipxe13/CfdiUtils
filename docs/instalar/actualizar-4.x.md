@@ -31,6 +31,7 @@ Se recomienda usar el proyecto [`phpcfdi/sat-estado-cfdi`](https://github.com/ph
 - Se elimina el método `CfdiUtils\ConsultaCfdiSat\Config::getLocalWsdlLocation()`.
 - Se agrega el método `CfdiUtils\ConsultaCfdiSat\WebService::requestExpression(string $expression)` para poder consultar directamente
   una expresión en lugar de tener que pasar un objeto `RequestParameters` al método `request()`.
+- Se elimina el archivo de soporte `ConsultaCFDIServiceSAT.svc.xml`.
 
 ## Cambios en la generación de la cadena de origen
 
