@@ -2,10 +2,6 @@
 
 ## Backward compatibility breaks (not released yet), plan for version 3.0
 
-- Remove deprecated classes:
-    - `\CfdiUtils\CadenaOrigen\CadenaOrigenBuilder`
-    - `\CfdiUtils\CadenaOrigen\DefaultLocations`
-    - `\CfdiUtils\CadenaOrigen\CadenaOrigenLocations`
 - Remove `\CfdiUtils\PemPrivateKey\PemPrivateKey::isOpened` to `\CfdiUtils\PemPrivateKey\PemPrivateKey::isOpen`
 - Remove `CfdiUtils\ConsultaCfdiSat\Config::getWsdlUrl()`
 - Remove `static` methods from `\CfdiUtils\CfdiVersion`, instead create an instance of the class
