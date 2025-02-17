@@ -76,7 +76,12 @@ class WebService
 
     public function request(RequestParameters $requestParameters): StatusResponse
     {
-        $rawResponse = $this->doRequestConsulta($requestParameters->expression());
+        return $this->requestExpression($requestParameters->expression());
+    }
+
+    public function requestExpression(string $expression): StatusResponse
+    {
+        $rawResponse = $this->doRequestConsulta($expression);
 
         if (! ($rawResponse instanceof stdClass)) {
             throw new RuntimeException('The consulta web service did not return any result');

@@ -2,7 +2,6 @@
 
 ## Backward compatibility breaks (not released yet), plan for version 3.0
 
-- Remove `CfdiUtils\ConsultaCfdiSat\Config::getWsdlUrl()`
 - Remove `static` methods from `\CfdiUtils\CfdiVersion`, instead create an instance of the class
 - Remove `static` methods from `\CfdiUtils\TimbreFiscalDigital\TfdVersion`, instead create an instance of the class
 - Remove `trigger_error` on `\CfdiUtils\Elements\Cfdi33\Comprobante::getCfdiRelacionados` when called with arguments.
@@ -11,12 +10,6 @@
 - Refactor `\CfdiUtils\Certificado\SerialNumber` to be immutable, this change will remove `loadHexadecimal`,
   `loadDecimal` and `loadAscii`.
 - Add a method `NodeInderface::exists` as an alias of `NodeInderface::offsetExists`. Replace usages in code.
-- Add a method to execute `CfdiUtils\ConsultaCfdiSat\StatusResponse` using an expression instead of `RequestParameters`.
-- Make `CfdiUtils\ConsultaCfdiSat\StatusResponse::__constructor()` third and fourth arguments non-optional.
-  Now they are optional to avoid incompatibility changes.
-- Remove `CfdiUtils\ConsultaCfdiSat\Config::DEFAULT_SERVICE_URL`
-- Remove `CfdiUtils\ConsultaCfdiSat\Config::getWsdlLocation()`, `CfdiUtils\ConsultaCfdiSat\Config::getWsdlLocation()`
-  and fix `CfdiUtils\ConsultaCfdiSat\Config::__construct()`.
 - Remove file `ConsultaCFDIServiceSAT.svc.xml`.
 - Change visibility of `CfdiUtils\Cleaner\Cleaner#removeIncompleteSchemaLocation()` to private.
 - Remove deprecated constant `CfdiUtils\Cfdi::CFDI_NAMESPACE`.

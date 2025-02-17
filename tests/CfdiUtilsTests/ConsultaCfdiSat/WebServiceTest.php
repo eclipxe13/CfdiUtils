@@ -56,7 +56,7 @@ final class WebServiceTest extends TestCase
     {
         /** @var WebService&MockObject $webService */
         $webService = $this->getMockBuilder(WebService::class)
-            ->setMethodsExcept(['request'])
+            ->setMethodsExcept(['request', 'requestExpression'])
             ->setMethods(['doRequestConsulta'])
             ->getMock();
         // expects once as constraint because maybe $expectedMessage is empty

@@ -22,9 +22,9 @@ class StatusResponse
     public function __construct(
         string $statusCode,
         string $status,
-        string $cancellable = '',
-        string $cancellationStatus = '',
-        string $validationEfos = ''
+        string $cancellable,
+        string $cancellationStatus,
+        string $validationEfos
     ) {
         $this->code = $statusCode;
         $this->cfdi = $status;
@@ -69,7 +69,7 @@ class StatusResponse
      * Cancellable status, values:
      * - `No cancelable`: No se puede cancelar, tal vez ya hay documentos relacionados.
      * - `Cancelable sin aceptación`: Se puede cancelar de inmediato.
-     * - `Cancelable con aceptación`: Se puede cancelar pero se va a tener que esperar respuesta.
+     * - `Cancelable con aceptación`: Se puede cancelar, pero se va a tener que esperar respuesta.
      *
      * @return string
      */
