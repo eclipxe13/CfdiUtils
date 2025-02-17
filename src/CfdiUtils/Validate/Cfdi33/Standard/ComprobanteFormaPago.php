@@ -26,7 +26,7 @@ class ComprobanteFormaPago extends AbstractDiscoverableVersion33
 
         $existsComplementoPagos = (null !== $comprobante->searchNode('cfdi:Complemento', 'pago10:Pagos'));
         if ($existsComplementoPagos) {
-            $existsFormaPago = $comprobante->offsetExists('FormaPago');
+            $existsFormaPago = $comprobante->exists('FormaPago');
             $assert->setStatus(Status::when(! $existsFormaPago));
         }
     }

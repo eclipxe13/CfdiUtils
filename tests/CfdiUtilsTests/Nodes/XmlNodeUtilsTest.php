@@ -3,8 +3,6 @@
 namespace CfdiUtilsTests\Nodes;
 
 use CfdiUtils\Nodes\Node;
-use CfdiUtils\Nodes\NodeHasValueInterface;
-use CfdiUtils\Nodes\NodeInterface;
 use CfdiUtils\Nodes\XmlNodeUtils;
 use CfdiUtils\Utils\Xml;
 use CfdiUtilsTests\TestCase;
@@ -90,7 +88,6 @@ final class XmlNodeUtilsTest extends TestCase
         $expectedValue = 'ampersand: &';
         $content = '<root>ampersand: &amp;</root>';
 
-        /** @var NodeInterface&NodeHasValueInterface $node */
         $node = XmlNodeUtils::nodeFromXmlString($content);
 
         $this->assertSame($expectedValue, $node->value());
@@ -103,7 +100,6 @@ final class XmlNodeUtilsTest extends TestCase
         $content = '<root>ampersand: <!-- comment -->&amp;</root>';
         $expectedContent = '<root>ampersand: &amp;</root>';
 
-        /** @var NodeInterface&NodeHasValueInterface $node */
         $node = XmlNodeUtils::nodeFromXmlString($content);
 
         $this->assertSame($expectedValue, $node->value());
@@ -115,7 +111,6 @@ final class XmlNodeUtilsTest extends TestCase
         $expectedValue = "\n\nfirst line\n\tsecond line\n\t third line \t\nfourth line\n\n";
         $content = "<root>$expectedValue</root>";
 
-        /** @var NodeInterface&NodeHasValueInterface $node */
         $node = XmlNodeUtils::nodeFromXmlString($content);
 
         $this->assertSame($expectedValue, $node->value());
@@ -128,7 +123,6 @@ final class XmlNodeUtilsTest extends TestCase
         $content = '<root>ampersand: <inner/>&amp;</root>';
         $expectedContent = '<root><inner/>ampersand: &amp;</root>';
 
-        /** @var NodeInterface&NodeHasValueInterface $node */
         $node = XmlNodeUtils::nodeFromXmlString($content);
 
         $this->assertSame($expectedValue, $node->value());

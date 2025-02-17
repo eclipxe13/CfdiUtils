@@ -19,7 +19,7 @@ class TipoCambioRequerido extends AbstractDoctoRelacionadoValidator
     {
         $pago = $this->getPago();
         $currencyIsEqual = $pago['MonedaP'] === $docto['MonedaDR'];
-        if (! ($currencyIsEqual xor $docto->offsetExists('TipoCambioDR'))) {
+        if (! ($currencyIsEqual xor $docto->exists('TipoCambioDR'))) {
             throw $this->exception(sprintf(
                 'Moneda pago: "%s", Moneda documento: "%s", Tipo cambio docto: "%s"',
                 $pago['MonedaP'],

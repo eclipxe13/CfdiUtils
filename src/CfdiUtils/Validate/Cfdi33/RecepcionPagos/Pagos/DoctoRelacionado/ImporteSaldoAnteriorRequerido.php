@@ -17,7 +17,7 @@ class ImporteSaldoAnteriorRequerido extends AbstractDoctoRelacionadoValidator
 
     public function validateDoctoRelacionado(NodeInterface $docto): bool
     {
-        if (! $docto->offsetExists('ImpSaldoAnt') && 'PPD' === $docto['MetodoDePagoDR']) {
+        if (! $docto->exists('ImpSaldoAnt') && 'PPD' === $docto['MetodoDePagoDR']) {
             throw $this->exception('No hay saldo anterior y el método de pago es PPD');
         }
 

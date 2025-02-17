@@ -39,7 +39,7 @@ class ComprobanteTipoCambio extends AbstractDiscoverableVersion33
     {
         $this->registerAsserts($asserts);
 
-        $existsTipoCambio = $comprobante->offsetExists('TipoCambio');
+        $existsTipoCambio = $comprobante->exists('TipoCambio');
         $tipoCambio = $comprobante['TipoCambio'];
         $moneda = $comprobante['Moneda'];
 

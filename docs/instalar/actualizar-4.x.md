@@ -52,6 +52,15 @@ Se estandariza el método `multiCfdiRelacionado()`.
 
 Se removió `CfdiUtils\Utils\Crp20277Fixer`, la clase era inútil y no debía utilizarse.
 
+## Cambios en `NodeInterface`
+
+Solo haga caso a este cambio si extendió o implementó la interface `CfdiUtils\Nodes\NodeInterface`.
+
+- Se eliminó la interface `CfdiUtils\Nodes\NodeInterface\NodeHasValueInterface`, se movieron a `NodeInterface`.
+- Se agregó el método `exists(string $attribute): bool` que determina si un atributo existe.
+- Se agregaron los métodos `value()` y `setValue()` a la clase `NodeInterface`.
+- El método `searchNode` cambió el valor de retorno de *no definido* a `null|self`.
+
 ## Otros elementos removidos
 
 - Se elimina el método `CfdiUtils\Cleaner\Cleaner::removeIncompleteSchemaLocation()`.
@@ -61,3 +70,4 @@ Se removió `CfdiUtils\Utils\Crp20277Fixer`, la clase era inútil y no debía ut
 - Se elimina la clase `CfdiUtils\Validate\Cfdi33\Xml\XmlFollowSchema`, use `CfdiUtils\Validate\Xml\XmlFollowSchema`.
 - Se elimina la clase `CfdiUtils\Elements\Cfdi33\Helpers\SumasConceptosWriter`, use `CfdiUtils\SumasConceptos\SumasConceptosWriter`.
 - Se elimina la clase `CfdiUtils\Elements\Cfdi40\Helpers\SumasConceptosWriter`, use `CfdiUtils\SumasConceptos\SumasConceptosWriter`.
+- Se elimina la interface `CfdiUtils\Nodes\NodeHasValueInterface`, sus métodos ahora están dentro de `NodeInterface`.

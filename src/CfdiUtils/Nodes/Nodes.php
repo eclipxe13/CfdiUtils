@@ -2,9 +2,15 @@
 
 namespace CfdiUtils\Nodes;
 
+use ArrayIterator;
+use Countable;
+use IteratorAggregate;
 use Traversable;
 
-class Nodes implements \Countable, \IteratorAggregate
+/**
+ * @implements IteratorAggregate<int, NodeInterface>
+ */
+class Nodes implements Countable, IteratorAggregate
 {
     /** @var NodeInterface[] */
     private $nodes = [];
@@ -90,7 +96,7 @@ class Nodes implements \Countable, \IteratorAggregate
     /**
      * @return NodeInterface|null
      */
-    public function first()
+    public function first(): ?NodeInterface
     {
         foreach ($this->nodes as $node) {
             return $node;
@@ -111,7 +117,7 @@ class Nodes implements \Countable, \IteratorAggregate
      * @param string $nodeName
      * @return NodeInterface|null
      */
-    public function firstNodeWithName(string $nodeName)
+    public function firstNodeWithName(string $nodeName): ?NodeInterface
     {
         foreach ($this->nodes as $node) {
             if ($node->name() === $nodeName) {
@@ -147,10 +153,10 @@ class Nodes implements \Countable, \IteratorAggregate
         return $this;
     }
 
-    /** @return Traversable<NodeInterface> */
+    /** @return Traversable<int, NodeInterface> */
     public function getIterator(): Traversable
     {
-        return new \ArrayIterator($this->nodes);
+        return new ArrayIterator($this->nodes);
     }
 
     public function count(): int

@@ -18,7 +18,7 @@ class BancoOrdenanteRfcCorrecto extends AbstractPagoValidator
 
     public function validatePago(NodeInterface $pago): bool
     {
-        if ($pago->offsetExists('RfcEmisorCtaOrd')) {
+        if ($pago->exists('RfcEmisorCtaOrd')) {
             try {
                 Rfc::checkIsValid($pago['RfcEmisorCtaOrd'], Rfc::DISALLOW_GENERIC);
             } catch (\UnexpectedValueException $exception) {

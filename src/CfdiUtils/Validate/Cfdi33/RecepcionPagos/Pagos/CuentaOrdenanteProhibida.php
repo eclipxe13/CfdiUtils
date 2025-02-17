@@ -19,7 +19,7 @@ class CuentaOrdenanteProhibida extends AbstractPagoValidator
         $payment = $this->createPaymentType($pago['FormaDePagoP']);
 
         // si NO es banzarizado y está establecida la cuenta ordenante existe
-        if (! $payment->allowSenderAccount() && $pago->offsetExists('CtaOrdenante')) {
+        if (! $payment->allowSenderAccount() && $pago->exists('CtaOrdenante')) {
             throw new ValidatePagoException(sprintf('Bancarizado: Sí, Cuenta: "%s"', $pago['CtaOrdenante']));
         }
 

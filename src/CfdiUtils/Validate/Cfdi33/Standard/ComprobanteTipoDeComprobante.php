@@ -62,7 +62,7 @@ class ComprobanteTipoDeComprobante extends AbstractDiscoverableVersion33
         if ('T' === $tipoComprobante || 'P' === $tipoComprobante || 'N' === $tipoComprobante) {
             $asserts->putStatus(
                 'TIPOCOMP01',
-                Status::when(! $comprobante->offsetExists('CondicionesDePago'))
+                Status::when(! $comprobante->exists('CondicionesDePago'))
             );
             $asserts->putStatus(
                 'TIPOCOMP02',
@@ -73,15 +73,15 @@ class ComprobanteTipoDeComprobante extends AbstractDiscoverableVersion33
         if ('T' === $tipoComprobante || 'P' === $tipoComprobante) {
             $asserts->putStatus(
                 'TIPOCOMP03',
-                Status::when(! $comprobante->offsetExists('FormaPago'))
+                Status::when(! $comprobante->exists('FormaPago'))
             );
             $asserts->putStatus(
                 'TIPOCOMP04',
-                Status::when(! $comprobante->offsetExists('MetodoPago'))
+                Status::when(! $comprobante->exists('MetodoPago'))
             );
             $asserts->putStatus(
                 'TIPOCOMP05',
-                Status::when(! $comprobante->offsetExists('Descuento'))
+                Status::when(! $comprobante->exists('Descuento'))
             );
             $asserts->putStatus(
                 'TIPOCOMP06',
@@ -115,7 +115,7 @@ class ComprobanteTipoDeComprobante extends AbstractDiscoverableVersion33
     private function checkConceptosDoesNotHaveDescuento(NodeInterface $comprobante): bool
     {
         foreach ($comprobante->searchNodes('cfdi:Conceptos', 'cfdi:Concepto') as $concepto) {
-            if ($concepto->offsetExists('Descuento')) {
+            if ($concepto->exists('Descuento')) {
                 return false;
             }
         }

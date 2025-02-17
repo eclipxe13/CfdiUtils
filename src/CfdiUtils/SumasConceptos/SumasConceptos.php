@@ -107,7 +107,7 @@ class SumasConceptos
     private function addConcepto(NodeInterface $concepto)
     {
         $this->importes += (float) $concepto['Importe'];
-        if ($concepto->offsetExists('Descuento')) {
+        if ($concepto->exists('Descuento')) {
             $this->foundAnyConceptWithDiscount = true;
         }
         $this->descuento += (float) $concepto['Descuento'];

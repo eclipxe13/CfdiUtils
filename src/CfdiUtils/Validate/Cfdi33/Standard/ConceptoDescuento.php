@@ -43,7 +43,7 @@ class ConceptoDescuento extends AbstractDiscoverableVersion33
 
     public function conceptoHasInvalidDiscount(NodeInterface $concepto): bool
     {
-        if (! $concepto->offsetExists('Descuento')) {
+        if (! $concepto->exists('Descuento')) {
             return false;
         }
         $descuento = (float) $concepto['Descuento'];

@@ -18,8 +18,8 @@ class TipoCadenaPagoProhibido extends AbstractPagoValidator
     {
         $payment = $this->createPaymentType($pago['FormaDePagoP']);
 
-        // si NO es banzarizado y está establecida la cuenta ordenante existe
-        if (! $payment->allowPaymentSignature() && $pago->offsetExists('TipoCadPago')) {
+        // si NO es bancarizado y está establecida la cuenta ordenante existe
+        if (! $payment->allowPaymentSignature() && $pago->exists('TipoCadPago')) {
             throw new ValidatePagoException(
                 sprintf('Forma de pago: "%s", Tipo cadena pago: "%s"', $pago['FormaDePagoP'], $pago['TipoCadPago'])
             );

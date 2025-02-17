@@ -80,7 +80,7 @@ class ComprobanteDecimalesMoneda extends AbstractDiscoverableVersion33
 
     private function checkValue(NodeInterface $node, string $attribute, bool $required): bool
     {
-        if ($required && ! $node->offsetExists($attribute)) {
+        if ($required && ! $node->exists($attribute)) {
             return false;
         }
         return $this->currency->doesNotExceedDecimals($node[$attribute]);

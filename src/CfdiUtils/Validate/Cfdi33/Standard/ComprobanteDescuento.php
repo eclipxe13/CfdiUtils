@@ -23,7 +23,7 @@ class ComprobanteDescuento extends AbstractDiscoverableVersion33
             'Si existe el atributo descuento,'
               . ' entonces debe ser menor o igual que el subtotal y mayor o igual que cero (CFDI33109)'
         );
-        if ($comprobante->offsetExists('Descuento')) {
+        if ($comprobante->exists('Descuento')) {
             $descuento = (float) $comprobante['Descuento'];
             $subtotal = (float) $comprobante['SubTotal'];
             $asserts->putStatus(

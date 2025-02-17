@@ -114,7 +114,7 @@ class ConceptoImpuestos extends AbstractDiscoverableVersion33
 
     private function impuestoHasBaseGreaterThanZero(NodeInterface $impuesto): bool
     {
-        if (! $impuesto->offsetExists('Base')) {
+        if (! $impuesto->exists('Base')) {
             return false;
         }
         if (! is_numeric($impuesto['Base'])) {
@@ -129,10 +129,10 @@ class ConceptoImpuestos extends AbstractDiscoverableVersion33
     private function trasladoHasTipoFactorExento(NodeInterface $traslado): bool
     {
         if ('Exento' === $traslado['TipoFactor']) {
-            if ($traslado->offsetExists('TasaOCuota')) {
+            if ($traslado->exists('TasaOCuota')) {
                 return false;
             }
-            if ($traslado->offsetExists('Importe')) {
+            if ($traslado->exists('Importe')) {
                 return false;
             }
         }

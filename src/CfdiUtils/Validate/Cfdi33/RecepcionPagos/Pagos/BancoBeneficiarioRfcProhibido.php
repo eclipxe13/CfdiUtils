@@ -19,7 +19,7 @@ class BancoBeneficiarioRfcProhibido extends AbstractPagoValidator
     {
         $payment = $this->createPaymentType($pago['FormaDePagoP']);
 
-        if (! $payment->allowReceiverRfc() && $pago->offsetExists('RfcEmisorCtaBen')) {
+        if (! $payment->allowReceiverRfc() && $pago->exists('RfcEmisorCtaBen')) {
             throw new ValidatePagoException(
                 sprintf('FormaDePago: "%s", Rfc: "%s"', $pago['FormaDePagoP'], $pago['RfcEmisorCtaBen'])
             );

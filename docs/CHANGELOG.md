@@ -6,8 +6,6 @@
 - Remove `static` methods from `\CfdiUtils\TimbreFiscalDigital\TfdVersion`, instead create an instance of the class
 - Refactor `\CfdiUtils\Certificado\SerialNumber` to be immutable, this change will remove `loadHexadecimal`,
   `loadDecimal` and `loadAscii`.
-- Add a method `NodeInderface::exists` as an alias of `NodeInderface::offsetExists`. Replace usages in code.
-- Merge methods from `\CfdiUtils\Nodes\NodeHasValueInterface` into `\CfdiUtils\Nodes\NodeInterface`.
 
 ## Version 2.31.0 2025-02-19
 

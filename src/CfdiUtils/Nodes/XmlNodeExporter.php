@@ -29,7 +29,7 @@ class XmlNodeExporter
             $element->appendChild($childElement);
         }
 
-        if ($node instanceof NodeHasValueInterface && '' !== $node->value()) {
+        if ('' !== $node->value()) {
             $element->appendChild($document->createTextNode($node->value()));
         }
 

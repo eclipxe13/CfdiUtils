@@ -5,7 +5,7 @@ namespace CfdiUtils\Nodes;
 use CfdiUtils\Utils\Xml;
 use Traversable;
 
-class Node implements NodeInterface, NodeHasValueInterface
+class Node implements NodeInterface
 {
     /** @var string */
     private $name;
@@ -24,6 +24,7 @@ class Node implements NodeInterface, NodeHasValueInterface
      * @param string $name
      * @param array $attributes
      * @param NodeInterface[] $children
+     * @param string $value
      */
     public function __construct(string $name, array $attributes = [], array $children = [], string $value = '')
     {
@@ -41,9 +42,6 @@ class Node implements NodeInterface, NodeHasValueInterface
         return $this->name;
     }
 
-    /**
-     * @return Nodes|NodeInterface[]
-     */
     public function children(): Nodes
     {
         return $this->children;
@@ -72,6 +70,11 @@ class Node implements NodeInterface, NodeHasValueInterface
     public function addAttributes(array $attributes)
     {
         $this->attributes->importArray($attributes);
+    }
+
+    public function exists(string $attribute): bool
+    {
+        return $this->attributes->exists($attribute);
     }
 
     public function value(): string
@@ -110,7 +113,7 @@ class Node implements NodeInterface, NodeHasValueInterface
         return $nodes;
     }
 
-    public function searchNode(string ...$searchPath)
+    public function searchNode(string ...$searchPath): ?NodeInterface
     {
         $node = $this;
         foreach ($searchPath as $searchName) {
@@ -129,7 +132,7 @@ class Node implements NodeInterface, NodeHasValueInterface
     #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
-        return isset($this->attributes[$offset]);
+        return $this->exists(strval($offset));
     }
 
     #[\ReturnTypeWillChange]
