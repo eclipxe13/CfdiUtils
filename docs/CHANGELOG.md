@@ -2,7 +2,6 @@
 
 ## Backward compatibility breaks (not released yet), plan for version 3.0
 
-- Remove `\CfdiUtils\PemPrivateKey\PemPrivateKey::isOpened` to `\CfdiUtils\PemPrivateKey\PemPrivateKey::isOpen`
 - Remove `CfdiUtils\ConsultaCfdiSat\Config::getWsdlUrl()`
 - Remove `static` methods from `\CfdiUtils\CfdiVersion`, instead create an instance of the class
 - Remove `static` methods from `\CfdiUtils\TimbreFiscalDigital\TfdVersion`, instead create an instance of the class
@@ -12,7 +11,6 @@
 - Refactor `\CfdiUtils\Certificado\SerialNumber` to be immutable, this change will remove `loadHexadecimal`,
   `loadDecimal` and `loadAscii`.
 - Add a method `NodeInderface::exists` as an alias of `NodeInderface::offsetExists`. Replace usages in code.
-- Remove static `CfdiUtils\PemPrivateKey\PemPrivateKey::isPEM` method.
 - Add a method to execute `CfdiUtils\ConsultaCfdiSat\StatusResponse` using an expression instead of `RequestParameters`.
 - Make `CfdiUtils\ConsultaCfdiSat\StatusResponse::__constructor()` third and fourth arguments non-optional.
   Now they are optional to avoid incompatibility changes.

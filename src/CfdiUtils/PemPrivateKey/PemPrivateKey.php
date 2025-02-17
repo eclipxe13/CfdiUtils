@@ -83,16 +83,6 @@ class PemPrivateKey
         }
     }
 
-    /**
-     * @see isOpen
-     * @return bool
-     * @deprecated :3.0.0 use isOpen instead
-     */
-    public function isOpened(): bool
-    {
-        return $this->isOpen();
-    }
-
     public function isOpen(): bool
     {
         return (false !== $this->privatekey);
@@ -121,22 +111,5 @@ class PemPrivateKey
     public function belongsTo(string $pemContents): bool
     {
         return openssl_x509_check_private_key($pemContents, $this->getOpenPrivateKey());
-    }
-
-    /**
-     * Check if a string has an obvious signature of a PEM file
-     * @param string $keyContents
-     * @return bool
-     * @deprecated 2.9.0 Replaced with OpenSSL utility
-     * @see OpenSSL
-     */
-    public static function isPEM(string $keyContents): bool
-    {
-        if ('' === $keyContents) {
-            return false;
-        }
-
-        $openSSL = new OpenSSL();
-        return $openSSL->readPemContents($keyContents)->hasPrivateKey();
     }
 }

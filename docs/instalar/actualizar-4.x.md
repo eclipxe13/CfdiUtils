@@ -6,6 +6,19 @@ en respeto a las reglas de versionado semántico es necesario actualizar la vers
 
 También se ha aprovechado la oportunidad para quitar código deprecado y actualizar dependencias.
 
+## Cambios en métodos de llaves privadas
+
+Estos cambios aplican para la clase `CfdiUtils\PemPrivateKey\PemPrivateKey`.
+
+Se elimina el método `isOpened(): bool`, use `isOpen(): bool`.
+
+Se elimina el método `isPEM(string $text): bool`, puede usar el siguiente código:
+
+```php
+$openSSL = new \CfdiUtils\OpenSSL\OpenSSL();
+return $openSSL->readPemContents($text)->hasPrivateKey();
+```
+
 ## Cambios en la generación de la cadena de origen
 
 - Se eliminó la clase `CfdiUtils\CadenaOrigen\CadenaOrigenBuilder` en favor de `CfdiUtils\CadenaOrigen\DOMBuilder`.
