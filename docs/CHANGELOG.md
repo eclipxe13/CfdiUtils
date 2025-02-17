@@ -37,6 +37,7 @@
 
 This is a maintenance release to fix continuous integration.
 
+- Fix `symfony/process` requirement versions to improve security.
 - Update license year to 2025.
 - Upgrade to PHPStan 2.1 and fix/ignore new issues.
 - Avoid PHP 8.4 due deprecation messages.
