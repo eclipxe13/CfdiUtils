@@ -8,6 +8,10 @@ También se ha aprovechado la oportunidad para quitar código deprecado y actual
 
 ## Cambios en la generación de la cadena de origen
 
-- Se eliminó la clase `\CfdiUtils\CadenaOrigen\CadenaOrigenBuilder` en favor de `\CfdiUtils\CadenaOrigen\DOMBuilder`.
-- Se eliminó la clase `\CfdiUtils\CadenaOrigen\CadenaOrigenLocations`, use `\CfdiUtils\CadenaOrigen\CfdiDefaultLocations`.
-- Se eliminó la clase `\CfdiUtils\CadenaOrigen\DefaultLocations`, en favor de `\CfdiUtils\CadenaOrigen\CfdiDefaultLocations`.
+- Se eliminó la clase `CfdiUtils\CadenaOrigen\CadenaOrigenBuilder` en favor de `CfdiUtils\CadenaOrigen\DOMBuilder`.
+- Se eliminó la clase `CfdiUtils\CadenaOrigen\CadenaOrigenLocations`, use `CfdiUtils\CadenaOrigen\CfdiDefaultLocations`.
+- Se eliminó la clase `CfdiUtils\CadenaOrigen\DefaultLocations`, en favor de `CfdiUtils\CadenaOrigen\CfdiDefaultLocations`.
+
+## `Crp20277Fixer`
+
+Se removió `CfdiUtils\Utils\Crp20277Fixer`, la clase era inútil y no debía utilizarse.

@@ -45,7 +45,6 @@ nav:
   - "Utilerías":
     - utilerias/openssl.md
     - utilerias/calculo-pagos20.md
-    - utilerias/pagos20-crp20277.md
   - "Contribuir":
     - contribuir/guia-desarrollador.md
     - contribuir/guia-documentador.md
