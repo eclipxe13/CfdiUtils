@@ -5,7 +5,7 @@ namespace CfdiUtilsTests\XmlResolver;
 use CfdiUtils\Certificado\SatCertificateNumber;
 use CfdiUtils\XmlResolver\XmlResolver;
 use CfdiUtilsTests\TestCase;
-use XmlResourceRetriever\Downloader\DownloaderInterface;
+use Eclipxe\XmlResourceRetriever\Downloader\DownloaderInterface;
 
 final class XmlResolverTest extends TestCase
 {

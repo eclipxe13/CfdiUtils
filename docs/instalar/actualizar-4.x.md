@@ -6,6 +6,12 @@ en respeto a las reglas de versionado semántico es necesario actualizar la vers
 
 También se ha aprovechado la oportunidad para quitar código deprecado y actualizar dependencias.
 
+## Actualización de `XmlResourceRetriever`
+
+La librería [`eclipxe/xmlresourceretriever`](https://github.com/eclipxe13/xmlresourceretriever) se ha actualizado
+de la versión 1.x a la versión 2.x. Con esto hay un cambio en el espacio de nombres.
+Si tiene algún problema, es probable que deba cambiar `XmlResourceRetriever\` por `Eclipxe\XmlResourceRetriever`.
+
 ## Cambios en métodos de llaves privadas
 
 Estos cambios aplican para la clase `CfdiUtils\PemPrivateKey\PemPrivateKey`.

@@ -91,15 +91,15 @@ de tipo `*.xsd` dentro de la carpeta `<repositorio>/www.sat.gob.mx`.
 Imagina ahora que tu proyecto corre en un servidor dentro de una red corporativa que tiene
 salida a internet usando un proxy con usuario y contraseña.
 La librería por defecto no puede obtener los recursos que necesita.
-Sin embargo, para ello existe la interface `\XmlResourceRetriever\Downloader\DownloaderInterface`
-(esta interface no pertenece a este proyecto, pertenece a `XmlResourceRetriever`).
+Sin embargo, para ello existe la interface `\Eclipxe\XmlResourceRetriever\Downloader\DownloaderInterface`
+(esta interface no pertenece a este proyecto, pertenece a `\Eclipxe\XmlResourceRetriever`).
 
 Tú puedes implementar la interface `DownloaderInterface` en una clase que utilice `curl` o `guzzle`
 o ejecute un comando en la shell como `wget` y luego crear tu objeto `XmlResolver` con este descargador.
 
 ```php
 <?php
-class MyDownloader implements \XmlResourceRetriever\Downloader\DownloaderInterface
+class MyDownloader implements \Eclipxe\XmlResourceRetriever\Downloader\DownloaderInterface
 {
     public function downloadTo(string $source, string $destination)
     {
@@ -125,7 +125,7 @@ Puedes utilizar este resolvedor y simplemente configurarlo con otro descargador:
 
 ```php
 <?php
-/** @var \XmlResourceRetriever\Downloader\DownloaderInterface $myDownloader */
+/** @var \Eclipxe\XmlResourceRetriever\Downloader\DownloaderInterface $myDownloader */
 $creator = new \CfdiUtils\CfdiCreator33();
 $creator->getXmlResolver()->setDownloader($myDownloader);
 ```

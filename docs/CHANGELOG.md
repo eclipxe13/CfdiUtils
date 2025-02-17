@@ -1,6 +1,6 @@
 # CfdiUtils Changelog file
 
-## Backward compatibility breaks (not released yet), plan for version 3.0
+## Backward compatibility breaks (not released yet), plan for version 4.0
 
 - Remove `static` methods from `\CfdiUtils\CfdiVersion`, instead create an instance of the class
 - Remove `static` methods from `\CfdiUtils\TimbreFiscalDigital\TfdVersion`, instead create an instance of the class

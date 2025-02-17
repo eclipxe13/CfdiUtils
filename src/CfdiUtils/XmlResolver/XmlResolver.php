@@ -4,11 +4,11 @@ namespace CfdiUtils\XmlResolver;
 
 use CfdiUtils\CadenaOrigen\CfdiDefaultLocations;
 use CfdiUtils\Certificado\CerRetriever;
-use XmlResourceRetriever\Downloader\DownloaderInterface;
-use XmlResourceRetriever\Downloader\PhpDownloader;
-use XmlResourceRetriever\RetrieverInterface;
-use XmlResourceRetriever\XsdRetriever;
-use XmlResourceRetriever\XsltRetriever;
+use Eclipxe\XmlResourceRetriever\Downloader\DownloaderInterface;
+use Eclipxe\XmlResourceRetriever\Downloader\PhpDownloader;
+use Eclipxe\XmlResourceRetriever\RetrieverInterface;
+use Eclipxe\XmlResourceRetriever\XsdRetriever;
+use Eclipxe\XmlResourceRetriever\XsltRetriever;
 
 /**
  * XmlResolver - Class to download xml resources from internet to local paths
@@ -61,7 +61,7 @@ class XmlResolver
     }
 
     /**
-     * Return the configured localpath.
+     * Return the configured localPath.
      * An empty string means that it is not configured and method resolve will return the same url as received
      * @see resolve
      * @return string
@@ -164,7 +164,7 @@ class XmlResolver
      * @param string $type
      * @return RetrieverInterface|null
      */
-    public function newRetriever(string $type)
+    public function newRetriever(string $type): ?RetrieverInterface
     {
         if (! $this->hasLocalPath()) {
             throw new \LogicException('Cannot create a retriever if no local path was found');
@@ -196,7 +196,7 @@ class XmlResolver
         return new CerRetriever($this->getLocalPath(), $this->getDownloader());
     }
 
-    public function resolveCadenaOrigenLocation(string $version)
+    public function resolveCadenaOrigenLocation(string $version): string
     {
         return $this->resolve(CfdiDefaultLocations::location($version), self::TYPE_XSLT);
     }
