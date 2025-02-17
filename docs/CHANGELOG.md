@@ -7,7 +7,6 @@
 - Refactor `\CfdiUtils\Certificado\SerialNumber` to be immutable, this change will remove `loadHexadecimal`,
   `loadDecimal` and `loadAscii`.
 - Add a method `NodeInderface::exists` as an alias of `NodeInderface::offsetExists`. Replace usages in code.
-- Remove class `CfdiUtils\Elements\Cfdi40\Helpers\SumasConceptosWriter`.
 - Merge methods from `\CfdiUtils\Nodes\NodeHasValueInterface` into `\CfdiUtils\Nodes\NodeInterface`.
 
 ## Version 2.31.0 2025-02-19

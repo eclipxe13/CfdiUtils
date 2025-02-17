@@ -60,3 +60,4 @@ Se removió `CfdiUtils\Utils\Crp20277Fixer`, la clase era inútil y no debía ut
 - Se removió el método `CfdiUtils\Certificado\SerialNumber::baseConvert`.
 - Se elimina la clase `CfdiUtils\Validate\Cfdi33\Xml\XmlFollowSchema`, use `CfdiUtils\Validate\Xml\XmlFollowSchema`.
 - Se elimina la clase `CfdiUtils\Elements\Cfdi33\Helpers\SumasConceptosWriter`, use `CfdiUtils\SumasConceptos\SumasConceptosWriter`.
+- Se elimina la clase `CfdiUtils\Elements\Cfdi40\Helpers\SumasConceptosWriter`, use `CfdiUtils\SumasConceptos\SumasConceptosWriter`.
