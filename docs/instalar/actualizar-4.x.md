@@ -58,4 +58,5 @@ Se removió `CfdiUtils\Utils\Crp20277Fixer`, la clase era inútil y no debía ut
 - Se elimina la constante `CfdiUtils\Cfdi::CFDI_NAMESPACE`, use `CFDI_SPECS['3.3']`.
 - Se elimina la constante `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`, use `RET_SPECS['1.0']`.
 - Se removió el método `CfdiUtils\Certificado\SerialNumber::baseConvert`.
-- Se elimina la clase `CfdiUtils\Validate\Cfdi33\Xml\XmlFollowSchema`, use `\CfdiUtils\Validate\Xml\XmlFollowSchema`.
+- Se elimina la clase `CfdiUtils\Validate\Cfdi33\Xml\XmlFollowSchema`, use `CfdiUtils\Validate\Xml\XmlFollowSchema`.
+- Se elimina la clase `CfdiUtils\Elements\Cfdi33\Helpers\SumasConceptosWriter`, use `CfdiUtils\SumasConceptos\SumasConceptosWriter`.
