@@ -70,17 +70,4 @@ class SerialNumber
             return dechex(ord($value));
         }, str_split($input, 1)));
     }
-
-    /**
-     * @param string $number
-     * @param int $frombase
-     * @param int $tobase
-     * @return string
-     * @deprecated since 2.8.1
-     */
-    public function baseConvert(string $number, int $frombase, int $tobase): string
-    {
-        trigger_error('This method is deprecated, should not be used from outside this class', E_USER_DEPRECATED);
-        return BaseConverter::createBase36()->convert($number, $frombase, $tobase);
-    }
 }

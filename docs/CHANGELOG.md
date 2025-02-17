@@ -11,7 +11,6 @@
   `array ...$elementAttributes` instead of `array $elementAttributes`.
 - Refactor `\CfdiUtils\Certificado\SerialNumber` to be immutable, this change will remove `loadHexadecimal`,
   `loadDecimal` and `loadAscii`.
-- Remove `CfdiUtils\Certificado\SerialNumber::baseConvert` method. Should be private or not exists at all.
 - Add a method `NodeInderface::exists` as an alias of `NodeInderface::offsetExists`. Replace usages in code.
 - Remove static `CfdiUtils\PemPrivateKey\PemPrivateKey::isPEM` method.
 - Add a method to execute `CfdiUtils\ConsultaCfdiSat\StatusResponse` using an expression instead of `RequestParameters`.

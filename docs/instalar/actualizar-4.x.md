@@ -15,3 +15,7 @@ También se ha aprovechado la oportunidad para quitar código deprecado y actual
 ## `Crp20277Fixer`
 
 Se removió `CfdiUtils\Utils\Crp20277Fixer`, la clase era inútil y no debía utilizarse.
+
+## Otros elementos removidos
+
+- Se removió el método `CfdiUtils\Certificado\SerialNumber::baseConvert`.
