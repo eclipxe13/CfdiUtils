@@ -33,6 +33,7 @@ CFDI y herramientas del SAT. Y próximamente el lugar donde publicaremos la vers
 ## Instalación
 
 - [Instalación de CfdiUtils](instalar/instalacion.md)
+- [Actualizar a versión 4.x](instalar/actualizar-4.x.md)
 
 ## Lectura de CFDI
 

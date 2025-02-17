@@ -54,10 +54,11 @@ composer require eclipxe/cfdiutils
 ## Major versions
 
 - Version 1.x **deprecated** was deprecated time ago, that version didn't do much anyway.
-- Version 2.x **current** has a lot of features and helper objects.
-- Version 3.x **future** will be released with backward compatibility breaks.
+- Version 2.x **deprecated** has a lot of features and helper objects.
+- Version 3.x **current** is a maintenance release for compatibility with PHP 8.4.
+- Version 4.x **future** will be released with backward compatibility breaks.
     - See [docs/CHANGELOG.md](docs/CHANGELOG.md) for backward compatibility breaks.
-    - It may change to PHP 8.0.
+    - It may change to PHP 8.2.
     - It could be possible to migrate to `phpcfdi/cfdi-utils` under [phpCfdi][] organization.
 
 
@@ -68,21 +69,18 @@ This library is compatible with **PHP 7.3 and above**. Please, try to use the la
 The intended support is to be aligned with the oldest *Active support* PHP Branch.
 See <https://www.php.net/supported-versions.php> for more details.
 
-| CfdiUtils | PHP Supported versions       | Since      |
-|-----------|------------------------------|------------|
-| 1.0       | 7.0, 7.1                     | 2017-09-27 |
-| 2.0       | 7.0, 7.1                     | 2018-01-01 |
-| 2.0.1     | 7.0, 7.1, 7.2                | 2018-01-03 |
-| 2.8.1     | 7.0, 7.1, 7.2, 7.3           | 2019-03-05 |
-| 2.12.7    | 7.0, 7.1, 7.2, 7.3, 7.4      | 2019-12-04 |
-| 2.15.0    | 7.3, 7.4, 8.0                | 2021-03-17 |
-| 2.20.1    | 7.3, 7.4, 8.0, 8.1           | 2022-03-08 |
-| 2.23.5    | 7.3, 7.4, 8.0, 8.1, 8.2, 8.3 | 2023-05-26 |
+| CfdiUtils | PHP Supported versions            | Since      |
+|-----------|-----------------------------------|------------|
+| 1.0       | 7.0, 7.1                          | 2017-09-27 |
+| 2.0       | 7.0, 7.1                          | 2018-01-01 |
+| 2.0.1     | 7.0, 7.1, 7.2                     | 2018-01-03 |
+| 2.8.1     | 7.0, 7.1, 7.2, 7.3                | 2019-03-05 |
+| 2.12.7    | 7.0, 7.1, 7.2, 7.3, 7.4           | 2019-12-04 |
+| 2.15.0    | 7.3, 7.4, 8.0                     | 2021-03-17 |
+| 2.20.1    | 7.3, 7.4, 8.0, 8.1                | 2022-03-08 |
+| 2.23.5    | 7.3, 7.4, 8.0, 8.1, 8.2, 8.3      | 2023-05-26 |
+| 3.0.0     | 7.3, 7.4, 8.0, 8.1, 8.2, 8.3, 8.4 | 2025-02-16 |
 
-**About PHP 8.4**: Version 2.x is *almost* compatible with PHP 8.4.
-It shows *deprecation errors* which require a new mayor version to fix it.
-Version 2.30.0 includes a constraint to avoid install this library on PHP 8.4.
-Version 3.x will drop compatibility with unmaintained PHP versions and will include compatibility with PHP 8.4.
 
 ## Contributing
 
