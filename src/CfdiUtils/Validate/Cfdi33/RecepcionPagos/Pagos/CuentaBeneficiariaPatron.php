@@ -20,7 +20,7 @@ class CuentaBeneficiariaPatron extends AbstractPagoValidator
         if ($pago->exists('CtaBeneficiario')) {
             $payment = $this->createPaymentType($pago['FormaDePagoP']);
             $pattern = $payment->receiverAccountPattern();
-            if (! (bool) preg_match($pattern, $pago['CtaBeneficiario'])) {
+            if (! preg_match($pattern, $pago['CtaBeneficiario'])) {
                 throw new ValidatePagoException(sprintf('Cuenta: "%s". Patrón "%s"', $pago['CtaOrdenante'], $pattern));
             }
         }

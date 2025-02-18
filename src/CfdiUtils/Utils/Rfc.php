@@ -139,7 +139,7 @@ class Rfc
         // rfc is multibyte
         $begin = (12 === mb_strlen($rfc)) ? 3 : 4;
         // strdate is not multibyte
-        $strdate = strval(mb_substr($rfc, $begin, 6));
+        $strdate = mb_substr($rfc, $begin, 6);
         if (6 !== strlen($strdate)) {
             return 0;
         }

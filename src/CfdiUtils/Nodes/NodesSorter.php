@@ -39,7 +39,7 @@ class NodesSorter
      */
     public function parseNames(array $names): array
     {
-        $isValidName = (fn ($name): bool => is_string($name) && (bool) $name);
+        $isValidName = (fn ($name): bool => is_string($name) && $name);
         return array_values(array_unique(array_filter($names, $isValidName)));
     }
 

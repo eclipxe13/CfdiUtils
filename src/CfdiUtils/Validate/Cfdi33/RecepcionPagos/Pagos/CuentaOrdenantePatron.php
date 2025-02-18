@@ -20,7 +20,7 @@ class CuentaOrdenantePatron extends AbstractPagoValidator
         if ($pago->exists('CtaOrdenante')) {
             $payment = $this->createPaymentType($pago['FormaDePagoP']);
             $pattern = $payment->senderAccountPattern();
-            if (! (bool) preg_match($pattern, $pago['CtaOrdenante'])) {
+            if (! preg_match($pattern, $pago['CtaOrdenante'])) {
                 throw new ValidatePagoException(sprintf('Cuenta: "%s". Patrón "%s"', $pago['CtaOrdenante'], $pattern));
             }
         }
