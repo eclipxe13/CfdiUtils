@@ -13,8 +13,8 @@ En resumen:
 * Cuando desees contribuir al código, realiza pruebas.
 * Apégate al estándar de codificación.
 * Usa las herramientas básicas, antes de enviar tu PR ejecuta:
-  * Actualizar herramientas: `phive update && composer update`.
-  * Revisar la construcción del proyecto: `composer dev:build`.
+    * Actualizar herramientas: `phive update && composer update`.
+    * Revisar la construcción del proyecto: `composer dev:build`.
 
 ## Dependencias de desarrollo
 
