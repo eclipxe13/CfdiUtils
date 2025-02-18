@@ -35,11 +35,6 @@ final class ReceptorResidenciaFiscalTest extends Validate33TestCase
     }
 
     /**
-     * @param string|null $receptorRfc
-     * @param string|null $residenciaFiscal
-     * @param string|null $numRegIdTrib
-     * @param bool $putComercioExterior
-     * @param string $ok
      * @dataProvider providerValidCases
      */
     public function testValidCase(
@@ -88,11 +83,6 @@ final class ReceptorResidenciaFiscalTest extends Validate33TestCase
     }
 
     /**
-     * @param string|null $receptorRfc
-     * @param string|null $residenciaFiscal
-     * @param string|null $numRegIdTrib
-     * @param bool $putComercioExterior
-     * @param string $error
      * @dataProvider providerInvalidCases
      */
     public function testInvalidCase(

@@ -118,8 +118,6 @@ final class ConceptosTest extends ValidateComplementoPagosTestCase
     }
 
     /**
-     * @param string $attribute
-     * @param string|null $value
      * @dataProvider providerConceptoInvalidData
      */
     public function testConceptoInvalidData(string $attribute, ?string $value): void
@@ -141,7 +139,6 @@ final class ConceptosTest extends ValidateComplementoPagosTestCase
     }
 
     /**
-     * @param string $attribute
      * @dataProvider providerConceptoInvalidDataMustNotExists
      */
     public function testConceptoInvalidDataMustNotExists(string $attribute): void

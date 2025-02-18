@@ -19,7 +19,6 @@ final class MonedaPagoTest extends TestCase
     }
 
     /**
-     * @param string|null $currency
      * @testWith [null]
      *           [""]
      *           ["XXX"]

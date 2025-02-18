@@ -116,7 +116,6 @@ final class RfcTest extends TestCase
     }
 
     /**
-     * @param string $rfc
      * @testWith [""]
      *           ["ABCD010100AAA"]
      *           ["ABCD010001AAA"]

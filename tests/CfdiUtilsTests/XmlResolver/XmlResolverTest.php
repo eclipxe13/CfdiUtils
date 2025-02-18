@@ -93,8 +93,6 @@ final class XmlResolverTest extends TestCase
     }
 
     /**
-     * @param string $url
-     * @param string $expectedType
      * @dataProvider providerObtainTypeFromUrl
      */
     public function testObtainTypeFromUrl(string $url, string $expectedType): void

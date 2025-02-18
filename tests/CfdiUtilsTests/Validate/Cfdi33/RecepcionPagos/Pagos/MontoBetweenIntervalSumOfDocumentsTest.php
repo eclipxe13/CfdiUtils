@@ -27,7 +27,6 @@ final class MontoBetweenIntervalSumOfDocumentsTest extends TestCase
 
     /**
      * This is testing lower bound (122.94) and upper bound (123.97)
-     * @param string $monto
      * @testWith ["122.93"]
      *           ["123.98"]
      */
@@ -94,7 +93,6 @@ final class MontoBetweenIntervalSumOfDocumentsTest extends TestCase
     }
 
     /**
-     * @param float $amount
      * @dataProvider providerValidWithRandomAmounts
      */
     public function testValidWithRandomAmounts(float $amount): void
@@ -104,7 +102,7 @@ final class MontoBetweenIntervalSumOfDocumentsTest extends TestCase
             'Monto' => number_format($amount, 2, '.', ''),
         ]);
         $pago->multiDoctoRelacionado(...[
-            ['MonedaDR' => 'MXN', 'ImpPagado' => number_format(1 * $amount / 3, 2, '.', '')],
+            ['MonedaDR' => 'MXN', 'ImpPagado' => number_format($amount / 3, 2, '.', '')],
             ['MonedaDR' => 'MXN', 'ImpPagado' => number_format(2 * $amount / 3, 2, '.', '')],
         ]);
         $validator = new MontoBetweenIntervalSumOfDocuments();

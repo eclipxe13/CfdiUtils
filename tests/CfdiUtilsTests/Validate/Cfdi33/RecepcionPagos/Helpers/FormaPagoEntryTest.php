@@ -8,15 +8,6 @@ use PHPUnit\Framework\TestCase;
 final class FormaPagoEntryTest extends TestCase
 {
     /**
-     * @param string $key
-     * @param string $description
-     * @param bool $allowSenderRfc
-     * @param bool $allowSenderAccount
-     * @param string $senderAccountPattern
-     * @param bool $allowReceiverRfc
-     * @param bool $allowReceiverAccount
-     * @param string $receiverAccountPattern
-     * @param bool $allowPaymentSignature
      * @testWith ["foo", "bar", false, false, "", false, false, "", false]
      *           ["foo", "bar", true, false, "", false, false, "", false]
      *           ["foo", "bar", false, true, "", false, false, "", false]

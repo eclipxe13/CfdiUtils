@@ -26,7 +26,6 @@ final class PemPrivateKeyTest extends TestCase
     }
 
     /**
-     * @param string $key
      * @dataProvider providerConstructWithBadArgument
      */
     public function testConstructWithBadArgument(string $key): void

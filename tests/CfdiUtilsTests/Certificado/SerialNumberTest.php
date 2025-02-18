@@ -19,8 +19,6 @@ final class SerialNumberTest extends TestCase
     }
 
     /**
-     * @param string $input
-     * @param string $expected
      * @testWith ["3330303031303030303030333030303233373038", "30001000000300023708"]
      */
     public function testLoadHexadecimal(string $input, string $expected): void
@@ -40,8 +38,6 @@ final class SerialNumberTest extends TestCase
     }
 
     /**
-     * @param string $input
-     * @param string $expected
      * @testWith ["0x3330303031303030303030333030303233373038", "30001000000300023708"]
      *           ["292233162870206001759766198425879490508935868472", "30001000000300023708"]
      */
@@ -53,8 +49,6 @@ final class SerialNumberTest extends TestCase
     }
 
     /**
-     * @param string $input
-     * @param string $expected
      * @testWith ["30001000000300023708", "3330303031303030303030333030303233373038"]
      */
     public function testLoadAscii(string $input, string $expected): void

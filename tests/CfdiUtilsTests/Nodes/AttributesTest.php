@@ -36,7 +36,6 @@ final class AttributesTest extends TestCase
     }
 
     /**
-     * @param string $name
      * @dataProvider providerSetMethodWithInvalidName
      */
     public function testSetMethodWithInvalidName(string $name): void
@@ -77,7 +76,6 @@ final class AttributesTest extends TestCase
     }
 
     /**
-     * @param string $name
      * @dataProvider providerSetWithInvalidNames
      */
     public function testSetWithInvalidNames(string $name): void

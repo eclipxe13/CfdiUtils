@@ -10,8 +10,6 @@ use PHPUnit\Framework\TestCase;
 final class TipoCadenaPagoCertificadoTest extends TestCase
 {
     /**
-     * @param string|null $tipoCadPago
-     * @param string|null $input
      * @testWith [null, null]
      *           ["1", "1"]
      */
@@ -27,8 +25,6 @@ final class TipoCadenaPagoCertificadoTest extends TestCase
     }
 
     /**
-     * @param string|null $tipoCadPago
-     * @param string|null $input
      * @testWith [null, "1"]
      *           ["", "1"]
      *           ["1", null]

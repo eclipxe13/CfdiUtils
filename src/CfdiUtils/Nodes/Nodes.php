@@ -92,9 +92,6 @@ class Nodes implements Countable, IteratorAggregate
         return ($this->indexOf($node) >= 0);
     }
 
-    /**
-     * @return NodeInterface|null
-     */
     public function first(): ?NodeInterface
     {
         foreach ($this->nodes as $node) {
@@ -112,10 +109,6 @@ class Nodes implements Countable, IteratorAggregate
         return $indexedNodes[$position];
     }
 
-    /**
-     * @param string $nodeName
-     * @return NodeInterface|null
-     */
     public function firstNodeWithName(string $nodeName): ?NodeInterface
     {
         foreach ($this->nodes as $node) {
@@ -139,7 +132,6 @@ class Nodes implements Countable, IteratorAggregate
 
     /**
      * @param NodeInterface[] $nodes
-     * @return Nodes
      */
     public function importFromArray(array $nodes): self
     {

@@ -21,7 +21,6 @@ final class MontoDecimalsTest extends TestCase
     }
 
     /**
-     * @param string $amount
      * @testWith ["0.001"]
      *           ["0.000"]
      *           ["0.123"]

@@ -33,7 +33,6 @@ final class XmlNodeUtilsTest extends TestCase
     }
 
     /**
-     * @param string $filename
      * @dataProvider providerToNodeFromNode
      */
     public function testExportFromFileAndExportAgain(string $filename): void

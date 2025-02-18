@@ -7,7 +7,6 @@ use CfdiUtils\QuickReader\QuickReader;
 
 final class CfdiQuickReaderTest extends TestCase
 {
-    /** @var QuickReader */
     private QuickReader $comprobante;
 
     protected function setUp(): void

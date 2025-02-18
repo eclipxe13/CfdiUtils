@@ -18,8 +18,6 @@ abstract class GenericBuilderTestCase extends TestCase
      * saxonb-xslt -s:cfdi33-real.xml \
      *     -xsl:http://www.sat.gob.mx/sitio_internet/cfd/3/cadenaoriginal_3_3/cadenaoriginal_3_3.xslt \
      *     -warnings:silent > cfdi33-real-cadenaorigen.txt
-     *
-     * @return array
      */
     public function providerCfdiToCadenaOrigen(): array
     {
@@ -30,9 +28,6 @@ abstract class GenericBuilderTestCase extends TestCase
     }
 
     /**
-     * @param string $xmlLocation
-     * @param string $expectedTransformation
-     * @param string $xsltLocation
      * @dataProvider providerCfdiToCadenaOrigen
      */
     public function testCfdiToCadenaOrigen(

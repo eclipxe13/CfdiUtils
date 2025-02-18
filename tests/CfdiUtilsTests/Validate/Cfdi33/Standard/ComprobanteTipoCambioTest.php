@@ -33,9 +33,6 @@ final class ComprobanteTipoCambioTest extends Validate33TestCase
     }
 
     /**
-     * @param string $moneda
-     * @param string|null $tipoCambio
-     * @param string $ok
      * @param string[] $nones
      * @dataProvider providerMonedaWithValidValues
      */
@@ -67,8 +64,6 @@ final class ComprobanteTipoCambioTest extends Validate33TestCase
     }
 
     /**
-     * @param string|null $moneda
-     * @param string|null $tipoCambio
      * @dataProvider providerNoMonedaOrEmpty
      */
     public function testNoMonedaOrEmpty(?string $moneda, ?string $tipoCambio): void
@@ -107,9 +102,6 @@ final class ComprobanteTipoCambioTest extends Validate33TestCase
     }
 
     /**
-     * @param string $moneda
-     * @param string|null $tipoCambio
-     * @param string $error
      * @param string[] $nones
      * @dataProvider providerMonedaWithInvalidValues
      */

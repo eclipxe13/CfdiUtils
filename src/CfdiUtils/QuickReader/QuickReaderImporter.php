@@ -40,7 +40,6 @@ class QuickReaderImporter
     }
 
     /**
-     * @param DOMNode $node
      * @return QuickReader[]
      */
     protected function extractChildren(DOMNode $node): array
@@ -57,10 +56,7 @@ class QuickReaderImporter
     }
 
     /**
-     * @param string $name
-     * @param array $attributes
      * @param QuickReader[] $children
-     * @return QuickReader
      */
     protected function createQuickReader(string $name, array $attributes, array $children): QuickReader
     {

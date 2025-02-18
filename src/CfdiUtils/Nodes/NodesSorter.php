@@ -35,7 +35,6 @@ class NodesSorter
     }
 
     /**
-     * @param array $names
      * @return string[]
      */
     public function parseNames(array $names): array
@@ -50,7 +49,7 @@ class NodesSorter
      */
     public function getOrder(): array
     {
-        return (array) array_flip($this->order);
+        return array_flip($this->order);
     }
 
     /**

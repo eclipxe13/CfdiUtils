@@ -43,9 +43,6 @@ final class CfdiVersionTest extends TestCase
     }
 
     /**
-     * @param string $expected
-     * @param string $attribute
-     * @param string|null $value
      * @dataProvider providerCfdiVersion
      */
     public function testCfdiVersion(string $expected, string $attribute, ?string $value): void

@@ -10,9 +10,6 @@ use PHPUnit\Framework\TestCase;
 final class ImporteSaldoInsolutoValorTest extends TestCase
 {
     /**
-     * @param string $previous
-     * @param string $payment
-     * @param string $left
      * @testWith ["100.00", "100.00", "0.0"]
      */
     public function testValid(string $previous, string $payment, string $left): void
@@ -31,9 +28,6 @@ final class ImporteSaldoInsolutoValorTest extends TestCase
     }
 
     /**
-     * @param string $previous
-     * @param string $payment
-     * @param string $left
      * @testWith ["150.00", "100.00", "50.0"]
      */
     public function testWithCalculate(string $previous, string $payment, string $left): void
@@ -51,9 +45,6 @@ final class ImporteSaldoInsolutoValorTest extends TestCase
     }
 
     /**
-     * @param string $previous
-     * @param string $payment
-     * @param string $left
      * @testWith ["100.00", "100.00", "0.01"]
      *           ["100.00", "100.00", "-0.01"]
      *           ["100.01", "100.00", "0.00"]

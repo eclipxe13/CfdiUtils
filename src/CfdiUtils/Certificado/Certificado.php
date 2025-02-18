@@ -37,7 +37,6 @@ class Certificado
      * Certificado constructor.
      *
      * @param string $filename Allows filename or certificate contents (PEM or DER)
-     * @param OpenSSL|null $openSSL
      * @throws \UnexpectedValueException when the certificate does not exist or is not readable
      * @throws \UnexpectedValueException when cannot read the certificate or is empty
      * @throws \RuntimeException when cannot parse the certificate or is empty
@@ -122,10 +121,7 @@ class Certificado
     /**
      * Check if this certificate belongs to a private key
      *
-     * @param string $pemKeyFile
-     * @param string $passPhrase
      *
-     * @return bool
      *
      * @throws \UnexpectedValueException if the file does not exist or is not readable
      * @throws \UnexpectedValueException if the file is not a PEM private key
@@ -156,7 +152,6 @@ class Certificado
 
     /**
      * RFC (Registro Federal de Contribuyentes) set when certificate was created
-     * @return string
      */
     public function getRfc(): string
     {
@@ -166,8 +161,6 @@ class Certificado
     /**
      * Certificate name value as returned by openssl.
      * In come cases (openssl version 3) it contains quoted slashes (\/)
-     *
-     * @return string
      */
     public function getCertificateName(): string
     {
@@ -176,7 +169,6 @@ class Certificado
 
     /**
      * Name (Razón Social) set when certificate was created
-     * @return string
      */
     public function getName($trimSuffix = false): string
     {
@@ -198,7 +190,6 @@ class Certificado
 
     /**
      * Return the certificate serial number ASCII formatted, this data is in the format required by CFDI
-     * @return string
      */
     public function getSerial(): string
     {
@@ -212,7 +203,6 @@ class Certificado
 
     /**
      * Timestamp since the certificate is valid
-     * @return int
      */
     public function getValidFrom(): int
     {
@@ -221,7 +211,6 @@ class Certificado
 
     /**
      * Timestamp until the certificate is valid
-     * @return int
      */
     public function getValidTo(): int
     {
@@ -230,7 +219,6 @@ class Certificado
 
     /**
      * String representation of the public key
-     * @return string
      */
     public function getPubkey(): string
     {
@@ -239,7 +227,6 @@ class Certificado
 
     /**
      * Place where the certificate was when loaded, it might not exist on the file system
-     * @return string
      */
     public function getFilename(): string
     {
@@ -248,7 +235,6 @@ class Certificado
 
     /**
      * The contents of the certificate in PEM format
-     * @return string
      */
     public function getPemContents(): string
     {
@@ -257,7 +243,6 @@ class Certificado
 
     /**
      * The contents of the certificate in PEM format
-     * @return string
      */
     public function getPemContentsOneLine(): string
     {
@@ -267,11 +252,7 @@ class Certificado
     /**
      * Verify the signature of some data
      *
-     * @param string $data
-     * @param string $signature
-     * @param int $algorithm
      *
-     * @return bool
      *
      * @throws \RuntimeException if the public key on the certificate cannot be opened
      * @throws \RuntimeException if openssl report an error
@@ -297,7 +278,6 @@ class Certificado
     }
 
     /**
-     * @param string $filename
      * @throws \UnexpectedValueException when the file does not exist or is not readable
      * @return void
      */

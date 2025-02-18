@@ -7,16 +7,10 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\AbstractPagoValidator;
 
 abstract class AbstractDoctoRelacionadoValidator extends AbstractPagoValidator
 {
-    /** @var NodeInterface */
     private NodeInterface $pago;
 
-    /** @var int */
     private int $index;
 
-    /**
-     * @param NodeInterface $docto
-     * @return bool
-     */
     abstract public function validateDoctoRelacionado(NodeInterface $docto): bool;
 
     public function exception(string $message): ValidateDoctoException

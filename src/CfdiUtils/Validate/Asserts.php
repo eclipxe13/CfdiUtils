@@ -14,12 +14,6 @@ class Asserts implements \Countable, \IteratorAggregate
     /**
      * This will try to create a new assert or get and change an assert with the same code
      * The new values are preserved, except if they are null
-     *
-     * @param string $code
-     * @param string|null $title
-     * @param Status|null $status
-     * @param string|null $explanation
-     * @return Assert
      */
     public function put(
         string $code,
@@ -48,11 +42,6 @@ class Asserts implements \Countable, \IteratorAggregate
     /**
      * This will try to create a new assert or get and change an assert with the same code
      * The new values are preserved, except if they are null
-     *
-     * @param string $code
-     * @param Status|null $status
-     * @param string|null $explanation
-     * @return Assert
      */
     public function putStatus(string $code, ?Status $status = null, ?string $explanation = null): Assert
     {
@@ -91,10 +80,6 @@ class Asserts implements \Countable, \IteratorAggregate
         return $this->hasStatus(Status::warn());
     }
 
-    /**
-     * @param Status $status
-     * @return Assert|null
-     */
     public function getFirstStatus(Status $status): ?Assert
     {
         foreach ($this->asserts as $assert) {
@@ -106,7 +91,6 @@ class Asserts implements \Countable, \IteratorAggregate
     }
 
     /**
-     * @param Status $status
      * @return Assert[]
      */
     public function byStatus(Status $status): array

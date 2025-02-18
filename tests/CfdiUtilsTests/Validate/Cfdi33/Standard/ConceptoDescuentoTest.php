@@ -30,8 +30,6 @@ final class ConceptoDescuentoTest extends Validate33TestCase
     }
 
     /**
-     * @param string $descuento
-     * @param string $importe
      * @dataProvider providerValidCases
      */
     public function testValidCases(string $descuento, string $importe): void
@@ -56,8 +54,6 @@ final class ConceptoDescuentoTest extends Validate33TestCase
     }
 
     /**
-     * @param string $descuento
-     * @param string|null $importe
      * @dataProvider providerInvalidCases
      */
     public function testInvalidCases(string $descuento, ?string $importe): void

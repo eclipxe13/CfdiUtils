@@ -16,8 +16,6 @@ trait NormalizeLineEndingsTrait
      * This won't alter CR that are not at EOL.
      * This won't alter LFCR used in old Mac style
      *
-     * @param string $content
-     * @return string
      * @internal
      */
     private function normalizeLineEndings(string $content): string

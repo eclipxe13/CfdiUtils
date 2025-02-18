@@ -11,7 +11,6 @@ use PHPUnit\Framework\TestCase;
 final class ImportePagadoValorTest extends TestCase
 {
     /**
-     * @param string $input
      * @testWith ["0.01"]
      *           ["123456.78"]
      */
@@ -38,7 +37,6 @@ final class ImportePagadoValorTest extends TestCase
     }
 
     /**
-     * @param string|null $input
      * @testWith ["0"]
      *           ["-123.45"]
      *           [""]

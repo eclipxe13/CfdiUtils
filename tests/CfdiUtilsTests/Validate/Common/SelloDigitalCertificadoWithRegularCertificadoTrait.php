@@ -103,9 +103,6 @@ trait SelloDigitalCertificadoWithRegularCertificadoTrait
     /**
      * This test does not care about locales
      *
-     * @param bool $expected
-     * @param string $first
-     * @param string $second
      * @testWith [true, "ABC", "ABC"]
      *           [true, "Empresa \"Equis\"", "Empresa Equis"]
      *           [false, "Empresa Equis Sa de Cv", "Empresa Equis SA CV"]
@@ -131,8 +128,6 @@ trait SelloDigitalCertificadoWithRegularCertificadoTrait
      * This test will perform comparison only when locales are set up or can be set,
      * otherwise the test will be skipped.
      *
-     * @param string $first
-     * @param string $second
      * @testWith ["Cesar Gomez Aguero", "César Gómez Agüero"]
      *           ["Cesar Gomez Aguero", "CÉSAR GÓMEZ AGÜERO"]
      *           ["CAÑA SA", "Cana SA"]

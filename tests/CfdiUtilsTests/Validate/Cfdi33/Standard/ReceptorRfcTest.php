@@ -30,7 +30,6 @@ final class ReceptorRfcTest extends Validate33TestCase
     }
 
     /**
-     * @param string $rfc
      * @dataProvider providerValidCases
      */
     public function testValidCases(string $rfc): void
@@ -53,7 +52,6 @@ final class ReceptorRfcTest extends Validate33TestCase
     }
 
     /**
-     * @param string|null $rfc
      * @dataProvider providerInvalidCases
      */
     public function testInvalidCases(?string $rfc): void

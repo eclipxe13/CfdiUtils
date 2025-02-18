@@ -19,8 +19,6 @@ final class ComprobanteImpuestosTest extends Validate33TestCase
     }
 
     /**
-     * @param bool $putTraslados
-     * @param bool $putRetenciones
      * @testWith [true, false]
      *           [false, true]
      *           [true, true]

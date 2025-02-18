@@ -30,7 +30,6 @@ class XmlResolver
      * @see setLocalPath
      * @see setDownloaderInterface
      * @param string|null $localPath values: '' => no resolve, null => use default path, anything else is the path
-     * @param DownloaderInterface|null $downloader
      */
     public function __construct(?string $localPath = null, ?DownloaderInterface $downloader = null)
     {
@@ -62,7 +61,6 @@ class XmlResolver
      * Return the configured localPath.
      * An empty string means that it is not configured and method resolve will return the same url as received
      * @see resolve
-     * @return string
      */
     public function getLocalPath(): string
     {
@@ -71,8 +69,6 @@ class XmlResolver
 
     /**
      * Return when a local path has been set.
-     *
-     * @return bool
      */
     public function hasLocalPath(): bool
     {
@@ -82,8 +78,6 @@ class XmlResolver
     /**
      * Set the downloader object.
      * If send a NULL value the object return by defaultDownloader will be set.
-     *
-     * @param DownloaderInterface|null $downloader
      */
     public function setDownloader(?DownloaderInterface $downloader = null): void
     {
@@ -109,7 +103,6 @@ class XmlResolver
      *
      * @param string $resource The url
      * @param string $type Allows XSD, XSLT and CER
-     * @return string
      */
     public function resolve(string $resource, string $type = ''): string
     {
@@ -159,8 +152,6 @@ class XmlResolver
 
     /**
      * Create a new retriever depending on the type parameter, only allow TYPE_XSLT and TYPE_XSD
-     * @param string $type
-     * @return RetrieverInterface|null
      */
     public function newRetriever(string $type): ?RetrieverInterface
     {

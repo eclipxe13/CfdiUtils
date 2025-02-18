@@ -34,7 +34,6 @@ final class FormaPagoCatalogTest extends TestCase
     }
 
     /**
-     * @param string $key
      * @dataProvider providerObtain
      */
     public function testObtain(string $key): void

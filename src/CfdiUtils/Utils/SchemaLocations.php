@@ -25,10 +25,6 @@ class SchemaLocations implements Countable, IteratorAggregate
 
     /**
      * Create a collection of namespaces (key) and location (value)
-     *
-     * @param string $schemaLocationValue
-     * @param bool $includeLastUnpairedItem
-     * @return self
      */
     public static function fromString(string $schemaLocationValue, bool $includeLastUnpairedItem): self
     {
@@ -47,9 +43,6 @@ class SchemaLocations implements Countable, IteratorAggregate
     /**
      * Create a collection of namespaces (key) and location (value)
      * All locations *must* end with '.xsd', If not they are considered namespaces
-     *
-     * @param string $schemaLocationValue
-     * @return self
      */
     public static function fromStingStrictXsd(string $schemaLocationValue): self
     {
@@ -116,8 +109,6 @@ class SchemaLocations implements Countable, IteratorAggregate
 
     /**
      * Return the collection of namespace location separated by spaces
-     *
-     * @return string
      */
     public function asString(): string
     {

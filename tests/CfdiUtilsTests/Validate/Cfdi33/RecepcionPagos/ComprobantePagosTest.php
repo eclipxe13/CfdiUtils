@@ -69,7 +69,6 @@ final class ComprobantePagosTest extends ValidateComplementoPagosTestCase
     }
 
     /**
-     * @param string|null $input
      * @testWith [""]
      *           [null]
      *           ["MXN"]
@@ -102,7 +101,6 @@ final class ComprobantePagosTest extends ValidateComplementoPagosTestCase
     }
 
     /**
-     * @param string|null $input
      * @testWith [""]
      *           [null]
      *           ["0.0"]
@@ -117,7 +115,6 @@ final class ComprobantePagosTest extends ValidateComplementoPagosTestCase
     }
 
     /**
-     * @param string|null $input
      * @testWith [""]
      *           [null]
      *           ["0.0"]

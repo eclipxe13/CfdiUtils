@@ -87,9 +87,6 @@ final class OpenSSLTest extends TestCase
     }
 
     /**
-     * @param string $pemFile
-     * @param string $inPassPhrase
-     * @param string $outPassPhrase
      * @dataProvider providerPrivateKeyProtectPem
      */
     public function testPrivateKeyProtectPem(string $pemFile, string $inPassPhrase, string $outPassPhrase): void
@@ -105,7 +102,6 @@ final class OpenSSLTest extends TestCase
     }
 
     /**
-     * @param string $outPassPhrase
      * @testWith [""]
      *           ["foo-bar-baz"]
      */

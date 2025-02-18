@@ -24,11 +24,6 @@ class CfdiCreator33 implements
 
     /**
      * CfdiCreator33 constructor.
-     *
-     * @param array $comprobanteAttributes
-     * @param Certificado|null $certificado
-     * @param XmlResolver|null $xmlResolver
-     * @param XsltBuilderInterface|null $xsltBuilder
      */
     public function __construct(
         array $comprobanteAttributes = [],

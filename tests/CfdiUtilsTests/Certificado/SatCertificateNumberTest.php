@@ -26,7 +26,6 @@ final class SatCertificateNumberTest extends TestCase
     }
 
     /**
-     * @param string $value
      * @dataProvider providerValidNumbers
      */
     public function testIsValidCertificateNumberWithCorrectValues(string $value): void
@@ -38,7 +37,6 @@ final class SatCertificateNumberTest extends TestCase
     }
 
     /**
-     * @param string $value
      * @dataProvider providerInvalidNumbers
      */
     public function testIsValidCertificateNumberWithIncorrectValues(string $value): void

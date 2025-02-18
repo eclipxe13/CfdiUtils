@@ -38,7 +38,6 @@ final class ConceptoImpuestosTest extends Validate33TestCase
     }
 
     /**
-     * @param string $base
      * @dataProvider providerInvalidBaseTraslado
      */
     public function testTrasladoHasBaseGreaterThanZeroInvalidCase(string $base): void
@@ -59,8 +58,6 @@ final class ConceptoImpuestosTest extends Validate33TestCase
     }
 
     /**
-     * @param string|null $tasaOCuota
-     * @param string|null $importe
      * @dataProvider providerTrasladoTipoFactorExento
      */
     public function testTrasladoTipoFactorExentoInvalidCase(?string $tasaOCuota, ?string $importe): void
@@ -85,9 +82,6 @@ final class ConceptoImpuestosTest extends Validate33TestCase
     }
 
     /**
-     * @param string $tipoFactor
-     * @param string|null $tasaOCuota
-     * @param string|null $importe
      * @dataProvider providerTrasladosTipoFactorTasaOCuotaInvalidCase
      */
     public function testTrasladosTipoFactorTasaOCuotaInvalidCase(
@@ -117,7 +111,6 @@ final class ConceptoImpuestosTest extends Validate33TestCase
     }
 
     /**
-     * @param string $base
      * @dataProvider providerInvalidBaseTraslado
      */
     public function testRetencionesHasBaseGreaterThanZeroInvalidCase(string $base): void

@@ -9,7 +9,6 @@ use CfdiUtilsTests\TestCase;
 
 final class XmlResolverPropertyTraitTest extends TestCase
 {
-    /** @var XmlResolverPropertyInterface */
     private XmlResolverPropertyInterface $specimen;
 
     protected function setUp(): void

@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
 final class MontoGreaterThanZeroTest extends TestCase
 {
     /**
-     * @param string $amount
      * @testWith ["0.000001"]
      *           ["1"]
      */
@@ -24,7 +23,6 @@ final class MontoGreaterThanZeroTest extends TestCase
     }
 
     /**
-     * @param string|null $amount
      * @testWith ["0.0000001"]
      *           ["0"]
      *           ["-1"]

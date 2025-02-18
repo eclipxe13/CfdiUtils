@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
 final class CuentaOrdenantePatronTest extends TestCase
 {
     /**
-     * @param string|null $input
      * @testWith ["1234567890123456"]
      *           [null]
      */
@@ -25,7 +24,6 @@ final class CuentaOrdenantePatronTest extends TestCase
     }
 
     /**
-     * @param string $input
      * @testWith ["1"]
      *           [""]
      */

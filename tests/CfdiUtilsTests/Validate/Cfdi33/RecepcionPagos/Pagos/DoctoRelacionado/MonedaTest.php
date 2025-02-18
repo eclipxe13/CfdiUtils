@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
 final class MonedaTest extends TestCase
 {
     /**
-     * @param string|null $input
      * @testWith ["MXN"]
      *           ["USD"]
      *           [""]
@@ -28,7 +27,6 @@ final class MonedaTest extends TestCase
     }
 
     /**
-     * @param string $input
      * @testWith ["XXX"]
      */
     public function testInvalid(string $input): void

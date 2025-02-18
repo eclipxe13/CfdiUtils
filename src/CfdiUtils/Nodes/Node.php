@@ -18,10 +18,7 @@ class Node implements NodeInterface
 
     /**
      * Node constructor.
-     * @param string $name
-     * @param array $attributes
      * @param NodeInterface[] $children
-     * @param string $value
      */
     public function __construct(string $name, array $attributes = [], array $children = [], string $value = '')
     {

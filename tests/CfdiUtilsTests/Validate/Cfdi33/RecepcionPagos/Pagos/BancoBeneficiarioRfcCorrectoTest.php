@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
 final class BancoBeneficiarioRfcCorrectoTest extends TestCase
 {
     /**
-     * @param string|null $rfc
      * @testWith ["COSC8001137NA"]
      *           ["XEXX010101000"]
      *           [null]
@@ -26,7 +25,6 @@ final class BancoBeneficiarioRfcCorrectoTest extends TestCase
     }
 
     /**
-     * @param string|null $rfc
      * @testWith ["COSC8099137N1"]
      *           ["XAXX010101000"]
      *           [""]

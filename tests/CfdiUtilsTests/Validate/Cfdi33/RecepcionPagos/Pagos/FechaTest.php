@@ -22,7 +22,6 @@ final class FechaTest extends Validate33TestCase
     }
 
     /**
-     * @param string|null $fechaPago
      * @testWith [null]
      *           [""]
      *           ["not a date"]

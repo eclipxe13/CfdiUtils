@@ -15,7 +15,6 @@ final class CurrencyDecimalsTest extends TestCase
     }
 
     /**
-     * @param string $currency
      * @testWith [""]
      *           ["ÑÑÑ"]
      *           ["XXXX"]

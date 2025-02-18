@@ -10,8 +10,6 @@ use PHPUnit\Framework\TestCase;
 final class CuentaOrdenanteProhibidaTest extends TestCase
 {
     /**
-     * @param string $paymentType
-     * @param string|null $account
      * @testWith ["02", "x"]
      *           ["02", ""]
      *           ["02", null]
@@ -29,8 +27,6 @@ final class CuentaOrdenanteProhibidaTest extends TestCase
     }
 
     /**
-     * @param string $paymentType
-     * @param string $account
      * @testWith ["01", "x"]
      *           ["01", ""]
      */

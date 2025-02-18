@@ -14,7 +14,6 @@ abstract class Validate40TestCase extends ValidateBaseTestCase
 
     /**
      * Use this function to allow code analysis tools to perform correctly
-     * @return Comprobante
      */
     protected function getComprobante(): Comprobante
     {

@@ -103,9 +103,7 @@ class WebService
     /**
      * This method exists to be able to mock SOAP call
      *
-     * @param string $expression
-     * @return null|stdClass
-     *@internal
+     * @internal
      */
     protected function doRequestConsulta(string $expression): ?stdClass
     {

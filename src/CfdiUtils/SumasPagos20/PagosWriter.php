@@ -9,7 +9,6 @@ use LogicException;
 
 final class PagosWriter
 {
-    /** @var ElementPagos */
     private ElementPagos $pagos;
 
     public function __construct(ElementPagos $pagos)

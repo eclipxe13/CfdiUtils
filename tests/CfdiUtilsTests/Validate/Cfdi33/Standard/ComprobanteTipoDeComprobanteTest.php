@@ -24,7 +24,6 @@ final class ComprobanteTipoDeComprobanteTest extends Validate33TestCase
     }
 
     /**
-     * @param string $tipoDeComprobante
      * @dataProvider providerTPN
      */
     public function testValidTPN(string $tipoDeComprobante): void
@@ -38,7 +37,6 @@ final class ComprobanteTipoDeComprobanteTest extends Validate33TestCase
     }
 
     /**
-     * @param string $tipoDeComprobante
      * @dataProvider providerTPN
      */
     public function testInvalidTPN(string $tipoDeComprobante): void
@@ -61,7 +59,6 @@ final class ComprobanteTipoDeComprobanteTest extends Validate33TestCase
     }
 
     /**
-     * @param string $tipoDeComprobante
      * @dataProvider providerTP
      */
     public function testValidTP(string $tipoDeComprobante): void
@@ -83,7 +80,6 @@ final class ComprobanteTipoDeComprobanteTest extends Validate33TestCase
     }
 
     /**
-     * @param string $tipoDeComprobante
      * @dataProvider providerTP
      */
     public function testInvalidTP(string $tipoDeComprobante): void
@@ -99,7 +95,6 @@ final class ComprobanteTipoDeComprobanteTest extends Validate33TestCase
     }
 
     /**
-     * @param string $tipoDeComprobante
      * @dataProvider providerTP
      */
     public function testInvalidTPDescuentos(string $tipoDeComprobante): void
@@ -134,8 +129,6 @@ final class ComprobanteTipoDeComprobanteTest extends Validate33TestCase
     }
 
     /**
-     * @param string $tipoDeComprobante
-     * @param string|null $subtotal
      * @dataProvider providerTPNonZero
      */
     public function testInvalidSubTotal(string $tipoDeComprobante, ?string $subtotal): void
@@ -149,8 +142,6 @@ final class ComprobanteTipoDeComprobanteTest extends Validate33TestCase
     }
 
     /**
-     * @param string $tipoDeComprobante
-     * @param string|null $total
      * @dataProvider providerTPNonZero
      */
     public function testInvalidTotal(string $tipoDeComprobante, ?string $total): void
@@ -169,7 +160,6 @@ final class ComprobanteTipoDeComprobanteTest extends Validate33TestCase
     }
 
     /**
-     * @param string $tipoDeComprobante
      * @dataProvider providerIEN
      */
     public function testValidIENValorUnitarioGreaterThanZero(string $tipoDeComprobante): void
@@ -194,8 +184,6 @@ final class ComprobanteTipoDeComprobanteTest extends Validate33TestCase
     }
 
     /**
-     * @param string $tipoDeComprobante
-     * @param string|null $wrongUnitValue
      * @dataProvider providerIENWrongValue
      */
     public function testInvalidIENValorUnitarioGreaterThanZero(string $tipoDeComprobante, ?string $wrongUnitValue): void

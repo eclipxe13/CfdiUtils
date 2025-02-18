@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
 final class TipoCambioValueTest extends TestCase
 {
     /**
-     * @param string|null $exchangerate
      * @testWith ["0.000002"]
      *           ["18.5623"]
      *           [null]
@@ -25,7 +24,6 @@ final class TipoCambioValueTest extends TestCase
     }
 
     /**
-     * @param string $exchangerate
      * @testWith ["0.000001"]
      *           ["1.0000001"]
      *           ["-1"]

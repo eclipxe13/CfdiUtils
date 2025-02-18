@@ -39,9 +39,6 @@ final class RetencionVersionTest extends TestCase
     }
 
     /**
-     * @param string $expected
-     * @param string $attribute
-     * @param string|null $value
      * @dataProvider providerRetencionVersion
      */
     public function testRetencionVersion(string $expected, string $attribute, ?string $value): void

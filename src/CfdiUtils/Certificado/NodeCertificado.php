@@ -18,7 +18,6 @@ class NodeCertificado
      * If the node does not exists return an empty string
      * The returned string is no longer base64 encoded
      *
-     * @return string
      *
      * @throws \RuntimeException if the certificado attribute is not a valid base64 encoded string
      */
@@ -66,8 +65,6 @@ class NodeCertificado
      *
      * @see extract
      *
-     * @param string $filename
-     * @return void
      *
      * @throws \UnexpectedValueException if the filename to store the certificate is empty
      * @throws \RuntimeException if the certificado attribute is empty
@@ -98,8 +95,6 @@ class NodeCertificado
      * use the saveCertificado method instead
      *
      * @see save
-     *
-     * @return Certificado
      */
     public function obtain(): Certificado
     {

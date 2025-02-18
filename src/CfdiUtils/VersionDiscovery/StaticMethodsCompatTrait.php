@@ -16,8 +16,6 @@ trait StaticMethodsCompatTrait
     abstract protected static function createDiscoverer(): VersionDiscoverer;
 
     /**
-     * @param DOMElement $element
-     * @return string
      * @deprecated :3.0.0 Replaced with object instanced methods
      */
     public static function fromDOMElement(DOMElement $element): string
@@ -26,8 +24,6 @@ trait StaticMethodsCompatTrait
     }
 
     /**
-     * @param DOMDocument $document
-     * @return string
      * @deprecated :3.0.0 Replaced with object instanced methods
      */
     public static function fromDOMDocument(DOMDocument $document): string
@@ -36,8 +32,6 @@ trait StaticMethodsCompatTrait
     }
 
     /**
-     * @param NodeInterface $node
-     * @return string
      * @deprecated :3.0.0 Replaced with object instanced methods
      */
     public static function fromNode(NodeInterface $node): string
@@ -46,8 +40,6 @@ trait StaticMethodsCompatTrait
     }
 
     /**
-     * @param string $contents
-     * @return string
      * @deprecated :3.0.0 Replaced with object instanced methods
      */
     public static function fromXmlString(string $contents): string

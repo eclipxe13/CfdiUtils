@@ -147,9 +147,6 @@ trait CfdiCreatorTrait
         return $asserts;
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         try {

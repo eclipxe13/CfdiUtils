@@ -10,9 +10,6 @@ use PHPUnit\Framework\TestCase;
 final class TipoCambioValorTest extends TestCase
 {
     /**
-     * @param string $currencyPayment
-     * @param string $currencyDocument
-     * @param string $exchangeRate
      * @testWith ["USD", "MXN", "1"]
      */
     public function testValid(string $currencyPayment, string $currencyDocument, string $exchangeRate): void
@@ -32,9 +29,6 @@ final class TipoCambioValorTest extends TestCase
     }
 
     /**
-     * @param string $currencyPayment
-     * @param string $currencyDocument
-     * @param string|null $exchangeRate
      * @testWith ["USD", "MXN", "1.0"]
      *           ["USD", "MXN", ""]
      *           ["USD", "MXN", null]

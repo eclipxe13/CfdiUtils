@@ -33,8 +33,6 @@ final class XmlTest extends TestCase
     }
 
     /**
-     * @param string $expected
-     * @param string $content
      * @testWith ["", ""]
      *           ["foo", "foo"]
      *           ["&amp;", "&"]
@@ -67,8 +65,6 @@ final class XmlTest extends TestCase
     }
 
     /**
-     * @param string $expected
-     * @param string $content
      * @testWith ["", ""]
      *           ["foo", "foo"]
      *           ["&amp;", "&"]

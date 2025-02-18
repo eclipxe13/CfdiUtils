@@ -29,8 +29,6 @@ final class ComprobanteDescuentoTest extends Validate33TestCase
     }
 
     /**
-     * @param string $descuento
-     * @param string $subtotal
      * @dataProvider providerValidCases
      */
     public function testValidCases(string $descuento, string $subtotal): void
@@ -56,8 +54,6 @@ final class ComprobanteDescuentoTest extends Validate33TestCase
     }
 
     /**
-     * @param string $descuento
-     * @param string|null $subtotal
      * @dataProvider providerInvalidCases
      */
     public function testInvalidCases(string $descuento, ?string $subtotal): void

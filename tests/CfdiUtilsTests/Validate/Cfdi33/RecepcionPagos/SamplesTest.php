@@ -9,7 +9,6 @@ use CfdiUtilsTests\TestCase;
 final class SamplesTest extends TestCase
 {
     /**
-     * @param string $sampleName
      * @testWith ["sample-factura123.xml"]
      *           ["sample-facturador01.xml"]
      *           ["sample-facturador02.xml"]

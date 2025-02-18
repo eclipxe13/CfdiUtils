@@ -106,8 +106,6 @@ final class RequestParametersTest extends TestCase
     }
 
     /**
-     * @param string $total
-     * @param string $expected
      *
      * @testWith ["9.123456", "9.123456"]
      *           ["0.123456", "0.123456"]

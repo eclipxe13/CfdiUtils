@@ -13,8 +13,6 @@ class Discoverer
     }
 
     /**
-     * @param string $namespacePrefix
-     * @param string $directoryPath
      * @return ValidatorInterface[]
      */
     public function discoverInFolder(string $namespacePrefix, string $directoryPath): array
@@ -30,11 +28,6 @@ class Discoverer
         return $discovered;
     }
 
-    /**
-     * @param string $namespacePrefix
-     * @param string $filename
-     * @return ValidatorInterface|null
-     */
     public function discoverInFile(string $namespacePrefix, string $filename): ?ValidatorInterface
     {
         $basename = basename($filename);

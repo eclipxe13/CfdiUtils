@@ -10,8 +10,6 @@ use PHPUnit\Framework\TestCase;
 final class BancoOrdenanteNombreRequeridoTest extends TestCase
 {
     /**
-     * @param string|null $rfc
-     * @param string|null $name
      * @testWith ["XEXX010101000", "Foreign bank"]
      *           ["COSC8001137NA", "Banco X"]
      *           ["COSC8001137NA", null]
@@ -30,8 +28,6 @@ final class BancoOrdenanteNombreRequeridoTest extends TestCase
     }
 
     /**
-     * @param string $rfc
-     * @param string|null $name
      * @testWith ["XEXX010101000", ""]
      *           ["XEXX010101000", null]
      */

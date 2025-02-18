@@ -21,8 +21,6 @@ class PemPrivateKey
      * - file location starting with 'file://'
      * - file contents
      *
-     * @param string $key
-     * @param OpenSSL|null $openSSL
      * @throws UnexpectedValueException if the file is not PEM format
      */
     public function __construct(string $key, ?OpenSSL $openSSL = null)

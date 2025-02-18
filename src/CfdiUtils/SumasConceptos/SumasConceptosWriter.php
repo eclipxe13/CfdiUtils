@@ -23,8 +23,6 @@ class SumasConceptosWriter
     /**
      * Writer constructor.
      * @param Comprobante33|Comprobante40 $comprobante
-     * @param SumasConceptos $sumas
-     * @param int $precision
      */
     public function __construct(
         NodeInterface $comprobante,

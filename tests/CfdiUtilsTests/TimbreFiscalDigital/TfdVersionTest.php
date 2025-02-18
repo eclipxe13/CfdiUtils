@@ -26,9 +26,6 @@ final class TfdVersionTest extends TestCase
     }
 
     /**
-     * @param string $expected
-     * @param string $attribute
-     * @param string|null $value
      * @dataProvider providerTfdVersion
      */
     public function testTfdVersion(string $expected, string $attribute, ?string $value): void

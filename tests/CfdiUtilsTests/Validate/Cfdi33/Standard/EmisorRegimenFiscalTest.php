@@ -57,8 +57,6 @@ final class EmisorRegimenFiscalTest extends Validate33TestCase
     }
 
     /**
-     * @param string $emisorRfc
-     * @param string $regimenFiscal
      * @dataProvider providerValidCases
      */
     public function testValidCases(string $emisorRfc, string $regimenFiscal): void
@@ -86,8 +84,6 @@ final class EmisorRegimenFiscalTest extends Validate33TestCase
     }
 
     /**
-     * @param string|null $emisorRfc
-     * @param string|null $regimenFiscal
      * @dataProvider providerInvalidCases
      */
     public function testInvalidCases(?string $emisorRfc, ?string $regimenFiscal): void

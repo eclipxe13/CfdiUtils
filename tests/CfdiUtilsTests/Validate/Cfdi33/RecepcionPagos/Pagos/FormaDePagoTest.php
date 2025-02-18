@@ -20,7 +20,6 @@ final class FormaDePagoTest extends TestCase
     }
 
     /**
-     * @param string|null $formaPago
      * @testWith [null]
      *           [""]
      *           ["99"]

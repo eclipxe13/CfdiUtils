@@ -225,9 +225,6 @@ final class SumasConceptosComprobanteImpuestosTest extends Validate33TestCase
     }
 
     /**
-     * @param string $descuento
-     * @param string $subtotal
-     * @param Status $expected
      * @dataProvider providerValidateDescuentoLessOrEqualThanSubTotal
      */
     public function testValidateDescuentoLessOrEqualThanSubTotal(

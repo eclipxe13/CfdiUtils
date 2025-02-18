@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
 final class ImporteSaldoAnteriorValorTest extends TestCase
 {
     /**
-     * @param string $input
      * @testWith ["0.01"]
      *           ["123456.78"]
      */
@@ -26,7 +25,6 @@ final class ImporteSaldoAnteriorValorTest extends TestCase
     }
 
     /**
-     * @param string|null $input
      * @testWith ["0"]
      *           ["-123.45"]
      *           [""]

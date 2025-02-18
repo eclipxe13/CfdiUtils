@@ -14,10 +14,7 @@ class Assert
 
     /**
      * Assert constructor.
-     * @param string $code
-     * @param string $title
      * @param Status|null $status If null the status will be NONE
-     * @param string $explanation
      */
     public function __construct(string $code, string $title = '', ?Status $status = null, string $explanation = '')
     {

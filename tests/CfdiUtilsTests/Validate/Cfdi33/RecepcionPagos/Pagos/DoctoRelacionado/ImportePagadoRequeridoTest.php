@@ -22,7 +22,6 @@ final class ImportePagadoRequeridoTest extends TestCase
     }
 
     /**
-     * @param string $exchangeRate
      * @testWith ["19.8765"]
      *           [""]
      */

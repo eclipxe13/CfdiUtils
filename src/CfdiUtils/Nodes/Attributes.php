@@ -26,9 +26,7 @@ class Attributes implements \Countable, \IteratorAggregate, \ArrayAccess
     /**
      * Set a value in the collection
      *
-     * @param string $name
      * @param string|null $value If null then it will remove the value instead of setting to empty string
-     * @return self
      */
     public function set(string $name, ?string $value = null): self
     {
@@ -74,9 +72,7 @@ class Attributes implements \Countable, \IteratorAggregate, \ArrayAccess
     }
 
     /**
-     * @param string $key
      * @param mixed $value
-     * @return string|null
      */
     private function castValueToString(string $key, $value): ?string
     {

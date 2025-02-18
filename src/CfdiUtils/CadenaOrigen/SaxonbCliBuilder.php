@@ -31,9 +31,6 @@ class SaxonbCliBuilder extends AbstractXsltBuilder
      * SECURITY: This method does not work as expected on non POSIX system (as MS Windows)
      * It was never intented to be public. It is not used by this class and will be removed on 3.0.0
      *
-     * @param string $xmlFile
-     * @param string $xsltLocation
-     * @return string
      * @deprecated 2.9.0 Will be removed with no replacement, never intended to be public
      * @codeCoverageIgnore
      */

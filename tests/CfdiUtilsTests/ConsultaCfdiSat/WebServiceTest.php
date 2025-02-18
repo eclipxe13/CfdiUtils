@@ -48,8 +48,6 @@ final class WebServiceTest extends TestCase
     }
 
     /**
-     * @param \stdClass|null $rawResponse
-     * @param string $expectedMessage
      * @dataProvider providerRequestWithBadRawResponse
      */
     public function testRequestWithBadRawResponse(?\stdClass $rawResponse, string $expectedMessage): void

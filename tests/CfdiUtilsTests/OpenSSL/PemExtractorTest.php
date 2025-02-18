@@ -25,7 +25,6 @@ final class PemExtractorTest extends TestCase
     }
 
     /**
-     * @param string $eol
      * @dataProvider providerCrLfAndLf
      */
     public function testExtractorWithFakeContent(string $eol): void

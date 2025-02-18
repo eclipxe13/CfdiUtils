@@ -81,8 +81,6 @@ class Rfc
     }
 
     /**
-     * @param string $value
-     * @param int $flags
      * @throws \UnexpectedValueException when the value is generic and is not allowed by flags
      * @throws \UnexpectedValueException when the value is foreign and is not allowed by flags
      * @throws \UnexpectedValueException when the value does not match with the RFC format
@@ -135,9 +133,6 @@ class Rfc
     /**
      * The date is always from the year 2000 since RFC does not provide century and 000229 is valid.
      * Please, change this function on year 2100!
-     *
-     * @param string $rfc
-     * @return int
      */
     public static function obtainDate(string $rfc): int
     {

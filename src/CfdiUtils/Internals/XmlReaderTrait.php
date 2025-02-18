@@ -37,9 +37,13 @@ trait XmlReaderTrait
     ): DOMElement {
         $rootElement = Xml::documentElement($document);
 
-        // is not documented: lookupPrefix returns NULL instead of string when not found
-        // this is why we are casting the value to string
-        $nsPrefix = (string) $document->lookupPrefix($expectedNamespace);
+        /**
+         * is not documented: lookupPrefix returns NULL instead of string when not found
+         * this is why we are casting the value to string
+         * @var $lookupPrefixResult string|null
+         */
+        $lookupPrefixResult = $document->lookupPrefix($expectedNamespace);
+        $nsPrefix = (string)$lookupPrefixResult;
         if ('' === $nsPrefix) {
             throw new \UnexpectedValueException(
                 sprintf('Document does not implement namespace %s', $expectedNamespace)
@@ -61,9 +65,6 @@ trait XmlReaderTrait
 
     /**
      * Create a CFDI object from a xml string
-     *
-     * @param string $content
-     * @return self
      */
     public static function newFromString(string $content): self
     {

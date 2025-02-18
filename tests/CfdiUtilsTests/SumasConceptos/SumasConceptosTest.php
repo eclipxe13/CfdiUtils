@@ -47,10 +47,6 @@ final class SumasConceptosTest extends TestCase
     }
 
     /**
-     * @param int $taxDecimals
-     * @param float $subtotal
-     * @param float $traslados
-     * @param float $total
      * @dataProvider providerWithConceptsDecimals
      */
     public function testWithConceptsDecimals(int $taxDecimals, float $subtotal, float $traslados, float $total): void

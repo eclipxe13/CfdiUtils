@@ -35,8 +35,6 @@ class StatusResponse
      * - N - 602: Comprobante no encontrado
      *
      * @see responseWasOk()
-     *
-     * @return string
      */
     public function getCode(): string
     {
@@ -52,8 +50,6 @@ class StatusResponse
      * @see isVigente()
      * @see isNotFound()
      * @see isCancelled()
-     *
-     * @return string
      */
     public function getCfdi(): string
     {
@@ -65,8 +61,6 @@ class StatusResponse
      * - `No cancelable`: No se puede cancelar, tal vez ya hay documentos relacionados.
      * - `Cancelable sin aceptación`: Se puede cancelar de inmediato.
      * - `Cancelable con aceptación`: Se puede cancelar, pero se va a tener que esperar respuesta.
-     *
-     * @return string
      */
     public function getCancellable(): string
     {
@@ -82,8 +76,6 @@ class StatusResponse
      * - `Plazo vencido`: Cancelado por vencimiento de plazo en que el receptor podía denegarla.
      * - `Cancelado con aceptación`: Cancelado con el consentimiento del receptor.
      * - `Solicitud rechazada`: No se realizó la cancelación por rechazo.
-     *
-     * @return string
      */
     public function getCancellationStatus(): string
     {
@@ -95,8 +87,6 @@ class StatusResponse
      *
      * - "100": El emisor se encontró en el listado EFOS
      * - "200": No se encontró en listado EFOS
-     *
-     * @return string
      */
     public function getValidationEfos(): string
     {

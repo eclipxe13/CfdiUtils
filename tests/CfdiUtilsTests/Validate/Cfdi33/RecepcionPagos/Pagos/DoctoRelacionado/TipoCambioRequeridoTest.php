@@ -10,9 +10,6 @@ use PHPUnit\Framework\TestCase;
 final class TipoCambioRequeridoTest extends TestCase
 {
     /**
-     * @param string $currencyPayment
-     * @param string $currencyDocument
-     * @param string|null $exchangeRate
      * @testWith ["USD", "USD", null]
      *           ["MXN", "USD", "19.9876"]
      */
@@ -33,9 +30,6 @@ final class TipoCambioRequeridoTest extends TestCase
     }
 
     /**
-     * @param string $currencyPayment
-     * @param string $currencyDocument
-     * @param string|null $exchangeRate
      * @testWith ["USD", "USD", "19.9876"]
      *           ["MXN", "USD", null]
      */

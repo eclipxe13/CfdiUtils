@@ -33,7 +33,6 @@ trait TimbreFiscalDigital11VersionTestTrait
     }
 
     /**
-     * @param string|null $version
      * @dataProvider providerInvalidVersion
      */
     public function testInvalidCase(?string $version): void
