@@ -17,11 +17,9 @@ trait SelloDigitalCertificadoValidatorTrait
     use XmlStringPropertyTrait;
     use XsltBuilderPropertyTrait;
 
-    /** @var Asserts */
-    private $asserts;
+    private Asserts $asserts;
 
-    /** @var Certificado */
-    private $certificado;
+    private Certificado $certificado;
 
     private function registerAsserts(): void
     {

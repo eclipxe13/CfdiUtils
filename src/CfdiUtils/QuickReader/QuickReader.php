@@ -77,10 +77,7 @@ class QuickReader extends \stdClass implements \ArrayAccess
         throw new \LogicException('Cannot change children');
     }
 
-    /**
-     * @return self|null
-     */
-    protected function getChildByName(string $name)
+    protected function getChildByName(string $name): ?self
     {
         foreach ($this->children as $child) {
             if ($this->namesAreEqual($name, (string) $child)) {
@@ -96,10 +93,7 @@ class QuickReader extends \stdClass implements \ArrayAccess
         return $this->getChildByName($name) instanceof static;
     }
 
-    /**
-     * @return string|null
-     */
-    protected function getAttributeByName(string $name)
+    protected function getAttributeByName(string $name): ?string
     {
         foreach ($this->attributes as $key => $value) {
             if ($this->namesAreEqual($name, $key)) {

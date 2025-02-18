@@ -4,8 +4,7 @@ namespace CfdiUtils\XmlResolver;
 
 trait XmlResolverPropertyTrait
 {
-    /** @var XmlResolver|null */
-    private $xmlResolver;
+    private ?XmlResolver $xmlResolver = null;
 
     public function hasXmlResolver(): bool
     {

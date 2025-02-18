@@ -28,7 +28,7 @@ final class OpenSSLPropertyTest extends TestCase
             use OpenSSLPropertyTrait;
         };
 
-        $this->expectException(\TypeError::class);
+        $this->expectException(\Error::class);
         /**
          * @noinspection PhpExpressionResultUnusedInspection
          * @phpstan-ignore-next-line

@@ -19,10 +19,7 @@ class NodeNsDefinitionsMover
         return (null !== $this->namespaceFilter);
     }
 
-    /**
-     * @return callable|null
-     */
-    public function getNamespaceFilter()
+    public function getNamespaceFilter(): ?callable
     {
         return $this->namespaceFilter;
     }

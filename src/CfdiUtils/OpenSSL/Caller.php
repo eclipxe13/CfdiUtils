@@ -10,8 +10,7 @@ class Caller
 {
     public const DEFAULT_OPENSSL_EXECUTABLE = 'openssl';
 
-    /** @var string */
-    private $executable;
+    private string $executable;
 
     public function __construct(string $executable = '')
     {

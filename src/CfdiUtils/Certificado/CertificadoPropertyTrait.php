@@ -4,8 +4,7 @@ namespace CfdiUtils\Certificado;
 
 trait CertificadoPropertyTrait
 {
-    /** @var Certificado|null */
-    private $certificado;
+    private ?Certificado $certificado = null;
 
     public function hasCertificado(): bool
     {

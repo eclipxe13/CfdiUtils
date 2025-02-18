@@ -9,7 +9,7 @@ class Pagos implements JsonSerializable
     private Totales $totales;
 
     /** @var list<Pago> */
-    private $pagos;
+    private array $pagos;
 
     public function __construct(Totales $totales, Pago ...$pago)
     {

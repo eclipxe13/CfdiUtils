@@ -31,11 +31,9 @@ class SumasConceptos
      */
     private array $retenciones = [];
 
-    /** @var float */
-    private $localesImpuestosTrasladados;
+    private float $localesImpuestosTrasladados;
 
-    /** @var float */
-    private $localesImpuestosRetenidos;
+    private float $localesImpuestosRetenidos;
 
     /**
      * @var array<int, array{Impuesto:string, Tasa:float, Importe:float}>

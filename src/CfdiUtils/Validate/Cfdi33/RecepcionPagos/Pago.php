@@ -18,7 +18,7 @@ use CfdiUtils\Validate\Status;
  */
 class Pago extends AbstractRecepcionPagos10
 {
-    /** @var Asserts This is the asserts object used in the validation process */
+    /** @var Asserts|null This is the asserts object used in the validation process */
     private ?Asserts $asserts = null;
 
     /** @var Pagos\AbstractPagoValidator[]|null */

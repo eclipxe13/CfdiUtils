@@ -12,10 +12,9 @@ trait OpenSSLPropertyTrait
      * To get this property is recommended to use getOpenSSL
      * To set this property is recommended to use setOpenSSL
      *
-     * @var OpenSSL
      * @internal
      */
-    private $openSSL;
+    private OpenSSL $openSSL;
 
     public function getOpenSSL(): OpenSSL
     {

@@ -13,20 +13,15 @@ use DOMElement;
 /** @internal */
 trait XmlReaderTrait
 {
-    /** @var DOMDocument */
-    private $document;
+    private DOMDocument $document;
 
-    /** @var string */
-    private $version;
+    private string $version;
 
-    /** @var string|null */
-    private $source;
+    private ?string $source = null;
 
-    /** @var NodeInterface|null */
-    private $node;
+    private ?NodeInterface $node = null;
 
-    /** @var QuickReader|null */
-    private $quickReader;
+    private ?QuickReader $quickReader = null;
 
     /** @throws \UnexpectedValueException */
     private static function checkRootElement(

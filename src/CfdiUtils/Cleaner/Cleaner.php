@@ -28,8 +28,7 @@ use Throwable;
  */
 class Cleaner
 {
-    /** @var DOMDocument|null */
-    protected $dom;
+    protected ?DOMDocument $dom = null;
 
     private BeforeLoadCleanerInterface $beforeLoadCleaner;
 
