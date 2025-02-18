@@ -40,7 +40,7 @@ trait XmlReaderTrait
         /**
          * is not documented: lookupPrefix returns NULL instead of string when not found
          * this is why we are casting the value to string
-         * @var $lookupPrefixResult string|null
+         * @var string|null $lookupPrefixResult
          */
         $lookupPrefixResult = $document->lookupPrefix($expectedNamespace);
         $nsPrefix = (string)$lookupPrefixResult;

@@ -28,7 +28,7 @@ final class SamplesTest extends TestCase
         // Remove these assertions because we are using manipulated cfdi
         $asserts->removeByCode('SELLO08');
         $errors = $asserts->errors();
-        if ($errors !== []) { // display errors!
+        if ([] !== $errors) { // display errors!
             echo PHP_EOL, 'source: ', $sampleName;
             foreach ($asserts->errors() as $error) {
                 echo PHP_EOL, ' *** ', strval($error), ' => ', $error->getExplanation();
