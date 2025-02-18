@@ -34,8 +34,8 @@
         "ext-iconv": "*",
         "ext-json": "*",
         "symfony/process": "^5.4.47|^6.4.15|^7.1.8",
-        "eclipxe/xmlresourceretriever": "^2.0.2",
-        "eclipxe/xmlschemavalidator": "^3.0.2"
+        "eclipxe/xmlresourceretriever": "^2.0.3",
+        "eclipxe/xmlschemavalidator": "^3.0.5"
     },
     "suggest": {
         "ext-bcmath": "Allows calculate totals and taxes on Pagos 2.0",
