@@ -11,15 +11,15 @@ class Certificado
 
     /** @var array */
     private const SUFFIXES = [
-        "AC",
-        "S DE RL DE CV",
-        "S DE RL",
-        "S EN C",
-        "SA DE CV SOFOM ENR",
-        "SA DE CV",
-        "SA",
-        "SAB",
-        "SAS",
+        'AC',
+        'S DE RL DE CV',
+        'S DE RL',
+        'S EN C',
+        'SA DE CV SOFOM ENR',
+        'SA DE CV',
+        'SA',
+        'SAB',
+        'SAS',
     ];
 
     /** @var string */
@@ -195,7 +195,7 @@ class Certificado
      */
     public function getName($trimSuffix = false): string
     {
-        $suffixPattern = "/ (?:" . implode('|', self::SUFFIXES) . ")$/i";
+        $suffixPattern = '/ (?:' . implode('|', self::SUFFIXES) . ')$/i';
         return $trimSuffix ? preg_replace($suffixPattern, '', $this->name) : $this->name;
     }
 
