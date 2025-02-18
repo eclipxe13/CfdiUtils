@@ -77,3 +77,8 @@ Solo haga caso a este cambio si extendió o implementó la interface `CfdiUtils\
 - Se elimina la clase `CfdiUtils\Elements\Cfdi33\Helpers\SumasConceptosWriter`, use `CfdiUtils\SumasConceptos\SumasConceptosWriter`.
 - Se elimina la clase `CfdiUtils\Elements\Cfdi40\Helpers\SumasConceptosWriter`, use `CfdiUtils\SumasConceptos\SumasConceptosWriter`.
 - Se elimina la interface `CfdiUtils\Nodes\NodeHasValueInterface`, sus métodos ahora están dentro de `NodeInterface`.
+
+## Errores con `genkgo/xsl`
+
+La librería `genkgo/xsl` a la fecha 2025-02-18 tiene problemas de compatibilidad con PHP 8.4.
+Es probable que estos problemas se corrijan en un futuro, pero ningún cambio es requerido en esta librería.
