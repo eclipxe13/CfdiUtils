@@ -9,6 +9,19 @@ class Certificado
 {
     use OpenSSLPropertyTrait;
 
+    /** @var array */
+    private const SUFFIXES = [
+        "AC",
+        "S DE RL DE CV",
+        "S DE RL",
+        "S EN C",
+        "SA DE CV SOFOM ENR",
+        "SA DE CV",
+        "SA",
+        "SAB",
+        "SAS",
+    ];
+
     /** @var string */
     private $rfc;
 
@@ -180,9 +193,10 @@ class Certificado
      * Name (Razón Social) set when certificate was created
      * @return string
      */
-    public function getName(): string
+    public function getName($trimSuffix = false): string
     {
-        return $this->name;
+        $suffixPattern = "/ (?:" . implode('|', self::SUFFIXES) . ")$/i";
+        return $trimSuffix ? preg_replace($suffixPattern, '', $this->name) : $this->name;
     }
 
     /**
