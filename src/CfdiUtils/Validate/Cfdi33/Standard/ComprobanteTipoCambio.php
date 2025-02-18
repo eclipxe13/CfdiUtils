@@ -60,7 +60,7 @@ class ComprobanteTipoCambio extends AbstractDiscoverableVersion33
         }
 
         if ('MXN' !== $moneda && 'XXX' !== $moneda) {
-            $pattern = '/^[0-9]{1,18}(\.[0-9]{1,6})?$/';
+            $pattern = '/^\d{1,18}(\.\d{1,6})?$/';
             $asserts->putStatus('TIPOCAMBIO04', Status::when((bool) preg_match($pattern, $tipoCambio)));
         }
     }

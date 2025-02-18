@@ -34,6 +34,6 @@ class SatCertificateNumber
 
     public static function isValidCertificateNumber(string $id): bool
     {
-        return (bool) preg_match('/^[0-9]{20}$/', $id);
+        return (bool) preg_match('/^\d{20}$/', $id);
     }
 }

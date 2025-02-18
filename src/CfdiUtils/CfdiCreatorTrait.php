@@ -120,10 +120,11 @@ trait CfdiCreatorTrait
         }
 
         // check private key belongs to certificado
-        if ($this->hasCertificado()) {
-            if (! $privateKey->belongsTo($this->getCertificado()->getPemContents())) {
-                throw new \RuntimeException('The private key does not belong to the current certificate');
-            }
+        if (
+            $this->hasCertificado()
+            && ! $privateKey->belongsTo($this->getCertificado()->getPemContents())
+        ) {
+            throw new \RuntimeException('The private key does not belong to the current certificate');
         }
 
         // create sign and set into Sello attribute

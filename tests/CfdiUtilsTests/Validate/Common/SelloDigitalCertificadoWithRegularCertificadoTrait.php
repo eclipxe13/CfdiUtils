@@ -158,10 +158,11 @@ trait SelloDigitalCertificadoWithRegularCertificadoTrait
         };
 
         $currentLocale = setlocale(LC_CTYPE, '0') ?: 'C';
-        if ('C' === $currentLocale || 'POSIX' === $currentLocale) {
-            if (false === setlocale(LC_CTYPE, 'es_MX.utf8', 'en_US.utf8', 'es_MX', 'en_US', 'spanish', 'english')) {
-                $this->markTestSkipped('Cannot compare names without LC_CTYPE configured');
-            }
+        if (
+            ('C' === $currentLocale || 'POSIX' === $currentLocale)
+            && false === setlocale(LC_CTYPE, 'es_MX.utf8', 'en_US.utf8', 'es_MX', 'en_US', 'spanish', 'english')
+        ) {
+            $this->markTestSkipped('Cannot compare names without LC_CTYPE configured');
         }
 
         try {

@@ -100,7 +100,7 @@ class Rfc
         // validate agains a regular expression (values and length)
         $regex = '/^' // desde el inicio
             . '[A-ZÑ&]{3,4}' // letras y números para el nombre (3 para morales, 4 para físicas)
-            . '([0-9]{6})' // año mes y día, la validez de la fecha se comprueba después
+            . '(\d{6})' // año mes y día, la validez de la fecha se comprueba después
             . '[A-Z0-9]{2}[A0-9]{1}' // homoclave (letra o dígito 2 veces + A o dígito 1 vez)
             . '$/u'; // hasta el final, considerar la cadena unicode
         if (1 !== preg_match($regex, $value)) {

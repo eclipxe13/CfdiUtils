@@ -17,7 +17,7 @@ class ComprobanteTotal extends AbstractDiscoverableVersion33
 {
     public function validate(NodeInterface $comprobante, Asserts $asserts): void
     {
-        $pattern = '/^[0-9]+(\.[0-9]+)?$/';
+        $pattern = '/^\d+(\.\d+)?$/';
         $asserts->put(
             'TOTAL01',
             'El atributo Total existe, no está vacío y cumple con el patrón [0-9]+(.[0-9]+)?',

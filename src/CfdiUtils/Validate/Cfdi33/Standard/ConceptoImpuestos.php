@@ -103,13 +103,8 @@ class ConceptoImpuestos extends AbstractDiscoverableVersion33
         if (null === $impuestos) {
             return true;
         }
-        if (
-            $impuestos->searchNodes('cfdi:Traslados', 'cfdi:Traslado')->count()
-            || $impuestos->searchNodes('cfdi:Retenciones', 'cfdi:Retencion')->count()
-        ) {
-            return true;
-        }
-        return false;
+        return $impuestos->searchNodes('cfdi:Traslados', 'cfdi:Traslado')->count()
+            || $impuestos->searchNodes('cfdi:Retenciones', 'cfdi:Retencion')->count();
     }
 
     private function impuestoHasBaseGreaterThanZero(NodeInterface $impuesto): bool
@@ -120,10 +115,7 @@ class ConceptoImpuestos extends AbstractDiscoverableVersion33
         if (! is_numeric($impuesto['Base'])) {
             return false;
         }
-        if ((float) $impuesto['Base'] < 0.000001) {
-            return false;
-        }
-        return true;
+        return (float) $impuesto['Base'] >= 0.000001;
     }
 
     private function trasladoHasTipoFactorExento(NodeInterface $traslado): bool
