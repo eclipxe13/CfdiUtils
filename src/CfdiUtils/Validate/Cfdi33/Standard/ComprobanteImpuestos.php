@@ -18,7 +18,7 @@ use CfdiUtils\Validate\Status;
  */
 class ComprobanteImpuestos extends AbstractDiscoverableVersion33
 {
-    private function registerAsserts(Asserts $asserts)
+    private function registerAsserts(Asserts $asserts): void
     {
         $assertDescriptions = [
             'COMPIMPUESTOSC01' => 'Si existe el nodo impuestos entonces debe incluir el total de traslados y/o'
@@ -31,7 +31,7 @@ class ComprobanteImpuestos extends AbstractDiscoverableVersion33
         }
     }
 
-    public function validate(NodeInterface $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts): void
     {
         $this->registerAsserts($asserts);
 

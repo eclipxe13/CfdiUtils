@@ -7,13 +7,13 @@ use PHPUnit\Framework\TestCase;
 
 final class StatusTest extends TestCase
 {
-    public function testConstructWithInvalidCode()
+    public function testConstructWithInvalidCode(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         new Status('foo');
     }
 
-    public function testOk()
+    public function testOk(): void
     {
         $statusOne = new Status(Status::STATUS_OK);
         $statusTwo = Status::ok();
@@ -23,7 +23,7 @@ final class StatusTest extends TestCase
         $this->assertFalse($statusOne->equalsTo(Status::none()));
     }
 
-    public function testError()
+    public function testError(): void
     {
         $statusOne = new Status(Status::STATUS_ERROR);
         $statusTwo = Status::error();
@@ -33,7 +33,7 @@ final class StatusTest extends TestCase
         $this->assertFalse($statusOne->equalsTo(Status::none()));
     }
 
-    public function testWarning()
+    public function testWarning(): void
     {
         $statusOne = new Status(Status::STATUS_WARNING);
         $statusTwo = Status::warn();
@@ -43,7 +43,7 @@ final class StatusTest extends TestCase
         $this->assertFalse($statusOne->equalsTo(Status::none()));
     }
 
-    public function testNone()
+    public function testNone(): void
     {
         $statusOne = new Status(Status::STATUS_NONE);
         $statusTwo = Status::none();
@@ -53,13 +53,13 @@ final class StatusTest extends TestCase
         $this->assertFalse($statusOne->equalsTo(Status::ok()));
     }
 
-    public function testToString()
+    public function testToString(): void
     {
         $status = Status::none();
         $this->assertSame(Status::STATUS_NONE, (string) $status);
     }
 
-    public function testConditionalCreation()
+    public function testConditionalCreation(): void
     {
         $this->assertEquals(Status::ok(), Status::when(true));
         $this->assertNotEquals(Status::ok(), Status::when(false));
@@ -67,7 +67,7 @@ final class StatusTest extends TestCase
         $this->assertEquals(Status::warn(), Status::when(false, Status::warn()));
     }
 
-    public function testComparableValue()
+    public function testComparableValue(): void
     {
         $this->assertGreaterThan(0, Status::ok()->compareTo(Status::none()));
         $this->assertGreaterThan(0, Status::none()->compareTo(Status::warn()));

@@ -7,7 +7,7 @@ use CfdiUtilsTests\TestCase;
 
 final class StatusResponseTest extends TestCase
 {
-    public function testConsultaResponseExpectedOk()
+    public function testConsultaResponseExpectedOk(): void
     {
         $response = new StatusResponse(
             'S - Comprobante obtenido satisfactoriamente',
@@ -29,7 +29,7 @@ final class StatusResponseTest extends TestCase
         $this->assertFalse($response->isEfosListed());
     }
 
-    public function testConsultaResponseNotOk()
+    public function testConsultaResponseNotOk(): void
     {
         $response = new StatusResponse(
             'N - 601: La expresión impresa proporcionada no es válida',
@@ -47,7 +47,7 @@ final class StatusResponseTest extends TestCase
         $this->assertFalse($response->isCancelled());
     }
 
-    public function testConsultaResponseCancelled()
+    public function testConsultaResponseCancelled(): void
     {
         $response = new StatusResponse(
             'S - Comprobante obtenido satisfactoriamente',
@@ -69,7 +69,7 @@ final class StatusResponseTest extends TestCase
      * @testWith ["200"]
      * @testWith ["201"]
      */
-    public function testIsEfosListedOk(string $efosNotListedStatus)
+    public function testIsEfosListedOk(string $efosNotListedStatus): void
     {
         $response = new StatusResponse(
             'S - Comprobante obtenido satisfactoriamente',
@@ -83,7 +83,7 @@ final class StatusResponseTest extends TestCase
         $this->assertFalse($response->isEfosListed());
     }
 
-    public function testIsEfosListedNotOk()
+    public function testIsEfosListedNotOk(): void
     {
         $efosListedStatus = '100';
         $response = new StatusResponse(

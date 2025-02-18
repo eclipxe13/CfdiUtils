@@ -19,7 +19,7 @@ final class EntidadSNCFTest extends TestCase
         $this->element = new EntidadSNCF();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('nomina12:EntidadSNCF', $this->element->getElementName());
     }

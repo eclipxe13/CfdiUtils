@@ -11,11 +11,11 @@ return RectorConfig::configure()
         __DIR__ . '/tests',
     ])
     ->withSkip([
-        ThisCallOnStaticMethodToStaticCallRector::class
+        ThisCallOnStaticMethodToStaticCallRector::class,
     ])
     // uncomment to reach your current PHP version
     ->withPhpSets(php74: true)
-    ->withTypeCoverageLevel(0)
+    ->withTypeCoverageLevel(200)
 //    ->withDeadCodeLevel(0)
 //    ->withCodeQualityLevel(0)
-    ;
+;

@@ -8,20 +8,20 @@ use PHPUnit\Framework\TestCase;
 
 final class NodesSorterTest extends TestCase
 {
-    public function testConstructWithNames()
+    public function testConstructWithNames(): void
     {
         $values = ['foo', 'bar', 'baz'];
         $sorter = new NodesSorter($values);
         $this->assertSame($values, $sorter->getOrder());
     }
 
-    public function testConstructWithoutNames()
+    public function testConstructWithoutNames(): void
     {
         $sorter = new NodesSorter();
         $this->assertSame([], $sorter->getOrder());
     }
 
-    public function testParseNames()
+    public function testParseNames(): void
     {
         $sorter = new NodesSorter();
         // all invalid values
@@ -34,7 +34,7 @@ final class NodesSorterTest extends TestCase
         $this->assertSame(['foo', 'bar'], $sorter->parseNames(['', 'foo', '', 'bar', '', 'foo']));
     }
 
-    public function testSetGetOrder()
+    public function testSetGetOrder(): void
     {
         $sorter = new NodesSorter(['foo', 'bar']);
         $this->assertSame(['foo', 'bar'], $sorter->getOrder());
@@ -48,7 +48,7 @@ final class NodesSorterTest extends TestCase
         $this->assertSame(['bar', 'foo'], $sorter->getOrder());
     }
 
-    public function testOrder()
+    public function testOrder(): void
     {
         $foo1 = new Node('foo');
         $foo2 = new Node('foo');
@@ -65,7 +65,7 @@ final class NodesSorterTest extends TestCase
         $this->assertSame($expected, $sorted);
     }
 
-    public function testOrderPreservePosition()
+    public function testOrderPreservePosition(): void
     {
         $list = [];
         for ($i = 0; $i < 1000; $i++) {

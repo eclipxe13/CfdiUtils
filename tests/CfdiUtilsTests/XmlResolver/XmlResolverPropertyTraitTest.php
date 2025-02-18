@@ -10,7 +10,7 @@ use CfdiUtilsTests\TestCase;
 final class XmlResolverPropertyTraitTest extends TestCase
 {
     /** @var XmlResolverPropertyInterface */
-    private $specimen;
+    private XmlResolverPropertyInterface $specimen;
 
     protected function setUp(): void
     {
@@ -20,19 +20,19 @@ final class XmlResolverPropertyTraitTest extends TestCase
         };
     }
 
-    public function testInitialState()
+    public function testInitialState(): void
     {
         $this->assertFalse($this->specimen->hasXmlResolver());
     }
 
-    public function testGetterFailsOnInitialState()
+    public function testGetterFailsOnInitialState(): void
     {
         $this->expectException(\LogicException::class);
         $this->expectExceptionMessage('There is no current xmlResolver');
         $this->specimen->getXmlResolver();
     }
 
-    public function testSetterToValueAndToNull()
+    public function testSetterToValueAndToNull(): void
     {
         $xmlResolver = new XmlResolver();
         $this->specimen->setXmlResolver($xmlResolver);
@@ -42,7 +42,7 @@ final class XmlResolverPropertyTraitTest extends TestCase
         $this->assertFalse($this->specimen->hasXmlResolver());
     }
 
-    public function testGetterFailsAfterSettingResolverToNull()
+    public function testGetterFailsAfterSettingResolverToNull(): void
     {
         $xmlResolver = new XmlResolver();
         $this->specimen->setXmlResolver($xmlResolver);

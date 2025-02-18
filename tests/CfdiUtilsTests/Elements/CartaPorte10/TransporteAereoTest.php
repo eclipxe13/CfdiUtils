@@ -19,7 +19,7 @@ final class TransporteAereoTest extends TestCase
         $this->element = new TransporteAereo();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cartaporte:TransporteAereo', $this->element->getElementName());
     }

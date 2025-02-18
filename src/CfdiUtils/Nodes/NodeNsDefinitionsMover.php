@@ -33,7 +33,7 @@ class NodeNsDefinitionsMover
         return $this;
     }
 
-    public function process(NodeInterface $root)
+    public function process(NodeInterface $root): void
     {
         $rootSchemaLocation = SchemaLocations::fromString($root['xsi:schemaLocation'], false);
         $this->processRecursive($root->children(), $root, $rootSchemaLocation);

@@ -33,7 +33,7 @@ final class ComprobanteDescuentoTest extends Validate33TestCase
      * @param string $subtotal
      * @dataProvider providerValidCases
      */
-    public function testValidCases(string $descuento, string $subtotal)
+    public function testValidCases(string $descuento, string $subtotal): void
     {
         $this->comprobante->addAttributes([
             'Descuento' => $descuento,
@@ -60,7 +60,7 @@ final class ComprobanteDescuentoTest extends Validate33TestCase
      * @param string|null $subtotal
      * @dataProvider providerInvalidCases
      */
-    public function testInvalidCases(string $descuento, ?string $subtotal)
+    public function testInvalidCases(string $descuento, ?string $subtotal): void
     {
         $this->comprobante->addAttributes([
             'Descuento' => $descuento,
@@ -70,7 +70,7 @@ final class ComprobanteDescuentoTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::error(), 'DESCUENTO01');
     }
 
-    public function testNoneCase()
+    public function testNoneCase(): void
     {
         $this->comprobante->addAttributes([
             'Descuento' => null,

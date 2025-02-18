@@ -25,12 +25,12 @@ final class NominaTest extends TestCase
         $this->element = new Nomina();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('nomina12:Nomina', $this->element->getElementName());
     }
 
-    public function testChildrenOrder()
+    public function testChildrenOrder(): void
     {
         $expected = [
             'nomina12:Emisor',
@@ -43,12 +43,12 @@ final class NominaTest extends TestCase
         $this->assertSame($expected, $this->element->getChildrenOrder());
     }
 
-    public function testFixedVersion()
+    public function testFixedVersion(): void
     {
         $this->assertSame('1.2', $this->element['Version']);
     }
 
-    public function testFixedNamespaceDefinition()
+    public function testFixedNamespaceDefinition(): void
     {
         $namespace = 'http://www.sat.gob.mx/nomina12';
         $this->assertSame($namespace, $this->element['xmlns:nomina12']);
@@ -56,7 +56,7 @@ final class NominaTest extends TestCase
         $this->assertSame($namespace . ' ' . $xsdLocation, $this->element['xsi:schemaLocation']);
     }
 
-    public function testGetEmisor()
+    public function testGetEmisor(): void
     {
         $this->assertCount(0, $this->element->searchNodes('nomina12:Emisor'));
 
@@ -69,7 +69,7 @@ final class NominaTest extends TestCase
         $this->assertSame($first, $second);
     }
 
-    public function testAddEmisor()
+    public function testAddEmisor(): void
     {
         // insert first element
         $first = $this->element->addEmisor(['id' => 'first']);
@@ -83,7 +83,7 @@ final class NominaTest extends TestCase
         $this->assertSame('second', $first['id']);
     }
 
-    public function testGetReceptor()
+    public function testGetReceptor(): void
     {
         $this->assertCount(0, $this->element->searchNodes('nomina12:Receptor'));
 
@@ -96,7 +96,7 @@ final class NominaTest extends TestCase
         $this->assertSame($first, $second);
     }
 
-    public function testAddReceptor()
+    public function testAddReceptor(): void
     {
         // insert first element
         $first = $this->element->addReceptor(['id' => 'first']);
@@ -110,7 +110,7 @@ final class NominaTest extends TestCase
         $this->assertSame('second', $first['id']);
     }
 
-    public function testGetPercepciones()
+    public function testGetPercepciones(): void
     {
         $this->assertCount(0, $this->element->searchNodes('nomina12:Percepciones'));
 
@@ -123,7 +123,7 @@ final class NominaTest extends TestCase
         $this->assertSame($first, $second);
     }
 
-    public function testAddPercepciones()
+    public function testAddPercepciones(): void
     {
         // insert first element
         $first = $this->element->addPercepciones(['id' => 'first']);
@@ -137,7 +137,7 @@ final class NominaTest extends TestCase
         $this->assertSame('second', $first['id']);
     }
 
-    public function testGetDeducciones()
+    public function testGetDeducciones(): void
     {
         $this->assertCount(0, $this->element->searchNodes('nomina12:Deducciones'));
 
@@ -150,7 +150,7 @@ final class NominaTest extends TestCase
         $this->assertSame($first, $second);
     }
 
-    public function testAddDeducciones()
+    public function testAddDeducciones(): void
     {
         // insert first element
         $first = $this->element->addDeducciones(['id' => 'first']);
@@ -164,7 +164,7 @@ final class NominaTest extends TestCase
         $this->assertSame('second', $first['id']);
     }
 
-    public function testGetOtrosPagos()
+    public function testGetOtrosPagos(): void
     {
         $this->assertCount(0, $this->element->searchNodes('nomina12:OtrosPagos'));
 
@@ -177,7 +177,7 @@ final class NominaTest extends TestCase
         $this->assertSame($first, $second);
     }
 
-    public function testAddOtrosPagos()
+    public function testAddOtrosPagos(): void
     {
         // insert first element
         $first = $this->element->addOtrosPagos(['id' => 'first']);
@@ -191,7 +191,7 @@ final class NominaTest extends TestCase
         $this->assertSame('second', $first['id']);
     }
 
-    public function testGetIncapacidades()
+    public function testGetIncapacidades(): void
     {
         $this->assertCount(0, $this->element->searchNodes('nomina12:Incapacidades'));
 
@@ -204,7 +204,7 @@ final class NominaTest extends TestCase
         $this->assertSame($first, $second);
     }
 
-    public function testAddIncapacidades()
+    public function testAddIncapacidades(): void
     {
         // insert first element
         $first = $this->element->addIncapacidades(['id' => 'first']);

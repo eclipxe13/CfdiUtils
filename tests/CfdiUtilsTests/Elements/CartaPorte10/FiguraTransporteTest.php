@@ -23,12 +23,12 @@ final class FiguraTransporteTest extends TestCase
         $this->element = new FiguraTransporte();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cartaporte:FiguraTransporte', $this->element->getElementName());
     }
 
-    public function testAddOperadores()
+    public function testAddOperadores(): void
     {
         // insert first element
         $first = $this->element->addOperadores(['id' => 'first']);
@@ -42,7 +42,7 @@ final class FiguraTransporteTest extends TestCase
         $this->assertCount(2, $this->element);
     }
 
-    public function testMultiOperadores()
+    public function testMultiOperadores(): void
     {
         // insert first element
         $operadores = $this->element->multiOperadores(
@@ -53,7 +53,7 @@ final class FiguraTransporteTest extends TestCase
         $this->assertSame($this->element, $operadores);
     }
 
-    public function testAddPropietario()
+    public function testAddPropietario(): void
     {
         // insert first element
         $first = $this->element->addPropietario(['id' => 'first']);
@@ -67,7 +67,7 @@ final class FiguraTransporteTest extends TestCase
         $this->assertCount(2, $this->element);
     }
 
-    public function testMultiPropietario()
+    public function testMultiPropietario(): void
     {
         // insert first element
         $propietario = $this->element->multiPropietario(
@@ -78,7 +78,7 @@ final class FiguraTransporteTest extends TestCase
         $this->assertSame($this->element, $propietario);
     }
 
-    public function testAddArrendatario()
+    public function testAddArrendatario(): void
     {
         // insert first element
         $first = $this->element->addArrendatario(['id' => 'first']);
@@ -92,7 +92,7 @@ final class FiguraTransporteTest extends TestCase
         $this->assertCount(2, $this->element);
     }
 
-    public function testMultiArrendatario()
+    public function testMultiArrendatario(): void
     {
         // insert first element
         $arrendatario = $this->element->multiArrendatario(
@@ -103,7 +103,7 @@ final class FiguraTransporteTest extends TestCase
         $this->assertSame($this->element, $arrendatario);
     }
 
-    public function testAddNotificado()
+    public function testAddNotificado(): void
     {
         // insert first element
         $first = $this->element->addNotificado(['id' => 'first']);
@@ -117,7 +117,7 @@ final class FiguraTransporteTest extends TestCase
         $this->assertCount(2, $this->element);
     }
 
-    public function testMultiNotificado()
+    public function testMultiNotificado(): void
     {
         // insert first element
         $notificado = $this->element->multiNotificado(

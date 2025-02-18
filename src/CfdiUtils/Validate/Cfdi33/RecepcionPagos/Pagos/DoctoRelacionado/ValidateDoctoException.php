@@ -6,11 +6,9 @@ use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos\ValidatePagoException;
 
 class ValidateDoctoException extends ValidatePagoException
 {
-    /** @var int */
-    private $index;
+    private ?int $index = null;
 
-    /** @var string */
-    private $validatorCode;
+    private ?string $validatorCode = null;
 
     public function setIndex(int $index): self
     {

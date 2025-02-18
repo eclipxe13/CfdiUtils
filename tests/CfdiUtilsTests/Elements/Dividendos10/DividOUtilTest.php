@@ -16,7 +16,7 @@ final class DividOUtilTest extends TestCase
         $this->element = new DividOUtil();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('dividendos:DividOUtil', $this->element->getElementName());
     }

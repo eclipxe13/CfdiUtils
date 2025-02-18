@@ -16,7 +16,7 @@ final class DomicilioTraitTest extends TestCase
         $this->element = new UseDomicilio();
     }
 
-    public function testDomicilio()
+    public function testDomicilio(): void
     {
         // object is empty
         $this->assertCount(0, $this->element);

@@ -19,7 +19,7 @@ final class IdentificacionVehicularTest extends TestCase
         $this->element = new IdentificacionVehicular();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cartaporte:IdentificacionVehicular', $this->element->getElementName());
     }

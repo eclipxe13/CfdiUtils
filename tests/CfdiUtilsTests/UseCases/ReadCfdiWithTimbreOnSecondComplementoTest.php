@@ -16,7 +16,7 @@ use CfdiUtilsTests\TestCase;
 
 final class ReadCfdiWithTimbreOnSecondComplementoTest extends TestCase
 {
-    public function testRetrieveTimbre()
+    public function testRetrieveTimbre(): void
     {
         $uuid = '11111111-2222-3333-4444-555555555555';
         $dirtyXml = $this->createCfdiForTesting($uuid);

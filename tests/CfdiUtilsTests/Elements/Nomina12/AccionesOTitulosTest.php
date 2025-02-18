@@ -19,7 +19,7 @@ final class AccionesOTitulosTest extends TestCase
         $this->element = new AccionesOTitulos();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('nomina12:AccionesOTitulos', $this->element->getElementName());
     }

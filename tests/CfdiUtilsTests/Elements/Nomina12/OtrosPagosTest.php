@@ -20,12 +20,12 @@ final class OtrosPagosTest extends TestCase
         $this->element = new OtrosPagos();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('nomina12:OtrosPagos', $this->element->getElementName());
     }
 
-    public function testAddOtrosPago()
+    public function testAddOtrosPago(): void
     {
         // insert first element
         $first = $this->element->addOtrosPago(['id' => 'first']);
@@ -39,7 +39,7 @@ final class OtrosPagosTest extends TestCase
         $this->assertCount(2, $this->element);
     }
 
-    public function testMultiOtrosPago()
+    public function testMultiOtrosPago(): void
     {
         // insert first element
         $deducciones = $this->element->multiOtrosPago(

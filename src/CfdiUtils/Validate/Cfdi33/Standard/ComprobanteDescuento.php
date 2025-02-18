@@ -16,7 +16,7 @@ use CfdiUtils\Validate\Status;
  */
 class ComprobanteDescuento extends AbstractDiscoverableVersion33
 {
-    public function validate(NodeInterface $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts): void
     {
         $asserts->put(
             'DESCUENTO01',

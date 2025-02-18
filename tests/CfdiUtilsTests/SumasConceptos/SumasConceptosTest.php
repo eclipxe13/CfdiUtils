@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class SumasConceptosTest extends TestCase
 {
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $maxDiff = 0.0000001;
         $sc = new SumasConceptos(new Node('x'));
@@ -53,7 +53,7 @@ final class SumasConceptosTest extends TestCase
      * @param float $total
      * @dataProvider providerWithConceptsDecimals
      */
-    public function testWithConceptsDecimals(int $taxDecimals, float $subtotal, float $traslados, float $total)
+    public function testWithConceptsDecimals(int $taxDecimals, float $subtotal, float $traslados, float $total): void
     {
         $maxDiff = 0.0000001;
         $comprobante = new Comprobante();
@@ -86,7 +86,7 @@ final class SumasConceptosTest extends TestCase
         $this->assertCount(0, $sc->getExentos());
     }
 
-    public function testWithImpuestosLocales()
+    public function testWithImpuestosLocales(): void
     {
         $taxDecimals = 4;
         $maxDiff = 0.0000001;
@@ -134,7 +134,7 @@ final class SumasConceptosTest extends TestCase
         $this->assertCount(0, $sc->getLocalesRetenciones());
     }
 
-    public function testFoundAnyConceptWithDiscount()
+    public function testFoundAnyConceptWithDiscount(): void
     {
         $comprobante = new Comprobante();
         $comprobante->addConcepto(['Importe' => '111.11']);
@@ -146,7 +146,7 @@ final class SumasConceptosTest extends TestCase
         $this->assertTrue((new SumasConceptos($comprobante))->foundAnyConceptWithDiscount());
     }
 
-    public function testImpuestoImporteWithMoreDecimalsThanThePrecisionIsRounded()
+    public function testImpuestoImporteWithMoreDecimalsThanThePrecisionIsRounded(): void
     {
         $comprobante = new Comprobante();
         $comprobante->addConcepto()->addTraslado([
@@ -172,7 +172,7 @@ final class SumasConceptosTest extends TestCase
         $this->assertEqualsWithDelta(62.5, $sumas->getTraslados()['002:Tasa:0.160000']['Base'], 0.0000001);
     }
 
-    public function testImpuestoWithTrasladosTasaAndExento()
+    public function testImpuestoWithTrasladosTasaAndExento(): void
     {
         $comprobante = new Comprobante();
         $comprobante->addConcepto()->multiTraslado(
@@ -212,7 +212,7 @@ final class SumasConceptosTest extends TestCase
         $this->assertEqualsWithDelta(1234.56, array_sum(array_column($sumas->getExentos(), 'Base')), 0.001);
     }
 
-    public function testImpuestoWithTrasladosAndOnlyExentosWithoutBase()
+    public function testImpuestoWithTrasladosAndOnlyExentosWithoutBase(): void
     {
         $comprobante = new Comprobante();
         $comprobante->addConcepto()->multiTraslado(
@@ -231,7 +231,7 @@ final class SumasConceptosTest extends TestCase
         $this->assertEqualsWithDelta(0, array_sum(array_column($sumas->getExentos(), 'Base')), 0.001);
     }
 
-    public function testImpuestoWithTrasladosAndOnlyExentosWithBase()
+    public function testImpuestoWithTrasladosAndOnlyExentosWithBase(): void
     {
         $comprobante = new Comprobante();
         $comprobante->addConcepto()->multiTraslado(
@@ -252,14 +252,10 @@ final class SumasConceptosTest extends TestCase
 
         $this->assertTrue($sumas->hasExentos());
 
-        $exentos001 = array_filter($sumas->getExentos(), function (array $values): bool {
-            return '001' === $values['Impuesto'];
-        });
+        $exentos001 = array_filter($sumas->getExentos(), fn (array $values): bool => '001' === $values['Impuesto']);
         $this->assertEqualsWithDelta(250.00, array_sum(array_column($exentos001, 'Base')), 0.001);
 
-        $exentos002 = array_filter($sumas->getExentos(), function (array $values): bool {
-            return '002' === $values['Impuesto'];
-        });
+        $exentos002 = array_filter($sumas->getExentos(), fn (array $values): bool => '002' === $values['Impuesto']);
         $this->assertEqualsWithDelta(666.66, array_sum(array_column($exentos002, 'Base')), 0.001);
     }
 }

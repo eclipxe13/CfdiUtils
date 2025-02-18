@@ -14,7 +14,7 @@ use CfdiUtilsTests\Validate\FakeObjects\ImplementationValidatorInterface;
 
 final class MultiValidatorTest extends TestCase
 {
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $validator = new MultiValidator('3.2');
         $this->assertInstanceOf(\Countable::class, $validator);
@@ -25,7 +25,7 @@ final class MultiValidatorTest extends TestCase
         $this->assertCount(0, $validator);
     }
 
-    public function testValidate()
+    public function testValidate(): void
     {
         $validator = new MultiValidator('3.3');
         $first = new ImplementationValidatorInterface();
@@ -56,7 +56,7 @@ final class MultiValidatorTest extends TestCase
         $this->assertFalse($asserts->mustStop());
     }
 
-    public function testValidateChangesMustStopFlag()
+    public function testValidateChangesMustStopFlag(): void
     {
         $first = new ImplementationValidatorInterface();
         $first->onValidateSetMustStop = true;
@@ -73,7 +73,7 @@ final class MultiValidatorTest extends TestCase
         $this->assertFalse($last->enterValidateMethod);
     }
 
-    public function testValidateSkipsOtherVersions()
+    public function testValidateSkipsOtherVersions(): void
     {
         $first = new ImplementationValidatorInterface();
         $last = new ImplementationValidatorInterface();
@@ -89,7 +89,7 @@ final class MultiValidatorTest extends TestCase
         $this->assertFalse($last->enterValidateMethod);
     }
 
-    public function testHydrate()
+    public function testHydrate(): void
     {
         $hydrater = new Hydrater();
         $xmlString = '<root />';
@@ -112,7 +112,7 @@ final class MultiValidatorTest extends TestCase
      * Collection tests
      */
 
-    public function testAddAddMulti()
+    public function testAddAddMulti(): void
     {
         $validator = new MultiValidator('3.3');
 
@@ -128,7 +128,7 @@ final class MultiValidatorTest extends TestCase
         $this->assertCount(4, $validator);
     }
 
-    public function testExists()
+    public function testExists(): void
     {
         $child = new ImplementationValidatorInterface();
         $validator = new MultiValidator('3.3');
@@ -137,7 +137,7 @@ final class MultiValidatorTest extends TestCase
         $this->assertFalse($validator->exists(new ImplementationValidatorInterface()));
     }
 
-    public function testRemove()
+    public function testRemove(): void
     {
         $child = new ImplementationValidatorInterface();
         $validator = new MultiValidator('3.3');
@@ -149,7 +149,7 @@ final class MultiValidatorTest extends TestCase
         $this->assertCount(0, $validator);
     }
 
-    public function testRemoveAll()
+    public function testRemoveAll(): void
     {
         $validator = new MultiValidator('3.3');
         $validator->addMulti(...[
@@ -163,7 +163,7 @@ final class MultiValidatorTest extends TestCase
         $this->assertCount(0, $validator);
     }
 
-    public function testTraversable()
+    public function testTraversable(): void
     {
         $validator = new MultiValidator('3.3');
         $first = new ImplementationValidatorInterface();

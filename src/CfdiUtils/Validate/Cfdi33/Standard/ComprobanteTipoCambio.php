@@ -20,7 +20,7 @@ use CfdiUtils\Validate\Status;
  */
 class ComprobanteTipoCambio extends AbstractDiscoverableVersion33
 {
-    private function registerAsserts(Asserts $asserts)
+    private function registerAsserts(Asserts $asserts): void
     {
         $assertDescriptions = [
             'TIPOCAMBIO01' => 'La moneda exista y no tenga un valor vacío',
@@ -35,7 +35,7 @@ class ComprobanteTipoCambio extends AbstractDiscoverableVersion33
         }
     }
 
-    public function validate(NodeInterface $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts): void
     {
         $this->registerAsserts($asserts);
 

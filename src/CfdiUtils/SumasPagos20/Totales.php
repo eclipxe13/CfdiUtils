@@ -6,38 +6,27 @@ use JsonSerializable;
 
 final class Totales implements JsonSerializable
 {
-    /** @var Decimal|null */
-    private $retencionIva;
+    private ?Decimal $retencionIva;
 
-    /** @var Decimal|null */
-    private $retencionIsr;
+    private ?Decimal $retencionIsr;
 
-    /** @var Decimal|null */
-    private $retencionIeps;
+    private ?Decimal $retencionIeps;
 
-    /** @var Decimal|null */
-    private $trasladoIva16Base;
+    private ?Decimal $trasladoIva16Base;
 
-    /** @var Decimal|null */
-    private $trasladoIva16Importe;
+    private ?Decimal $trasladoIva16Importe;
 
-    /** @var Decimal|null */
-    private $trasladoIva08Base;
+    private ?Decimal $trasladoIva08Base;
 
-    /** @var Decimal|null */
-    private $trasladoIva08Importe;
+    private ?Decimal $trasladoIva08Importe;
 
-    /** @var Decimal|null */
-    private $trasladoIva00Base;
+    private ?Decimal $trasladoIva00Base;
 
-    /** @var Decimal|null */
-    private $trasladoIva00Importe;
+    private ?Decimal $trasladoIva00Importe;
 
-    /** @var Decimal|null */
-    private $trasladoIvaExento;
+    private ?Decimal $trasladoIvaExento;
 
-    /** @var Decimal */
-    private $total;
+    private Decimal $total;
 
     public function __construct(
         ?Decimal $retencionIva,

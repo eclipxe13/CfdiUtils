@@ -12,7 +12,7 @@ class XmlNodeImporter
      * Local record for registered namespaces to avoid set the namespace declaration in every child
      * @var string[]
      */
-    private $registeredNamespaces = [];
+    private array $registeredNamespaces = [];
 
     public function import(DOMElement $element): NodeInterface
     {
@@ -46,7 +46,7 @@ class XmlNodeImporter
         return $node;
     }
 
-    private function registerNamespace(Node $node, string $prefix, string $uri)
+    private function registerNamespace(Node $node, string $prefix, string $uri): void
     {
         if (isset($this->registeredNamespaces[$prefix])) {
             return;

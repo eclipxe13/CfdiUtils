@@ -20,7 +20,7 @@ use CfdiUtils\Validate\Status;
  */
 class ReceptorResidenciaFiscal extends AbstractDiscoverableVersion33
 {
-    private function registerAsserts(Asserts $asserts)
+    private function registerAsserts(Asserts $asserts): void
     {
         $assertDescriptions = [
             'RESFISC01' => 'Si el RFC no es XEXX010101000, entonces la residencia fiscal no debe existir (CFDI33134)',
@@ -34,7 +34,7 @@ class ReceptorResidenciaFiscal extends AbstractDiscoverableVersion33
         }
     }
 
-    public function validate(NodeInterface $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts): void
     {
         $this->registerAsserts($asserts);
 

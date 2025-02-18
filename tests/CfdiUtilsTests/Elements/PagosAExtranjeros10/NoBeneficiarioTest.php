@@ -16,7 +16,7 @@ final class NoBeneficiarioTest extends TestCase
         $this->element = new NoBeneficiario();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('pagosaextranjeros:NoBeneficiario', $this->element->getElementName());
     }

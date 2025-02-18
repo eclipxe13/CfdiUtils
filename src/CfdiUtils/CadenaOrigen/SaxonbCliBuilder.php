@@ -7,8 +7,7 @@ use Symfony\Component\Process\Process;
 
 class SaxonbCliBuilder extends AbstractXsltBuilder
 {
-    /** @var string */
-    private $executablePath;
+    private string $executablePath;
 
     public function __construct(string $executablePath)
     {
@@ -20,7 +19,7 @@ class SaxonbCliBuilder extends AbstractXsltBuilder
         return $this->executablePath;
     }
 
-    public function setExecutablePath(string $executablePath)
+    public function setExecutablePath(string $executablePath): void
     {
         if ('' === $executablePath) {
             throw new \UnexpectedValueException('The executable path for SabonB cannot be empty');
@@ -68,7 +67,7 @@ class SaxonbCliBuilder extends AbstractXsltBuilder
 
         $temporaryFile = TemporaryFile::create();
         return $temporaryFile->runAndRemove(
-            function () use ($temporaryFile, $xmlContent, $xsltLocation) {
+            function () use ($temporaryFile, $xmlContent, $xsltLocation): string {
                 $temporaryFile->storeContents($xmlContent);
 
                 $command = [

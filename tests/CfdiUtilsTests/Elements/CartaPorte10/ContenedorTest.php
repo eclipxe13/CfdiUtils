@@ -19,7 +19,7 @@ final class ContenedorTest extends TestCase
         $this->element = new Contenedor();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cartaporte:Contenedor', $this->element->getElementName());
     }

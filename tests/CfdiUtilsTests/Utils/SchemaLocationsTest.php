@@ -7,7 +7,7 @@ use CfdiUtilsTests\TestCase;
 
 final class SchemaLocationsTest extends TestCase
 {
-    public function testConstructorWithEmptyValue()
+    public function testConstructorWithEmptyValue(): void
     {
         $schemaLocations = new SchemaLocations();
         $this->assertSame([], $schemaLocations->pairs());
@@ -15,7 +15,7 @@ final class SchemaLocationsTest extends TestCase
         $this->assertTrue($schemaLocations->isEmpty());
     }
 
-    public function testConstructorWithValidValues()
+    public function testConstructorWithValidValues(): void
     {
         $pairs = [
             'http://tempuri.org/my-foo' => 'http://tempuri.org/my-foo.xls',
@@ -27,7 +27,7 @@ final class SchemaLocationsTest extends TestCase
         $this->assertFalse($schemaLocations->isEmpty());
     }
 
-    public function testHasNamespace()
+    public function testHasNamespace(): void
     {
         $pairs = [
             'http://tempuri.org/my-foo' => 'http://tempuri.org/my-foo.xls',
@@ -38,7 +38,7 @@ final class SchemaLocationsTest extends TestCase
         $this->assertFalse($schemaLocations->has('http://tempuri.org/my-xee'));
     }
 
-    public function testAppendAndRemove()
+    public function testAppendAndRemove(): void
     {
         $pairs = [
             'http://tempuri.org/my-foo' => 'http://tempuri.org/my-foo.xls',
@@ -51,7 +51,7 @@ final class SchemaLocationsTest extends TestCase
         $this->assertFalse($schemaLocations->has('http://tempuri.org/my-xee'));
     }
 
-    public function testAsStringWithCompleteValues()
+    public function testAsStringWithCompleteValues(): void
     {
         $pairs = [
             'http://tempuri.org/my-foo' => 'http://tempuri.org/my-foo.xls',
@@ -64,7 +64,7 @@ final class SchemaLocationsTest extends TestCase
         $this->assertFalse($schemaLocations->hasAnyNamespaceWithoutLocation());
     }
 
-    public function testAsStringWithIncompleteValues()
+    public function testAsStringWithIncompleteValues(): void
     {
         $pairs = [
             'http://tempuri.org/my-aaa' => '',
@@ -85,7 +85,7 @@ final class SchemaLocationsTest extends TestCase
         ], $schemaLocations->getNamespacesWithoutLocation());
     }
 
-    public function testTraverse()
+    public function testTraverse(): void
     {
         $pairs = [
             'http://tempuri.org/my-foo' => 'http://tempuri.org/my-foo.xls',
@@ -95,7 +95,7 @@ final class SchemaLocationsTest extends TestCase
         $this->assertSame($pairs, iterator_to_array($schemaLocations));
     }
 
-    public function testConstructFromString()
+    public function testConstructFromString(): void
     {
         $input = '  http://tempuri.org/my-foo   http://tempuri.org/my-foo.xls  '
             . 'http://tempuri.org/my-bar        http://tempuri.org/my-bar.xls  ';
@@ -107,7 +107,7 @@ final class SchemaLocationsTest extends TestCase
         $this->assertSame($expected, $schemaLocations->pairs());
     }
 
-    public function testConstructFromStringWithOddContentsExcludingLast()
+    public function testConstructFromStringWithOddContentsExcludingLast(): void
     {
         $input = 'http://tempuri.org/my-foo http://tempuri.org/my-foo.xls'
             . ' http://tempuri.org/my-bar http://tempuri.org/my-bar.xls'
@@ -121,7 +121,7 @@ final class SchemaLocationsTest extends TestCase
         $this->assertSame($expected, $schemaLocations->pairs());
     }
 
-    public function testConstructFromStringWithOddContentsIncludingLast()
+    public function testConstructFromStringWithOddContentsIncludingLast(): void
     {
         $input = 'http://tempuri.org/my-foo http://tempuri.org/my-foo.xls'
             . ' http://tempuri.org/my-bar http://tempuri.org/my-bar.xls'
@@ -136,7 +136,7 @@ final class SchemaLocationsTest extends TestCase
         $this->assertSame($expected, $schemaLocations->pairs());
     }
 
-    public function testConstructFromStringStrictXsd()
+    public function testConstructFromStringStrictXsd(): void
     {
         // source include spaces to ensure that is working properly
         $source = '  bleh  foo  foo.xsd  bar  baz  zoo  zoo.xsd  baa  xee  xee.xsd  bah  ';

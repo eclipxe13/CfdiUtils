@@ -10,14 +10,13 @@ use CfdiUtils\Validate\Asserts;
 require __DIR__ . '/bootstrap.php';
 
 exit(call_user_func(new class (...$argv) {
-    /** @var string */
-    private $command;
+    private string $command;
 
     /** @var string[] */
-    private $arguments;
+    private array $arguments;
 
     /** @var array<CfdiValidator33|CfdiValidator40> */
-    private $validators;
+    private array $validators;
 
     private const SUCCESS = 0;
 
@@ -68,7 +67,7 @@ exit(call_user_func(new class (...$argv) {
             }
         }
 
-        set_error_handler(function (int $number, string $message) {
+        set_error_handler(function (int $number, string $message): void {
             throw new Error($message, $number);
         });
 

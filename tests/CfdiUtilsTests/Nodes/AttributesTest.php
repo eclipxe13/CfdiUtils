@@ -7,13 +7,13 @@ use CfdiUtilsTests\TestCase;
 
 final class AttributesTest extends TestCase
 {
-    public function testConstructWithoutArguments()
+    public function testConstructWithoutArguments(): void
     {
         $attributes = new Attributes();
         $this->assertCount(0, $attributes);
     }
 
-    public function testConstructWithMembers()
+    public function testConstructWithMembers(): void
     {
         $data = [
             'id' => 'sample',
@@ -39,14 +39,14 @@ final class AttributesTest extends TestCase
      * @param string $name
      * @dataProvider providerSetMethodWithInvalidName
      */
-    public function testSetMethodWithInvalidName(string $name)
+    public function testSetMethodWithInvalidName(string $name): void
     {
         $attributes = new Attributes();
         $this->expectException(\UnexpectedValueException::class);
         $attributes->set($name, '');
     }
 
-    public function testSetMethod()
+    public function testSetMethod(): void
     {
         $attributes = new Attributes();
         // first
@@ -80,7 +80,7 @@ final class AttributesTest extends TestCase
      * @param string $name
      * @dataProvider providerSetWithInvalidNames
      */
-    public function testSetWithInvalidNames(string $name)
+    public function testSetWithInvalidNames(string $name): void
     {
         $attributes = new Attributes();
 
@@ -90,13 +90,13 @@ final class AttributesTest extends TestCase
         $attributes->set($name, '');
     }
 
-    public function testGetMethodOnNonExistent()
+    public function testGetMethodOnNonExistent(): void
     {
         $attributes = new Attributes();
         $this->assertSame('', $attributes->get('foo'));
     }
 
-    public function testRemove()
+    public function testRemove(): void
     {
         $attributes = new Attributes();
         $attributes->set('foo', 'bar');
@@ -108,7 +108,7 @@ final class AttributesTest extends TestCase
         $this->assertCount(0, $attributes);
     }
 
-    public function testArrayAccess()
+    public function testArrayAccess(): void
     {
         $attributes = new Attributes();
         $attributes['id'] = 'sample';
@@ -129,7 +129,7 @@ final class AttributesTest extends TestCase
         $this->assertSame('', $attributes['foo']);
     }
 
-    public function testIterator()
+    public function testIterator(): void
     {
         $data = [
             'foo' => 'bar',
@@ -143,7 +143,7 @@ final class AttributesTest extends TestCase
         $this->assertEquals($data, $created);
     }
 
-    public function testSetToNullPerformRemove()
+    public function testSetToNullPerformRemove(): void
     {
         $attributes = new Attributes([
             'foo' => 'bar',
@@ -153,7 +153,7 @@ final class AttributesTest extends TestCase
         $this->assertFalse($attributes->exists('foo'));
     }
 
-    public function testImportWithNullPerformRemove()
+    public function testImportWithNullPerformRemove(): void
     {
         $attributes = new Attributes([
             'set' => '1',
@@ -177,7 +177,7 @@ final class AttributesTest extends TestCase
         $this->assertCount(0, $attributes);
     }
 
-    public function testImportWithInvalidValue()
+    public function testImportWithInvalidValue(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Cannot convert value of attribute foo to string');
@@ -186,12 +186,11 @@ final class AttributesTest extends TestCase
         ]);
     }
 
-    public function testSetWithObjectToString()
+    public function testSetWithObjectToString(): void
     {
         $expectedValue = 'foo';
         $toStringObject = new class ('foo') {
-            /** @var string */
-            private $value;
+            private string $value;
 
             public function __construct(string $value)
             {
@@ -213,7 +212,7 @@ final class AttributesTest extends TestCase
         $this->assertEquals($expectedValue, $attributes->get('importArray'));
     }
 
-    public function testExportArray()
+    public function testExportArray(): void
     {
         $attributes = new Attributes();
         $attributes->set('foo', 'bar');

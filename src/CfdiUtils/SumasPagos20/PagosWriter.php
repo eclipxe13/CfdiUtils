@@ -10,7 +10,7 @@ use LogicException;
 final class PagosWriter
 {
     /** @var ElementPagos */
-    private $pagos;
+    private ElementPagos $pagos;
 
     public function __construct(ElementPagos $pagos)
     {

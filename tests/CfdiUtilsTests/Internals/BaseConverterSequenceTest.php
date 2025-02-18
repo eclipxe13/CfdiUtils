@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class BaseConverterSequenceTest extends TestCase
 {
-    public function testValidSequence()
+    public function testValidSequence(): void
     {
         $source = 'ABCD';
         $sequence = new BaseConverterSequence($source);
@@ -16,42 +16,42 @@ final class BaseConverterSequenceTest extends TestCase
         $this->assertSame($source, strval($sequence));
     }
 
-    public function testInvalidSequenceWithEmptyString()
+    public function testInvalidSequenceWithEmptyString(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('Sequence does not contains enough elements');
         new BaseConverterSequence('');
     }
 
-    public function testInvalidSequenceWithOneChar()
+    public function testInvalidSequenceWithOneChar(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('Sequence does not contains enough elements');
         new BaseConverterSequence('X');
     }
 
-    public function testInvalidSequenceWithMultibyte()
+    public function testInvalidSequenceWithMultibyte(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('multibyte');
         new BaseConverterSequence('Ñ');
     }
 
-    public function testInvalidSequenceWithRepeatedChars()
+    public function testInvalidSequenceWithRepeatedChars(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('The sequence has not unique values');
         new BaseConverterSequence('ABCBA');
     }
 
-    public function testInvalidSequenceWithRepeatedCharsDifferentCase()
+    public function testInvalidSequenceWithRepeatedCharsDifferentCase(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('The sequence has not unique values');
         new BaseConverterSequence('ABCDabcd');
     }
 
-    public function testIsValidMethod()
+    public function testIsValidMethod(): void
     {
         $this->assertTrue(BaseConverterSequence::isValid('abc'));
         $this->assertFalse(BaseConverterSequence::isValid('abcb'));

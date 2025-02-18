@@ -14,7 +14,7 @@ use CfdiUtils\Validate\Status;
  */
 class CfdiRelacionados extends AbstractRecepcionPagos10
 {
-    public function validateRecepcionPagos(NodeInterface $comprobante, Asserts $asserts)
+    public function validateRecepcionPagos(NodeInterface $comprobante, Asserts $asserts): void
     {
         $assert = $asserts->put('PAGREL01', 'El tipo de relación en los CFDI relacionados debe ser "04"');
         $cfdiRelacionados = $comprobante->searchNode('cfdi:CfdiRelacionados');

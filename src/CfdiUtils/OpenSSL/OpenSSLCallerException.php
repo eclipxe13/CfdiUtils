@@ -6,8 +6,7 @@ use Throwable;
 
 class OpenSSLCallerException extends OpenSSLException
 {
-    /** @var CallResponse */
-    private $execResult;
+    private CallResponse $execResult;
 
     public function __construct(
         CallResponse $execResult,

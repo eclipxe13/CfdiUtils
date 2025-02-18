@@ -19,7 +19,7 @@ final class HorasExtraTest extends TestCase
         $this->element = new HorasExtra();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('nomina12:HorasExtra', $this->element->getElementName());
     }

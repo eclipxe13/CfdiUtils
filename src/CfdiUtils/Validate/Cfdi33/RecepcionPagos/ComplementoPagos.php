@@ -20,7 +20,7 @@ use CfdiUtils\Validate\Status;
  */
 class ComplementoPagos extends AbstractDiscoverableVersion33
 {
-    public function validate(NodeInterface $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts): void
     {
         $asserts->put('COMPPAG01', 'El complemento de pagos debe existir si el tipo de comprobante es P y viceversa');
         $asserts->put('COMPPAG02', 'Si el complemento de pagos existe su version debe ser 1.0');

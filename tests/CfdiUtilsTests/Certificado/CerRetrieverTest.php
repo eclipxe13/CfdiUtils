@@ -8,7 +8,7 @@ use CfdiUtilsTests\TestCase;
 
 final class CerRetrieverTest extends TestCase
 {
-    public function testRetrieveNonExistent()
+    public function testRetrieveNonExistent(): void
     {
         // this certificate does not exists in the internet repository, it will fail to download
         $certificateId = '20001000000300022779';
@@ -21,7 +21,7 @@ final class CerRetrieverTest extends TestCase
         $retriever->retrieve($remoteUrl);
     }
 
-    public function testRetrieveValidCertificate()
+    public function testRetrieveValidCertificate(): void
     {
         // NOTE: This certificate is valid until 2021-05-22 12:42:41
         // after this date this test may fail

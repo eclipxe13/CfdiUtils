@@ -9,8 +9,7 @@ class OpenSSL
 {
     use NormalizeLineEndingsTrait;
 
-    /** @var Caller */
-    private $caller;
+    private Caller $caller;
 
     public function __construct(string $opensslCommand = '')
     {
@@ -45,7 +44,7 @@ class OpenSSL
             . '-----END CERTIFICATE-----';
     }
 
-    public function derCerConvert(string $derInFile, string $pemOutFile)
+    public function derCerConvert(string $derInFile, string $pemOutFile): void
     {
         $this->checkInputFile($derInFile);
         $this->checkOutputFile($pemOutFile);
@@ -77,7 +76,7 @@ class OpenSSL
         );
     }
 
-    public function derKeyConvert(string $derInFile, string $inPassPhrase, string $pemOutFile)
+    public function derKeyConvert(string $derInFile, string $inPassPhrase, string $pemOutFile): void
     {
         $this->checkInputFile($derInFile);
         $this->checkOutputFile($pemOutFile);
@@ -100,11 +99,15 @@ class OpenSSL
         );
     }
 
-    public function derKeyProtect(string $derInFile, string $inPassPhrase, string $pemOutFile, string $outPassPhrase)
-    {
+    public function derKeyProtect(
+        string $derInFile,
+        string $inPassPhrase,
+        string $pemOutFile,
+        string $outPassPhrase
+    ): void {
         $tempfile = TemporaryFile::create();
         $tempfile->runAndRemove(
-            function () use ($derInFile, $inPassPhrase, $tempfile, $pemOutFile, $outPassPhrase) {
+            function () use ($derInFile, $inPassPhrase, $tempfile, $pemOutFile, $outPassPhrase): void {
                 $this->derKeyConvert($derInFile, $inPassPhrase, $tempfile);
                 $this->pemKeyProtect($tempfile, '', $pemOutFile, $outPassPhrase);
             }
@@ -122,8 +125,12 @@ class OpenSSL
         );
     }
 
-    public function pemKeyProtect(string $pemInFile, string $inPassPhrase, string $pemOutFile, string $outPassPhrase)
-    {
+    public function pemKeyProtect(
+        string $pemInFile,
+        string $inPassPhrase,
+        string $pemOutFile,
+        string $outPassPhrase
+    ): void {
         if ('' === $outPassPhrase) {
             $this->pemKeyUnprotect($pemInFile, $inPassPhrase, $pemOutFile);
             return;
@@ -161,7 +168,7 @@ class OpenSSL
         );
     }
 
-    public function pemKeyUnprotect(string $pemInFile, string $inPassPhrase, string $pemOutFile)
+    public function pemKeyUnprotect(string $pemInFile, string $inPassPhrase, string $pemOutFile): void
     {
         $this->checkInputFile($pemInFile);
         $this->checkOutputFile($pemOutFile);

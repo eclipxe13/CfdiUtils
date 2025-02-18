@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ImpuestosOrderTest extends TestCase
 {
-    public function testComprobanteImpuestosOrderIsRetencionesTraslados()
+    public function testComprobanteImpuestosOrderIsRetencionesTraslados(): void
     {
         $comprobante = new Comprobante();
         $impuestos = $comprobante->getImpuestos();
@@ -20,7 +20,7 @@ final class ImpuestosOrderTest extends TestCase
         $this->assertSame($expectedOrder, $impuestos->getChildrenOrder());
     }
 
-    public function testConceptoImpuestosOrderIsTrasladosRetenciones()
+    public function testConceptoImpuestosOrderIsTrasladosRetenciones(): void
     {
         $concepto = new Concepto();
         $impuestos = $concepto->getImpuestos();

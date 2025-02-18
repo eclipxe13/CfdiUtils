@@ -20,12 +20,12 @@ final class NotificadoTest extends ElementTestCase
         $this->element = new Notificado();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cartaporte:Notificado', $this->element->getElementName());
     }
 
-    public function testDomicilio()
+    public function testDomicilio(): void
     {
         $this->assertElementHasChildSingle($this->element, Domicilio::class);
     }

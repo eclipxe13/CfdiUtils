@@ -19,7 +19,7 @@ final class JubilacionPensionRetiroTest extends TestCase
         $this->element = new JubilacionPensionRetiro();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('nomina12:JubilacionPensionRetiro', $this->element->getElementName());
     }

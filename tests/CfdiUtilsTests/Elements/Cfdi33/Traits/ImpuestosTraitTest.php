@@ -20,7 +20,7 @@ final class ImpuestosTraitTest extends TestCase
         $this->element = new UseImpuestos();
     }
 
-    public function testGetImpuestos()
+    public function testGetImpuestos(): void
     {
         $this->assertNull($this->element->searchNode('cfdi:Impuestos'));
         $child = $this->element->getImpuestos();
@@ -28,7 +28,7 @@ final class ImpuestosTraitTest extends TestCase
         $this->assertSame($child, $this->element->searchNode('cfdi:Impuestos'));
     }
 
-    public function testAddTraslado()
+    public function testAddTraslado(): void
     {
         $this->assertNull($this->element->searchNode('cfdi:Impuestos', 'cfdi:Traslados', 'cfdi:Traslado'));
         $first = $this->element->addTraslado(['name' => 'first']);
@@ -37,7 +37,7 @@ final class ImpuestosTraitTest extends TestCase
         $this->assertSame($first, $this->element->searchNode('cfdi:Impuestos', 'cfdi:Traslados', 'cfdi:Traslado'));
     }
 
-    public function testMultiTraslado()
+    public function testMultiTraslado(): void
     {
         $parent = $this->element->getImpuestos()->getTraslados();
         $this->assertCount(0, $parent);
@@ -50,7 +50,7 @@ final class ImpuestosTraitTest extends TestCase
         $this->assertSame('first', $parent->searchAttribute('cfdi:Traslado', 'id'));
     }
 
-    public function testAddRetencion()
+    public function testAddRetencion(): void
     {
         $this->assertNull($this->element->searchNode('cfdi:Impuestos', 'cfdi:Retenciones', 'cfdi:Retencion'));
         $first = $this->element->addRetencion(['name' => 'first']);
@@ -59,7 +59,7 @@ final class ImpuestosTraitTest extends TestCase
         $this->assertSame($first, $this->element->searchNode('cfdi:Impuestos', 'cfdi:Retenciones', 'cfdi:Retencion'));
     }
 
-    public function testMultiRetencion()
+    public function testMultiRetencion(): void
     {
         $parent = $this->element->getImpuestos()->getRetenciones();
         $this->assertCount(0, $parent);
@@ -72,7 +72,7 @@ final class ImpuestosTraitTest extends TestCase
         $this->assertSame('first', $parent->searchAttribute('cfdi:Retencion', 'id'));
     }
 
-    public function testChildrenOrder()
+    public function testChildrenOrder(): void
     {
         // add in inverse order
         $this->element->addRetencion();

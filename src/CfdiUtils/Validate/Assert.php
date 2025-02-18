@@ -4,17 +4,13 @@ namespace CfdiUtils\Validate;
 
 class Assert
 {
-    /** @var string */
-    private $title;
+    private string $title;
 
-    /** @var Status */
-    private $status;
+    private Status $status;
 
-    /** @var string */
-    private $explanation;
+    private string $explanation;
 
-    /** @var string */
-    private $code;
+    private string $code;
 
     /**
      * Assert constructor.
@@ -54,12 +50,12 @@ class Assert
         return $this->code;
     }
 
-    public function setTitle(string $title)
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
 
-    public function setStatus(Status $status, ?string $explanation = null)
+    public function setStatus(Status $status, ?string $explanation = null): void
     {
         $this->status = $status;
         if (null !== $explanation) {
@@ -67,12 +63,12 @@ class Assert
         }
     }
 
-    public function setExplanation(string $explanation)
+    public function setExplanation(string $explanation): void
     {
         $this->explanation = $explanation;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return sprintf('%s: %s - %s', $this->status, $this->code, $this->title);
     }

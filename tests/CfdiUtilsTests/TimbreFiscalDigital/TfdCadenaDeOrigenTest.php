@@ -10,20 +10,20 @@ use CfdiUtilsTests\TestCase;
 
 final class TfdCadenaDeOrigenTest extends TestCase
 {
-    public function testConstructorMinimal()
+    public function testConstructorMinimal(): void
     {
         $tfdCO = new TfdCadenaDeOrigen();
         $this->assertInstanceOf(XmlResolver::class, $tfdCO->getXmlResolver());
     }
 
-    public function testConstructorWithXmlResolver()
+    public function testConstructorWithXmlResolver(): void
     {
         $resolver = $this->newResolver();
         $tfdCO = new TfdCadenaDeOrigen($resolver);
         $this->assertSame($resolver, $tfdCO->getXmlResolver());
     }
 
-    public function testObtainVersion11WithoutVersionArgument()
+    public function testObtainVersion11WithoutVersionArgument(): void
     {
         $cfdi = Cfdi::newFromString(strval(file_get_contents($this->utilAsset('cfdi33-valid.xml'))));
         $tfd = $cfdi->getNode()->searchNode('cfdi:Complemento', 'tfd:TimbreFiscalDigital');
@@ -48,13 +48,13 @@ final class TfdCadenaDeOrigenTest extends TestCase
         $this->assertSame($expected, $cadenaOrigen);
     }
 
-    public function testXsltLocation()
+    public function testXsltLocation(): void
     {
         $this->assertStringContainsString('TFD_1_0.xslt', TfdCadenaDeOrigen::xsltLocation('1.0'));
         $this->assertStringContainsString('TFD_1_1.xslt', TfdCadenaDeOrigen::xsltLocation('1.1'));
     }
 
-    public function testXsltLocationException()
+    public function testXsltLocationException(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('Cannot get the xslt location');

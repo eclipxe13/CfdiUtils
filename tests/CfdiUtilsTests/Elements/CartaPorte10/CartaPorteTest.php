@@ -22,12 +22,12 @@ final class CartaPorteTest extends TestCase
         $this->element = new CartaPorte();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cartaporte:CartaPorte', $this->element->getElementName());
     }
 
-    public function testChildrenOrder()
+    public function testChildrenOrder(): void
     {
         $expected = [
             'cartaporte:Ubicaciones',
@@ -37,12 +37,12 @@ final class CartaPorteTest extends TestCase
         $this->assertSame($expected, $this->element->getChildrenOrder());
     }
 
-    public function testFixedVersion()
+    public function testFixedVersion(): void
     {
         $this->assertSame('1.0', $this->element['Version']);
     }
 
-    public function testFixedNamespaceDefinition()
+    public function testFixedNamespaceDefinition(): void
     {
         $namespace = 'http://www.sat.gob.mx/cartaporte';
         $this->assertSame($namespace, $this->element['xmlns:cartaporte']);
@@ -50,7 +50,7 @@ final class CartaPorteTest extends TestCase
         $this->assertSame($namespace . ' ' . $xsdLocation, $this->element['xsi:schemaLocation']);
     }
 
-    public function testGetUbicaciones()
+    public function testGetUbicaciones(): void
     {
         $this->assertCount(0, $this->element->searchNodes('cartaporte:Ubicaciones'));
 
@@ -63,7 +63,7 @@ final class CartaPorteTest extends TestCase
         $this->assertSame($first, $second);
     }
 
-    public function testAddUbicaciones()
+    public function testAddUbicaciones(): void
     {
         // insert first element
         $first = $this->element->addUbicaciones(['id' => 'first']);
@@ -77,7 +77,7 @@ final class CartaPorteTest extends TestCase
         $this->assertSame('second', $first['id']);
     }
 
-    public function testGetMercancias()
+    public function testGetMercancias(): void
     {
         $this->assertCount(0, $this->element->searchNodes('cartaporte:Mercancias'));
 
@@ -90,7 +90,7 @@ final class CartaPorteTest extends TestCase
         $this->assertSame($first, $second);
     }
 
-    public function testAddMercancias()
+    public function testAddMercancias(): void
     {
         // insert first element
         $first = $this->element->addMercancias(['id' => 'first']);
@@ -104,7 +104,7 @@ final class CartaPorteTest extends TestCase
         $this->assertSame('second', $first['id']);
     }
 
-    public function testGetFiguraTransporte()
+    public function testGetFiguraTransporte(): void
     {
         $this->assertCount(0, $this->element->searchNodes('cartaporte:FiguraTransporte'));
 
@@ -117,7 +117,7 @@ final class CartaPorteTest extends TestCase
         $this->assertSame($first, $second);
     }
 
-    public function testAddFiguraTransporte()
+    public function testAddFiguraTransporte(): void
     {
         // insert first element
         $first = $this->element->addFiguraTransporte(['id' => 'first']);

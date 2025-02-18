@@ -14,7 +14,7 @@ final class MontoGreaterThanZeroTest extends TestCase
      * @testWith ["0.000001"]
      *           ["1"]
      */
-    public function testValid(string $amount)
+    public function testValid(string $amount): void
     {
         $pago = new Pago([
             'Monto' => $amount,
@@ -32,7 +32,7 @@ final class MontoGreaterThanZeroTest extends TestCase
      *           [""]
      *           ["not numeric"]
      */
-    public function testPagoMontoGreaterThanZeroInvalid(?string $amount)
+    public function testPagoMontoGreaterThanZeroInvalid(?string $amount): void
     {
         $pago = new Pago([
             'Monto' => $amount,

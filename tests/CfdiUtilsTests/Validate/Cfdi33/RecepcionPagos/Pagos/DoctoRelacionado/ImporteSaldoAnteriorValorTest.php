@@ -14,7 +14,7 @@ final class ImporteSaldoAnteriorValorTest extends TestCase
      * @testWith ["0.01"]
      *           ["123456.78"]
      */
-    public function testValid(string $input)
+    public function testValid(string $input): void
     {
         $docto = new DoctoRelacionado([
             'ImpSaldoAnt' => $input,
@@ -32,7 +32,7 @@ final class ImporteSaldoAnteriorValorTest extends TestCase
      *           [""]
      *           [null]
      */
-    public function testInvalid(?string $input)
+    public function testInvalid(?string $input): void
     {
         $docto = new DoctoRelacionado([
             'ImpSaldoAnt' => $input,

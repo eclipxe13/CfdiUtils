@@ -7,11 +7,9 @@ namespace CfdiUtils\SumasPagos20;
  */
 final class DoctoRelacionado
 {
-    /** @var Decimal */
-    private $impPagado;
+    private Decimal $impPagado;
 
-    /** @var Impuestos */
-    private $impuestos;
+    private Impuestos $impuestos;
 
     public function __construct(Decimal $impPagado, Impuestos $impuestos)
     {

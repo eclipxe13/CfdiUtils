@@ -10,7 +10,7 @@ use Traversable;
 class SchemaLocations implements Countable, IteratorAggregate
 {
     /** @var array<string, string> */
-    private $pairs = [];
+    private array $pairs = [];
 
     /**
      * SchemaLocations constructor.
@@ -96,9 +96,7 @@ class SchemaLocations implements Countable, IteratorAggregate
      */
     public function getNamespacesWithoutLocation(): array
     {
-        return array_keys(array_filter($this->pairs, function (string $location): bool {
-            return ('' === $location);
-        }));
+        return array_keys(array_filter($this->pairs, fn (string $location): bool => '' === $location));
     }
 
     public function hasAnyNamespaceWithoutLocation(): bool
@@ -106,12 +104,12 @@ class SchemaLocations implements Countable, IteratorAggregate
         return [] !== $this->getNamespacesWithoutLocation();
     }
 
-    public function append(string $namespace, string $location)
+    public function append(string $namespace, string $location): void
     {
         $this->pairs[$namespace] = $location;
     }
 
-    public function remove(string $namespace)
+    public function remove(string $namespace): void
     {
         unset($this->pairs[$namespace]);
     }

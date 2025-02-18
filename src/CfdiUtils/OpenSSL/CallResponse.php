@@ -4,17 +4,13 @@ namespace CfdiUtils\OpenSSL;
 
 class CallResponse
 {
-    /** @var string */
-    private $commandLine;
+    private string $commandLine;
 
-    /** @var string */
-    private $output;
+    private string $output;
 
-    /** @var string */
-    private $errors;
+    private string $errors;
 
-    /** @var int */
-    private $exitStatus;
+    private int $exitStatus;
 
     public function __construct(string $commandLine, string $output, string $errors, int $exitStatus)
     {

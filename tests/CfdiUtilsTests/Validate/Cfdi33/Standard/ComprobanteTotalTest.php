@@ -36,7 +36,7 @@ final class ComprobanteTotalTest extends Validate33TestCase
      * @param string|null $value
      * @dataProvider providerTotalWithInvalidValue
      */
-    public function testTotalWithInvalidValue(?string $value)
+    public function testTotalWithInvalidValue(?string $value): void
     {
         $this->comprobante->addAttributes([
             'Total' => $value,
@@ -59,7 +59,7 @@ final class ComprobanteTotalTest extends Validate33TestCase
      * @param string $value
      * @dataProvider providerTotalWithValidValues
      */
-    public function testTotalWithCorrectValues(string $value)
+    public function testTotalWithCorrectValues(string $value): void
     {
         $this->comprobante->addAttributes([
             'Total' => $value,

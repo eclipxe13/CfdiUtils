@@ -8,7 +8,7 @@ use UnexpectedValueException;
 final class CfdiCreateObjectException extends UnexpectedValueException
 {
     /** @var array<string, UnexpectedValueException> */
-    private $versionExceptions;
+    private array $versionExceptions;
 
     /**
      * @param array<string, UnexpectedValueException> $versionException

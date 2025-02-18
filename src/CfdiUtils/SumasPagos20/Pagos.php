@@ -6,8 +6,7 @@ use JsonSerializable;
 
 class Pagos implements JsonSerializable
 {
-    /** @var Totales */
-    private $totales;
+    private Totales $totales;
 
     /** @var list<Pago> */
     private $pagos;

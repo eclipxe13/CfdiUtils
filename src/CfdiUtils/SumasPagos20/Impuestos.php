@@ -8,7 +8,7 @@ use LogicException;
 final class Impuestos implements JsonSerializable
 {
     /** @var array<string, Impuesto> */
-    private $impuestos = [];
+    private array $impuestos = [];
 
     public function __construct(Impuesto ...$impuestos)
     {
@@ -118,9 +118,7 @@ final class Impuestos implements JsonSerializable
     {
         return array_values(array_filter(
             $this->impuestos,
-            function (Impuesto $impuesto) use ($tipo): bool {
-                return $impuesto->getTipo() === $tipo;
-            }
+            fn (Impuesto $impuesto): bool => $impuesto->getTipo() === $tipo
         ));
     }
 }

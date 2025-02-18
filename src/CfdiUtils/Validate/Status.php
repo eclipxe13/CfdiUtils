@@ -23,7 +23,7 @@ class Status
         self::STATUS_OK => 4,
     ];
 
-    private $status;
+    private string $status;
 
     public function __construct(string $value)
     {

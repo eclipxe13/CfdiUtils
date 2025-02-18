@@ -40,16 +40,13 @@ use CfdiUtils\Validate\Status;
  */
 class SumasConceptosComprobanteImpuestos extends AbstractDiscoverableVersion33
 {
-    /** @var NodeInterface */
-    private $comprobante;
+    private ?NodeInterface $comprobante = null;
 
-    /** @var Asserts */
-    private $asserts;
+    private ?Asserts $asserts = null;
 
-    /** @var SumasConceptos */
-    private $sumasConceptos;
+    private ?SumasConceptos $sumasConceptos = null;
 
-    private function registerAsserts()
+    private function registerAsserts(): void
     {
         $asserts = [
             'SUMAS01' => 'La suma de los importes de conceptos es igual a el subtotal del comprobante',
@@ -70,7 +67,7 @@ class SumasConceptosComprobanteImpuestos extends AbstractDiscoverableVersion33
         }
     }
 
-    public function validate(NodeInterface $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts): void
     {
         $this->asserts = $asserts;
         $this->comprobante = $comprobante;
@@ -88,7 +85,7 @@ class SumasConceptosComprobanteImpuestos extends AbstractDiscoverableVersion33
         $this->validateDescuentoLessOrEqualThanSubTotal();
     }
 
-    private function validateSubTotal()
+    private function validateSubTotal(): void
     {
         $this->validateValues(
             'SUMAS01',
@@ -99,7 +96,7 @@ class SumasConceptosComprobanteImpuestos extends AbstractDiscoverableVersion33
         );
     }
 
-    private function validateDescuento()
+    private function validateDescuento(): void
     {
         $this->validateValues(
             'SUMAS02',
@@ -110,7 +107,7 @@ class SumasConceptosComprobanteImpuestos extends AbstractDiscoverableVersion33
         );
     }
 
-    private function validateDescuentoLessOrEqualThanSubTotal()
+    private function validateDescuentoLessOrEqualThanSubTotal(): void
     {
         $subtotal = (float) $this->comprobante['SubTotal'];
         $descuento = (float) $this->comprobante['Descuento'];
@@ -121,7 +118,7 @@ class SumasConceptosComprobanteImpuestos extends AbstractDiscoverableVersion33
         );
     }
 
-    private function validateTotal()
+    private function validateTotal(): void
     {
         $this->validateValues(
             'SUMAS03',
@@ -132,7 +129,7 @@ class SumasConceptosComprobanteImpuestos extends AbstractDiscoverableVersion33
         );
     }
 
-    private function validateImpuestosTrasladados()
+    private function validateImpuestosTrasladados(): void
     {
         $this->validateValues(
             'SUMAS04',
@@ -143,7 +140,7 @@ class SumasConceptosComprobanteImpuestos extends AbstractDiscoverableVersion33
         );
     }
 
-    private function validateImpuestosRetenidos()
+    private function validateImpuestosRetenidos(): void
     {
         $this->validateValues(
             'SUMAS08',
@@ -154,7 +151,7 @@ class SumasConceptosComprobanteImpuestos extends AbstractDiscoverableVersion33
         );
     }
 
-    private function validateTrasladosMatch()
+    private function validateTrasladosMatch(): void
     {
         $this->validateImpuestosMatch(
             5,
@@ -165,7 +162,7 @@ class SumasConceptosComprobanteImpuestos extends AbstractDiscoverableVersion33
         );
     }
 
-    private function validateRetencionesMatch()
+    private function validateRetencionesMatch(): void
     {
         $this->validateImpuestosMatch(
             9,
@@ -182,7 +179,7 @@ class SumasConceptosComprobanteImpuestos extends AbstractDiscoverableVersion33
         array $expectedItems,
         array $impuestosPath,
         array $impuestosKeys
-    ) {
+    ): void {
         $extractedItems = [];
         foreach ($this->comprobante->searchNodes(...$impuestosPath) as $extracted) {
             $new = [];
@@ -218,9 +215,7 @@ class SumasConceptosComprobanteImpuestos extends AbstractDiscoverableVersion33
             $thisValueMatch = $this->validateImpuestoImporte($type, $code, $expectedItem, $extractedItem);
             $allValuesMatch = $allValuesMatch && $thisValueMatch;
         }
-        $extractedWithoutMatch = array_filter($extractedItems, function (array $item): bool {
-            return ! $item['Encontrado'];
-        });
+        $extractedWithoutMatch = array_filter($extractedItems, fn (array $item): bool => ! $item['Encontrado']);
 
         $this->asserts->putStatus(sprintf('SUMAS%02d', $assertOffset), Status::when($allExpectedAreFound));
         $this->asserts->putStatus(sprintf('SUMAS%02d', $assertOffset + 1), Status::when($allValuesMatch));

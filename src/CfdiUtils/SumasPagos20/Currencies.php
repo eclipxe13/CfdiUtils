@@ -5,7 +5,7 @@ namespace CfdiUtils\SumasPagos20;
 class Currencies
 {
     /** @var array<string, int> */
-    private $currencyAllowedDecimals;
+    private ?array $currencyAllowedDecimals = null;
 
     /** @param array<string, int> $currencyAllowedDecimals */
     public function __construct(array $currencyAllowedDecimals)

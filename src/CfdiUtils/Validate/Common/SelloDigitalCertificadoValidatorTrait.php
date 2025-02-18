@@ -23,7 +23,7 @@ trait SelloDigitalCertificadoValidatorTrait
     /** @var Certificado */
     private $certificado;
 
-    private function registerAsserts()
+    private function registerAsserts(): void
     {
         $asserts = [
             'SELLO01' => 'Se puede obtener el certificado del comprobante',
@@ -40,7 +40,7 @@ trait SelloDigitalCertificadoValidatorTrait
         }
     }
 
-    public function validate(NodeInterface $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts): void
     {
         $this->asserts = $asserts;
         $this->registerAsserts();
@@ -88,7 +88,7 @@ trait SelloDigitalCertificadoValidatorTrait
         return $this->getXsltBuilder()->build($this->getXmlString(), $xsltLocation);
     }
 
-    private function validateNoCertificado(string $noCertificado)
+    private function validateNoCertificado(string $noCertificado): void
     {
         $expectedNumber = $this->certificado->getSerial();
         $this->asserts->putStatus(
@@ -98,7 +98,7 @@ trait SelloDigitalCertificadoValidatorTrait
         );
     }
 
-    private function validateRfc(string $emisorRfc)
+    private function validateRfc(string $emisorRfc): void
     {
         $expectedRfc = $this->certificado->getRfc();
         $this->asserts->put(
@@ -112,7 +112,7 @@ trait SelloDigitalCertificadoValidatorTrait
     /** @return void */
     abstract protected function validateNombre(string $emisorNombre, string $rfc);
 
-    private function validateFecha(string $fechaSource)
+    private function validateFecha(string $fechaSource): void
     {
         $fecha = ('' === $fechaSource) ? 0 : intval(strtotime($fechaSource));
         if (0 === $fecha) {
@@ -129,7 +129,7 @@ trait SelloDigitalCertificadoValidatorTrait
         $this->asserts->putStatus('SELLO06', Status::when($fecha <= $validTo), $explanation);
     }
 
-    private function validateSello(string $selloBase64, string $version)
+    private function validateSello(string $selloBase64, string $version): void
     {
         $sello = $this->obtainSello($selloBase64);
         if ('' === $sello) {

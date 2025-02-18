@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class DoctoRelacionadoTest extends TestCase
 {
-    public function testValidatorsCodes()
+    public function testValidatorsCodes(): void
     {
         $expectedValidators = [];
         foreach (range(23, 33) as $i) {

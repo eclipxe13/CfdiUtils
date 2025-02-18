@@ -23,18 +23,18 @@ final class PercepcionesTest extends TestCase
         $this->element = new Percepciones();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('nomina12:Percepciones', $this->element->getElementName());
     }
 
-    public function testChildrenOrder()
+    public function testChildrenOrder(): void
     {
         $expected = ['nomina12:Percepcion', 'nomina12:JubilacionPensionRetiro', 'nomina12:SeparacionIndemnizacion'];
         $this->assertSame($expected, $this->element->getChildrenOrder());
     }
 
-    public function testAddPercepcion()
+    public function testAddPercepcion(): void
     {
         // insert first element
         $children = [new Node('child-1'), new Node('child-2')];
@@ -51,7 +51,7 @@ final class PercepcionesTest extends TestCase
         $this->assertCount(2, $this->element);
     }
 
-    public function testMultiPercepcion()
+    public function testMultiPercepcion(): void
     {
         $percepciones = $this->element->multiPercepcion(
             ['id' => 'first'],
@@ -61,7 +61,7 @@ final class PercepcionesTest extends TestCase
         $this->assertSame($this->element, $percepciones);
     }
 
-    public function testGetJubilacionPensionRetiro()
+    public function testGetJubilacionPensionRetiro(): void
     {
         $this->assertCount(0, $this->element->searchNodes('nomina12:JubilacionPensionRetiro'));
 
@@ -74,7 +74,7 @@ final class PercepcionesTest extends TestCase
         $this->assertSame($first, $second);
     }
 
-    public function testAddJubilacionPensionRetiro()
+    public function testAddJubilacionPensionRetiro(): void
     {
         // insert first element
         $first = $this->element->addJubilacionPensionRetiro(['id' => 'first']);
@@ -88,7 +88,7 @@ final class PercepcionesTest extends TestCase
         $this->assertSame('second', $first['id']);
     }
 
-    public function testGetSeparacionIndemnizacion()
+    public function testGetSeparacionIndemnizacion(): void
     {
         $this->assertCount(0, $this->element->searchNodes('nomina12:SeparacionIndemnizacion'));
 
@@ -101,7 +101,7 @@ final class PercepcionesTest extends TestCase
         $this->assertSame($first, $second);
     }
 
-    public function testAddSeparacionIndemnizacion()
+    public function testAddSeparacionIndemnizacion(): void
     {
         // insert first element
         $first = $this->element->addSeparacionIndemnizacion(['id' => 'first']);

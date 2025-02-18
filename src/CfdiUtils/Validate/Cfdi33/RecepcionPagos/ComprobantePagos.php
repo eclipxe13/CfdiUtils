@@ -23,7 +23,7 @@ use CfdiUtils\Validate\Status;
  */
 class ComprobantePagos extends AbstractRecepcionPagos10
 {
-    public function validateRecepcionPagos(NodeInterface $comprobante, Asserts $asserts)
+    public function validateRecepcionPagos(NodeInterface $comprobante, Asserts $asserts): void
     {
         $pagos = $comprobante->searchNodes('cfdi:Complemento', 'pago10:Pagos');
         $asserts->put(

@@ -4,14 +4,13 @@ namespace CfdiUtils\QuickReader;
 
 class QuickReader extends \stdClass implements \ArrayAccess
 {
-    /** @var string */
-    protected $name;
+    protected string $name;
 
     /** @var string[] */
-    protected $attributes;
+    protected array $attributes;
 
     /** @var self[] */
-    protected $children;
+    protected array $children;
 
     /**
      * QuickReader constructor.
@@ -56,9 +55,10 @@ class QuickReader extends \stdClass implements \ArrayAccess
         if ('' === $name) {
             return $this->children;
         }
-        return array_filter($this->children, function (self $item) use ($name) {
-            return $this->namesAreEqual($name, (string) $item);
-        });
+        return array_filter(
+            $this->children,
+            fn (self $item): bool => $this->namesAreEqual($name, (string) $item)
+        );
     }
 
     /**

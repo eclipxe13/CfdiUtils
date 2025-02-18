@@ -8,34 +8,34 @@ use CfdiUtils\Nodes\Node;
 
 final class CfdiValidator40Test extends TestCase
 {
-    public function testConstructWithoutArguments()
+    public function testConstructWithoutArguments(): void
     {
         $validator = new CfdiValidator40();
         $this->assertTrue($validator->hasXmlResolver());
     }
 
-    public function testConstructWithResolver()
+    public function testConstructWithResolver(): void
     {
         $xmlResolver = $this->newResolver();
         $validator = new CfdiValidator40($xmlResolver);
         $this->assertSame($xmlResolver, $validator->getXmlResolver());
     }
 
-    public function testValidateWithIncorrectXmlString()
+    public function testValidateWithIncorrectXmlString(): void
     {
         $validator = new CfdiValidator40();
         $asserts = $validator->validateXml('<not-a-cfdi/>');
         $this->assertTrue($asserts->hasErrors());
     }
 
-    public function testValidateWithIncorrectNode()
+    public function testValidateWithIncorrectNode(): void
     {
         $validator = new CfdiValidator40();
         $asserts = $validator->validateNode(new Node('not-a-cfdi'));
         $this->assertTrue($asserts->hasErrors());
     }
 
-    public function testValidateWithCorrectData()
+    public function testValidateWithCorrectData(): void
     {
         $cfdiFile = $this->utilAsset('cfdi40-valid.xml');
         $cfdi = Cfdi::newFromString(strval(file_get_contents($cfdiFile)));
@@ -53,7 +53,7 @@ final class CfdiValidator40Test extends TestCase
         );
     }
 
-    public function testValidateThrowsExceptionIfEmptyContent()
+    public function testValidateThrowsExceptionIfEmptyContent(): void
     {
         $validator = new CfdiValidator40();
         $this->expectException(\UnexpectedValueException::class);
@@ -61,7 +61,7 @@ final class CfdiValidator40Test extends TestCase
         $validator->validate('', new Node('root'));
     }
 
-    public function testValidateCfdi40Real()
+    public function testValidateCfdi40Real(): void
     {
         $cfdiFile = $this->utilAsset('cfdi40-real.xml');
         $cfdi = Cfdi::newFromString(strval(file_get_contents($cfdiFile)));

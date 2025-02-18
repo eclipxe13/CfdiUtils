@@ -41,7 +41,7 @@ trait RetencionesCreatorTrait
         $this->setXsltBuilder($xsltBuilder ?: new DOMBuilder());
     }
 
-    public function addSello(string $key, string $passPhrase = '')
+    public function addSello(string $key, string $passPhrase = ''): void
     {
         // create private key
         $privateKey = new PemPrivateKey($key);

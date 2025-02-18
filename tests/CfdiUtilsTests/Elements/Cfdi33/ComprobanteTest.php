@@ -26,12 +26,12 @@ final class ComprobanteTest extends TestCase
         $this->element = new Comprobante();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('cfdi:Comprobante', $this->element->getElementName());
     }
 
-    public function testGetCfdiRelacionados()
+    public function testGetCfdiRelacionados(): void
     {
         $this->assertNull($this->element->searchNode('cfdi:CfdiRelacionados'));
         $child = $this->element->getCfdiRelacionados();
@@ -39,7 +39,7 @@ final class ComprobanteTest extends TestCase
         $this->assertSame($child, $this->element->searchNode('cfdi:CfdiRelacionados'));
     }
 
-    public function testAddRelacionado()
+    public function testAddRelacionado(): void
     {
         $first = $this->element->addCfdiRelacionado(['UUID' => 'FOO']);
         $this->assertInstanceOf(CfdiRelacionado::class, $first);
@@ -47,7 +47,7 @@ final class ComprobanteTest extends TestCase
         $this->assertCount(1, $this->element->getCfdiRelacionados());
     }
 
-    public function testMultiRelacionado()
+    public function testMultiRelacionado(): void
     {
         $self = $this->element->multiCfdiRelacionado(
             ['UUID' => 'FOO'],
@@ -59,7 +59,7 @@ final class ComprobanteTest extends TestCase
         $this->assertSame('BAR', $this->element->getCfdiRelacionados()->children()->get(1)['UUID']);
     }
 
-    public function testGetEmisor()
+    public function testGetEmisor(): void
     {
         $this->assertNull($this->element->searchNode('cfdi:Emisor'));
         $child = $this->element->getEmisor();
@@ -67,7 +67,7 @@ final class ComprobanteTest extends TestCase
         $this->assertSame($child, $this->element->searchNode('cfdi:Emisor'));
     }
 
-    public function testAddEmisor()
+    public function testAddEmisor(): void
     {
         $first = $this->element->addEmisor(['Rfc' => 'FOO']);
         $this->assertInstanceOf(Emisor::class, $first);
@@ -78,7 +78,7 @@ final class ComprobanteTest extends TestCase
         $this->assertSame('BAR', $first['Rfc']);
     }
 
-    public function testGetReceptor()
+    public function testGetReceptor(): void
     {
         $this->assertNull($this->element->searchNode('cfdi:Receptor'));
         $child = $this->element->getReceptor();
@@ -86,7 +86,7 @@ final class ComprobanteTest extends TestCase
         $this->assertSame($child, $this->element->searchNode('cfdi:Receptor'));
     }
 
-    public function testAddReceptor()
+    public function testAddReceptor(): void
     {
         $first = $this->element->addReceptor(['Rfc' => 'BAZ']);
         $this->assertInstanceOf(Receptor::class, $first);
@@ -97,7 +97,7 @@ final class ComprobanteTest extends TestCase
         $this->assertSame('BAR', $first['Rfc']);
     }
 
-    public function testGetConceptos()
+    public function testGetConceptos(): void
     {
         $this->assertNull($this->element->searchNode('cfdi:Conceptos'));
         $child = $this->element->getConceptos();
@@ -105,7 +105,7 @@ final class ComprobanteTest extends TestCase
         $this->assertSame($child, $this->element->searchNode('cfdi:Conceptos'));
     }
 
-    public function testGetImpuestos()
+    public function testGetImpuestos(): void
     {
         $this->assertNull($this->element->searchNode('cfdi:Impuestos'));
         $child = $this->element->getImpuestos();
@@ -113,7 +113,7 @@ final class ComprobanteTest extends TestCase
         $this->assertSame($child, $this->element->searchNode('cfdi:Impuestos'));
     }
 
-    public function testAddImpuestos()
+    public function testAddImpuestos(): void
     {
         $first = $this->element->addImpuestos(['Foo' => 'Bar']);
         $this->assertInstanceOf(Impuestos::class, $first);
@@ -124,7 +124,7 @@ final class ComprobanteTest extends TestCase
         $this->assertSame('BAR', $first['Foo']);
     }
 
-    public function testAddConcepto()
+    public function testAddConcepto(): void
     {
         $this->assertCount(0, $this->element);
 
@@ -134,7 +134,7 @@ final class ComprobanteTest extends TestCase
         $this->assertCount(1, $this->element);
     }
 
-    public function testGetComplemento()
+    public function testGetComplemento(): void
     {
         $this->assertNull($this->element->searchNode('cfdi:Complemento'));
         $child = $this->element->getComplemento();
@@ -142,7 +142,7 @@ final class ComprobanteTest extends TestCase
         $this->assertSame($child, $this->element->searchNode('cfdi:Complemento'));
     }
 
-    public function testAddComplemento()
+    public function testAddComplemento(): void
     {
         $this->assertCount(0, $this->element);
 
@@ -153,7 +153,7 @@ final class ComprobanteTest extends TestCase
         $this->assertSame($addReturn, $this->element);
     }
 
-    public function testGetAddenda()
+    public function testGetAddenda(): void
     {
         $this->assertNull($this->element->searchNode('cfdi:Addenda'));
         $child = $this->element->getAddenda();
@@ -161,7 +161,7 @@ final class ComprobanteTest extends TestCase
         $this->assertSame($child, $this->element->searchNode('cfdi:Addenda'));
     }
 
-    public function testAddAddenda()
+    public function testAddAddenda(): void
     {
         $this->assertCount(0, $this->element);
 
@@ -172,7 +172,7 @@ final class ComprobanteTest extends TestCase
         $this->assertSame($addReturn, $this->element);
     }
 
-    public function testHasFixedAttributes()
+    public function testHasFixedAttributes(): void
     {
         $namespace = 'http://www.sat.gob.mx/cfd/3';
         $this->assertSame('3.3', $this->element['Version']);
@@ -181,7 +181,7 @@ final class ComprobanteTest extends TestCase
         $this->assertNotEmpty($this->element['xmlns:xsi']);
     }
 
-    public function testChildrenOrder()
+    public function testChildrenOrder(): void
     {
         // add in inverse order
         $this->element->getAddenda();

@@ -61,7 +61,7 @@ final class EmisorRegimenFiscalTest extends Validate33TestCase
      * @param string $regimenFiscal
      * @dataProvider providerValidCases
      */
-    public function testValidCases(string $emisorRfc, string $regimenFiscal)
+    public function testValidCases(string $emisorRfc, string $regimenFiscal): void
     {
         $this->comprobante->addChild(new Node('cfdi:Emisor', [
             'RegimenFiscal' => $regimenFiscal,
@@ -90,7 +90,7 @@ final class EmisorRegimenFiscalTest extends Validate33TestCase
      * @param string|null $regimenFiscal
      * @dataProvider providerInvalidCases
      */
-    public function testInvalidCases(?string $emisorRfc, ?string $regimenFiscal)
+    public function testInvalidCases(?string $emisorRfc, ?string $regimenFiscal): void
     {
         $this->comprobante->addChild(new Node('cfdi:Emisor', [
             'RegimenFiscal' => $regimenFiscal,

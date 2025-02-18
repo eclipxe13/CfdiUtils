@@ -17,12 +17,12 @@ final class TotalesTest extends TestCase
         $this->element = new Totales();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('retenciones:Totales', $this->element->getElementName());
     }
 
-    public function testAddCfdiRelacionado()
+    public function testAddCfdiRelacionado(): void
     {
         // no childs
         $this->assertCount(0, $this->element);
@@ -41,7 +41,7 @@ final class TotalesTest extends TestCase
         $this->assertNotSame($first, $second);
     }
 
-    public function testAddImpRetenidos()
+    public function testAddImpRetenidos(): void
     {
         $first = $this->element->addImpRetenidos(['var' => 'FOO']);
         $this->assertInstanceOf(ImpRetenidos::class, $first);
@@ -49,7 +49,7 @@ final class TotalesTest extends TestCase
         $this->assertCount(1, $this->element);
     }
 
-    public function testMultiImpRetenidos()
+    public function testMultiImpRetenidos(): void
     {
         $self = $this->element->multiImpRetenidos(
             ['var' => 'FOO'],

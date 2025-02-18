@@ -16,7 +16,7 @@ final class RemanenteTest extends TestCase
         $this->element = new Remanente();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('dividendos:Remanente', $this->element->getElementName());
     }

@@ -16,7 +16,7 @@ final class PagosTest extends ValidateComplementoPagosTestCase
         $this->validator = new Pagos();
     }
 
-    public function testValidCase()
+    public function testValidCase(): void
     {
         $this->complemento->addPago();
         $this->runValidate();
@@ -24,7 +24,7 @@ final class PagosTest extends ValidateComplementoPagosTestCase
         $this->assertStatusEqualsCode(Status::ok(), 'PAGOS01');
     }
 
-    public function testWithoutNodes()
+    public function testWithoutNodes(): void
     {
         $this->runValidate();
 

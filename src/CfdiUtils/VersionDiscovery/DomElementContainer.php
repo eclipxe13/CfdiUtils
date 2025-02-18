@@ -6,8 +6,7 @@ use DOMElement;
 
 class DomElementContainer implements ContainerWithAttributeInterface
 {
-    /** @var DOMElement */
-    private $element;
+    private DOMElement $element;
 
     public function __construct(DOMElement $element)
     {

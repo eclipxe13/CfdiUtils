@@ -4,20 +4,15 @@ namespace CfdiUtils\ConsultaCfdiSat;
 
 class StatusResponse
 {
-    /** @var string */
-    private $code;
+    private string $code;
 
-    /** @var string */
-    private $cfdi;
+    private string $cfdi;
 
-    /** @var string */
-    private $cancellable;
+    private string $cancellable;
 
-    /** @var string */
-    private $cancellationStatus;
+    private string $cancellationStatus;
 
-    /** @var string */
-    private $validationEfos;
+    private string $validationEfos;
 
     public function __construct(
         string $statusCode,

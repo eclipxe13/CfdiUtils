@@ -19,7 +19,7 @@ final class SamplesTest extends TestCase
      *           ["sample-validacfd04.xml"]
      *           ["sample-validacfd05.xml"]
      */
-    public function testSamplesFiles(string $sampleName)
+    public function testSamplesFiles(string $sampleName): void
     {
         $sampleFile = $this->utilAsset('pagos10/' . $sampleName);
         $this->assertFileExists($sampleFile);
@@ -38,7 +38,7 @@ final class SamplesTest extends TestCase
         $this->assertFalse($asserts->hasErrors());
     }
 
-    public function testSamplesWithErrors()
+    public function testSamplesWithErrors(): void
     {
         $sampleFile = $this->utilAsset('pagos10/sample-errors.xml');
         $this->assertFileExists($sampleFile);

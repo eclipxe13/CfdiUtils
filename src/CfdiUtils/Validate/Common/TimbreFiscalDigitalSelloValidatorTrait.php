@@ -18,7 +18,7 @@ trait TimbreFiscalDigitalSelloValidatorTrait
     use XmlResolverPropertyTrait;
     use XsltBuilderPropertyTrait;
 
-    public function validate(NodeInterface $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts): void
     {
         $assert = $asserts->put(
             'TFDSELLO01',

@@ -8,7 +8,7 @@ use Traversable;
 class Attributes implements \Countable, \IteratorAggregate, \ArrayAccess
 {
     /** @var array<string, string> */
-    private $attributes = [];
+    private array $attributes = [];
 
     public function __construct(array $attributes = [])
     {
@@ -78,7 +78,7 @@ class Attributes implements \Countable, \IteratorAggregate, \ArrayAccess
      * @param mixed $value
      * @return string|null
      */
-    private function castValueToString(string $key, $value)
+    private function castValueToString(string $key, $value): ?string
     {
         if (null === $value) {
             return null;
@@ -116,14 +116,14 @@ class Attributes implements \Countable, \IteratorAggregate, \ArrayAccess
     }
 
     #[\ReturnTypeWillChange]
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         $offset = strval($offset);
         $this->set($offset, $this->castValueToString($offset, $value));
     }
 
     #[\ReturnTypeWillChange]
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         $this->remove((string) $offset);
     }

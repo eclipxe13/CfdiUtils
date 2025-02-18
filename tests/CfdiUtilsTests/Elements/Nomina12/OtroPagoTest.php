@@ -21,18 +21,18 @@ final class OtroPagoTest extends TestCase
         $this->element = new OtroPago();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('nomina12:OtroPago', $this->element->getElementName());
     }
 
-    public function testChildrenOrder()
+    public function testChildrenOrder(): void
     {
         $expected = ['nomina12:SubsidioAlEmpleo', 'nomina12:CompensacionSaldosAFavor'];
         $this->assertSame($expected, $this->element->getChildrenOrder());
     }
 
-    public function testGetSubsidioAlEmpleo()
+    public function testGetSubsidioAlEmpleo(): void
     {
         $this->assertCount(0, $this->element->searchNodes('nomina12:SubsidioAlEmpleo'));
 
@@ -45,7 +45,7 @@ final class OtroPagoTest extends TestCase
         $this->assertSame($first, $second);
     }
 
-    public function testAddSubsidioAlEmpleo()
+    public function testAddSubsidioAlEmpleo(): void
     {
         // insert first element
         $first = $this->element->addSubsidioAlEmpleo(['id' => 'first']);
@@ -59,7 +59,7 @@ final class OtroPagoTest extends TestCase
         $this->assertSame('second', $first['id']);
     }
 
-    public function testGetCompensacionSaldosAFavor()
+    public function testGetCompensacionSaldosAFavor(): void
     {
         $this->assertCount(0, $this->element->searchNodes('nomina12:CompensacionSaldosAFavor'));
 
@@ -72,7 +72,7 @@ final class OtroPagoTest extends TestCase
         $this->assertSame($first, $second);
     }
 
-    public function testAddCompensacionSaldosAFavor()
+    public function testAddCompensacionSaldosAFavor(): void
     {
         // insert first element
         $first = $this->element->addCompensacionSaldosAFavor(['id' => 'first']);

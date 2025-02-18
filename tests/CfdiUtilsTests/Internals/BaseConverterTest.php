@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 final class BaseConverterTest extends TestCase
 {
-    public function testBasicFunctionality()
+    public function testBasicFunctionality(): void
     {
         $hexSequence = new BaseConverterSequence('0123456789ABCDEF');
         $converter = new BaseConverter($hexSequence);
@@ -19,7 +19,7 @@ final class BaseConverterTest extends TestCase
         $this->assertSame($expected, $converter->convert($input, 16, 2));
     }
 
-    public function testConvertEmptyString()
+    public function testConvertEmptyString(): void
     {
         $converter = BaseConverter::createBase36();
         $this->assertSame('0', $converter->convert('', 10, 2));
@@ -32,7 +32,7 @@ final class BaseConverterTest extends TestCase
      *           [1]
      *           [37]
      */
-    public function testInvalidFromBase(int $base)
+    public function testInvalidFromBase(int $base): void
     {
         $converter = BaseConverter::createBase36();
 
@@ -48,7 +48,7 @@ final class BaseConverterTest extends TestCase
      *           [1]
      *           [37]
      */
-    public function testInvalidToBase(int $base)
+    public function testInvalidToBase(int $base): void
     {
         $converter = BaseConverter::createBase36();
 
@@ -57,7 +57,7 @@ final class BaseConverterTest extends TestCase
         $converter->convert('', 16, $base);
     }
 
-    public function testConvertWithInputNotIsSequence()
+    public function testConvertWithInputNotIsSequence(): void
     {
         $converter = BaseConverter::createBase36();
         $this->expectException(\UnexpectedValueException::class);
@@ -65,7 +65,7 @@ final class BaseConverterTest extends TestCase
         $converter->convert('@', 16, 10);
     }
 
-    public function testConvertUsingLongInput()
+    public function testConvertUsingLongInput(): void
     {
         // this is the main reason to exists of BaseConverter class
         // since base_convert cannot handle large inputs
@@ -75,7 +75,7 @@ final class BaseConverterTest extends TestCase
         $this->assertSame($expected, $converter->convert($input, 16, 10));
     }
 
-    public function testConvertZeroUsingSameBase()
+    public function testConvertZeroUsingSameBase(): void
     {
         $input = '0000000';
         $expected = '0';
@@ -84,7 +84,7 @@ final class BaseConverterTest extends TestCase
         $this->assertSame($expected, $converter->convert($input, 2, 2));
     }
 
-    public function testConvertZeroUsingDifferentBase()
+    public function testConvertZeroUsingDifferentBase(): void
     {
         $input = '0000000';
         $expected = '0';
@@ -93,7 +93,7 @@ final class BaseConverterTest extends TestCase
         $this->assertSame($expected, $converter->convert($input, 2, 4));
     }
 
-    public function testConvertZeroUsingLettersSequence()
+    public function testConvertZeroUsingLettersSequence(): void
     {
         // base_convert(501020304050607, 8, 16) => 141083105187
         //        501020304050607

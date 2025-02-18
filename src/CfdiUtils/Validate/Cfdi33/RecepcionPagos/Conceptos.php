@@ -28,7 +28,7 @@ class Conceptos extends AbstractRecepcionPagos10
 
     public const REQUIRED_IMPORTE = '0';
 
-    public function validateRecepcionPagos(NodeInterface $comprobante, Asserts $asserts)
+    public function validateRecepcionPagos(NodeInterface $comprobante, Asserts $asserts): void
     {
         $assert = $asserts->put('PAGCON01', 'Se debe usar el concepto predefinido (CRP107 - CRP121)');
         // get conceptos
@@ -41,7 +41,7 @@ class Conceptos extends AbstractRecepcionPagos10
         $assert->setStatus(Status::ok());
     }
 
-    private function checkConceptos(NodeInterface $comprobante)
+    private function checkConceptos(NodeInterface $comprobante): void
     {
         $conceptos = $comprobante->searchNode('cfdi:Conceptos');
         if (null === $conceptos) {

@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 final class AssertTest extends TestCase
 {
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $assert = new Assert('X');
         $this->assertSame('X', $assert->getCode());
@@ -17,7 +17,7 @@ final class AssertTest extends TestCase
         $this->assertSame('', $assert->getExplanation());
     }
 
-    public function testConstructorWithValues()
+    public function testConstructorWithValues(): void
     {
         $assert = new Assert('CODE', 'Title', Status::ok(), 'Explanation');
         $this->assertSame('CODE', $assert->getCode());
@@ -26,20 +26,20 @@ final class AssertTest extends TestCase
         $this->assertSame('Explanation', $assert->getExplanation());
     }
 
-    public function testConstructWithEmptyStatusThrowException()
+    public function testConstructWithEmptyStatusThrowException(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         new Assert('');
     }
 
-    public function testSetTitle()
+    public function testSetTitle(): void
     {
         $assert = new Assert('X');
         $assert->setTitle('Title');
         $this->assertSame('Title', $assert->getTitle());
     }
 
-    public function testSetStatusWithoutExplanation()
+    public function testSetStatusWithoutExplanation(): void
     {
         $assert = new Assert('X');
         $assert->setExplanation('Explanation');
@@ -50,7 +50,7 @@ final class AssertTest extends TestCase
         $this->assertSame('Explanation', $assert->getExplanation());
     }
 
-    public function testSetStatusWithExplanation()
+    public function testSetStatusWithExplanation(): void
     {
         $assert = new Assert('X');
         $assert->setExplanation('Explanation');
@@ -61,14 +61,14 @@ final class AssertTest extends TestCase
         $this->assertSame('Changed explanation', $assert->getExplanation());
     }
 
-    public function testSetExplanation()
+    public function testSetExplanation(): void
     {
         $assert = new Assert('X');
         $assert->setTitle('Explanation');
         $this->assertSame('Explanation', $assert->getTitle());
     }
 
-    public function testToString()
+    public function testToString(): void
     {
         $assert = new Assert('CODE', 'Title', Status::ok());
         $value = (string) $assert;

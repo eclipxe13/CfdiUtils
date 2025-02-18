@@ -8,7 +8,7 @@ use DOMDocument;
 
 final class XmlTest extends TestCase
 {
-    public function testMethodNewDocumentContentWithInvalidXmlEncoding()
+    public function testMethodNewDocumentContentWithInvalidXmlEncoding(): void
     {
         $invalidXml = mb_convert_encoding('<e a="ñ"></e>', 'ISO-8859-1', 'UTF-8'); // the ñ is a special character
         $this->expectException(\UnexpectedValueException::class);
@@ -17,14 +17,14 @@ final class XmlTest extends TestCase
         Xml::newDocumentContent($invalidXml);
     }
 
-    public function testMethodDocumentElementWithoutRootElement()
+    public function testMethodDocumentElementWithoutRootElement(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('DOM Document does not have root element');
         Xml::documentElement(new DOMDocument());
     }
 
-    public function testMethodDocumentElementWithRootElement()
+    public function testMethodDocumentElementWithRootElement(): void
     {
         $document = new DOMDocument();
         $root = $document->createElement('root');
@@ -45,7 +45,7 @@ final class XmlTest extends TestCase
      *           ["&amp;copy;", "&copy;"]
      *           ["foo &amp; bar", "foo & bar"]
      */
-    public function testMethodCreateElement(string $expected, string $content)
+    public function testMethodCreateElement(string $expected, string $content): void
     {
         $elementName = 'element';
         $document = Xml::newDocument();
@@ -58,7 +58,7 @@ final class XmlTest extends TestCase
         );
     }
 
-    public function testMethodCreateElementWithBadName()
+    public function testMethodCreateElementWithBadName(): void
     {
         $document = Xml::newDocument();
         $this->expectException(\LogicException::class);
@@ -79,7 +79,7 @@ final class XmlTest extends TestCase
      *           ["&amp;copy;", "&copy;"]
      *           ["foo &amp; bar", "foo & bar"]
      */
-    public function testMethodCreateElementNs(string $expected, string $content)
+    public function testMethodCreateElementNs(string $expected, string $content): void
     {
         $prefix = 'foo';
         $namespaceURI = 'http://tempuri.org/';
@@ -94,7 +94,7 @@ final class XmlTest extends TestCase
         );
     }
 
-    public function testMethodCreateElementNsWithBadName()
+    public function testMethodCreateElementNsWithBadName(): void
     {
         $document = Xml::newDocument();
         $this->expectException(\LogicException::class);
@@ -102,7 +102,7 @@ final class XmlTest extends TestCase
         Xml::createElementNS($document, 'http://tempuri.org/', '');
     }
 
-    public function testMethodCreateElementNsWithBadUri()
+    public function testMethodCreateElementNsWithBadUri(): void
     {
         $document = Xml::newDocument();
         $this->expectException(\LogicException::class);

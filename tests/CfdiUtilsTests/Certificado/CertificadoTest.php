@@ -7,7 +7,7 @@ use CfdiUtilsTests\TestCase;
 
 final class CertificadoTest extends TestCase
 {
-    public function testConstructWithValidExample()
+    public function testConstructWithValidExample(): void
     {
         // information checked using
         // openssl x509 -nameopt utf8,sep_multiline,lname -inform DER -noout -dates -serial -subject \
@@ -51,7 +51,7 @@ final class CertificadoTest extends TestCase
         $this->assertSame($expectedPublicKey, $certificado->getPubkey());
     }
 
-    public function testVerifyWithKnownData()
+    public function testVerifyWithKnownData(): void
     {
         $dataFile = $this->utilAsset('certs/data-to-sign.txt');
         $signatureFile = $this->utilAsset('certs/data-sha256.bin');
@@ -66,7 +66,7 @@ final class CertificadoTest extends TestCase
         $this->assertTrue($verify);
     }
 
-    public function testConstructUsingPemContents()
+    public function testConstructUsingPemContents(): void
     {
         $pemfile = $this->utilAsset('certs/EKU9003173C9.cer.pem');
         $contents = file_get_contents($pemfile) ?: '';
@@ -77,7 +77,7 @@ final class CertificadoTest extends TestCase
         $this->assertSame($fromFile->getPemContents(), $fromContents->getPemContents());
     }
 
-    public function testVerifyWithInvalidData()
+    public function testVerifyWithInvalidData(): void
     {
         $dataFile = $this->utilAsset('certs/data-to-sign.txt');
         $signatureFile = $this->utilAsset('certs/data-sha256.bin');
@@ -92,7 +92,7 @@ final class CertificadoTest extends TestCase
         $this->assertFalse($verify);
     }
 
-    public function testConstructWithUnreadableFile()
+    public function testConstructWithUnreadableFile(): void
     {
         $badCertificateFile = $this->utilAsset('');
 
@@ -102,7 +102,7 @@ final class CertificadoTest extends TestCase
         new Certificado($badCertificateFile);
     }
 
-    public function testConstructWithEmptyFile()
+    public function testConstructWithEmptyFile(): void
     {
         $badCertificateFile = $this->utilAsset('empty.bin');
 
@@ -112,7 +112,7 @@ final class CertificadoTest extends TestCase
         new Certificado($badCertificateFile);
     }
 
-    public function testConstructWithNonExistentFile()
+    public function testConstructWithNonExistentFile(): void
     {
         $badCertificateFile = $this->utilAsset('file-does-not-exists');
 
@@ -122,7 +122,7 @@ final class CertificadoTest extends TestCase
         new Certificado($badCertificateFile);
     }
 
-    public function testConstructWithBadCertificate()
+    public function testConstructWithBadCertificate(): void
     {
         $badCertificateFile = $this->utilAsset('certs/certificate-with-error.pem');
 
@@ -132,7 +132,7 @@ final class CertificadoTest extends TestCase
         new Certificado($badCertificateFile);
     }
 
-    public function testConstructCertificateUsingPathThatIsBase64()
+    public function testConstructCertificateUsingPathThatIsBase64(): void
     {
         $workingdir = $this->utilAsset('certs/');
         $previousPath = getcwd();
@@ -145,14 +145,14 @@ final class CertificadoTest extends TestCase
         }
     }
 
-    public function testConstructWithDerCertificateContentsThrowsException()
+    public function testConstructWithDerCertificateContentsThrowsException(): void
     {
         $file = $this->utilAsset('certs/EKU9003173C9.cer');
         $this->expectException(\UnexpectedValueException::class);
         new Certificado(file_get_contents($file) ?: '');
     }
 
-    public function testBelogsToReturnsTrueWithItsCertificate()
+    public function testBelogsToReturnsTrueWithItsCertificate(): void
     {
         $certificateFile = $this->utilAsset('certs/EKU9003173C9.cer');
         $pemKeyFile = $this->utilAsset('certs/EKU9003173C9.key.pem');
@@ -160,7 +160,7 @@ final class CertificadoTest extends TestCase
         $this->assertTrue($certificate->belongsTo($pemKeyFile));
     }
 
-    public function testBelogsToReturnsFalseWithOtherKey()
+    public function testBelogsToReturnsFalseWithOtherKey(): void
     {
         // the cer file is different from previous test
         $certificateFile = $this->utilAsset('certs/CSD09_AAA010101AAA.cer');
@@ -169,7 +169,7 @@ final class CertificadoTest extends TestCase
         $this->assertFalse($certificate->belongsTo($pemKeyFile));
     }
 
-    public function testBelongsToWithPasswordProtectedFile()
+    public function testBelongsToWithPasswordProtectedFile(): void
     {
         $certificateFile = $this->utilAsset('certs/EKU9003173C9.cer');
         $pemKeyFile = $this->utilAsset('certs/EKU9003173C9_password.key.pem');
@@ -178,7 +178,7 @@ final class CertificadoTest extends TestCase
         $this->assertTrue($certificate->belongsTo($pemKeyFile, '12345678a'));
     }
 
-    public function testBelongsToWithPasswordProtectedFileButWrongPassword()
+    public function testBelongsToWithPasswordProtectedFileButWrongPassword(): void
     {
         $certificateFile = $this->utilAsset('certs/EKU9003173C9.cer');
         $pemKeyFile = $this->utilAsset('certs/EKU9003173C9_password.key.pem');
@@ -190,7 +190,7 @@ final class CertificadoTest extends TestCase
         $certificate->belongsTo($pemKeyFile, 'xxxxxxxxx');
     }
 
-    public function testBelongsToWithEmptyFile()
+    public function testBelongsToWithEmptyFile(): void
     {
         $certificateFile = $this->utilAsset('certs/EKU9003173C9.cer');
         $pemKeyFile = $this->utilAsset('empty.bin');
@@ -202,14 +202,14 @@ final class CertificadoTest extends TestCase
         $certificate->belongsTo($pemKeyFile);
     }
 
-    public function testCanReadRfcFromCertificateWhenX500UniqueIdentifierOnlyContainsRfcAndNoCurp()
+    public function testCanReadRfcFromCertificateWhenX500UniqueIdentifierOnlyContainsRfcAndNoCurp(): void
     {
         $certificateFile = $this->utilAsset('certs/00001000000301246267.cer');
         $certificate = new Certificado($certificateFile);
         $this->assertEquals('SOMG790807J57', $certificate->getRfc());
     }
 
-    public function testGetSerialObjectReturnsACopyOfTheObjectInsteadTheSameObject()
+    public function testGetSerialObjectReturnsACopyOfTheObjectInsteadTheSameObject(): void
     {
         // remove this test on version 3 when the object SerialNumber is immutable
         $certificateFile = $this->utilAsset('certs/EKU9003173C9.cer');

@@ -16,7 +16,7 @@ final class CuentaPredialTest extends TestCase
         $this->element = new CuentaPredial();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('cfdi:CuentaPredial', $this->element->getElementName());
     }

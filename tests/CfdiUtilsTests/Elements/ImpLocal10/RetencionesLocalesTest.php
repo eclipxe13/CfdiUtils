@@ -16,7 +16,7 @@ final class RetencionesLocalesTest extends TestCase
         $this->element = new RetencionesLocales();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('implocal:RetencionesLocales', $this->element->getElementName());
     }

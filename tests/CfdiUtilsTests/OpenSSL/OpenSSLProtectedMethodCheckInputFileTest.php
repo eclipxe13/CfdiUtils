@@ -11,7 +11,7 @@ final class OpenSSLProtectedMethodCheckInputFileTest extends TestCase
     private function openSSL(): object
     {
         return new class () extends OpenSSL {
-            public function checkInputFile(string $path)
+            public function checkInputFile(string $path): void
             {
                 parent::checkInputFile($path);
                 unset($path); // to avoid useless method overriding detected
@@ -19,34 +19,34 @@ final class OpenSSLProtectedMethodCheckInputFileTest extends TestCase
         };
     }
 
-    public function testValidInputFile()
+    public function testValidInputFile(): void
     {
         $this->openSSL()->checkInputFile(__FILE__);
         $this->assertTrue(true, 'No exception thrown'); /** @phpstan-ignore-line */
     }
 
-    public function testThrowExceptionUsingEmptyFileName()
+    public function testThrowExceptionUsingEmptyFileName(): void
     {
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('argument is empty');
         $this->openSSL()->checkInputFile('');
     }
 
-    public function testThrowExceptionUsingFileNonExistent()
+    public function testThrowExceptionUsingFileNonExistent(): void
     {
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('does not exists');
         $this->openSSL()->checkInputFile(__DIR__ . '/not-found');
     }
 
-    public function testThrowExceptionUsingDirectory()
+    public function testThrowExceptionUsingDirectory(): void
     {
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('is a directory');
         $this->openSSL()->checkInputFile(__DIR__);
     }
 
-    public function testThrowExceptionUsingZeroFile()
+    public function testThrowExceptionUsingZeroFile(): void
     {
         $tempfile = TemporaryFile::create();
         $this->expectException(\RuntimeException::class);

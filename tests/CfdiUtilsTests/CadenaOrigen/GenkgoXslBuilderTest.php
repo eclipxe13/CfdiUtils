@@ -13,9 +13,7 @@ final class GenkgoXslBuilderTest extends GenericBuilderTestCase
         parent::setUp();
         // IGNORE DEPRECATION ERRORS SINCE PHP 8.1
         if (PHP_VERSION_ID >= 80100) {
-            set_error_handler(function () {
-                return true;
-            }, E_DEPRECATED);
+            set_error_handler(fn (): bool => true, E_DEPRECATED);
         }
         if (! class_exists(XsltProcessor::class)) {
             $this->markTestSkipped('Genkgo/Xsl is not installed');

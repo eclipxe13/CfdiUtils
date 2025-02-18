@@ -9,19 +9,19 @@ use CfdiUtilsTests\TestCase;
 
 final class OpenSSLTest extends TestCase
 {
-    public function testCreateInstanceWithoutAnyArguments()
+    public function testCreateInstanceWithoutAnyArguments(): void
     {
         $openssl = new OpenSSL();
         $this->assertSame('openssl', $openssl->getOpenSSLCommand());
     }
 
-    public function testCreateInstanceWithCaller()
+    public function testCreateInstanceWithCaller(): void
     {
         $openssl = new OpenSSL('my-openssl-executable');
         $this->assertSame('my-openssl-executable', $openssl->getOpenSSLCommand());
     }
 
-    public function testReadPemFile()
+    public function testReadPemFile(): void
     {
         $pemcer = $this->utilAsset('certs/EKU9003173C9.cer.pem');
         $openssl = new OpenSSL();
@@ -31,7 +31,7 @@ final class OpenSSLTest extends TestCase
         $this->assertFalse($pem->hasPrivateKey());
     }
 
-    public function testCertificateConvertContentsDerToPem()
+    public function testCertificateConvertContentsDerToPem(): void
     {
         $openssl = new OpenSSL();
         $cerFile = $this->utilAsset('certs/EKU9003173C9.cer');
@@ -44,7 +44,7 @@ final class OpenSSLTest extends TestCase
         $this->assertSame($expected, $converted);
     }
 
-    public function testCertificateConvertFilesDerToPem()
+    public function testCertificateConvertFilesDerToPem(): void
     {
         $openssl = new OpenSSL();
         $keyFile = $this->utilAsset('certs/EKU9003173C9.cer');
@@ -57,7 +57,7 @@ final class OpenSSLTest extends TestCase
         $this->assertSame($expected, $converted);
     }
 
-    public function testPrivateKeyConvertDerToPem()
+    public function testPrivateKeyConvertDerToPem(): void
     {
         $openssl = new OpenSSL();
         $cerFile = $this->utilAsset('certs/EKU9003173C9.key');
@@ -69,7 +69,7 @@ final class OpenSSLTest extends TestCase
         $this->assertSame($expected, $converted, 'Converted key does not match');
     }
 
-    public function testPrivateKeyConvertDerToPemThrowsExceptionUsingInvalidPassPhrase()
+    public function testPrivateKeyConvertDerToPemThrowsExceptionUsingInvalidPassPhrase(): void
     {
         $openssl = new OpenSSL();
         $cerFile = $this->utilAsset('certs/EKU9003173C9.key');
@@ -92,7 +92,7 @@ final class OpenSSLTest extends TestCase
      * @param string $outPassPhrase
      * @dataProvider providerPrivateKeyProtectPem
      */
-    public function testPrivateKeyProtectPem(string $pemFile, string $inPassPhrase, string $outPassPhrase)
+    public function testPrivateKeyProtectPem(string $pemFile, string $inPassPhrase, string $outPassPhrase): void
     {
         $openssl = new OpenSSL();
         $pemFile = $this->utilAsset($pemFile);
@@ -109,7 +109,7 @@ final class OpenSSLTest extends TestCase
      * @testWith [""]
      *           ["foo-bar-baz"]
      */
-    public function testPrivateKeyProtectDer(string $outPassPhrase)
+    public function testPrivateKeyProtectDer(string $outPassPhrase): void
     {
         $derFile = 'certs/EKU9003173C9.key';
         $inPassPhrase = '12345678a';
@@ -122,7 +122,7 @@ final class OpenSSLTest extends TestCase
         $this->assertTrue($privateKey->open($outPassPhrase), 'Cannot open the generated private Key');
     }
 
-    public function testPrivateKeyUnprotectPem()
+    public function testPrivateKeyUnprotectPem(): void
     {
         $pemFile = $this->utilAsset('certs/EKU9003173C9_password.key.pem');
         $pemContents = strval(file_get_contents($pemFile));

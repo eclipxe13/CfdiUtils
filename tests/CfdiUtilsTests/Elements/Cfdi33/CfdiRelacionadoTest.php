@@ -16,7 +16,7 @@ final class CfdiRelacionadoTest extends TestCase
         $this->element = new CfdiRelacionado();
     }
 
-    public function testElementName()
+    public function testElementName(): void
     {
         $this->assertSame('cfdi:CfdiRelacionado', $this->element->getElementName());
     }

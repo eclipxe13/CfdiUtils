@@ -16,7 +16,7 @@ final class DescripcionesEspecificasTest extends TestCase
         $this->element = new DescripcionesEspecificas();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cce11:DescripcionesEspecificas', $this->element->getElementName());
     }

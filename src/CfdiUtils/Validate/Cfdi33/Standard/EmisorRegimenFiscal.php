@@ -17,7 +17,7 @@ use CfdiUtils\Validate\Status;
  */
 class EmisorRegimenFiscal extends AbstractDiscoverableVersion33
 {
-    public function validate(NodeInterface $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts): void
     {
         $regimenFiscal = $comprobante->searchAttribute('cfdi:Emisor', 'RegimenFiscal');
         $emisorRfc = $comprobante->searchAttribute('cfdi:Emisor', 'Rfc');

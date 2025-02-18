@@ -20,12 +20,12 @@ final class IncapacidadesTest extends TestCase
         $this->element = new Incapacidades();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('nomina12:Incapacidades', $this->element->getElementName());
     }
 
-    public function testAddIncapacidad()
+    public function testAddIncapacidad(): void
     {
         // insert first element
         $first = $this->element->addIncapacidad(['id' => 'first']);
@@ -39,7 +39,7 @@ final class IncapacidadesTest extends TestCase
         $this->assertCount(2, $this->element);
     }
 
-    public function testMultiIncapacidad()
+    public function testMultiIncapacidad(): void
     {
         // insert first element
         $incapacidades = $this->element->multiIncapacidad(

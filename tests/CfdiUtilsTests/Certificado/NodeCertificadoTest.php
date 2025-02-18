@@ -14,7 +14,7 @@ final class NodeCertificadoTest extends TestCase
         return new NodeCertificado(XmlNodeUtils::nodeFromXmlString($contents));
     }
 
-    public function testExtractWithWrongVersion()
+    public function testExtractWithWrongVersion(): void
     {
         $nodeCertificado = $this->createNodeCertificado(
             '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version="1.9.80"' . '/>'
@@ -25,7 +25,7 @@ final class NodeCertificadoTest extends TestCase
         $nodeCertificado->extract();
     }
 
-    public function testExtractWithEmptyCertificate()
+    public function testExtractWithEmptyCertificate(): void
     {
         $nodeCertificado = $this->createNodeCertificado(
             '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version="3.3"' . '/>'
@@ -34,7 +34,7 @@ final class NodeCertificadoTest extends TestCase
         $this->assertEmpty($nodeCertificado->extract());
     }
 
-    public function testExtractWithMalformedBase64()
+    public function testExtractWithMalformedBase64(): void
     {
         $nodeCertificado = $this->createNodeCertificado(
             '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version="3.3" Certificado="ñ"' . '/>'
@@ -45,7 +45,7 @@ final class NodeCertificadoTest extends TestCase
         $nodeCertificado->extract();
     }
 
-    public function testExtract()
+    public function testExtract(): void
     {
         $expectedExtract = 'foo';
 
@@ -56,7 +56,7 @@ final class NodeCertificadoTest extends TestCase
         $this->assertSame($expectedExtract, $nodeCertificado->extract());
     }
 
-    public function testSaveWithEmptyFilename()
+    public function testSaveWithEmptyFilename(): void
     {
         $nodeCertificado = $this->createNodeCertificado(
             '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version="3.3" Certificado="Zm9v"' . '/>'
@@ -67,7 +67,7 @@ final class NodeCertificadoTest extends TestCase
         $nodeCertificado->save('');
     }
 
-    public function testSaveWithEmptyCertificado()
+    public function testSaveWithEmptyCertificado(): void
     {
         $nodeCertificado = $this->createNodeCertificado(
             '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version="3.3"' . '/>'
@@ -78,7 +78,7 @@ final class NodeCertificadoTest extends TestCase
         $nodeCertificado->save(__DIR__);
     }
 
-    public function testSaveWithUnwritableFilename()
+    public function testSaveWithUnwritableFilename(): void
     {
         $nodeCertificado = $this->createNodeCertificado(
             '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version="3.3" Certificado="Zm9v"' . '/>'
@@ -89,7 +89,7 @@ final class NodeCertificadoTest extends TestCase
         $nodeCertificado->save(__DIR__);
     }
 
-    public function testSave()
+    public function testSave(): void
     {
         $nodeCertificado = $this->createNodeCertificado(
             '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version="3.3" Certificado="Zm9v"' . '/>'
@@ -101,7 +101,7 @@ final class NodeCertificadoTest extends TestCase
         $temporaryFile->remove();
     }
 
-    public function testObtain()
+    public function testObtain(): void
     {
         $cfdiSample = $this->utilAsset('cfdi32-real.xml');
         $nodeCertificado = $this->createNodeCertificado(strval(file_get_contents($cfdiSample)));

@@ -6,7 +6,7 @@ trait XmlStringPropertyTrait
 {
     private $xmlString = '';
 
-    public function setXmlString(string $xmlString)
+    public function setXmlString(string $xmlString): void
     {
         $this->xmlString = $xmlString;
     }

@@ -22,12 +22,12 @@ final class ComercioExteriorTest extends TestCase
         $this->element = new ComercioExterior();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cce11:ComercioExterior', $this->element->getElementName());
     }
 
-    public function testEmisor()
+    public function testEmisor(): void
     {
         // object is empty
         $this->assertCount(0, $this->element);
@@ -49,7 +49,7 @@ final class ComercioExteriorTest extends TestCase
         $this->assertSame('bar', $first['foo']);
     }
 
-    public function testReceptor()
+    public function testReceptor(): void
     {
         // object is empty
         $this->assertCount(0, $this->element);
@@ -71,7 +71,7 @@ final class ComercioExteriorTest extends TestCase
         $this->assertSame('bar', $first['foo']);
     }
 
-    public function testMercancias()
+    public function testMercancias(): void
     {
         // object is empty
         $this->assertCount(0, $this->element);
@@ -93,7 +93,7 @@ final class ComercioExteriorTest extends TestCase
         $this->assertSame('bar', $first['foo']);
     }
 
-    public function testPropietario()
+    public function testPropietario(): void
     {
         // object is empty
         $this->assertCount(0, $this->element);
@@ -111,7 +111,7 @@ final class ComercioExteriorTest extends TestCase
         $this->assertNotSame($first, $second);
     }
 
-    public function testDestinatario()
+    public function testDestinatario(): void
     {
         // object is empty
         $this->assertCount(0, $this->element);
@@ -129,7 +129,7 @@ final class ComercioExteriorTest extends TestCase
         $this->assertNotSame($first, $second);
     }
 
-    public function testAddMercancia()
+    public function testAddMercancia(): void
     {
         $mercancias = $this->element->getMercancias();
 
@@ -145,7 +145,7 @@ final class ComercioExteriorTest extends TestCase
         $this->assertSame($second, $mercancias->children()->get(1));
     }
 
-    public function testChildrenOrder()
+    public function testChildrenOrder(): void
     {
         // add in inverse order
         $this->element->getMercancias();

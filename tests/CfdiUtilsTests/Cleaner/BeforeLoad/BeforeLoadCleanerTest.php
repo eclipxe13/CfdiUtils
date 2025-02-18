@@ -8,19 +8,19 @@ use CfdiUtilsTests\TestCase;
 
 final class BeforeLoadCleanerTest extends TestCase
 {
-    public function testImplementsBeforeLoadCleanerInterface()
+    public function testImplementsBeforeLoadCleanerInterface(): void
     {
         $this->assertInstanceOf(BeforeLoadCleanerInterface::class, new BeforeLoadCleaner());
     }
 
-    public function testDefaultCleaners()
+    public function testDefaultCleaners(): void
     {
         $cleaner = new BeforeLoadCleaner();
         $this->assertEquals($cleaner->members(), BeforeLoadCleaner::defaultCleaners());
         $this->assertCount(2, $cleaner->members());
     }
 
-    public function testCleanCallsCleaners()
+    public function testCleanCallsCleaners(): void
     {
         $returnFoo = new class () implements BeforeLoadCleanerInterface {
             public function clean(string $content): string

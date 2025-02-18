@@ -18,7 +18,7 @@ use CfdiUtilsTests\Elements\ElementTestCase;
 
 final class RetencionesTest extends ElementTestCase
 {
-    public function testRetenciones()
+    public function testRetenciones(): void
     {
         $element = new Retenciones();
         $this->assertElementHasName($element, 'retenciones:Retenciones');
@@ -49,19 +49,19 @@ final class RetencionesTest extends ElementTestCase
         ]);
     }
 
-    public function testCfdiRetenRelacionados()
+    public function testCfdiRetenRelacionados(): void
     {
         $element = new CfdiRetenRelacionados();
         $this->assertElementHasName($element, 'retenciones:CfdiRetenRelacionados');
     }
 
-    public function testEmisor()
+    public function testEmisor(): void
     {
         $element = new Emisor();
         $this->assertElementHasName($element, 'retenciones:Emisor');
     }
 
-    public function testReceptor()
+    public function testReceptor(): void
     {
         $element = new Receptor();
         $this->assertElementHasName($element, 'retenciones:Receptor');
@@ -69,50 +69,50 @@ final class RetencionesTest extends ElementTestCase
         $this->assertElementHasChildSingle($element, Extranjero::class);
     }
 
-    public function testNacional()
+    public function testNacional(): void
     {
         $element = new Nacional();
         $this->assertElementHasName($element, 'retenciones:Nacional');
     }
 
-    public function testExtranjero()
+    public function testExtranjero(): void
     {
         $element = new Extranjero();
         $this->assertElementHasName($element, 'retenciones:Extranjero');
     }
 
-    public function testPeriodo()
+    public function testPeriodo(): void
     {
         $element = new Periodo();
         $this->assertElementHasName($element, 'retenciones:Periodo');
     }
 
-    public function testTotales()
+    public function testTotales(): void
     {
         $element = new Totales();
         $this->assertElementHasName($element, 'retenciones:Totales');
         $this->assertElementHasChildMultiple($element, ImpRetenidos::class);
     }
 
-    public function testImpRetenidos()
+    public function testImpRetenidos(): void
     {
         $element = new ImpRetenidos();
         $this->assertElementHasName($element, 'retenciones:ImpRetenidos');
     }
 
-    public function testComplemento()
+    public function testComplemento(): void
     {
         $element = new Complemento();
         $this->assertElementHasName($element, 'retenciones:Complemento');
     }
 
-    public function testAddenda()
+    public function testAddenda(): void
     {
         $element = new Addenda();
         $this->assertElementHasName($element, 'retenciones:Addenda');
     }
 
-    public function testShortcutRetencionImpRetenidos()
+    public function testShortcutRetencionImpRetenidos(): void
     {
         $element = new Retenciones();
 
@@ -134,9 +134,7 @@ final class RetencionesTest extends ElementTestCase
         $this->assertSame(
             ['1', '2', '3', '4'],
             array_map(
-                function (NodeInterface $element): string {
-                    return $element['id'];
-                },
+                fn (NodeInterface $element): string => $element['id'],
                 iterator_to_array($element->getTotales()->children())
             ),
             'All elements added should exists with expected values'

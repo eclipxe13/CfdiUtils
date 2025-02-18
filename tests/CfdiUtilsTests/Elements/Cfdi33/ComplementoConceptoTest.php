@@ -16,7 +16,7 @@ final class ComplementoConceptoTest extends TestCase
         $this->element = new ComplementoConcepto();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('cfdi:ComplementoConcepto', $this->element->getElementName());
     }

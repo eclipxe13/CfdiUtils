@@ -6,17 +6,13 @@ use JsonSerializable;
 
 final class Pago implements JsonSerializable
 {
-    /** @var Decimal */
-    private $monto;
+    private Decimal $monto;
 
-    /** @var Decimal */
-    private $montoMinimo;
+    private Decimal $montoMinimo;
 
-    /** @var Decimal */
-    private $tipoCambioP;
+    private Decimal $tipoCambioP;
 
-    /** @var Impuestos */
-    private $impuestos;
+    private Impuestos $impuestos;
 
     public function __construct(Decimal $monto, Decimal $montoMinimo, Decimal $tipoCambioP, Impuestos $impuestos)
     {

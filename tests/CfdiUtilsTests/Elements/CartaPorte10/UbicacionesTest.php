@@ -20,12 +20,12 @@ final class UbicacionesTest extends TestCase
         $this->element = new Ubicaciones();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cartaporte:Ubicaciones', $this->element->getElementName());
     }
 
-    public function testAddUbicacion()
+    public function testAddUbicacion(): void
     {
         // insert first element
         $first = $this->element->addUbicacion(['id' => 'first']);
@@ -39,7 +39,7 @@ final class UbicacionesTest extends TestCase
         $this->assertCount(2, $this->element);
     }
 
-    public function testMultiUbicacion()
+    public function testMultiUbicacion(): void
     {
         // insert first element
         $ubicaciones = $this->element->multiUbicacion(

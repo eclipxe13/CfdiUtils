@@ -16,7 +16,7 @@ final class DoctoRelacionadoTest extends TestCase
         $this->element = new DoctoRelacionado();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('pago10:DoctoRelacionado', $this->element->getElementName());
     }

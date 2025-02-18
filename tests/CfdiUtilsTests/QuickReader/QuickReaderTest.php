@@ -7,14 +7,14 @@ use PHPUnit\Framework\TestCase;
 
 final class QuickReaderTest extends TestCase
 {
-    public function testMinimalInstance()
+    public function testMinimalInstance(): void
     {
         $tree = new QuickReader('foo');
         $this->assertSame('foo', (string) $tree);
         $this->assertCount(0, $tree());
     }
 
-    public function testConstructorWithAttributes()
+    public function testConstructorWithAttributes(): void
     {
         $attributes = [
             'one' => '1',
@@ -27,7 +27,7 @@ final class QuickReaderTest extends TestCase
         $this->assertSame('2', $foo['two']);
     }
 
-    public function testConstructorWithChildren()
+    public function testConstructorWithChildren(): void
     {
         $children = [
             $bar = new QuickReader('bar'),
@@ -40,7 +40,7 @@ final class QuickReaderTest extends TestCase
         $this->assertSame($baz, $tree->baz);
     }
 
-    public function testGetNotExistentAttribute()
+    public function testGetNotExistentAttribute(): void
     {
         $foo = new QuickReader('foo');
 
@@ -49,7 +49,7 @@ final class QuickReaderTest extends TestCase
         $this->assertFalse(isset($foo['bar']));
     }
 
-    public function testAccessNonExistentPropertyReturnsANewChildWithPropertyName()
+    public function testAccessNonExistentPropertyReturnsANewChildWithPropertyName(): void
     {
         $foo = new QuickReader('foo');
 
@@ -60,7 +60,7 @@ final class QuickReaderTest extends TestCase
         $this->assertCount(0, $foo(), 'Calling a non existent property DOES NOT append a new child');
     }
 
-    public function testAccessInvokeReturnsAnArray()
+    public function testAccessInvokeReturnsAnArray(): void
     {
         $foo = new QuickReader('foo');
         $this->assertTrue(is_array($foo())); /** @phpstan-ignore-line */
@@ -70,7 +70,7 @@ final class QuickReaderTest extends TestCase
         $this->assertTrue(is_array(($foo->bar->xee)('zee')));
     }
 
-    public function testAccessInvokeReturnsAnArrayOfChildrenWithTheArgumentName()
+    public function testAccessInvokeReturnsAnArrayOfChildrenWithTheArgumentName(): void
     {
         $manyBaz = [
             $firstBaz = new QuickReader('baz'),
@@ -92,7 +92,7 @@ final class QuickReaderTest extends TestCase
         $this->assertCount(3, $obtainedBaz, 'Assert that contains only 3 baz children');
     }
 
-    public function testPropertyGetWithDifferentCaseStillWorks()
+    public function testPropertyGetWithDifferentCaseStillWorks(): void
     {
         $bar = new QuickReader('bar');
         $foo = new QuickReader('foo', [], [$bar]);
@@ -110,7 +110,7 @@ final class QuickReaderTest extends TestCase
         $this->assertTrue(isset($foo->bAR));
     }
 
-    public function testAttributeGetWithDifferentCaseStillWorks()
+    public function testAttributeGetWithDifferentCaseStillWorks(): void
     {
         $foo = new QuickReader('foo', ['bar' => 'México']);
 
@@ -124,7 +124,7 @@ final class QuickReaderTest extends TestCase
         $this->assertTrue(isset($foo['BAR']));
     }
 
-    public function testInvokeWithDifferentChildNamesCase()
+    public function testInvokeWithDifferentChildNamesCase(): void
     {
         $fooA = new QuickReader('foo');
         $fooB = new QuickReader('Foo');
@@ -135,21 +135,21 @@ final class QuickReaderTest extends TestCase
         $this->assertCount(3, $root('fOO'));
     }
 
-    public function testConstructThrowExceptionOnEmptyName()
+    public function testConstructThrowExceptionOnEmptyName(): void
     {
         $this->expectException(\LogicException::class);
         $this->expectExceptionMessage('Property name cannot be empty');
         new QuickReader('');
     }
 
-    public function testConstructThrowExceptionOnInvalidAttributeName()
+    public function testConstructThrowExceptionOnInvalidAttributeName(): void
     {
         $this->expectException(\LogicException::class);
         $this->expectExceptionMessage('There is an attibute with empty or non string name');
         new QuickReader('foo', ['x' => 'y', '' => 'bar']);
     }
 
-    public function testConstructThrowExceptionOnInvalidAttributeValue()
+    public function testConstructThrowExceptionOnInvalidAttributeValue(): void
     {
         $this->expectException(\LogicException::class);
         $this->expectExceptionMessage("The attribute 'bar' has a non string value");
@@ -157,7 +157,7 @@ final class QuickReaderTest extends TestCase
         new QuickReader('foo', ['x' => 'y', 'bar' => $fakeString]); /** @phpstan-ignore-line */
     }
 
-    public function testConstructThrowExceptionOnInvalidChildren()
+    public function testConstructThrowExceptionOnInvalidChildren(): void
     {
         $this->expectException(\LogicException::class);
         $this->expectExceptionMessage('The child 1 is not an instance');
@@ -166,14 +166,14 @@ final class QuickReaderTest extends TestCase
         new QuickReader('foo', [], [new QuickReader('1'), $fakeQuickReader]);
     }
 
-    public function testCannotSetNewProperties()
+    public function testCannotSetNewProperties(): void
     {
         $quickReader = new QuickReader('foo');
         $this->expectException(\LogicException::class);
         $quickReader->foo = new QuickReader('xee');
     }
 
-    public function testReadFalsyAttributes()
+    public function testReadFalsyAttributes(): void
     {
         $quickReader = new QuickReader('foo', [
             'zero' => '0',

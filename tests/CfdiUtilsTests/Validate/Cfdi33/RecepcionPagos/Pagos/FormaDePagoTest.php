@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class FormaDePagoTest extends TestCase
 {
-    public function testValid()
+    public function testValid(): void
     {
         $pago = new Pago([
             'FormaDePagoP' => '23',
@@ -25,7 +25,7 @@ final class FormaDePagoTest extends TestCase
      *           [""]
      *           ["99"]
      */
-    public function testInvalid(?string $formaPago)
+    public function testInvalid(?string $formaPago): void
     {
         $pago = new Pago([
             'FormaDePagoP' => $formaPago,

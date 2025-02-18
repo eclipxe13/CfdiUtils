@@ -16,7 +16,7 @@ final class CfdiRelacionadosTest extends ValidateComplementoPagosTestCase
         $this->validator = new CfdiRelacionados();
     }
 
-    public function testValidTipoRelacion()
+    public function testValidTipoRelacion(): void
     {
         $comprobante = $this->getComprobante();
         $comprobante->addCfdiRelacionados(['TipoRelacion' => '04']);
@@ -26,7 +26,7 @@ final class CfdiRelacionadosTest extends ValidateComplementoPagosTestCase
         $this->assertStatusEqualsCode(Status::ok(), 'PAGREL01');
     }
 
-    public function testInvalidTipoRelacion()
+    public function testInvalidTipoRelacion(): void
     {
         $comprobante = $this->getComprobante();
         $comprobante->addCfdiRelacionados(['TipoRelacion' => 'XX']);
@@ -36,7 +36,7 @@ final class CfdiRelacionadosTest extends ValidateComplementoPagosTestCase
         $this->assertStatusEqualsCode(Status::error(), 'PAGREL01');
     }
 
-    public function testWithoutCfdiRelacionados()
+    public function testWithoutCfdiRelacionados(): void
     {
         $this->runValidate();
 

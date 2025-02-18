@@ -6,7 +6,7 @@ use CfdiUtils\CfdiCreator33;
 
 final class CfdiCreatorToStringTest extends TestCase
 {
-    public function testWhenCastingToStringWithExceptionOnlyReturnsAnEmptyString()
+    public function testWhenCastingToStringWithExceptionOnlyReturnsAnEmptyString(): void
     {
         /** @var CfdiCreator33&\PHPUnit\Framework\MockObject\MockObject $cfdiCreator */
         $cfdiCreator = $this->getMockBuilder(CfdiCreator33::class)
@@ -18,7 +18,7 @@ final class CfdiCreatorToStringTest extends TestCase
         $this->assertSame('', (string)$cfdiCreator);
     }
 
-    public function testCastToStringReturnAValidXml()
+    public function testCastToStringReturnAValidXml(): void
     {
         $cfdiCreator = new CfdiCreator33();
         $xml = $cfdiCreator->asXml();

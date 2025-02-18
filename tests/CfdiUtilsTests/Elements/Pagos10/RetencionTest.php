@@ -16,7 +16,7 @@ final class RetencionTest extends TestCase
         $this->element = new Retencion();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('pago10:Retencion', $this->element->getElementName());
     }

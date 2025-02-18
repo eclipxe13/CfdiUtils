@@ -18,7 +18,7 @@ final class BancoOrdenanteNombreRequeridoTest extends TestCase
      *           [null, "Foreign bank"]
      *           [null, null]
      */
-    public function testValid(?string $rfc, ?string $name)
+    public function testValid(?string $rfc, ?string $name): void
     {
         $pago = new Pago([
             'RfcEmisorCtaOrd' => $rfc,
@@ -35,7 +35,7 @@ final class BancoOrdenanteNombreRequeridoTest extends TestCase
      * @testWith ["XEXX010101000", ""]
      *           ["XEXX010101000", null]
      */
-    public function testInvalid(string $rfc, ?string $name)
+    public function testInvalid(string $rfc, ?string $name): void
     {
         $pago = new Pago([
             'RfcEmisorCtaOrd' => $rfc,

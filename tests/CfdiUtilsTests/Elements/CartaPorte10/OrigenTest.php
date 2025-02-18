@@ -19,7 +19,7 @@ final class OrigenTest extends TestCase
         $this->element = new Origen();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cartaporte:Origen', $this->element->getElementName());
     }

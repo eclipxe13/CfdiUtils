@@ -16,7 +16,7 @@ final class TrasladoTest extends TestCase
         $this->element = new Traslado();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('cfdi:Traslado', $this->element->getElementName());
     }

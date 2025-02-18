@@ -7,11 +7,9 @@ use CfdiUtils\Nodes\Nodes;
 
 class Calculator
 {
-    /** @var int */
-    private $paymentTaxesPrecision;
+    private int $paymentTaxesPrecision;
 
-    /** @var Currencies */
-    private $currencies;
+    private Currencies $currencies;
 
     public function __construct(int $paymentTaxesPrecision = 6, ?Currencies $currencies = null)
     {

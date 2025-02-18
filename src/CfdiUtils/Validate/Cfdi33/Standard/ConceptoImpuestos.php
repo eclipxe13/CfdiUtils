@@ -23,7 +23,7 @@ use CfdiUtils\Validate\Status;
  */
 class ConceptoImpuestos extends AbstractDiscoverableVersion33
 {
-    private function registerAsserts(Asserts $asserts)
+    private function registerAsserts(Asserts $asserts): void
     {
         $assertDescriptions = [
             'CONCEPIMPC01' => 'El nodo impuestos de un concepto debe incluir traslados y/o retenciones (CFDI33152)',
@@ -43,7 +43,7 @@ class ConceptoImpuestos extends AbstractDiscoverableVersion33
         }
     }
 
-    public function validate(NodeInterface $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts): void
     {
         $this->registerAsserts($asserts);
 

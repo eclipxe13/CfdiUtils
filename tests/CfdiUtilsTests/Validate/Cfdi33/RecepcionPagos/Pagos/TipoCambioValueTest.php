@@ -15,7 +15,7 @@ final class TipoCambioValueTest extends TestCase
      *           ["18.5623"]
      *           [null]
      */
-    public function testValid(?string $exchangerate)
+    public function testValid(?string $exchangerate): void
     {
         $pago = new Pago([
             'TipoCambioP' => $exchangerate,
@@ -32,7 +32,7 @@ final class TipoCambioValueTest extends TestCase
      *           ["not numeric"]
      *           [""]
      */
-    public function testInvalid(string $exchangerate)
+    public function testInvalid(string $exchangerate): void
     {
         $pago = new Pago([
             'TipoCambioP' => $exchangerate,

@@ -16,7 +16,7 @@ final class EmisorTest extends TestCase
         $this->element = new Emisor();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('retenciones:Emisor', $this->element->getElementName());
     }

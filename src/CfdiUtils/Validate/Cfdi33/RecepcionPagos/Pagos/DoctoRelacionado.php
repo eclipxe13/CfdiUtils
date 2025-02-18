@@ -8,7 +8,7 @@ use CfdiUtils\Validate\Asserts;
 class DoctoRelacionado extends AbstractPagoValidator
 {
     /** @var DoctoRelacionado\AbstractDoctoRelacionadoValidator[] */
-    protected $validators;
+    protected array $validators;
 
     public function __construct()
     {
@@ -18,7 +18,7 @@ class DoctoRelacionado extends AbstractPagoValidator
     /**
      * @return DoctoRelacionado\AbstractDoctoRelacionadoValidator[]
      */
-    public function getValidators()
+    public function getValidators(): array
     {
         return $this->validators;
     }
@@ -26,7 +26,7 @@ class DoctoRelacionado extends AbstractPagoValidator
     /**
      * @return DoctoRelacionado\AbstractDoctoRelacionadoValidator[]
      */
-    public function createValidators()
+    public function createValidators(): array
     {
         return [
             new DoctoRelacionado\Moneda(), // PAGO23
@@ -44,7 +44,7 @@ class DoctoRelacionado extends AbstractPagoValidator
     }
 
     // override registerInAssets to add validators instead of itself
-    public function registerInAssets(Asserts $asserts)
+    public function registerInAssets(Asserts $asserts): void
     {
         foreach ($this->validators as $validator) {
             $validator->registerInAssets($asserts);

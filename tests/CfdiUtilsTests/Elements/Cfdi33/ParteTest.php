@@ -16,7 +16,7 @@ final class ParteTest extends TestCase
         $this->element = new Parte();
     }
 
-    public function testElementName()
+    public function testElementName(): void
     {
         $this->assertSame('cfdi:Parte', $this->element->getElementName());
     }

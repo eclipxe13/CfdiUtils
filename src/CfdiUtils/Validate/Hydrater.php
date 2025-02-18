@@ -18,7 +18,7 @@ class Hydrater implements XmlResolverPropertyInterface, XsltBuilderPropertyInter
     use XmlStringPropertyTrait;
     use XsltBuilderPropertyTrait;
 
-    public function hydrate(ValidatorInterface $validator)
+    public function hydrate(ValidatorInterface $validator): void
     {
         if ($validator instanceof RequireXmlStringInterface) {
             $validator->setXmlString($this->getXmlString());

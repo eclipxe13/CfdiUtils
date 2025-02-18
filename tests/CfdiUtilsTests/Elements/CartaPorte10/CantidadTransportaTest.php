@@ -19,7 +19,7 @@ final class CantidadTransportaTest extends TestCase
         $this->element = new CantidadTransporta();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cartaporte:CantidadTransporta', $this->element->getElementName());
     }

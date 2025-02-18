@@ -4,11 +4,9 @@ namespace CfdiUtils\Utils;
 
 class CurrencyDecimals
 {
-    /** @var string */
-    private $currency;
+    private string $currency;
 
-    /** @var int */
-    private $decimals;
+    private int $decimals;
 
     public function __construct(string $currency, int $decimals)
     {

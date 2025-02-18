@@ -29,7 +29,7 @@ final class SatCertificateNumberTest extends TestCase
      * @param string $value
      * @dataProvider providerValidNumbers
      */
-    public function testIsValidCertificateNumberWithCorrectValues(string $value)
+    public function testIsValidCertificateNumberWithCorrectValues(string $value): void
     {
         $this->assertSame(true, SatCertificateNumber::isValidCertificateNumber($value));
         $number = new SatCertificateNumber($value);
@@ -41,7 +41,7 @@ final class SatCertificateNumberTest extends TestCase
      * @param string $value
      * @dataProvider providerInvalidNumbers
      */
-    public function testIsValidCertificateNumberWithIncorrectValues(string $value)
+    public function testIsValidCertificateNumberWithIncorrectValues(string $value): void
     {
         $this->assertSame(false, SatCertificateNumber::isValidCertificateNumber($value));
 

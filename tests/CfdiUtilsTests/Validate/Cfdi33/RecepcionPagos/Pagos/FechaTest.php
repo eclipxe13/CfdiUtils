@@ -10,7 +10,7 @@ use CfdiUtilsTests\Validate\Validate33TestCase;
 
 final class FechaTest extends Validate33TestCase
 {
-    public function testValid()
+    public function testValid(): void
     {
         $pagoNode = new Pago([
             'FechaPago' => Format::datetime(time()),
@@ -28,7 +28,7 @@ final class FechaTest extends Validate33TestCase
      *           ["not a date"]
      *           ["2018-01-01"]
      */
-    public function testInvalid(?string $fechaPago)
+    public function testInvalid(?string $fechaPago): void
     {
         $pagoNode = new Pago([
             'FechaPago' => $fechaPago,

@@ -17,12 +17,12 @@ final class RetencionesTest extends TestCase
         $this->element = new Retenciones();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('pago10:Retenciones', $this->element->getElementName());
     }
 
-    public function testAddRetencion()
+    public function testAddRetencion(): void
     {
         $parent = $this->element;
 
@@ -43,7 +43,7 @@ final class RetencionesTest extends TestCase
         $this->assertNotSame($first, $second);
     }
 
-    public function testMultiRetencion()
+    public function testMultiRetencion(): void
     {
         $node = $this->element;
         $this->assertCount(0, $node);

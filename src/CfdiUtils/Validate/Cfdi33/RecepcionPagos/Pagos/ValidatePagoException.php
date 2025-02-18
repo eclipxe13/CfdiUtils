@@ -6,7 +6,7 @@ use CfdiUtils\Validate\Status;
 
 class ValidatePagoException extends \Exception
 {
-    private $status;
+    private ?Status $status = null;
 
     public function getStatus(): Status
     {

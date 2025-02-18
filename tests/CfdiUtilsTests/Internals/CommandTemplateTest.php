@@ -25,7 +25,7 @@ final class CommandTemplateTest extends TestCase
      * @param array $expected
      * @dataProvider providerTemplateCommandToArrayArguments
      */
-    public function testCreateCommandFromTemplate(string $template, array $arguments, array $expected)
+    public function testCreateCommandFromTemplate(string $template, array $arguments, array $expected): void
     {
         $builder = new CommandTemplate();
 

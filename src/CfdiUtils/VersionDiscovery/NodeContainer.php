@@ -6,8 +6,7 @@ use CfdiUtils\Nodes\NodeInterface;
 
 class NodeContainer implements ContainerWithAttributeInterface
 {
-    /** @var NodeInterface */
-    private $node;
+    private NodeInterface $node;
 
     public function __construct(NodeInterface $node)
     {

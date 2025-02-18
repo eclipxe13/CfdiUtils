@@ -16,7 +16,7 @@ final class TrasladosLocalesTest extends TestCase
         $this->element = new TrasladosLocales();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('implocal:TrasladosLocales', $this->element->getElementName());
     }

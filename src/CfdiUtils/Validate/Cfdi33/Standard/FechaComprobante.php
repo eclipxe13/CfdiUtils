@@ -20,11 +20,10 @@ use CfdiUtils\Validate\Status;
  */
 class FechaComprobante extends AbstractDiscoverableVersion33
 {
-    /** @var int|null */
-    private $maximumDate;
+    private ?int $maximumDate = null;
 
     /** @var int Tolerancia en segundos */
-    private $tolerance = 300;
+    private int $tolerance = 300;
 
     public function getMinimumDate(): int
     {
@@ -39,7 +38,7 @@ class FechaComprobante extends AbstractDiscoverableVersion33
         return $this->maximumDate;
     }
 
-    public function setMaximumDate(?int $maximumDate = null)
+    public function setMaximumDate(?int $maximumDate = null): void
     {
         $this->maximumDate = $maximumDate;
     }
@@ -49,12 +48,12 @@ class FechaComprobante extends AbstractDiscoverableVersion33
         return $this->tolerance;
     }
 
-    public function setTolerance(int $tolerance)
+    public function setTolerance(int $tolerance): void
     {
         $this->tolerance = $tolerance;
     }
 
-    public function validate(NodeInterface $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts): void
     {
         $fechaSource = $comprobante['Fecha'];
         $hasFormat = AssertFechaFormat::assertFormat($asserts, 'FECHA01', 'del comprobante', $fechaSource);

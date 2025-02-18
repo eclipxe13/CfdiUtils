@@ -9,7 +9,7 @@ use Eclipxe\XmlResourceRetriever\Downloader\DownloaderInterface;
 
 final class XmlResolverTest extends TestCase
 {
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $resolver = new XmlResolver();
         $this->assertEquals($resolver->defaultLocalPath(), $resolver->getLocalPath());
@@ -17,7 +17,7 @@ final class XmlResolverTest extends TestCase
         $this->assertInstanceOf(DownloaderInterface::class, $resolver->getDownloader());
     }
 
-    public function testSetLocalPath()
+    public function testSetLocalPath(): void
     {
         $default = XmlResolver::defaultLocalPath();
         $customPath = '/temporary/resources/';
@@ -43,7 +43,7 @@ final class XmlResolverTest extends TestCase
         $this->assertTrue($resolver->hasLocalPath());
     }
 
-    public function testRetrieveWithoutLocalPath()
+    public function testRetrieveWithoutLocalPath(): void
     {
         $resolver = new XmlResolver('');
         $this->assertFalse($resolver->hasLocalPath());
@@ -58,7 +58,7 @@ final class XmlResolverTest extends TestCase
      * http://www.sat.gob.mx/sitio_internet/cfd/3/cadenaoriginal_3_3/cadenaoriginal_3_3.xslt
      * and all its relatives and put it in the default path of XmlResolver (project root + build + resources)
      */
-    public function testRetrieveWithDefaultLocalPath()
+    public function testRetrieveWithDefaultLocalPath(): void
     {
         $resolver = new XmlResolver();
         $this->assertTrue($resolver->hasLocalPath());
@@ -70,7 +70,7 @@ final class XmlResolverTest extends TestCase
         $this->assertFileExists($localResource);
     }
 
-    public function testResolveThrowsExceptionWhenUnknownResourceIsSet()
+    public function testResolveThrowsExceptionWhenUnknownResourceIsSet(): void
     {
         $resolver = new XmlResolver();
 
@@ -97,13 +97,13 @@ final class XmlResolverTest extends TestCase
      * @param string $expectedType
      * @dataProvider providerObtainTypeFromUrl
      */
-    public function testObtainTypeFromUrl(string $url, string $expectedType)
+    public function testObtainTypeFromUrl(string $url, string $expectedType): void
     {
         $resolver = new XmlResolver();
         $this->assertEquals($expectedType, $resolver->obtainTypeFromUrl($url));
     }
 
-    public function testResolveCerFileWithExistentFile()
+    public function testResolveCerFileWithExistentFile(): void
     {
         // preinstall certificate to avoid the download
         $localPath = $this->installCertificate($this->utilAsset('certs/20001000000300022779.cer'));
@@ -115,7 +115,7 @@ final class XmlResolverTest extends TestCase
 
         // this downloader will throw an exception if downloadTo is called
         $nullDownloader = new class () implements DownloaderInterface {
-            public function downloadTo(string $source, string $destination)
+            public function downloadTo(string $source, string $destination): void
             {
                 throw new \RuntimeException("$source will not be downloaded to $destination");
             }

@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 final class CalculateDocumentAmountTraitTest extends TestCase
 {
-    public function testCalculateDocumentAmountWhenIsSet()
+    public function testCalculateDocumentAmountWhenIsSet(): void
     {
         $validator = new CalculateDocumentAmountUse();
         $amount = $validator->calculateDocumentAmount(new DoctoRelacionado([
@@ -18,7 +18,7 @@ final class CalculateDocumentAmountTraitTest extends TestCase
         $this->assertEqualsWithDelta(123.45, $amount, 0.001);
     }
 
-    public function testCalculateDocumentAmountWhenIsUndefined()
+    public function testCalculateDocumentAmountWhenIsUndefined(): void
     {
         $pago = new Pago(['Monto' => '123.45']);
         $docto = $pago->addDoctoRelacionado();
@@ -29,7 +29,7 @@ final class CalculateDocumentAmountTraitTest extends TestCase
         $this->assertEqualsWithDelta(123.45, $amount, 0.001);
     }
 
-    public function testCalculateDocumentAmountWhenIsUndefinedWithExchangeRate()
+    public function testCalculateDocumentAmountWhenIsUndefinedWithExchangeRate(): void
     {
         $pago = new Pago(['Monto' => '123.45']);
         $docto = $pago->addDoctoRelacionado(['TipoCambioDR' => 'EUR']);
@@ -40,7 +40,7 @@ final class CalculateDocumentAmountTraitTest extends TestCase
         $this->assertEqualsWithDelta(0, $amount, 0.001);
     }
 
-    public function testCalculateDocumentAmountWhenIsUndefinedWithMoreDocuments()
+    public function testCalculateDocumentAmountWhenIsUndefinedWithMoreDocuments(): void
     {
         $pago = new Pago(['Monto' => '123.45']);
         $pago->addDoctoRelacionado(); // first

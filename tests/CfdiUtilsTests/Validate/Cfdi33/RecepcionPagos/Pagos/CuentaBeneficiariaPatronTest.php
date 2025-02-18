@@ -14,7 +14,7 @@ final class CuentaBeneficiariaPatronTest extends TestCase
      * @testWith ["1234567890123456"]
      *           [null]
      */
-    public function testValid(?string $input)
+    public function testValid(?string $input): void
     {
         $pago = new Pago([
             'FormaDePagoP' => '04', // require a pattern of 16 digits
@@ -29,7 +29,7 @@ final class CuentaBeneficiariaPatronTest extends TestCase
      * @testWith ["1"]
      *           [""]
      */
-    public function testInvalid(string $input)
+    public function testInvalid(string $input): void
     {
         $pago = new Pago([
             'FormaDePagoP' => '04', // require a pattern of 16 digits

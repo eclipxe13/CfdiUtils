@@ -10,17 +10,13 @@ class Certificado
 {
     use OpenSSLPropertyTrait;
 
-    /** @var string */
-    private $rfc;
+    private string $rfc;
 
-    /** @var string */
-    private $certificateName;
+    private string $certificateName;
 
-    /** @var string */
-    private $name;
+    private string $name;
 
-    /** @var SerialNumber */
-    private $serial;
+    private SerialNumber $serial;
 
     /** @var int */
     private $validFrom;
@@ -28,14 +24,11 @@ class Certificado
     /** @var int */
     private $validTo;
 
-    /** @var string */
-    private $pubkey;
+    private string $pubkey;
 
-    /** @var string */
-    private $filename;
+    private string $filename;
 
-    /** @var string */
-    private $pemContents;
+    private string $pemContents;
 
     /** @var string|null */
     private $nameWithoutRegimenCapitalSuffix;

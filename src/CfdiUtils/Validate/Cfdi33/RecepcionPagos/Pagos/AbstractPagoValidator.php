@@ -27,7 +27,7 @@ abstract class AbstractPagoValidator
         return $this->title;
     }
 
-    public function registerInAssets(Asserts $asserts)
+    public function registerInAssets(Asserts $asserts): void
     {
         $asserts->put($this->getCode(), $this->getTitle(), Status::ok());
     }

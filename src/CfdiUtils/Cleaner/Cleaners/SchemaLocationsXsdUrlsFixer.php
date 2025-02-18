@@ -17,8 +17,7 @@ use DOMAttr;
  */
 final class SchemaLocationsXsdUrlsFixer
 {
-    /** @var StringUncaseReplacer */
-    private $replacer;
+    private StringUncaseReplacer $replacer;
 
     /**
      * Create a new instance based on a map using keys as replacement and values as an array of needles
@@ -53,7 +52,7 @@ final class SchemaLocationsXsdUrlsFixer
         ]);
     }
 
-    public function fixSchemaLocationAttribute(DOMAttr $xsiSchemaLocation)
+    public function fixSchemaLocationAttribute(DOMAttr $xsiSchemaLocation): void
     {
         $schemas = SchemaLocations::fromString($xsiSchemaLocation->value, false);
         $this->fixSchemaLocations($schemas);
@@ -63,7 +62,7 @@ final class SchemaLocationsXsdUrlsFixer
         }
     }
 
-    public function fixSchemaLocations(SchemaLocations $schemaLocations)
+    public function fixSchemaLocations(SchemaLocations $schemaLocations): void
     {
         foreach ($schemaLocations as $ns => $url) {
             $url = $this->replacer->findReplacement($url) ?: $url;

@@ -21,7 +21,7 @@ abstract class ValidateComplementoPagosTestCase extends Validate33TestCase
         $comprobante->addComplemento($this->complemento);
     }
 
-    public function testWithoutComplementoDidNotCreateAnyAssertion()
+    public function testWithoutComplementoDidNotCreateAnyAssertion(): void
     {
         $this->getComprobante()->children()->removeAll();
         $this->runValidate();

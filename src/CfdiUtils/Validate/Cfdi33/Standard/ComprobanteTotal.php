@@ -15,7 +15,7 @@ use CfdiUtils\Validate\Status;
  */
 class ComprobanteTotal extends AbstractDiscoverableVersion33
 {
-    public function validate(NodeInterface $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts): void
     {
         $pattern = '/^[0-9]+(\.[0-9]+)?$/';
         $asserts->put(

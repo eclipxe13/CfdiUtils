@@ -13,10 +13,9 @@ use Traversable;
 class Nodes implements Countable, IteratorAggregate
 {
     /** @var NodeInterface[] */
-    private $nodes = [];
+    private array $nodes = [];
 
-    /** @var NodesSorter */
-    private $sorter;
+    private NodesSorter $sorter;
 
     /**
      * Nodes constructor.
@@ -43,7 +42,7 @@ class Nodes implements Countable, IteratorAggregate
         return $this;
     }
 
-    public function order()
+    public function order(): void
     {
         $this->nodes = $this->sorter->sort($this->nodes);
     }
@@ -52,7 +51,7 @@ class Nodes implements Countable, IteratorAggregate
      * It takes only the unique string names and sort using the order of appearance
      * @param string[] $names
      */
-    public function setOrder(array $names)
+    public function setOrder(array $names): void
     {
         if ($this->sorter->setOrder($names)) {
             $this->order();

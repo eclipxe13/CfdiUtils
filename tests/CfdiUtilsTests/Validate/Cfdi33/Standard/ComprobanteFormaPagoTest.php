@@ -18,20 +18,20 @@ final class ComprobanteFormaPagoTest extends Validate33TestCase
         $this->validator = new ComprobanteFormaPago();
     }
 
-    public function testValidateNothingWhenNotFormaPagoAndNotComplementoPago()
+    public function testValidateNothingWhenNotFormaPagoAndNotComplementoPago(): void
     {
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::none(), 'FORMAPAGO01');
     }
 
-    public function testValidateNothingWhenFormaPagoAndNotComplementoPago()
+    public function testValidateNothingWhenFormaPagoAndNotComplementoPago(): void
     {
         $this->comprobante['FormaPago'] = '01'; // efectivo
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::none(), 'FORMAPAGO01');
     }
 
-    public function testValidateOkWhenNotFormaPagoAndComplementoPago()
+    public function testValidateOkWhenNotFormaPagoAndComplementoPago(): void
     {
         $this->comprobante
             ->addChild(new Node('cfdi:Complemento'))
@@ -41,7 +41,7 @@ final class ComprobanteFormaPagoTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::ok(), 'FORMAPAGO01');
     }
 
-    public function testValidateErrorWhenFormaPagoAndComplementoPago()
+    public function testValidateErrorWhenFormaPagoAndComplementoPago(): void
     {
         $this->comprobante['FormaPago'] = '01'; // efectivo
         $this->comprobante

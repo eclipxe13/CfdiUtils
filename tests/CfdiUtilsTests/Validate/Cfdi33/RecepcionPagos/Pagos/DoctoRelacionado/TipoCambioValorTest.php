@@ -15,7 +15,7 @@ final class TipoCambioValorTest extends TestCase
      * @param string $exchangeRate
      * @testWith ["USD", "MXN", "1"]
      */
-    public function testValid(string $currencyPayment, string $currencyDocument, string $exchangeRate)
+    public function testValid(string $currencyPayment, string $currencyDocument, string $exchangeRate): void
     {
         $pago = new Pago([
             'MonedaP' => $currencyPayment,
@@ -39,7 +39,7 @@ final class TipoCambioValorTest extends TestCase
      *           ["USD", "MXN", ""]
      *           ["USD", "MXN", null]
      */
-    public function testInvalid(string $currencyPayment, string $currencyDocument, ?string $exchangeRate)
+    public function testInvalid(string $currencyPayment, string $currencyDocument, ?string $exchangeRate): void
     {
         $pago = new Pago([
             'MonedaP' => $currencyPayment,

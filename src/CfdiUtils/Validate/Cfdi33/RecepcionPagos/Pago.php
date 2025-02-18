@@ -19,10 +19,10 @@ use CfdiUtils\Validate\Status;
 class Pago extends AbstractRecepcionPagos10
 {
     /** @var Asserts This is the asserts object used in the validation process */
-    private $asserts;
+    private ?Asserts $asserts = null;
 
     /** @var Pagos\AbstractPagoValidator[]|null */
-    private $validators;
+    private ?array $validators = null;
 
     /**
      * @return Pagos\AbstractPagoValidator[]
@@ -67,7 +67,7 @@ class Pago extends AbstractRecepcionPagos10
         return $this->validators;
     }
 
-    public function validateRecepcionPagos(NodeInterface $comprobante, Asserts $asserts)
+    public function validateRecepcionPagos(NodeInterface $comprobante, Asserts $asserts): void
     {
         $this->asserts = $asserts;
 
@@ -110,7 +110,7 @@ class Pago extends AbstractRecepcionPagos10
         }
     }
 
-    private function setPagoStatus(string $code, int $index, Status $errorStatus, string $explanation = '')
+    private function setPagoStatus(string $code, int $index, Status $errorStatus, string $explanation = ''): void
     {
         $assert = $this->asserts->get($code);
         $assert->setStatus($errorStatus);
@@ -128,7 +128,7 @@ class Pago extends AbstractRecepcionPagos10
         int $doctoIndex,
         Status $errorStatus,
         string $explanation = ''
-    ) {
+    ): void {
         $assert = $this->asserts->get($code);
         $doctoCode = sprintf('%s-%02d-%02d', $assert->getCode(), $pagoIndex, $doctoIndex);
         $this->setPagoStatus($code, $pagoIndex, $errorStatus);

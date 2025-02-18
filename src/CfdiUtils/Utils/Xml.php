@@ -107,9 +107,7 @@ class Xml
     public static function createElement(DOMDocument $document, string $name, string $content = ''): DOMElement
     {
         return self::createDOMElement(
-            function () use ($document, $name) {
-                return $document->createElement($name);
-            },
+            fn () => $document->createElement($name),
             sprintf('Cannot create element with name %s', $name),
             $content
         );
@@ -132,9 +130,7 @@ class Xml
         string $content = ''
     ): DOMElement {
         return self::createDOMElement(
-            function () use ($document, $namespaceURI, $name) {
-                return $document->createElementNS($namespaceURI, $name);
-            },
+            fn () => $document->createElementNS($namespaceURI, $name),
             sprintf('Cannot create element with name %s namespace %s', $name, $namespaceURI),
             $content
         );

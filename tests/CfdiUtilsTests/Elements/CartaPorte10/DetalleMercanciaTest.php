@@ -19,7 +19,7 @@ final class DetalleMercanciaTest extends TestCase
         $this->element = new DetalleMercancia();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cartaporte:DetalleMercancia', $this->element->getElementName());
     }

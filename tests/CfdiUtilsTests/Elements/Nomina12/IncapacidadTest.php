@@ -19,7 +19,7 @@ final class IncapacidadTest extends TestCase
         $this->element = new Incapacidad();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('nomina12:Incapacidad', $this->element->getElementName());
     }

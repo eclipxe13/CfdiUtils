@@ -15,11 +15,9 @@ use Eclipxe\XmlResourceRetriever\XsltRetriever;
  */
 class XmlResolver
 {
-    /** @var string */
-    private $localPath = '';
+    private string $localPath = '';
 
-    /** @var DownloaderInterface */
-    private $downloader;
+    private DownloaderInterface $downloader;
 
     public const TYPE_XSD = 'XSD';
 
@@ -52,7 +50,7 @@ class XmlResolver
      *
      * @param string|null $localPath values: '' => no resolve, null => default path, anything else is the path
      */
-    public function setLocalPath(?string $localPath = null)
+    public function setLocalPath(?string $localPath = null): void
     {
         if (null === $localPath) {
             $localPath = $this->defaultLocalPath();
@@ -87,7 +85,7 @@ class XmlResolver
      *
      * @param DownloaderInterface|null $downloader
      */
-    public function setDownloader(?DownloaderInterface $downloader = null)
+    public function setDownloader(?DownloaderInterface $downloader = null): void
     {
         if (null === $downloader) {
             $downloader = $this->defaultDownloader();

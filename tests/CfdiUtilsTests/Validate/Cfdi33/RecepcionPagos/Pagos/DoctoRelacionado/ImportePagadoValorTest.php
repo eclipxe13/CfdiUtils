@@ -15,7 +15,7 @@ final class ImportePagadoValorTest extends TestCase
      * @testWith ["0.01"]
      *           ["123456.78"]
      */
-    public function testValid(string $input)
+    public function testValid(string $input): void
     {
         $docto = new DoctoRelacionado([
             'ImpPagado' => $input,
@@ -26,7 +26,7 @@ final class ImportePagadoValorTest extends TestCase
         $this->assertTrue($validator->validateDoctoRelacionado($docto));
     }
 
-    public function testWithCalculate()
+    public function testWithCalculate(): void
     {
         $pago = new Pago(['Monto' => 123]);
         $docto = $pago->addDoctoRelacionado();
@@ -44,7 +44,7 @@ final class ImportePagadoValorTest extends TestCase
      *           [""]
      *           [null]
      */
-    public function testInvalid(?string $input)
+    public function testInvalid(?string $input): void
     {
         $pago = new Pago();
         $docto = $pago->addDoctoRelacionado([

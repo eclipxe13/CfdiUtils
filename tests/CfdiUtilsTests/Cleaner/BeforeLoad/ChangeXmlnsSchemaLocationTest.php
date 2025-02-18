@@ -8,12 +8,12 @@ use CfdiUtilsTests\TestCase;
 
 final class ChangeXmlnsSchemaLocationTest extends TestCase
 {
-    public function testImplementsBeforeLoadCleanerInterface()
+    public function testImplementsBeforeLoadCleanerInterface(): void
     {
         $this->assertInstanceOf(BeforeLoadCleanerInterface::class, new ChangeXmlnsSchemaLocation());
     }
 
-    public function testCleanWithValue()
+    public function testCleanWithValue(): void
     {
         $sample = '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3"'
             . ' xmlns:schemaLocation="http://www.sat.gob.mx/cfd/3 location"/>';

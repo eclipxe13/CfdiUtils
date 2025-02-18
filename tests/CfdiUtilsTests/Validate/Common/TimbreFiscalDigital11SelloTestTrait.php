@@ -9,7 +9,7 @@ use CfdiUtils\Validate\Status;
 
 trait TimbreFiscalDigital11SelloTestTrait
 {
-    public function testValidCase()
+    public function testValidCase(): void
     {
         $selloCfdi = $this->validSelloCfdi();
         $selloSat = $this->validSelloSat();
@@ -29,7 +29,7 @@ trait TimbreFiscalDigital11SelloTestTrait
         $this->assertStatusEqualsCode(Status::ok(), 'TFDSELLO01');
     }
 
-    public function testValidatorDontHaveXmlResolver()
+    public function testValidatorDontHaveXmlResolver(): void
     {
         $this->validator->setXmlResolver(null);
         $this->runValidate();
@@ -40,14 +40,14 @@ trait TimbreFiscalDigital11SelloTestTrait
         );
     }
 
-    public function testValidatorDontHaveTimbreFiscalDigital()
+    public function testValidatorDontHaveTimbreFiscalDigital(): void
     {
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::none(), 'TFDSELLO01');
         $this->assertStringContainsString('no contiene un Timbre', $this->asserts->get('TFDSELLO01')->getExplanation());
     }
 
-    public function testValidatorTimbreFiscalDigitalVersionIsNotPresent()
+    public function testValidatorTimbreFiscalDigitalVersionIsNotPresent(): void
     {
         $tfd = $this->newTimbreFiscalDigital();
         unset($tfd['Version']);
@@ -58,7 +58,7 @@ trait TimbreFiscalDigital11SelloTestTrait
         $this->assertStringContainsString('La versión del timbre', $this->asserts->get('TFDSELLO01')->getExplanation());
     }
 
-    public function testValidatorTimbreFiscalDigitalVersionIsNotValid()
+    public function testValidatorTimbreFiscalDigitalVersionIsNotValid(): void
     {
         $tfd = $this->newTimbreFiscalDigital();
         $tfd['Version'] = '1.0';
@@ -69,7 +69,7 @@ trait TimbreFiscalDigital11SelloTestTrait
         $this->assertStringContainsString('La versión del timbre', $this->asserts->get('TFDSELLO01')->getExplanation());
     }
 
-    public function testValidatorTimbreFiscalDigitalSelloSatDoesNotMatchWithComprobante()
+    public function testValidatorTimbreFiscalDigitalSelloSatDoesNotMatchWithComprobante(): void
     {
         $tfd = $this->newTimbreFiscalDigital();
         $tfd['SelloCFD'] = 'foo';
@@ -80,7 +80,7 @@ trait TimbreFiscalDigital11SelloTestTrait
         $this->assertStringContainsString('no coincide', $this->asserts->get('TFDSELLO01')->getExplanation());
     }
 
-    public function testValidatorNoCertificadoSatEmpty()
+    public function testValidatorNoCertificadoSatEmpty(): void
     {
         $tfd = $this->newTimbreFiscalDigital();
         $tfd['SelloCFD'] = 'foo';
@@ -92,7 +92,7 @@ trait TimbreFiscalDigital11SelloTestTrait
         $this->assertStringContainsString('NoCertificadoSAT', $this->asserts->get('TFDSELLO01')->getExplanation());
     }
 
-    public function testValidatorNoCertificadoSatInvalid()
+    public function testValidatorNoCertificadoSatInvalid(): void
     {
         $tfd = $this->newTimbreFiscalDigital();
         $tfd['SelloCFD'] = 'foo';
@@ -105,7 +105,7 @@ trait TimbreFiscalDigital11SelloTestTrait
         $this->assertStringContainsString('NoCertificadoSAT', $this->asserts->get('TFDSELLO01')->getExplanation());
     }
 
-    public function testValidatorNoCertificadoSatNonExistent()
+    public function testValidatorNoCertificadoSatNonExistent(): void
     {
         $tfd = $this->newTimbreFiscalDigital();
         $tfd['SelloCFD'] = 'foo';
@@ -121,7 +121,7 @@ trait TimbreFiscalDigital11SelloTestTrait
         );
     }
 
-    public function testValidatorSelloSatInvalid()
+    public function testValidatorSelloSatInvalid(): void
     {
         // to make it fail we change the FechaTimbrado
         $selloCfdi = $this->validSelloCfdi();

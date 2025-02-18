@@ -6,8 +6,7 @@ use CfdiUtils\Nodes\NodeInterface;
 
 class NodeCertificado
 {
-    /** @var NodeInterface */
-    private $comprobante;
+    private NodeInterface $comprobante;
 
     public function __construct(NodeInterface $comprobante)
     {
@@ -74,7 +73,7 @@ class NodeCertificado
      * @throws \RuntimeException if the certificado attribute is empty
      * @throws \RuntimeException if cannot write the contents of the certificate
      */
-    public function save(string $filename)
+    public function save(string $filename): void
     {
         if ('' === $filename) {
             throw new \UnexpectedValueException('The filename to store the certificate is empty');

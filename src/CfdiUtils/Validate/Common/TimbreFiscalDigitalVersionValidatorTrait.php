@@ -8,7 +8,7 @@ use CfdiUtils\Validate\Status;
 
 trait TimbreFiscalDigitalVersionValidatorTrait
 {
-    public function validate(NodeInterface $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts): void
     {
         $asserts->put(
             'TFDVERSION01',

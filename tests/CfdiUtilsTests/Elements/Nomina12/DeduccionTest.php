@@ -19,7 +19,7 @@ final class DeduccionTest extends TestCase
         $this->element = new Deduccion();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('nomina12:Deduccion', $this->element->getElementName());
     }

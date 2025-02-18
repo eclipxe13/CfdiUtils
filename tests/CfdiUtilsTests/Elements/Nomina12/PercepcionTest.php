@@ -22,18 +22,18 @@ final class PercepcionTest extends TestCase
         $this->element = new Percepcion();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('nomina12:Percepcion', $this->element->getElementName());
     }
 
-    public function testChildrenOrder()
+    public function testChildrenOrder(): void
     {
         $expected = ['nomina12:AccionesOTitulos', 'nomina12:HorasExtra'];
         $this->assertSame($expected, $this->element->getChildrenOrder());
     }
 
-    public function testGetAccionesOTitulos()
+    public function testGetAccionesOTitulos(): void
     {
         $this->assertCount(0, $this->element->searchNodes('nomina12:AccionesOTitulos'));
 
@@ -46,7 +46,7 @@ final class PercepcionTest extends TestCase
         $this->assertSame($first, $second);
     }
 
-    public function testAddAccionesOTitulos()
+    public function testAddAccionesOTitulos(): void
     {
         // insert first element
         $first = $this->element->addAccionesOTitulos(['id' => 'first']);
@@ -60,7 +60,7 @@ final class PercepcionTest extends TestCase
         $this->assertSame('second', $first['id']);
     }
 
-    public function testAddHorasExtra()
+    public function testAddHorasExtra(): void
     {
         // insert first element
         $children = [new Node('child-1'), new Node('child-2')];
@@ -77,7 +77,7 @@ final class PercepcionTest extends TestCase
         $this->assertCount(2, $this->element);
     }
 
-    public function testMultiHorasExtra()
+    public function testMultiHorasExtra(): void
     {
         $horasExtraes = $this->element->multiHorasExtra(
             ['id' => 'first'],

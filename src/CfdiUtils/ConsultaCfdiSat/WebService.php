@@ -11,11 +11,9 @@ use stdClass;
 
 class WebService
 {
-    /** @var SoapClient|null */
-    private $soapClient;
+    private ?SoapClient $soapClient = null;
 
-    /** @var Config */
-    private $config;
+    private Config $config;
 
     public function __construct(?Config $config = null)
     {
@@ -35,7 +33,7 @@ class WebService
         return $this->soapClient;
     }
 
-    public function destroySoapClient()
+    public function destroySoapClient(): void
     {
         $this->soapClient = null;
     }

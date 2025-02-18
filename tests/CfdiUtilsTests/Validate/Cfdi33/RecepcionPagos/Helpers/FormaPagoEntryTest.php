@@ -38,7 +38,7 @@ final class FormaPagoEntryTest extends TestCase
         bool $allowReceiverAccount,
         string $receiverAccountPattern,
         bool $allowPaymentSignature
-    ) {
+    ): void {
         $paymentType = new FormaPagoEntry(
             $key,
             $description,
@@ -69,7 +69,7 @@ final class FormaPagoEntryTest extends TestCase
         $this->assertSame($allowPaymentSignature, $paymentType->allowPaymentSignature());
     }
 
-    public function testConstructWithoutKey()
+    public function testConstructWithoutKey(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage(' key ');
@@ -77,7 +77,7 @@ final class FormaPagoEntryTest extends TestCase
         new FormaPagoEntry('', 'bar', false, false, '', false, false, '', false);
     }
 
-    public function testConstructWithoutDescription()
+    public function testConstructWithoutDescription(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage(' description ');

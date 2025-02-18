@@ -15,7 +15,7 @@ final class PagoTest extends ValidateComplementoPagosTestCase
         $this->validator = new Pago();
     }
 
-    public function testValidatorsCodes()
+    public function testValidatorsCodes(): void
     {
         $expectedValidators = [];
         foreach (range(2, 22) as $i) {

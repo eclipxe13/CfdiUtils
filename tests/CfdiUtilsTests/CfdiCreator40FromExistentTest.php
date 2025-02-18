@@ -8,7 +8,7 @@ use CfdiUtils\Nodes\XmlNodeUtils;
 
 final class CfdiCreator40FromExistentTest extends TestCase
 {
-    public function testNewUsingNode()
+    public function testNewUsingNode(): void
     {
         $xmlSource = strval(file_get_contents($this->utilAsset('cfdi40-real.xml')));
         $nodeSource = XmlNodeUtils::nodeFromXmlString($xmlSource);
@@ -16,7 +16,7 @@ final class CfdiCreator40FromExistentTest extends TestCase
         $this->assertXmlStringEqualsXmlString($xmlSource, $creator->asXml());
     }
 
-    public function testNewImportingNode()
+    public function testNewImportingNode(): void
     {
         $xmlSource = strval(file_get_contents($this->utilAsset('cfdi40-real.xml')));
         $nodeSource = XmlNodeUtils::nodeFromXmlString($xmlSource);
@@ -24,7 +24,7 @@ final class CfdiCreator40FromExistentTest extends TestCase
         $this->assertXmlStringEqualsXmlString($xmlSource, $creator->asXml());
     }
 
-    public function testPutCertificadoFromCreatorUsingNode()
+    public function testPutCertificadoFromCreatorUsingNode(): void
     {
         $xmlSource = strval(file_get_contents($this->utilAsset('cfdi40-real.xml')));
         $nodeSource = XmlNodeUtils::nodeFromXmlString($xmlSource);

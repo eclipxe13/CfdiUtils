@@ -10,19 +10,15 @@ use InvalidArgumentException;
 class SumasConceptosWriter
 {
     /** @var Comprobante33|Comprobante40 */
-    private $comprobante;
+    private NodeInterface $comprobante;
 
-    /** @var SumasConceptos */
-    private $sumas;
+    private SumasConceptos $sumas;
 
-    /** @var int */
-    private $precision;
+    private int $precision;
 
-    /** @var bool */
-    private $writeImpuestoBase;
+    private ?bool $writeImpuestoBase = null;
 
-    /** @var bool */
-    private $writeExentos;
+    private ?bool $writeExentos = null;
 
     /**
      * Writer constructor.
@@ -51,7 +47,7 @@ class SumasConceptosWriter
         $this->precision = $precision;
     }
 
-    public function put()
+    public function put(): void
     {
         $this->putComprobanteSumas();
         $this->putImpuestosNode();
@@ -132,9 +128,7 @@ class SumasConceptosWriter
         foreach ($impuestos as $impuesto) {
             $impuesto['Base'] = ($hasBase) ? $this->format($impuesto['Base'] ?? 0) : null;
             $impuesto['Importe'] = ($hasImporte) ? $this->format($impuesto['Importe']) : null;
-            $return[] = array_filter($impuesto, function ($value): bool {
-                return null !== $value;
-            });
+            $return[] = array_filter($impuesto, fn ($value): bool => null !== $value);
         }
         return $return;
     }
@@ -150,7 +144,7 @@ class SumasConceptosWriter
     }
 
     /** @return Comprobante33|Comprobante40 */
-    public function getComprobante()
+    public function getComprobante(): NodeInterface
     {
         return $this->comprobante;
     }

@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ImporteSaldoAnteriorRequeridoTest extends TestCase
 {
-    public function testValid()
+    public function testValid(): void
     {
         $docto = new DoctoRelacionado([
             'MetodoDePagoDR' => 'PPD',
@@ -21,7 +21,7 @@ final class ImporteSaldoAnteriorRequeridoTest extends TestCase
         $this->assertTrue($validator->validateDoctoRelacionado($docto));
     }
 
-    public function testInvalid()
+    public function testInvalid(): void
     {
         $docto = new DoctoRelacionado([
             'MetodoDePagoDR' => 'PPD',

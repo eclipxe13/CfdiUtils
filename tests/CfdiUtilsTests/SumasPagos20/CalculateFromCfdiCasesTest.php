@@ -142,9 +142,7 @@ final class CalculateFromCfdiCasesTest extends TestCase
         // check the result does not have additional pago elements
         $missingPagos = array_filter(
             $pagos->getPagos(),
-            function (Pago $pago) use ($processedPagos): bool {
-                return ! in_array($pago, $processedPagos, true);
-            }
+            fn (Pago $pago): bool => ! in_array($pago, $processedPagos, true)
         );
         $this->assertSame([], $missingPagos, 'The result contains pagos that has not been processed');
     }

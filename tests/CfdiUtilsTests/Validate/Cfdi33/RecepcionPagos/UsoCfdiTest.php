@@ -16,7 +16,7 @@ final class UsoCfdiTest extends ValidateComplementoPagosTestCase
         $this->validator = new UsoCfdi();
     }
 
-    public function testValidCase()
+    public function testValidCase(): void
     {
         $comprobante = $this->getComprobante();
         $comprobante->addReceptor(['UsoCFDI' => 'P01']);
@@ -26,7 +26,7 @@ final class UsoCfdiTest extends ValidateComplementoPagosTestCase
         $this->assertStatusEqualsCode(Status::ok(), 'PAGUSO01');
     }
 
-    public function testInvalidUsoCfdi()
+    public function testInvalidUsoCfdi(): void
     {
         $comprobante = $this->getComprobante();
         $comprobante->addReceptor(['UsoCFDI' => 'P02']);
@@ -36,7 +36,7 @@ final class UsoCfdiTest extends ValidateComplementoPagosTestCase
         $this->assertStatusEqualsCode(Status::error(), 'PAGUSO01');
     }
 
-    public function testInvalidNoReceptor()
+    public function testInvalidNoReceptor(): void
     {
         $this->runValidate();
 

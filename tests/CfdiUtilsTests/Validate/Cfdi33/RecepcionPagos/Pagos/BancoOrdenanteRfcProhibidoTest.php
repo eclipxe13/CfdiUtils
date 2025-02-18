@@ -17,7 +17,7 @@ final class BancoOrdenanteRfcProhibidoTest extends TestCase
      *           ["02", null]
      *           ["01", null]
      */
-    public function testValid(string $paymentType, ?string $rfc)
+    public function testValid(string $paymentType, ?string $rfc): void
     {
         $pago = new Pago([
             'FormaDePagoP' => $paymentType,
@@ -35,7 +35,7 @@ final class BancoOrdenanteRfcProhibidoTest extends TestCase
      *           ["01", ""]
      *           [null, "COSC8001137NA"]
      */
-    public function testInvalid(?string $paymentType, string $rfc)
+    public function testInvalid(?string $paymentType, string $rfc): void
     {
         $pago = new Pago([
             'FormaDePagoP' => $paymentType,

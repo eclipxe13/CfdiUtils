@@ -11,9 +11,7 @@ final class SatNsDefinitionsMover
     {
         $nodeNsDefinitionsMover = new NodeNsDefinitionsMover();
         $nodeNsDefinitionsMover->setNamespaceFilter(
-            function (string $namespaceUri): bool {
-                return ('http://www.sat.gob.mx/' === (substr($namespaceUri, 0, 22) ?: ''));
-            }
+            fn (string $namespaceUri): bool => 'http://www.sat.gob.mx/' === (substr($namespaceUri, 0, 22) ?: '')
         );
         $nodeNsDefinitionsMover->process($root);
     }

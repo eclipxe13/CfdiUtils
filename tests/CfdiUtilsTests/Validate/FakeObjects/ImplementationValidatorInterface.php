@@ -20,7 +20,7 @@ class ImplementationValidatorInterface implements ValidatorInterface
     /** @var Asserts|null */
     public $assertsToImport;
 
-    public function validate(NodeInterface $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts): void
     {
         if ($this->assertsToImport instanceof Asserts) {
             $asserts->import($this->assertsToImport);

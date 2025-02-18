@@ -9,10 +9,9 @@ use Traversable;
 class MultiValidator implements ValidatorInterface, \Countable, \IteratorAggregate
 {
     /** @var ValidatorInterface[] */
-    private $validators = [];
+    private array $validators = [];
 
-    /** @var string */
-    private $version;
+    private string $version;
 
     public function __construct(string $version)
     {
@@ -24,7 +23,7 @@ class MultiValidator implements ValidatorInterface, \Countable, \IteratorAggrega
         return $this->version;
     }
 
-    public function validate(NodeInterface $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts): void
     {
         foreach ($this->validators as $validator) {
             if (! $validator->canValidateCfdiVersion($this->getVersion())) {
@@ -44,7 +43,7 @@ class MultiValidator implements ValidatorInterface, \Countable, \IteratorAggrega
         return ($this->version === $version);
     }
 
-    public function hydrate(Hydrater $hydrater)
+    public function hydrate(Hydrater $hydrater): void
     {
         foreach ($this->validators as $validator) {
             $hydrater->hydrate($validator);
@@ -55,12 +54,12 @@ class MultiValidator implements ValidatorInterface, \Countable, \IteratorAggrega
      * Collection methods
      */
 
-    public function add(ValidatorInterface $validator)
+    public function add(ValidatorInterface $validator): void
     {
         $this->validators[] = $validator;
     }
 
-    public function addMulti(ValidatorInterface ...$validators)
+    public function addMulti(ValidatorInterface ...$validators): void
     {
         foreach ($validators as $validator) {
             $this->add($validator);
@@ -78,7 +77,7 @@ class MultiValidator implements ValidatorInterface, \Countable, \IteratorAggrega
         return (false === $index) ? -1 : (int) $index;
     }
 
-    public function remove(ValidatorInterface $validator)
+    public function remove(ValidatorInterface $validator): void
     {
         $index = $this->indexOf($validator);
         if ($index >= 0) {
@@ -86,7 +85,7 @@ class MultiValidator implements ValidatorInterface, \Countable, \IteratorAggrega
         }
     }
 
-    public function removeAll()
+    public function removeAll(): void
     {
         $this->validators = [];
     }

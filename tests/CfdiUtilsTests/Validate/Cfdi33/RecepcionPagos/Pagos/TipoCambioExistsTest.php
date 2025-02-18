@@ -15,7 +15,7 @@ final class TipoCambioExistsTest extends TestCase
      * @testWith ["MXN", null]
      *           ["USD", "18.5678"]
      */
-    public function testValidInput(string $currency, ?string $exchangerate)
+    public function testValidInput(string $currency, ?string $exchangerate): void
     {
         $pago = new Pago([
             'MonedaP' => $currency,
@@ -33,7 +33,7 @@ final class TipoCambioExistsTest extends TestCase
      *           ["USD", null]
      *           ["USD", ""]
      */
-    public function testInvalidInput(string $currency, ?string $exchangerate)
+    public function testInvalidInput(string $currency, ?string $exchangerate): void
     {
         $pago = new Pago([
             'MonedaP' => $currency,

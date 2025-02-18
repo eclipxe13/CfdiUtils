@@ -17,12 +17,12 @@ final class MercanciasTest extends TestCase
         $this->element = new Mercancias();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cce11:Mercancias', $this->element->getElementName());
     }
 
-    public function testMercancia()
+    public function testMercancia(): void
     {
         // object is empty
         $this->assertCount(0, $this->element);

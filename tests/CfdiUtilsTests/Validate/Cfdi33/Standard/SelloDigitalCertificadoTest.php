@@ -44,7 +44,7 @@ final class SelloDigitalCertificadoTest extends Validate33TestCase
         $this->assertCount(8, $this->asserts, 'All 8 were are tested');
     }
 
-    public function testValidateWithEqualButNotIdenticalName()
+    public function testValidateWithEqualButNotIdenticalName(): void
     {
         //    change case, and punctuation to original name
         //                   ESCUELA KEMPER URGATE SA DE CV

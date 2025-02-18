@@ -25,7 +25,7 @@ final class ComprobantePagosTest extends ValidateComplementoPagosTestCase
         ]);
     }
 
-    public function testValidCase()
+    public function testValidCase(): void
     {
         $this->runValidate();
 
@@ -34,14 +34,14 @@ final class ComprobantePagosTest extends ValidateComplementoPagosTestCase
         }
     }
 
-    public function testErrorWithMoreThanOneComplementoPagos()
+    public function testErrorWithMoreThanOneComplementoPagos(): void
     {
         $this->getComprobante()->getComplemento()->add(new Pagos());
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::error(), 'PAGCOMP01');
     }
 
-    public function testErrorWithFormaPago()
+    public function testErrorWithFormaPago(): void
     {
         $this->getComprobante()->addAttributes([
             'FormaPago' => '', // exists, even empty
@@ -50,7 +50,7 @@ final class ComprobantePagosTest extends ValidateComplementoPagosTestCase
         $this->assertStatusEqualsCode(Status::error(), 'PAGCOMP02');
     }
 
-    public function testErrorWithCondicionesDePago()
+    public function testErrorWithCondicionesDePago(): void
     {
         $this->getComprobante()->addAttributes([
             'CondicionesDePago' => '', // exists, even empty
@@ -59,7 +59,7 @@ final class ComprobantePagosTest extends ValidateComplementoPagosTestCase
         $this->assertStatusEqualsCode(Status::error(), 'PAGCOMP03');
     }
 
-    public function testErrorWithMetodoPago()
+    public function testErrorWithMetodoPago(): void
     {
         $this->getComprobante()->addAttributes([
             'MetodoPago' => '', // exists, even empty
@@ -74,7 +74,7 @@ final class ComprobantePagosTest extends ValidateComplementoPagosTestCase
      *           [null]
      *           ["MXN"]
      */
-    public function testErrorWithMonedaNotXxx(?string $input)
+    public function testErrorWithMonedaNotXxx(?string $input): void
     {
         $this->getComprobante()->addAttributes([
             'Moneda' => $input,
@@ -83,7 +83,7 @@ final class ComprobantePagosTest extends ValidateComplementoPagosTestCase
         $this->assertStatusEqualsCode(Status::error(), 'PAGCOMP05');
     }
 
-    public function testErrorWithTipoCambio()
+    public function testErrorWithTipoCambio(): void
     {
         $this->getComprobante()->addAttributes([
             'TipoCambio' => '', // exists, even empty
@@ -92,7 +92,7 @@ final class ComprobantePagosTest extends ValidateComplementoPagosTestCase
         $this->assertStatusEqualsCode(Status::error(), 'PAGCOMP06');
     }
 
-    public function testErrorWithDescuento()
+    public function testErrorWithDescuento(): void
     {
         $this->getComprobante()->addAttributes([
             'Descuento' => '', // exists, even empty
@@ -107,7 +107,7 @@ final class ComprobantePagosTest extends ValidateComplementoPagosTestCase
      *           [null]
      *           ["0.0"]
      */
-    public function testErrorWithSubTotalNotZero(?string $input)
+    public function testErrorWithSubTotalNotZero(?string $input): void
     {
         $this->getComprobante()->addAttributes([
             'SubTotal' => $input,
@@ -122,7 +122,7 @@ final class ComprobantePagosTest extends ValidateComplementoPagosTestCase
      *           [null]
      *           ["0.0"]
      */
-    public function testErrorWithTotalNotZero(?string $input)
+    public function testErrorWithTotalNotZero(?string $input): void
     {
         $this->getComprobante()->addAttributes([
             'Total' => $input,
@@ -131,7 +131,7 @@ final class ComprobantePagosTest extends ValidateComplementoPagosTestCase
         $this->assertStatusEqualsCode(Status::error(), 'PAGCOMP09');
     }
 
-    public function testErrorWithImpuestos()
+    public function testErrorWithImpuestos(): void
     {
         $this->getComprobante()->getImpuestos();
         $this->runValidate();

@@ -7,7 +7,7 @@ use CfdiUtilsTests\TestCase;
 
 final class TemporaryFileTest extends TestCase
 {
-    public function testBasicFunctionality()
+    public function testBasicFunctionality(): void
     {
         $temp = TemporaryFile::create();
         $this->assertFileExists($temp->getPath());
@@ -15,7 +15,7 @@ final class TemporaryFileTest extends TestCase
         $this->assertFileDoesNotExist($temp->getPath());
     }
 
-    public function testCreateWithDirectory()
+    public function testCreateWithDirectory(): void
     {
         $temp = TemporaryFile::create(__DIR__);
         try {
@@ -27,7 +27,7 @@ final class TemporaryFileTest extends TestCase
         }
     }
 
-    public function testCreateOnNonExistentFolderThrowsException()
+    public function testCreateOnNonExistentFolderThrowsException(): void
     {
         $directory = __DIR__ . '/non/existent/directory/';
         $this->expectException(\RuntimeException::class);
@@ -35,7 +35,7 @@ final class TemporaryFileTest extends TestCase
         TemporaryFile::create($directory);
     }
 
-    public function testCreateOnReadOnlyDirectoryThrowsException()
+    public function testCreateOnReadOnlyDirectoryThrowsException(): void
     {
         // prepare directory
         $directory = __DIR__ . '/readonly';
@@ -61,14 +61,14 @@ final class TemporaryFileTest extends TestCase
         }
     }
 
-    public function testObjectToStringBehavior()
+    public function testObjectToStringBehavior(): void
     {
         $file = TemporaryFile::create();
         $this->assertSame($file->getPath(), (string) $file);
         $file->remove();
     }
 
-    public function testReadAndWrite()
+    public function testReadAndWrite(): void
     {
         $content = 'Lorem Ipsum';
         $file = TemporaryFile::create();
@@ -80,25 +80,23 @@ final class TemporaryFileTest extends TestCase
         $file->remove();
     }
 
-    public function testRunAndRemoveGreenPath()
+    public function testRunAndRemoveGreenPath(): void
     {
         $file = TemporaryFile::create();
         $expected = 'foo';
 
-        $retrieved = $file->runAndRemove(function () use ($expected) {
-            return $expected;
-        });
+        $retrieved = $file->runAndRemove(fn (): string => $expected);
 
         $this->assertSame($expected, $retrieved, 'Method did not return the expected value');
         $this->assertFileDoesNotExist($file->getPath());
     }
 
-    public function testRunAndRemoveWithException()
+    public function testRunAndRemoveWithException(): void
     {
         $file = TemporaryFile::create();
 
         try {
-            $file->runAndRemove(function () {
+            $file->runAndRemove(function (): void {
                 throw new \RuntimeException('DUMMY');
             });
         } catch (\RuntimeException $exception) {

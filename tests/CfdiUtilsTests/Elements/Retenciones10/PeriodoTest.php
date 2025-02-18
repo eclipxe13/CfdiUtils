@@ -16,7 +16,7 @@ final class PeriodoTest extends TestCase
         $this->element = new Periodo();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('retenciones:Periodo', $this->element->getElementName());
     }

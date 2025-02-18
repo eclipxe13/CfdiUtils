@@ -9,10 +9,9 @@ namespace CfdiUtils\Nodes;
 class NodesSorter
 {
     /** @var array<string, int> array of key (string) value (int) representing the naming order */
-    private $order;
+    private array $order = [];
 
-    /** @var int */
-    private $count;
+    private int $count = 0;
 
     public function __construct(array $order = [])
     {
@@ -41,9 +40,7 @@ class NodesSorter
      */
     public function parseNames(array $names): array
     {
-        $isValidName = function ($name): bool {
-            return is_string($name) && (bool) $name;
-        };
+        $isValidName = (fn ($name): bool => is_string($name) && (bool) $name);
         return array_values(array_unique(array_filter($names, $isValidName)));
     }
 
@@ -70,7 +67,7 @@ class NodesSorter
         return $nodes;
     }
 
-    public function compareNodesByName(NodeInterface $a, NodeInterface $b)
+    public function compareNodesByName(NodeInterface $a, NodeInterface $b): int
     {
         return $this->valueByName($a->name()) <=> $this->valueByName($b->name());
     }

@@ -16,7 +16,7 @@ final class ReceptorTest extends TestCase
         $this->element = new Receptor();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('cfdi:Receptor', $this->element->getElementName());
     }

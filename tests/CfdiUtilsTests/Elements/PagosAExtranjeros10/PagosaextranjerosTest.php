@@ -18,12 +18,12 @@ final class PagosaextranjerosTest extends TestCase
         $this->element = new Pagosaextranjeros();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('pagosaextranjeros:Pagosaextranjeros', $this->element->getElementName());
     }
 
-    public function testGetNoBeneficiario()
+    public function testGetNoBeneficiario(): void
     {
         $this->assertNull($this->element->searchNode('pagosaextranjeros:NoBeneficiario'));
         $child = $this->element->getNoBeneficiario();
@@ -31,7 +31,7 @@ final class PagosaextranjerosTest extends TestCase
         $this->assertSame($child, $this->element->searchNode('pagosaextranjeros:NoBeneficiario'));
     }
 
-    public function testAddNoBeneficiario()
+    public function testAddNoBeneficiario(): void
     {
         $first = $this->element->addNoBeneficiario(['Rfc' => 'FOO']);
         $this->assertInstanceOf(NoBeneficiario::class, $first);
@@ -42,7 +42,7 @@ final class PagosaextranjerosTest extends TestCase
         $this->assertSame('BAR', $first['Rfc']);
     }
 
-    public function testGetBeneficiario()
+    public function testGetBeneficiario(): void
     {
         $this->assertNull($this->element->searchNode('pagosaextranjeros:Beneficiario'));
         $child = $this->element->getBeneficiario();
@@ -50,7 +50,7 @@ final class PagosaextranjerosTest extends TestCase
         $this->assertSame($child, $this->element->searchNode('pagosaextranjeros:Beneficiario'));
     }
 
-    public function testAddBeneficiario()
+    public function testAddBeneficiario(): void
     {
         $first = $this->element->addBeneficiario(['Rfc' => 'BAZ']);
         $this->assertInstanceOf(Beneficiario::class, $first);
@@ -61,7 +61,7 @@ final class PagosaextranjerosTest extends TestCase
         $this->assertSame('BAR', $first['Rfc']);
     }
 
-    public function testHasFixedAttributes()
+    public function testHasFixedAttributes(): void
     {
         $namespace = 'http://www.sat.gob.mx/esquemas/retencionpago/1/pagosaextranjeros';
         $this->assertSame('1.0', $this->element['Version']);
@@ -69,7 +69,7 @@ final class PagosaextranjerosTest extends TestCase
         $this->assertStringStartsWith($namespace . ' http://', $this->element['xsi:schemaLocation']);
     }
 
-    public function testChildrenOrder()
+    public function testChildrenOrder(): void
     {
         // add in inverse order
         $this->element->getBeneficiario();

@@ -10,8 +10,7 @@ final class Decimal implements JsonSerializable
 {
     public const SCALE = 24;
 
-    /** @var string */
-    private $value;
+    private string $value;
 
     public function __construct(string $value)
     {

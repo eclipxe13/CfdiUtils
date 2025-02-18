@@ -20,12 +20,12 @@ final class EmisorTest extends TestCase
         $this->element = new Emisor();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('nomina12:Emisor', $this->element->getElementName());
     }
 
-    public function testGetEntidadSNCF()
+    public function testGetEntidadSNCF(): void
     {
         $this->assertCount(0, $this->element->searchNodes('nomina12:EntidadSNCF'));
 
@@ -38,7 +38,7 @@ final class EmisorTest extends TestCase
         $this->assertSame($first, $second);
     }
 
-    public function testAddEntidadSNCF()
+    public function testAddEntidadSNCF(): void
     {
         // insert first element
         $first = $this->element->addEntidadSNCF(['id' => 'first']);

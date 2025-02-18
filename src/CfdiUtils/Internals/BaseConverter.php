@@ -14,8 +14,7 @@ namespace CfdiUtils\Internals;
  */
 class BaseConverter
 {
-    /** @var BaseConverterSequence */
-    private $sequence;
+    private BaseConverterSequence $sequence;
 
     public function __construct(BaseConverterSequence $sequence)
     {

@@ -10,8 +10,7 @@ namespace CfdiUtils\Internals;
  */
 final class TemporaryFile
 {
-    /** @var string */
-    private $filename;
+    private string $filename;
 
     private function __construct(string $filename)
     {
@@ -54,12 +53,12 @@ final class TemporaryFile
         return strval(file_get_contents($this->filename));
     }
 
-    public function storeContents(string $contents)
+    public function storeContents(string $contents): void
     {
         file_put_contents($this->filename, $contents);
     }
 
-    public function remove()
+    public function remove(): void
     {
         $filename = $this->getPath();
         if (file_exists($filename)) {

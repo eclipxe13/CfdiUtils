@@ -6,23 +6,17 @@ use JsonSerializable;
 
 final class Impuesto implements JsonSerializable
 {
-    /** @var string */
-    private $tipo;
+    private string $tipo;
 
-    /** @var string */
-    private $impuesto;
+    private string $impuesto;
 
-    /** @var string */
-    private $tipoFactor;
+    private string $tipoFactor;
 
-    /** @var string */
-    private $tasaCuota;
+    private string $tasaCuota;
 
-    /** @var Decimal */
-    private $base;
+    private Decimal $base;
 
-    /** @var Decimal */
-    private $importe;
+    private Decimal $importe;
 
     public function __construct(
         string $tipo,

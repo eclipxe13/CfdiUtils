@@ -13,9 +13,7 @@ class CommandTemplate
     public function create(string $template, array $arguments): array
     {
         $command = [];
-        $parts = array_filter(explode(' ', $template), function (string $part): bool {
-            return ('' !== $part);
-        });
+        $parts = array_filter(explode(' ', $template), fn (string $part): bool => '' !== $part);
 
         $argumentPosition = 0;
         foreach ($parts as $value) {

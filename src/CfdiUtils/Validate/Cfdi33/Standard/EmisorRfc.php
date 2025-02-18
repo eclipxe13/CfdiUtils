@@ -16,7 +16,7 @@ use CfdiUtils\Validate\Status;
  */
 class EmisorRfc extends AbstractDiscoverableVersion33
 {
-    public function validate(NodeInterface $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts): void
     {
         $assert = $asserts->put(
             'EMISORRFC01',

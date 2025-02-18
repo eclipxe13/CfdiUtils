@@ -9,7 +9,7 @@ use CfdiUtils\Validate\Status;
 
 final class CreateComprobante40CaseTest extends TestCase
 {
-    public function testCreateCfdiUsingComprobanteElement()
+    public function testCreateCfdiUsingComprobanteElement(): void
     {
         $cerfile = $this->utilAsset('certs/EKU9003173C9.cer');
         $keyfile = $this->utilAsset('certs/EKU9003173C9.key.pem');

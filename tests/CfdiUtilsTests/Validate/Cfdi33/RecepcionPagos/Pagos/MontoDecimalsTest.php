@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class MontoDecimalsTest extends TestCase
 {
-    public function testValid()
+    public function testValid(): void
     {
         $pago = new Pago([
             'MonedaP' => 'USD', // 2 decimals
@@ -26,7 +26,7 @@ final class MontoDecimalsTest extends TestCase
      *           ["0.000"]
      *           ["0.123"]
      */
-    public function testInvalid(string $amount)
+    public function testInvalid(string $amount): void
     {
         $pago = new Pago([
             'MonedaP' => 'USD', // 2 decimals

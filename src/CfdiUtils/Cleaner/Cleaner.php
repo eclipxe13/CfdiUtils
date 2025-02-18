@@ -31,8 +31,7 @@ class Cleaner
     /** @var DOMDocument|null */
     protected $dom;
 
-    /** @var BeforeLoadCleanerInterface */
-    private $beforeLoadCleaner;
+    private BeforeLoadCleanerInterface $beforeLoadCleaner;
 
     public function __construct(string $content, ?BeforeLoadCleanerInterface $beforeLoadCleaner = null)
     {
@@ -86,7 +85,7 @@ class Cleaner
      *
      * @return void
      */
-    public function clean()
+    public function clean(): void
     {
         $this->removeAddenda();
         $this->removeIncompleteSchemaLocations();
@@ -110,7 +109,7 @@ class Cleaner
      *
      * @return void
      */
-    public function load(string $content)
+    public function load(string $content): void
     {
         try {
             $content = $this->beforeLoadCleaner->clean($content);
@@ -150,7 +149,7 @@ class Cleaner
      *
      * @return void
      */
-    public function removeAddenda()
+    public function removeAddenda(): void
     {
         $query = '/cfdi:Comprobante/cfdi:Addenda';
         $addendas = $this->xpathQuery($query);
@@ -164,7 +163,7 @@ class Cleaner
      *
      * @return void
      */
-    public function removeIncompleteSchemaLocations()
+    public function removeIncompleteSchemaLocations(): void
     {
         foreach ($this->obtainXsiSchemaLocations() as $attribute) {
             $attribute->nodeValue = $this->removeIncompleteSchemaLocation($attribute->nodeValue);
@@ -186,7 +185,7 @@ class Cleaner
      *
      * @return void
      */
-    public function removeNonSatNSschemaLocations()
+    public function removeNonSatNSschemaLocations(): void
     {
         $schemaLocations = $this->obtainXsiSchemaLocations();
         foreach ($schemaLocations as $attribute) {
@@ -194,7 +193,7 @@ class Cleaner
         }
     }
 
-    private function removeNonSatNSschemaLocation(DOMAttr $schemaLocation)
+    private function removeNonSatNSschemaLocation(DOMAttr $schemaLocation): void
     {
         $source = $schemaLocation->nodeValue;
         // load locations
@@ -224,7 +223,7 @@ class Cleaner
      *
      * @return void
      */
-    public function removeNonSatNSNodes()
+    public function removeNonSatNSNodes(): void
     {
         $nss = $this->obtainNamespaces();
         foreach ($nss as $namespace) {
@@ -240,7 +239,7 @@ class Cleaner
      * @param string $namespace
      * @return void
      */
-    private function removeNonSatNSNode(string $namespace)
+    private function removeNonSatNSNode(string $namespace): void
     {
         foreach ($this->dom()->getElementsByTagNameNS($namespace, '*') as $children) {
             $children->parentNode->removeChild($children);
@@ -252,7 +251,7 @@ class Cleaner
      *
      * @return void
      */
-    public function removeUnusedNamespaces()
+    public function removeUnusedNamespaces(): void
     {
         $nss = [];
         $dom = $this->dom();
@@ -276,7 +275,7 @@ class Cleaner
      *
      * @return void
      */
-    public function collapseComprobanteComplemento()
+    public function collapseComprobanteComplemento(): void
     {
         $comprobante = Xml::documentElement($this->dom());
         $complementos = $this->xpathQuery('./cfdi:Complemento', $comprobante);
@@ -305,7 +304,7 @@ class Cleaner
      *
      * @return void
      */
-    public function fixKnownSchemaLocationsXsdUrls()
+    public function fixKnownSchemaLocationsXsdUrls(): void
     {
         $xsiLocations = $this->obtainXsiSchemaLocations();
         $schemasFixer = SchemaLocationsXsdUrlsFixer::createWithKnownSatUrls();

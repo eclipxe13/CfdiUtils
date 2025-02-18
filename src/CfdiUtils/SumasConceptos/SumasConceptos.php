@@ -6,35 +6,30 @@ use CfdiUtils\Nodes\NodeInterface;
 
 class SumasConceptos
 {
-    /** @var float */
-    private $importes = 0.0;
+    private float $importes = 0.0;
 
-    /** @var float */
-    private $descuento = 0.0;
+    private float $descuento = 0.0;
 
-    /** @var float */
-    private $total;
+    private float $total;
 
-    /** @var float */
-    private $impuestosTrasladados;
+    private float $impuestosTrasladados;
 
-    /** @var float */
-    private $impuestosRetenidos;
+    private float $impuestosRetenidos;
 
     /**
      * @var array<string, array{Impuesto:string, TipoFactor:string, TasaOCuota:string, Importe:float, Base:float}>
      */
-    private $traslados = [];
+    private array $traslados = [];
 
     /**
      * @var array<string, array{Impuesto:string, TipoFactor:string, Base:float}>
      */
-    private $exentos = [];
+    private array $exentos = [];
 
     /**
      * @var array<string, array{Impuesto:string, Importe:float}>
      */
-    private $retenciones = [];
+    private array $retenciones = [];
 
     /** @var float */
     private $localesImpuestosTrasladados;
@@ -45,18 +40,16 @@ class SumasConceptos
     /**
      * @var array<int, array{Impuesto:string, Tasa:float, Importe:float}>
      */
-    private $localesTraslados = [];
+    private array $localesTraslados = [];
 
     /**
      * @var array<int, array{Impuesto:string, Tasa:float, Importe:float}>
      */
-    private $localesRetenciones = [];
+    private array $localesRetenciones = [];
 
-    /** @var int */
-    private $precision;
+    private int $precision;
 
-    /** @var bool */
-    private $foundAnyConceptWithDiscount = false;
+    private bool $foundAnyConceptWithDiscount = false;
 
     /*
      * Constructors
@@ -72,7 +65,7 @@ class SumasConceptos
      * Helper functions to populate the object
      */
 
-    private function addComprobante(NodeInterface $comprobante)
+    private function addComprobante(NodeInterface $comprobante): void
     {
         $conceptos = $comprobante->searchNodes('cfdi:Conceptos', 'cfdi:Concepto');
         foreach ($conceptos as $concepto) {
@@ -104,7 +97,7 @@ class SumasConceptos
         ]), $this->precision);
     }
 
-    private function addConcepto(NodeInterface $concepto)
+    private function addConcepto(NodeInterface $concepto): void
     {
         $this->importes += (float) $concepto['Importe'];
         if ($concepto->exists('Descuento')) {
@@ -155,7 +148,7 @@ class SumasConceptos
         return $group;
     }
 
-    private function addTraslado(NodeInterface $traslado)
+    private function addTraslado(NodeInterface $traslado): void
     {
         $key = $this->impuestoKey(
             $traslado['Impuesto'],
@@ -175,7 +168,7 @@ class SumasConceptos
         $this->traslados[$key]['Base'] += (float) $traslado['Base'];
     }
 
-    private function addExento(NodeInterface $exento)
+    private function addExento(NodeInterface $exento): void
     {
         $key = $this->impuestoKey($exento['Impuesto'], $exento['TipoFactor'], '');
         if (! array_key_exists($key, $this->exentos)) {
@@ -188,7 +181,7 @@ class SumasConceptos
         $this->exentos[$key]['Base'] += (float) $exento['Base'];
     }
 
-    private function addRetencion(NodeInterface $retencion)
+    private function addRetencion(NodeInterface $retencion): void
     {
         $key = $this->impuestoKey($retencion['Impuesto']);
         if (! array_key_exists($key, $this->retenciones)) {

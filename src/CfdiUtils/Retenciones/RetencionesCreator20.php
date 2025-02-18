@@ -42,7 +42,7 @@ class RetencionesCreator20 implements
         return $this->retenciones;
     }
 
-    public function putCertificado(Certificado $certificado)
+    public function putCertificado(Certificado $certificado): void
     {
         $this->setCertificado($certificado);
         $this->retenciones['NoCertificado'] = $certificado->getSerial();

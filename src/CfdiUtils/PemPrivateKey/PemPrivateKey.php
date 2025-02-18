@@ -10,8 +10,7 @@ class PemPrivateKey
 {
     use OpenSSLPropertyTrait;
 
-    /** @var string */
-    private $contents;
+    private string $contents;
 
     /** @var mixed|false */
     private $privatekey = false;
@@ -72,7 +71,7 @@ class PemPrivateKey
         return true;
     }
 
-    public function close()
+    public function close(): void
     {
         if (false !== $this->privatekey) {
             if (\PHP_VERSION_ID < 80000) {

@@ -35,8 +35,11 @@ abstract class GenericBuilderTestCase extends TestCase
      * @param string $xsltLocation
      * @dataProvider providerCfdiToCadenaOrigen
      */
-    public function testCfdiToCadenaOrigen(string $xmlLocation, string $expectedTransformation, string $xsltLocation)
-    {
+    public function testCfdiToCadenaOrigen(
+        string $xmlLocation,
+        string $expectedTransformation,
+        string $xsltLocation
+    ): void {
         $xsltLocation = $this->downloadResourceIfNotExists($xsltLocation);
 
         $xmlLocation = $this->utilAsset($xmlLocation);
@@ -51,7 +54,7 @@ abstract class GenericBuilderTestCase extends TestCase
         );
     }
 
-    public function testBuildWithEmptyXml()
+    public function testBuildWithEmptyXml(): void
     {
         $builder = $this->createBuilder();
 
@@ -60,7 +63,7 @@ abstract class GenericBuilderTestCase extends TestCase
         $builder->build('', '');
     }
 
-    public function testBuildWithInvalidXml()
+    public function testBuildWithInvalidXml(): void
     {
         $builder = $this->createBuilder();
 
@@ -68,7 +71,7 @@ abstract class GenericBuilderTestCase extends TestCase
         $builder->build('not an xml', 'x');
     }
 
-    public function testBuildWithUndefinedXsltLocation()
+    public function testBuildWithUndefinedXsltLocation(): void
     {
         $builder = $this->createBuilder();
 
@@ -77,7 +80,7 @@ abstract class GenericBuilderTestCase extends TestCase
         $builder->build('<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" version="3.2"' . '/>', '');
     }
 
-    public function testBuildWithInvalidXsltLocation()
+    public function testBuildWithInvalidXsltLocation(): void
     {
         $builder = $this->createBuilder();
 
@@ -85,7 +88,7 @@ abstract class GenericBuilderTestCase extends TestCase
         $builder->build('<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" version="3.2"' . '/>', '/foo/bar');
     }
 
-    public function testBuildWithNonXsltContent()
+    public function testBuildWithNonXsltContent(): void
     {
         $builder = $this->createBuilder();
         $nonAnXsltFile = $this->utilAsset('simple-xml.xml');
@@ -97,7 +100,7 @@ abstract class GenericBuilderTestCase extends TestCase
         );
     }
 
-    public function testBuildWithEmptyXslt()
+    public function testBuildWithEmptyXslt(): void
     {
         $builder = $this->createBuilder();
         $emptyXsltFile = $this->utilAsset('empty.xslt');
@@ -113,7 +116,7 @@ abstract class GenericBuilderTestCase extends TestCase
      * This test require internet connection, not really required, run only if found errors
      * on method build using xslt files from internet
      */
-    public function skippedTestBuildWithRemoteResource()
+    public function skippedTestBuildWithRemoteResource(): void
     {
         $fileCfdi = $this->utilAsset('cfdi32-real.xml');
         $fileExpectedCadenaOrigen = $this->utilAsset('cfdi32-real-cadenaorigen.txt');

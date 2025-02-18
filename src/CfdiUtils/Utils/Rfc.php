@@ -12,17 +12,14 @@ class Rfc
 
     public const DISALLOW_FOREIGN = 2;
 
-    /** @var string */
-    private $rfc;
+    private string $rfc;
 
-    /** @var int */
-    private $length;
+    private int $length;
 
     /** @var string contains calculated checksum */
-    private $checkSum;
+    private string $checkSum;
 
-    /** @var bool */
-    private $checkSumMatch;
+    private bool $checkSumMatch;
 
     public function __construct(string $rfc, int $flags = 0)
     {
@@ -92,7 +89,7 @@ class Rfc
      * @throws \UnexpectedValueException when the date inside the value is not valid
      * @throws \UnexpectedValueException when the last digit does not match the checksum
      */
-    public static function checkIsValid(string $value, int $flags = 0)
+    public static function checkIsValid(string $value, int $flags = 0): void
     {
         if ($flags & static::DISALLOW_GENERIC && $value === static::RFC_GENERIC) {
             throw new \UnexpectedValueException('No se permite el RFC genérico para público en general');

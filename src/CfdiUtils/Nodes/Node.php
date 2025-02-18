@@ -7,17 +7,14 @@ use Traversable;
 
 class Node implements NodeInterface
 {
-    /** @var string */
-    private $name;
+    private string $name;
 
-    /** @var Attributes */
-    private $attributes;
+    private Attributes $attributes;
 
     /** @var Nodes|NodeInterface[] */
-    private $children;
+    private Nodes $children;
 
-    /** @var string */
-    private $value;
+    private string $value;
 
     /**
      * Node constructor.
@@ -61,13 +58,13 @@ class Node implements NodeInterface
         return $this->attributes;
     }
 
-    public function clear()
+    public function clear(): void
     {
         $this->attributes->removeAll();
         $this->children()->removeAll();
     }
 
-    public function addAttributes(array $attributes)
+    public function addAttributes(array $attributes): void
     {
         $this->attributes->importArray($attributes);
     }
@@ -142,13 +139,13 @@ class Node implements NodeInterface
     }
 
     #[\ReturnTypeWillChange]
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         $this->attributes[$offset] = $value;
     }
 
     #[\ReturnTypeWillChange]
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->attributes[$offset]);
     }

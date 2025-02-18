@@ -16,7 +16,7 @@ final class SumasConceptosWriter40Test extends TestCase
         return new Comprobante40($attributes);
     }
 
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $precision = 6;
         $comprobante = $this->createComprobante();

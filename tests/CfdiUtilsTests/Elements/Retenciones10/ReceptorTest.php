@@ -18,12 +18,12 @@ final class ReceptorTest extends TestCase
         $this->element = new Receptor();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('retenciones:Receptor', $this->element->getElementName());
     }
 
-    public function testGetNacionalOverridesGetExtranjeroAndViceversa()
+    public function testGetNacionalOverridesGetExtranjeroAndViceversa(): void
     {
         $this->element->getExtranjero();
 
@@ -36,7 +36,7 @@ final class ReceptorTest extends TestCase
         $this->assertSame('Extranjero', $this->element['Nacionalidad']);
     }
 
-    public function testAddNacional()
+    public function testAddNacional(): void
     {
         $first = $this->element->addNacional(['foo' => 'ZOO']);
         $this->assertInstanceOf(Nacional::class, $first);
@@ -50,7 +50,7 @@ final class ReceptorTest extends TestCase
         $this->assertSame('Nacional', $this->element['Nacionalidad']);
     }
 
-    public function testAddExtranjero()
+    public function testAddExtranjero(): void
     {
         $first = $this->element->addExtranjero(['foo' => 'ZOO']);
         $this->assertInstanceOf(Extranjero::class, $first);

@@ -7,26 +7,19 @@ use UnexpectedValueException;
 
 class RequestParameters
 {
-    /** @var string */
-    private $version;
+    private string $version;
 
-    /** @var string */
-    private $rfcEmisor;
+    private string $rfcEmisor;
 
-    /** @var string */
-    private $rfcReceptor;
+    private string $rfcReceptor;
 
-    /** @var string */
-    private $total;
+    private string $total;
 
-    /** @var float */
-    private $totalFloat;
+    private float $totalFloat;
 
-    /** @var string */
-    private $uuid;
+    private string $uuid;
 
-    /** @var string */
-    private $sello;
+    private string $sello;
 
     public function __construct(
         string $version,
@@ -63,7 +56,7 @@ class RequestParameters
         return $this->version;
     }
 
-    public function setVersion(string $version)
+    public function setVersion(string $version): void
     {
         if (! in_array($version, ['3.2', '3.3', '4.0'], true)) {
             throw new UnexpectedValueException('The version is not allowed');

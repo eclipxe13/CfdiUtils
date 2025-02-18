@@ -8,7 +8,7 @@ namespace CfdiUtils\Internals;
 final class StringUncaseReplacer
 {
     /** @var array<string, array<string, true>> */
-    private $replacements;
+    private array $replacements;
 
     /**
      * @param array<string, array<string, true>> $replacements
@@ -31,7 +31,7 @@ final class StringUncaseReplacer
         return $replacer;
     }
 
-    private function addReplacement(string $replacement, string ...$needle)
+    private function addReplacement(string $replacement, string ...$needle): void
     {
         $needle[] = $replacement; // also include the replacement itself
         foreach ($needle as $entry) {

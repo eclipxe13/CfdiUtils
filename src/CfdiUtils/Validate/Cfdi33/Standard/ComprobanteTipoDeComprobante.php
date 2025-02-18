@@ -25,7 +25,7 @@ use CfdiUtils\Validate\Status;
  */
 class ComprobanteTipoDeComprobante extends AbstractDiscoverableVersion33
 {
-    private function registerAsserts(Asserts $asserts)
+    private function registerAsserts(Asserts $asserts): void
     {
         $assertsDescriptions = [
             'TIPOCOMP01' => 'Si el tipo de comprobante es T, P ó N,'
@@ -53,7 +53,7 @@ class ComprobanteTipoDeComprobante extends AbstractDiscoverableVersion33
         }
     }
 
-    public function validate(NodeInterface $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts): void
     {
         $this->registerAsserts($asserts);
 

@@ -17,12 +17,12 @@ final class TimbreFiscalDigitalTest extends TestCase
         $this->element = new TimbreFiscalDigital();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('tfd:TimbreFiscalDigital', $this->element->getElementName());
     }
 
-    public function testHasFixedAttributes()
+    public function testHasFixedAttributes(): void
     {
         $namespace = 'http://www.sat.gob.mx/TimbreFiscalDigital';
         $this->assertSame('1.1', $this->element['Version']);

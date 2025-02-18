@@ -19,7 +19,7 @@ final class DestinoTest extends TestCase
         $this->element = new Destino();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cartaporte:Destino', $this->element->getElementName());
     }

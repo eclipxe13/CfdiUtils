@@ -53,7 +53,7 @@ trait CfdiCreatorTrait
         return $new;
     }
 
-    public function putCertificado(Certificado $certificado, bool $putEmisorRfcNombre = true)
+    public function putCertificado(Certificado $certificado, bool $putEmisorRfcNombre = true): void
     {
         $this->setCertificado($certificado);
         $this->comprobante['NoCertificado'] = $certificado->getSerial();
@@ -102,7 +102,7 @@ trait CfdiCreatorTrait
         return new SumasConceptos($this->comprobante, $precision);
     }
 
-    public function addSumasConceptos(?SumasConceptos $sumasConceptos = null, int $precision = 2)
+    public function addSumasConceptos(?SumasConceptos $sumasConceptos = null, int $precision = 2): void
     {
         if (null === $sumasConceptos) {
             $sumasConceptos = $this->buildSumasConceptos($precision);
@@ -111,7 +111,7 @@ trait CfdiCreatorTrait
         $writer->put();
     }
 
-    public function addSello(string $key, string $passPhrase = '')
+    public function addSello(string $key, string $passPhrase = ''): void
     {
         // create private key
         $privateKey = new PemPrivateKey($key);
