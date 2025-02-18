@@ -12,15 +12,17 @@ En resumen:
 * Cuando reportes un problema procura documentar lo más posible tu caso.
 * Cuando desees contribuir al código, realiza pruebas.
 * Apégate al estándar de codificación.
-* Usa las herramientas básicas, antes de enviar tu PR ejecuta: `composer dev:build`.
+* Usa las herramientas básicas, antes de enviar tu PR ejecuta:
+  * Actualizar herramientas: `phive update && composer update`.
+  * Revisar la construcción del proyecto: `composer dev:build`.
 
 ## Dependencias de desarrollo
 
-Requieres tener instalado y disponible `git` `composer` y `php`.
+Requieres tener instalado y disponible `git` `composer`, `phive` y `php`.
 
 Opcionalmente podrías tener instalado `saxonb-xslt`.
 
-El proyecto es compatible con PHP 7.0.
+El proyecto es compatible con PHP 7.3.
 Respeta esta compatibilidad, no agregues características de versiones superiores.
 
 ## Primeros pasos
@@ -35,7 +37,7 @@ Instalar las dependencias, opcionalmente puedes poner `--prefer-dist` para insta
 los paquetes con
 
 ```shell
-composer install
+composer update
 ```
 
 ## Pruebas
@@ -43,8 +45,8 @@ composer install
 Para probar que no se están violando las reglas de estilo
 
 ```shell
-vendor/bin/phpcs -sp --colors
-vendor/bin/php-cs-fixer fix --using-cache=no --dry-run --verbose
+tools/phpcs -sp --colors
+tools/php-cs-fixer fix --using-cache=no --dry-run --verbose
 ```
 
 
@@ -57,7 +59,7 @@ vendor/bin/phpunit
 También ejecutamos PHPStan sobre archivos de orígenes y pruebas
 
 ```shell
-vendor/bin/phpstan analyse
+tools/phpstan analyse
 ```
 
 
@@ -66,8 +68,8 @@ vendor/bin/phpstan analyse
 Para corregir todos los problemas de estilo que encuentre
 
 ```shell
-vendor/bin/php-cs-fixer fix --verbose
-vendor/bin/phpcbf --colors -sp
+tools/php-cs-fixer fix --verbose
+tools/phpcbf --colors -sp
 ```
 
 

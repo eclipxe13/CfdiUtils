@@ -47,10 +47,7 @@
         "ext-curl": "*",
         "ext-soap": "*",
         "genkgo/xsl": "^1.0.8",
-        "phpunit/phpunit": "^9.5",
-        "squizlabs/php_codesniffer": "^3.6",
-        "friendsofphp/php-cs-fixer": "^3.0",
-        "phpstan/phpstan": "^2.1"
+        "phpunit/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {
@@ -70,12 +67,12 @@
             "@dev:docs"
         ],
         "dev:check-style": [
-            "@php vendor/bin/php-cs-fixer fix --dry-run --verbose",
-            "@php vendor/bin/phpcs --colors -sp"
+            "@php tools/php-cs-fixer fix --dry-run --verbose",
+            "@php tools/phpcs --colors -sp"
         ],
         "dev:fix-style": [
-            "@php vendor/bin/php-cs-fixer fix --verbose",
-            "@php vendor/bin/phpcbf --colors -sp"
+            "@php tools/php-cs-fixer fix --verbose",
+            "@php tools/phpcbf --colors -sp"
         ],
         "dev:docs": [
             "node_modules/markdownlint-cli/markdownlint.js *.md docs/",
@@ -84,7 +81,7 @@
         "dev:test": [
             "@dev:check-style",
             "@php vendor/bin/phpunit --testdox --verbose --stop-on-failure",
-            "@php vendor/bin/phpstan analyse --no-progress"
+            "@php tools/phpstan analyse --no-progress"
         ],
         "dev:coverage": [
             "@php -dzend_extension=xdebug.so -dxdebug.mode=coverage vendor/bin/phpunit --coverage-html build/coverage/html/"

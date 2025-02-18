@@ -48,6 +48,6 @@ return (new PhpCsFixer\Config())
         PhpCsFixer\Finder::create()
             ->in(__DIR__)
             ->append([__FILE__])
-            ->exclude(['vendor', 'build']),
+            ->exclude(['vendor', 'tools', 'build']),
     )
 ;
