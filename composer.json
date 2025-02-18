@@ -24,7 +24,7 @@
         "optimize-autoloader": true
     },
     "require": {
-        "php": ">=7.3",
+        "php": ">=7.4",
         "ext-libxml": "*",
         "ext-dom": "*",
         "ext-xsl": "*",
@@ -47,7 +47,8 @@
         "ext-curl": "*",
         "ext-soap": "*",
         "genkgo/xsl": "^1.0.8",
-        "phpunit/phpunit": "^9.5"
+        "phpunit/phpunit": "^9.5",
+        "rector/rector": "^2.0"
     },
     "autoload": {
         "psr-4": {
