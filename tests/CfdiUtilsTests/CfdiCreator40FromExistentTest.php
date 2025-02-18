@@ -33,7 +33,7 @@ final class CfdiCreator40FromExistentTest extends TestCase
 
         $comprobante = $creator->comprobante();
         $this->assertCount(1, $comprobante->searchNodes('cfdi:Emisor'));
-        $this->assertSame('ESCUELA KEMPER URGATE SA DE CV', $comprobante->searchAttribute('cfdi:Emisor', 'Nombre'));
+        $this->assertSame('ESCUELA KEMPER URGATE', $comprobante->searchAttribute('cfdi:Emisor', 'Nombre'));
         $this->assertSame('EKU9003173C9', $comprobante->searchAttribute('cfdi:Emisor', 'Rfc'));
     }
 }
