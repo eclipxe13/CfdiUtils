@@ -104,14 +104,14 @@ class QuickReader extends \stdClass implements \ArrayAccess
         return null;
     }
 
-    public function offsetExists($name): bool
+    public function offsetExists($offset): bool
     {
-        return (null !== $this->getAttributeByName((string) $name));
+        return (null !== $this->getAttributeByName((string) $offset));
     }
 
-    public function offsetGet($name): string
+    public function offsetGet($offset): string
     {
-        return $this->getAttributeByName((string) $name) ?? '';
+        return $this->getAttributeByName((string) $offset) ?? '';
     }
 
     #[\ReturnTypeWillChange]
