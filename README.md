@@ -64,22 +64,22 @@ composer require eclipxe/cfdiutils
 
 ## PHP Support
 
-This library is compatible with **PHP 7.3 and above**. Please, try to use the language's full potential.
+This library is compatible with **PHP 7.4 and above**. Please, try to use the language's full potential.
 
 The intended support is to be aligned with the oldest *Active support* PHP Branch.
 See <https://www.php.net/supported-versions.php> for more details.
 
-| CfdiUtils | PHP Supported versions            | Since      |
-|-----------|-----------------------------------|------------|
-| 1.0       | 7.0, 7.1                          | 2017-09-27 |
-| 2.0       | 7.0, 7.1                          | 2018-01-01 |
-| 2.0.1     | 7.0, 7.1, 7.2                     | 2018-01-03 |
-| 2.8.1     | 7.0, 7.1, 7.2, 7.3                | 2019-03-05 |
-| 2.12.7    | 7.0, 7.1, 7.2, 7.3, 7.4           | 2019-12-04 |
-| 2.15.0    | 7.3, 7.4, 8.0                     | 2021-03-17 |
-| 2.20.1    | 7.3, 7.4, 8.0, 8.1                | 2022-03-08 |
-| 2.23.5    | 7.3, 7.4, 8.0, 8.1, 8.2, 8.3      | 2023-05-26 |
-| 3.0.0     | 7.3, 7.4, 8.0, 8.1, 8.2, 8.3, 8.4 | 2025-02-16 |
+| CfdiUtils | PHP Supported versions       | Since      |
+|-----------|------------------------------|------------|
+| 1.0       | 7.0, 7.1                     | 2017-09-27 |
+| 2.0       | 7.0, 7.1                     | 2018-01-01 |
+| 2.0.1     | 7.0, 7.1, 7.2                | 2018-01-03 |
+| 2.8.1     | 7.0, 7.1, 7.2, 7.3           | 2019-03-05 |
+| 2.12.7    | 7.0, 7.1, 7.2, 7.3, 7.4      | 2019-12-04 |
+| 2.15.0    | 7.3, 7.4, 8.0                | 2021-03-17 |
+| 2.20.1    | 7.3, 7.4, 8.0, 8.1           | 2022-03-08 |
+| 2.23.5    | 7.3, 7.4, 8.0, 8.1, 8.2, 8.3 | 2023-05-26 |
+| 3.0.0     | 7.4, 8.0, 8.1, 8.2, 8.3, 8.4 | 2025-02-18 |
 
 
 ## Contributing
