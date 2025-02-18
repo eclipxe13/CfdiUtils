@@ -62,7 +62,7 @@ Se removió `CfdiUtils\Utils\Crp20277Fixer`, la clase era inútil y no debía ut
 
 Solo haga caso a este cambio si extendió o implementó la interface `CfdiUtils\Nodes\NodeInterface`.
 
-- Se eliminó la interface `CfdiUtils\Nodes\NodeInterface\NodeHasValueInterface`, se movieron a `NodeInterface`.
+- Se eliminó la interface `CfdiUtils\Nodes\NodeInterface\NodeHasValueInterface`, sus métodos se movieron a `NodeInterface`.
 - Se agregó el método `exists(string $attribute): bool` que determina si un atributo existe.
 - Se agregaron los métodos `value()` y `setValue()` a la clase `NodeInterface`.
 - El método `searchNode` cambió el valor de retorno de *no definido* a `null|self`.
