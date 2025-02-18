@@ -37,10 +37,10 @@ final class TemporaryFile
         }
 
         if ('' === $filename) {
-            throw new \RuntimeException(sprintf('Unable to create a temporary file'));
+            throw new \RuntimeException('Unable to create a temporary file');
         }
 
-        return new static($filename);
+        return new self($filename);
     }
 
     public function getPath(): string

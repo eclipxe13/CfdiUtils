@@ -10,7 +10,7 @@ exit(call_user_func(function (string $command, string ...$arguments): int {
     $askForHelp = ([] !== array_intersect(['-h', '--help'], $arguments));
     $files = array_filter($arguments);
 
-    if ($askForHelp || ! count($files)) {
+    if ($askForHelp || $files === []) {
         echo implode(PHP_EOL, [
             basename($command) . ' [-h|--help] cfdi.xml...',
             '  -h, --help     Show this help',
