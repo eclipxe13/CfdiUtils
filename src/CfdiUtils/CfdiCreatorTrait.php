@@ -63,8 +63,9 @@ trait CfdiCreatorTrait
             if (null === $emisor) {
                 $emisor = $this->comprobante->getEmisor();
             }
+            $trimSuffix = ($this->comprobante['Version'] == '4.0');
             $emisor->addAttributes([
-                'Nombre' => $certificado->getName(),
+                'Nombre' => $certificado->getName($trimSuffix),
                 'Rfc' => $certificado->getRfc(),
             ]);
         }
