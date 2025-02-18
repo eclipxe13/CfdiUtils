@@ -9,9 +9,9 @@ use CfdiUtils\Nodes\NodeInterface;
  */
 class MontoGreaterThanZero extends AbstractPagoValidator
 {
-    protected $code = 'PAGO07';
+    protected string $code = 'PAGO07';
 
-    protected $title = 'En un pago, el monto debe ser mayor a cero (CRP207)';
+    protected string $title = 'En un pago, el monto debe ser mayor a cero (CRP207)';
 
     public function validatePago(NodeInterface $pago): bool
     {

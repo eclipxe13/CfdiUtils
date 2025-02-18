@@ -9,9 +9,9 @@ use CfdiUtils\Nodes\NodeInterface;
  */
 class CuentaOrdenanteProhibida extends AbstractPagoValidator
 {
-    protected $code = 'PAGO13';
+    protected string $code = 'PAGO13';
 
-    protected $title = 'En un pago, cuando la forma de pago no sea bancarizada'
+    protected string $title = 'En un pago, cuando la forma de pago no sea bancarizada'
         . ' la cuenta ordenante no debe existir (CRP212)';
 
     public function validatePago(NodeInterface $pago): bool

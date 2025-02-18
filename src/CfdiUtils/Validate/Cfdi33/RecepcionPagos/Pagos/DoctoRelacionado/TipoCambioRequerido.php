@@ -10,9 +10,9 @@ use CfdiUtils\Nodes\NodeInterface;
  */
 class TipoCambioRequerido extends AbstractDoctoRelacionadoValidator
 {
-    protected $code = 'PAGO24';
+    protected string $code = 'PAGO24';
 
-    protected $title = 'En un documento relacionado, el tipo de cambio debe existir cuando la moneda del pago'
+    protected string $title = 'En un documento relacionado, el tipo de cambio debe existir cuando la moneda del pago'
         . ' es diferente a la moneda del documento y viceversa (CRP218, CRP219)';
 
     public function validateDoctoRelacionado(NodeInterface $docto): bool

@@ -9,9 +9,9 @@ use CfdiUtils\Nodes\NodeInterface;
  */
 class FormaDePago extends AbstractPagoValidator
 {
-    protected $code = 'PAGO03';
+    protected string $code = 'PAGO03';
 
-    protected $title = 'En un pago, la forma de pago debe existir y no puede ser "99" (CRP201)';
+    protected string $title = 'En un pago, la forma de pago debe existir y no puede ser "99" (CRP201)';
 
     public function validatePago(NodeInterface $pago): bool
     {

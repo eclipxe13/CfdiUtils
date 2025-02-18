@@ -10,9 +10,9 @@ use CfdiUtils\Nodes\NodeInterface;
  */
 class ImporteSaldoAnteriorRequerido extends AbstractDoctoRelacionadoValidator
 {
-    protected $code = 'PAGO32';
+    protected string $code = 'PAGO32';
 
-    protected $title = 'En un documento relacionado, el saldo anterior es requerido cuando'
+    protected string $title = 'En un documento relacionado, el saldo anterior es requerido cuando'
         . ' el tipo de cambio existe o existe más de un documento relacionado (CRP234)';
 
     public function validateDoctoRelacionado(NodeInterface $docto): bool

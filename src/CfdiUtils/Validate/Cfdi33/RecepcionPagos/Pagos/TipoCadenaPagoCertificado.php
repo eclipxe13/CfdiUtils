@@ -10,9 +10,9 @@ use CfdiUtils\Nodes\NodeInterface;
  */
 class TipoCadenaPagoCertificado extends AbstractPagoValidator
 {
-    protected $code = 'PAGO20';
+    protected string $code = 'PAGO20';
 
-    protected $title = 'En un pago, si existe el tipo de cadena de pago debe existir'
+    protected string $title = 'En un pago, si existe el tipo de cadena de pago debe existir'
         . ' el certificado del pago y viceversa (CRP227 y CRP228)';
 
     public function validatePago(NodeInterface $pago): bool

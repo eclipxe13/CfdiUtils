@@ -11,9 +11,9 @@ use CfdiUtils\Utils\Rfc;
  */
 class BancoBeneficiarioRfcCorrecto extends AbstractPagoValidator
 {
-    protected $code = 'PAGO15';
+    protected string $code = 'PAGO15';
 
-    protected $title = 'En un pago, cuando el RFC del banco emisor de la cuenta beneficiaria existe'
+    protected string $title = 'En un pago, cuando el RFC del banco emisor de la cuenta beneficiaria existe'
         . ' debe ser válido y diferente de "XAXX010101000"';
 
     public function validatePago(NodeInterface $pago): bool

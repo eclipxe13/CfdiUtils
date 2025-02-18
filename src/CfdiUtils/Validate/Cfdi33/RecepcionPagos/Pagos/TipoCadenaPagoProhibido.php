@@ -9,9 +9,9 @@ use CfdiUtils\Nodes\NodeInterface;
  */
 class TipoCadenaPagoProhibido extends AbstractPagoValidator
 {
-    protected $code = 'PAGO19';
+    protected string $code = 'PAGO19';
 
-    protected $title = 'En un pago, cuando la forma de pago no sea 03 o 99'
+    protected string $title = 'En un pago, cuando la forma de pago no sea 03 o 99'
         . ' el tipo de cadena de pago no debe existir (CRP216)';
 
     public function validatePago(NodeInterface $pago): bool

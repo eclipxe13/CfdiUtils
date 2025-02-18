@@ -13,9 +13,9 @@ class ImporteSaldoInsolutoValor extends AbstractDoctoRelacionadoValidator
 {
     use CalculateDocumentAmountTrait;
 
-    protected $code = 'PAGO28';
+    protected string $code = 'PAGO28';
 
-    protected $title = 'En un documento relacionado, el importe del saldo insoluto debe ser mayor o igual a cero'
+    protected string $title = 'En un documento relacionado, el importe del saldo insoluto debe ser mayor o igual a cero'
         . ' e igual a la resta del importe del saldo anterior menos el importe pagado (CRP226)';
 
     public function validateDoctoRelacionado(NodeInterface $docto): bool

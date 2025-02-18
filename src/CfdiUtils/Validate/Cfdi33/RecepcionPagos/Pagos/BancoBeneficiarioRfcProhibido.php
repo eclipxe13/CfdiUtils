@@ -10,9 +10,9 @@ use CfdiUtils\Nodes\NodeInterface;
  */
 class BancoBeneficiarioRfcProhibido extends AbstractPagoValidator
 {
-    protected $code = 'PAGO16';
+    protected string $code = 'PAGO16';
 
-    protected $title = 'En un pago, cuando la forma de pago no sea 02, 03, 04, 05, 28, 29 o 99'
+    protected string $title = 'En un pago, cuando la forma de pago no sea 02, 03, 04, 05, 28, 29 o 99'
         . ' el RFC del banco de la cuenta beneficiaria no debe existir (CRP214)';
 
     public function validatePago(NodeInterface $pago): bool

@@ -11,18 +11,16 @@ use CfdiUtils\Validate\Status;
 
 abstract class AbstractPagoValidator
 {
-    /** @var string */
-    protected $code = '';
+    protected string $code = '';
 
-    /** @var string */
-    protected $title = '';
+    protected string $title = '';
 
-    public function getCode()
+    public function getCode(): string
     {
         return $this->code;
     }
 
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }

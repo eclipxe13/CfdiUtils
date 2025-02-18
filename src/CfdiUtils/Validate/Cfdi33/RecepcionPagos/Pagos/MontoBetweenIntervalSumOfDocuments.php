@@ -14,9 +14,9 @@ class MontoBetweenIntervalSumOfDocuments extends AbstractPagoValidator
 {
     use CalculateDocumentAmountTrait;
 
-    protected $code = 'PAGO09';
+    protected string $code = 'PAGO09';
 
-    protected $title = 'En un pago, el monto del pago debe encontrarse entre límites mínimo y máximo de la suma'
+    protected string $title = 'En un pago, el monto del pago debe encontrarse entre límites mínimo y máximo de la suma'
         . ' de los valores registrados en el importe pagado de los documentos relacionados (Guía llenado)';
 
     public function validatePago(NodeInterface $pago): bool

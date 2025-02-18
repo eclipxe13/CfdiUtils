@@ -9,9 +9,9 @@ use CfdiUtils\Nodes\NodeInterface;
  */
 class CuentaBeneficiariaPatron extends AbstractPagoValidator
 {
-    protected $code = 'PAGO18';
+    protected string $code = 'PAGO18';
 
-    protected $title = 'En un pago, cuando la cuenta beneficiaria existe'
+    protected string $title = 'En un pago, cuando la cuenta beneficiaria existe'
         . ' debe cumplir con su patrón específico (CRP213)';
 
     public function validatePago(NodeInterface $pago): bool

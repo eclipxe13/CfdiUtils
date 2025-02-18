@@ -10,9 +10,9 @@ use CfdiUtils\Nodes\NodeInterface;
  */
 class CuentaBeneficiariaProhibida extends AbstractPagoValidator
 {
-    protected $code = 'PAGO17';
+    protected string $code = 'PAGO17';
 
-    protected $title = 'En un pago, cuando la forma de pago no sea 02, 03, 04, 05, 28, 29 o 99'
+    protected string $title = 'En un pago, cuando la forma de pago no sea 02, 03, 04, 05, 28, 29 o 99'
         . ' la cuenta beneficiaria no debe existir (CRP215)';
 
     public function validatePago(NodeInterface $pago): bool
