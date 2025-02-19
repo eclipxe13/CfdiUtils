@@ -31,6 +31,5 @@
         </pago20:ImpuestosP>
       </pago20:Pago>
     </pago20:Pagos>
-    <tfd:TimbreFiscalDigital xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" xsi:schemaLocation="http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/sitio_internet/cfd/TimbreFiscalDigital/TimbreFiscalDigitalv11.xsd" Version="1.1" SelloCFD="U2JdLJP9g9jXAcYZAD0Hgznffkin1uNB6WGbf91yktwEtD5iP4ScCnLaD/thRBjRQTUoDwAAbox70atswEXXsK3oXTBEhDib8xce2C2B02CrNJAMVU3xaLHxGWDDamT/lry2+uZVpX1IiK1gw4/BPfqWg0PwD7LePZj4SZmYsE6G2jEFKMwfRqFDyXc/IbvvyzAQezEKDUdHCB+T6Bsj8GpNYP5e+ZJtjIxeE1w/r8MVa0EcvOiaW4dvzUuIZ3/wAscyATYSmkgGM8NGLjr0mO9RROe7xFxv1bNOQc7XERuejmb6B9F/WtxmeuQvye4l7SaIsmqTbJoMxzZJ0I89Xw==" NoCertificadoSAT="30001000000400002495" RfcProvCertif="CVD110412TF6" UUID="45B6AC71-EC65-51EA-A33C-B73423087A52" FechaTimbrado="2023-03-01T18:20:21" SelloSAT="bAW/0jxclkEmsCSnwg+rLiA2i7tf8j/M6412+9UJLYrbvpv2UATKf52galHM9M8gEg+V2mUHLnGDogA5UZNM2tBqaWxqzVFmXa+17hQz2E4ot4e3HJt6KasO6LcUa4nhtPlWkvQCVa/60aqCpmASx7DqAGjDUSB1fzr9fjLcupzGo9whP7X4HQ89JVDHRwCcuN5QPRDUlhqrVidZ2TDwfCKkDQTrvEYOoKzBkuSIQGqyMXl30osOrlWfFJIqqSc7t69YCuhlyA7DwSc6vWMouF03Gz7LRAhbc2ka/acAVWl/LoLEmBoyOyJQWJcvNW5/rY10jwLg+hvrA3wv/8Z/gw=="/>
   </cfdi:Complemento>
 </cfdi:Comprobante>
