@@ -42,7 +42,7 @@ final class SelloDigitalCertificadoTest extends Validate40TestCase
             'SELLO01' => Status::ok(),
             'SELLO02' => Status::ok(),
             'SELLO03' => Status::ok(),
-            'SELLO04' => Status::none(),
+            'SELLO04' => Status::ok(),
             'SELLO05' => Status::ok(),
             'SELLO06' => Status::ok(),
             'SELLO07' => Status::ok(),
@@ -71,21 +71,24 @@ final class SelloDigitalCertificadoTest extends Validate40TestCase
     public function testValidateNameMoralPerson()
     {
         $this->setUpCertificado([], [
-            'Nombre' => 'ESCUELA KEMPER URGATE SA DE CV',
+            'Nombre' => 'ESCUELA KEMPER URGATE',
         ]);
 
         $this->runValidate();
 
         $status = $this->getAssertByCodeOrFail('SELLO04');
 
-        $this->assertTrue($status->getStatus()->isNone());
-        $this->assertSame('No es posible realizar la validación en Personas Morales', $status->getExplanation());
+        $this->assertTrue($status->getStatus()->isOk());
+        $this->assertSame(
+            'Nombre certificado: ESCUELA KEMPER URGATE SA DE CV, Nombre comprobante: ESCUELA KEMPER URGATE.',
+            $status->getExplanation()
+        );
     }
 
     public function testValidateWithIdenticalNameRegularPerson()
     {
         $this->setUpCertificado([], [
-            'Rfc' => 'COSC8001137NA', // set as persona física to force name comparison
+            'Rfc' => 'COSC8001137NA', // set as persona física to force name comparison and not remove suffix
             'Nombre' => 'ESCUELA KEMPER URGATE SA DE CV',
         ]);
 

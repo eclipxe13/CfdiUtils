@@ -36,16 +36,12 @@ class SelloDigitalCertificado extends AbstractDiscoverableVersion40 implements
             return;
         }
 
-        $isMoralPerson = 12 === mb_strlen($rfc);
-        if ($isMoralPerson) {
-            $explanation = 'No es posible realizar la validación en Personas Morales';
-            $this->asserts->putStatus('SELLO04', Status::none(), $explanation);
-            return;
-        }
+        // Remove régimen de capital from name when is "Persona Moral" only.
+        $removeSuffixFromName = 12 === mb_strlen($rfc);
 
         $this->asserts->putStatus(
             'SELLO04',
-            Status::when($this->certificado->getName() === $emisorNombre),
+            Status::when($this->certificado->getName($removeSuffixFromName) === $emisorNombre),
             sprintf('Nombre certificado: %s, Nombre comprobante: %s.', $this->certificado->getName(), $emisorNombre)
         );
     }

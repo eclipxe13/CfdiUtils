@@ -33,7 +33,28 @@
 - Remove deprecated constant `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`.
 - Remove deprecated class `CfdiUtils\Utils\Crp20277Fixer`.
 
-## Version 2.30.0 2024-06-18
+## Version 2.31.0 2025-02-19
+
+A new utility `CfdiUtils\Utils\RegimenCapitalRemover` has been created to remove the *Régimen de Capital*
+from a string. The most common case is to remove it from a certificate name, but you can use it anywhere.
+
+This release includes a change to `Certificado::getName()` method.
+The argument `$trimSuffix` was added, with default `false`.
+When you pass `$trimSuffix: true`, it will try to remove the *Régimen de capital* suffix from the
+name detected on the certificate. For example: `EMPRESA PATITO SA DE CV` will return `EMPRESA PATITO`.
+
+The method `CfdiCreator40::putCertificado()` now evaluates if the certificate belongs to a *Persona Moral*,
+and the root node has attribute `Version` equal to `4.0`.
+If that is the case then it will set up the `Emisor@Name` attribute removing the suffix.
+That means that is no longer necessary to override the `Emisor@Name` later.
+
+The assertion `SELLO04: El nombre del emisor del comprobante es igual al encontrado en el certificado`
+has been changed, previously, if the RFC belongs to a *Persona Moral* then it returns status `none`.
+Now, the assertion uses the "remove the *Régimen de capital*" capability to perform the validation.
+
+Thanks `@ahuahuachi` for the contribution.
+
+## Version 2.30.0 2025-02-14
 
 This is a maintenance release to fix continuous integration.
 
