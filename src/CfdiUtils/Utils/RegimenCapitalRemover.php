@@ -1,0 +1,195 @@
+<?php
+
+namespace CfdiUtils\Utils;
+
+use LogicException;
+
+final class RegimenCapitalRemover
+{
+    /**
+     * @var list<string> List of "Régimen de Capital", taken from IMSS
+     * @see https://altapatronalpresencial.imss.gob.mx/sapi/plantillaPatrones.do?method=initCapturaMoral
+     */
+    private const SUFFIXES = [
+        'A EN P',
+        'AA',
+        'ABP',
+        'AC',
+        'AF',
+        'AFORE',
+        'AG',
+        'ALPR',
+        'APL',
+        'APN',
+        'AR DE IC DE CV DE RL',
+        'AR DE IC DE CV',
+        'AR DE IC DE RI',
+        'AR DE IC DE RL DE CV',
+        'AR DE IC DE RL',
+        'AR DE IC',
+        'AR',
+        'ART',
+        'C POR A',
+        'CEL',
+        'EPE',
+        'EPS',
+        'FA',
+        'FC DE RL',
+        'I A S',
+        'IAP',
+        'IBP',
+        'INSTITUCION DE ASISTENCIA SOCIAL PRIVADA',
+        'INSTITUCION DE BANCA MULTIPLE',
+        'INSTITUTO DE ASISTENCIA SOCIAL',
+        'L',
+        'MI',
+        'ORGANIZACIONES AUXILIARES DE CREDITO',
+        'P EN C',
+        'RI',
+        'RL Y CV',
+        'S C DE P S DE R L DE C V',
+        'S C P R DE R L',
+        'S DE CV',
+        'S DE I DE OL',
+        'S DE P DE RL',
+        'S DE PR DE RI',
+        'S DE PR DE RS',
+        'S DE RL ART',
+        'S DE RL DE CV MI',
+        'S DE RL DE CV',
+        'S DE RL DE IP DE CV',
+        'S DE RL DE IP',
+        'S DE RL MI ART',
+        'S DE RL MI DE CV',
+        'S DE RL MI',
+        'S DE RL',
+        'S DE SS DE R L',
+        'S DE SS DE RI',
+        'S DE SS',
+        'S EN C DE CV',
+        'S EN C DE RI DE CV',
+        'S EN C DE RI',
+        'S EN C DE RL DE CV',
+        'S EN C DE RL',
+        'S EN C POR A DE CV',
+        'S EN C POR A DE RI DE CV',
+        'S EN C POR A DE RI',
+        'S EN C POR A DE RL DE CV',
+        'S EN C POR A DE RL',
+        'S EN C POR A',
+        'S EN C',
+        'S EN CS DE CV',
+        'S EN NC DE CV',
+        'S EN NC DE RI DE CV',
+        'S EN NC DE RI',
+        'S EN NC DE RL DE CV',
+        'S EN NC DE RL',
+        'SA DE CV DE RL',
+        'SA DE CV S DE I DE C',
+        'SA DE CV SFOL',
+        'SA DE CV SFP',
+        'SA DE CV SIID PM',
+        'SA DE CV SIID',
+        'SA DE CV SIRV',
+        'SA DE CV SOFOM ENR',
+        'SA DE CV SOFOM ER',
+        'SA DE CV',
+        'SA DE RI DE CV',
+        'SA DE RI',
+        'SA DE RL DE CV',
+        'SA DE RL',
+        'SA SOFOM EN R',
+        'SA SOFOM ER',
+        'SA',
+        'SAB DE CV',
+        'SAB',
+        'SAPI DE CV',
+        'SAPI DE CV,SOFOM,ENR',
+        'SAPI',
+        'SAS DE CV',
+        'SAS',
+        'SC DE C DE B Y S DE RL DE CV',
+        'SC DE C DE RL DE CV',
+        'SC DE C DE RL',
+        'SC DE C DE RS DE CV',
+        'SC DE C DE RS',
+        'SC DE CV DE RL',
+        'SC DE CV',
+        'SC DE P DE RL DE CV',
+        'SC DE P DE RL',
+        'SC DE P DE RS DE CV',
+        'SC DE P DE RS',
+        'SC DE RI',
+        'SC DE RL DE CV',
+        'SC DE RL DE IP Y CV',
+        'SC DE RL MI',
+        'SC DE RL',
+        'SC DE RS DE CV',
+        'SC DE RS',
+        'SC DE S DE RL DE CV',
+        'SC PBS RL',
+        'SC',
+        'SCAPRL de CV',
+        'SCL (LIMITADA)',
+        'SCL DE CV',
+        'SCP',
+        'SCP',
+        'SCPC DE RL DE CV',
+        'SCPR DE RL DE C V',
+        'SCS (SUPLEMENTADA)',
+        'SCU',
+        'SGC',
+        'SIEFORE',
+        'SIID',
+        'SIN TIPO DE SOCIEDAD',
+        'SL',
+        'SNC',
+        'SOCIEDAD CIVIL UNIVERSAL',
+        'SOCIEDAD COOPERATIVA DE RESPONSABILIDAD LIMITADA',
+        'SOCIEDAD COOPERATIVA',
+        'SOCIEDAD EN NOMBRE COLECTIVO',
+        'SOCIEDAD MUTUALISTA DE SEGUROS DE VIDA O DE DAÑOS',
+        'SOCIEDADES DE INVERSION COMUNES',
+        'SOCIEDADES DE INVERSION DE CAPITALES',
+        'SOCIEDADES DE INVERSIÓN',
+        'SOFOL',
+        'SP DE RL DE CV',
+        'SPA DE RL DE CV',
+        'SPR DE CV',
+        'SPR DE RI DE CV',
+        'SPR DE RI',
+        'SPR DE RL DE CV',
+        'SPR DE RL',
+        'SPR DE RS DE CV',
+        'SPR',
+        'U DE C',
+        'U DE E DE R L',
+        'U DE E',
+        'UE',
+        'USPR DE RI',
+        'USPR DE RL',
+    ];
+
+    /** @var string */
+    private $regularExpression;
+
+    public function __construct(string ...$sufixes)
+    {
+        $sufixesPattern = implode('|', $sufixes);
+        if ('' === $sufixesPattern) {
+            throw new LogicException('No se han establecido sufijos para remover');
+        }
+
+        $this->regularExpression = '/ +(' . $sufixesPattern . ')$/i';
+    }
+
+    public static function createDefault(): self
+    {
+        return new self(...self::SUFFIXES);
+    }
+
+    public function remove(string $name): string
+    {
+        return preg_replace($this->regularExpression, '', $name);
+    }
+}

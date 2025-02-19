@@ -4,23 +4,11 @@ namespace CfdiUtils\Certificado;
 
 use CfdiUtils\OpenSSL\OpenSSL;
 use CfdiUtils\OpenSSL\OpenSSLPropertyTrait;
+use CfdiUtils\Utils\RegimenCapitalRemover;
 
 class Certificado
 {
     use OpenSSLPropertyTrait;
-
-    /** @var array */
-    private const SUFFIXES = [
-        'AC',
-        'S DE RL DE CV',
-        'S DE RL',
-        'S EN C',
-        'SA DE CV SOFOM ENR',
-        'SA DE CV',
-        'SA',
-        'SAB',
-        'SAS',
-    ];
 
     /** @var string */
     private $rfc;
@@ -48,6 +36,9 @@ class Certificado
 
     /** @var string */
     private $pemContents;
+
+    /** @var string|null */
+    private $nameWithoutRegimenCapitalSuffix;
 
     /**
      * Certificado constructor.
@@ -93,6 +84,7 @@ class Certificado
         $this->certificateName = strval($data['name'] ?? '');
         $this->rfc = (string) strstr(($data['subject']['x500UniqueIdentifier'] ?? '') . ' ', ' ', true);
         $this->name = strval($data['subject']['name'] ?? '');
+        $this->nameWithoutRegimenCapitalSuffix = null;
         $serial = new SerialNumber('');
         if (isset($data['serialNumberHex'])) {
             $serial->loadHexadecimal($data['serialNumberHex']);
@@ -195,8 +187,20 @@ class Certificado
      */
     public function getName($trimSuffix = false): string
     {
-        $suffixPattern = '/ (?:' . implode('|', self::SUFFIXES) . ')$/i';
-        return $trimSuffix ? preg_replace($suffixPattern, '', $this->name) : $this->name;
+        return (! $trimSuffix) ? $this->name : $this->getNameWithoutRegimenCapitalSuffix();
+    }
+
+    /**
+     * Name (Razón Social) set when certificate was created without *régimen de capital* suffix
+     */
+    public function getNameWithoutRegimenCapitalSuffix(): string
+    {
+        if (null === $this->nameWithoutRegimenCapitalSuffix) {
+            $remover = RegimenCapitalRemover::createDefault();
+            $this->nameWithoutRegimenCapitalSuffix = $remover->remove($this->name);
+        }
+
+        return $this->nameWithoutRegimenCapitalSuffix;
     }
 
     /**
