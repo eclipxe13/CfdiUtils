@@ -36,9 +36,12 @@ class SelloDigitalCertificado extends AbstractDiscoverableVersion40 implements
             return;
         }
 
+        // Remove régimen de capital from name when is "Persona Moral" only.
+        $removeSuffixFromName = 12 === mb_strlen($rfc);
+
         $this->asserts->putStatus(
             'SELLO04',
-            Status::when($this->certificado->getName(true) === $emisorNombre),
+            Status::when($this->certificado->getName($removeSuffixFromName) === $emisorNombre),
             sprintf('Nombre certificado: %s, Nombre comprobante: %s.', $this->certificado->getName(), $emisorNombre)
         );
     }

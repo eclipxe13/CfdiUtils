@@ -88,8 +88,8 @@ final class SelloDigitalCertificadoTest extends Validate40TestCase
     public function testValidateWithIdenticalNameRegularPerson()
     {
         $this->setUpCertificado([], [
-            'Rfc' => 'COSC8001137NA', // set as persona física to force name comparison
-            'Nombre' => 'ESCUELA KEMPER URGATE',
+            'Rfc' => 'COSC8001137NA', // set as persona física to force name comparison and not remove suffix
+            'Nombre' => 'ESCUELA KEMPER URGATE SA DE CV',
         ]);
 
         $this->runValidate();
