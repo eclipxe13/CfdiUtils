@@ -15,6 +15,7 @@ Esta clase es una especie de pegamento de todas las pequeñas utilerías y estru
 - `putCertificado(Certificado $certificado, bool $putEmisorRfcNombre = true)`: Establece el valor de los atributos
   `NoCertificado` y `Certificado`, y si `$putEmisorRfcNombre` es verdadero entonces también establece el valor
   de `Rfc` y `Nombre` en el nodo `Emisor`.
+- En el caso del `Emisor`, se quita el prefijo relacionado al régimen de capital.
 
 - `asXml(): string`: Genera y devuelve el contenido XML de la exportación del nodo `Comprobante`.
 
@@ -61,7 +62,6 @@ $comprobante = $creator->comprobante();
 
 // No agrego (aunque puedo) el Rfc y Nombre porque uso los que están establecidos en el certificado
 $comprobante->addEmisor([
-    'Nombre' => 'ESCUELA KEMPER URGATE',
     'RegimenFiscal' => '601', // General de Ley Personas Morales
 ]);
 
@@ -246,10 +246,10 @@ $csd = Credential::openFiles($cerfile, $keyfile, $passPhrase);
 // helper de creación del cfdi
 $creator = new CfdiCreator40();
 
-// poner el certificado y número del certificado
+// poner el certificado y número del certificado junto con los datos del emisor
 $creator->putCertificado(
     new Certificado($csd->certificate()->pem()),
-    false // no establecer el RFC ni el nombre del emisor
+    true // establecer RFC y el nombre del emisor sin régimen de capital
 );
 
 // se construye el pre-cfdi ...
