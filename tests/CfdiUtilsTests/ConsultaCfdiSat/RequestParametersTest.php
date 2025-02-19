@@ -98,11 +98,11 @@ final class RequestParametersTest extends TestCase
         $parameters = RequestParameters::createFromCfdi($cfdi);
 
         $this->assertSame('4.0', $parameters->getVersion());
-        $this->assertSame('CSM190311AH6', $parameters->getRfcEmisor());
-        $this->assertSame('MCI7306249Y1', $parameters->getRfcReceptor());
-        $this->assertSame('04BF2854-FE7D-4377-9196-71248F060ABB', $parameters->getUuid());
-        $this->assertStringEndsWith('Ggwa5tSZhA==', $parameters->getSello());
-        $this->assertEqualsWithDelta(459.36, $parameters->getTotalFloat(), 0.001);
+        $this->assertSame('ISD950921HE5', $parameters->getRfcEmisor());
+        $this->assertSame('COSC8001137NA', $parameters->getRfcReceptor());
+        $this->assertSame('C2832671-DA6D-11EF-A83D-00155D012007', $parameters->getUuid());
+        $this->assertStringEndsWith('FoYRhNjeNw==', $parameters->getSello());
+        $this->assertEqualsWithDelta(1000.00, $parameters->getTotalFloat(), 0.001);
     }
 
     /**

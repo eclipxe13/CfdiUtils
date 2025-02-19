@@ -26,7 +26,7 @@ final class SamplesTest extends TestCase
 
         $validator = new CfdiValidator33();
         $asserts = $validator->validateXml(strval(file_get_contents($sampleFile)));
-        // Remove this assertions because we are using manipulated cfdi
+        // Remove these assertions because we are using manipulated cfdi
         $asserts->removeByCode('SELLO08');
         $errors = $asserts->errors();
         if (count($errors)) { // display errors!

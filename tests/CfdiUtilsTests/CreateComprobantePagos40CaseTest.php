@@ -27,11 +27,9 @@ final class CreateComprobantePagos40CaseTest extends TestCase
             'Moneda' => 'XXX',
             'Exportacion' => '01',
         ]);
-        $creator->putCertificado($certificado, false);
+        $creator->putCertificado($certificado);
 
         $comprobante->addEmisor([
-            'Nombre' => 'ESCUELA KEMPER URGATE',
-            'Rfc' => 'EKU9003173C9',
             'RegimenFiscal' => '601',
         ]);
         $comprobante->addReceptor([

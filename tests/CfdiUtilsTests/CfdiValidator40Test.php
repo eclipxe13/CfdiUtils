@@ -41,10 +41,11 @@ final class CfdiValidator40Test extends TestCase
         $cfdi = Cfdi::newFromString(strval(file_get_contents($cfdiFile)));
 
         // install PAC testing certificate
-        $this->installCertificate($this->utilAsset('certs/30001000000400002495.cer'));
+        $this->installCertificate($this->utilAsset('certs/30001000000500003456.cer'));
 
         $validator = new CfdiValidator40();
         $asserts = $validator->validate($cfdi->getSource(), $cfdi->getNode());
+        print_r($asserts->errors());
         $this->assertFalse(
             $asserts->hasErrors(),
             'The validation of an expected cfdi40 valid file fails,'
@@ -66,7 +67,7 @@ final class CfdiValidator40Test extends TestCase
         $cfdi = Cfdi::newFromString(strval(file_get_contents($cfdiFile)));
 
         // install PAC certificate, prevent if SAT service is down
-        $this->installCertificate($this->utilAsset('00001000000504465028.cer'));
+        $this->installCertificate($this->utilAsset('certs/00001000000708361114.cer'));
 
         $validator = new CfdiValidator40($this->newResolver());
         $asserts = $validator->validate($cfdi->getSource(), $cfdi->getNode());
