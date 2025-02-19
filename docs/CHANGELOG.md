@@ -33,7 +33,7 @@
 - Remove deprecated constant `CfdiUtils\Retenciones\Retenciones::RET_NAMESPACE`.
 - Remove deprecated class `CfdiUtils\Utils\Crp20277Fixer`.
 
-## Version 2.30.0 2024-06-18
+## Version 2.30.0 2025-02-14
 
 This is a maintenance release to fix continuous integration.
 
