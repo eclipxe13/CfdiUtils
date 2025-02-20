@@ -12,6 +12,7 @@ final class QuickReaderTest extends TestCase
         $tree = new QuickReader('foo');
         $this->assertSame('foo', (string) $tree);
         $this->assertCount(0, $tree());
+        $this->assertSame([], $tree->getAttributes());
     }
 
     public function testConstructorWithAttributes(): void
@@ -25,6 +26,8 @@ final class QuickReaderTest extends TestCase
 
         $this->assertSame('1', $foo['one']);
         $this->assertSame('2', $foo['two']);
+
+        $this->assertSame($attributes, $foo->getAttributes());
     }
 
     public function testConstructorWithChildren(): void
@@ -36,8 +39,12 @@ final class QuickReaderTest extends TestCase
         $tree = new QuickReader('foo', [], $children);
 
         $this->assertSame($children, $tree());
+        $this->assertSame($children, $tree->getChildren());
+
         $this->assertSame($bar, $tree->bar);
         $this->assertSame($baz, $tree->baz);
+        $this->assertSame([$bar], $tree->getChildren('bar'));
+        $this->assertSame([$baz], $tree->getChildren('baz'));
     }
 
     public function testGetNotExistentAttribute(): void
@@ -64,6 +71,7 @@ final class QuickReaderTest extends TestCase
     {
         $foo = new QuickReader('foo');
         $this->assertTrue(is_array($foo())); /** @phpstan-ignore-line */
+        $this->assertTrue(is_array($foo->getChildren())); /** @phpstan-ignore-line */
         $xee = $foo->bar->xee;
         $this->assertTrue(is_array($xee('zee')));
         $this->assertTrue(is_array($xee->__invoke('zee')));
@@ -84,12 +92,17 @@ final class QuickReaderTest extends TestCase
 
         $foo = new QuickReader('foo', [], $manyChildren);
         $this->assertCount(4, $foo(), 'Assert that contains 4 children');
+        $this->assertCount(4, $foo->getChildren(), 'Assert that contains 4 children using getChildren()');
 
         $this->assertSame($firstBaz, $foo->baz, 'Assert that the first child is the same as the property access');
 
         $obtainedBaz = $foo('baz');
         $this->assertSame($manyBaz, $obtainedBaz, 'Assert that all elements where retrieved');
         $this->assertCount(3, $obtainedBaz, 'Assert that contains only 3 baz children');
+
+        $obtainedBaz = $foo->getChildren('baz');
+        $this->assertSame($manyBaz, $obtainedBaz, 'Assert that all elements where retrieved using getChildren()');
+        $this->assertCount(3, $obtainedBaz, 'Assert that contains only 3 baz children using getChildren()');
     }
 
     public function testPropertyGetWithDifferentCaseStillWorks(): void

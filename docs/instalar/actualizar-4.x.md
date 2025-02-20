@@ -6,6 +6,20 @@ en respeto a las reglas de versionado semántico es necesario actualizar la vers
 
 También se ha aprovechado la oportunidad para quitar código deprecado y actualizar dependencias.
 
+## Adiciones a `QuickReader`
+
+La utilería `QuickReader` puede ser complicada por sus llamadas mágicas, por ello, se han agregado nuevos métodos.
+
+### `getChildren(string $name = ''): QuickReader[]`
+
+El método `getChildren()` devuelve siempre un arreglo con los elementos cuyo nombre coincida con el argumento.
+Si no se especifica un argumento o es una cadena vacía, entonces devuelve un arreglo con todos los hijos.
+
+### `getAttributes(): array<string, string>`
+
+El método `getAttributes()` devuelve siempre un arreglo con el nombre los atributos,
+donde la llave es el nombre del atributo y el valor es el valor del atributo.
+
 ## Actualización de `XmlResourceRetriever`
 
 La librería [`eclipxe/xmlresourceretriever`](https://github.com/eclipxe13/xmlresourceretriever) se ha actualizado

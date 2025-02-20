@@ -41,21 +41,30 @@ Utiliza el objeto como un arreglo usando la notación de corchetes.
 
 Puedes averiguar si un atributo existe usando `isset()`.
 
+También puedes utilizar el método `getAttributes()` que devolverá el listado de atributos registrado.
+
 ```php
 <?php
 $comprobante = \CfdiUtils\Cfdi::newFromString(file_get_contents('cfdi.xml'))
     ->getQuickReader();
 
-echo $comprobante['version']; // (string) "3.3"
-echo $comprobante['Version']; // (string) "3.3"
-echo $comprobante['vErSiOn']; // (string) "3.3"
+echo $comprobante['version']; // (string) "4.0"
+echo $comprobante['Version']; // (string) "4.0"
+echo $comprobante['vErSiOn']; // (string) "4.0"
 var_dump(isset($comprobante['version'])); // (bool) true
+
+var_dump($comprobante->getAttributes());
+/*
+    array(1) {
+      ["Version"]=>
+      string(3) "4.0"
+    }
+*/
 
 
 var_dump($comprobante['no-existe']); // (string) ""
 var_dump(isset($comprobante['no-existe'])); // (bool) false
 ```
-
 
 ## Acceder al primer elemento hijo
 
@@ -95,8 +104,8 @@ echo $comprobante->foo->bar->baz->xee['info']; // (string) ""
 
 ## Acceder a todos los hijos
 
-Entrar a todos los hijos requiere de una sintaxis especial que consiste en llamar al objeto
-como una función. Al realizar la llamada lo que se devuelve es un arreglo de objetos `QuickReader` con los hijos.
+Entrar a todos los hijos requiere de una sintaxis especial que consiste en llamar al objeto como una función.
+Al realizar la llamada lo que se devuelve es un arreglo de objetos `QuickReader` con los hijos.
 
 ```php
 <?php
@@ -145,6 +154,25 @@ foreach($conceptos() as $concepto) {
 }
 ```
 
+A partir de la versión 3, se agrega el método `getChildren(string $name = '''): array` que es un alias para la
+invocación anterior. Esta sintaxis no es la recomendada, pero para algunas personas les puede resultar más fácil
+de escribir y leer pues muestra claramente la intención.
+
+```php
+<?php
+$comprobante = \CfdiUtils\Cfdi::newFromString(file_get_contents('cfdi.xml'))
+    ->getQuickReader();
+
+// obtiene en un arreglo todos los hijos de comprobante / conceptos (primer nodo) / cualquier hijo.
+$conceptos = $comprobante->conceptos->getChildren();
+foreach($conceptos as $concepto) {
+    // obtiene en un arreglo todos los hijos de conceptos / impuestos (primer nodo) / hijos llamados traslados.
+    $traslados = $concepto->impuestos->getChildren('traslados');
+    foreach($traslados as $traslado) {
+        echo $traslado['impuesto'];
+    }
+}
+```
 
 ## Acceder a hijos con un mismo nombre
 

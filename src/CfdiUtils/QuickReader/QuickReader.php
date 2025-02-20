@@ -6,7 +6,7 @@ class QuickReader extends \stdClass implements \ArrayAccess
 {
     protected string $name;
 
-    /** @var string[] */
+    /** @var array<string, string> */
     protected array $attributes;
 
     /** @var self[] */
@@ -14,7 +14,7 @@ class QuickReader extends \stdClass implements \ArrayAccess
 
     /**
      * QuickReader constructor.
-     * @param string[] $attributes
+     * @param array<string, string> $attributes
      * @param self[] $children
      */
     public function __construct(string $name, array $attributes = [], array $children = [])
@@ -45,23 +45,19 @@ class QuickReader extends \stdClass implements \ArrayAccess
         return $this->name;
     }
 
-    /**
-     * @return self[]
-     */
+    /** @return self[] */
     public function __invoke(string $name = ''): array
     {
         if ('' === $name) {
             return $this->children;
         }
-        return array_filter(
+        return array_values(array_filter(
             $this->children,
             fn (self $item): bool => $this->namesAreEqual($name, (string) $item)
-        );
+        ));
     }
 
-    /**
-     * @return self
-     */
+    /** @return self */
     public function __get(string $name)
     {
         $child = $this->getChildByName($name);
@@ -75,6 +71,18 @@ class QuickReader extends \stdClass implements \ArrayAccess
     public function __set($name, $value)
     {
         throw new \LogicException('Cannot change children');
+    }
+
+    /** @return self[] */
+    public function getChildren(string $name = ''): array
+    {
+        return $this->__invoke($name);
+    }
+
+    /** @return array<string, string> */
+    public function getAttributes(): array
+    {
+        return $this->attributes;
     }
 
     protected function getChildByName(string $name): ?self
