@@ -14,7 +14,7 @@ nav:
   - "CfdiUtils": "index.md"
   - "Instalación":
     - instalar/instalacion.md
-    - instalar/actualizar-4.x.md
+    - instalar/actualizar-3.x.md
   - "Lectura":
     - leer/leer-cfdi.md
     - leer/leer-cfdi-retenciones.md
