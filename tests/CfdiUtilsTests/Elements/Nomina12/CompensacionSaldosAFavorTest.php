@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class CompensacionSaldosAFavorTest extends TestCase
 {
-    /** @var CompensacionSaldosAFavor */
-    public $element;
+    public CompensacionSaldosAFavor $element;
 
     protected function setUp(): void
     {

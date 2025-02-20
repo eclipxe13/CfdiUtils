@@ -9,8 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ImpuestosLocalesTest extends TestCase
 {
-    /** @var ImpuestosLocales */
-    public $element;
+    public ImpuestosLocales $element;
 
     protected function setUp(): void
     {

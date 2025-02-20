@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class IdentificacionVehicularTest extends TestCase
 {
-    /** @var IdentificacionVehicular */
-    public $element;
+    public IdentificacionVehicular $element;
 
     protected function setUp(): void
     {

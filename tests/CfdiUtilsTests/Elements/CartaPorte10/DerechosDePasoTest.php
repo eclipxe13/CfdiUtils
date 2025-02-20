@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class DerechosDePasoTest extends TestCase
 {
-    /** @var DerechosDePaso */
-    public $element;
+    public DerechosDePaso $element;
 
     protected function setUp(): void
     {

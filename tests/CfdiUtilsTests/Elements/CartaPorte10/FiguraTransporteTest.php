@@ -14,8 +14,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class FiguraTransporteTest extends TestCase
 {
-    /** @var FiguraTransporte */
-    public $element;
+    public FiguraTransporte $element;
 
     protected function setUp(): void
     {

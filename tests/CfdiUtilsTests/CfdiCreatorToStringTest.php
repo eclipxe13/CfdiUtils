@@ -3,12 +3,13 @@
 namespace CfdiUtilsTests;
 
 use CfdiUtils\CfdiCreator33;
+use PHPUnit\Framework\MockObject\MockObject;
 
 final class CfdiCreatorToStringTest extends TestCase
 {
     public function testWhenCastingToStringWithExceptionOnlyReturnsAnEmptyString(): void
     {
-        /** @var CfdiCreator33&\PHPUnit\Framework\MockObject\MockObject $cfdiCreator */
+        /** @var CfdiCreator33&MockObject $cfdiCreator */
         $cfdiCreator = $this->getMockBuilder(CfdiCreator33::class)
             ->setMethods(['asXml'])
             ->getMock();

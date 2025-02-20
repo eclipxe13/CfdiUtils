@@ -15,8 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 final class RetencionesTest extends TestCase
 {
-    /** @var Retenciones */
-    public $element;
+    public Retenciones $element;
 
     protected function setUp(): void
     {

@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class DestinoTest extends TestCase
 {
-    /** @var Destino */
-    public $element;
+    public Destino $element;
 
     protected function setUp(): void
     {

@@ -11,8 +11,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class OperadoresTest extends TestCase
 {
-    /** @var Operadores */
-    public $element;
+    public Operadores $element;
 
     protected function setUp(): void
     {

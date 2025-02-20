@@ -13,8 +13,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class PercepcionTest extends TestCase
 {
-    /** @var Percepcion */
-    public $element;
+    public Percepcion $element;
 
     protected function setUp(): void
     {

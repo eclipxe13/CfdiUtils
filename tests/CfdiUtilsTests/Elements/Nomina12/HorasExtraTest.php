@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class HorasExtraTest extends TestCase
 {
-    /** @var HorasExtra */
-    public $element;
+    public HorasExtra $element;
 
     protected function setUp(): void
     {

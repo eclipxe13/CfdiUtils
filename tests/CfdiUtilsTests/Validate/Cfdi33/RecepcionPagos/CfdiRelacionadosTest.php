@@ -3,12 +3,13 @@
 namespace CfdiUtilsTests\Validate\Cfdi33\RecepcionPagos;
 
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\CfdiRelacionados;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 
 final class CfdiRelacionadosTest extends ValidateComplementoPagosTestCase
 {
     /** @var CfdiRelacionados */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {

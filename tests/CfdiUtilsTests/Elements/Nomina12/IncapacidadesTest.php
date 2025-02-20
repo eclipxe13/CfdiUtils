@@ -11,8 +11,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class IncapacidadesTest extends TestCase
 {
-    /** @var Incapacidades */
-    public $element;
+    public Incapacidades $element;
 
     protected function setUp(): void
     {

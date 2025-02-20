@@ -6,11 +6,10 @@ namespace CfdiUtils\Development;
 
 abstract class BaseCliApplication
 {
-    /** @var string */
-    private $command;
+    private string $command;
 
     /** @var string[] */
-    private $arguments;
+    private array $arguments;
 
     abstract public function printHelp(): void;
 

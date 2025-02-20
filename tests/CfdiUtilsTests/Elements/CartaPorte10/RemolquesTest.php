@@ -11,8 +11,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class RemolquesTest extends TestCase
 {
-    /** @var Remolques */
-    public $element;
+    public Remolques $element;
 
     protected function setUp(): void
     {

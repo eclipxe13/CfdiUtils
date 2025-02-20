@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class SubContratacionTest extends TestCase
 {
-    /** @var SubContratacion */
-    public $element;
+    public SubContratacion $element;
 
     protected function setUp(): void
     {

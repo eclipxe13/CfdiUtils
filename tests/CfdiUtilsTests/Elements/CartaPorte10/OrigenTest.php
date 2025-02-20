@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class OrigenTest extends TestCase
 {
-    /** @var Origen */
-    public $element;
+    public Origen $element;
 
     protected function setUp(): void
     {

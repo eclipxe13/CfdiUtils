@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class DeduccionTest extends TestCase
 {
-    /** @var Deduccion */
-    public $element;
+    public Deduccion $element;
 
     protected function setUp(): void
     {

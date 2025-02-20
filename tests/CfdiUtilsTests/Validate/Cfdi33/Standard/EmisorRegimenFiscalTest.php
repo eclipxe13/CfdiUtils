@@ -4,13 +4,14 @@ namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Validate\Cfdi33\Standard\EmisorRegimenFiscal;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\Validate33TestCase;
 
 final class EmisorRegimenFiscalTest extends Validate33TestCase
 {
-    /** @var  EmisorRegimenFiscal */
-    protected $validator;
+    /** @var EmisorRegimenFiscal */
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {

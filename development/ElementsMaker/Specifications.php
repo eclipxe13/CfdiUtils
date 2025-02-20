@@ -6,11 +6,9 @@ namespace CfdiUtils\Development\ElementsMaker;
 
 final class Specifications
 {
-    /** @var Structure */
-    private $structure;
+    private Structure $structure;
 
-    /** @var Dictionary */
-    private $dictionary;
+    private Dictionary $dictionary;
 
     public function __construct(Structure $structure, Dictionary $dictionary)
     {

@@ -9,8 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class PagosaextranjerosTest extends TestCase
 {
-    /** @var Pagosaextranjeros */
-    public $element;
+    public Pagosaextranjeros $element;
 
     protected function setUp(): void
     {

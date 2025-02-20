@@ -5,15 +5,15 @@ namespace CfdiUtilsTests\Validate\Cfdi33\RecepcionPagos;
 use CfdiUtils\Elements\Cfdi33\Concepto;
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Conceptos;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 
 final class ConceptosTest extends ValidateComplementoPagosTestCase
 {
     /** @var Conceptos */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
-    /** @var Concepto */
-    protected $concepto;
+    protected Concepto $concepto;
 
     protected function setUp(): void
     {

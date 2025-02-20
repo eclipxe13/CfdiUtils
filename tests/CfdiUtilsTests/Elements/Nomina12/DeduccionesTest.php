@@ -11,8 +11,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class DeduccionesTest extends TestCase
 {
-    /** @var Deducciones */
-    public $element;
+    public Deducciones $element;
 
     protected function setUp(): void
     {

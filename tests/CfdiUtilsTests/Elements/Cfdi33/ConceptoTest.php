@@ -13,8 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ConceptoTest extends TestCase
 {
-    /** @var  Concepto */
-    public $element;
+    public Concepto $element;
 
     public function setUp(): void
     {

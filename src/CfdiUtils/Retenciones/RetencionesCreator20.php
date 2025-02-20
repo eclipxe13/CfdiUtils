@@ -23,8 +23,7 @@ class RetencionesCreator20 implements
     use XmlResolverPropertyTrait;
     use XsltBuilderPropertyTrait;
 
-    /** @var Retenciones */
-    private $retenciones;
+    private Retenciones $retenciones;
 
     public function __construct(
         array $retencionesAttributes = [],

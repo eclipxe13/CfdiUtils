@@ -12,8 +12,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class AutotransporteFederalTest extends TestCase
 {
-    /** @var AutotransporteFederal */
-    public $element;
+    public AutotransporteFederal $element;
 
     protected function setUp(): void
     {

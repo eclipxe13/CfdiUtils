@@ -19,8 +19,7 @@ class CfdiCreator33 implements
 {
     use CfdiCreatorTrait;
 
-    /** @var Comprobante */
-    private $comprobante;
+    private Comprobante $comprobante;
 
     /**
      * CfdiCreator33 constructor.

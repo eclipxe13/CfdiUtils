@@ -16,8 +16,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class NominaTest extends TestCase
 {
-    /** @var Nomina */
-    public $element;
+    public Nomina $element;
 
     protected function setUp(): void
     {

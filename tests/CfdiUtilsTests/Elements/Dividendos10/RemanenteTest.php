@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class RemanenteTest extends TestCase
 {
-    /** @var Remanente */
-    public $element;
+    public Remanente $element;
 
     public function setUp(): void
     {

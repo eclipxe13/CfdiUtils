@@ -13,8 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ComercioExteriorTest extends TestCase
 {
-    /** @var ComercioExterior */
-    public $element;
+    public ComercioExterior $element;
 
     protected function setUp(): void
     {

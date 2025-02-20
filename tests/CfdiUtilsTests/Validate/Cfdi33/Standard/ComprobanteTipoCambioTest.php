@@ -3,13 +3,14 @@
 namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Validate\Cfdi33\Standard\ComprobanteTipoCambio;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\Validate33TestCase;
 
 final class ComprobanteTipoCambioTest extends Validate33TestCase
 {
     /** @var ComprobanteTipoCambio */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {

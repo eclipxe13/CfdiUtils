@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class NoBeneficiarioTest extends TestCase
 {
-    /** @var NoBeneficiario */
-    public $element;
+    public NoBeneficiario $element;
 
     public function setUp(): void
     {

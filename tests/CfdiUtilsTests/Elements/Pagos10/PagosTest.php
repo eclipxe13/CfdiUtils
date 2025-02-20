@@ -8,8 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 final class PagosTest extends TestCase
 {
-    /** @var Pagos */
-    public $element;
+    public Pagos $element;
 
     protected function setUp(): void
     {

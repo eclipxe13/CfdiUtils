@@ -5,13 +5,14 @@ namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Validate\Cfdi33\Standard\SumasConceptosComprobanteImpuestos;
 use CfdiUtils\Validate\Contracts\DiscoverableCreateInterface;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\Validate33TestCase;
 
 final class SumasConceptosComprobanteImpuestosTest extends Validate33TestCase
 {
     /** @var SumasConceptosComprobanteImpuestos */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {

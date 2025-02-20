@@ -8,8 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 final class TotalesTest extends TestCase
 {
-    /** @var Totales */
-    public $element;
+    public Totales $element;
 
     protected function setUp(): void
     {

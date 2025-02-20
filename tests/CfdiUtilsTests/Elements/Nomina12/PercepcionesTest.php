@@ -14,8 +14,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class PercepcionesTest extends TestCase
 {
-    /** @var Percepciones */
-    public $element;
+    public Percepciones $element;
 
     protected function setUp(): void
     {

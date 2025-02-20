@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class PeriodoTest extends TestCase
 {
-    /** @var Periodo */
-    public $element;
+    public Periodo $element;
 
     public function setUp(): void
     {

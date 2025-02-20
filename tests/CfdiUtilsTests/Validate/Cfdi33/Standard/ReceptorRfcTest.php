@@ -5,13 +5,14 @@ namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Utils\Rfc;
 use CfdiUtils\Validate\Cfdi33\Standard\ReceptorRfc;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\Validate33TestCase;
 
 final class ReceptorRfcTest extends Validate33TestCase
 {
     /** @var ReceptorRfc */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {

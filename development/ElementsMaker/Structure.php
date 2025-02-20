@@ -12,14 +12,12 @@ use Traversable;
 
 final class Structure implements Countable, IteratorAggregate
 {
-    /** @var string */
-    private $name;
+    private string $name;
 
-    /** @var bool */
-    private $multiple;
+    private bool $multiple;
 
     /** @var Structure[] */
-    private $children;
+    private array $children;
 
     /**
      * @param string $name

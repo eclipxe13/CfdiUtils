@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class IncapacidadTest extends TestCase
 {
-    /** @var Incapacidad */
-    public $element;
+    public Incapacidad $element;
 
     protected function setUp(): void
     {

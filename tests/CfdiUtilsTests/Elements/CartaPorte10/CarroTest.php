@@ -11,8 +11,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class CarroTest extends TestCase
 {
-    /** @var Carro */
-    public $element;
+    public Carro $element;
 
     protected function setUp(): void
     {

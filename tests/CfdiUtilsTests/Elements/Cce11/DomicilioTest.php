@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class DomicilioTest extends TestCase
 {
-    /** @var Domicilio */
-    public $element;
+    public Domicilio $element;
 
     protected function setUp(): void
     {

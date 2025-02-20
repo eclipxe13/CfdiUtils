@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class RetencionesLocalesTest extends TestCase
 {
-    /** @var RetencionesLocales */
-    public $element;
+    public RetencionesLocales $element;
 
     protected function setUp(): void
     {

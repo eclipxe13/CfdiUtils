@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class CfdiRetenRelacionadosTest extends TestCase
 {
-    /** @var CfdiRetenRelacionados */
-    public $element;
+    public CfdiRetenRelacionados $element;
 
     public function setUp(): void
     {

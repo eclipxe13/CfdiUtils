@@ -8,8 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 final class AddendaTest extends TestCase
 {
-    /** @var Addenda */
-    public $element;
+    public Addenda $element;
 
     public function setUp(): void
     {

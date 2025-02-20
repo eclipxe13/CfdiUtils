@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class DescripcionesEspecificasTest extends TestCase
 {
-    /** @var DescripcionesEspecificas */
-    public $element;
+    public DescripcionesEspecificas $element;
 
     protected function setUp(): void
     {

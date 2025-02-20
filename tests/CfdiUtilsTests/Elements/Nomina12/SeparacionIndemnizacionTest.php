@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class SeparacionIndemnizacionTest extends TestCase
 {
-    /** @var SeparacionIndemnizacion */
-    public $element;
+    public SeparacionIndemnizacion $element;
 
     protected function setUp(): void
     {

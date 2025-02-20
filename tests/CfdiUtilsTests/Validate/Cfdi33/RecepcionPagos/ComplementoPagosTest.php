@@ -5,13 +5,14 @@ namespace CfdiUtilsTests\Validate\Cfdi33\RecepcionPagos;
 use CfdiUtils\Elements\Pagos10\Pagos as PagosElement;
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\ComplementoPagos;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\Validate33TestCase;
 
 final class ComplementoPagosTest extends Validate33TestCase
 {
     /** @var ComplementoPagos */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {

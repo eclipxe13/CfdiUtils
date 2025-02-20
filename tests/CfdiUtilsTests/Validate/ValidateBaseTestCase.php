@@ -16,17 +16,13 @@ use CfdiUtilsTests\TestCase;
 
 abstract class ValidateBaseTestCase extends TestCase
 {
-    /** @var ValidatorInterface */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
-    /** @var NodeInterface */
-    protected $comprobante;
+    protected NodeInterface $comprobante;
 
-    /** @var Asserts|Assert[] */
-    protected $asserts;
+    protected Asserts $asserts;
 
-    /** @var Hydrater */
-    protected $hydrater;
+    protected Hydrater $hydrater;
 
     protected function setUp(): void
     {

@@ -3,13 +3,14 @@
 namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Validate\Cfdi33\Standard\ComprobanteTotal;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\Validate33TestCase;
 
 final class ComprobanteTotalTest extends Validate33TestCase
 {
     /** @var ComprobanteTotal */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {

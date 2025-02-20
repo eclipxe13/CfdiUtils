@@ -8,8 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 final class EmisorTest extends TestCase
 {
-    /** @var Emisor */
-    public $element;
+    public Emisor $element;
 
     protected function setUp(): void
     {

@@ -8,17 +8,13 @@ use CfdiUtils\Validate\Contracts\ValidatorInterface;
 
 class ImplementationValidatorInterface implements ValidatorInterface
 {
-    /** @var string */
-    public $version = '3.3';
+    public string $version = '3.3';
 
-    /** @var bool */
-    public $onValidateSetMustStop = false;
+    public bool $onValidateSetMustStop = false;
 
-    /** @var bool */
-    public $enterValidateMethod = false;
+    public bool $enterValidateMethod = false;
 
-    /** @var Asserts|null */
-    public $assertsToImport;
+    public ?Asserts $assertsToImport = null;
 
     public function validate(NodeInterface $comprobante, Asserts $asserts): void
     {

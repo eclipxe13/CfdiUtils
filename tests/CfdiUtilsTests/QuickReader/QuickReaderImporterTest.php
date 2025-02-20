@@ -71,7 +71,7 @@ final class QuickReaderImporterTest extends TestCase
         $root = $importer->importDocument($document);
 
         $this->assertInstanceOf(QuickReader::class, $root);
-        $this->assertSame('xee', (string) $root->foo->l1->l2['id']);
+        $this->assertSame('xee', $root->foo->l1->l2['id']);
     }
 
     public function testImportXmlWithDifferentNodes(): void

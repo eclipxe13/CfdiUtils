@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ParteTest extends TestCase
 {
-    /** @var Parte */
-    public $element;
+    public Parte $element;
 
     protected function setUp(): void
     {

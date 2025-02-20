@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ComplementoConceptoTest extends TestCase
 {
-    /** @var ComplementoConcepto */
-    public $element;
+    public ComplementoConcepto $element;
 
     public function setUp(): void
     {

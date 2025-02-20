@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class CantidadTransportaTest extends TestCase
 {
-    /** @var CantidadTransporta */
-    public $element;
+    public CantidadTransporta $element;
 
     protected function setUp(): void
     {

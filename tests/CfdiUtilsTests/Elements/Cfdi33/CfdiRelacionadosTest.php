@@ -8,8 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 final class CfdiRelacionadosTest extends TestCase
 {
-    /** @var CfdiRelacionados */
-    public $element;
+    public CfdiRelacionados $element;
 
     protected function setUp(): void
     {

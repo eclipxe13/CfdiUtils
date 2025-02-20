@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class TrasladosLocalesTest extends TestCase
 {
-    /** @var TrasladosLocales */
-    public $element;
+    public TrasladosLocales $element;
 
     protected function setUp(): void
     {

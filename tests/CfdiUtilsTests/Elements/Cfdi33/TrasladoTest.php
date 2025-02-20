@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class TrasladoTest extends TestCase
 {
-    /** @var Traslado */
-    public $element;
+    public Traslado $element;
 
     protected function setUp(): void
     {

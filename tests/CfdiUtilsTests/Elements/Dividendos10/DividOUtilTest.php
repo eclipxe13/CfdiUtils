@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class DividOUtilTest extends TestCase
 {
-    /** @var DividOUtil */
-    public $element;
+    public DividOUtil $element;
 
     public function setUp(): void
     {

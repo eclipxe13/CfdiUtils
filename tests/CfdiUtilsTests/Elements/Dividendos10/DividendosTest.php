@@ -9,8 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class DividendosTest extends TestCase
 {
-    /** @var Dividendos */
-    public $element;
+    public Dividendos $element;
 
     protected function setUp(): void
     {

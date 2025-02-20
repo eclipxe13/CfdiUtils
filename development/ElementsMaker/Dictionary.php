@@ -7,7 +7,7 @@ namespace CfdiUtils\Development\ElementsMaker;
 final class Dictionary
 {
     /** @var array<string, string> */
-    private $values;
+    private array $values;
 
     /** @param array<string, string> $values */
     public function __construct(array $values)

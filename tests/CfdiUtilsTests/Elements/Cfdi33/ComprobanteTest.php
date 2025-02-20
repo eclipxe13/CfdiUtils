@@ -17,8 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ComprobanteTest extends TestCase
 {
-    /**@var Comprobante */
-    public $element;
+    public Comprobante $element;
 
     protected function setUp(): void
     {

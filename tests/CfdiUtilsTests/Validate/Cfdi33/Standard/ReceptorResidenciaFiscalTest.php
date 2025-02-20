@@ -4,13 +4,14 @@ namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Validate\Cfdi33\Standard\ReceptorResidenciaFiscal;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\Validate33TestCase;
 
 final class ReceptorResidenciaFiscalTest extends Validate33TestCase
 {
-    /** @var  ReceptorResidenciaFiscal */
-    protected $validator;
+    /** @var ReceptorResidenciaFiscal */
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {

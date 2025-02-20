@@ -7,8 +7,7 @@ use CfdiUtilsTests\Validate\Validate33TestCase;
 
 abstract class ValidateComplementoPagosTestCase extends Validate33TestCase
 {
-    /** @var Pagos10 */
-    protected $complemento;
+    protected Pagos10 $complemento;
 
     protected function setUp(): void
     {

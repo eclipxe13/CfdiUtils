@@ -170,8 +170,7 @@ final class RegimenCapitalRemover
         'USPR DE RL',
     ];
 
-    /** @var string */
-    private $regularExpression;
+    private string $regularExpression;
 
     public function __construct(string ...$sufixes)
     {

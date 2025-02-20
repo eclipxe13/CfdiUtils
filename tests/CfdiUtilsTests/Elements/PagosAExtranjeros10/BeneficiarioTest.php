@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class BeneficiarioTest extends TestCase
 {
-    /** @var Beneficiario */
-    public $element;
+    public Beneficiario $element;
 
     public function setUp(): void
     {

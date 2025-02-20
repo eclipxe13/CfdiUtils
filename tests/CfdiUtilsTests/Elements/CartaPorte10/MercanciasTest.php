@@ -15,8 +15,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class MercanciasTest extends TestCase
 {
-    /** @var Mercancias */
-    public $element;
+    public Mercancias $element;
 
     protected function setUp(): void
     {

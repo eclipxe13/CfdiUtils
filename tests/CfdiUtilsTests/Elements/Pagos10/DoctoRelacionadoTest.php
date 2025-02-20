@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class DoctoRelacionadoTest extends TestCase
 {
-    /** @var DoctoRelacionado */
-    public $element;
+    public DoctoRelacionado $element;
 
     protected function setUp(): void
     {

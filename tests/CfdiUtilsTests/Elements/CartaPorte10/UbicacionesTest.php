@@ -11,8 +11,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class UbicacionesTest extends TestCase
 {
-    /** @var Ubicaciones */
-    public $element;
+    public Ubicaciones $element;
 
     protected function setUp(): void
     {

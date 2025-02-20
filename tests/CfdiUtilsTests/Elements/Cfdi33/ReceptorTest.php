@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ReceptorTest extends TestCase
 {
-    /** @var Receptor */
-    public $element;
+    public Receptor $element;
 
     protected function setUp(): void
     {

@@ -11,8 +11,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class ArrendatarioTest extends TestCase
 {
-    /** @var Arrendatario */
-    public $element;
+    public Arrendatario $element;
 
     protected function setUp(): void
     {

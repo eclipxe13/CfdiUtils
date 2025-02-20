@@ -4,13 +4,14 @@ namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Elements\Cfdi33\Comprobante;
 use CfdiUtils\Validate\Cfdi33\Standard\ConceptoImpuestos;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\Validate33TestCase;
 
 final class ConceptoImpuestosTest extends Validate33TestCase
 {
     /** @var ConceptoImpuestos */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {

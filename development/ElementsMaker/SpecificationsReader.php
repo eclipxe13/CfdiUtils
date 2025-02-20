@@ -10,8 +10,7 @@ use stdClass;
 
 final class SpecificationsReader
 {
-    /** @var stdClass */
-    private $data;
+    private stdClass $data;
 
     public function __construct(stdClass $data)
     {

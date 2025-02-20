@@ -3,13 +3,14 @@
 namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Validate\Cfdi33\Standard\ComprobanteDescuento;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\Validate33TestCase;
 
 final class ComprobanteDescuentoTest extends Validate33TestCase
 {
     /** @var ComprobanteDescuento */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {

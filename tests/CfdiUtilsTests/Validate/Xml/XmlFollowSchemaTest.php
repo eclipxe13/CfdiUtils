@@ -3,6 +3,7 @@
 namespace CfdiUtilsTests\Validate\Xml;
 
 use CfdiUtils\Cfdi;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtils\Validate\Xml\XmlFollowSchema;
 use CfdiUtilsTests\Validate\Validate33TestCase;
@@ -10,7 +11,7 @@ use CfdiUtilsTests\Validate\Validate33TestCase;
 final class XmlFollowSchemaTest extends Validate33TestCase
 {
     /** @var XmlFollowSchema */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {

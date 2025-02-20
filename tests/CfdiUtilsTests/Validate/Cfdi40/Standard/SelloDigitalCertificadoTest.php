@@ -3,6 +3,7 @@
 namespace CfdiUtilsTests\Validate\Cfdi40\Standard;
 
 use CfdiUtils\Validate\Cfdi40\Standard\SelloDigitalCertificado;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\Common\SelloDigitalCertificadoWithRegularCertificadoTrait;
 use CfdiUtilsTests\Validate\Validate40TestCase;
@@ -12,7 +13,7 @@ final class SelloDigitalCertificadoTest extends Validate40TestCase
     use SelloDigitalCertificadoWithRegularCertificadoTrait;
 
     /** @var SelloDigitalCertificado */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {

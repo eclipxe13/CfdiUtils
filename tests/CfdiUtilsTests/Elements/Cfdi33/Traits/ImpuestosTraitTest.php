@@ -11,8 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ImpuestosTraitTest extends TestCase
 {
-    /** @var UseImpuestos */
-    public $element;
+    public UseImpuestos $element;
 
     public function setUp(): void
     {

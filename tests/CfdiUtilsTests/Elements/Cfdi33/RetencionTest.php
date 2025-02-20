@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class RetencionTest extends TestCase
 {
-    /** @var Retencion */
-    public $element;
+    public Retencion $element;
 
     protected function setUp(): void
     {

@@ -11,8 +11,7 @@ use CfdiUtilsTests\Elements\ElementTestCase;
  */
 final class NotificadoTest extends ElementTestCase
 {
-    /** @var Notificado */
-    public $element;
+    public Notificado $element;
 
     protected function setUp(): void
     {

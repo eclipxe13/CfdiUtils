@@ -13,8 +13,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class CartaPorteTest extends TestCase
 {
-    /** @var CartaPorte */
-    public $element;
+    public CartaPorte $element;
 
     protected function setUp(): void
     {

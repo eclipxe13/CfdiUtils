@@ -8,8 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 final class DestinatarioTest extends TestCase
 {
-    /** @var Destinatario */
-    public $element;
+    public Destinatario $element;
 
     protected function setUp(): void
     {

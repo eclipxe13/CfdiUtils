@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class CuentaPredialTest extends TestCase
 {
-    /** @var CuentaPredial */
-    public $element;
+    public CuentaPredial $element;
 
     public function setUp(): void
     {

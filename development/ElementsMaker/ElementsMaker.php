@@ -6,14 +6,12 @@ namespace CfdiUtils\Development\ElementsMaker;
 
 final class ElementsMaker
 {
-    /** @var Specifications */
-    private $specs;
+    private Specifications $specs;
 
-    /** @var string */
-    private $outputDir;
+    private string $outputDir;
 
     /** @var array<string, string> */
-    private $templates = [];
+    private array $templates = [];
 
     public function __construct(Specifications $specs, string $outputDir)
     {

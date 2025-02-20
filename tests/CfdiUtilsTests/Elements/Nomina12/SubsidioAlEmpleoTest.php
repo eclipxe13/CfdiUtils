@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class SubsidioAlEmpleoTest extends TestCase
 {
-    /** @var SubsidioAlEmpleo */
-    public $element;
+    public SubsidioAlEmpleo $element;
 
     protected function setUp(): void
     {

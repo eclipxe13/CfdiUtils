@@ -11,8 +11,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class PropietarioTest extends TestCase
 {
-    /** @var Propietario */
-    public $element;
+    public Propietario $element;
 
     protected function setUp(): void
     {

@@ -12,8 +12,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class TransporteFerroviarioTest extends TestCase
 {
-    /** @var TransporteFerroviario */
-    public $element;
+    public TransporteFerroviario $element;
 
     protected function setUp(): void
     {

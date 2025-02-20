@@ -18,11 +18,9 @@ class Certificado
 
     private SerialNumber $serial;
 
-    /** @var int */
-    private $validFrom;
+    private int $validFrom;
 
-    /** @var int */
-    private $validTo;
+    private int $validTo;
 
     private string $pubkey;
 
@@ -30,8 +28,7 @@ class Certificado
 
     private string $pemContents;
 
-    /** @var string|null */
-    private $nameWithoutRegimenCapitalSuffix;
+    private ?string $nameWithoutRegimenCapitalSuffix;
 
     /**
      * Certificado constructor.
@@ -279,9 +276,8 @@ class Certificado
 
     /**
      * @throws \UnexpectedValueException when the file does not exist or is not readable
-     * @return void
      */
-    protected function assertFileExists(string $filename)
+    protected function assertFileExists(string $filename): void
     {
         $exists = false;
         $previous = null;

@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class JubilacionPensionRetiroTest extends TestCase
 {
-    /** @var JubilacionPensionRetiro */
-    public $element;
+    public JubilacionPensionRetiro $element;
 
     protected function setUp(): void
     {

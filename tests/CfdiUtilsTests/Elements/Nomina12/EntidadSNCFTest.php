@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class EntidadSNCFTest extends TestCase
 {
-    /** @var EntidadSNCF */
-    public $element;
+    public EntidadSNCF $element;
 
     protected function setUp(): void
     {

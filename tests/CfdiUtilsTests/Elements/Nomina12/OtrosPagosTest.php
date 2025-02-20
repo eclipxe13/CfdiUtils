@@ -11,8 +11,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class OtrosPagosTest extends TestCase
 {
-    /** @var OtrosPagos */
-    public $element;
+    public OtrosPagos $element;
 
     protected function setUp(): void
     {
