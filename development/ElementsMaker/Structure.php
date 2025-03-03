@@ -19,11 +19,6 @@ final class Structure implements Countable, IteratorAggregate
     /** @var Structure[] */
     private array $children;
 
-    /**
-     * @param string $name
-     * @param bool $multiple
-     * @param Structure[] $children
-     */
     public function __construct(string $name, bool $multiple, self ...$children)
     {
         $this->name = $name;
@@ -74,9 +69,7 @@ final class Structure implements Countable, IteratorAggregate
     {
         return array_unique(
             array_map(
-                function (self $structure) use ($prefix): string {
-                    return $prefix . $structure->getName();
-                },
+                fn(self $structure): string => $prefix . $structure->getName(),
                 $this->children
             )
         );

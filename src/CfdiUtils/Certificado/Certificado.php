@@ -169,7 +169,7 @@ class Certificado
      */
     public function getName($trimSuffix = false): string
     {
-        return (! $trimSuffix) ? $this->name : $this->getNameWithoutRegimenCapitalSuffix();
+        return ($trimSuffix) ? $this->getNameWithoutRegimenCapitalSuffix() : $this->name;
     }
 
     /**
