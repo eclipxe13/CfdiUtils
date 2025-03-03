@@ -57,7 +57,7 @@ abstract class ValidateBaseTestCase extends TestCase
         ], $emisorAttributes));
     }
 
-    protected function runValidate()
+    protected function runValidate(): void
     {
         $this->validator->validate($this->comprobante, $this->asserts);
     }
@@ -109,7 +109,7 @@ abstract class ValidateBaseTestCase extends TestCase
         $this->assertFalse($this->asserts->exists($code));
     }
 
-    protected function setupCfdiFile(string $cfdifile)
+    protected function setupCfdiFile(string $cfdifile): void
     {
         // setup hydrate and re-hydrate the validator
         $content = strval(file_get_contents($this->utilAsset($cfdifile)));
@@ -123,7 +123,7 @@ abstract class ValidateBaseTestCase extends TestCase
     /**
      * @deprecated Use only when developing test, remove after
      */
-    protected function printrAsserts()
+    protected function printrAsserts(): void
     {
         echo PHP_EOL, 'Asserts count: ', $this->asserts->count();
         foreach ($this->asserts as $assert) {

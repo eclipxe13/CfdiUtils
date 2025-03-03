@@ -29,7 +29,7 @@ class SelloDigitalCertificado extends AbstractDiscoverableVersion33 implements
 {
     use SelloDigitalCertificadoValidatorTrait;
 
-    protected function validateNombre(string $emisorNombre, string $rfc)
+    protected function validateNombre(string $emisorNombre, string $rfc): void
     {
         if ('' === $emisorNombre) {
             return; // name is optional

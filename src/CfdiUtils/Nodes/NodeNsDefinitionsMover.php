@@ -39,7 +39,7 @@ class NodeNsDefinitionsMover
         }
     }
 
-    protected function processRecursive(Nodes $children, NodeInterface $root, SchemaLocations $schemaLocations)
+    protected function processRecursive(Nodes $children, NodeInterface $root, SchemaLocations $schemaLocations): void
     {
         /** @var NodeInterface $child */
         foreach ($children as $child) {
@@ -49,7 +49,7 @@ class NodeNsDefinitionsMover
         }
     }
 
-    protected function moveXmlNs(NodeInterface $child, NodeInterface $root)
+    protected function moveXmlNs(NodeInterface $child, NodeInterface $root): void
     {
         $prefix = explode(':', $child->name(), 2)[0];
         if ($child->name() === $prefix) {
@@ -66,7 +66,7 @@ class NodeNsDefinitionsMover
         $child->addAttributes([$xmlns => null]);
     }
 
-    protected function moveXsiSchemaLocation(NodeInterface $child, SchemaLocations $rootSchemaLocations)
+    protected function moveXsiSchemaLocation(NodeInterface $child, SchemaLocations $rootSchemaLocations): void
     {
         if (! isset($child['xsi:schemaLocation'])) {
             return;

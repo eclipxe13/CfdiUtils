@@ -68,7 +68,7 @@ class QuickReader extends \stdClass implements \ArrayAccess, \Stringable
         return $child;
     }
 
-    public function __set($name, $value)
+    public function __set($name, $value): void
     {
         throw new \LogicException('Cannot change children');
     }
@@ -123,13 +123,13 @@ class QuickReader extends \stdClass implements \ArrayAccess, \Stringable
     }
 
     #[\ReturnTypeWillChange]
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         throw new \LogicException('Cannot change attributes');
     }
 
     #[\ReturnTypeWillChange]
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         throw new \LogicException('Cannot change attributes');
     }

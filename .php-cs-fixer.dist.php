@@ -16,11 +16,9 @@ return (new PhpCsFixer\Config())
         '@PSR12' => true,
         // '@PSR12:risky' => true,
         // '@PHP71Migration:risky' => true,
-        '@PHP73Migration' => true,
-        '@PHP74Migration' => true,
-        // '@PHP74Migration:risky' => true,
         '@PHP80Migration' => true,
-        // '@PHP80Migration:risky' => true,
+        '@PHP80Migration:risky' => true,
+        'declare_strict_types' => false, // defined by PHP74Migration:risky
         // symfony
         'class_attributes_separation' => true,
         'whitespace_after_comma_in_array' => true,

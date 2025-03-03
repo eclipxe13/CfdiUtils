@@ -202,7 +202,7 @@ class OpenSSL
         );
     }
 
-    protected function checkInputFile(string $path)
+    protected function checkInputFile(string $path): void
     {
         // file must exists, not a directory and must contain a non-zero size
         if ('' === $path) {
@@ -219,7 +219,7 @@ class OpenSSL
         }
     }
 
-    protected function checkOutputFile(string $path)
+    protected function checkOutputFile(string $path): void
     {
         // file should not exists or exists but contain a zero size
         if ('' === $path) {
