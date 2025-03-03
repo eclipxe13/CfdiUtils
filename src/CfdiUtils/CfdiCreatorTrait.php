@@ -89,9 +89,9 @@ trait CfdiCreatorTrait
 
     private function buildCadenaDeOrigenUsingXsltLocation(string $xsltLocation): string
     {
-        if (! $this->hasXmlResolver()) {
+        if (! $this->hasXsltBuilder()) {
             throw new \LogicException(
-                'Cannot build the cadena de origen since there is no xml resolver'
+                'Cannot build the cadena de origen since there is no xslt builder'
             );
         }
         return $this->getXsltBuilder()->build($this->asXml(), $xsltLocation);
