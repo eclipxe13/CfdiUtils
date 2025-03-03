@@ -98,9 +98,7 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
           restore-keys: ${{ runner.os }}-composer-
       - name: Install project dependencies
-        run: |
-          composer remove squizlabs/php_codesniffer friendsofphp/php-cs-fixer phpstan/phpstan --dev --no-interaction --no-progress --no-update
-          composer upgrade --no-interaction --no-progress --prefer-dist
+        run: composer upgrade --no-interaction --no-progress --prefer-dist
       - name: PHPStan
         run: phpstan analyse --no-progress --verbose
 
@@ -150,9 +148,7 @@ jobs:
         if: matrix.php-version == '8.4'
         run: composer remove genkgo/xsl --dev --no-interaction --no-progress --no-update
       - name: Install project dependencies
-        run: |
-          composer remove squizlabs/php_codesniffer friendsofphp/php-cs-fixer phpstan/phpstan --dev --no-interaction --no-progress --no-update
-          composer upgrade --no-interaction --no-progress --prefer-dist
+        run: composer upgrade --no-interaction --no-progress --prefer-dist
       - name: Tests (phpunit) on linux
         run: vendor/bin/phpunit --testdox --verbose --coverage-clover=build/coverage-clover.xml
       - name: Upload code coverage to scrutinizer
@@ -201,9 +197,7 @@ jobs:
         if: matrix.php-version == '8.4'
         run: composer remove genkgo/xsl --dev --no-interaction --no-progress --no-update
       - name: Install project dependencies
-        run: |
-          composer remove squizlabs/php_codesniffer friendsofphp/php-cs-fixer phpstan/phpstan --dev --no-interaction --no-progress --no-update
-          composer upgrade --no-interaction --no-progress --prefer-dist
+        run: composer upgrade --no-interaction --no-progress --prefer-dist
       - name: Tests (phpunit)
         run: vendor/bin/phpunit --testdox --verbose
         env:
