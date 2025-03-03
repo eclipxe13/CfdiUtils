@@ -2,7 +2,6 @@
 
 namespace CfdiUtils;
 
-use CfdiUtils\VersionDiscovery\StaticMethodsCompatTrait;
 use CfdiUtils\VersionDiscovery\VersionDiscoverer;
 
 /**
@@ -16,13 +15,6 @@ use CfdiUtils\VersionDiscovery\VersionDiscoverer;
  */
 class CfdiVersion extends VersionDiscoverer
 {
-    use StaticMethodsCompatTrait;
-
-    protected static function createDiscoverer(): VersionDiscoverer
-    {
-        return new self();
-    }
-
     public function rules(): array
     {
         return [

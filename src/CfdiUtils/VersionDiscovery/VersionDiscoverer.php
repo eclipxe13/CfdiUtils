@@ -13,6 +13,7 @@ abstract class VersionDiscoverer
      * This method should be implemented and return array of key/value elements
      * where the key is the version number
      * and the value is the attribute to query
+     * @return array<string, string>
      */
     abstract public function rules(): array;
 
