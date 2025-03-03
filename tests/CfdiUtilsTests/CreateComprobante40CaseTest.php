@@ -4,8 +4,11 @@ namespace CfdiUtilsTests;
 
 use CfdiUtils\Certificado\Certificado;
 use CfdiUtils\CfdiCreator40;
+use CfdiUtils\Internals\TemporaryFile;
 use CfdiUtils\Utils\Format;
 use CfdiUtils\Validate\Status;
+use LogicException;
+use RuntimeException;
 
 final class CreateComprobante40CaseTest extends TestCase
 {
@@ -126,5 +129,52 @@ final class CreateComprobante40CaseTest extends TestCase
         $xmlContents = $creator->asXml();
         $this->assertXmlStringEqualsXmlFile($expectedFileContents, $xmlContents);
         $this->assertStringStartsWith('<?xml', $xmlContents);
+    }
+
+    public function testAddSelloUsingInvalidPrimaryKey(): void
+    {
+        $cerfile = $this->utilAsset('certs/30001000000500003456.cer');
+        $keyfile = $this->utilAsset('certs/EKU9003173C9_password.key.pem');
+        $certificado = new Certificado($cerfile);
+        $creator = new CfdiCreator40([], $certificado);
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Cannot open the private key');
+        $creator->addSello('file://' . $keyfile);
+    }
+
+    public function testAddSelloUsingNotMatchingPrimaryKey(): void
+    {
+        $cerfile = $this->utilAsset('certs/30001000000500003456.cer');
+        $keyfile = $this->utilAsset('certs/EKU9003173C9.key.pem');
+        $certificado = new Certificado($cerfile);
+        $creator = new CfdiCreator40([], $certificado);
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('The private key does not belong to the current certificate');
+        $creator->addSello('file://' . $keyfile);
+    }
+
+    public function testBuildCadenaDeOrigenUsingXsltLocationWithoutXsltBuilder(): void
+    {
+        $creator = new CfdiCreator40([]);
+        $creator->setXsltBuilder(null);
+
+        $this->expectException(LogicException::class);
+        $this->expectExceptionMessage('Cannot build the cadena de origen since there is no xslt builder');
+
+        $creator->buildCadenaDeOrigen();
+    }
+
+    public function testSaveXml(): void
+    {
+        $temporaryFile = TemporaryFile::create();
+        $creator = new CfdiCreator40([]);
+        $creator->saveXml($temporaryFile->getPath());
+
+        $this->assertXmlStringEqualsXmlFile(
+            $temporaryFile->getPath(),
+            $creator->asXml()
+        );
     }
 }
