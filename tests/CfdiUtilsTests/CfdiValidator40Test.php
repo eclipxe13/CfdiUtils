@@ -45,7 +45,7 @@ final class CfdiValidator40Test extends TestCase
 
         $validator = new CfdiValidator40();
         $asserts = $validator->validate($cfdi->getSource(), $cfdi->getNode());
-        print_r($asserts->errors());
+        // print_r($asserts->errors());
         $this->assertFalse(
             $asserts->hasErrors(),
             'The validation of an expected cfdi40 valid file fails,'
