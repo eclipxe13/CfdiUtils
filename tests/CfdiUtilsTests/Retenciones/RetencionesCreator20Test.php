@@ -10,6 +10,13 @@ use CfdiUtilsTests\TestCase;
 
 final class RetencionesCreator20Test extends TestCase
 {
+    use RetencionesCreatorCommonMethodsTrait;
+
+    public function createMinimalCreator(): RetencionesCreator20
+    {
+        return new RetencionesCreator20();
+    }
+
     public function testCreatePreCfdiWithAllCorrectValues(): void
     {
         $cerFile = $this->utilAsset('certs/EKU9003173C9.cer');
@@ -24,7 +31,7 @@ final class RetencionesCreator20Test extends TestCase
             'FechaExp' => '2022-01-13T14:15:16',
             'CveRetenc' => '14', // Dividendos o utilidades distribuidos
             'LugarExpRetenc' => '91778',
-        ], $xmlResolver, $xsltBuilder);
+        ], $xmlResolver, $xsltBuilder, $certificado);
         $retenciones = $creator->retenciones();
 
         // available on RET 2.0
@@ -79,6 +86,7 @@ final class RetencionesCreator20Test extends TestCase
         $this->assertSame('2.0', $root['Version']);
 
         // put additional content using helpers
+        $this->assertSame($certificado, $creator->getCertificado()); // it was placed on constructor also
         $creator->putCertificado($certificado);
         $creator->addSello('file://' . $pemFile, $passPhrase);
 

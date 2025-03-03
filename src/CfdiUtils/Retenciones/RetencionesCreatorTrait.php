@@ -82,4 +82,19 @@ trait RetencionesCreatorTrait
         $mover = new SatNsDefinitionsMover();
         $mover->move($this->retenciones);
     }
+
+    private function buildCadenaDeOrigenFromXsltLocation(string $xsltLocation): string
+    {
+        if (! $this->hasXmlResolver()) {
+            throw new \LogicException('Cannot build the cadena de origen since there is no xml resolver');
+        }
+        if (! $this->hasXsltBuilder()) {
+            throw new \LogicException('Cannot build the cadena de origen since there is no xslt builder');
+        }
+
+        $xmlResolver = $this->getXmlResolver();
+        $xsltLocation = $xmlResolver->resolve($xsltLocation, $xmlResolver::TYPE_XSLT);
+
+        return $this->getXsltBuilder()->build($this->asXml(), $xsltLocation);
+    }
 }

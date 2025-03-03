@@ -50,15 +50,9 @@ class RetencionesCreator10 implements
 
     public function buildCadenaDeOrigen(): string
     {
-        if (! $this->hasXmlResolver()) {
-            throw new \LogicException('Cannot build the cadena de origen since there is no xml resolver');
-        }
-        $xmlResolver = $this->getXmlResolver();
-        $xsltLocation = $xmlResolver->resolve(
-            'http://www.sat.gob.mx/esquemas/retencionpago/1/retenciones.xslt',
-            $xmlResolver::TYPE_XSLT
+        return $this->buildCadenaDeOrigenFromXsltLocation(
+            'http://www.sat.gob.mx/esquemas/retencionpago/1/retenciones.xslt'
         );
-        return $this->getXsltBuilder()->build($this->asXml(), $xsltLocation);
     }
 
     /** @internal This function is required by RetencionesCreatorTrait::addSello */

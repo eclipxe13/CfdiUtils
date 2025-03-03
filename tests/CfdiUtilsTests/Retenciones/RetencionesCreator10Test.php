@@ -10,6 +10,13 @@ use CfdiUtilsTests\TestCase;
 
 final class RetencionesCreator10Test extends TestCase
 {
+    use RetencionesCreatorCommonMethodsTrait;
+
+    public function createMinimalCreator(): RetencionesCreator10
+    {
+        return new RetencionesCreator10();
+    }
+
     public function testCreatePreCfdiWithAllCorrectValues(): void
     {
         $cerFile = $this->utilAsset('certs/EKU9003173C9.cer');
