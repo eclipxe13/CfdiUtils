@@ -87,7 +87,7 @@ class Pago extends AbstractRecepcionPagos10
                 try {
                     if (! $validator->validatePago($pagoNode)) {
                         throw new \Exception(
-                            sprintf('The validation of pago %s %s return false', $index, get_class($validator))
+                            sprintf('The validation of pago %s %s return false', $index, $validator::class)
                         );
                     }
                 } catch (Pagos\DoctoRelacionado\ValidateDoctoException $exception) {
@@ -127,7 +127,7 @@ class Pago extends AbstractRecepcionPagos10
         int $pagoIndex,
         int $doctoIndex,
         Status $errorStatus,
-        string $explanation = ''
+        string $explanation = '',
     ): void {
         $assert = $this->asserts->get($code);
         $doctoCode = sprintf('%s-%02d-%02d', $assert->getCode(), $pagoIndex, $doctoIndex);

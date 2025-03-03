@@ -98,7 +98,7 @@ final class RetencionesTest extends TestCase
     /** @dataProvider providerRetencionesVersionNamespace */
     public function testInvalidCfdiRootPrefixDoesNotMatchWithNamespaceDeclaration(
         string $version,
-        string $namespace
+        string $namespace,
     ): void {
         $exception = $this->captureException(function () use ($namespace): void {
             Retenciones::newFromString(sprintf('<x:Retenciones xmlns:retenciones="%s"/>', $namespace));

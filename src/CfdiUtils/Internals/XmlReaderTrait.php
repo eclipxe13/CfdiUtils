@@ -28,7 +28,7 @@ trait XmlReaderTrait
         DOMDocument $document,
         string $expectedNamespace,
         string $expectedNsPrefix,
-        string $expectedRootBaseNodeName
+        string $expectedRootBaseNodeName,
     ): DOMElement {
         $rootElement = Xml::documentElement($document);
 

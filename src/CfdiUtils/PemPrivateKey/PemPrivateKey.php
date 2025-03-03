@@ -4,6 +4,7 @@ namespace CfdiUtils\PemPrivateKey;
 
 use CfdiUtils\OpenSSL\OpenSSL;
 use CfdiUtils\OpenSSL\OpenSSLPropertyTrait;
+use OpenSSLAsymmetricKey;
 use UnexpectedValueException;
 
 class PemPrivateKey
@@ -12,8 +13,7 @@ class PemPrivateKey
 
     private string $contents;
 
-    /** @var mixed|false */
-    private $privatekey = false;
+    private ?OpenSSLAsymmetricKey $privatekey = null;
 
     /**
      * Create a private key helper class based on a private key PEM formatted
@@ -27,7 +27,7 @@ class PemPrivateKey
     {
         $this->setOpenSSL($openSSL ?: new OpenSSL());
         try {
-            if (0 === strpos($key, 'file://')) {
+            if (str_starts_with($key, 'file://')) {
                 $filename = substr($key, 7);
                 $contents = $this->getOpenSSL()->readPemFile($filename)->privateKey();
             } else {
@@ -50,7 +50,7 @@ class PemPrivateKey
 
     public function __clone()
     {
-        $this->privatekey = false;
+        $this->privatekey = null;
     }
 
     public function __sleep()
@@ -71,26 +71,20 @@ class PemPrivateKey
 
     public function close(): void
     {
-        if (false !== $this->privatekey) {
-            if (\PHP_VERSION_ID < 80000) {
-                // phpcs:ignore
-                openssl_pkey_free($this->privatekey);
-            }
-            $this->privatekey = false;
-        }
+        $this->privatekey = null;
     }
 
     public function isOpen(): bool
     {
-        return (false !== $this->privatekey);
+        return $this->privatekey instanceof OpenSSLAsymmetricKey;
     }
 
-    /** @return mixed */
-    private function getOpenPrivateKey()
+    private function getOpenPrivateKey(): OpenSSLAsymmetricKey
     {
-        if (false === $this->privatekey) {
+        if (! $this->privatekey instanceof OpenSSLAsymmetricKey) {
             throw new \RuntimeException('The private key is not open');
         }
+
         return $this->privatekey;
     }
 

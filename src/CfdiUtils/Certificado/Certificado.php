@@ -139,12 +139,7 @@ class Certificado
         if (false === $privateKey) {
             throw new \RuntimeException("Cannot open the private key file $pemKeyFile");
         }
-        $belongs = openssl_x509_check_private_key($this->getPemContents(), $privateKey);
-        if (\PHP_VERSION_ID < 80000) {
-            // phpcs:ignore
-            openssl_free_key($privateKey);
-        }
-        return $belongs;
+        return openssl_x509_check_private_key($this->getPemContents(), $privateKey);
     }
 
     /**
@@ -260,16 +255,9 @@ class Certificado
         if (false === $pubKey) {
             throw new \RuntimeException('Cannot open public key from certificate');
         }
-        try {
-            $verify = openssl_verify($data, $signature, $pubKey, $algorithm);
-            if (-1 === $verify) {
-                throw new \RuntimeException('OpenSSL Error: ' . openssl_error_string());
-            }
-        } finally {
-            if (\PHP_VERSION_ID < 80000) {
-                // phpcs:ignore
-                openssl_free_key($pubKey);
-            }
+        $verify = openssl_verify($data, $signature, $pubKey, $algorithm);
+        if (-1 === $verify) {
+            throw new \RuntimeException('OpenSSL Error: ' . openssl_error_string());
         }
         return (1 === $verify);
     }
@@ -300,19 +288,11 @@ class Certificado
 
     protected function obtainPubKeyFromContents(string $contents): string
     {
-        try {
-            $pubkey = openssl_get_publickey($contents);
-            if (false === $pubkey) {
-                return '';
-            }
-            $pubData = openssl_pkey_get_details($pubkey) ?: [];
-            return $pubData['key'] ?? '';
-        } finally {
-            // close public key even if the flow is throw an exception
-            if (isset($pubkey) && false !== $pubkey && \PHP_VERSION_ID < 80000) {
-                // phpcs:ignore
-                openssl_free_key($pubkey);
-            }
+        $pubkey = openssl_get_publickey($contents);
+        if (false === $pubkey) {
+            return '';
         }
+        $pubData = openssl_pkey_get_details($pubkey) ?: [];
+        return $pubData['key'] ?? '';
     }
 }

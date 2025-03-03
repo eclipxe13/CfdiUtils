@@ -4,28 +4,13 @@ namespace CfdiUtils\ConsultaCfdiSat;
 
 class StatusResponse
 {
-    private string $code;
-
-    private string $cfdi;
-
-    private string $cancellable;
-
-    private string $cancellationStatus;
-
-    private string $validationEfos;
-
     public function __construct(
-        string $statusCode,
-        string $status,
-        string $cancellable,
-        string $cancellationStatus,
-        string $validationEfos
+        private string $code,
+        private string $cfdi,
+        private string $cancellable,
+        private string $cancellationStatus,
+        private string $validationEfos,
     ) {
-        $this->code = $statusCode;
-        $this->cfdi = $status;
-        $this->cancellable = $cancellable;
-        $this->cancellationStatus = $cancellationStatus;
-        $this->validationEfos = $validationEfos;
     }
 
     /**
@@ -95,7 +80,7 @@ class StatusResponse
 
     public function responseWasOk(): bool
     {
-        return ('S - ' === substr($this->code, 0, 4));
+        return (str_starts_with($this->code, 'S - '));
     }
 
     public function isVigente(): bool

@@ -27,7 +27,7 @@ abstract class ValidateComplementoPagosTestCase extends Validate33TestCase
 
         $this->assertCount(0, $this->asserts, sprintf(
             'The validator %s should not create any assert',
-            get_class($this->validator)
+            $this->validator::class
         ));
     }
 }

@@ -45,17 +45,14 @@ class SumasConceptos
      */
     private array $localesRetenciones = [];
 
-    private int $precision;
-
     private bool $foundAnyConceptWithDiscount = false;
 
     /*
      * Constructors
      */
 
-    public function __construct(NodeInterface $comprobante, int $precision = 2)
+    public function __construct(NodeInterface $comprobante, private int $precision = 2)
     {
-        $this->precision = $precision;
         $this->addComprobante($comprobante);
     }
 

@@ -10,11 +10,8 @@ use stdClass;
 
 final class SpecificationsReader
 {
-    private stdClass $data;
-
-    public function __construct(stdClass $data)
+    public function __construct(private stdClass $data)
     {
-        $this->data = $data;
     }
 
     public static function fromFile(string $specFile): self

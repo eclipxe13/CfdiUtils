@@ -103,7 +103,7 @@ class OpenSSL
         string $derInFile,
         string $inPassPhrase,
         string $pemOutFile,
-        string $outPassPhrase
+        string $outPassPhrase,
     ): void {
         $tempfile = TemporaryFile::create();
         $tempfile->runAndRemove(
@@ -129,7 +129,7 @@ class OpenSSL
         string $pemInFile,
         string $inPassPhrase,
         string $pemOutFile,
-        string $outPassPhrase
+        string $outPassPhrase,
     ): void {
         if ('' === $outPassPhrase) {
             $this->pemKeyUnprotect($pemInFile, $inPassPhrase, $pemOutFile);

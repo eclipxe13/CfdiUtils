@@ -6,8 +6,6 @@ namespace CfdiUtils\Development;
 
 abstract class BaseCliApplication
 {
-    private string $command;
-
     /** @var string[] */
     private array $arguments;
 
@@ -15,9 +13,8 @@ abstract class BaseCliApplication
 
     abstract public function execute(): int;
 
-    final public function __construct(string $command, string ...$arguments)
+    final public function __construct(private string $command, string ...$arguments)
     {
-        $this->command = $command;
         $this->arguments = $arguments;
     }
 

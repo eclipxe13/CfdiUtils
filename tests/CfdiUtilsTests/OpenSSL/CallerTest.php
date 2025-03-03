@@ -43,12 +43,9 @@ final class CallerTest extends TestCase
         $process->method('getErrorOutput')->willReturn($errors);
 
         return new class ($process) extends Caller {
-            private Process $process;
-
-            public function __construct(Process $process)
+            public function __construct(private Process $process)
             {
                 parent::__construct('command');
-                $this->process = $process;
             }
 
             // change method visibility

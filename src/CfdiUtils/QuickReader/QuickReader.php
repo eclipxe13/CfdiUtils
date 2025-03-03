@@ -2,7 +2,7 @@
 
 namespace CfdiUtils\QuickReader;
 
-class QuickReader extends \stdClass implements \ArrayAccess
+class QuickReader extends \stdClass implements \ArrayAccess, \Stringable
 {
     protected string $name;
 

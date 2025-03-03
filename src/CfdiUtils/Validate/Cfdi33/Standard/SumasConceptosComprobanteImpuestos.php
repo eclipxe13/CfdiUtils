@@ -178,7 +178,7 @@ class SumasConceptosComprobanteImpuestos extends AbstractDiscoverableVersion33
         string $type,
         array $expectedItems,
         array $impuestosPath,
-        array $impuestosKeys
+        array $impuestosKeys,
     ): void {
         $extractedItems = [];
         foreach ($this->comprobante->searchNodes(...$impuestosPath) as $extracted) {
@@ -265,7 +265,7 @@ class SumasConceptosComprobanteImpuestos extends AbstractDiscoverableVersion33
         float $expectedValue,
         string $compareLabel,
         float $compareValue,
-        ?Status $errorStatus = null
+        ?Status $errorStatus = null,
     ): bool {
         $condition = $this->compareImportesAreEqual($expectedValue, $compareValue);
         $this->asserts->putStatus(

@@ -13,13 +13,13 @@ abstract class ElementTestCase extends TestCase
         $this->assertSame(
             $name,
             $element->getElementName(),
-            sprintf('The element %s must have the name "%s"', get_class($element), $name)
+            sprintf('The element %s must have the name "%s"', $element::class, $name)
         );
     }
 
     public function assertElementHasFixedAttributes(AbstractElement $element, array $attributes): void
     {
-        $elementClass = get_class($element);
+        $elementClass = $element::class;
         foreach ($attributes as $name => $value) {
             $this->assertSame(
                 $element[$name],
@@ -34,7 +34,7 @@ abstract class ElementTestCase extends TestCase
         $this->assertSame(
             $order,
             $element->children()->getOrder(),
-            sprintf('The element %s does not have the correct child order definition', get_class($element))
+            sprintf('The element %s does not have the correct child order definition', $element::class)
         );
     }
 
@@ -42,9 +42,9 @@ abstract class ElementTestCase extends TestCase
         AbstractElement $element,
         string $childClassName,
         string $getter = '',
-        string $adder = ''
+        string $adder = '',
     ): void {
-        $elementClass = get_class($element);
+        $elementClass = $element::class;
         $childClassBaseName = basename(str_replace('\\', '/', $childClassName));
         $element->children()->removeAll();
 
@@ -79,9 +79,9 @@ abstract class ElementTestCase extends TestCase
 
     public function assertElementHasChildSingleAddChild(
         AbstractElement $element,
-        string $childClassName
+        string $childClassName,
     ): void {
-        $elementClass = get_class($element);
+        $elementClass = $element::class;
         $childClassBaseName = basename(str_replace('\\', '/', $childClassName));
         $element->children()->removeAll();
 
@@ -126,9 +126,9 @@ abstract class ElementTestCase extends TestCase
     public function assertElementHasChildMultiple(
         AbstractElement $element,
         string $childClassName,
-        string $elementName = ''
+        string $elementName = '',
     ): void {
-        $elementClass = get_class($element);
+        $elementClass = $element::class;
         $elementName = $elementName ?: basename(str_replace('\\', '/', $childClassName));
         $element->children()->removeAll();
 

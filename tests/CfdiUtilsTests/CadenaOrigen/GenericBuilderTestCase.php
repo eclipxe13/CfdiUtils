@@ -33,7 +33,7 @@ abstract class GenericBuilderTestCase extends TestCase
     public function testCfdiToCadenaOrigen(
         string $xmlLocation,
         string $expectedTransformation,
-        string $xsltLocation
+        string $xsltLocation,
     ): void {
         $xsltLocation = $this->downloadResourceIfNotExists($xsltLocation);
 

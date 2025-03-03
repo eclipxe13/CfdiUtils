@@ -37,7 +37,7 @@ abstract class ValidateBaseTestCase extends TestCase
     protected function setUpCertificado(
         array $comprobanteAttributes = [],
         array $emisorAttributes = [],
-        string $certificateFile = ''
+        string $certificateFile = '',
     ): void {
         $certificateFile = $certificateFile ?: $this->utilAsset('certs/EKU9003173C9.cer');
         $certificado = new Certificado($certificateFile);

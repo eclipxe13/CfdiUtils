@@ -53,7 +53,7 @@ abstract class AbstractPagoValidator
     {
         try {
             return CurrencyDecimals::newFromKnownCurrencies($currency);
-        } catch (\Throwable $exception) {
+        } catch (\Throwable) {
             return new CurrencyDecimals($currency ?: 'XXX', 0);
         }
     }
@@ -62,7 +62,7 @@ abstract class AbstractPagoValidator
     {
         try {
             return (new FormaPagoCatalog())->obtain($paymentType);
-        } catch (\Throwable $exception) {
+        } catch (\Throwable) {
             throw new ValidatePagoException(sprintf('La forma de pago "%s" no está definida', $paymentType));
         }
     }

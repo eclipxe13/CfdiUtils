@@ -231,7 +231,7 @@ final class SumasConceptosComprobanteImpuestosTest extends Validate33TestCase
     public function testValidateDescuentoLessOrEqualThanSubTotal(
         string $descuento,
         string $subtotal,
-        Status $expected
+        Status $expected,
     ): void {
         $this->comprobante->addAttributes([
             'SubTotal' => $subtotal,

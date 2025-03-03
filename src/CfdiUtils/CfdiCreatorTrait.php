@@ -29,7 +29,7 @@ trait CfdiCreatorTrait
         array $comprobanteAttributes = [],
         ?Certificado $certificado = null,
         ?XmlResolver $xmlResolver = null,
-        ?XsltBuilderInterface $xsltBuilder = null
+        ?XsltBuilderInterface $xsltBuilder = null,
     ): void {
         $this->comprobante->addAttributes($comprobanteAttributes);
         $this->setXmlResolver($xmlResolver ?: new XmlResolver());
@@ -42,7 +42,7 @@ trait CfdiCreatorTrait
     public static function newUsingNode(
         NodeInterface $node,
         ?Certificado $certificado = null,
-        ?XmlResolver $xmlResolver = null
+        ?XmlResolver $xmlResolver = null,
     ): self {
         $new = new self([], $certificado, $xmlResolver);
         $comprobante = $new->comprobante;
@@ -151,7 +151,7 @@ trait CfdiCreatorTrait
     {
         try {
             return $this->asXml();
-        } catch (\Throwable $ex) {
+        } catch (\Throwable) {
             return '';
         }
     }

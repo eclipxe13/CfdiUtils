@@ -31,7 +31,7 @@ trait RetencionesCreatorTrait
         array $retencionesAttributes = [],
         ?Certificado $certificado = null,
         ?XmlResolver $xmlResolver = null,
-        ?XsltBuilderInterface $xsltBuilder = null
+        ?XsltBuilderInterface $xsltBuilder = null,
     ): void {
         $this->retenciones->addAttributes($retencionesAttributes);
         $this->setXmlResolver($xmlResolver ?: new XmlResolver());

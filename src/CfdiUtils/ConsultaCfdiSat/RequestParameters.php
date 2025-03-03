@@ -9,33 +9,18 @@ class RequestParameters
 {
     private string $version;
 
-    private string $rfcEmisor;
-
-    private string $rfcReceptor;
-
-    private string $total;
-
     private float $totalFloat;
-
-    private string $uuid;
-
-    private string $sello;
 
     public function __construct(
         string $version,
-        string $rfcEmisor,
-        string $rfcReceptor,
-        string $total,
-        string $uuid,
-        string $sello = ''
+        private string $rfcEmisor,
+        private string $rfcReceptor,
+        private string $total,
+        private string $uuid,
+        private string $sello = '',
     ) {
         $this->setVersion($version);
-        $this->rfcEmisor = $rfcEmisor;
-        $this->rfcReceptor = $rfcReceptor;
-        $this->total = $total;
         $this->totalFloat = (float) trim(str_replace(',', '', $this->total));
-        $this->uuid = $uuid;
-        $this->sello = $sello;
     }
 
     public static function createFromCfdi(Cfdi $cfdi): self
@@ -121,7 +106,7 @@ class RequestParameters
     public function expressionVersion33(): string
     {
         $total = rtrim(number_format($this->totalFloat, 6, '.', ''), '0');
-        if ('.' === substr($total, -1, 1)) {
+        if (str_ends_with($total, '.')) {
             $total = $total . '0'; // add trailing zero
         }
         return 'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?' . implode('&', [

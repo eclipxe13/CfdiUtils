@@ -6,11 +6,8 @@ use CfdiUtils\Nodes\NodeInterface;
 
 class NodeCertificado
 {
-    private NodeInterface $comprobante;
-
-    public function __construct(NodeInterface $comprobante)
+    public function __construct(private NodeInterface $comprobante)
     {
-        $this->comprobante = $comprobante;
     }
 
     /**

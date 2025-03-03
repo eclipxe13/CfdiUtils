@@ -88,7 +88,7 @@ final class ConceptoImpuestosTest extends Validate33TestCase
     public function testTrasladosTipoFactorTasaOCuotaInvalidCase(
         string $tipoFactor,
         ?string $tasaOCuota,
-        ?string $importe
+        ?string $importe,
     ): void {
         $comprobante = $this->validComprobante();
         $comprobante->addConcepto()->addTraslado([

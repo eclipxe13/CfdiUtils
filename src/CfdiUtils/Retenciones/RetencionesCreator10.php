@@ -29,7 +29,7 @@ class RetencionesCreator10 implements
         array $retencionesAttributes = [],
         ?XmlResolver $xmlResolver = null,
         ?XsltBuilderInterface $xsltBuilder = null,
-        ?Certificado $certificado = null
+        ?Certificado $certificado = null,
     ) {
         $this->retenciones = new Retenciones();
         $this->retencionesCreatorConstructor($retencionesAttributes, $certificado, $xmlResolver, $xsltBuilder);

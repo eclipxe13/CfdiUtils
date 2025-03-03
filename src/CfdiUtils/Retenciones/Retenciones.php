@@ -51,7 +51,7 @@ class Retenciones
     private function loadDocumentWithNamespace(
         RetencionVersion $retVersion,
         DOMDocument $document,
-        string $namespace
+        string $namespace,
     ): void {
         $rootElement = self::checkRootElement($document, $namespace, 'retenciones', 'Retenciones');
         $this->version = $retVersion->getFromDOMElement($rootElement);

@@ -19,7 +19,7 @@ class Asserts implements \Countable, \IteratorAggregate
         string $code,
         ?string $title = null,
         ?Status $status = null,
-        ?string $explanation = null
+        ?string $explanation = null,
     ): Assert {
         if (! $this->exists($code)) {
             $assert = new Assert($code, (string) $title, $status, (string) $explanation);

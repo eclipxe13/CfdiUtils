@@ -6,14 +6,11 @@ use JsonSerializable;
 
 class Pagos implements JsonSerializable
 {
-    private Totales $totales;
-
     /** @var list<Pago> */
     private array $pagos;
 
-    public function __construct(Totales $totales, Pago ...$pago)
+    public function __construct(private Totales $totales, Pago ...$pago)
     {
-        $this->totales = $totales;
         $this->pagos = array_values($pago);
     }
 

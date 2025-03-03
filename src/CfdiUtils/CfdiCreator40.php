@@ -28,7 +28,7 @@ class CfdiCreator40 implements
         array $comprobanteAttributes = [],
         ?Certificado $certificado = null,
         ?XmlResolver $xmlResolver = null,
-        ?XsltBuilderInterface $xsltBuilder = null
+        ?XsltBuilderInterface $xsltBuilder = null,
     ) {
         $this->comprobante = new Comprobante();
         $this->cfdiCreatorConstructor($comprobanteAttributes, $certificado, $xmlResolver, $xsltBuilder);

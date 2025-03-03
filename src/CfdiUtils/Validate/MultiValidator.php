@@ -11,11 +11,8 @@ class MultiValidator implements ValidatorInterface, \Countable, \IteratorAggrega
     /** @var ValidatorInterface[] */
     private array $validators = [];
 
-    private string $version;
-
-    public function __construct(string $version)
+    public function __construct(private string $version)
     {
-        $this->version = $version;
     }
 
     public function getVersion(): string

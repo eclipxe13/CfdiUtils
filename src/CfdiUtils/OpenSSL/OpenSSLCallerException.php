@@ -6,16 +6,13 @@ use Throwable;
 
 class OpenSSLCallerException extends OpenSSLException
 {
-    private CallResponse $execResult;
-
     public function __construct(
-        CallResponse $execResult,
+        private CallResponse $execResult,
         string $message = 'OpenSSL execution error',
         int $code = 0,
-        ?Throwable $previous = null
+        ?Throwable $previous = null,
     ) {
         parent::__construct($message, $code, $previous);
-        $this->execResult = $execResult;
     }
 
     public function getCallResponse(): CallResponse

@@ -28,7 +28,7 @@ final class FormaPagoEntryTest extends TestCase
         bool $allowReceiverRfc,
         bool $allowReceiverAccount,
         string $receiverAccountPattern,
-        bool $allowPaymentSignature
+        bool $allowPaymentSignature,
     ): void {
         $paymentType = new FormaPagoEntry(
             $key,

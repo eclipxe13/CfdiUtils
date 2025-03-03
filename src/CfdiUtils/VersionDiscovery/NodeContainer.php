@@ -6,11 +6,8 @@ use CfdiUtils\Nodes\NodeInterface;
 
 class NodeContainer implements ContainerWithAttributeInterface
 {
-    private NodeInterface $node;
-
-    public function __construct(NodeInterface $node)
+    public function __construct(private NodeInterface $node)
     {
-        $this->node = $node;
     }
 
     public function getAttributeValue(string $attribute): string

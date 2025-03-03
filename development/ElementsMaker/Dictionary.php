@@ -6,13 +6,9 @@ namespace CfdiUtils\Development\ElementsMaker;
 
 final class Dictionary
 {
-    /** @var array<string, string> */
-    private array $values;
-
     /** @param array<string, string> $values */
-    public function __construct(array $values)
+    public function __construct(private array $values)
     {
-        $this->values = $values;
     }
 
     public function get(string $key): string

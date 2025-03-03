@@ -22,7 +22,7 @@ Requieres tener instalado y disponible `git` `composer`, `phive` y `php`.
 
 Opcionalmente podrías tener instalado `saxonb-xslt`.
 
-El proyecto es compatible con PHP 7.4.
+El proyecto es compatible con PHP 8.0.
 Respeta esta compatibilidad, no agregues características de versiones superiores.
 
 ## Primeros pasos

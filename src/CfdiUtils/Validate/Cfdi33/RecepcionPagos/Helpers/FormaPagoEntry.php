@@ -8,30 +8,20 @@ class FormaPagoEntry
 
     private string $description;
 
-    private bool $allowSenderRfc;
-
-    private bool $allowSenderAccount;
-
     private string $senderAccountPattern;
 
-    private bool $allowReceiverRfc;
-
-    private bool $allowReceiverAccount;
-
     private string $receiverAccountPattern;
-
-    private bool $allowPaymentSignature;
 
     public function __construct(
         string $key,
         string $description,
-        bool $allowSenderRfc,
-        bool $allowSenderAccount,
+        private bool $allowSenderRfc,
+        private bool $allowSenderAccount,
         string $senderAccountPattern,
-        bool $allowReceiverRfc,
-        bool $allowReceiverAccount,
+        private bool $allowReceiverRfc,
+        private bool $allowReceiverAccount,
         string $receiverAccountPattern,
-        bool $allowPaymentSignature
+        private bool $allowPaymentSignature,
     ) {
         if ('' === $key) {
             throw new \UnexpectedValueException('The FormaPago key cannot be empty');
@@ -41,13 +31,8 @@ class FormaPagoEntry
         }
         $this->key = $key;
         $this->description = $description;
-        $this->allowSenderRfc = $allowSenderRfc;
-        $this->allowSenderAccount = $allowSenderAccount;
-        $this->senderAccountPattern = $this->pattern($allowSenderAccount, $senderAccountPattern);
-        $this->allowReceiverRfc = $allowReceiverRfc;
-        $this->allowReceiverAccount = $allowReceiverAccount;
-        $this->receiverAccountPattern = $this->pattern($allowReceiverAccount, $receiverAccountPattern);
-        $this->allowPaymentSignature = $allowPaymentSignature;
+        $this->senderAccountPattern = $this->pattern($this->allowSenderAccount, $senderAccountPattern);
+        $this->receiverAccountPattern = $this->pattern($this->allowReceiverAccount, $receiverAccountPattern);
     }
 
     private function pattern(bool $allowed, string $pattern): string

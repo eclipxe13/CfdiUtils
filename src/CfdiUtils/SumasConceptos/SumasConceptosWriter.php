@@ -12,10 +12,6 @@ class SumasConceptosWriter
     /** @var Comprobante33|Comprobante40 */
     private NodeInterface $comprobante;
 
-    private SumasConceptos $sumas;
-
-    private int $precision;
-
     private ?bool $writeImpuestoBase = null;
 
     private ?bool $writeExentos = null;
@@ -26,8 +22,8 @@ class SumasConceptosWriter
      */
     public function __construct(
         NodeInterface $comprobante,
-        SumasConceptos $sumas,
-        int $precision = 6
+        private SumasConceptos $sumas,
+        private int $precision = 6,
     ) {
         if ($comprobante instanceof Comprobante33) {
             $this->writeImpuestoBase = false;
@@ -41,8 +37,6 @@ class SumasConceptosWriter
             );
         }
         $this->comprobante = $comprobante;
-        $this->sumas = $sumas;
-        $this->precision = $precision;
     }
 
     public function put(): void

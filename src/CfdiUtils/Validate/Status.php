@@ -6,7 +6,7 @@ namespace CfdiUtils\Validate;
  * Status (immutable value object)
  * Define the status used in an assertion
  */
-class Status
+class Status implements \Stringable
 {
     public const STATUS_ERROR = 'ERROR';
 

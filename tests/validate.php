@@ -10,8 +10,6 @@ use CfdiUtils\Validate\Asserts;
 require __DIR__ . '/bootstrap.php';
 
 exit(call_user_func(new class (...$argv) {
-    private string $command;
-
     /** @var string[] */
     private array $arguments;
 
@@ -24,9 +22,8 @@ exit(call_user_func(new class (...$argv) {
 
     private const FAILURE = 2;
 
-    public function __construct(string $command, string ...$arguments)
+    public function __construct(private string $command, string ...$arguments)
     {
-        $this->command = $command;
         $this->arguments = $arguments;
         $this->validators = [
             '3.3' => new CfdiValidator33(),
@@ -77,7 +74,7 @@ exit(call_user_func(new class (...$argv) {
             try {
                 $asserts = $this->validateFile($file, $clean);
             } catch (Throwable $exception) {
-                printf("FAIL: (%s) %s\n\n", get_class($exception), $exception->getMessage());
+                printf("FAIL: (%s) %s\n\n", $exception::class, $exception->getMessage());
                 $exitCode = self::FAILURE;
                 continue;
             }

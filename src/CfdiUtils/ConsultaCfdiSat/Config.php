@@ -10,19 +10,13 @@ class Config
      */
     public const DEFAULT_SERVICE_URL = 'https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc';
 
-    private int $timeout;
-
-    private bool $verifyPeer;
-
     private string $serviceUrl;
 
     public function __construct(
-        int $timeout = 10,
-        bool $verifyPeer = true,
-        string $serviceUrl = ''
+        private int $timeout = 10,
+        private bool $verifyPeer = true,
+        string $serviceUrl = '',
     ) {
-        $this->timeout = $timeout;
-        $this->verifyPeer = $verifyPeer;
         $this->serviceUrl = $serviceUrl ?: static::DEFAULT_SERVICE_URL;
     }
 

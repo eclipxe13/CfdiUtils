@@ -8,7 +8,7 @@ namespace CfdiUtils\Internals;
  * NOTE: Changes will not be considering a bracking compatibility change since this utility is for internal usage only
  * @internal
  */
-class BaseConverterSequence
+class BaseConverterSequence implements \Stringable
 {
     private string $sequence;
 
@@ -42,7 +42,7 @@ class BaseConverterSequence
         try {
             static::checkIsValid($value);
             return true;
-        } catch (\UnexpectedValueException $exception) {
+        } catch (\UnexpectedValueException) {
             return false;
         }
     }

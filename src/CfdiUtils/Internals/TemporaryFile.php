@@ -8,13 +8,10 @@ namespace CfdiUtils\Internals;
  * NOTE: Changes will not be considering a bracking compatibility change since this utility is for internal usage only
  * @internal
  */
-final class TemporaryFile
+final class TemporaryFile implements \Stringable
 {
-    private string $filename;
-
-    private function __construct(string $filename)
+    private function __construct(private string $filename)
     {
-        $this->filename = $filename;
     }
 
     public static function create(string $directory = ''): self

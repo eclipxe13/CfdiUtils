@@ -7,16 +7,12 @@ use UnexpectedValueException;
 
 final class CfdiCreateObjectException extends UnexpectedValueException
 {
-    /** @var array<string, UnexpectedValueException> */
-    private array $versionExceptions;
-
     /**
-     * @param array<string, UnexpectedValueException> $versionException
+     * @param array<string, UnexpectedValueException> $versionExceptions
      */
-    private function __construct(string $message, array $versionException)
+    private function __construct(string $message, private array $versionExceptions)
     {
         parent::__construct($message);
-        $this->versionExceptions = $versionException;
     }
 
     /**

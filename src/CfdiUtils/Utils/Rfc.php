@@ -2,7 +2,7 @@
 
 namespace CfdiUtils\Utils;
 
-class Rfc
+class Rfc implements \Stringable
 {
     public const RFC_GENERIC = 'XAXX010101000';
 
@@ -75,7 +75,7 @@ class Rfc
         try {
             static::checkIsValid($value);
             return true;
-        } catch (\UnexpectedValueException $exception) {
+        } catch (\UnexpectedValueException) {
             return false;
         }
     }

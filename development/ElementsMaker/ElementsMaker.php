@@ -6,17 +6,11 @@ namespace CfdiUtils\Development\ElementsMaker;
 
 final class ElementsMaker
 {
-    private Specifications $specs;
-
-    private string $outputDir;
-
     /** @var array<string, string> */
     private array $templates = [];
 
-    public function __construct(Specifications $specs, string $outputDir)
+    public function __construct(private Specifications $specs, private string $outputDir)
     {
-        $this->specs = $specs;
-        $this->outputDir = $outputDir;
     }
 
     public static function make(string $specFile, string $outputDir): self

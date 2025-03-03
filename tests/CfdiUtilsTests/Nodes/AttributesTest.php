@@ -188,11 +188,8 @@ final class AttributesTest extends TestCase
     {
         $expectedValue = 'foo';
         $toStringObject = new class ('foo') {
-            private string $value;
-
-            public function __construct(string $value)
+            public function __construct(private string $value)
             {
-                $this->value = $value;
             }
 
             public function __toString(): string

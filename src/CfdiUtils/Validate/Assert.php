@@ -2,29 +2,24 @@
 
 namespace CfdiUtils\Validate;
 
-class Assert
+class Assert implements \Stringable
 {
-    private string $title;
-
     private Status $status;
-
-    private string $explanation;
-
-    private string $code;
 
     /**
      * Assert constructor.
      * @param Status|null $status If null the status will be NONE
      */
-    public function __construct(string $code, string $title = '', ?Status $status = null, string $explanation = '')
-    {
-        if ('' === $code) {
+    public function __construct(
+        private string $code,
+        private string $title = '',
+        ?Status $status = null,
+        private string $explanation = '',
+    ) {
+        if ('' === $this->code) {
             throw new \UnexpectedValueException('Code cannot be an empty string');
         }
-        $this->code = $code;
-        $this->title = $title;
         $this->setStatus($status ?: Status::none());
-        $this->explanation = $explanation;
     }
 
     public function getTitle(): string

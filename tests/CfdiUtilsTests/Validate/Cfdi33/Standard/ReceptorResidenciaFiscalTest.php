@@ -43,7 +43,7 @@ final class ReceptorResidenciaFiscalTest extends Validate33TestCase
         ?string $residenciaFiscal,
         ?string $numRegIdTrib,
         bool $putComercioExterior,
-        string $ok
+        string $ok,
     ): void {
         $this->comprobante->addChild(new Node('cfdi:Receptor', [
             'Rfc' => $receptorRfc,
@@ -91,7 +91,7 @@ final class ReceptorResidenciaFiscalTest extends Validate33TestCase
         ?string $residenciaFiscal,
         ?string $numRegIdTrib,
         bool $putComercioExterior,
-        string $error
+        string $error,
     ): void {
         $this->comprobante->addChild(new Node('cfdi:Receptor', [
             'Rfc' => $receptorRfc,

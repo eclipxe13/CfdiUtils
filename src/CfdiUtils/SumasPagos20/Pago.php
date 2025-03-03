@@ -6,20 +6,12 @@ use JsonSerializable;
 
 final class Pago implements JsonSerializable
 {
-    private Decimal $monto;
-
-    private Decimal $montoMinimo;
-
-    private Decimal $tipoCambioP;
-
-    private Impuestos $impuestos;
-
-    public function __construct(Decimal $monto, Decimal $montoMinimo, Decimal $tipoCambioP, Impuestos $impuestos)
-    {
-        $this->monto = $monto;
-        $this->montoMinimo = $montoMinimo;
-        $this->tipoCambioP = $tipoCambioP;
-        $this->impuestos = $impuestos;
+    public function __construct(
+        private Decimal $monto,
+        private Decimal $montoMinimo,
+        private Decimal $tipoCambioP,
+        private Impuestos $impuestos,
+    ) {
     }
 
     public function getMonto(): Decimal
