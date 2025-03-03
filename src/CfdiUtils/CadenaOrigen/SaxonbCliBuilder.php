@@ -27,26 +27,6 @@ class SaxonbCliBuilder extends AbstractXsltBuilder
         $this->executablePath = $executablePath;
     }
 
-    /**
-     * SECURITY: This method does not work as expected on non POSIX system (as MS Windows)
-     * It was never intented to be public. It is not used by this class and will be removed on 3.0.0
-     *
-     * @deprecated 2.9.0 Will be removed with no replacement, never intended to be public
-     * @codeCoverageIgnore
-     */
-    public function createCommand(string $xmlFile, string $xsltLocation): string
-    {
-        // if is running on windows then use NUL instead of /dev/null
-        $devnull = ('\\' === DIRECTORY_SEPARATOR) ? 'NUL' : '/dev/null';
-        return implode(' ', [
-            escapeshellarg($this->getExecutablePath()),
-            escapeshellarg('-s:' . $xmlFile),
-            escapeshellarg('-xsl:' . $xsltLocation),
-            escapeshellarg('-warnings:silent'), // default recover
-            "2>$devnull",
-        ]);
-    }
-
     public function build(string $xmlContent, string $xsltLocation): string
     {
         $this->assertBuildArguments($xmlContent, $xsltLocation);
