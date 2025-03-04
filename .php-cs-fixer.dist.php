@@ -20,6 +20,7 @@ return (new PhpCsFixer\Config())
         '@PHP80Migration:risky' => true,
         'declare_strict_types' => false, // defined by PHP74Migration:risky
         // symfony
+        'array_indentation' => true,
         'class_attributes_separation' => true,
         'whitespace_after_comma_in_array' => true,
         'no_empty_statement' => true,

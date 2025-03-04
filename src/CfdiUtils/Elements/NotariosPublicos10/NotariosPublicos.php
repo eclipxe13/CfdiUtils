@@ -14,11 +14,12 @@ class NotariosPublicos extends AbstractElement
     public function getChildrenOrder(): array
     {
         return [
-        'notariospublicos:DescInmuebles',
-        'notariospublicos:DatosOperacion',
-        'notariospublicos:DatosNotario',
-        'notariospublicos:DatosEnajenante',
-        'notariospublicos:DatosAdquiriente'];
+            'notariospublicos:DescInmuebles',
+            'notariospublicos:DatosOperacion',
+            'notariospublicos:DatosNotario',
+            'notariospublicos:DatosEnajenante',
+            'notariospublicos:DatosAdquiriente',
+        ];
     }
 
     public function getFixedAttributes(): array

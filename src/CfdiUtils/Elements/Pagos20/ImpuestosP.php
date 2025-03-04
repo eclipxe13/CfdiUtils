@@ -14,8 +14,8 @@ class ImpuestosP extends AbstractElement
     public function getChildrenOrder(): array
     {
         return [
-        'pago20:RetencionesP',
-        'pago20:TrasladosP',
+            'pago20:RetencionesP',
+            'pago20:TrasladosP',
         ];
     }
 

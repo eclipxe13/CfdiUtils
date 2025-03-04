@@ -14,8 +14,8 @@ class ImpuestosDR extends AbstractElement
     public function getChildrenOrder(): array
     {
         return [
-        'pago20:RetencionesDR',
-        'pago20:TrasladosDR',
+            'pago20:RetencionesDR',
+            'pago20:TrasladosDR',
         ];
     }
 

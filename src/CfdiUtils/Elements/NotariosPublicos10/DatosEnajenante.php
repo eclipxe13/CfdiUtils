@@ -14,8 +14,9 @@ class DatosEnajenante extends AbstractElement
     public function getChildrenOrder(): array
     {
         return [
-        'notariospublicos:DatosUnEnajenante',
-        'notariospublicos:DatosEnajenantesCopSC'];
+            'notariospublicos:DatosUnEnajenante',
+            'notariospublicos:DatosEnajenantesCopSC',
+        ];
     }
 
     public function getDatosUnEnajenante(): DatosUnEnajenante
