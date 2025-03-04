@@ -23,22 +23,22 @@ It is written in **spanish language** since is the language of the intended audi
 **Nota: Este proyecto será migrado a `phpcfdi/cfdiutils`, aún no tenemos fecha planeada**
 
 No olvides visitar <https://www.phpcfdi.com> donde contamos con muchas más librerías relacionadas con
-CFDI y herramientas del SAT. Y próximamente el lugar donde publicaremos la versión `3.y.z`.
+CFDI y herramientas del SAT. Y próximamente el lugar donde publicaremos la versión `4.x`.
 
 ## Main features
 
 - Create CFDI version 3.3 & 4.0 based on a friendly extendable non XML objects (`nodes`).
 - Read CFDI version 3.2, 3.3 & 4.0.
 - Validate CFDI version 3.3 & 4.0 against schemas, CFDI signature (`Sello`) and custom rules.
-- Validate that the Timbre Fiscal Digital signature match with the CFDI 3.3 & CFDI 4.0,
-  if not then the document has been modified after signature.
+- Validate that the Timbre Fiscal Digital signature match with the CFDI 3.3 & CFDI 4.0.
+  If signature doesn't match, then the document has been modified after sealed.
 - Helper objects to deal with:
     - `Cadena de origen` generation.
     - Extract information from CER files or `Certificado` attribute.
     - Calculate `Comprobante` sums based on the list of `Conceptos`.
     - Retrieve the CFDI version information.
 - Keep a local copy of the tree of XSD and XSLT file dependencies from SAT.
-- Keep a local copy of certificates to avoid downloads them each time.
+- Keep a local copy of certificates to avoid download them each time.
 - Check the SAT WebService to get the status of a CFDI (*`Estado`*, *`EsCancelable`*, *`EstatusCancelacion`* and *`EFOS`*) without WSDL.
 
 
@@ -79,7 +79,7 @@ See <https://www.php.net/supported-versions.php> for more details.
 | 2.15.0    | 7.3, 7.4, 8.0                | 2021-03-17 |
 | 2.20.1    | 7.3, 7.4, 8.0, 8.1           | 2022-03-08 |
 | 2.23.5    | 7.3, 7.4, 8.0, 8.1, 8.2, 8.3 | 2023-05-26 |
-| 3.0.0     | 8.0, 8.1, 8.2, 8.3, 8.4      | 2025-03-03 |
+| 3.0.0     | 8.0, 8.1, 8.2, 8.3, 8.4      | 2025-03-04 |
 
 
 ## Contributing

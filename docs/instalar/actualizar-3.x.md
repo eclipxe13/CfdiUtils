@@ -6,6 +6,14 @@ en respeto a las reglas de versionado semántico es necesario actualizar la vers
 
 También se ha aprovechado la oportunidad para quitar código deprecado y actualizar dependencias.
 
+## Compatibilidad con PHP 7.3 y PHP 7.4
+
+En esta versión se ha eliminado la compatibilidad con PHP 7.3 y PHP 7.4.
+Al momento del lanzamiento (marzo 2025), ambas versiones tenían más de 4 y 2 años fuera del periodo de vida.
+
+La versión mínima de trabajo con esta versión es PHP 8.0 y se planea que, en las siguientes versiones mayores,
+se mantenga compatibilidad con la versión más antigua con soporte activo.
+
 ## Adiciones a `QuickReader`
 
 La utilería `QuickReader` puede ser complicada por sus llamadas mágicas, por ello, se han agregado nuevos métodos.
@@ -94,5 +102,5 @@ Solo haga caso a este cambio si extendió o implementó la interface `CfdiUtils\
 
 ## Errores con `genkgo/xsl`
 
-La librería `genkgo/xsl` a la fecha 2025-02-18 tiene problemas de compatibilidad con PHP 8.4.
+La librería `genkgo/xsl` a la fecha 2025-03-05 tiene problemas de compatibilidad con PHP 8.4.
 Es probable que estos problemas se corrijan en un futuro, pero ningún cambio es requerido en esta librería.

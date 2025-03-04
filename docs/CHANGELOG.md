@@ -2,10 +2,16 @@
 
 ## Backward compatibility breaks (not released yet), plan for version 4.0
 
-- Remove `static` methods from `\CfdiUtils\CfdiVersion`, instead create an instance of the class.
-- Remove `static` methods from `\CfdiUtils\TimbreFiscalDigital\TfdVersion`, instead create an instance of the class.
-- Refactor `\CfdiUtils\Certificado\SerialNumber` to be immutable, this change will remove `loadHexadecimal`,
-  `loadDecimal` and `loadAscii`.
+- Refactor `\CfdiUtils\Certificado\SerialNumber` to be immutable, this change will remove methods:
+  `loadHexadecimal`, `loadDecimal` and `loadAscii`.
+- Fix/improve `ElementsMaker` standard.
+- Remove code to build CFDI 3.3.
+
+## Version 3.0.0 2025-03-04
+
+This is a major release primary for compatibility to PHP 8.4.
+It also drops compatibility with PHP 7.3 and PHP 7.4.
+Read and follow the guide [Actualizar a versión 3.x](instalar/actualizar-3.x.md) (in spanish).
 
 ## Version 2.31.0 2025-02-19
 
