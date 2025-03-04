@@ -75,6 +75,6 @@ final class ElementsMaker
         foreach ($array as $value) {
             $parts[] = var_export($value, true);
         }
-        return "[\n" . implode(",\n", $parts) . ']';
+        return "[\n" . implode(",\n", $parts) . "\n]";
     }
 }
