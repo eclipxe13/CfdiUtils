@@ -47,8 +47,7 @@
         "ext-curl": "*",
         "ext-soap": "*",
         "genkgo/xsl": "^1.0.8",
-        "phpunit/phpunit": "^9.5",
-        "rector/rector": "2.0.9"
+        "phpunit/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {
