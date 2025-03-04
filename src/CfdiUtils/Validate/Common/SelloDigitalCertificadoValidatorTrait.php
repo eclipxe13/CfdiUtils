@@ -107,7 +107,6 @@ trait SelloDigitalCertificadoValidatorTrait
         );
     }
 
-    /** @return void */
     abstract protected function validateNombre(string $emisorNombre, string $rfc): void;
 
     private function validateFecha(string $fechaSource): void
