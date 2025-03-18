@@ -10,15 +10,11 @@ use PHPUnit\Framework\TestCase;
 final class ImportesDecimalesTest extends TestCase
 {
     /**
-     * @param string $currency
-     * @param string $previous
-     * @param string $payment
-     * @param string $left
      * @testWith ["MXN", "100.00", "100.00", "0.00"]
      *           ["MXN", "100.0", "100.0", "0.0"]
      *           ["MXN", "100", "100", "0"]
      */
-    public function testValid(string $currency, string $previous, string $payment, string $left)
+    public function testValid(string $currency, string $previous, string $payment, string $left): void
     {
         $pago = new Pago();
         $docto = $pago->addDoctoRelacionado([
@@ -35,15 +31,11 @@ final class ImportesDecimalesTest extends TestCase
     }
 
     /**
-     * @param string $currency
-     * @param string $previous
-     * @param string $payment
-     * @param string $left
      * @testWith ["MXN", "100.000", "100.00", "0.00"]
      *           ["MXN", "100.00", "100.000", "0.00"]
      *           ["MXN", "100.00", "100.00", "0.000"]
      */
-    public function testInvalid(string $currency, string $previous, string $payment, string $left)
+    public function testInvalid(string $currency, string $previous, string $payment, string $left): void
     {
         $pago = new Pago();
         $docto = $pago->addDoctoRelacionado([

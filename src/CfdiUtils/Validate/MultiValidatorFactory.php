@@ -7,10 +7,9 @@ use CfdiUtils\Validate\Xml\XmlFollowSchema;
 
 class MultiValidatorFactory
 {
-    /** @var Discoverer */
-    private $discoverer;
+    private Discoverer $discoverer;
 
-    public function __construct(Discoverer $discoverer = null)
+    public function __construct(?Discoverer $discoverer = null)
     {
         $this->discoverer = $discoverer ?: new Discoverer();
     }
@@ -52,7 +51,7 @@ class MultiValidatorFactory
         return $this->newCreated40();
     }
 
-    public function addDiscovered(MultiValidator $multiValidator, string $namespacePrefix, string $directory)
+    public function addDiscovered(MultiValidator $multiValidator, string $namespacePrefix, string $directory): void
     {
         $multiValidator->addMulti(
             ...$this->discoverer->discoverInFolder($namespacePrefix, $directory)

@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class DividOUtilTest extends TestCase
 {
-    /** @var DividOUtil */
-    public $element;
+    public DividOUtil $element;
 
     public function setUp(): void
     {
@@ -16,7 +15,7 @@ final class DividOUtilTest extends TestCase
         $this->element = new DividOUtil();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('dividendos:DividOUtil', $this->element->getElementName());
     }

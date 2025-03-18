@@ -9,7 +9,7 @@ use CfdiUtilsTests\TestCase;
 
 final class XsltBuilderPropertyTest extends TestCase
 {
-    public function testXsltBuilderPropertyWithoutSet()
+    public function testXsltBuilderPropertyWithoutSet(): void
     {
         $implementation = $this->createImplementation();
         $this->assertFalse($implementation->hasXsltBuilder());
@@ -19,7 +19,7 @@ final class XsltBuilderPropertyTest extends TestCase
         $implementation->getXsltBuilder();
     }
 
-    public function testXsltBuilderProperty()
+    public function testXsltBuilderProperty(): void
     {
         $builder = new DOMBuilder();
         $implementation = $this->createImplementation();

@@ -14,7 +14,7 @@ use CfdiUtils\Validate\Status;
  */
 class Pagos extends AbstractRecepcionPagos10
 {
-    public function validateRecepcionPagos(NodeInterface $comprobante, Asserts $asserts)
+    public function validateRecepcionPagos(NodeInterface $comprobante, Asserts $asserts): void
     {
         $assert = $asserts->put('PAGOS01', 'Debe existir al menos un pago en el complemento de pagos');
 

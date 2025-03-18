@@ -4,13 +4,14 @@ namespace CfdiUtilsTests\Validate\Cfdi40\Xml;
 
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Validate\Cfdi40\Xml\XmlDefinition;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\Validate40TestCase;
 
 final class XmlDefinitionTest extends Validate40TestCase
 {
     /** @var XmlDefinition */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {

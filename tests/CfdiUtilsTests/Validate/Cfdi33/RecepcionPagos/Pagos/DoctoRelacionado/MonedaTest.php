@@ -10,13 +10,12 @@ use PHPUnit\Framework\TestCase;
 final class MonedaTest extends TestCase
 {
     /**
-     * @param string|null $input
      * @testWith ["MXN"]
      *           ["USD"]
      *           [""]
      *           [null]
      */
-    public function testValid(?string $input)
+    public function testValid(?string $input): void
     {
         $docto = new DoctoRelacionado([
             'MonedaDR' => $input,
@@ -28,10 +27,9 @@ final class MonedaTest extends TestCase
     }
 
     /**
-     * @param string $input
      * @testWith ["XXX"]
      */
-    public function testInvalid(string $input)
+    public function testInvalid(string $input): void
     {
         $docto = new DoctoRelacionado([
             'MonedaDR' => $input,

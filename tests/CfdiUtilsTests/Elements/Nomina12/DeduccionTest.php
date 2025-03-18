@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class DeduccionTest extends TestCase
 {
-    /** @var Deduccion */
-    public $element;
+    public Deduccion $element;
 
     protected function setUp(): void
     {
@@ -19,7 +18,7 @@ final class DeduccionTest extends TestCase
         $this->element = new Deduccion();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('nomina12:Deduccion', $this->element->getElementName());
     }

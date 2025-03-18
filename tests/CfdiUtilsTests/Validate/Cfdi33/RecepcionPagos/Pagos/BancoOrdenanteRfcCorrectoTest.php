@@ -10,12 +10,11 @@ use PHPUnit\Framework\TestCase;
 final class BancoOrdenanteRfcCorrectoTest extends TestCase
 {
     /**
-     * @param string|null $rfc
      * @testWith ["COSC8001137NA"]
      *           ["XEXX010101000"]
      *           [null]
      */
-    public function testValid(?string $rfc)
+    public function testValid(?string $rfc): void
     {
         $pago = new Pago([
             'RfcEmisorCtaOrd' => $rfc,
@@ -26,12 +25,11 @@ final class BancoOrdenanteRfcCorrectoTest extends TestCase
     }
 
     /**
-     * @param string $rfc
      * @testWith ["COSC8099137N1"]
      *           ["XAXX010101000"]
      *           [""]
      */
-    public function testInvalid(string $rfc)
+    public function testInvalid(string $rfc): void
     {
         $pago = new Pago([
             'RfcEmisorCtaOrd' => $rfc,

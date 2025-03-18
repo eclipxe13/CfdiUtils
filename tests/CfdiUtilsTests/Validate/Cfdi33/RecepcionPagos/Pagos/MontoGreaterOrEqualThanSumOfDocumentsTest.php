@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class MontoGreaterOrEqualThanSumOfDocumentsTest extends TestCase
 {
-    public function testValid()
+    public function testValid(): void
     {
         $pago = new Pago([
             'MonedaP' => 'USD',
@@ -27,7 +27,7 @@ final class MontoGreaterOrEqualThanSumOfDocumentsTest extends TestCase
         $this->assertTrue($validator->validatePago($pago));
     }
 
-    public function testInvalid()
+    public function testInvalid(): void
     {
         $pago = new Pago([
             'MonedaP' => 'MXN',
@@ -45,7 +45,7 @@ final class MontoGreaterOrEqualThanSumOfDocumentsTest extends TestCase
         $validator->validatePago($pago);
     }
 
-    public function testCalculateDocumentAmountWhenIsSet()
+    public function testCalculateDocumentAmountWhenIsSet(): void
     {
         $validator = new MontoGreaterOrEqualThanSumOfDocuments();
         $amount = $validator->calculateDocumentAmount(new DoctoRelacionado([
@@ -55,7 +55,7 @@ final class MontoGreaterOrEqualThanSumOfDocumentsTest extends TestCase
         $this->assertEqualsWithDelta(123.45, $amount, 0.001);
     }
 
-    public function testCalculateDocumentAmountWhenIsUndefined()
+    public function testCalculateDocumentAmountWhenIsUndefined(): void
     {
         $pago = new Pago(['Monto' => '123.45']);
         $docto = $pago->addDoctoRelacionado();
@@ -66,7 +66,7 @@ final class MontoGreaterOrEqualThanSumOfDocumentsTest extends TestCase
         $this->assertEqualsWithDelta(123.45, $amount, 0.001);
     }
 
-    public function testCalculateDocumentAmountWhenIsUndefinedWithExchangeRate()
+    public function testCalculateDocumentAmountWhenIsUndefinedWithExchangeRate(): void
     {
         $pago = new Pago(['Monto' => '123.45']);
         $docto = $pago->addDoctoRelacionado(['TipoCambioDR' => 'EUR']);
@@ -77,7 +77,7 @@ final class MontoGreaterOrEqualThanSumOfDocumentsTest extends TestCase
         $this->assertEqualsWithDelta(0, $amount, 0.001);
     }
 
-    public function testCalculateDocumentAmountWhenIsUndefinedWithMoreDocuments()
+    public function testCalculateDocumentAmountWhenIsUndefinedWithMoreDocuments(): void
     {
         $pago = new Pago(['Monto' => '123.45']);
         $pago->addDoctoRelacionado(); // first

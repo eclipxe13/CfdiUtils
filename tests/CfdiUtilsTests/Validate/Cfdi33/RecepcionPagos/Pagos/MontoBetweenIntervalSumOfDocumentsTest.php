@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class MontoBetweenIntervalSumOfDocumentsTest extends TestCase
 {
-    public function testValid()
+    public function testValid(): void
     {
         $pago = new Pago([
             'MonedaP' => 'USD',
@@ -27,11 +27,10 @@ final class MontoBetweenIntervalSumOfDocumentsTest extends TestCase
 
     /**
      * This is testing lower bound (122.94) and upper bound (123.97)
-     * @param string $monto
      * @testWith ["122.93"]
      *           ["123.98"]
      */
-    public function testInvalids(string $monto)
+    public function testInvalids(string $monto): void
     {
         $pago = new Pago([
             'MonedaP' => 'USD',
@@ -50,7 +49,7 @@ final class MontoBetweenIntervalSumOfDocumentsTest extends TestCase
         $validator->validatePago($pago);
     }
 
-    public function testValidWithSeveralDecimals()
+    public function testValidWithSeveralDecimals(): void
     {
         // payment was made of 5,137.42 USD (ER: 18.7694) => 96,426.29 MXN
         // to pay a document on USD
@@ -68,7 +67,7 @@ final class MontoBetweenIntervalSumOfDocumentsTest extends TestCase
         $this->assertTrue($validator->validatePago($pago));
     }
 
-    public function testValidWithMultiDocuments()
+    public function testValidWithMultiDocuments(): void
     {
         $pago = new Pago([
             'MonedaP' => 'MXN',
@@ -94,17 +93,16 @@ final class MontoBetweenIntervalSumOfDocumentsTest extends TestCase
     }
 
     /**
-     * @param float $amount
      * @dataProvider providerValidWithRandomAmounts
      */
-    public function testValidWithRandomAmounts(float $amount)
+    public function testValidWithRandomAmounts(float $amount): void
     {
         $pago = new Pago([
             'MonedaP' => 'MXN',
             'Monto' => number_format($amount, 2, '.', ''),
         ]);
         $pago->multiDoctoRelacionado(...[
-            ['MonedaDR' => 'MXN', 'ImpPagado' => number_format(1 * $amount / 3, 2, '.', '')],
+            ['MonedaDR' => 'MXN', 'ImpPagado' => number_format($amount / 3, 2, '.', '')],
             ['MonedaDR' => 'MXN', 'ImpPagado' => number_format(2 * $amount / 3, 2, '.', '')],
         ]);
         $validator = new MontoBetweenIntervalSumOfDocuments();

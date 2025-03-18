@@ -7,42 +7,20 @@ use UnexpectedValueException;
 
 class RequestParameters
 {
-    /** @var string */
-    private $version;
+    private string $version;
 
-    /** @var string */
-    private $rfcEmisor;
-
-    /** @var string */
-    private $rfcReceptor;
-
-    /** @var string */
-    private $total;
-
-    /** @var float */
-    private $totalFloat;
-
-    /** @var string */
-    private $uuid;
-
-    /** @var string */
-    private $sello;
+    private float $totalFloat;
 
     public function __construct(
         string $version,
-        string $rfcEmisor,
-        string $rfcReceptor,
-        string $total,
-        string $uuid,
-        string $sello = ''
+        private string $rfcEmisor,
+        private string $rfcReceptor,
+        private string $total,
+        private string $uuid,
+        private string $sello = '',
     ) {
         $this->setVersion($version);
-        $this->rfcEmisor = $rfcEmisor;
-        $this->rfcReceptor = $rfcReceptor;
-        $this->total = $total;
         $this->totalFloat = (float) trim(str_replace(',', '', $this->total));
-        $this->uuid = $uuid;
-        $this->sello = $sello;
     }
 
     public static function createFromCfdi(Cfdi $cfdi): self
@@ -63,7 +41,7 @@ class RequestParameters
         return $this->version;
     }
 
-    public function setVersion(string $version)
+    public function setVersion(string $version): void
     {
         if (! in_array($version, ['3.2', '3.3', '4.0'], true)) {
             throw new UnexpectedValueException('The version is not allowed');
@@ -128,7 +106,7 @@ class RequestParameters
     public function expressionVersion33(): string
     {
         $total = rtrim(number_format($this->totalFloat, 6, '.', ''), '0');
-        if ('.' === substr($total, -1, 1)) {
+        if (str_ends_with($total, '.')) {
             $total = $total . '0'; // add trailing zero
         }
         return 'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?' . implode('&', [

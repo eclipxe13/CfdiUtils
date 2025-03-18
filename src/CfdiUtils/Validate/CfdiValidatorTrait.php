@@ -20,11 +20,8 @@ trait CfdiValidatorTrait
     /**
      * This class uses a default XmlResolver if not provided or null.
      * If you really want to remove the XmlResolver then use the method setXmlResolver after construction.
-     *
-     * @param XmlResolver|null $xmlResolver
-     * @param XsltBuilderInterface|null $xsltBuilder
      */
-    public function __construct(XmlResolver $xmlResolver = null, XsltBuilderInterface $xsltBuilder = null)
+    public function __construct(?XmlResolver $xmlResolver = null, ?XsltBuilderInterface $xsltBuilder = null)
     {
         $this->setXmlResolver($xmlResolver ?: new XmlResolver());
         $this->setXsltBuilder($xsltBuilder ?: new DOMBuilder());
@@ -35,8 +32,6 @@ trait CfdiValidatorTrait
      * This method can use a xml string and a NodeInterface,
      * is your responsibility that the node is the representation of the content.
      *
-     * @param string $xmlString
-     * @param NodeInterface $node
      * @return Asserts|Assert[]
      */
     public function validate(string $xmlString, NodeInterface $node): Asserts
@@ -62,7 +57,6 @@ trait CfdiValidatorTrait
     /**
      * Validate and return the asserts from the validation process based on a xml string
      *
-     * @param string $xmlString
      * @return Asserts|Assert[]
      */
     public function validateXml(string $xmlString): Asserts
@@ -73,7 +67,6 @@ trait CfdiValidatorTrait
     /**
      * Validate and return the asserts from the validation process based on a node interface object
      *
-     * @param NodeInterface $node
      * @return Asserts|Assert[]
      */
     public function validateNode(NodeInterface $node): Asserts

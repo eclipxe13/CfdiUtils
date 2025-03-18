@@ -7,6 +7,7 @@
 
 # Do not put this files on a distribution package (by .gitignore)
 /vendor                     export-ignore
+/tools                      export-ignore
 /composer.lock              export-ignore
 /node_modules               export-ignore
 /package-lock.json          export-ignore
@@ -15,6 +16,7 @@
 /development/               export-ignore
 /tests/                     export-ignore
 /.github/                   export-ignore
+/.phive/                    export-ignore
 /.editorconfig              export-ignore
 /.gitattributes             export-ignore
 /.gitignore                 export-ignore

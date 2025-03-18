@@ -3,6 +3,7 @@
 namespace CfdiUtilsTests\Validate\Xml;
 
 use CfdiUtils\Cfdi;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtils\Validate\Xml\XmlFollowSchema;
 use CfdiUtilsTests\Validate\Validate33TestCase;
@@ -10,7 +11,7 @@ use CfdiUtilsTests\Validate\Validate33TestCase;
 final class XmlFollowSchemaTest extends Validate33TestCase
 {
     /** @var XmlFollowSchema */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {
@@ -19,7 +20,7 @@ final class XmlFollowSchemaTest extends Validate33TestCase
         $this->validator->setXmlResolver($this->newResolver());
     }
 
-    public function testUsingRealCfdi33()
+    public function testUsingRealCfdi33(): void
     {
         $xmlContent = strval(file_get_contents($this->utilAsset('cfdi33-real.xml')));
         $this->comprobante = Cfdi::newFromString($xmlContent)->getNode();
@@ -27,7 +28,7 @@ final class XmlFollowSchemaTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::ok(), 'XSD01');
     }
 
-    public function testWithMissingElement()
+    public function testWithMissingElement(): void
     {
         $xmlContent = strval(file_get_contents($this->utilAsset('cfdi33-real.xml')));
         $comprobante = Cfdi::newFromString($xmlContent)->getNode();
@@ -42,7 +43,7 @@ final class XmlFollowSchemaTest extends Validate33TestCase
         $this->assertStringContainsString('Emisor', $this->asserts->get('XSD01')->getExplanation());
     }
 
-    public function testWithXsdUriNotFound()
+    public function testWithXsdUriNotFound(): void
     {
         $xmlContent = strval(file_get_contents($this->utilAsset('cfdi33-real.xml')));
         $xmlContent = str_replace(

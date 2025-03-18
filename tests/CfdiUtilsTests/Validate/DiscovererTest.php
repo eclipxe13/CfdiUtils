@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 final class DiscovererTest extends TestCase
 {
-    public function testDiscoverInFolder()
+    public function testDiscoverInFolder(): void
     {
         $discoverer = new Discoverer();
         $namespace = __NAMESPACE__ . '\FakeObjects';
@@ -21,7 +21,7 @@ final class DiscovererTest extends TestCase
         }
     }
 
-    public function testDiscoverInFile()
+    public function testDiscoverInFile(): void
     {
         $discoverer = new Discoverer();
         $namespace = __NAMESPACE__ . '\FakeObjects';

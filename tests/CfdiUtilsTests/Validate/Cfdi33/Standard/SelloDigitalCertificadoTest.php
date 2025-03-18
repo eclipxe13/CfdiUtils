@@ -3,6 +3,7 @@
 namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Validate\Cfdi33\Standard\SelloDigitalCertificado;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\Common\SelloDigitalCertificadoWithRegularCertificadoTrait;
 use CfdiUtilsTests\Validate\Validate33TestCase;
@@ -12,7 +13,7 @@ final class SelloDigitalCertificadoTest extends Validate33TestCase
     use SelloDigitalCertificadoWithRegularCertificadoTrait;
 
     /** @var SelloDigitalCertificado */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {
@@ -44,7 +45,7 @@ final class SelloDigitalCertificadoTest extends Validate33TestCase
         $this->assertCount(8, $this->asserts, 'All 8 were are tested');
     }
 
-    public function testValidateWithEqualButNotIdenticalName()
+    public function testValidateWithEqualButNotIdenticalName(): void
     {
         //    change case, and punctuation to original name
         //                   ESCUELA KEMPER URGATE SA DE CV

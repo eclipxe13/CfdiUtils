@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class PeriodoTest extends TestCase
 {
-    /** @var Periodo */
-    public $element;
+    public Periodo $element;
 
     public function setUp(): void
     {
@@ -16,7 +15,7 @@ final class PeriodoTest extends TestCase
         $this->element = new Periodo();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('retenciones:Periodo', $this->element->getElementName());
     }

@@ -12,13 +12,13 @@ class ImportePagadoValor extends AbstractDoctoRelacionadoValidator
 {
     use CalculateDocumentAmountTrait;
 
-    protected $code = 'PAGO27';
+    protected string $code = 'PAGO27';
 
-    protected $title = 'En un documento relacionado, el importe pagado debe ser mayor a cero (CRP223)';
+    protected string $title = 'En un documento relacionado, el importe pagado debe ser mayor a cero (CRP223)';
 
     public function validateDoctoRelacionado(NodeInterface $docto): bool
     {
-        if ($docto->offsetExists('ImpPagado')) {
+        if ($docto->exists('ImpPagado')) {
             $value = (float) $docto['ImpPagado'];
         } else {
             $value = $this->calculateDocumentAmount($docto, $this->getPago());

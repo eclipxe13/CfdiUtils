@@ -46,7 +46,7 @@ final class WebServiceConsumingTest extends TestCase
         }
     }
 
-    public function testGetSoapClient()
+    public function testGetSoapClient(): void
     {
         $ws = $this->createWebServiceObject();
 
@@ -58,7 +58,7 @@ final class WebServiceConsumingTest extends TestCase
     }
 
     /** @requires PHP < 8.1 */
-    public function testSoapClientHasSettings()
+    public function testSoapClientHasSettings(): void
     {
         $config = new Config(60, false, '');
         $ws = new WebService($config);
@@ -76,7 +76,7 @@ final class WebServiceConsumingTest extends TestCase
         $this->assertSame(false, $options['ssl']['verify_peer'] ?? null);
     }
 
-    public function testValidDocumentVersion33()
+    public function testValidDocumentVersion33(): void
     {
         $validCfdi33Request = new RequestParameters(
             '3.3',
@@ -96,7 +96,7 @@ final class WebServiceConsumingTest extends TestCase
         $this->assertSame('200', $return->getValidationEfos());
     }
 
-    public function testValidDocumentVersion32()
+    public function testValidDocumentVersion32(): void
     {
         $validCfdi32Request = new RequestParameters(
             '3.2',
@@ -115,7 +115,7 @@ final class WebServiceConsumingTest extends TestCase
         $this->assertSame('200', $return->getValidationEfos());
     }
 
-    public function testConsumeWebServiceWithNotFoundDocument()
+    public function testConsumeWebServiceWithNotFoundDocument(): void
     {
         $invalidCfdi33Request = new RequestParameters(
             '3.3',
@@ -136,7 +136,7 @@ final class WebServiceConsumingTest extends TestCase
         $this->assertFalse($return->isEfosListed());
     }
 
-    public function testConsumeWebServiceWithCancelledDocument()
+    public function testConsumeWebServiceWithCancelledDocument(): void
     {
         $invalidCfdi33Request = new RequestParameters(
             '3.3',

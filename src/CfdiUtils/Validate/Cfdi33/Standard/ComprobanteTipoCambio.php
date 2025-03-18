@@ -20,7 +20,7 @@ use CfdiUtils\Validate\Status;
  */
 class ComprobanteTipoCambio extends AbstractDiscoverableVersion33
 {
-    private function registerAsserts(Asserts $asserts)
+    private function registerAsserts(Asserts $asserts): void
     {
         $assertDescriptions = [
             'TIPOCAMBIO01' => 'La moneda exista y no tenga un valor vacío',
@@ -35,11 +35,11 @@ class ComprobanteTipoCambio extends AbstractDiscoverableVersion33
         }
     }
 
-    public function validate(NodeInterface $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts): void
     {
         $this->registerAsserts($asserts);
 
-        $existsTipoCambio = $comprobante->offsetExists('TipoCambio');
+        $existsTipoCambio = $comprobante->exists('TipoCambio');
         $tipoCambio = $comprobante['TipoCambio'];
         $moneda = $comprobante['Moneda'];
 
@@ -60,7 +60,7 @@ class ComprobanteTipoCambio extends AbstractDiscoverableVersion33
         }
 
         if ('MXN' !== $moneda && 'XXX' !== $moneda) {
-            $pattern = '/^[0-9]{1,18}(\.[0-9]{1,6})?$/';
+            $pattern = '/^\d{1,18}(\.\d{1,6})?$/';
             $asserts->putStatus('TIPOCAMBIO04', Status::when((bool) preg_match($pattern, $tipoCambio)));
         }
     }

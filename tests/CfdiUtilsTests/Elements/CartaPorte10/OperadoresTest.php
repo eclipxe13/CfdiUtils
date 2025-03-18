@@ -11,8 +11,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class OperadoresTest extends TestCase
 {
-    /** @var Operadores */
-    public $element;
+    public Operadores $element;
 
     protected function setUp(): void
     {
@@ -20,12 +19,12 @@ final class OperadoresTest extends TestCase
         $this->element = new Operadores();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cartaporte:Operadores', $this->element->getElementName());
     }
 
-    public function testAddOperador()
+    public function testAddOperador(): void
     {
         // insert first element
         $first = $this->element->addOperador(['id' => 'first']);
@@ -39,7 +38,7 @@ final class OperadoresTest extends TestCase
         $this->assertCount(2, $this->element);
     }
 
-    public function testMultiOperador()
+    public function testMultiOperador(): void
     {
         // insert first element
         $operadores = $this->element->multiOperador(

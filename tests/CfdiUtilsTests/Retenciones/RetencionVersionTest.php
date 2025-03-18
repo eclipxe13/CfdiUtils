@@ -5,23 +5,10 @@ namespace CfdiUtilsTests\Retenciones;
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Nodes\XmlNodeUtils;
 use CfdiUtils\Retenciones\RetencionVersion;
-use CfdiUtils\VersionDiscovery\VersionDiscoverer;
 use CfdiUtilsTests\TestCase;
 
 final class RetencionVersionTest extends TestCase
 {
-    public function testCreateDiscoverer(): void
-    {
-        $extended = new class () extends RetencionVersion {
-            public static function exposeCreateDiscoverer(): VersionDiscoverer
-            {
-                return static::createDiscoverer();
-            }
-        };
-
-        $this->assertInstanceOf(RetencionVersion::class, $extended::exposeCreateDiscoverer());
-    }
-
     public function providerRetencionVersion(): array
     {
         return [
@@ -39,9 +26,6 @@ final class RetencionVersionTest extends TestCase
     }
 
     /**
-     * @param string $expected
-     * @param string $attribute
-     * @param string|null $value
      * @dataProvider providerRetencionVersion
      */
     public function testRetencionVersion(string $expected, string $attribute, ?string $value): void

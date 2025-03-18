@@ -5,13 +5,14 @@ namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Utils\Rfc;
 use CfdiUtils\Validate\Cfdi33\Standard\EmisorRfc;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\Validate33TestCase;
 
 final class EmisorRfcTest extends Validate33TestCase
 {
     /** @var EmisorRfc */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {
@@ -28,10 +29,9 @@ final class EmisorRfcTest extends Validate33TestCase
     }
 
     /**
-     * @param string $rfc
      * @dataProvider providerValidCases
      */
-    public function testValidCases(string $rfc)
+    public function testValidCases(string $rfc): void
     {
         $this->comprobante->addChild(new Node('cfdi:Emisor', [
             'Rfc' => $rfc,
@@ -53,10 +53,9 @@ final class EmisorRfcTest extends Validate33TestCase
     }
 
     /**
-     * @param string|null $rfc
      * @dataProvider providerInvalidCases
      */
-    public function testInvalidCases(?string $rfc)
+    public function testInvalidCases(?string $rfc): void
     {
         $this->comprobante->addChild(new Node('cfdi:Emisor', [
             'Rfc' => $rfc,

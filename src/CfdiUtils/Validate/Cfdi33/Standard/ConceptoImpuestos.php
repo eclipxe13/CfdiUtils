@@ -23,7 +23,7 @@ use CfdiUtils\Validate\Status;
  */
 class ConceptoImpuestos extends AbstractDiscoverableVersion33
 {
-    private function registerAsserts(Asserts $asserts)
+    private function registerAsserts(Asserts $asserts): void
     {
         $assertDescriptions = [
             'CONCEPIMPC01' => 'El nodo impuestos de un concepto debe incluir traslados y/o retenciones (CFDI33152)',
@@ -43,7 +43,7 @@ class ConceptoImpuestos extends AbstractDiscoverableVersion33
         }
     }
 
-    public function validate(NodeInterface $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts): void
     {
         $this->registerAsserts($asserts);
 
@@ -103,36 +103,28 @@ class ConceptoImpuestos extends AbstractDiscoverableVersion33
         if (null === $impuestos) {
             return true;
         }
-        if (
-            $impuestos->searchNodes('cfdi:Traslados', 'cfdi:Traslado')->count()
-            || $impuestos->searchNodes('cfdi:Retenciones', 'cfdi:Retencion')->count()
-        ) {
-            return true;
-        }
-        return false;
+        return $impuestos->searchNodes('cfdi:Traslados', 'cfdi:Traslado')->count()
+            || $impuestos->searchNodes('cfdi:Retenciones', 'cfdi:Retencion')->count();
     }
 
     private function impuestoHasBaseGreaterThanZero(NodeInterface $impuesto): bool
     {
-        if (! $impuesto->offsetExists('Base')) {
+        if (! $impuesto->exists('Base')) {
             return false;
         }
         if (! is_numeric($impuesto['Base'])) {
             return false;
         }
-        if ((float) $impuesto['Base'] < 0.000001) {
-            return false;
-        }
-        return true;
+        return (float) $impuesto['Base'] >= 0.000001;
     }
 
     private function trasladoHasTipoFactorExento(NodeInterface $traslado): bool
     {
         if ('Exento' === $traslado['TipoFactor']) {
-            if ($traslado->offsetExists('TasaOCuota')) {
+            if ($traslado->exists('TasaOCuota')) {
                 return false;
             }
-            if ($traslado->offsetExists('Importe')) {
+            if ($traslado->exists('Importe')) {
                 return false;
             }
         }

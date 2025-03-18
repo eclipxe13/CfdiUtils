@@ -3,8 +3,6 @@
 namespace CfdiUtilsTests\Nodes;
 
 use CfdiUtils\Nodes\Node;
-use CfdiUtils\Nodes\NodeHasValueInterface;
-use CfdiUtils\Nodes\NodeInterface;
 use CfdiUtils\Nodes\XmlNodeUtils;
 use CfdiUtils\Utils\Xml;
 use CfdiUtilsTests\TestCase;
@@ -20,7 +18,7 @@ final class XmlNodeUtilsTest extends TestCase
         ];
     }
 
-    public function testNodeToXmlStringXmlHeader()
+    public function testNodeToXmlStringXmlHeader(): void
     {
         $node = new Node('book', [], [
             new Node('chapter', ['toc' => '1']),
@@ -35,10 +33,9 @@ final class XmlNodeUtilsTest extends TestCase
     }
 
     /**
-     * @param string $filename
      * @dataProvider providerToNodeFromNode
      */
-    public function testExportFromFileAndExportAgain(string $filename)
+    public function testExportFromFileAndExportAgain(string $filename): void
     {
         $source = strval(file_get_contents($filename));
 
@@ -58,7 +55,7 @@ final class XmlNodeUtilsTest extends TestCase
         $this->assertXmlStringEqualsXmlString($source, $xmlString);
     }
 
-    public function testImportFromSimpleXmlElement()
+    public function testImportFromSimpleXmlElement(): void
     {
         $xmlString = '<root id="1"><child id="2"></child></root>';
         $simpleXml = new \SimpleXMLElement($xmlString);
@@ -74,7 +71,7 @@ final class XmlNodeUtilsTest extends TestCase
         }
     }
 
-    public function testImportXmlWithNamespaceWithoutPrefix()
+    public function testImportXmlWithNamespaceWithoutPrefix(): void
     {
         $file = $this->utilAsset('xml-with-namespace-definitions-at-child-level.xml');
         $node = XmlNodeUtils::nodeFromXmlString(file_get_contents($file) ?: '');
@@ -85,50 +82,46 @@ final class XmlNodeUtilsTest extends TestCase
         $this->assertSame('http://external.com/inner', $inspected['xmlns']);
     }
 
-    public function testXmlWithValueWithSpecialChars()
+    public function testXmlWithValueWithSpecialChars(): void
     {
         $expectedValue = 'ampersand: &';
         $content = '<root>ampersand: &amp;</root>';
 
-        /** @var NodeInterface&NodeHasValueInterface $node */
         $node = XmlNodeUtils::nodeFromXmlString($content);
 
         $this->assertSame($expectedValue, $node->value());
         $this->assertSame($content, XmlNodeUtils::nodeToXmlString($node));
     }
 
-    public function testXmlWithValueWithInnerComment()
+    public function testXmlWithValueWithInnerComment(): void
     {
         $expectedValue = 'ampersand: &';
         $content = '<root>ampersand: <!-- comment -->&amp;</root>';
         $expectedContent = '<root>ampersand: &amp;</root>';
 
-        /** @var NodeInterface&NodeHasValueInterface $node */
         $node = XmlNodeUtils::nodeFromXmlString($content);
 
         $this->assertSame($expectedValue, $node->value());
         $this->assertSame($expectedContent, XmlNodeUtils::nodeToXmlString($node));
     }
 
-    public function testXmlWithValueWithInnerWhiteSpace()
+    public function testXmlWithValueWithInnerWhiteSpace(): void
     {
         $expectedValue = "\n\nfirst line\n\tsecond line\n\t third line \t\nfourth line\n\n";
         $content = "<root>$expectedValue</root>";
 
-        /** @var NodeInterface&NodeHasValueInterface $node */
         $node = XmlNodeUtils::nodeFromXmlString($content);
 
         $this->assertSame($expectedValue, $node->value());
         $this->assertSame($content, XmlNodeUtils::nodeToXmlString($node));
     }
 
-    public function testXmlWithValueWithInnerElement()
+    public function testXmlWithValueWithInnerElement(): void
     {
         $expectedValue = 'ampersand: &';
         $content = '<root>ampersand: <inner/>&amp;</root>';
         $expectedContent = '<root><inner/>ampersand: &amp;</root>';
 
-        /** @var NodeInterface&NodeHasValueInterface $node */
         $node = XmlNodeUtils::nodeFromXmlString($content);
 
         $this->assertSame($expectedValue, $node->value());

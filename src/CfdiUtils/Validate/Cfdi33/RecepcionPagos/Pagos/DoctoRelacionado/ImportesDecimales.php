@@ -10,10 +10,11 @@ use CfdiUtils\Nodes\NodeInterface;
  */
 class ImportesDecimales extends AbstractDoctoRelacionadoValidator
 {
-    protected $code = 'PAGO29';
+    protected string $code = 'PAGO29';
 
-    protected $title = 'En un documento relacionado, los importes de importe pagado, saldo anterior y saldo insoluto'
-        . ' deben tener hasta la cantidad de decimales que soporte la moneda (CRP222, CRP224, CRP225)';
+    protected string $title = 'En un documento relacionado, los importes de importe pagado,'
+        . ' saldo anterior y saldo insoluto deben tener hasta la cantidad de decimales que'
+        . ' soporte la moneda (CRP222, CRP224, CRP225)';
 
     public function validateDoctoRelacionado(NodeInterface $docto): bool
     {
@@ -25,7 +26,7 @@ class ImportesDecimales extends AbstractDoctoRelacionadoValidator
             );
         }
 
-        if ($docto->offsetExists('ImpPagado') && ! $currency->doesNotExceedDecimals($docto['ImpPagado'])) {
+        if ($docto->exists('ImpPagado') && ! $currency->doesNotExceedDecimals($docto['ImpPagado'])) {
             throw $this->exception(
                 sprintf('ImpPagado: "%s", Decimales: %d', $docto['ImpPagado'], $currency->decimals())
             );

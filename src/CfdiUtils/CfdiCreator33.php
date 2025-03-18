@@ -19,22 +19,16 @@ class CfdiCreator33 implements
 {
     use CfdiCreatorTrait;
 
-    /** @var Comprobante */
-    private $comprobante;
+    private Comprobante $comprobante;
 
     /**
      * CfdiCreator33 constructor.
-     *
-     * @param array $comprobanteAttributes
-     * @param Certificado|null $certificado
-     * @param XmlResolver|null $xmlResolver
-     * @param XsltBuilderInterface|null $xsltBuilder
      */
     public function __construct(
         array $comprobanteAttributes = [],
-        Certificado $certificado = null,
-        XmlResolver $xmlResolver = null,
-        XsltBuilderInterface $xsltBuilder = null
+        ?Certificado $certificado = null,
+        ?XmlResolver $xmlResolver = null,
+        ?XsltBuilderInterface $xsltBuilder = null,
     ) {
         $this->comprobante = new Comprobante();
         $this->cfdiCreatorConstructor($comprobanteAttributes, $certificado, $xmlResolver, $xsltBuilder);

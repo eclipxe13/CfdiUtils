@@ -7,20 +7,15 @@ namespace CfdiUtils\Internals;
 /** @internal */
 final class StringUncaseReplacer
 {
-    /** @var array<string, array<string, true>> */
-    private $replacements;
-
     /**
      * @param array<string, array<string, true>> $replacements
      */
-    private function __construct(array $replacements = [])
+    private function __construct(private array $replacements = [])
     {
-        $this->replacements = $replacements;
     }
 
     /**
      * @param array<string, array<string>> $replacements
-     * @return self
      */
     public static function create(array $replacements): self
     {
@@ -31,7 +26,7 @@ final class StringUncaseReplacer
         return $replacer;
     }
 
-    private function addReplacement(string $replacement, string ...$needle)
+    private function addReplacement(string $replacement, string ...$needle): void
     {
         $needle[] = $replacement; // also include the replacement itself
         foreach ($needle as $entry) {

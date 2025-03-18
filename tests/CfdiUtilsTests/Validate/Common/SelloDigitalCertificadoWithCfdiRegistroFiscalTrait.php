@@ -8,7 +8,7 @@ use CfdiUtils\Validate\Status;
 
 trait SelloDigitalCertificadoWithCfdiRegistroFiscalTrait
 {
-    public function testFailWhenHasNotCfdiRegistroFiscalAndCertificadosDoNotMatch()
+    public function testFailWhenHasNotCfdiRegistroFiscalAndCertificadosDoNotMatch(): void
     {
         $this->runValidate();
 
@@ -16,7 +16,7 @@ trait SelloDigitalCertificadoWithCfdiRegistroFiscalTrait
         $this->assertStatusEqualsCode(Status::error(), 'SELLO04');
     }
 
-    public function testFailWhenHasNotCfdiRegistroFiscalAndCertificadosMatch()
+    public function testFailWhenHasNotCfdiRegistroFiscalAndCertificadosMatch(): void
     {
         $this->comprobante->addChild(new Node('cfdi:Complemento', [], [
             new TimbreFiscalDigital(['NoCertificadoSAT' => '00001000000403258748']),
@@ -28,7 +28,7 @@ trait SelloDigitalCertificadoWithCfdiRegistroFiscalTrait
         $this->assertStatusEqualsCode(Status::error(), 'SELLO04');
     }
 
-    public function testFailWhenHasCfdiRegistroFiscalAndCertificadosDoNotMatch()
+    public function testFailWhenHasCfdiRegistroFiscalAndCertificadosDoNotMatch(): void
     {
         $this->comprobante->addChild(new Node('cfdi:Complemento', [], [
             new Node('registrofiscal:CFDIRegistroFiscal'),
@@ -40,7 +40,7 @@ trait SelloDigitalCertificadoWithCfdiRegistroFiscalTrait
         $this->assertStatusEqualsCode(Status::error(), 'SELLO04');
     }
 
-    public function testPassWhenHasCfdiRegistroFiscalAndCertificadosMatch()
+    public function testPassWhenHasCfdiRegistroFiscalAndCertificadosMatch(): void
     {
         $this->comprobante->addChild(new Node('cfdi:Complemento', [], [
             new Node('registrofiscal:CFDIRegistroFiscal'),

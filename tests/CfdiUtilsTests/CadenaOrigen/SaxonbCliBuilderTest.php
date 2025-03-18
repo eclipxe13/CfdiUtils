@@ -20,14 +20,14 @@ final class SaxonbCliBuilderTest extends GenericBuilderTestCase
         return new SaxonbCliBuilder($executable);
     }
 
-    public function testConstructorWithEmptyExecutable()
+    public function testConstructorWithEmptyExecutable(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('empty');
         new SaxonbCliBuilder('');
     }
 
-    public function testWithNonExistentExecutable()
+    public function testWithNonExistentExecutable(): void
     {
         $builder = new SaxonbCliBuilder('/foo/bar');
         $this->expectException(XsltBuildException::class);
@@ -36,7 +36,7 @@ final class SaxonbCliBuilderTest extends GenericBuilderTestCase
         $builder->build('x', 'y');
     }
 
-    public function testWithDirectory()
+    public function testWithDirectory(): void
     {
         $builder = new SaxonbCliBuilder(__DIR__);
         $this->expectException(XsltBuildException::class);
@@ -45,7 +45,7 @@ final class SaxonbCliBuilderTest extends GenericBuilderTestCase
         $builder->build('x', 'y');
     }
 
-    public function testWithFile()
+    public function testWithFile(): void
     {
         $builder = new SaxonbCliBuilder(__FILE__);
         $this->expectException(XsltBuildException::class);

@@ -15,20 +15,8 @@ class Comprobante extends AbstractElement
         return 'cfdi:Comprobante';
     }
 
-    /**
-     * @todo Remove this deprecation error on version 3.0.0
-     * @return CfdiRelacionados
-     */
     public function getCfdiRelacionados(): CfdiRelacionados
     {
-        $arguments = func_get_args();
-        if ([] !== $arguments) {
-            trigger_error(
-                'El método getCfdiRelacionados ya no admite atributos, use addCfdiRelacionados en su lugar',
-                E_USER_NOTICE
-            );
-            return $this->addCfdiRelacionados($arguments[0]);
-        }
         return $this->helperGetOrAdd(new CfdiRelacionados());
     }
 
@@ -46,7 +34,7 @@ class Comprobante extends AbstractElement
 
     public function multiCfdiRelacionado(array ...$elementAttributes): self
     {
-        $this->getCfdiRelacionados()->multiCfdiRelacionado($elementAttributes);
+        $this->getCfdiRelacionados()->multiCfdiRelacionado(...$elementAttributes);
         return $this;
     }
 

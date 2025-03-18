@@ -12,8 +12,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class AutotransporteFederalTest extends TestCase
 {
-    /** @var AutotransporteFederal */
-    public $element;
+    public AutotransporteFederal $element;
 
     protected function setUp(): void
     {
@@ -21,12 +20,12 @@ final class AutotransporteFederalTest extends TestCase
         $this->element = new AutotransporteFederal();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cartaporte:AutotransporteFederal', $this->element->getElementName());
     }
 
-    public function testGetIdentificacionVehicular()
+    public function testGetIdentificacionVehicular(): void
     {
         $this->assertCount(0, $this->element->searchNodes('cartaporte:IdentificacionVehicular'));
 
@@ -39,7 +38,7 @@ final class AutotransporteFederalTest extends TestCase
         $this->assertSame($first, $second);
     }
 
-    public function testAddIdentificacionVehicular()
+    public function testAddIdentificacionVehicular(): void
     {
         // insert first element
         $first = $this->element->addIdentificacionVehicular(['id' => 'first']);
@@ -53,7 +52,7 @@ final class AutotransporteFederalTest extends TestCase
         $this->assertCount(2, $this->element);
     }
 
-    public function testGetRemolques()
+    public function testGetRemolques(): void
     {
         $this->assertCount(0, $this->element->searchNodes('cartaporte:Remolques'));
 
@@ -66,7 +65,7 @@ final class AutotransporteFederalTest extends TestCase
         $this->assertSame($first, $second);
     }
 
-    public function testAddRemolques()
+    public function testAddRemolques(): void
     {
         // insert first element
         $first = $this->element->addRemolques(['id' => 'first']);

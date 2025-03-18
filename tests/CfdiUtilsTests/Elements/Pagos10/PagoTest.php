@@ -9,8 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class PagoTest extends TestCase
 {
-    /** @var Pago */
-    public $element;
+    public Pago $element;
 
     protected function setUp(): void
     {
@@ -18,12 +17,12 @@ final class PagoTest extends TestCase
         $this->element = new Pago();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('pago10:Pago', $this->element->getElementName());
     }
 
-    public function testDoctoRelacionado()
+    public function testDoctoRelacionado(): void
     {
         // object is empty
         $this->assertCount(0, $this->element);
@@ -41,7 +40,7 @@ final class PagoTest extends TestCase
         $this->assertNotSame($first, $second);
     }
 
-    public function testImpuestos()
+    public function testImpuestos(): void
     {
         // object is empty
         $this->assertCount(0, $this->element);
@@ -59,7 +58,7 @@ final class PagoTest extends TestCase
         $this->assertNotSame($first, $second);
     }
 
-    public function testChildrenOrder()
+    public function testChildrenOrder(): void
     {
         // add in inverse order
         $this->element->addImpuestos();

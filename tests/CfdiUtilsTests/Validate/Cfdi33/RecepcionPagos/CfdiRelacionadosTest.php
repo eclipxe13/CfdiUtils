@@ -3,12 +3,13 @@
 namespace CfdiUtilsTests\Validate\Cfdi33\RecepcionPagos;
 
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\CfdiRelacionados;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 
 final class CfdiRelacionadosTest extends ValidateComplementoPagosTestCase
 {
     /** @var CfdiRelacionados */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {
@@ -16,7 +17,7 @@ final class CfdiRelacionadosTest extends ValidateComplementoPagosTestCase
         $this->validator = new CfdiRelacionados();
     }
 
-    public function testValidTipoRelacion()
+    public function testValidTipoRelacion(): void
     {
         $comprobante = $this->getComprobante();
         $comprobante->addCfdiRelacionados(['TipoRelacion' => '04']);
@@ -26,7 +27,7 @@ final class CfdiRelacionadosTest extends ValidateComplementoPagosTestCase
         $this->assertStatusEqualsCode(Status::ok(), 'PAGREL01');
     }
 
-    public function testInvalidTipoRelacion()
+    public function testInvalidTipoRelacion(): void
     {
         $comprobante = $this->getComprobante();
         $comprobante->addCfdiRelacionados(['TipoRelacion' => 'XX']);
@@ -36,7 +37,7 @@ final class CfdiRelacionadosTest extends ValidateComplementoPagosTestCase
         $this->assertStatusEqualsCode(Status::error(), 'PAGREL01');
     }
 
-    public function testWithoutCfdiRelacionados()
+    public function testWithoutCfdiRelacionados(): void
     {
         $this->runValidate();
 

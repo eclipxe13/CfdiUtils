@@ -6,16 +6,8 @@ namespace CfdiUtils\Development\ElementsMaker;
 
 final class Specifications
 {
-    /** @var Structure */
-    private $structure;
-
-    /** @var Dictionary */
-    private $dictionary;
-
-    public function __construct(Structure $structure, Dictionary $dictionary)
+    public function __construct(private Structure $structure, private Dictionary $dictionary)
     {
-        $this->structure = $structure;
-        $this->dictionary = $dictionary;
     }
 
     public static function makeFromFile(string $specFile): self

@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class OrigenTest extends TestCase
 {
-    /** @var Origen */
-    public $element;
+    public Origen $element;
 
     protected function setUp(): void
     {
@@ -19,7 +18,7 @@ final class OrigenTest extends TestCase
         $this->element = new Origen();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cartaporte:Origen', $this->element->getElementName());
     }

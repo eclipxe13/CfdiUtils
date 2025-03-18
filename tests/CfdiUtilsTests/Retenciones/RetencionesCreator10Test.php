@@ -10,7 +10,14 @@ use CfdiUtilsTests\TestCase;
 
 final class RetencionesCreator10Test extends TestCase
 {
-    public function testCreatePreCfdiWithAllCorrectValues()
+    use RetencionesCreatorCommonMethodsTrait;
+
+    public function createMinimalCreator(): RetencionesCreator10
+    {
+        return new RetencionesCreator10();
+    }
+
+    public function testCreatePreCfdiWithAllCorrectValues(): void
     {
         $cerFile = $this->utilAsset('certs/EKU9003173C9.cer');
         $pemFile = $this->utilAsset('certs/EKU9003173C9.key.pem');
@@ -87,7 +94,7 @@ final class RetencionesCreator10Test extends TestCase
         $this->assertXmlStringEqualsXmlFile($this->utilAsset('retenciones/retenciones10.xml'), $creator->asXml());
     }
 
-    public function testValidateIsCheckingAgainstXsdViolations()
+    public function testValidateIsCheckingAgainstXsdViolations(): void
     {
         $retencion = new RetencionesCreator10();
         $retencion->setXmlResolver($this->newResolver());
@@ -95,7 +102,7 @@ final class RetencionesCreator10Test extends TestCase
         $this->assertTrue($assert->getStatus()->isError());
     }
 
-    public function testAddSelloFailsWithWrongPassPrase()
+    public function testAddSelloFailsWithWrongPassPrase(): void
     {
         $pemFile = $this->utilAsset('certs/EKU9003173C9_password.key.pem');
         $passPhrase = '_worng_passphrase_';
@@ -108,7 +115,7 @@ final class RetencionesCreator10Test extends TestCase
         $retencion->addSello('file://' . $pemFile, $passPhrase);
     }
 
-    public function testAddSelloFailsWithWrongCertificado()
+    public function testAddSelloFailsWithWrongCertificado(): void
     {
         $cerFile = $this->utilAsset('certs/CSD09_AAA010101AAA.cer');
         $pemFile = $this->utilAsset('certs/EKU9003173C9.key.pem');

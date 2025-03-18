@@ -8,8 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 final class EmisorTest extends TestCase
 {
-    /** @var Emisor */
-    public $element;
+    public Emisor $element;
 
     protected function setUp(): void
     {
@@ -17,12 +16,12 @@ final class EmisorTest extends TestCase
         $this->element = new Emisor();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cce11:Emisor', $this->element->getElementName());
     }
 
-    public function testDomicilio()
+    public function testDomicilio(): void
     {
         // object is empty
         $this->assertCount(0, $this->element);

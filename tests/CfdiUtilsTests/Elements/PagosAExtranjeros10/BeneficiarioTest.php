@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class BeneficiarioTest extends TestCase
 {
-    /** @var Beneficiario */
-    public $element;
+    public Beneficiario $element;
 
     public function setUp(): void
     {
@@ -16,7 +15,7 @@ final class BeneficiarioTest extends TestCase
         $this->element = new Beneficiario();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('pagosaextranjeros:Beneficiario', $this->element->getElementName());
     }

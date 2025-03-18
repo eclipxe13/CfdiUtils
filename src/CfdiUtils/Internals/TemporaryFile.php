@@ -8,14 +8,10 @@ namespace CfdiUtils\Internals;
  * NOTE: Changes will not be considering a bracking compatibility change since this utility is for internal usage only
  * @internal
  */
-final class TemporaryFile
+final class TemporaryFile implements \Stringable
 {
-    /** @var string */
-    private $filename;
-
-    private function __construct(string $filename)
+    private function __construct(private string $filename)
     {
-        $this->filename = $filename;
     }
 
     public static function create(string $directory = ''): self
@@ -38,10 +34,10 @@ final class TemporaryFile
         }
 
         if ('' === $filename) {
-            throw new \RuntimeException(sprintf('Unable to create a temporary file'));
+            throw new \RuntimeException('Unable to create a temporary file');
         }
 
-        return new static($filename);
+        return new self($filename);
     }
 
     public function getPath(): string
@@ -54,12 +50,12 @@ final class TemporaryFile
         return strval(file_get_contents($this->filename));
     }
 
-    public function storeContents(string $contents)
+    public function storeContents(string $contents): void
     {
         file_put_contents($this->filename, $contents);
     }
 
-    public function remove()
+    public function remove(): void
     {
         $filename = $this->getPath();
         if (file_exists($filename)) {

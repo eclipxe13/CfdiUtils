@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class AccionesOTitulosTest extends TestCase
 {
-    /** @var AccionesOTitulos */
-    public $element;
+    public AccionesOTitulos $element;
 
     protected function setUp(): void
     {
@@ -19,7 +18,7 @@ final class AccionesOTitulosTest extends TestCase
         $this->element = new AccionesOTitulos();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('nomina12:AccionesOTitulos', $this->element->getElementName());
     }

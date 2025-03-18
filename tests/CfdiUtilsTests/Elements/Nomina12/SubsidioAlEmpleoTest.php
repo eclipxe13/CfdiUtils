@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class SubsidioAlEmpleoTest extends TestCase
 {
-    /** @var SubsidioAlEmpleo */
-    public $element;
+    public SubsidioAlEmpleo $element;
 
     protected function setUp(): void
     {
@@ -19,7 +18,7 @@ final class SubsidioAlEmpleoTest extends TestCase
         $this->element = new SubsidioAlEmpleo();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('nomina12:SubsidioAlEmpleo', $this->element->getElementName());
     }

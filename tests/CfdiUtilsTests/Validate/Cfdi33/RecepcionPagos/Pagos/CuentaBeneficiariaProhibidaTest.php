@@ -10,14 +10,12 @@ use PHPUnit\Framework\TestCase;
 final class CuentaBeneficiariaProhibidaTest extends TestCase
 {
     /**
-     * @param string $paymentType
-     * @param string|null $account
      * @testWith ["02", "x"]
      *           ["02", ""]
      *           ["02", null]
      *           ["01", null]
      */
-    public function testValid(string $paymentType, ?string $account)
+    public function testValid(string $paymentType, ?string $account): void
     {
         $pago = new Pago([
             'FormaDePagoP' => $paymentType,
@@ -29,12 +27,10 @@ final class CuentaBeneficiariaProhibidaTest extends TestCase
     }
 
     /**
-     * @param string $paymentType
-     * @param string $account
      * @testWith ["01", "x"]
      *           ["01", ""]
      */
-    public function testInvalid(string $paymentType, string $account)
+    public function testInvalid(string $paymentType, string $account): void
     {
         $pago = new Pago([
             'FormaDePagoP' => $paymentType,

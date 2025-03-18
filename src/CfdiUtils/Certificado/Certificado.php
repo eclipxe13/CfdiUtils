@@ -10,47 +10,36 @@ class Certificado
 {
     use OpenSSLPropertyTrait;
 
-    /** @var string */
-    private $rfc;
+    private string $rfc;
 
-    /** @var string */
-    private $certificateName;
+    private string $certificateName;
 
-    /** @var string */
-    private $name;
+    private string $name;
 
-    /** @var SerialNumber */
-    private $serial;
+    private SerialNumber $serial;
 
-    /** @var int */
-    private $validFrom;
+    private int $validFrom;
 
-    /** @var int */
-    private $validTo;
+    private int $validTo;
 
-    /** @var string */
-    private $pubkey;
+    private string $pubkey;
 
-    /** @var string */
-    private $filename;
+    private string $filename;
 
-    /** @var string */
-    private $pemContents;
+    private string $pemContents;
 
-    /** @var string|null */
-    private $nameWithoutRegimenCapitalSuffix;
+    private ?string $nameWithoutRegimenCapitalSuffix;
 
     /**
      * Certificado constructor.
      *
      * @param string $filename Allows filename or certificate contents (PEM or DER)
-     * @param OpenSSL|null $openSSL
      * @throws \UnexpectedValueException when the certificate does not exist or is not readable
      * @throws \UnexpectedValueException when cannot read the certificate or is empty
      * @throws \RuntimeException when cannot parse the certificate or is empty
      * @throws \RuntimeException when cannot get serialNumberHex or serialNumber from certificate
      */
-    public function __construct(string $filename, OpenSSL $openSSL = null)
+    public function __construct(string $filename, ?OpenSSL $openSSL = null)
     {
         $this->setOpenSSL($openSSL ?: new OpenSSL());
         $contents = $this->extractPemCertificate($filename);
@@ -129,10 +118,7 @@ class Certificado
     /**
      * Check if this certificate belongs to a private key
      *
-     * @param string $pemKeyFile
-     * @param string $passPhrase
      *
-     * @return bool
      *
      * @throws \UnexpectedValueException if the file does not exist or is not readable
      * @throws \UnexpectedValueException if the file is not a PEM private key
@@ -153,17 +139,11 @@ class Certificado
         if (false === $privateKey) {
             throw new \RuntimeException("Cannot open the private key file $pemKeyFile");
         }
-        $belongs = openssl_x509_check_private_key($this->getPemContents(), $privateKey);
-        if (\PHP_VERSION_ID < 80000) {
-            // phpcs:ignore
-            openssl_free_key($privateKey);
-        }
-        return $belongs;
+        return openssl_x509_check_private_key($this->getPemContents(), $privateKey);
     }
 
     /**
      * RFC (Registro Federal de Contribuyentes) set when certificate was created
-     * @return string
      */
     public function getRfc(): string
     {
@@ -173,8 +153,6 @@ class Certificado
     /**
      * Certificate name value as returned by openssl.
      * In come cases (openssl version 3) it contains quoted slashes (\/)
-     *
-     * @return string
      */
     public function getCertificateName(): string
     {
@@ -183,11 +161,10 @@ class Certificado
 
     /**
      * Name (Razón Social) set when certificate was created
-     * @return string
      */
     public function getName($trimSuffix = false): string
     {
-        return (! $trimSuffix) ? $this->name : $this->getNameWithoutRegimenCapitalSuffix();
+        return ($trimSuffix) ? $this->getNameWithoutRegimenCapitalSuffix() : $this->name;
     }
 
     /**
@@ -205,7 +182,6 @@ class Certificado
 
     /**
      * Return the certificate serial number ASCII formatted, this data is in the format required by CFDI
-     * @return string
      */
     public function getSerial(): string
     {
@@ -219,7 +195,6 @@ class Certificado
 
     /**
      * Timestamp since the certificate is valid
-     * @return int
      */
     public function getValidFrom(): int
     {
@@ -228,7 +203,6 @@ class Certificado
 
     /**
      * Timestamp until the certificate is valid
-     * @return int
      */
     public function getValidTo(): int
     {
@@ -237,7 +211,6 @@ class Certificado
 
     /**
      * String representation of the public key
-     * @return string
      */
     public function getPubkey(): string
     {
@@ -246,7 +219,6 @@ class Certificado
 
     /**
      * Place where the certificate was when loaded, it might not exist on the file system
-     * @return string
      */
     public function getFilename(): string
     {
@@ -255,7 +227,6 @@ class Certificado
 
     /**
      * The contents of the certificate in PEM format
-     * @return string
      */
     public function getPemContents(): string
     {
@@ -264,7 +235,6 @@ class Certificado
 
     /**
      * The contents of the certificate in PEM format
-     * @return string
      */
     public function getPemContentsOneLine(): string
     {
@@ -274,11 +244,7 @@ class Certificado
     /**
      * Verify the signature of some data
      *
-     * @param string $data
-     * @param string $signature
-     * @param int $algorithm
      *
-     * @return bool
      *
      * @throws \RuntimeException if the public key on the certificate cannot be opened
      * @throws \RuntimeException if openssl report an error
@@ -289,26 +255,17 @@ class Certificado
         if (false === $pubKey) {
             throw new \RuntimeException('Cannot open public key from certificate');
         }
-        try {
-            $verify = openssl_verify($data, $signature, $pubKey, $algorithm);
-            if (-1 === $verify) {
-                throw new \RuntimeException('OpenSSL Error: ' . openssl_error_string());
-            }
-        } finally {
-            if (\PHP_VERSION_ID < 80000) {
-                // phpcs:ignore
-                openssl_free_key($pubKey);
-            }
+        $verify = openssl_verify($data, $signature, $pubKey, $algorithm);
+        if (-1 === $verify) {
+            throw new \RuntimeException('OpenSSL Error: ' . openssl_error_string());
         }
         return (1 === $verify);
     }
 
     /**
-     * @param string $filename
      * @throws \UnexpectedValueException when the file does not exist or is not readable
-     * @return void
      */
-    protected function assertFileExists(string $filename)
+    protected function assertFileExists(string $filename): void
     {
         $exists = false;
         $previous = null;
@@ -331,19 +288,11 @@ class Certificado
 
     protected function obtainPubKeyFromContents(string $contents): string
     {
-        try {
-            $pubkey = openssl_get_publickey($contents);
-            if (false === $pubkey) {
-                return '';
-            }
-            $pubData = openssl_pkey_get_details($pubkey) ?: [];
-            return $pubData['key'] ?? '';
-        } finally {
-            // close public key even if the flow is throw an exception
-            if (isset($pubkey) && false !== $pubkey && \PHP_VERSION_ID < 80000) {
-                // phpcs:ignore
-                openssl_free_key($pubkey);
-            }
+        $pubkey = openssl_get_publickey($contents);
+        if (false === $pubkey) {
+            return '';
         }
+        $pubData = openssl_pkey_get_details($pubkey) ?: [];
+        return $pubData['key'] ?? '';
     }
 }

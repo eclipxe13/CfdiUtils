@@ -11,8 +11,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class ReceptorTest extends TestCase
 {
-    /** @var Receptor */
-    public $element;
+    public Receptor $element;
 
     protected function setUp(): void
     {
@@ -20,12 +19,12 @@ final class ReceptorTest extends TestCase
         $this->element = new Receptor();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('nomina12:Receptor', $this->element->getElementName());
     }
 
-    public function testAddSubContratacion()
+    public function testAddSubContratacion(): void
     {
         // insert first element
         $first = $this->element->addSubContratacion(['id' => 'first']);
@@ -39,7 +38,7 @@ final class ReceptorTest extends TestCase
         $this->assertCount(2, $this->element);
     }
 
-    public function testMultiSubContratacion()
+    public function testMultiSubContratacion(): void
     {
         // insert first element
         $receptor = $this->element->multiSubContratacion(

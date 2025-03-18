@@ -10,12 +10,11 @@ use PHPUnit\Framework\TestCase;
 final class TipoCambioValueTest extends TestCase
 {
     /**
-     * @param string|null $exchangerate
      * @testWith ["0.000002"]
      *           ["18.5623"]
      *           [null]
      */
-    public function testValid(?string $exchangerate)
+    public function testValid(?string $exchangerate): void
     {
         $pago = new Pago([
             'TipoCambioP' => $exchangerate,
@@ -25,14 +24,13 @@ final class TipoCambioValueTest extends TestCase
     }
 
     /**
-     * @param string $exchangerate
      * @testWith ["0.000001"]
      *           ["1.0000001"]
      *           ["-1"]
      *           ["not numeric"]
      *           [""]
      */
-    public function testInvalid(string $exchangerate)
+    public function testInvalid(string $exchangerate): void
     {
         $pago = new Pago([
             'TipoCambioP' => $exchangerate,

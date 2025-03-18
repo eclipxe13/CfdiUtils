@@ -3,13 +3,14 @@
 namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Validate\Cfdi33\Standard\ComprobanteTotal;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\Validate33TestCase;
 
 final class ComprobanteTotalTest extends Validate33TestCase
 {
     /** @var ComprobanteTotal */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {
@@ -33,10 +34,9 @@ final class ComprobanteTotalTest extends Validate33TestCase
     }
 
     /**
-     * @param string|null $value
      * @dataProvider providerTotalWithInvalidValue
      */
-    public function testTotalWithInvalidValue(?string $value)
+    public function testTotalWithInvalidValue(?string $value): void
     {
         $this->comprobante->addAttributes([
             'Total' => $value,
@@ -56,10 +56,9 @@ final class ComprobanteTotalTest extends Validate33TestCase
     }
 
     /**
-     * @param string $value
      * @dataProvider providerTotalWithValidValues
      */
-    public function testTotalWithCorrectValues(string $value)
+    public function testTotalWithCorrectValues(string $value): void
     {
         $this->comprobante->addAttributes([
             'Total' => $value,

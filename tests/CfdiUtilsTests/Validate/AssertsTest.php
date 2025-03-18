@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class AssertsTest extends TestCase
 {
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $asserts = new Asserts();
         $this->assertInstanceOf(\Countable::class, $asserts);
@@ -18,7 +18,7 @@ final class AssertsTest extends TestCase
         $this->assertSame(false, $asserts->hasErrors());
     }
 
-    public function testMustStop()
+    public function testMustStop(): void
     {
         $asserts = new Asserts();
         // initialized on false
@@ -35,7 +35,7 @@ final class AssertsTest extends TestCase
         $this->assertSame(false, $asserts->mustStop());
     }
 
-    public function testAddError()
+    public function testAddError(): void
     {
         $asserts = new Asserts();
         $first = new Assert('TEST', 'test', Status::error());
@@ -66,7 +66,7 @@ final class AssertsTest extends TestCase
         $this->assertCount(0, $asserts);
     }
 
-    public function testPutAndPutStatus()
+    public function testPutAndPutStatus(): void
     {
         $asserts = new Asserts();
 
@@ -102,14 +102,14 @@ final class AssertsTest extends TestCase
         $this->assertSame($third, $asserts->get('X03'));
     }
 
-    public function testGetWithNotExistentStatus()
+    public function testGetWithNotExistentStatus(): void
     {
         $asserts = new Asserts();
         $this->expectException(\RuntimeException::class);
         $asserts->get('X02');
     }
 
-    public function testGetByStatus()
+    public function testGetByStatus(): void
     {
         $oks = [
             'OK01' => Status::ok(),
@@ -144,7 +144,7 @@ final class AssertsTest extends TestCase
         $this->assertEquals(array_keys($nones), array_keys($asserts->nones()));
     }
 
-    public function testRemoveByCode()
+    public function testRemoveByCode(): void
     {
         $asserts = new Asserts();
         $asserts->putStatus('XXX');
@@ -158,7 +158,7 @@ final class AssertsTest extends TestCase
         $this->assertCount(0, $asserts);
     }
 
-    public function testRemoveAll()
+    public function testRemoveAll(): void
     {
         $asserts = new Asserts();
         foreach (range(1, 5) as $i) {
@@ -169,7 +169,7 @@ final class AssertsTest extends TestCase
         $this->assertCount(0, $asserts);
     }
 
-    public function testImport()
+    public function testImport(): void
     {
         $source = new Asserts();
         $source->mustStop(true);
@@ -195,7 +195,7 @@ final class AssertsTest extends TestCase
         $this->assertSame($source->mustStop(), $destination->mustStop());
     }
 
-    public function testTraversable()
+    public function testTraversable(): void
     {
         $asserts = new Asserts();
         $first = $asserts->putStatus('first');

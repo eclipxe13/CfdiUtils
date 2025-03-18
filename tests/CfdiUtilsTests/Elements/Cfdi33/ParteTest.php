@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ParteTest extends TestCase
 {
-    /** @var Parte */
-    public $element;
+    public Parte $element;
 
     protected function setUp(): void
     {
@@ -16,7 +15,7 @@ final class ParteTest extends TestCase
         $this->element = new Parte();
     }
 
-    public function testElementName()
+    public function testElementName(): void
     {
         $this->assertSame('cfdi:Parte', $this->element->getElementName());
     }

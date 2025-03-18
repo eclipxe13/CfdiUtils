@@ -4,20 +4,8 @@ namespace CfdiUtils\OpenSSL;
 
 class PemContainer
 {
-    /** @var string */
-    private $certificate;
-
-    /** @var string */
-    private $publicKey;
-
-    /** @var string */
-    private $privateKey;
-
-    public function __construct(string $certificate, string $publicKey, string $privateKey)
+    public function __construct(private string $certificate, private string $publicKey, private string $privateKey)
     {
-        $this->certificate = $certificate;
-        $this->publicKey = $publicKey;
-        $this->privateKey = $privateKey;
     }
 
     public function certificate(): string

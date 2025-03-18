@@ -13,8 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ConceptoTest extends TestCase
 {
-    /** @var  Concepto */
-    public $element;
+    public Concepto $element;
 
     public function setUp(): void
     {
@@ -22,7 +21,7 @@ final class ConceptoTest extends TestCase
         $this->element = new Concepto();
     }
 
-    public function testGetImpuestos()
+    public function testGetImpuestos(): void
     {
         $this->assertNull($this->element->searchNode('cfdi:Impuestos'));
         $child = $this->element->getImpuestos();
@@ -30,7 +29,7 @@ final class ConceptoTest extends TestCase
         $this->assertSame($child, $this->element->searchNode('cfdi:Impuestos'));
     }
 
-    public function testGetCuentaPredial()
+    public function testGetCuentaPredial(): void
     {
         $this->assertNull($this->element->searchNode('cfdi:CuentaPredial'));
         $child = $this->element->getCuentaPredial();
@@ -38,7 +37,7 @@ final class ConceptoTest extends TestCase
         $this->assertSame($child, $this->element->searchNode('cfdi:CuentaPredial'));
     }
 
-    public function testAddCuentaPredial()
+    public function testAddCuentaPredial(): void
     {
         $parent = $this->element;
         $this->assertCount(0, $parent);
@@ -53,7 +52,7 @@ final class ConceptoTest extends TestCase
         $this->assertSame('BAR', $first['ID']);
     }
 
-    public function testGetComplementoConcepto()
+    public function testGetComplementoConcepto(): void
     {
         $this->assertNull($this->element->searchNode('cfdi:ComplementoConcepto'));
         $child = $this->element->getComplementoConcepto();
@@ -61,7 +60,7 @@ final class ConceptoTest extends TestCase
         $this->assertSame($child, $this->element->searchNode('cfdi:ComplementoConcepto'));
     }
 
-    public function testAddComplementoConcepto()
+    public function testAddComplementoConcepto(): void
     {
         $parent = $this->element;
         $this->assertCount(0, $parent);
@@ -76,7 +75,7 @@ final class ConceptoTest extends TestCase
         $this->assertSame('BAR', $first['ID']);
     }
 
-    public function testAddParte()
+    public function testAddParte(): void
     {
         // no childs
         $parent = $this->element;
@@ -93,7 +92,7 @@ final class ConceptoTest extends TestCase
         $this->assertCount(2, $parent);
     }
 
-    public function testMultiParte()
+    public function testMultiParte(): void
     {
         $node = $this->element;
         $this->assertCount(0, $node);
@@ -106,7 +105,7 @@ final class ConceptoTest extends TestCase
         $this->assertSame('first', $node->searchAttribute('cfdi:Parte', 'id'));
     }
 
-    public function testChildrenOrder()
+    public function testChildrenOrder(): void
     {
         // add in inverse order
         $this->element->addParte();

@@ -4,13 +4,14 @@ namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Validate\Cfdi33\Standard\ComprobanteDecimalesMoneda;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\Validate33TestCase;
 
 final class ComprobanteDecimalesMonedaTest extends Validate33TestCase
 {
     /** @var ComprobanteDecimalesMoneda */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {
@@ -18,7 +19,7 @@ final class ComprobanteDecimalesMonedaTest extends Validate33TestCase
         $this->validator = new ComprobanteDecimalesMoneda();
     }
 
-    public function testUnknownCurrency()
+    public function testUnknownCurrency(): void
     {
         $this->comprobante['Moneda'] = 'LYD'; // Dinar libio
         $this->runValidate();
@@ -27,7 +28,7 @@ final class ComprobanteDecimalesMonedaTest extends Validate33TestCase
         }
     }
 
-    public function testAllAssertsAreOk()
+    public function testAllAssertsAreOk(): void
     {
         $this->comprobante->addAttributes([
             'Moneda' => 'MXN',
@@ -53,7 +54,7 @@ final class ComprobanteDecimalesMonedaTest extends Validate33TestCase
         }
     }
 
-    public function testAllAssertsMissingAttributes()
+    public function testAllAssertsMissingAttributes(): void
     {
         $this->comprobante->addAttributes([
             'Moneda' => 'MXN',
@@ -76,7 +77,7 @@ final class ComprobanteDecimalesMonedaTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::ok(), 'MONDEC05');
     }
 
-    public function testAllAssertAreError()
+    public function testAllAssertAreError(): void
     {
         $this->comprobante->addAttributes([
             'Moneda' => 'MXN',

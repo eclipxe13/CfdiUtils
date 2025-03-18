@@ -7,8 +7,7 @@ use CfdiUtilsTests\Validate\Validate33TestCase;
 
 abstract class ValidateComplementoPagosTestCase extends Validate33TestCase
 {
-    /** @var Pagos10 */
-    protected $complemento;
+    protected Pagos10 $complemento;
 
     protected function setUp(): void
     {
@@ -21,14 +20,14 @@ abstract class ValidateComplementoPagosTestCase extends Validate33TestCase
         $comprobante->addComplemento($this->complemento);
     }
 
-    public function testWithoutComplementoDidNotCreateAnyAssertion()
+    public function testWithoutComplementoDidNotCreateAnyAssertion(): void
     {
         $this->getComprobante()->children()->removeAll();
         $this->runValidate();
 
         $this->assertCount(0, $this->asserts, sprintf(
             'The validator %s should not create any assert',
-            get_class($this->validator)
+            $this->validator::class
         ));
     }
 }

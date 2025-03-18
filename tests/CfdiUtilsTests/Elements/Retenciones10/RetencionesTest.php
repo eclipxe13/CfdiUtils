@@ -15,8 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 final class RetencionesTest extends TestCase
 {
-    /** @var Retenciones */
-    public $element;
+    public Retenciones $element;
 
     protected function setUp(): void
     {
@@ -24,12 +23,12 @@ final class RetencionesTest extends TestCase
         $this->element = new Retenciones();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('retenciones:Retenciones', $this->element->getElementName());
     }
 
-    public function testGetEmisor()
+    public function testGetEmisor(): void
     {
         $this->assertNull($this->element->searchNode('retenciones:Emisor'));
         $child = $this->element->getEmisor();
@@ -37,7 +36,7 @@ final class RetencionesTest extends TestCase
         $this->assertSame($child, $this->element->searchNode('retenciones:Emisor'));
     }
 
-    public function testAddEmisor()
+    public function testAddEmisor(): void
     {
         $first = $this->element->addEmisor(['Rfc' => 'FOO']);
         $this->assertInstanceOf(Emisor::class, $first);
@@ -48,7 +47,7 @@ final class RetencionesTest extends TestCase
         $this->assertSame('BAR', $first['Rfc']);
     }
 
-    public function testGetReceptor()
+    public function testGetReceptor(): void
     {
         $this->assertNull($this->element->searchNode('retenciones:Receptor'));
         $child = $this->element->getReceptor();
@@ -56,7 +55,7 @@ final class RetencionesTest extends TestCase
         $this->assertSame($child, $this->element->searchNode('retenciones:Receptor'));
     }
 
-    public function testAddReceptor()
+    public function testAddReceptor(): void
     {
         $first = $this->element->addReceptor(['Rfc' => 'BAZ']);
         $this->assertInstanceOf(Receptor::class, $first);
@@ -67,7 +66,7 @@ final class RetencionesTest extends TestCase
         $this->assertSame('BAR', $first['Rfc']);
     }
 
-    public function testGetPeriodo()
+    public function testGetPeriodo(): void
     {
         $this->assertNull($this->element->searchNode('retenciones:Periodo'));
         $child = $this->element->getPeriodo();
@@ -75,7 +74,7 @@ final class RetencionesTest extends TestCase
         $this->assertSame($child, $this->element->searchNode('retenciones:Periodo'));
     }
 
-    public function testAddPeriodo()
+    public function testAddPeriodo(): void
     {
         $first = $this->element->addPeriodo(['Rfc' => 'BAZ']);
         $this->assertInstanceOf(Periodo::class, $first);
@@ -86,7 +85,7 @@ final class RetencionesTest extends TestCase
         $this->assertSame('BAR', $first['Rfc']);
     }
 
-    public function testGetTotales()
+    public function testGetTotales(): void
     {
         $this->assertNull($this->element->searchNode('retenciones:Totales'));
         $child = $this->element->getTotales();
@@ -94,7 +93,7 @@ final class RetencionesTest extends TestCase
         $this->assertSame($child, $this->element->searchNode('retenciones:Totales'));
     }
 
-    public function testAddTotales()
+    public function testAddTotales(): void
     {
         $first = $this->element->addTotales(['Foo' => 'Bar']);
         $this->assertInstanceOf(Totales::class, $first);
@@ -105,7 +104,7 @@ final class RetencionesTest extends TestCase
         $this->assertSame('BAR', $first['Foo']);
     }
 
-    public function testAddImpRetenidos()
+    public function testAddImpRetenidos(): void
     {
         $first = $this->element->addImpRetenidos(['UUID' => 'FOO']);
         $this->assertInstanceOf(ImpRetenidos::class, $first);
@@ -113,7 +112,7 @@ final class RetencionesTest extends TestCase
         $this->assertCount(1, $this->element->getTotales());
     }
 
-    public function testMultiImpRetenidos()
+    public function testMultiImpRetenidos(): void
     {
         $self = $this->element->multiImpRetenidos(
             ['UUID' => 'FOO'],
@@ -126,7 +125,7 @@ final class RetencionesTest extends TestCase
         $this->assertSame('BAR', $parent->children()->get(1)['UUID']);
     }
 
-    public function testGetComplemento()
+    public function testGetComplemento(): void
     {
         $this->assertNull($this->element->searchNode('retenciones:Complemento'));
         $child = $this->element->getComplemento();
@@ -134,7 +133,7 @@ final class RetencionesTest extends TestCase
         $this->assertSame($child, $this->element->searchNode('retenciones:Complemento'));
     }
 
-    public function testAddComplemento()
+    public function testAddComplemento(): void
     {
         $this->assertCount(0, $this->element);
 
@@ -145,7 +144,7 @@ final class RetencionesTest extends TestCase
         $this->assertSame($addReturn, $this->element);
     }
 
-    public function testGetAddenda()
+    public function testGetAddenda(): void
     {
         $this->assertNull($this->element->searchNode('retenciones:Addenda'));
         $child = $this->element->getAddenda();
@@ -153,7 +152,7 @@ final class RetencionesTest extends TestCase
         $this->assertSame($child, $this->element->searchNode('retenciones:Addenda'));
     }
 
-    public function testAddAddenda()
+    public function testAddAddenda(): void
     {
         $this->assertCount(0, $this->element);
 
@@ -164,7 +163,7 @@ final class RetencionesTest extends TestCase
         $this->assertSame($addReturn, $this->element);
     }
 
-    public function testHasFixedAttributes()
+    public function testHasFixedAttributes(): void
     {
         $namespace = 'http://www.sat.gob.mx/esquemas/retencionpago/1';
         $this->assertSame('1.0', $this->element['Version']);
@@ -173,7 +172,7 @@ final class RetencionesTest extends TestCase
         $this->assertNotEmpty($this->element['xmlns:xsi']);
     }
 
-    public function testChildrenOrder()
+    public function testChildrenOrder(): void
     {
         // add in inverse order
         $this->element->getAddenda();

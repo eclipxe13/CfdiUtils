@@ -1,23 +1,22 @@
 <?php
 
-namespace CfdiUtilsTests\Elements\Cfdi33\Helpers;
+namespace CfdiUtilsTests\SumasConceptos;
 
-use CfdiUtils\Elements\Cfdi33\Comprobante;
-use CfdiUtils\Elements\Cfdi33\Helpers\SumasConceptosWriter;
+use CfdiUtils\Elements\Cfdi40\Comprobante as Comprobante40;
 use CfdiUtils\SumasConceptos\SumasConceptos;
-use CfdiUtilsTests\SumasConceptos\SumasConceptosWriterTestTrait;
+use CfdiUtils\SumasConceptos\SumasConceptosWriter;
 use PHPUnit\Framework\TestCase;
 
-final class SumasConceptosWriterTest extends TestCase
+final class SumasConceptosWriter40Test extends TestCase
 {
     use SumasConceptosWriterTestTrait;
 
-    public function createComprobante(array $attributes = []): Comprobante
+    public function createComprobante(array $attributes = []): Comprobante40
     {
-        return new Comprobante($attributes);
+        return new Comprobante40($attributes);
     }
 
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $precision = 6;
         $comprobante = $this->createComprobante();
@@ -27,6 +26,7 @@ final class SumasConceptosWriterTest extends TestCase
 
         $this->assertSame($precision, $writer->getPrecision());
         $this->assertSame($sumasConceptos, $writer->getSumasConceptos());
-        $this->assertSame(false, $writer->hasWriteImpuestoBase());
+        $this->assertSame(true, $writer->hasWriteImpuestoBase());
+        $this->assertSame(true, $writer->hasWriteExentos());
     }
 }

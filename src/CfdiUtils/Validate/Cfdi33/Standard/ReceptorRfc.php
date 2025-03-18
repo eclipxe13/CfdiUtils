@@ -16,7 +16,7 @@ use CfdiUtils\Validate\Status;
  */
 class ReceptorRfc extends AbstractDiscoverableVersion33
 {
-    public function validate(NodeInterface $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts): void
     {
         $assert = $asserts->put('RECRFC01', 'El RFC del receptor del comprobante debe ser válido');
 

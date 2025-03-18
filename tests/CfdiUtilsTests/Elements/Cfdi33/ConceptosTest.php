@@ -8,8 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ConceptosTest extends TestCase
 {
-    /** @var Conceptos */
-    public $element;
+    public Conceptos $element;
 
     public function setUp(): void
     {
@@ -17,12 +16,12 @@ final class ConceptosTest extends TestCase
         $this->element = new Conceptos();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('cfdi:Conceptos', $this->element->getElementName());
     }
 
-    public function testAddConcepto()
+    public function testAddConcepto(): void
     {
         // no childs
         $parent = $this->element;

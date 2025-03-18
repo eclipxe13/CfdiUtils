@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class SerialNumberTest extends TestCase
 {
-    public function testAsDecimalAsAscii()
+    public function testAsDecimalAsAscii(): void
     {
         $input = '3330303031303030303030333030303233373038';
         $expectedDecimal = '292233162870206001759766198425879490508935868472';
@@ -19,11 +19,9 @@ final class SerialNumberTest extends TestCase
     }
 
     /**
-     * @param string $input
-     * @param string $expected
      * @testWith ["3330303031303030303030333030303233373038", "30001000000300023708"]
      */
-    public function testLoadHexadecimal(string $input, string $expected)
+    public function testLoadHexadecimal(string $input, string $expected): void
     {
         $serial = new SerialNumber('');
         $serial->loadHexadecimal($input);
@@ -31,7 +29,7 @@ final class SerialNumberTest extends TestCase
         $this->assertSame($expected, $serial->asAscii());
     }
 
-    public function testLoadHexadecimalInvalidInput()
+    public function testLoadHexadecimalInvalidInput(): void
     {
         $serial = new SerialNumber('');
         $this->expectException(\UnexpectedValueException::class);
@@ -40,12 +38,10 @@ final class SerialNumberTest extends TestCase
     }
 
     /**
-     * @param string $input
-     * @param string $expected
      * @testWith ["0x3330303031303030303030333030303233373038", "30001000000300023708"]
      *           ["292233162870206001759766198425879490508935868472", "30001000000300023708"]
      */
-    public function testLoadDecimal(string $input, string $expected)
+    public function testLoadDecimal(string $input, string $expected): void
     {
         $serial = new SerialNumber('');
         $serial->loadDecimal($input);
@@ -53,11 +49,9 @@ final class SerialNumberTest extends TestCase
     }
 
     /**
-     * @param string $input
-     * @param string $expected
      * @testWith ["30001000000300023708", "3330303031303030303030333030303233373038"]
      */
-    public function testLoadAscii(string $input, string $expected)
+    public function testLoadAscii(string $input, string $expected): void
     {
         $serial = new SerialNumber('');
         $serial->loadAscii($input);

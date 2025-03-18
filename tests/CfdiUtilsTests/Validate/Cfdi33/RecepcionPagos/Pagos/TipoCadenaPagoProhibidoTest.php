@@ -10,13 +10,11 @@ use PHPUnit\Framework\TestCase;
 final class TipoCadenaPagoProhibidoTest extends TestCase
 {
     /**
-     * @param string $paymentForm
-     * @param string|null $input
      * @testWith ["01", null]
      *           ["03", null]
      *           ["03", "SPEI"]
      */
-    public function testValid(string $paymentForm, ?string $input)
+    public function testValid(string $paymentForm, ?string $input): void
     {
         $pago = new Pago([
             'FormaDePagoP' => $paymentForm,
@@ -28,12 +26,10 @@ final class TipoCadenaPagoProhibidoTest extends TestCase
     }
 
     /**
-     * @param string $paymentForm
-     * @param string|null $input
      * @testWith ["01", "SPEI"]
      *           ["01", ""]
      */
-    public function testInvalid(string $paymentForm, ?string $input)
+    public function testInvalid(string $paymentForm, ?string $input): void
     {
         $pago = new Pago([
             'FormaDePagoP' => $paymentForm,

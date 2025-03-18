@@ -4,13 +4,14 @@ namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Validate\Cfdi33\Standard\ComprobanteFormaPago;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\Validate33TestCase;
 
 final class ComprobanteFormaPagoTest extends Validate33TestCase
 {
     /** @var ComprobanteFormaPago */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {
@@ -18,20 +19,20 @@ final class ComprobanteFormaPagoTest extends Validate33TestCase
         $this->validator = new ComprobanteFormaPago();
     }
 
-    public function testValidateNothingWhenNotFormaPagoAndNotComplementoPago()
+    public function testValidateNothingWhenNotFormaPagoAndNotComplementoPago(): void
     {
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::none(), 'FORMAPAGO01');
     }
 
-    public function testValidateNothingWhenFormaPagoAndNotComplementoPago()
+    public function testValidateNothingWhenFormaPagoAndNotComplementoPago(): void
     {
         $this->comprobante['FormaPago'] = '01'; // efectivo
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::none(), 'FORMAPAGO01');
     }
 
-    public function testValidateOkWhenNotFormaPagoAndComplementoPago()
+    public function testValidateOkWhenNotFormaPagoAndComplementoPago(): void
     {
         $this->comprobante
             ->addChild(new Node('cfdi:Complemento'))
@@ -41,7 +42,7 @@ final class ComprobanteFormaPagoTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::ok(), 'FORMAPAGO01');
     }
 
-    public function testValidateErrorWhenFormaPagoAndComplementoPago()
+    public function testValidateErrorWhenFormaPagoAndComplementoPago(): void
     {
         $this->comprobante['FormaPago'] = '01'; // efectivo
         $this->comprobante

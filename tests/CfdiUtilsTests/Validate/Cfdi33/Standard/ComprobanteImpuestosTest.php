@@ -4,13 +4,14 @@ namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Validate\Cfdi33\Standard\ComprobanteImpuestos;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\Validate33TestCase;
 
 final class ComprobanteImpuestosTest extends Validate33TestCase
 {
-    /** @var  ComprobanteImpuestos */
-    protected $validator;
+    /** @var ComprobanteImpuestos */
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {
@@ -19,13 +20,11 @@ final class ComprobanteImpuestosTest extends Validate33TestCase
     }
 
     /**
-     * @param bool $putTraslados
-     * @param bool $putRetenciones
      * @testWith [true, false]
      *           [false, true]
      *           [true, true]
      */
-    public function testValidImpuestos(bool $putTraslados, bool $putRetenciones)
+    public function testValidImpuestos(bool $putTraslados, bool $putRetenciones): void
     {
         $nodeImpuestos = new Node('cfdi:Impuestos');
         if ($putTraslados) {
@@ -44,7 +43,7 @@ final class ComprobanteImpuestosTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::ok(), 'COMPIMPUESTOSC03');
     }
 
-    public function testInvalidWithEmptyImpuestos()
+    public function testInvalidWithEmptyImpuestos(): void
     {
         $this->comprobante->addChild(new Node('cfdi:Impuestos'));
 
@@ -52,7 +51,7 @@ final class ComprobanteImpuestosTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::error(), 'COMPIMPUESTOSC01');
     }
 
-    public function testInvalidTrasladosNodesWithoutTotalTraslados()
+    public function testInvalidTrasladosNodesWithoutTotalTraslados(): void
     {
         $this->comprobante->addChild(new Node(
             'cfdi:Impuestos',
@@ -64,7 +63,7 @@ final class ComprobanteImpuestosTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::error(), 'COMPIMPUESTOSC02');
     }
 
-    public function testValidTotalTrasladosWithoutTrasladosNodes()
+    public function testValidTotalTrasladosWithoutTrasladosNodes(): void
     {
         $this->comprobante->addChild(new Node(
             'cfdi:Impuestos',
@@ -75,7 +74,7 @@ final class ComprobanteImpuestosTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::ok(), 'COMPIMPUESTOSC02');
     }
 
-    public function testInvalidRetencionesNodesWithoutTotalRetenciones()
+    public function testInvalidRetencionesNodesWithoutTotalRetenciones(): void
     {
         $this->comprobante->addChild(new Node(
             'cfdi:Impuestos',
@@ -87,7 +86,7 @@ final class ComprobanteImpuestosTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::error(), 'COMPIMPUESTOSC03');
     }
 
-    public function testValidTotalRetencionesWithoutRetencionesNodes()
+    public function testValidTotalRetencionesWithoutRetencionesNodes(): void
     {
         $this->comprobante->addChild(new Node(
             'cfdi:Impuestos',
@@ -98,7 +97,7 @@ final class ComprobanteImpuestosTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::ok(), 'COMPIMPUESTOSC03');
     }
 
-    public function testWithoutNodeImpuestos()
+    public function testWithoutNodeImpuestos(): void
     {
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::none(), 'COMPIMPUESTOSC01');

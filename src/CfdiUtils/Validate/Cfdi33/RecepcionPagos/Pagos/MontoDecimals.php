@@ -9,9 +9,10 @@ use CfdiUtils\Nodes\NodeInterface;
  */
 class MontoDecimals extends AbstractPagoValidator
 {
-    protected $code = 'PAGO08';
+    protected string $code = 'PAGO08';
 
-    protected $title = 'En un pago, el monto debe tener hasta la cantidad de decimales que soporte la moneda (CRP208)';
+    protected string $title = 'En un pago, el monto debe tener hasta la cantidad de decimales'
+        . ' que soporte la moneda (CRP208)';
 
     public function validatePago(NodeInterface $pago): bool
     {

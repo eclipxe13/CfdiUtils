@@ -19,7 +19,7 @@ final class XmlDefinition extends AbstractDiscoverableVersion40
 {
     private const CFDI40_NAMESPACE = 'http://www.sat.gob.mx/cfd/4';
 
-    public function validate(NodeInterface $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts): void
     {
         $asserts->put(
             'XML01',

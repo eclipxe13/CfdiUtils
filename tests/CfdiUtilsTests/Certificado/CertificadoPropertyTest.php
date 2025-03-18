@@ -9,7 +9,7 @@ use CfdiUtilsTests\TestCase;
 
 final class CertificadoPropertyTest extends TestCase
 {
-    public function testCertificadoProperty()
+    public function testCertificadoProperty(): void
     {
         $implementation = new class () implements CertificadoPropertyInterface {
             use CertificadoPropertyTrait;

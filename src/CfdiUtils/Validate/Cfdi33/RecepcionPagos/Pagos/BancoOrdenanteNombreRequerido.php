@@ -10,9 +10,9 @@ use CfdiUtils\Utils\Rfc;
  */
 class BancoOrdenanteNombreRequerido extends AbstractPagoValidator
 {
-    protected $code = 'PAGO11';
+    protected string $code = 'PAGO11';
 
-    protected $title = 'En un pago, cuando el RFC del banco emisor sea "XEXX010101000"'
+    protected string $title = 'En un pago, cuando el RFC del banco emisor sea "XEXX010101000"'
         . ' el nombre del banco es requerido (CRP211)';
 
     public function validatePago(NodeInterface $pago): bool

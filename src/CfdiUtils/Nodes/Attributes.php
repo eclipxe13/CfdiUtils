@@ -8,7 +8,7 @@ use Traversable;
 class Attributes implements \Countable, \IteratorAggregate, \ArrayAccess
 {
     /** @var array<string, string> */
-    private $attributes = [];
+    private array $attributes = [];
 
     public function __construct(array $attributes = [])
     {
@@ -26,11 +26,9 @@ class Attributes implements \Countable, \IteratorAggregate, \ArrayAccess
     /**
      * Set a value in the collection
      *
-     * @param string $name
      * @param string|null $value If null then it will remove the value instead of setting to empty string
-     * @return self
      */
-    public function set(string $name, string $value = null): self
+    public function set(string $name, ?string $value = null): self
     {
         if (null === $value) {
             $this->remove($name);
@@ -74,11 +72,9 @@ class Attributes implements \Countable, \IteratorAggregate, \ArrayAccess
     }
 
     /**
-     * @param string $key
      * @param mixed $value
-     * @return string|null
      */
-    private function castValueToString(string $key, $value)
+    private function castValueToString(string $key, $value): ?string
     {
         if (null === $value) {
             return null;
@@ -89,7 +85,6 @@ class Attributes implements \Countable, \IteratorAggregate, \ArrayAccess
         if (is_object($value) && is_callable([$value, '__toString'])) {
             /**
              * PHPStan false positive on cast object<Stringable> to string
-             * @noinspection PhpMultipleClassDeclarationsInspection
              * @var \Stringable $value
              */
             return strval($value);
@@ -116,14 +111,14 @@ class Attributes implements \Countable, \IteratorAggregate, \ArrayAccess
     }
 
     #[\ReturnTypeWillChange]
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         $offset = strval($offset);
         $this->set($offset, $this->castValueToString($offset, $value));
     }
 
     #[\ReturnTypeWillChange]
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         $this->remove((string) $offset);
     }

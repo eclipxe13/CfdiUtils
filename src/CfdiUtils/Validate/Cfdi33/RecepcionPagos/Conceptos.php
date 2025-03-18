@@ -28,7 +28,7 @@ class Conceptos extends AbstractRecepcionPagos10
 
     public const REQUIRED_IMPORTE = '0';
 
-    public function validateRecepcionPagos(NodeInterface $comprobante, Asserts $asserts)
+    public function validateRecepcionPagos(NodeInterface $comprobante, Asserts $asserts): void
     {
         $assert = $asserts->put('PAGCON01', 'Se debe usar el concepto predefinido (CRP107 - CRP121)');
         // get conceptos
@@ -41,7 +41,7 @@ class Conceptos extends AbstractRecepcionPagos10
         $assert->setStatus(Status::ok());
     }
 
-    private function checkConceptos(NodeInterface $comprobante)
+    private function checkConceptos(NodeInterface $comprobante): void
     {
         $conceptos = $comprobante->searchNode('cfdi:Conceptos');
         if (null === $conceptos) {
@@ -73,7 +73,7 @@ class Conceptos extends AbstractRecepcionPagos10
                 $concepto['ClaveProdServ']
             ));
         }
-        if ($concepto->offsetExists('NoIdentificacion')) {
+        if ($concepto->exists('NoIdentificacion')) {
             throw new \Exception('No debe existir el número de identificación');
         }
         if (static::REQUIRED_CANTIDAD !== $concepto['Cantidad']) {
@@ -90,7 +90,7 @@ class Conceptos extends AbstractRecepcionPagos10
                 $concepto['ClaveUnidad']
             ));
         }
-        if ($concepto->offsetExists('Unidad')) {
+        if ($concepto->exists('Unidad')) {
             throw new \Exception('No debe existir la unidad');
         }
         if (static::REQUIRED_DESCRIPCION !== $concepto['Descripcion']) {
@@ -114,7 +114,7 @@ class Conceptos extends AbstractRecepcionPagos10
                 $concepto['Importe']
             ));
         }
-        if ($concepto->offsetExists('Descuento')) {
+        if ($concepto->exists('Descuento')) {
             throw new \Exception('No debe existir descuento');
         }
     }

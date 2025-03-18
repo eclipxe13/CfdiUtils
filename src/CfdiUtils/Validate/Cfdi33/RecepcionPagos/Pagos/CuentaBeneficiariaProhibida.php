@@ -10,9 +10,9 @@ use CfdiUtils\Nodes\NodeInterface;
  */
 class CuentaBeneficiariaProhibida extends AbstractPagoValidator
 {
-    protected $code = 'PAGO17';
+    protected string $code = 'PAGO17';
 
-    protected $title = 'En un pago, cuando la forma de pago no sea 02, 03, 04, 05, 28, 29 o 99'
+    protected string $title = 'En un pago, cuando la forma de pago no sea 02, 03, 04, 05, 28, 29 o 99'
         . ' la cuenta beneficiaria no debe existir (CRP215)';
 
     public function validatePago(NodeInterface $pago): bool
@@ -20,7 +20,7 @@ class CuentaBeneficiariaProhibida extends AbstractPagoValidator
         $payment = $this->createPaymentType($pago['FormaDePagoP']);
 
         // si NO es banzarizado y está establecida la cuenta beneficiaria
-        if (! $payment->allowReceiverAccount() && $pago->offsetExists('CtaBeneficiario')) {
+        if (! $payment->allowReceiverAccount() && $pago->exists('CtaBeneficiario')) {
             throw new ValidatePagoException(
                 sprintf('Forma de pago: "%s", Cuenta: "%s"', $pago['FormaDePagoP'], $pago['CtaBeneficiario'])
             );

@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class DoctoRelacionadoTest extends TestCase
 {
-    /** @var DoctoRelacionado */
-    public $element;
+    public DoctoRelacionado $element;
 
     protected function setUp(): void
     {
@@ -16,7 +15,7 @@ final class DoctoRelacionadoTest extends TestCase
         $this->element = new DoctoRelacionado();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('pago10:DoctoRelacionado', $this->element->getElementName());
     }

@@ -10,12 +10,10 @@ use PHPUnit\Framework\TestCase;
 final class TipoCambioExistsTest extends TestCase
 {
     /**
-     * @param string $currency
-     * @param string|null $exchangerate
      * @testWith ["MXN", null]
      *           ["USD", "18.5678"]
      */
-    public function testValidInput(string $currency, ?string $exchangerate)
+    public function testValidInput(string $currency, ?string $exchangerate): void
     {
         $pago = new Pago([
             'MonedaP' => $currency,
@@ -26,14 +24,12 @@ final class TipoCambioExistsTest extends TestCase
     }
 
     /**
-     * @param string $currency
-     * @param string|null $exchangerate
      * @testWith ["MXN", "1"]
      *           ["MXN", "1.23"]
      *           ["USD", null]
      *           ["USD", ""]
      */
-    public function testInvalidInput(string $currency, ?string $exchangerate)
+    public function testInvalidInput(string $currency, ?string $exchangerate): void
     {
         $pago = new Pago([
             'MonedaP' => $currency,

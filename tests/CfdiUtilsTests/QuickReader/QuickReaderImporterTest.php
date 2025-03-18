@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class QuickReaderImporterTest extends TestCase
 {
-    public function testImporterImportEmptyNode()
+    public function testImporterImportEmptyNode(): void
     {
         $document = new DOMDocument();
         $document->loadXML('<root/>');
@@ -21,7 +21,7 @@ final class QuickReaderImporterTest extends TestCase
         $this->assertCount(0, $root());
     }
 
-    public function testImporterImportEmptyNodeWithNamespaces()
+    public function testImporterImportEmptyNodeWithNamespaces(): void
     {
         $document = new DOMDocument();
         $document->loadXML('<my:root xmlns:my="http://my.net/my" />');
@@ -33,7 +33,7 @@ final class QuickReaderImporterTest extends TestCase
         $this->assertCount(0, $root());
     }
 
-    public function testImporterImportWithAttributes()
+    public function testImporterImportWithAttributes(): void
     {
         $document = new DOMDocument();
         $document->loadXML('<root id="123" score="MEX 1 - 0 GER"/>');
@@ -47,7 +47,7 @@ final class QuickReaderImporterTest extends TestCase
         $this->assertSame('MEX 1 - 0 GER', $root['score']);
     }
 
-    public function testImporterImportWithChildren()
+    public function testImporterImportWithChildren(): void
     {
         $document = new DOMDocument();
         $document->loadXML('<root><foo /><bar /></root>');
@@ -62,7 +62,7 @@ final class QuickReaderImporterTest extends TestCase
         $this->assertCount(2, $root());
     }
 
-    public function testImporterImportWithGrandChildren()
+    public function testImporterImportWithGrandChildren(): void
     {
         $document = new DOMDocument();
         $document->loadXML('<root><foo><l1><l2 id="xee"></l2></l1></foo><bar /></root>');
@@ -71,10 +71,10 @@ final class QuickReaderImporterTest extends TestCase
         $root = $importer->importDocument($document);
 
         $this->assertInstanceOf(QuickReader::class, $root);
-        $this->assertSame('xee', (string) $root->foo->l1->l2['id']);
+        $this->assertSame('xee', $root->foo->l1->l2['id']);
     }
 
-    public function testImportXmlWithDifferentNodes()
+    public function testImportXmlWithDifferentNodes(): void
     {
         $document = new DOMDocument();
         $document->loadXML('
@@ -91,7 +91,7 @@ final class QuickReaderImporterTest extends TestCase
         $this->assertCount(0, ($root->foo)());
     }
 
-    public function testImportChildrenWithSameName()
+    public function testImportChildrenWithSameName(): void
     {
         $document = new DOMDocument();
         $document->loadXML('
@@ -115,7 +115,7 @@ final class QuickReaderImporterTest extends TestCase
         $this->assertCount(0, $root('xee'));
     }
 
-    public function testImportWithNamespacesAreExcluded()
+    public function testImportWithNamespacesAreExcluded(): void
     {
         $document = new DOMDocument();
         $document->loadXML('

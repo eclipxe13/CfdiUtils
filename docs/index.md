@@ -33,6 +33,7 @@ CFDI y herramientas del SAT. Y próximamente el lugar donde publicaremos la vers
 ## Instalación
 
 - [Instalación de CfdiUtils](instalar/instalacion.md)
+- [Actualizar a versión 3.x](instalar/actualizar-3.x.md)
 
 ## Lectura de CFDI
 
@@ -83,7 +84,6 @@ Solo hay métodos específicos para CFDI 3.3 y CFDI 4.0.
 
 - [OpenSSL](utilerias/openssl.md)
 - [Cálculo de CFDI con complemento de pagos 2.0](utilerias/calculo-pagos20.md)
-- [Regla CRP20277 del complemento de pagos 2.0](utilerias/pagos20-crp20277.md)
 
 
 ## Contribuciones

@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class TrasladosLocalesTest extends TestCase
 {
-    /** @var TrasladosLocales */
-    public $element;
+    public TrasladosLocales $element;
 
     protected function setUp(): void
     {
@@ -16,7 +15,7 @@ final class TrasladosLocalesTest extends TestCase
         $this->element = new TrasladosLocales();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('implocal:TrasladosLocales', $this->element->getElementName());
     }

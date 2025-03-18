@@ -6,16 +6,12 @@ namespace CfdiUtils\SumasPagos20;
 
 use JsonSerializable;
 
-final class Decimal implements JsonSerializable
+final class Decimal implements JsonSerializable, \Stringable
 {
     public const SCALE = 24;
 
-    /** @var string */
-    private $value;
-
-    public function __construct(string $value)
+    public function __construct(private string $value)
     {
-        $this->value = $value;
     }
 
     public function getValue(): string

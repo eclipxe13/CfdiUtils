@@ -5,13 +5,14 @@ namespace CfdiUtilsTests\Validate\Cfdi33\RecepcionPagos;
 use CfdiUtils\Elements\Pagos10\Pagos as PagosElement;
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\ComplementoPagos;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\Validate33TestCase;
 
 final class ComplementoPagosTest extends Validate33TestCase
 {
     /** @var ComplementoPagos */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {
@@ -30,7 +31,7 @@ final class ComplementoPagosTest extends Validate33TestCase
         return $pagos;
     }
 
-    public function testValidCaseWithComplemento()
+    public function testValidCaseWithComplemento(): void
     {
         $this->setUpComplemento();
 
@@ -41,7 +42,7 @@ final class ComplementoPagosTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::ok(), 'COMPPAG03');
     }
 
-    public function testValidCaseWithoutComplemento()
+    public function testValidCaseWithoutComplemento(): void
     {
         $this->runValidate();
 
@@ -50,7 +51,7 @@ final class ComplementoPagosTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::none(), 'COMPPAG03');
     }
 
-    public function testWithoutComplemento()
+    public function testWithoutComplemento(): void
     {
         $comprobante = $this->getComprobante();
         $comprobante['TipoDeComprobante'] = 'P';
@@ -62,7 +63,7 @@ final class ComplementoPagosTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::ok(), 'COMPPAG03');
     }
 
-    public function testWithoutTipoDeComprobante()
+    public function testWithoutTipoDeComprobante(): void
     {
         $comprobante = $this->getComprobante();
         $comprobante->addComplemento(new PagosElement());
@@ -74,7 +75,7 @@ final class ComplementoPagosTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::none(), 'COMPPAG03');
     }
 
-    public function testWithInvalidComprobanteVersion()
+    public function testWithInvalidComprobanteVersion(): void
     {
         $this->setUpComplemento();
 
@@ -87,7 +88,7 @@ final class ComplementoPagosTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::error(), 'COMPPAG03');
     }
 
-    public function testWithInvalidComplementoVersion()
+    public function testWithInvalidComplementoVersion(): void
     {
         $complemento = $this->setUpComplemento();
         $complemento['Version'] = '0.9';
@@ -99,7 +100,7 @@ final class ComplementoPagosTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::ok(), 'COMPPAG03');
     }
 
-    public function testImpuestosMustNotExists()
+    public function testImpuestosMustNotExists(): void
     {
         $this->setUpComplemento();
 
@@ -108,7 +109,7 @@ final class ComplementoPagosTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::ok(), 'COMPPAG04');
     }
 
-    public function testImpuestosMustNotExistsButExists()
+    public function testImpuestosMustNotExistsButExists(): void
     {
         $pagos = $this->setUpComplemento();
         $pagos->addChild(new Node('pago10:Impuestos'));

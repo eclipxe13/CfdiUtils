@@ -9,9 +9,9 @@ use CfdiUtils\Nodes\NodeInterface;
  */
 class BancoOrdenanteRfcProhibido extends AbstractPagoValidator
 {
-    protected $code = 'PAGO12';
+    protected string $code = 'PAGO12';
 
-    protected $title = 'En un pago, cuando la forma de pago no sea bancarizada'
+    protected string $title = 'En un pago, cuando la forma de pago no sea bancarizada'
         . ' el RFC del banco emisor no debe existir (CRP238)';
 
     public function validatePago(NodeInterface $pago): bool
@@ -22,7 +22,7 @@ class BancoOrdenanteRfcProhibido extends AbstractPagoValidator
         $payment = $this->createPaymentType($pago['FormaDePagoP']);
 
         // si NO es banzarizado y está establecido el RFC del Emisor de la cuenta ordenante
-        if (! $payment->allowSenderRfc() && $pago->offsetExists('RfcEmisorCtaOrd')) {
+        if (! $payment->allowSenderRfc() && $pago->exists('RfcEmisorCtaOrd')) {
             throw new ValidatePagoException(sprintf('Bancarizado: Sí, Rfc: "%s"', $pago['RfcEmisorCtaOrd']));
         }
 

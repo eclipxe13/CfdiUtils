@@ -11,23 +11,21 @@ use CfdiUtils\Validate\Status;
 
 abstract class AbstractPagoValidator
 {
-    /** @var string */
-    protected $code = '';
+    protected string $code = '';
 
-    /** @var string */
-    protected $title = '';
+    protected string $title = '';
 
-    public function getCode()
+    public function getCode(): string
     {
         return $this->code;
     }
 
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    public function registerInAssets(Asserts $asserts)
+    public function registerInAssets(Asserts $asserts): void
     {
         $asserts->put($this->getCode(), $this->getTitle(), Status::ok());
     }
@@ -35,7 +33,6 @@ abstract class AbstractPagoValidator
     /**
      * In this method is where all validations must occur
      *
-     * @param NodeInterface $pago
      * @throws ValidatePagoException then validation fails
      * @throws \Exception in the implementer if it does not return TRUE
      * @return true|bool
@@ -56,7 +53,7 @@ abstract class AbstractPagoValidator
     {
         try {
             return CurrencyDecimals::newFromKnownCurrencies($currency);
-        } catch (\Throwable $exception) {
+        } catch (\Throwable) {
             return new CurrencyDecimals($currency ?: 'XXX', 0);
         }
     }
@@ -65,7 +62,7 @@ abstract class AbstractPagoValidator
     {
         try {
             return (new FormaPagoCatalog())->obtain($paymentType);
-        } catch (\Throwable $exception) {
+        } catch (\Throwable) {
             throw new ValidatePagoException(sprintf('La forma de pago "%s" no está definida', $paymentType));
         }
     }

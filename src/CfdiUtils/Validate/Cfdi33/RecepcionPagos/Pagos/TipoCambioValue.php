@@ -10,14 +10,14 @@ use CfdiUtils\Utils\CurrencyDecimals;
  */
 class TipoCambioValue extends AbstractPagoValidator
 {
-    protected $code = 'PAGO06';
+    protected string $code = 'PAGO06';
 
-    protected $title = 'En un pago, el tipo de cambio debe ser numérico,'
+    protected string $title = 'En un pago, el tipo de cambio debe ser numérico,'
         . ' no debe exceder 6 decimales y debe ser mayor a "0.000001"';
 
     public function validatePago(NodeInterface $pago): bool
     {
-        if (! $pago->offsetExists('TipoCambioP')) {
+        if (! $pago->exists('TipoCambioP')) {
             return true;
         }
         $reason = '';

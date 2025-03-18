@@ -6,9 +6,6 @@ interface NodeInterface extends \ArrayAccess, \Countable, \IteratorAggregate
 {
     public function name(): string;
 
-    /**
-     * @return Nodes|NodeInterface[]
-     */
     public function children(): Nodes;
 
     public function addChild(self $node): self;
@@ -17,19 +14,17 @@ interface NodeInterface extends \ArrayAccess, \Countable, \IteratorAggregate
 
     public function addAttributes(array $attributes);
 
+    public function exists(string $attribute): bool;
+
+    public function value(): string;
+
+    public function setValue(string $value): void;
+
     public function clear();
 
     public function searchAttribute(string ...$searchPath): string;
 
-    /**
-     * @param string ...$searchPath
-     * @return Nodes|NodeInterface[]
-     */
     public function searchNodes(string ...$searchPath): Nodes;
 
-    /**
-     * @param string ...$searchPath
-     * @return NodeInterface|null
-     */
-    public function searchNode(string ...$searchPath);
+    public function searchNode(string ...$searchPath): ?self;
 }

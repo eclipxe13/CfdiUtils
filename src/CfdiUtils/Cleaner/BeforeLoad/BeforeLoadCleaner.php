@@ -5,7 +5,7 @@ namespace CfdiUtils\Cleaner\BeforeLoad;
 class BeforeLoadCleaner implements BeforeLoadCleanerInterface
 {
     /** @var BeforeLoadCleanerInterface[] */
-    private $cleaners;
+    private array $cleaners;
 
     public function __construct(BeforeLoadCleanerInterface ...$cleaners)
     {

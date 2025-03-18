@@ -11,8 +11,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class CarroTest extends TestCase
 {
-    /** @var Carro */
-    public $element;
+    public Carro $element;
 
     protected function setUp(): void
     {
@@ -20,12 +19,12 @@ final class CarroTest extends TestCase
         $this->element = new Carro();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cartaporte:Carro', $this->element->getElementName());
     }
 
-    public function testAddContenedor()
+    public function testAddContenedor(): void
     {
         // insert first element
         $first = $this->element->addContenedor(['id' => 'first']);
@@ -39,7 +38,7 @@ final class CarroTest extends TestCase
         $this->assertCount(2, $this->element);
     }
 
-    public function testMultiContenedor()
+    public function testMultiContenedor(): void
     {
         // insert first element
         $contenedores = $this->element->multiContenedor(

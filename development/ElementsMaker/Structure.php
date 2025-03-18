@@ -12,24 +12,11 @@ use Traversable;
 
 final class Structure implements Countable, IteratorAggregate
 {
-    /** @var string */
-    private $name;
-
-    /** @var bool */
-    private $multiple;
-
     /** @var Structure[] */
-    private $children;
+    private array $children;
 
-    /**
-     * @param string $name
-     * @param bool $multiple
-     * @param Structure[] $children
-     */
-    public function __construct(string $name, bool $multiple, self ...$children)
+    public function __construct(private string $name, private bool $multiple, self ...$children)
     {
-        $this->name = $name;
-        $this->multiple = $multiple;
         $this->children = $children;
     }
 
@@ -76,9 +63,7 @@ final class Structure implements Countable, IteratorAggregate
     {
         return array_unique(
             array_map(
-                function (self $structure) use ($prefix): string {
-                    return $prefix . $structure->getName();
-                },
+                fn (self $structure): string => $prefix . $structure->getName(),
                 $this->children
             )
         );

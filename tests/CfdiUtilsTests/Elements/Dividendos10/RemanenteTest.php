@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class RemanenteTest extends TestCase
 {
-    /** @var Remanente */
-    public $element;
+    public Remanente $element;
 
     public function setUp(): void
     {
@@ -16,7 +15,7 @@ final class RemanenteTest extends TestCase
         $this->element = new Remanente();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('dividendos:Remanente', $this->element->getElementName());
     }

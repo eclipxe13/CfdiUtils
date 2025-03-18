@@ -10,12 +10,9 @@ use PHPUnit\Framework\TestCase;
 final class ImporteSaldoInsolutoValorTest extends TestCase
 {
     /**
-     * @param string $previous
-     * @param string $payment
-     * @param string $left
      * @testWith ["100.00", "100.00", "0.0"]
      */
-    public function testValid(string $previous, string $payment, string $left)
+    public function testValid(string $previous, string $payment, string $left): void
     {
         $pago = new Pago();
         $docto = $pago->addDoctoRelacionado([
@@ -31,12 +28,9 @@ final class ImporteSaldoInsolutoValorTest extends TestCase
     }
 
     /**
-     * @param string $previous
-     * @param string $payment
-     * @param string $left
      * @testWith ["150.00", "100.00", "50.0"]
      */
-    public function testWithCalculate(string $previous, string $payment, string $left)
+    public function testWithCalculate(string $previous, string $payment, string $left): void
     {
         $pago = new Pago(['Monto' => $payment]);
         $docto = $pago->addDoctoRelacionado([
@@ -51,15 +45,12 @@ final class ImporteSaldoInsolutoValorTest extends TestCase
     }
 
     /**
-     * @param string $previous
-     * @param string $payment
-     * @param string $left
      * @testWith ["100.00", "100.00", "0.01"]
      *           ["100.00", "100.00", "-0.01"]
      *           ["100.01", "100.00", "0.00"]
      *           ["100.00", "100.01", "0.00"]
      */
-    public function testInvalid(string $previous, string $payment, string $left)
+    public function testInvalid(string $previous, string $payment, string $left): void
     {
         $pago = new Pago();
         $docto = $pago->addDoctoRelacionado([

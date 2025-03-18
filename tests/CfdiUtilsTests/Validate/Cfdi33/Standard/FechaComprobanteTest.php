@@ -4,13 +4,14 @@ namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Utils\Format;
 use CfdiUtils\Validate\Cfdi33\Standard\FechaComprobante;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\Validate33TestCase;
 
 final class FechaComprobanteTest extends Validate33TestCase
 {
     /** @var FechaComprobante */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {
@@ -18,7 +19,7 @@ final class FechaComprobanteTest extends Validate33TestCase
         $this->validator = new FechaComprobante();
     }
 
-    public function testConstructWithoutArguments()
+    public function testConstructWithoutArguments(): void
     {
         $expectedTolerance = 300;
         $expectedMaxTime = time() + $expectedTolerance;
@@ -30,21 +31,21 @@ final class FechaComprobanteTest extends Validate33TestCase
         $this->assertEquals($expectedTolerance, $validator->getTolerance());
     }
 
-    public function testSetMaximumDate()
+    public function testSetMaximumDate(): void
     {
         $validator = new FechaComprobante();
         $validator->setMaximumDate(0);
         $this->assertEquals(0, $validator->getMaximumDate());
     }
 
-    public function testSetTolerance()
+    public function testSetTolerance(): void
     {
         $validator = new FechaComprobante();
         $validator->setTolerance(1000);
         $this->assertEquals(1000, $validator->getTolerance());
     }
 
-    public function testValidateOkCurrentDate()
+    public function testValidateOkCurrentDate(): void
     {
         $timestamp = time();
         $this->comprobante->addAttributes([
@@ -58,7 +59,7 @@ final class FechaComprobanteTest extends Validate33TestCase
         $this->assertFalse($this->asserts->hasErrors());
     }
 
-    public function testValidateOkMinimumDate()
+    public function testValidateOkMinimumDate(): void
     {
         $timestamp = $this->validator->getMinimumDate();
         $this->comprobante->addAttributes([
@@ -72,7 +73,7 @@ final class FechaComprobanteTest extends Validate33TestCase
         $this->assertFalse($this->asserts->hasErrors());
     }
 
-    public function testValidateOkMaximumDate()
+    public function testValidateOkMaximumDate(): void
     {
         $timestamp = $this->validator->getMaximumDate();
         $this->comprobante->addAttributes([
@@ -86,14 +87,14 @@ final class FechaComprobanteTest extends Validate33TestCase
         $this->assertFalse($this->asserts->hasErrors());
     }
 
-    public function testValidateWithoutFecha()
+    public function testValidateWithoutFecha(): void
     {
         $this->runValidate();
         $this->assertStatusEqualsCode(Status::error(), 'FECHA01');
         $this->assertStatusEqualsCode(Status::none(), 'FECHA02');
     }
 
-    public function testValidateEmptyFecha()
+    public function testValidateEmptyFecha(): void
     {
         $this->comprobante->addAttributes([
             'Fecha' => '',
@@ -104,7 +105,7 @@ final class FechaComprobanteTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::none(), 'FECHA02');
     }
 
-    public function testValidateMalformedFecha()
+    public function testValidateMalformedFecha(): void
     {
         $this->comprobante->addAttributes([
             'Fecha' => 'YYYY-MM-DD hh:mm:ss',
@@ -115,7 +116,7 @@ final class FechaComprobanteTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::none(), 'FECHA02');
     }
 
-    public function testValidateOlderFecha()
+    public function testValidateOlderFecha(): void
     {
         $this->comprobante->addAttributes([
             'Fecha' => '2017-06-30T23:59:59',
@@ -125,7 +126,7 @@ final class FechaComprobanteTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::error(), 'FECHA02');
     }
 
-    public function testValidateFutureFecha()
+    public function testValidateFutureFecha(): void
     {
         $this->comprobante->addAttributes([
             'Fecha' => Format::datetime($this->validator->getMaximumDate() + 1),

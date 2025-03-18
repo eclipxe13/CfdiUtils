@@ -29,9 +29,9 @@ trait RetencionesCreatorTrait
 
     private function retencionesCreatorConstructor(
         array $retencionesAttributes = [],
-        Certificado $certificado = null,
-        XmlResolver $xmlResolver = null,
-        XsltBuilderInterface $xsltBuilder = null
+        ?Certificado $certificado = null,
+        ?XmlResolver $xmlResolver = null,
+        ?XsltBuilderInterface $xsltBuilder = null,
     ): void {
         $this->retenciones->addAttributes($retencionesAttributes);
         $this->setXmlResolver($xmlResolver ?: new XmlResolver());
@@ -41,7 +41,7 @@ trait RetencionesCreatorTrait
         $this->setXsltBuilder($xsltBuilder ?: new DOMBuilder());
     }
 
-    public function addSello(string $key, string $passPhrase = '')
+    public function addSello(string $key, string $passPhrase = ''): void
     {
         // create private key
         $privateKey = new PemPrivateKey($key);
@@ -50,10 +50,11 @@ trait RetencionesCreatorTrait
         }
 
         // check privatekey belongs to certificado
-        if ($this->hasCertificado()) {
-            if (! $privateKey->belongsTo($this->getCertificado()->getPemContents())) {
-                throw new \RuntimeException('The private key does not belong to the current certificate');
-            }
+        if (
+            $this->hasCertificado()
+            && ! $privateKey->belongsTo($this->getCertificado()->getPemContents())
+        ) {
+            throw new \RuntimeException('The private key does not belong to the current certificate');
         }
 
         // create sign and set into Sello attribute
@@ -80,5 +81,20 @@ trait RetencionesCreatorTrait
     {
         $mover = new SatNsDefinitionsMover();
         $mover->move($this->retenciones);
+    }
+
+    private function buildCadenaDeOrigenFromXsltLocation(string $xsltLocation): string
+    {
+        if (! $this->hasXmlResolver()) {
+            throw new \LogicException('Cannot build the cadena de origen since there is no xml resolver');
+        }
+        if (! $this->hasXsltBuilder()) {
+            throw new \LogicException('Cannot build the cadena de origen since there is no xslt builder');
+        }
+
+        $xmlResolver = $this->getXmlResolver();
+        $xsltLocation = $xmlResolver->resolve($xsltLocation, $xmlResolver::TYPE_XSLT);
+
+        return $this->getXsltBuilder()->build($this->asXml(), $xsltLocation);
     }
 }

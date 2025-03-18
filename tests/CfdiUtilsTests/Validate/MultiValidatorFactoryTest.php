@@ -9,20 +9,20 @@ use PHPUnit\Framework\TestCase;
 
 final class MultiValidatorFactoryTest extends TestCase
 {
-    public function testConstructWithoutArguments()
+    public function testConstructWithoutArguments(): void
     {
         $factory = new MultiValidatorFactory();
         $this->assertInstanceOf(Discoverer::class, $factory->getDiscoverer());
     }
 
-    public function testConstructWithDiscoverer()
+    public function testConstructWithDiscoverer(): void
     {
         $discoverer = new Discoverer();
         $factory = new MultiValidatorFactory($discoverer);
         $this->assertSame($discoverer, $factory->getDiscoverer());
     }
 
-    public function testCreated33ContainsAtLeastXsdValidator()
+    public function testCreated33ContainsAtLeastXsdValidator(): void
     {
         $factory = new MultiValidatorFactory();
         $validator = $factory->newCreated33();
@@ -38,7 +38,7 @@ final class MultiValidatorFactoryTest extends TestCase
         $this->assertTrue($hasXmlFollowSchema, 'MultiValidator must implement known XmlFollowSchema');
     }
 
-    public function testReceived33ContainsAtLeastXsdValidator()
+    public function testReceived33ContainsAtLeastXsdValidator(): void
     {
         $factory = new MultiValidatorFactory();
         $validator = $factory->newReceived33();

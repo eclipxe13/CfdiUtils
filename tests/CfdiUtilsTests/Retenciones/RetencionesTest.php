@@ -25,14 +25,14 @@ final class RetencionesTest extends TestCase
         ];
     }
 
-    public function testNewFromStringWithEmptyXml()
+    public function testNewFromStringWithEmptyXml(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('empty');
         Retenciones::newFromString('');
     }
 
-    public function testNewFromStringWithInvalidXml()
+    public function testNewFromStringWithInvalidXml(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('Cannot create a DOM Document');
@@ -40,9 +40,9 @@ final class RetencionesTest extends TestCase
     }
 
     /** @dataProvider providerRetencionesVersionNamespace */
-    public function testConstructWithoutNamespace(string $version, string $namespace)
+    public function testConstructWithoutNamespace(string $version, string $namespace): void
     {
-        $exception = $this->captureException(function () {
+        $exception = $this->captureException(function (): void {
             Retenciones::newFromString('<Retenciones ' . '/>');
         });
         $this->assertInstanceOf(CfdiCreateObjectException::class, $exception);
@@ -54,9 +54,9 @@ final class RetencionesTest extends TestCase
     }
 
     /** @dataProvider providerRetencionesVersionNamespace */
-    public function testConstructWithEmptyDomDocument(string $version)
+    public function testConstructWithEmptyDomDocument(string $version): void
     {
-        $exception = $this->captureException(function () {
+        $exception = $this->captureException(function (): void {
             new Retenciones(new \DOMDocument());
         });
         $this->assertInstanceOf(CfdiCreateObjectException::class, $exception);
@@ -68,9 +68,9 @@ final class RetencionesTest extends TestCase
     }
 
     /** @dataProvider providerRetencionesVersionNamespace */
-    public function testInvalidCfdiRootIsNotComprobante(string $version, string $namespace)
+    public function testInvalidCfdiRootIsNotComprobante(string $version, string $namespace): void
     {
-        $exception = $this->captureException(function () use ($namespace) {
+        $exception = $this->captureException(function () use ($namespace): void {
             Retenciones::newFromString(sprintf('<retenciones:X xmlns:retenciones="%s"/>', $namespace));
         });
         $this->assertInstanceOf(CfdiCreateObjectException::class, $exception);
@@ -82,9 +82,9 @@ final class RetencionesTest extends TestCase
     }
 
     /** @dataProvider providerRetencionesVersionNamespace */
-    public function testInvalidCfdiRootIsPrefixedWithUnexpectedName(string $version, string $namespace)
+    public function testInvalidCfdiRootIsPrefixedWithUnexpectedName(string $version, string $namespace): void
     {
-        $exception = $this->captureException(function () use ($namespace) {
+        $exception = $this->captureException(function () use ($namespace): void {
             Retenciones::newFromString(sprintf('<x:Retenciones xmlns:x="%s"/>', $namespace));
         });
         $this->assertInstanceOf(CfdiCreateObjectException::class, $exception);
@@ -96,9 +96,11 @@ final class RetencionesTest extends TestCase
     }
 
     /** @dataProvider providerRetencionesVersionNamespace */
-    public function testInvalidCfdiRootPrefixDoesNotMatchWithNamespaceDeclaration(string $version, string $namespace)
-    {
-        $exception = $this->captureException(function () use ($namespace) {
+    public function testInvalidCfdiRootPrefixDoesNotMatchWithNamespaceDeclaration(
+        string $version,
+        string $namespace,
+    ): void {
+        $exception = $this->captureException(function () use ($namespace): void {
             Retenciones::newFromString(sprintf('<x:Retenciones xmlns:retenciones="%s"/>', $namespace));
         });
         $this->assertInstanceOf(CfdiCreateObjectException::class, $exception);
@@ -109,21 +111,21 @@ final class RetencionesTest extends TestCase
         );
     }
 
-    public function testValid10()
+    public function testValid10(): void
     {
         $retencion = Retenciones::newFromString(self::XML_MINIMAL_DEFINITION);
 
         $this->assertEquals('1.0', $retencion->getVersion());
     }
 
-    public function testValida20()
+    public function testValida20(): void
     {
         $retencion = Retenciones::newFromString(self::XML_20_MINIMAL_DEFINITION);
 
         $this->assertEquals('2.0', $retencion->getVersion());
     }
 
-    public function testValid10WithXmlHeader()
+    public function testValid10WithXmlHeader(): void
     {
         $retencion = Retenciones::newFromString(
             '<?xml version="1.0" encoding="UTF-8" ?>' . PHP_EOL . self::XML_MINIMAL_DEFINITION
@@ -132,7 +134,7 @@ final class RetencionesTest extends TestCase
         $this->assertEquals('1.0', $retencion->getVersion());
     }
 
-    public function testVersion1980ReturnEmpty()
+    public function testVersion1980ReturnEmpty(): void
     {
         $retencion = Retenciones::newFromString(
             str_replace('Version="1.0"', 'Version="1980"', self::XML_MINIMAL_DEFINITION)
@@ -141,7 +143,7 @@ final class RetencionesTest extends TestCase
         $this->assertEmpty($retencion->getVersion());
     }
 
-    public function testVersionEmptyReturnEmpty()
+    public function testVersionEmptyReturnEmpty(): void
     {
         $retencion = Retenciones::newFromString(
             str_replace('Version="1.0"', 'Version=""', self::XML_MINIMAL_DEFINITION)
@@ -150,7 +152,7 @@ final class RetencionesTest extends TestCase
         $this->assertEmpty($retencion->getVersion());
     }
 
-    public function testGetDocument()
+    public function testGetDocument(): void
     {
         $xml = self::XML_MINIMAL_DEFINITION;
         $document = Xml::newDocument();
@@ -163,7 +165,7 @@ final class RetencionesTest extends TestCase
         $this->assertXmlStringEqualsXmlString($xml, $retrieved->saveXML(), 'The DOM Documents should be equal');
     }
 
-    public function testGetSource()
+    public function testGetSource(): void
     {
         $xml = self::XML_MINIMAL_DEFINITION;
         $retencion = Retenciones::newFromString($xml);
@@ -173,14 +175,14 @@ final class RetencionesTest extends TestCase
         $this->assertSame($xml, $retrieved);
     }
 
-    public function testGetNode()
+    public function testGetNode(): void
     {
         $retencion = Retenciones::newFromString(self::XML_MINIMAL_DEFINITION);
         $node = $retencion->getNode();
         $this->assertSame($retencion->getVersion(), $node['Version']);
     }
 
-    public function testGetQuickReader()
+    public function testGetQuickReader(): void
     {
         $retencion = Retenciones::newFromString(self::XML_MINIMAL_DEFINITION);
         $quickReader = $retencion->getQuickReader();

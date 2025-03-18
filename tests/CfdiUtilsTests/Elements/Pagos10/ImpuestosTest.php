@@ -9,8 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ImpuestosTest extends TestCase
 {
-    /** @var Impuestos */
-    public $element;
+    public Impuestos $element;
 
     protected function setUp(): void
     {
@@ -18,12 +17,12 @@ final class ImpuestosTest extends TestCase
         $this->element = new Impuestos();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('pago10:Impuestos', $this->element->getElementName());
     }
 
-    public function testGetTraslados()
+    public function testGetTraslados(): void
     {
         $this->assertNull($this->element->searchNode('pago10:Traslados'));
         $child = $this->element->getTraslados();
@@ -31,7 +30,7 @@ final class ImpuestosTest extends TestCase
         $this->assertSame($child, $this->element->searchNode('pago10:Traslados'));
     }
 
-    public function testGetRetenciones()
+    public function testGetRetenciones(): void
     {
         $this->assertNull($this->element->searchNode('pago10:Retenciones'));
         $child = $this->element->getRetenciones();
@@ -39,7 +38,7 @@ final class ImpuestosTest extends TestCase
         $this->assertSame($child, $this->element->searchNode('pago10:Retenciones'));
     }
 
-    public function testChildrenOrder()
+    public function testChildrenOrder(): void
     {
         // add in inverse order
         $this->element->getTraslados();

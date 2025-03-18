@@ -2,7 +2,7 @@
 
 namespace CfdiUtils\Utils;
 
-class Rfc
+class Rfc implements \Stringable
 {
     public const RFC_GENERIC = 'XAXX010101000';
 
@@ -12,17 +12,14 @@ class Rfc
 
     public const DISALLOW_FOREIGN = 2;
 
-    /** @var string */
-    private $rfc;
+    private string $rfc;
 
-    /** @var int */
-    private $length;
+    private int $length;
 
     /** @var string contains calculated checksum */
-    private $checkSum;
+    private string $checkSum;
 
-    /** @var bool */
-    private $checkSumMatch;
+    private bool $checkSumMatch;
 
     public function __construct(string $rfc, int $flags = 0)
     {
@@ -78,21 +75,19 @@ class Rfc
         try {
             static::checkIsValid($value);
             return true;
-        } catch (\UnexpectedValueException $exception) {
+        } catch (\UnexpectedValueException) {
             return false;
         }
     }
 
     /**
-     * @param string $value
-     * @param int $flags
      * @throws \UnexpectedValueException when the value is generic and is not allowed by flags
      * @throws \UnexpectedValueException when the value is foreign and is not allowed by flags
      * @throws \UnexpectedValueException when the value does not match with the RFC format
      * @throws \UnexpectedValueException when the date inside the value is not valid
      * @throws \UnexpectedValueException when the last digit does not match the checksum
      */
-    public static function checkIsValid(string $value, int $flags = 0)
+    public static function checkIsValid(string $value, int $flags = 0): void
     {
         if ($flags & static::DISALLOW_GENERIC && $value === static::RFC_GENERIC) {
             throw new \UnexpectedValueException('No se permite el RFC genérico para público en general');
@@ -103,7 +98,7 @@ class Rfc
         // validate agains a regular expression (values and length)
         $regex = '/^' // desde el inicio
             . '[A-ZÑ&]{3,4}' // letras y números para el nombre (3 para morales, 4 para físicas)
-            . '([0-9]{6})' // año mes y día, la validez de la fecha se comprueba después
+            . '(\d{6})' // año mes y día, la validez de la fecha se comprueba después
             . '[A-Z0-9]{2}[A0-9]{1}' // homoclave (letra o dígito 2 veces + A o dígito 1 vez)
             . '$/u'; // hasta el final, considerar la cadena unicode
         if (1 !== preg_match($regex, $value)) {
@@ -138,16 +133,13 @@ class Rfc
     /**
      * The date is always from the year 2000 since RFC does not provide century and 000229 is valid.
      * Please, change this function on year 2100!
-     *
-     * @param string $rfc
-     * @return int
      */
     public static function obtainDate(string $rfc): int
     {
         // rfc is multibyte
         $begin = (12 === mb_strlen($rfc)) ? 3 : 4;
         // strdate is not multibyte
-        $strdate = strval(mb_substr($rfc, $begin, 6));
+        $strdate = mb_substr($rfc, $begin, 6);
         if (6 !== strlen($strdate)) {
             return 0;
         }

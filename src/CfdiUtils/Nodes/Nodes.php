@@ -2,15 +2,20 @@
 
 namespace CfdiUtils\Nodes;
 
+use ArrayIterator;
+use Countable;
+use IteratorAggregate;
 use Traversable;
 
-class Nodes implements \Countable, \IteratorAggregate
+/**
+ * @implements IteratorAggregate<int, NodeInterface>
+ */
+class Nodes implements Countable, IteratorAggregate
 {
     /** @var NodeInterface[] */
-    private $nodes = [];
+    private array $nodes = [];
 
-    /** @var NodesSorter */
-    private $sorter;
+    private NodesSorter $sorter;
 
     /**
      * Nodes constructor.
@@ -37,7 +42,7 @@ class Nodes implements \Countable, \IteratorAggregate
         return $this;
     }
 
-    public function order()
+    public function order(): void
     {
         $this->nodes = $this->sorter->sort($this->nodes);
     }
@@ -46,7 +51,7 @@ class Nodes implements \Countable, \IteratorAggregate
      * It takes only the unique string names and sort using the order of appearance
      * @param string[] $names
      */
-    public function setOrder(array $names)
+    public function setOrder(array $names): void
     {
         if ($this->sorter->setOrder($names)) {
             $this->order();
@@ -87,10 +92,7 @@ class Nodes implements \Countable, \IteratorAggregate
         return ($this->indexOf($node) >= 0);
     }
 
-    /**
-     * @return NodeInterface|null
-     */
-    public function first()
+    public function first(): ?NodeInterface
     {
         foreach ($this->nodes as $node) {
             return $node;
@@ -107,11 +109,7 @@ class Nodes implements \Countable, \IteratorAggregate
         return $indexedNodes[$position];
     }
 
-    /**
-     * @param string $nodeName
-     * @return NodeInterface|null
-     */
-    public function firstNodeWithName(string $nodeName)
+    public function firstNodeWithName(string $nodeName): ?NodeInterface
     {
         foreach ($this->nodes as $node) {
             if ($node->name() === $nodeName) {
@@ -134,7 +132,6 @@ class Nodes implements \Countable, \IteratorAggregate
 
     /**
      * @param NodeInterface[] $nodes
-     * @return Nodes
      */
     public function importFromArray(array $nodes): self
     {
@@ -147,10 +144,10 @@ class Nodes implements \Countable, \IteratorAggregate
         return $this;
     }
 
-    /** @return Traversable<NodeInterface> */
+    /** @return Traversable<int, NodeInterface> */
     public function getIterator(): Traversable
     {
-        return new \ArrayIterator($this->nodes);
+        return new ArrayIterator($this->nodes);
     }
 
     public function count(): int

@@ -6,7 +6,7 @@ namespace CfdiUtils\Validate;
  * Status (immutable value object)
  * Define the status used in an assertion
  */
-class Status
+class Status implements \Stringable
 {
     public const STATUS_ERROR = 'ERROR';
 
@@ -23,7 +23,7 @@ class Status
         self::STATUS_OK => 4,
     ];
 
-    private $status;
+    private string $status;
 
     public function __construct(string $value)
     {
@@ -77,7 +77,7 @@ class Status
         return self::STATUS_NONE === $this->status;
     }
 
-    public static function when(bool $condition, self $errorStatus = null): self
+    public static function when(bool $condition, ?self $errorStatus = null): self
     {
         return ($condition) ? self::ok() : ($errorStatus ?: self::error());
     }

@@ -10,12 +10,10 @@ use PHPUnit\Framework\TestCase;
 final class TipoCadenaPagoCadenaTest extends TestCase
 {
     /**
-     * @param string|null $tipoCadPago
-     * @param string|null $input
      * @testWith [null, null]
      *           ["1", "1"]
      */
-    public function testValid(?string $tipoCadPago, ?string $input)
+    public function testValid(?string $tipoCadPago, ?string $input): void
     {
         $pago = new Pago([
             'TipoCadPago' => $tipoCadPago,
@@ -27,8 +25,6 @@ final class TipoCadenaPagoCadenaTest extends TestCase
     }
 
     /**
-     * @param string|null $tipoCadPago
-     * @param string|null $input
      * @testWith [null, "1"]
      *           ["", "1"]
      *           ["1", null]
@@ -36,7 +32,7 @@ final class TipoCadenaPagoCadenaTest extends TestCase
      *           [null, ""]
      *           ["", null]
      */
-    public function testInvalid(?string $tipoCadPago, ?string $input)
+    public function testInvalid(?string $tipoCadPago, ?string $input): void
     {
         $pago = new Pago([
             'TipoCadPago' => $tipoCadPago,

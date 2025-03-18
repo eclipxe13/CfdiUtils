@@ -2,8 +2,8 @@
 
 namespace CfdiUtilsTests\Certificado;
 
+use Eclipxe\XmlResourceRetriever\Downloader\DownloaderInterface;
 use Exception;
-use XmlResourceRetriever\Downloader\DownloaderInterface;
 
 /**
  * This class is a wrapper around PhpDownloader to retry the download if it fails (for any reason).
@@ -17,7 +17,7 @@ final class CertificateDownloaderHelper implements DownloaderInterface
 {
     public const MAX_DOWNLOAD_ATTEMPTS = 8;
 
-    public function downloadTo(string $source, string $destination)
+    public function downloadTo(string $source, string $destination): void
     {
         $attempt = 1;
         while (true) {
@@ -34,7 +34,7 @@ final class CertificateDownloaderHelper implements DownloaderInterface
         }
     }
 
-    private function realDownloadTo(string $source, string $destination)
+    private function realDownloadTo(string $source, string $destination): void
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $source);

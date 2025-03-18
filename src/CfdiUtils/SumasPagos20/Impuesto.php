@@ -6,38 +6,14 @@ use JsonSerializable;
 
 final class Impuesto implements JsonSerializable
 {
-    /** @var string */
-    private $tipo;
-
-    /** @var string */
-    private $impuesto;
-
-    /** @var string */
-    private $tipoFactor;
-
-    /** @var string */
-    private $tasaCuota;
-
-    /** @var Decimal */
-    private $base;
-
-    /** @var Decimal */
-    private $importe;
-
     public function __construct(
-        string $tipo,
-        string $impuesto,
-        string $tipoFactor,
-        string $tasaCuota,
-        Decimal $base,
-        Decimal $importe
+        private string $tipo,
+        private string $impuesto,
+        private string $tipoFactor,
+        private string $tasaCuota,
+        private Decimal $base,
+        private Decimal $importe,
     ) {
-        $this->tipo = $tipo;
-        $this->impuesto = $impuesto;
-        $this->tipoFactor = $tipoFactor;
-        $this->tasaCuota = $tasaCuota;
-        $this->base = $base;
-        $this->importe = $importe;
     }
 
     public static function buildKey(string $tipo, string $impuesto, string $tipoFactor, string $tasaCuota): string

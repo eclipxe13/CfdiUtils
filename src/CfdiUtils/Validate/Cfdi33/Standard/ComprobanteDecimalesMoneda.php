@@ -21,13 +21,11 @@ use CfdiUtils\Validate\Status;
  */
 class ComprobanteDecimalesMoneda extends AbstractDiscoverableVersion33
 {
-    /** @var Asserts */
-    private $asserts;
+    private ?Asserts $asserts = null;
 
-    /** @var CurrencyDecimals */
-    private $currency;
+    private ?CurrencyDecimals $currency = null;
 
-    private function registerAsserts()
+    private function registerAsserts(): void
     {
         $asserts = [
             'MONDEC01' => 'El subtotal del comprobante no contiene más de los decimales de la moneda (CFDI33106)',
@@ -41,7 +39,7 @@ class ComprobanteDecimalesMoneda extends AbstractDiscoverableVersion33
         }
     }
 
-    public function validate(NodeInterface $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts): void
     {
         $this->asserts = $asserts;
         $this->registerAsserts();
@@ -80,7 +78,7 @@ class ComprobanteDecimalesMoneda extends AbstractDiscoverableVersion33
 
     private function checkValue(NodeInterface $node, string $attribute, bool $required): bool
     {
-        if ($required && ! $node->offsetExists($attribute)) {
+        if ($required && ! $node->exists($attribute)) {
             return false;
         }
         return $this->currency->doesNotExceedDecimals($node[$attribute]);

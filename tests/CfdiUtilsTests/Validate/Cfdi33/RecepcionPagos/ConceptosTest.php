@@ -5,15 +5,15 @@ namespace CfdiUtilsTests\Validate\Cfdi33\RecepcionPagos;
 use CfdiUtils\Elements\Cfdi33\Concepto;
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Conceptos;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 
 final class ConceptosTest extends ValidateComplementoPagosTestCase
 {
     /** @var Conceptos */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
-    /** @var Concepto */
-    protected $concepto;
+    protected Concepto $concepto;
 
     protected function setUp(): void
     {
@@ -32,14 +32,14 @@ final class ConceptosTest extends ValidateComplementoPagosTestCase
         ]);
     }
 
-    public function testValidCase()
+    public function testValidCase(): void
     {
         $this->runValidate();
 
         $this->assertStatusEqualsCode(Status::ok(), 'PAGCON01');
     }
 
-    public function testConceptosNotExists()
+    public function testConceptosNotExists(): void
     {
         $comprobante = $this->getComprobante();
         $comprobante->children()->remove($comprobante->getConceptos());
@@ -51,7 +51,7 @@ final class ConceptosTest extends ValidateComplementoPagosTestCase
         $this->assertStringContainsString('No se encontró el nodo Conceptos', $assert->getExplanation());
     }
 
-    public function testConceptosZeroChildren()
+    public function testConceptosZeroChildren(): void
     {
         $comprobante = $this->getComprobante();
         $comprobante->getConceptos()->children()->removeAll();
@@ -63,7 +63,7 @@ final class ConceptosTest extends ValidateComplementoPagosTestCase
         $this->assertStringContainsString('Se esperaba encontrar un solo hijo de conceptos', $assert->getExplanation());
     }
 
-    public function testConceptosChildrenMoreThanOne()
+    public function testConceptosChildrenMoreThanOne(): void
     {
         $comprobante = $this->getComprobante();
         $comprobante->addConcepto();
@@ -75,7 +75,7 @@ final class ConceptosTest extends ValidateComplementoPagosTestCase
         $this->assertStringContainsString('Se esperaba encontrar un solo hijo de conceptos', $assert->getExplanation());
     }
 
-    public function testConceptosChildIsNotConcepto()
+    public function testConceptosChildIsNotConcepto(): void
     {
         $comprobante = $this->getComprobante();
         $conceptos = $comprobante->getConceptos();
@@ -89,7 +89,7 @@ final class ConceptosTest extends ValidateComplementoPagosTestCase
         $this->assertStringContainsString('No se encontró el nodo Concepto', $assert->getExplanation());
     }
 
-    public function testConceptoWithChildren()
+    public function testConceptoWithChildren(): void
     {
         $this->concepto->addChild(new Node('cfdi:foo'));
 
@@ -118,11 +118,9 @@ final class ConceptosTest extends ValidateComplementoPagosTestCase
     }
 
     /**
-     * @param string $attribute
-     * @param string|null $value
      * @dataProvider providerConceptoInvalidData
      */
-    public function testConceptoInvalidData(string $attribute, ?string $value)
+    public function testConceptoInvalidData(string $attribute, ?string $value): void
     {
         $this->concepto[$attribute] = $value;
 
@@ -141,10 +139,9 @@ final class ConceptosTest extends ValidateComplementoPagosTestCase
     }
 
     /**
-     * @param string $attribute
      * @dataProvider providerConceptoInvalidDataMustNotExists
      */
-    public function testConceptoInvalidDataMustNotExists(string $attribute)
+    public function testConceptoInvalidDataMustNotExists(string $attribute): void
     {
         $this->concepto[$attribute] = '';
 

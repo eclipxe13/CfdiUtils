@@ -40,7 +40,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
     public function providerFullJoin(array $first, array ...$next): array
     {
-        if (! count($next)) {
+        if ([] === $next) {
             return $first;
         }
         $combine = [];
@@ -50,7 +50,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
                 $combine[] = array_merge($a, $b);
             }
         }
-        if (count($next)) {
+        if ([] !== $next) {
             return $this->providerFullJoin($combine, ...$next);
         }
         return $combine;

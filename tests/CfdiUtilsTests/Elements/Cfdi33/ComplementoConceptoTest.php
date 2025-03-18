@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ComplementoConceptoTest extends TestCase
 {
-    /** @var ComplementoConcepto */
-    public $element;
+    public ComplementoConcepto $element;
 
     public function setUp(): void
     {
@@ -16,7 +15,7 @@ final class ComplementoConceptoTest extends TestCase
         $this->element = new ComplementoConcepto();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('cfdi:ComplementoConcepto', $this->element->getElementName());
     }

@@ -13,8 +13,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class UbicacionTest extends TestCase
 {
-    /** @var Ubicacion */
-    public $element;
+    public Ubicacion $element;
 
     protected function setUp(): void
     {
@@ -22,18 +21,18 @@ final class UbicacionTest extends TestCase
         $this->element = new Ubicacion();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cartaporte:Ubicacion', $this->element->getElementName());
     }
 
-    public function testChildrenOrder()
+    public function testChildrenOrder(): void
     {
         $expected = ['cartaporte:Origen', 'cartaporte:Destino', 'cartaporte:Domicilio'];
         $this->assertSame($expected, $this->element->getChildrenOrder());
     }
 
-    public function testGetOrigen()
+    public function testGetOrigen(): void
     {
         $this->assertCount(0, $this->element->searchNodes('cartaporte:Origen'));
 
@@ -46,7 +45,7 @@ final class UbicacionTest extends TestCase
         $this->assertSame($first, $second);
     }
 
-    public function testAddOrigen()
+    public function testAddOrigen(): void
     {
         // insert first element
         $first = $this->element->addOrigen(['id' => 'first']);
@@ -60,7 +59,7 @@ final class UbicacionTest extends TestCase
         $this->assertSame('second', $first['id']);
     }
 
-    public function testGetDestino()
+    public function testGetDestino(): void
     {
         $this->assertCount(0, $this->element->searchNodes('cartaporte:Destino'));
 
@@ -73,7 +72,7 @@ final class UbicacionTest extends TestCase
         $this->assertSame($first, $second);
     }
 
-    public function testAddDestino()
+    public function testAddDestino(): void
     {
         // insert first element
         $first = $this->element->addDestino(['id' => 'first']);
@@ -87,7 +86,7 @@ final class UbicacionTest extends TestCase
         $this->assertSame('second', $first['id']);
     }
 
-    public function testGetDomicilio()
+    public function testGetDomicilio(): void
     {
         $this->assertCount(0, $this->element->searchNodes('cartaporte:Domicilio'));
 
@@ -100,7 +99,7 @@ final class UbicacionTest extends TestCase
         $this->assertSame($first, $second);
     }
 
-    public function testAddDomicilio()
+    public function testAddDomicilio(): void
     {
         // insert first element
         $first = $this->element->addDomicilio(['id' => 'first']);

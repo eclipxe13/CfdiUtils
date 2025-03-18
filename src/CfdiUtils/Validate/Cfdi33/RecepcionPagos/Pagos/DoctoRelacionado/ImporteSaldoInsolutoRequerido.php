@@ -10,14 +10,14 @@ use CfdiUtils\Nodes\NodeInterface;
  */
 class ImporteSaldoInsolutoRequerido extends AbstractDoctoRelacionadoValidator
 {
-    protected $code = 'PAGO33';
+    protected string $code = 'PAGO33';
 
-    protected $title = 'En un documento relacionado, el saldo insoluto es requerido cuando'
+    protected string $title = 'En un documento relacionado, el saldo insoluto es requerido cuando'
         . ' el tipo de cambio existe o existe más de un documento relacionado (CRP233)';
 
     public function validateDoctoRelacionado(NodeInterface $docto): bool
     {
-        if (! $docto->offsetExists('ImpSaldoInsoluto') && 'PPD' === $docto['MetodoDePagoDR']) {
+        if (! $docto->exists('ImpSaldoInsoluto') && 'PPD' === $docto['MetodoDePagoDR']) {
             throw $this->exception('No hay saldo insoluto y el método de pago es PPD');
         }
 

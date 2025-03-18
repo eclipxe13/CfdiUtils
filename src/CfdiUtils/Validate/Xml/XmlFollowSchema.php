@@ -44,7 +44,7 @@ class XmlFollowSchema implements
         return true;
     }
 
-    public function validate(NodeInterface $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts): void
     {
         $assert = $asserts->put('XSD01', 'El contenido XML sigue los esquemas XSD');
 

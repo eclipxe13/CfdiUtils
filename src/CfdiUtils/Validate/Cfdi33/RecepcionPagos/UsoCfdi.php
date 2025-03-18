@@ -14,7 +14,7 @@ use CfdiUtils\Validate\Status;
  */
 class UsoCfdi extends AbstractRecepcionPagos10
 {
-    public function validateRecepcionPagos(NodeInterface $comprobante, Asserts $asserts)
+    public function validateRecepcionPagos(NodeInterface $comprobante, Asserts $asserts): void
     {
         $assert = $asserts->put('PAGUSO01', 'El uso del CFDI debe ser "P01" (CRP110)');
 

@@ -25,13 +25,6 @@ class Cfdi
 {
     use XmlReaderTrait;
 
-    /**
-     * @var string CFDI 3 namespace definition
-     * @deprecated :3.0.0
-     * @internal Preserve this constant to not break compatibility
-     */
-    public const CFDI_NAMESPACE = 'http://www.sat.gob.mx/cfd/3';
-
     /** @var array<string, string> Dictionary of versions and namespaces  */
     private const CFDI_SPECS = [
         '4.0' => 'http://www.sat.gob.mx/cfd/4',

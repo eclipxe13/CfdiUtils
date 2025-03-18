@@ -4,8 +4,7 @@ namespace CfdiUtils\CadenaOrigen;
 
 trait XsltBuilderPropertyTrait
 {
-    /** @var XsltBuilderInterface|null */
-    private $xsltBuilder;
+    private ?XsltBuilderInterface $xsltBuilder = null;
 
     public function hasXsltBuilder(): bool
     {
@@ -20,7 +19,7 @@ trait XsltBuilderPropertyTrait
         return $this->xsltBuilder;
     }
 
-    public function setXsltBuilder(XsltBuilderInterface $xsltBuilder = null)
+    public function setXsltBuilder(?XsltBuilderInterface $xsltBuilder = null): void
     {
         $this->xsltBuilder = $xsltBuilder;
     }

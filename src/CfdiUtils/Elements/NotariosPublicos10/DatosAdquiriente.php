@@ -14,8 +14,9 @@ class DatosAdquiriente extends AbstractElement
     public function getChildrenOrder(): array
     {
         return [
-        'notariospublicos:DatosUnAdquiriente',
-        'notariospublicos:DatosAdquirientesCopSC'];
+            'notariospublicos:DatosUnAdquiriente',
+            'notariospublicos:DatosAdquirientesCopSC',
+        ];
     }
 
     public function getDatosUnAdquiriente(): DatosUnAdquiriente

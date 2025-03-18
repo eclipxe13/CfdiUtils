@@ -8,7 +8,7 @@ use CfdiUtils\Validate\Status;
 
 trait TimbreFiscalDigital11VersionTestTrait
 {
-    public function testValidCase()
+    public function testValidCase(): void
     {
         $this->comprobante->addChild(new Node('cfdi:Complemento', [], [
             new TimbreFiscalDigital(),
@@ -33,10 +33,9 @@ trait TimbreFiscalDigital11VersionTestTrait
     }
 
     /**
-     * @param string|null $version
      * @dataProvider providerInvalidVersion
      */
-    public function testInvalidCase(?string $version)
+    public function testInvalidCase(?string $version): void
     {
         $tfd = new TimbreFiscalDigital();
         $tfd->addAttributes(['Version' => $version]); // override version
@@ -45,7 +44,7 @@ trait TimbreFiscalDigital11VersionTestTrait
         $this->assertStatusEqualsCode(Status::error(), 'TFDVERSION01');
     }
 
-    public function testNoneCase()
+    public function testNoneCase(): void
     {
         $this->comprobante->addChild(new Node('cfdi:Complemento', [], []));
         $this->runValidate();

@@ -9,7 +9,6 @@ use CfdiUtilsTests\TestCase;
 final class SamplesTest extends TestCase
 {
     /**
-     * @param string $sampleName
      * @testWith ["sample-factura123.xml"]
      *           ["sample-facturador01.xml"]
      *           ["sample-facturador02.xml"]
@@ -19,7 +18,7 @@ final class SamplesTest extends TestCase
      *           ["sample-validacfd04.xml"]
      *           ["sample-validacfd05.xml"]
      */
-    public function testSamplesFiles(string $sampleName)
+    public function testSamplesFiles(string $sampleName): void
     {
         $sampleFile = $this->utilAsset('pagos10/' . $sampleName);
         $this->assertFileExists($sampleFile);
@@ -29,7 +28,7 @@ final class SamplesTest extends TestCase
         // Remove these assertions because we are using manipulated cfdi
         $asserts->removeByCode('SELLO08');
         $errors = $asserts->errors();
-        if (count($errors)) { // display errors!
+        if ([] !== $errors) { // display errors!
             echo PHP_EOL, 'source: ', $sampleName;
             foreach ($asserts->errors() as $error) {
                 echo PHP_EOL, ' *** ', strval($error), ' => ', $error->getExplanation();
@@ -38,7 +37,7 @@ final class SamplesTest extends TestCase
         $this->assertFalse($asserts->hasErrors());
     }
 
-    public function testSamplesWithErrors()
+    public function testSamplesWithErrors(): void
     {
         $sampleFile = $this->utilAsset('pagos10/sample-errors.xml');
         $this->assertFileExists($sampleFile);

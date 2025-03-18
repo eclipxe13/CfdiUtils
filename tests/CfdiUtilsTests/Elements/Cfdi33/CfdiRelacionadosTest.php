@@ -8,8 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 final class CfdiRelacionadosTest extends TestCase
 {
-    /** @var CfdiRelacionados */
-    public $element;
+    public CfdiRelacionados $element;
 
     protected function setUp(): void
     {
@@ -17,12 +16,12 @@ final class CfdiRelacionadosTest extends TestCase
         $this->element = new CfdiRelacionados();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('cfdi:CfdiRelacionados', $this->element->getElementName());
     }
 
-    public function testAddCfdiRelacionado()
+    public function testAddCfdiRelacionado(): void
     {
         // no childs
         $this->assertCount(0, $this->element);

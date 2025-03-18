@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ImportePagadoRequeridoTest extends TestCase
 {
-    public function testValid()
+    public function testValid(): void
     {
         $docto = new DoctoRelacionado([
             'ImpPagado' => '1',
@@ -22,11 +22,10 @@ final class ImportePagadoRequeridoTest extends TestCase
     }
 
     /**
-     * @param string $exchangeRate
      * @testWith ["19.8765"]
      *           [""]
      */
-    public function testInvalidExchangeRate(string $exchangeRate)
+    public function testInvalidExchangeRate(string $exchangeRate): void
     {
         $pago = new Pago();
         $docto = $pago->addDoctoRelacionado([
@@ -41,7 +40,7 @@ final class ImportePagadoRequeridoTest extends TestCase
         $validator->validateDoctoRelacionado($docto);
     }
 
-    public function testInvalidMoreThanOneDocument()
+    public function testInvalidMoreThanOneDocument(): void
     {
         $pago = new Pago();
         $docto = $pago->addDoctoRelacionado();

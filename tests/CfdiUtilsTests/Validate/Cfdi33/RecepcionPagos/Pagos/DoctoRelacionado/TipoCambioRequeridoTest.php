@@ -10,13 +10,10 @@ use PHPUnit\Framework\TestCase;
 final class TipoCambioRequeridoTest extends TestCase
 {
     /**
-     * @param string $currencyPayment
-     * @param string $currencyDocument
-     * @param string|null $exchangeRate
      * @testWith ["USD", "USD", null]
      *           ["MXN", "USD", "19.9876"]
      */
-    public function testValid(string $currencyPayment, string $currencyDocument, ?string $exchangeRate)
+    public function testValid(string $currencyPayment, string $currencyDocument, ?string $exchangeRate): void
     {
         $pago = new Pago([
             'MonedaP' => $currencyPayment,
@@ -33,13 +30,10 @@ final class TipoCambioRequeridoTest extends TestCase
     }
 
     /**
-     * @param string $currencyPayment
-     * @param string $currencyDocument
-     * @param string|null $exchangeRate
      * @testWith ["USD", "USD", "19.9876"]
      *           ["MXN", "USD", null]
      */
-    public function testInvalid(string $currencyPayment, string $currencyDocument, ?string $exchangeRate)
+    public function testInvalid(string $currencyPayment, string $currencyDocument, ?string $exchangeRate): void
     {
         $pago = new Pago([
             'MonedaP' => $currencyPayment,

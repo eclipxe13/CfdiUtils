@@ -12,8 +12,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class TransporteFerroviarioTest extends TestCase
 {
-    /** @var TransporteFerroviario */
-    public $element;
+    public TransporteFerroviario $element;
 
     protected function setUp(): void
     {
@@ -21,12 +20,12 @@ final class TransporteFerroviarioTest extends TestCase
         $this->element = new TransporteFerroviario();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cartaporte:TransporteFerroviario', $this->element->getElementName());
     }
 
-    public function testAddDerechosDePaso()
+    public function testAddDerechosDePaso(): void
     {
         // insert first element
         $first = $this->element->addDerechosDePaso(['id' => 'first']);
@@ -40,7 +39,7 @@ final class TransporteFerroviarioTest extends TestCase
         $this->assertCount(2, $this->element);
     }
 
-    public function testMultiDerechosDePaso()
+    public function testMultiDerechosDePaso(): void
     {
         // insert first element
         $derechosDePaso = $this->element->multiDerechosDePaso(
@@ -51,7 +50,7 @@ final class TransporteFerroviarioTest extends TestCase
         $this->assertSame($this->element, $derechosDePaso);
     }
 
-    public function testAddCarro()
+    public function testAddCarro(): void
     {
         // insert first element
         $first = $this->element->addCarro(['id' => 'first']);
@@ -65,7 +64,7 @@ final class TransporteFerroviarioTest extends TestCase
         $this->assertCount(2, $this->element);
     }
 
-    public function testMultiCarro()
+    public function testMultiCarro(): void
     {
         // insert first element
         $carros = $this->element->multiCarro(

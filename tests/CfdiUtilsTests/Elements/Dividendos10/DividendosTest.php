@@ -9,8 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class DividendosTest extends TestCase
 {
-    /** @var Dividendos */
-    public $element;
+    public Dividendos $element;
 
     protected function setUp(): void
     {
@@ -18,12 +17,12 @@ final class DividendosTest extends TestCase
         $this->element = new Dividendos();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('dividendos:Dividendos', $this->element->getElementName());
     }
 
-    public function testGetDividOUtil()
+    public function testGetDividOUtil(): void
     {
         $this->assertNull($this->element->searchNode('dividendos:DividOUtil'));
         $child = $this->element->getDividOUtil();
@@ -31,7 +30,7 @@ final class DividendosTest extends TestCase
         $this->assertSame($child, $this->element->searchNode('dividendos:DividOUtil'));
     }
 
-    public function testAddDividOUtil()
+    public function testAddDividOUtil(): void
     {
         $first = $this->element->addDividOUtil(['Rfc' => 'FOO']);
         $this->assertInstanceOf(DividOUtil::class, $first);
@@ -42,7 +41,7 @@ final class DividendosTest extends TestCase
         $this->assertSame('BAR', $first['Rfc']);
     }
 
-    public function testGetRemanente()
+    public function testGetRemanente(): void
     {
         $this->assertNull($this->element->searchNode('dividendos:Remanente'));
         $child = $this->element->getRemanente();
@@ -50,7 +49,7 @@ final class DividendosTest extends TestCase
         $this->assertSame($child, $this->element->searchNode('dividendos:Remanente'));
     }
 
-    public function testAddRemanente()
+    public function testAddRemanente(): void
     {
         $first = $this->element->addRemanente(['Rfc' => 'BAZ']);
         $this->assertInstanceOf(Remanente::class, $first);
@@ -61,7 +60,7 @@ final class DividendosTest extends TestCase
         $this->assertSame('BAR', $first['Rfc']);
     }
 
-    public function testHasFixedAttributes()
+    public function testHasFixedAttributes(): void
     {
         $namespace = 'http://www.sat.gob.mx/esquemas/retencionpago/1/dividendos';
         $this->assertSame('1.0', $this->element['Version']);
@@ -69,7 +68,7 @@ final class DividendosTest extends TestCase
         $this->assertStringStartsWith($namespace . ' http://', $this->element['xsi:schemaLocation']);
     }
 
-    public function testChildrenOrder()
+    public function testChildrenOrder(): void
     {
         // add in inverse order
         $this->element->getRemanente();

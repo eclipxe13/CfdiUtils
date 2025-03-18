@@ -7,7 +7,7 @@ use CfdiUtilsTests\TestCase;
 
 final class NodeTest extends TestCase
 {
-    public function testConstructWithoutArguments()
+    public function testConstructWithoutArguments(): void
     {
         $node = new Node('name');
         $this->assertSame('name', $node->name());
@@ -16,7 +16,7 @@ final class NodeTest extends TestCase
         $this->assertSame('', $node->value());
     }
 
-    public function testConstructWithArguments()
+    public function testConstructWithArguments(): void
     {
         $dummyNode = new Node('dummy');
         $attributes = ['foo' => 'bar'];
@@ -28,21 +28,21 @@ final class NodeTest extends TestCase
         $this->assertSame($value, $node->value());
     }
 
-    public function testConstructWithEmptyName()
+    public function testConstructWithEmptyName(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('invalid xml name');
         new Node('');
     }
 
-    public function testConstructWithUntrimmedEmptyName()
+    public function testConstructWithUntrimmedEmptyName(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('invalid xml name');
         new Node("\n  \t  \n");
     }
 
-    public function testConstructWithUntrimmedName()
+    public function testConstructWithUntrimmedName(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('invalid xml name');
@@ -50,7 +50,7 @@ final class NodeTest extends TestCase
         new Node(' x ');
     }
 
-    public function testSearchAttribute()
+    public function testSearchAttribute(): void
     {
         $node = new Node('root', ['level' => '1'], [
             new Node('child', ['level' => '2'], [
@@ -67,7 +67,7 @@ final class NodeTest extends TestCase
         $this->assertSame('', $node->searchAttribute('not-found-attribute'));
     }
 
-    public function testSearchNode()
+    public function testSearchNode(): void
     {
         $grandChildOne = new Node('grandchild', ['level' => '3.1']);
         $grandChildTwo = new Node('grandchild', ['level' => '3.2']);
@@ -83,7 +83,7 @@ final class NodeTest extends TestCase
         $this->assertNull($root->searchNode('not-found'));
     }
 
-    public function testSearchNodes()
+    public function testSearchNodes(): void
     {
         $grandChildOne = new Node('grandchild', ['level' => '3.1']);
         $grandChildTwo = new Node('grandchild', ['level' => '3.2']);
@@ -104,7 +104,7 @@ final class NodeTest extends TestCase
         $this->assertCount(0, $root->searchNodes('not-found'));
     }
 
-    public function testArrayAccessToAttributes()
+    public function testArrayAccessToAttributes(): void
     {
         $node = new Node('x');
         $node['id'] = 'form';
@@ -120,7 +120,7 @@ final class NodeTest extends TestCase
         $this->assertSame('', $node['id']);
     }
 
-    public function testValueProperty()
+    public function testValueProperty(): void
     {
         $node = new Node('x');
 

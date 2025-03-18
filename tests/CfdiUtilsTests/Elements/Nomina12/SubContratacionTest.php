@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class SubContratacionTest extends TestCase
 {
-    /** @var SubContratacion */
-    public $element;
+    public SubContratacion $element;
 
     protected function setUp(): void
     {
@@ -19,7 +18,7 @@ final class SubContratacionTest extends TestCase
         $this->element = new SubContratacion();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('nomina12:SubContratacion', $this->element->getElementName());
     }

@@ -8,7 +8,7 @@ use CfdiUtilsTests\TestCase;
 
 final class RequestParametersTest extends TestCase
 {
-    public function testConstructorAndGetters()
+    public function testConstructorAndGetters(): void
     {
         $parameters = new RequestParameters(
             '3.3',
@@ -51,7 +51,7 @@ final class RequestParametersTest extends TestCase
         $this->assertSame($expected32, $parameters->expression());
     }
 
-    public function testConstructorWithWrongVersion()
+    public function testConstructorWithWrongVersion(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('version');
@@ -66,7 +66,7 @@ final class RequestParametersTest extends TestCase
         );
     }
 
-    public function testCreateFromCfdiVersion32()
+    public function testCreateFromCfdiVersion32(): void
     {
         $cfdi = Cfdi::newFromString(strval(file_get_contents($this->utilAsset('cfdi32-real.xml'))));
         $parameters = RequestParameters::createFromCfdi($cfdi);
@@ -79,7 +79,7 @@ final class RequestParametersTest extends TestCase
         $this->assertEqualsWithDelta(4685.00, $parameters->getTotalFloat(), 0.001);
     }
 
-    public function testCreateFromCfdiVersion33()
+    public function testCreateFromCfdiVersion33(): void
     {
         $cfdi = Cfdi::newFromString(strval(file_get_contents($this->utilAsset('cfdi33-real.xml'))));
         $parameters = RequestParameters::createFromCfdi($cfdi);
@@ -92,7 +92,7 @@ final class RequestParametersTest extends TestCase
         $this->assertEqualsWithDelta(2010.01, $parameters->getTotalFloat(), 0.001);
     }
 
-    public function testCreateFromCfdiVersion40()
+    public function testCreateFromCfdiVersion40(): void
     {
         $cfdi = Cfdi::newFromString(strval(file_get_contents($this->utilAsset('cfdi40-real.xml'))));
         $parameters = RequestParameters::createFromCfdi($cfdi);
@@ -106,8 +106,6 @@ final class RequestParametersTest extends TestCase
     }
 
     /**
-     * @param string $total
-     * @param string $expected
      *
      * @testWith ["9.123456", "9.123456"]
      *           ["0.123456", "0.123456"]
@@ -117,7 +115,7 @@ final class RequestParametersTest extends TestCase
      *           ["0", "0.0"]
      *           ["0.1234567", "0.123457"]
      */
-    public function testExpressionTotalExamples(string $total, string $expected)
+    public function testExpressionTotalExamples(string $total, string $expected): void
     {
         $parameters = new RequestParameters(
             '3.3',
@@ -131,7 +129,7 @@ final class RequestParametersTest extends TestCase
         $this->assertStringContainsString('&tt=' . $expected . '&', $parameters->expression());
     }
 
-    public function testRfcWithAmpersand()
+    public function testRfcWithAmpersand(): void
     {
         /*
          * This is not an error. SAT is using XML encoding on URL instead of URL encoding,

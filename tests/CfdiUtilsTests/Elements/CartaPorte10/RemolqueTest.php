@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class RemolqueTest extends TestCase
 {
-    /** @var Remolque */
-    public $element;
+    public Remolque $element;
 
     protected function setUp(): void
     {
@@ -19,7 +18,7 @@ final class RemolqueTest extends TestCase
         $this->element = new Remolque();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cartaporte:Remolque', $this->element->getElementName());
     }

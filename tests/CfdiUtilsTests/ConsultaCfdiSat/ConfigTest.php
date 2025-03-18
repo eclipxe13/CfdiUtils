@@ -7,7 +7,7 @@ use CfdiUtilsTests\TestCase;
 
 final class ConfigTest extends TestCase
 {
-    public function testConstructorDefaultValues()
+    public function testConstructorDefaultValues(): void
     {
         $config = new Config();
         $this->assertSame(10, $config->getTimeout());
@@ -15,7 +15,7 @@ final class ConfigTest extends TestCase
         $this->assertSame($config::DEFAULT_SERVICE_URL, $config->getServiceUrl());
     }
 
-    public function testConstructorWithOtherData()
+    public function testConstructorWithOtherData(): void
     {
         $config = new Config(99, false, 'foo');
         $this->assertSame(99, $config->getTimeout());

@@ -9,9 +9,10 @@ use CfdiUtils\Nodes\NodeInterface;
  */
 class ImporteSaldoAnteriorValor extends AbstractDoctoRelacionadoValidator
 {
-    protected $code = 'PAGO26';
+    protected string $code = 'PAGO26';
 
-    protected $title = 'En un documento relacionado, el importe del saldo anterior debe ser mayor a cero (CRP221)';
+    protected string $title = 'En un documento relacionado, el importe del saldo anterior'
+        . ' debe ser mayor a cero (CRP221)';
 
     public function validateDoctoRelacionado(NodeInterface $docto): bool
     {

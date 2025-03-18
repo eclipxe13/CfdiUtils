@@ -14,8 +14,8 @@ class Pagos extends AbstractElement
     public function getChildrenOrder(): array
     {
         return [
-        'pago20:Totales',
-        'pago20:Pago',
+            'pago20:Totales',
+            'pago20:Pago',
         ];
     }
 

@@ -8,8 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 final class MercanciaTest extends TestCase
 {
-    /** @var Mercancia */
-    public $element;
+    public Mercancia $element;
 
     protected function setUp(): void
     {
@@ -17,12 +16,12 @@ final class MercanciaTest extends TestCase
         $this->element = new Mercancia();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cce11:Mercancia', $this->element->getElementName());
     }
 
-    public function testDescripcionesEspecificas()
+    public function testDescripcionesEspecificas(): void
     {
         // object is empty
         $this->assertCount(0, $this->element);

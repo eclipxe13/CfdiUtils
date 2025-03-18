@@ -8,8 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 final class DestinatarioTest extends TestCase
 {
-    /** @var Destinatario */
-    public $element;
+    public Destinatario $element;
 
     protected function setUp(): void
     {
@@ -17,12 +16,12 @@ final class DestinatarioTest extends TestCase
         $this->element = new Destinatario();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cce11:Destinatario', $this->element->getElementName());
     }
 
-    public function testDomicilio()
+    public function testDomicilio(): void
     {
         // object is empty
         $this->assertCount(0, $this->element);

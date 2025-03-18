@@ -4,24 +4,12 @@ namespace CfdiUtils\OpenSSL;
 
 class CallResponse
 {
-    /** @var string */
-    private $commandLine;
-
-    /** @var string */
-    private $output;
-
-    /** @var string */
-    private $errors;
-
-    /** @var int */
-    private $exitStatus;
-
-    public function __construct(string $commandLine, string $output, string $errors, int $exitStatus)
-    {
-        $this->commandLine = $commandLine;
-        $this->output = $output;
-        $this->errors = $errors;
-        $this->exitStatus = $exitStatus;
+    public function __construct(
+        private string $commandLine,
+        private string $output,
+        private string $errors,
+        private int $exitStatus,
+    ) {
     }
 
     public function commandLine(): string

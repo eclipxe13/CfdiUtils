@@ -10,11 +10,10 @@ use PHPUnit\Framework\TestCase;
 final class MontoGreaterThanZeroTest extends TestCase
 {
     /**
-     * @param string $amount
      * @testWith ["0.000001"]
      *           ["1"]
      */
-    public function testValid(string $amount)
+    public function testValid(string $amount): void
     {
         $pago = new Pago([
             'Monto' => $amount,
@@ -24,7 +23,6 @@ final class MontoGreaterThanZeroTest extends TestCase
     }
 
     /**
-     * @param string|null $amount
      * @testWith ["0.0000001"]
      *           ["0"]
      *           ["-1"]
@@ -32,7 +30,7 @@ final class MontoGreaterThanZeroTest extends TestCase
      *           [""]
      *           ["not numeric"]
      */
-    public function testPagoMontoGreaterThanZeroInvalid(?string $amount)
+    public function testPagoMontoGreaterThanZeroInvalid(?string $amount): void
     {
         $pago = new Pago([
             'Monto' => $amount,

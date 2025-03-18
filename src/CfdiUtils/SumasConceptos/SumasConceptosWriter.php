@@ -10,30 +10,20 @@ use InvalidArgumentException;
 class SumasConceptosWriter
 {
     /** @var Comprobante33|Comprobante40 */
-    private $comprobante;
+    private NodeInterface $comprobante;
 
-    /** @var SumasConceptos */
-    private $sumas;
+    private ?bool $writeImpuestoBase = null;
 
-    /** @var int */
-    private $precision;
-
-    /** @var bool */
-    private $writeImpuestoBase;
-
-    /** @var bool */
-    private $writeExentos;
+    private ?bool $writeExentos = null;
 
     /**
      * Writer constructor.
      * @param Comprobante33|Comprobante40 $comprobante
-     * @param SumasConceptos $sumas
-     * @param int $precision
      */
     public function __construct(
         NodeInterface $comprobante,
-        SumasConceptos $sumas,
-        int $precision = 6
+        private SumasConceptos $sumas,
+        private int $precision = 6,
     ) {
         if ($comprobante instanceof Comprobante33) {
             $this->writeImpuestoBase = false;
@@ -47,11 +37,9 @@ class SumasConceptosWriter
             );
         }
         $this->comprobante = $comprobante;
-        $this->sumas = $sumas;
-        $this->precision = $precision;
     }
 
-    public function put()
+    public function put(): void
     {
         $this->putComprobanteSumas();
         $this->putImpuestosNode();
@@ -132,9 +120,7 @@ class SumasConceptosWriter
         foreach ($impuestos as $impuesto) {
             $impuesto['Base'] = ($hasBase) ? $this->format($impuesto['Base'] ?? 0) : null;
             $impuesto['Importe'] = ($hasImporte) ? $this->format($impuesto['Importe']) : null;
-            $return[] = array_filter($impuesto, function ($value): bool {
-                return null !== $value;
-            });
+            $return[] = array_filter($impuesto, fn ($value): bool => null !== $value);
         }
         return $return;
     }
@@ -150,7 +136,7 @@ class SumasConceptosWriter
     }
 
     /** @return Comprobante33|Comprobante40 */
-    public function getComprobante()
+    public function getComprobante(): NodeInterface
     {
         return $this->comprobante;
     }

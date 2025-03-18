@@ -11,8 +11,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class RemolquesTest extends TestCase
 {
-    /** @var Remolques */
-    public $element;
+    public Remolques $element;
 
     protected function setUp(): void
     {
@@ -20,12 +19,12 @@ final class RemolquesTest extends TestCase
         $this->element = new Remolques();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cartaporte:Remolques', $this->element->getElementName());
     }
 
-    public function testAddRemolque()
+    public function testAddRemolque(): void
     {
         // insert first element
         $first = $this->element->addRemolque(['id' => 'first']);
@@ -39,7 +38,7 @@ final class RemolquesTest extends TestCase
         $this->assertCount(2, $this->element);
     }
 
-    public function testMultiRemolque()
+    public function testMultiRemolque(): void
     {
         // insert first element
         $remolque = $this->element->multiRemolque(

@@ -23,14 +23,13 @@ class RetencionesCreator10 implements
     use XmlResolverPropertyTrait;
     use XsltBuilderPropertyTrait;
 
-    /** @var Retenciones */
-    private $retenciones;
+    private Retenciones $retenciones;
 
     public function __construct(
         array $retencionesAttributes = [],
-        XmlResolver $xmlResolver = null,
-        XsltBuilderInterface $xsltBuilder = null,
-        Certificado $certificado = null
+        ?XmlResolver $xmlResolver = null,
+        ?XsltBuilderInterface $xsltBuilder = null,
+        ?Certificado $certificado = null,
     ) {
         $this->retenciones = new Retenciones();
         $this->retencionesCreatorConstructor($retencionesAttributes, $certificado, $xmlResolver, $xsltBuilder);
@@ -42,7 +41,7 @@ class RetencionesCreator10 implements
         return $this->retenciones;
     }
 
-    public function putCertificado(Certificado $certificado)
+    public function putCertificado(Certificado $certificado): void
     {
         $this->setCertificado($certificado);
         $this->retenciones['NumCert'] = $certificado->getSerial();
@@ -51,15 +50,9 @@ class RetencionesCreator10 implements
 
     public function buildCadenaDeOrigen(): string
     {
-        if (! $this->hasXmlResolver()) {
-            throw new \LogicException('Cannot build the cadena de origen since there is no xml resolver');
-        }
-        $xmlResolver = $this->getXmlResolver();
-        $xsltLocation = $xmlResolver->resolve(
-            'http://www.sat.gob.mx/esquemas/retencionpago/1/retenciones.xslt',
-            $xmlResolver::TYPE_XSLT
+        return $this->buildCadenaDeOrigenFromXsltLocation(
+            'http://www.sat.gob.mx/esquemas/retencionpago/1/retenciones.xslt'
         );
-        return $this->getXsltBuilder()->build($this->asXml(), $xsltLocation);
     }
 
     /** @internal This function is required by RetencionesCreatorTrait::addSello */

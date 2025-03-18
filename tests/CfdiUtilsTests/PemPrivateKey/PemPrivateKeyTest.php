@@ -26,30 +26,29 @@ final class PemPrivateKeyTest extends TestCase
     }
 
     /**
-     * @param string $key
      * @dataProvider providerConstructWithBadArgument
      */
-    public function testConstructWithBadArgument(string $key)
+    public function testConstructWithBadArgument(string $key): void
     {
         $this->expectException(\UnexpectedValueException::class);
         new PemPrivateKey($key);
     }
 
-    public function testConstructWithKeyFile()
+    public function testConstructWithKeyFile(): void
     {
         $keyfile = $this->utilAsset('certs/EKU9003173C9.key.pem');
         $privateKey = new PemPrivateKey('file://' . $keyfile);
         $this->assertInstanceOf(PemPrivateKey::class, $privateKey);
     }
 
-    public function testConstructWithKeyContents()
+    public function testConstructWithKeyContents(): void
     {
         $keyfile = $this->utilAsset('certs/EKU9003173C9.key.pem');
         $privateKey = new PemPrivateKey(strval(file_get_contents($keyfile)));
         $this->assertInstanceOf(PemPrivateKey::class, $privateKey);
     }
 
-    public function testOpenAndClose()
+    public function testOpenAndClose(): void
     {
         $passPhrase = '';
         $keyfile = $this->utilAsset('certs/EKU9003173C9.key.pem');
@@ -61,14 +60,14 @@ final class PemPrivateKeyTest extends TestCase
         $this->assertFalse($privateKey->isOpen());
     }
 
-    public function testOpenWithBadKey()
+    public function testOpenWithBadKey(): void
     {
         $keyContents = "-----BEGIN PRIVATE KEY-----\nXXXXX\n-----END PRIVATE KEY-----";
         $privateKey = new PemPrivateKey($keyContents);
         $this->assertFalse($privateKey->open(''));
     }
 
-    public function testOpenWithIncorrectPassPhrase()
+    public function testOpenWithIncorrectPassPhrase(): void
     {
         $passPhrase = 'dummy password';
         $keyfile = $this->utilAsset('certs/EKU9003173C9_password.key.pem');
@@ -77,7 +76,7 @@ final class PemPrivateKeyTest extends TestCase
         $this->assertFalse($privateKey->isOpen());
     }
 
-    public function testOpenWithCorrectPassPhrase()
+    public function testOpenWithCorrectPassPhrase(): void
     {
         $passPhrase = '12345678a';
         $keyfile = $this->utilAsset('certs/EKU9003173C9_password.key.pem');
@@ -86,7 +85,7 @@ final class PemPrivateKeyTest extends TestCase
         $this->assertTrue($privateKey->isOpen());
     }
 
-    public function testCloneOpenKey()
+    public function testCloneOpenKey(): void
     {
         $keyfile = $this->utilAsset('certs/EKU9003173C9.key.pem');
         $privateKey = new PemPrivateKey(strval(file_get_contents($keyfile)));
@@ -97,7 +96,7 @@ final class PemPrivateKeyTest extends TestCase
         $this->assertTrue($cloned->open(''));
     }
 
-    public function testSerializeOpenKey()
+    public function testSerializeOpenKey(): void
     {
         $keyfile = $this->utilAsset('certs/EKU9003173C9.key.pem');
         $privateKey = new PemPrivateKey(strval(file_get_contents($keyfile)));
@@ -109,7 +108,7 @@ final class PemPrivateKeyTest extends TestCase
         $this->assertTrue($serialized->open(''));
     }
 
-    public function testSignWithClosedKey()
+    public function testSignWithClosedKey(): void
     {
         $keyfile = $this->utilAsset('certs/EKU9003173C9.key.pem');
         $privateKey = new PemPrivateKey(strval(file_get_contents($keyfile)));
@@ -119,7 +118,7 @@ final class PemPrivateKeyTest extends TestCase
         $privateKey->sign('');
     }
 
-    public function testSign()
+    public function testSign(): void
     {
         // this signature was createrd using the following command:
         // echo -n lorem ipsum | openssl dgst -sha256 -sign EKU9003173C9.key.pem -out - | base64 -w 80
@@ -140,7 +139,7 @@ final class PemPrivateKeyTest extends TestCase
         $this->assertEquals($expectedSign, rtrim($sign));
     }
 
-    public function testBelongsToWithClosedKey()
+    public function testBelongsToWithClosedKey(): void
     {
         $keyfile = $this->utilAsset('certs/EKU9003173C9.key.pem');
         $privateKey = new PemPrivateKey(strval(file_get_contents($keyfile)));
@@ -150,7 +149,7 @@ final class PemPrivateKeyTest extends TestCase
         $privateKey->belongsTo('');
     }
 
-    public function testBelongsTo()
+    public function testBelongsTo(): void
     {
         $cerfile = $this->utilAsset('certs/EKU9003173C9.cer');
         $keyfile = $this->utilAsset('certs/EKU9003173C9.key.pem');

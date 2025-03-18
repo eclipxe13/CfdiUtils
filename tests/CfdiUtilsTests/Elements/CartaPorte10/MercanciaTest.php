@@ -12,8 +12,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class MercanciaTest extends TestCase
 {
-    /** @var Mercancia */
-    public $element;
+    public Mercancia $element;
 
     protected function setUp(): void
     {
@@ -21,12 +20,12 @@ final class MercanciaTest extends TestCase
         $this->element = new Mercancia();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cartaporte:Mercancia', $this->element->getElementName());
     }
 
-    public function testAddCantidadTransporta()
+    public function testAddCantidadTransporta(): void
     {
         // insert first element
         $first = $this->element->addCantidadTransporta(['id' => 'first']);
@@ -40,7 +39,7 @@ final class MercanciaTest extends TestCase
         $this->assertCount(2, $this->element);
     }
 
-    public function testMultiCantidadTransporta()
+    public function testMultiCantidadTransporta(): void
     {
         // insert first element
         $cantidadTransportaNodes = $this->element->multiCantidadTransporta(
@@ -51,7 +50,7 @@ final class MercanciaTest extends TestCase
         $this->assertSame($this->element, $cantidadTransportaNodes);
     }
 
-    public function testGetDetalleMercancia()
+    public function testGetDetalleMercancia(): void
     {
         $this->assertCount(0, $this->element->searchNodes('cartaporte:DetalleMercancia'));
 
@@ -64,7 +63,7 @@ final class MercanciaTest extends TestCase
         $this->assertSame($first, $second);
     }
 
-    public function testAddDetalleMercancia()
+    public function testAddDetalleMercancia(): void
     {
         // insert first element
         $first = $this->element->addDetalleMercancia(['id' => 'first']);

@@ -8,12 +8,12 @@ use CfdiUtilsTests\TestCase;
 
 final class RemoveDuplicatedCfdi3NamespaceTest extends TestCase
 {
-    public function testImplementsBeforeLoadCleanerInterface()
+    public function testImplementsBeforeLoadCleanerInterface(): void
     {
         $this->assertInstanceOf(BeforeLoadCleanerInterface::class, new RemoveDuplicatedCfdi3Namespace());
     }
 
-    public function testCleanWithValue()
+    public function testCleanWithValue(): void
     {
         $sample = '<cfdi:Comprobante xmlns="http://www.sat.gob.mx/cfd/3"'
             . ' xmlns:cfdi="http://www.sat.gob.mx/cfd/3"/>';

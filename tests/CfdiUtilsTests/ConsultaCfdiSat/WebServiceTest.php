@@ -10,7 +10,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 final class WebServiceTest extends TestCase
 {
-    public function testConstructWithNoConfig()
+    public function testConstructWithNoConfig(): void
     {
         $config = new Config();
         $ws = new WebService();
@@ -18,7 +18,7 @@ final class WebServiceTest extends TestCase
         $this->assertNotSame($config, $ws->getConfig());
     }
 
-    public function testConstructWithConfig()
+    public function testConstructWithConfig(): void
     {
         $config = new Config(60, false);
         $ws = new WebService($config);
@@ -48,15 +48,13 @@ final class WebServiceTest extends TestCase
     }
 
     /**
-     * @param \stdClass|null $rawResponse
-     * @param string $expectedMessage
      * @dataProvider providerRequestWithBadRawResponse
      */
-    public function testRequestWithBadRawResponse(?\stdClass $rawResponse, string $expectedMessage)
+    public function testRequestWithBadRawResponse(?\stdClass $rawResponse, string $expectedMessage): void
     {
         /** @var WebService&MockObject $webService */
         $webService = $this->getMockBuilder(WebService::class)
-            ->setMethodsExcept(['request'])
+            ->setMethodsExcept(['request', 'requestExpression'])
             ->setMethods(['doRequestConsulta'])
             ->getMock();
         // expects once as constraint because maybe $expectedMessage is empty

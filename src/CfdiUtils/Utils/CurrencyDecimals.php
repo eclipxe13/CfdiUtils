@@ -4,11 +4,9 @@ namespace CfdiUtils\Utils;
 
 class CurrencyDecimals
 {
-    /** @var string */
-    private $currency;
+    private string $currency;
 
-    /** @var int */
-    private $decimals;
+    private int $decimals;
 
     public function __construct(string $currency, int $decimals)
     {
@@ -48,7 +46,7 @@ class CurrencyDecimals
         return strlen(pathinfo($value, PATHINFO_EXTENSION));
     }
 
-    public static function newFromKnownCurrencies(string $currency, int $default = null): self
+    public static function newFromKnownCurrencies(string $currency, ?int $default = null): self
     {
         $decimals = static::knownCurrencyDecimals($currency);
         if ($decimals < 0) {

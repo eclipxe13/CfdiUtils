@@ -22,7 +22,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2 # see https://github.com/marketplace/actions/setup-php-action
+        uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
           coverage: none
@@ -39,7 +39,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2 # see https://github.com/marketplace/actions/setup-php-action
+        uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
           coverage: none
@@ -98,9 +98,7 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
           restore-keys: ${{ runner.os }}-composer-
       - name: Install project dependencies
-        run: |
-          composer remove squizlabs/php_codesniffer friendsofphp/php-cs-fixer phpstan/phpstan --dev --no-interaction --no-progress --no-update
-          composer upgrade --no-interaction --no-progress --prefer-dist
+        run: composer upgrade --no-interaction --no-progress --prefer-dist
       - name: PHPStan
         run: phpstan analyse --no-progress --verbose
 
@@ -109,7 +107,7 @@ jobs:
     runs-on: "ubuntu-latest"
     strategy:
       matrix:
-        php-version: [ '7.3', '7.4', '8.0', '8.1', '8.2', '8.3' ]
+        php-version: [ '8.0', '8.1', '8.2', '8.3', '8.4' ]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -146,10 +144,11 @@ jobs:
           git clone --depth 1 https://github.com/phpcfdi/resources-sat-xml resources-sat-xml-cloned
           mv resources-sat-xml-cloned/resources build/resources
           rm -r -f resources-sat-xml-cloned
+      - name: Remove genkgo/xsl on PHP 8.4
+        if: matrix.php-version == '8.4'
+        run: composer remove genkgo/xsl --dev --no-interaction --no-progress --no-update
       - name: Install project dependencies
-        run: |
-          composer remove squizlabs/php_codesniffer friendsofphp/php-cs-fixer phpstan/phpstan --dev --no-interaction --no-progress --no-update
-          composer upgrade --no-interaction --no-progress --prefer-dist
+        run: composer upgrade --no-interaction --no-progress --prefer-dist
       - name: Tests (phpunit) on linux
         run: vendor/bin/phpunit --testdox --verbose --coverage-clover=build/coverage-clover.xml
       - name: Upload code coverage to scrutinizer
@@ -163,7 +162,7 @@ jobs:
     runs-on: "windows-latest"
     strategy:
       matrix:
-        php-version: [ '7.3', '7.4', '8.0', '8.1', '8.2', '8.3' ]
+        php-version: [ '8.0', '8.1', '8.2', '8.3', '8.4' ]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -194,10 +193,11 @@ jobs:
           git clone --depth 1 https://github.com/phpcfdi/resources-sat-xml resources-sat-xml-cloned
           mv resources-sat-xml-cloned/resources build/resources
           rm -r -f resources-sat-xml-cloned
+      - name: Remove genkgo/xsl on PHP 8.4
+        if: matrix.php-version == '8.4'
+        run: composer remove genkgo/xsl --dev --no-interaction --no-progress --no-update
       - name: Install project dependencies
-        run: |
-          composer remove squizlabs/php_codesniffer friendsofphp/php-cs-fixer phpstan/phpstan --dev --no-interaction --no-progress --no-update
-          composer upgrade --no-interaction --no-progress --prefer-dist
+        run: composer upgrade --no-interaction --no-progress --prefer-dist
       - name: Tests (phpunit)
         run: vendor/bin/phpunit --testdox --verbose
         env:

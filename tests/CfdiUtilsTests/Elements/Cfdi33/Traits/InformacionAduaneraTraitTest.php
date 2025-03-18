@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class InformacionAduaneraTraitTest extends TestCase
 {
-    public function testAddInformacionAduanera()
+    public function testAddInformacionAduanera(): void
     {
         // no childs
         $node = new UseInformacionAduanera('X');
@@ -25,7 +25,7 @@ final class InformacionAduaneraTraitTest extends TestCase
         $this->assertCount(2, $node);
     }
 
-    public function testMultiInformacionAduanera()
+    public function testMultiInformacionAduanera(): void
     {
         $node = new UseInformacionAduanera('X');
         $this->assertCount(0, $node);

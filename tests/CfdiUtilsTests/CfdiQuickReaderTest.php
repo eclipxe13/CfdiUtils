@@ -7,8 +7,7 @@ use CfdiUtils\QuickReader\QuickReader;
 
 final class CfdiQuickReaderTest extends TestCase
 {
-    /** @var QuickReader */
-    private $comprobante;
+    private QuickReader $comprobante;
 
     protected function setUp(): void
     {
@@ -17,17 +16,17 @@ final class CfdiQuickReaderTest extends TestCase
         $this->comprobante = Cfdi::newFromString($contents)->getQuickReader();
     }
 
-    public function testAccessToAttribute()
+    public function testAccessToAttribute(): void
     {
         $this->assertSame('3.3', $this->comprobante['version']);
     }
 
-    public function testAccessToNestedAttributeFirstLevel()
+    public function testAccessToNestedAttributeFirstLevel(): void
     {
         $this->assertSame('273.46', $this->comprobante->impuestos['totalImpuestosTrasladados']);
     }
 
-    public function testSumIvasInsideTraslados()
+    public function testSumIvasInsideTraslados(): void
     {
         $iva = 0;
         foreach (($this->comprobante->impuestos->traslados)('traslado') as $traslado) {
@@ -39,13 +38,13 @@ final class CfdiQuickReaderTest extends TestCase
         $this->assertEqualsWithDelta(273.46, $iva, 0.001);
     }
 
-    public function testAccessToNestedAttributeSecondLevel()
+    public function testAccessToNestedAttributeSecondLevel(): void
     {
         // the attribute is named originally: TotaldeTraslados
         $this->assertSame('27.43', $this->comprobante->complemento->impuestosLocales['TotalDeTraslados']);
     }
 
-    public function testIterateOverChildren()
+    public function testIterateOverChildren(): void
     {
         $sum = 0;
         /*

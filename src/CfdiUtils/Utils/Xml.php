@@ -33,8 +33,6 @@ class Xml
     /**
      * Creates a DOMDocument object version 1.0 encoding UTF-8
      * with output formatting and not preserving white spaces
-     *
-     * @return DOMDocument
      */
     public static function newDocument(): DOMDocument
     {
@@ -98,18 +96,11 @@ class Xml
     /**
      * This is an alias of DOMDocument::createElement that will replace ampersand '&' with '&amp;'
      * @see https://www.php.net/manual/en/domdocument.createelement.php
-     *
-     * @param DOMDocument $document
-     * @param string $name
-     * @param string $content
-     * @return DOMElement
      */
     public static function createElement(DOMDocument $document, string $name, string $content = ''): DOMElement
     {
         return self::createDOMElement(
-            function () use ($document, $name) {
-                return $document->createElement($name);
-            },
+            fn (): DOMElement|false => $document->createElement($name),
             sprintf('Cannot create element with name %s', $name),
             $content
         );
@@ -118,23 +109,15 @@ class Xml
     /**
      * This is an alias of DOMDocument::createElementNS that will replace ampersand '&' with '&amp;'
      * @see https://www.php.net/manual/en/domdocument.createelementns.php
-     *
-     * @param DOMDocument $document
-     * @param string $namespaceURI
-     * @param string $name
-     * @param string $content
-     * @return DOMElement
      */
     public static function createElementNS(
         DOMDocument $document,
         string $namespaceURI,
         string $name,
-        string $content = ''
+        string $content = '',
     ): DOMElement {
         return self::createDOMElement(
-            function () use ($document, $namespaceURI, $name) {
-                return $document->createElementNS($namespaceURI, $name);
-            },
+            fn (): DOMElement|false => $document->createElementNS($namespaceURI, $name),
             sprintf('Cannot create element with name %s namespace %s', $name, $namespaceURI),
             $content
         );

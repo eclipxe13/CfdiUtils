@@ -16,17 +16,13 @@ use CfdiUtilsTests\TestCase;
 
 abstract class ValidateBaseTestCase extends TestCase
 {
-    /** @var ValidatorInterface */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
-    /** @var NodeInterface */
-    protected $comprobante;
+    protected NodeInterface $comprobante;
 
-    /** @var Asserts|Assert[] */
-    protected $asserts;
+    protected Asserts $asserts;
 
-    /** @var Hydrater */
-    protected $hydrater;
+    protected Hydrater $hydrater;
 
     protected function setUp(): void
     {
@@ -41,7 +37,7 @@ abstract class ValidateBaseTestCase extends TestCase
     protected function setUpCertificado(
         array $comprobanteAttributes = [],
         array $emisorAttributes = [],
-        string $certificateFile = ''
+        string $certificateFile = '',
     ): void {
         $certificateFile = $certificateFile ?: $this->utilAsset('certs/EKU9003173C9.cer');
         $certificado = new Certificado($certificateFile);
@@ -61,12 +57,12 @@ abstract class ValidateBaseTestCase extends TestCase
         ], $emisorAttributes));
     }
 
-    protected function runValidate()
+    protected function runValidate(): void
     {
         $this->validator->validate($this->comprobante, $this->asserts);
     }
 
-    public function assertExplanationContainedInCode(string $expected, string $code)
+    public function assertExplanationContainedInCode(string $expected, string $code): void
     {
         if (! $this->asserts->exists($code)) {
             $this->fail("Did not receive actual status for code '$code', it may not exists");
@@ -83,13 +79,13 @@ abstract class ValidateBaseTestCase extends TestCase
         return $this->asserts->get($code);
     }
 
-    public function assertStatusEqualsCode(Status $expected, string $code)
+    public function assertStatusEqualsCode(Status $expected, string $code): void
     {
         $actualAssert = $this->getAssertByCodeOrFail($code);
         $this->assertStatusEqualsAssert($expected, $actualAssert);
     }
 
-    public function assertStatusEqualsAssert(Status $expected, Assert $assert)
+    public function assertStatusEqualsAssert(Status $expected, Assert $assert): void
     {
         $actual = $assert->getStatus();
         $this->assertTrue(
@@ -98,22 +94,22 @@ abstract class ValidateBaseTestCase extends TestCase
         );
     }
 
-    public function assertStatusEqualsStatus(Status $expected, Status $current)
+    public function assertStatusEqualsStatus(Status $expected, Status $current): void
     {
         $this->assertEquals($expected, $current, "Status $current does not match with status $expected");
     }
 
-    public function assertContainsCode(string $code)
+    public function assertContainsCode(string $code): void
     {
         $this->assertTrue($this->asserts->exists($code));
     }
 
-    public function assertNotContainsCode(string $code)
+    public function assertNotContainsCode(string $code): void
     {
         $this->assertFalse($this->asserts->exists($code));
     }
 
-    protected function setupCfdiFile($cfdifile)
+    protected function setupCfdiFile(string $cfdifile): void
     {
         // setup hydrate and re-hydrate the validator
         $content = strval(file_get_contents($this->utilAsset($cfdifile)));
@@ -127,7 +123,7 @@ abstract class ValidateBaseTestCase extends TestCase
     /**
      * @deprecated Use only when developing test, remove after
      */
-    protected function printrAsserts()
+    protected function printrAsserts(): void
     {
         echo PHP_EOL, 'Asserts count: ', $this->asserts->count();
         foreach ($this->asserts as $assert) {

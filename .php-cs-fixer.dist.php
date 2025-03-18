@@ -16,14 +16,17 @@ return (new PhpCsFixer\Config())
         '@PSR12' => true,
         // '@PSR12:risky' => true,
         // '@PHP71Migration:risky' => true,
-        '@PHP73Migration' => true,
+        '@PHP80Migration' => true,
+        '@PHP80Migration:risky' => true,
+        'declare_strict_types' => false, // defined by PHP74Migration:risky
         // symfony
+        'array_indentation' => true,
         'class_attributes_separation' => true,
         'whitespace_after_comma_in_array' => true,
         'no_empty_statement' => true,
         'no_extra_blank_lines' => true,
         'type_declaration_spaces' => true,
-        'trailing_comma_in_multiline' => ['after_heredoc' => true, 'elements' => ['arrays']],
+        'trailing_comma_in_multiline' => ['after_heredoc' => true, 'elements' => ['arrays', 'match', 'parameters']],
         'no_blank_lines_after_phpdoc' => true,
         'object_operator_without_whitespace' => true,
         'binary_operator_spaces' => true,
@@ -48,6 +51,6 @@ return (new PhpCsFixer\Config())
         PhpCsFixer\Finder::create()
             ->in(__DIR__)
             ->append([__FILE__])
-            ->exclude(['vendor', 'build']),
+            ->exclude(['vendor', 'tools', 'build']),
     )
 ;

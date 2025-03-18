@@ -9,12 +9,8 @@ use LogicException;
 
 final class PagosWriter
 {
-    /** @var ElementPagos */
-    private $pagos;
-
-    public function __construct(ElementPagos $pagos)
+    public function __construct(private ElementPagos $pagos)
     {
-        $this->pagos = $pagos;
     }
 
     public static function calculateAndPut(ElementPagos $complementoPagos): Pagos
@@ -58,7 +54,7 @@ final class PagosWriter
         foreach ($this->pagos->searchNodes('pago20:Pago') as $index => $pagoElement) {
             if (! $pagoElement instanceof ElementPago) {
                 throw new LogicException(
-                    sprintf('Cannot work with a pago20:Pago of class %s', get_class($pagoElement))
+                    sprintf('Cannot work with a pago20:Pago of class %s', $pagoElement::class)
                 );
             }
             $pagoData = $pagos->getPago($index);

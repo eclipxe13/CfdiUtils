@@ -8,12 +8,8 @@ class PemExtractor
 {
     use NormalizeLineEndingsTrait;
 
-    /** @var string */
-    private $contents;
-
-    public function __construct($contents)
+    public function __construct(private string $contents)
     {
-        $this->contents = $contents;
     }
 
     public function getContents(): string

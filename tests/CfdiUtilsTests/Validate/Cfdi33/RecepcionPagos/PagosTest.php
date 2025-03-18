@@ -3,12 +3,13 @@
 namespace CfdiUtilsTests\Validate\Cfdi33\RecepcionPagos;
 
 use CfdiUtils\Validate\Cfdi33\RecepcionPagos\Pagos;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 
 final class PagosTest extends ValidateComplementoPagosTestCase
 {
     /** @var Pagos */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {
@@ -16,7 +17,7 @@ final class PagosTest extends ValidateComplementoPagosTestCase
         $this->validator = new Pagos();
     }
 
-    public function testValidCase()
+    public function testValidCase(): void
     {
         $this->complemento->addPago();
         $this->runValidate();
@@ -24,7 +25,7 @@ final class PagosTest extends ValidateComplementoPagosTestCase
         $this->assertStatusEqualsCode(Status::ok(), 'PAGOS01');
     }
 
-    public function testWithoutNodes()
+    public function testWithoutNodes(): void
     {
         $this->runValidate();
 

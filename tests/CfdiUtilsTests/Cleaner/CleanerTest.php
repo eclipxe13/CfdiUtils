@@ -8,7 +8,7 @@ use CfdiUtilsTests\TestCase;
 
 final class CleanerTest extends TestCase
 {
-    public function testConstructorWithEmptyText()
+    public function testConstructorWithEmptyText(): void
     {
         $cleaner = new Cleaner('');
 
@@ -16,7 +16,7 @@ final class CleanerTest extends TestCase
         $cleaner->load('');
     }
 
-    public function testConstructorWithNonCFDI()
+    public function testConstructorWithNonCFDI(): void
     {
         $cleaner = new Cleaner('');
         $this->expectException(CleanerException::class);
@@ -24,7 +24,7 @@ final class CleanerTest extends TestCase
         $cleaner->load('<node></node>');
     }
 
-    public function testConstructorWithBadVersion()
+    public function testConstructorWithBadVersion(): void
     {
         $this->expectException(CleanerException::class);
         new Cleaner('<?xml version="1.0" encoding="UTF-8"?>
@@ -32,14 +32,14 @@ final class CleanerTest extends TestCase
         ');
     }
 
-    public function testConstructorWithoutInvalidXml()
+    public function testConstructorWithoutInvalidXml(): void
     {
         $this->expectException(CleanerException::class);
 
         new Cleaner('<' . 'node>');
     }
 
-    public function testConstructorWithoutVersion()
+    public function testConstructorWithoutVersion(): void
     {
         $this->expectException(CleanerException::class);
         $this->expectExceptionMessage('version');
@@ -49,7 +49,7 @@ final class CleanerTest extends TestCase
         ');
     }
 
-    public function testConstructorWithMinimalCompatibilityVersion32()
+    public function testConstructorWithMinimalCompatibilityVersion32(): void
     {
         $cleaner = new Cleaner('<?xml version="1.0" encoding="UTF-8"?>
             <' . 'cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" version="3.2" />
@@ -57,7 +57,7 @@ final class CleanerTest extends TestCase
         $this->assertInstanceOf(Cleaner::class, $cleaner, 'Cleaner created with minimum compatibility');
     }
 
-    public function testConstructorWithMinimalCompatibilityVersion33()
+    public function testConstructorWithMinimalCompatibilityVersion33(): void
     {
         $cleaner = new Cleaner('<?xml version="1.0" encoding="UTF-8"?>
             <' . 'cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version="3.3" />
@@ -65,7 +65,7 @@ final class CleanerTest extends TestCase
         $this->assertInstanceOf(Cleaner::class, $cleaner, 'Cleaner created with minimum compatibility');
     }
 
-    public function testConstructorWithMinimalCompatibilityVersion40()
+    public function testConstructorWithMinimalCompatibilityVersion40(): void
     {
         $cleaner = new Cleaner('<?xml version="1.0" encoding="UTF-8"?>
             <' . 'cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4" Version="4.0" />
@@ -73,7 +73,7 @@ final class CleanerTest extends TestCase
         $this->assertInstanceOf(Cleaner::class, $cleaner, 'Cleaner created with minimum compatibility');
     }
 
-    public function testLoadWithDefaultBeforeLoadCleaner()
+    public function testLoadWithDefaultBeforeLoadCleaner(): void
     {
         $withErrors = $this->utilAsset('cleaner/v32-dirty-errors.xml');
         $justDirty = $this->utilAsset('cleaner/v32-dirty.xml');
@@ -85,7 +85,7 @@ final class CleanerTest extends TestCase
         );
     }
 
-    public function testCleanOnDetail()
+    public function testCleanOnDetail(): void
     {
         $basefile = $this->utilAsset('cleaner/v32-dirty.xml');
         $step1 = $this->utilAsset('cleaner/v32-no-addenda.xml');
@@ -153,7 +153,7 @@ final class CleanerTest extends TestCase
         );
     }
 
-    public function testRetrieveDocumentReturnDifferentInstances()
+    public function testRetrieveDocumentReturnDifferentInstances(): void
     {
         $cleaner = new Cleaner('<?xml version="1.0" encoding="UTF-8"?>
             <' . 'cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version="3.3" />
@@ -165,7 +165,7 @@ final class CleanerTest extends TestCase
         $this->assertXmlStringEqualsXmlString($domFirst->saveXML(), $domSecond->saveXML());
     }
 
-    public function testRemoveNonSatNSschemaLocationsWithNotEvenSchemaLocationContents()
+    public function testRemoveNonSatNSschemaLocationsWithNotEvenSchemaLocationContents(): void
     {
         $xmlContent = '<?xml version="1.0" encoding="UTF-8"?>
             <' . 'cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version="3.3"
@@ -180,7 +180,7 @@ final class CleanerTest extends TestCase
         $cleaner->removeNonSatNSschemaLocations();
     }
 
-    public function testRemoveNonSatNSschemaLocationsRemoveEmptySchemaLocation()
+    public function testRemoveNonSatNSschemaLocationsRemoveEmptySchemaLocation(): void
     {
         $xmlContent = '<?xml version="1.0" encoding="UTF-8"?>
             <' . 'cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version="3.3"
@@ -199,7 +199,7 @@ final class CleanerTest extends TestCase
         $this->assertXmlStringEqualsXmlString($xmlExpectedContent, $cleaner->retrieveXml());
     }
 
-    public function testCollapseComprobanteComplemento()
+    public function testCollapseComprobanteComplemento(): void
     {
         $source = <<<'EOT'
             <cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version="3.3">

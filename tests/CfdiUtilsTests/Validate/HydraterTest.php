@@ -9,7 +9,7 @@ use CfdiUtilsTests\Validate\FakeObjects\ImplementationRequireXmlStringInterface;
 
 final class HydraterTest extends TestCase
 {
-    public function testHydrateXmlString()
+    public function testHydrateXmlString(): void
     {
         $hydrater = new Hydrater();
 
@@ -21,7 +21,7 @@ final class HydraterTest extends TestCase
         $this->assertSame($hydrater->getXmlString(), $container->getXmlString());
     }
 
-    public function testHydrateXmlResolver()
+    public function testHydrateXmlResolver(): void
     {
         $hydrater = new Hydrater();
         $xmlResolver = $this->newResolver();

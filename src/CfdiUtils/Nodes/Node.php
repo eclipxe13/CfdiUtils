@@ -5,27 +5,20 @@ namespace CfdiUtils\Nodes;
 use CfdiUtils\Utils\Xml;
 use Traversable;
 
-class Node implements NodeInterface, NodeHasValueInterface
+class Node implements NodeInterface
 {
-    /** @var string */
-    private $name;
+    private string $name;
 
-    /** @var Attributes */
-    private $attributes;
+    private Attributes $attributes;
 
     /** @var Nodes|NodeInterface[] */
-    private $children;
-
-    /** @var string */
-    private $value;
+    private Nodes $children;
 
     /**
      * Node constructor.
-     * @param string $name
-     * @param array $attributes
      * @param NodeInterface[] $children
      */
-    public function __construct(string $name, array $attributes = [], array $children = [], string $value = '')
+    public function __construct(string $name, array $attributes = [], array $children = [], private string $value = '')
     {
         if (! Xml::isValidXmlName($name)) {
             throw new \UnexpectedValueException(sprintf('Cannot create a node with an invalid xml name: "%s"', $name));
@@ -33,7 +26,6 @@ class Node implements NodeInterface, NodeHasValueInterface
         $this->name = $name;
         $this->attributes = new Attributes($attributes);
         $this->children = new Nodes($children);
-        $this->value = $value;
     }
 
     public function name(): string
@@ -41,9 +33,6 @@ class Node implements NodeInterface, NodeHasValueInterface
         return $this->name;
     }
 
-    /**
-     * @return Nodes|NodeInterface[]
-     */
     public function children(): Nodes
     {
         return $this->children;
@@ -63,15 +52,20 @@ class Node implements NodeInterface, NodeHasValueInterface
         return $this->attributes;
     }
 
-    public function clear()
+    public function clear(): void
     {
         $this->attributes->removeAll();
         $this->children()->removeAll();
     }
 
-    public function addAttributes(array $attributes)
+    public function addAttributes(array $attributes): void
     {
         $this->attributes->importArray($attributes);
+    }
+
+    public function exists(string $attribute): bool
+    {
+        return $this->attributes->exists($attribute);
     }
 
     public function value(): string
@@ -110,7 +104,7 @@ class Node implements NodeInterface, NodeHasValueInterface
         return $nodes;
     }
 
-    public function searchNode(string ...$searchPath)
+    public function searchNode(string ...$searchPath): ?NodeInterface
     {
         $node = $this;
         foreach ($searchPath as $searchName) {
@@ -129,7 +123,7 @@ class Node implements NodeInterface, NodeHasValueInterface
     #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
-        return isset($this->attributes[$offset]);
+        return $this->exists(strval($offset));
     }
 
     #[\ReturnTypeWillChange]
@@ -139,13 +133,13 @@ class Node implements NodeInterface, NodeHasValueInterface
     }
 
     #[\ReturnTypeWillChange]
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         $this->attributes[$offset] = $value;
     }
 
     #[\ReturnTypeWillChange]
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->attributes[$offset]);
     }

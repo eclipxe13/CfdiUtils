@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class DomicilioTest extends TestCase
 {
-    /** @var Domicilio */
-    public $element;
+    public Domicilio $element;
 
     protected function setUp(): void
     {
@@ -19,7 +18,7 @@ final class DomicilioTest extends TestCase
         $this->element = new Domicilio();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cartaporte:Domicilio', $this->element->getElementName());
     }

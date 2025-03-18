@@ -15,7 +15,7 @@ abstract class AbstractRecepcionPagos10 extends AbstractVersion33 implements Dis
 
     abstract public function validateRecepcionPagos(NodeInterface $comprobante, Asserts $asserts);
 
-    public function validate(NodeInterface $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts): void
     {
         // do not run anything if not found
         $pagos10 = $comprobante->searchNode('cfdi:Complemento', 'pago10:Pagos');

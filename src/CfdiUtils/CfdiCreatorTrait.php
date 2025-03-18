@@ -27,9 +27,9 @@ trait CfdiCreatorTrait
 
     private function cfdiCreatorConstructor(
         array $comprobanteAttributes = [],
-        Certificado $certificado = null,
-        XmlResolver $xmlResolver = null,
-        XsltBuilderInterface $xsltBuilder = null
+        ?Certificado $certificado = null,
+        ?XmlResolver $xmlResolver = null,
+        ?XsltBuilderInterface $xsltBuilder = null,
     ): void {
         $this->comprobante->addAttributes($comprobanteAttributes);
         $this->setXmlResolver($xmlResolver ?: new XmlResolver());
@@ -41,8 +41,8 @@ trait CfdiCreatorTrait
 
     public static function newUsingNode(
         NodeInterface $node,
-        Certificado $certificado = null,
-        XmlResolver $xmlResolver = null
+        ?Certificado $certificado = null,
+        ?XmlResolver $xmlResolver = null,
     ): self {
         $new = new self([], $certificado, $xmlResolver);
         $comprobante = $new->comprobante;
@@ -53,7 +53,7 @@ trait CfdiCreatorTrait
         return $new;
     }
 
-    public function putCertificado(Certificado $certificado, bool $putEmisorRfcNombre = true)
+    public function putCertificado(Certificado $certificado, bool $putEmisorRfcNombre = true): void
     {
         $this->setCertificado($certificado);
         $this->comprobante['NoCertificado'] = $certificado->getSerial();
@@ -89,9 +89,9 @@ trait CfdiCreatorTrait
 
     private function buildCadenaDeOrigenUsingXsltLocation(string $xsltLocation): string
     {
-        if (! $this->hasXmlResolver()) {
+        if (! $this->hasXsltBuilder()) {
             throw new \LogicException(
-                'Cannot build the cadena de origen since there is no xml resolver'
+                'Cannot build the cadena de origen since there is no xslt builder'
             );
         }
         return $this->getXsltBuilder()->build($this->asXml(), $xsltLocation);
@@ -102,7 +102,7 @@ trait CfdiCreatorTrait
         return new SumasConceptos($this->comprobante, $precision);
     }
 
-    public function addSumasConceptos(SumasConceptos $sumasConceptos = null, int $precision = 2)
+    public function addSumasConceptos(?SumasConceptos $sumasConceptos = null, int $precision = 2): void
     {
         if (null === $sumasConceptos) {
             $sumasConceptos = $this->buildSumasConceptos($precision);
@@ -111,7 +111,7 @@ trait CfdiCreatorTrait
         $writer->put();
     }
 
-    public function addSello(string $key, string $passPhrase = '')
+    public function addSello(string $key, string $passPhrase = ''): void
     {
         // create private key
         $privateKey = new PemPrivateKey($key);
@@ -120,10 +120,11 @@ trait CfdiCreatorTrait
         }
 
         // check private key belongs to certificado
-        if ($this->hasCertificado()) {
-            if (! $privateKey->belongsTo($this->getCertificado()->getPemContents())) {
-                throw new \RuntimeException('The private key does not belong to the current certificate');
-            }
+        if (
+            $this->hasCertificado()
+            && ! $privateKey->belongsTo($this->getCertificado()->getPemContents())
+        ) {
+            throw new \RuntimeException('The private key does not belong to the current certificate');
         }
 
         // create sign and set into Sello attribute
@@ -146,14 +147,11 @@ trait CfdiCreatorTrait
         return $asserts;
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         try {
             return $this->asXml();
-        } catch (\Throwable $ex) {
+        } catch (\Throwable) {
             return '';
         }
     }

@@ -28,13 +28,11 @@ use Throwable;
  */
 class Cleaner
 {
-    /** @var DOMDocument|null */
-    protected $dom;
+    protected ?DOMDocument $dom = null;
 
-    /** @var BeforeLoadCleanerInterface */
-    private $beforeLoadCleaner;
+    private BeforeLoadCleanerInterface $beforeLoadCleaner;
 
-    public function __construct(string $content, BeforeLoadCleanerInterface $beforeLoadCleaner = null)
+    public function __construct(string $content, ?BeforeLoadCleanerInterface $beforeLoadCleaner = null)
     {
         $this->beforeLoadCleaner = $beforeLoadCleaner ?? new BeforeLoad\BeforeLoadCleaner();
         if ('' !== $content) {
@@ -45,9 +43,6 @@ class Cleaner
     /**
      * Method to clean content and return the result
      * If an error occurs, an exception is thrown
-     *
-     * @param string $content
-     * @return string
      */
     public static function staticClean(string $content): string
     {
@@ -58,9 +53,6 @@ class Cleaner
 
     /**
      * Check if the CFDI version is compatible to this class
-     *
-     * @param string $version
-     * @return bool
      */
     public static function isVersionAllowed(string $version): bool
     {
@@ -69,9 +61,6 @@ class Cleaner
 
     /**
      * Check if a given namespace is allowed (must not be removed from CFDI)
-     *
-     * @param string $namespace
-     * @return bool
      */
     public static function isNameSpaceAllowed(string $namespace): bool
     {
@@ -83,10 +72,8 @@ class Cleaner
 
     /**
      * Apply all removals (Addenda, Non SAT Nodes and Non SAT namespaces)
-     *
-     * @return void
      */
-    public function clean()
+    public function clean(): void
     {
         $this->removeAddenda();
         $this->removeIncompleteSchemaLocations();
@@ -101,16 +88,13 @@ class Cleaner
      * Load the string content as a CFDI
      * This is exposed to reuse the current object instead of create a new instance
      *
-     * @param string $content
      *
      * @throws CleanerException when the content is not valid xml
      * @throws CleanerException when the document does not use the namespace http://www.sat.gob.mx/cfd/3
      * @throws CleanerException when cannot find a Comprobante version (or Version) attribute
      * @throws CleanerException when the version is not compatible
-     *
-     * @return void
      */
-    public function load(string $content)
+    public function load(string $content): void
     {
         try {
             $content = $this->beforeLoadCleaner->clean($content);
@@ -127,8 +111,6 @@ class Cleaner
 
     /**
      * Get the XML content of the CFDI
-     *
-     * @return string
      */
     public function retrieveXml(): string
     {
@@ -137,8 +119,6 @@ class Cleaner
 
     /**
      * Get a clone of the XML DOM Document of the CFDI
-     *
-     * @return DOMDocument
      */
     public function retrieveDocument(): DOMDocument
     {
@@ -147,10 +127,8 @@ class Cleaner
 
     /**
      * Procedure to remove the Comprobante/Addenda node
-     *
-     * @return void
      */
-    public function removeAddenda()
+    public function removeAddenda(): void
     {
         $query = '/cfdi:Comprobante/cfdi:Addenda';
         $addendas = $this->xpathQuery($query);
@@ -161,29 +139,15 @@ class Cleaner
 
     /**
      * Procedure to drop schemaLocations where second part does not end with '.xsd'
-     *
-     * @return void
      */
-    public function removeIncompleteSchemaLocations()
+    public function removeIncompleteSchemaLocations(): void
     {
         foreach ($this->obtainXsiSchemaLocations() as $attribute) {
-            $attribute->nodeValue = $this->removeIncompleteSchemaLocationPrivate($attribute->nodeValue);
+            $attribute->nodeValue = $this->removeIncompleteSchemaLocation($attribute->nodeValue);
         }
     }
 
-    /**
-     * @param string $source
-     * @return string
-     * @deprecated 2.12.0: This function is internal and visibility should be private, use SchemaLocations
-     * @internal
-     */
-    public function removeIncompleteSchemaLocation(string $source): string
-    {
-        trigger_error('This method is deprecated, should not be used from outside this class', E_USER_DEPRECATED);
-        return $this->removeIncompleteSchemaLocationPrivate($source);
-    }
-
-    private function removeIncompleteSchemaLocationPrivate(string $source): string
+    private function removeIncompleteSchemaLocation(string $source): string
     {
         $schemaLocations = SchemaLocations::fromStingStrictXsd($source);
         foreach ($schemaLocations->getNamespacesWithoutLocation() as $namespace) {
@@ -195,10 +159,8 @@ class Cleaner
     /**
      * Procedure to drop schemaLocations that are not allowed
      * If the schemaLocation is empty then remove the attribute
-     *
-     * @return void
      */
-    public function removeNonSatNSschemaLocations()
+    public function removeNonSatNSschemaLocations(): void
     {
         $schemaLocations = $this->obtainXsiSchemaLocations();
         foreach ($schemaLocations as $attribute) {
@@ -206,7 +168,7 @@ class Cleaner
         }
     }
 
-    private function removeNonSatNSschemaLocation(DOMAttr $schemaLocation)
+    private function removeNonSatNSschemaLocation(DOMAttr $schemaLocation): void
     {
         $source = $schemaLocation->nodeValue;
         // load locations
@@ -233,10 +195,8 @@ class Cleaner
 
     /**
      * Procedure to remove all nodes that are not from an allowed namespace
-     *
-     * @return void
      */
-    public function removeNonSatNSNodes()
+    public function removeNonSatNSNodes(): void
     {
         $nss = $this->obtainNamespaces();
         foreach ($nss as $namespace) {
@@ -248,11 +208,8 @@ class Cleaner
 
     /**
      * Procedure to remove all nodes from a specific namespace
-     *
-     * @param string $namespace
-     * @return void
      */
-    private function removeNonSatNSNode(string $namespace)
+    private function removeNonSatNSNode(string $namespace): void
     {
         foreach ($this->dom()->getElementsByTagNameNS($namespace, '*') as $children) {
             $children->parentNode->removeChild($children);
@@ -261,10 +218,8 @@ class Cleaner
 
     /**
      * Procedure to remove not allowed xmlns definitions
-     *
-     * @return void
      */
-    public function removeUnusedNamespaces()
+    public function removeUnusedNamespaces(): void
     {
         $nss = [];
         $dom = $this->dom();
@@ -285,10 +240,8 @@ class Cleaner
     /**
      * Procedure to collapse Complemento elements from Comprobante
      * Collapse will take its children and put then on the first Complemento found
-     *
-     * @return void
      */
-    public function collapseComprobanteComplemento()
+    public function collapseComprobanteComplemento(): void
     {
         $comprobante = Xml::documentElement($this->dom());
         $complementos = $this->xpathQuery('./cfdi:Complemento', $comprobante);
@@ -314,10 +267,8 @@ class Cleaner
 
     /**
      * Procedure to fix XSD known location paths for CFDI and TFD
-     *
-     * @return void
      */
-    public function fixKnownSchemaLocationsXsdUrls()
+    public function fixKnownSchemaLocationsXsdUrls(): void
     {
         $xsiLocations = $this->obtainXsiSchemaLocations();
         $schemasFixer = SchemaLocationsXsdUrlsFixer::createWithKnownSatUrls();
@@ -345,12 +296,8 @@ class Cleaner
 
     /**
      * Helper function to perform a XPath query using an element (or root element)
-     *
-     * @param string $query
-     * @param DOMNode|null $element
-     * @return DOMNodeList
      */
-    private function xpathQuery(string $query, DOMNode $element = null): DOMNodeList
+    private function xpathQuery(string $query, ?DOMNode $element = null): DOMNodeList
     {
         if (null === $element) {
             $document = $this->dom();

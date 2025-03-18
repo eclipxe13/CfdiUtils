@@ -8,5 +8,5 @@ interface XmlResolverPropertyInterface
 
     public function getXmlResolver(): XmlResolver;
 
-    public function setXmlResolver(XmlResolver $xmlResolver = null);
+    public function setXmlResolver(?XmlResolver $xmlResolver = null);
 }

@@ -2,21 +2,19 @@
 
 namespace CfdiUtils\QuickReader;
 
-class QuickReader extends \stdClass implements \ArrayAccess
+class QuickReader extends \stdClass implements \ArrayAccess, \Stringable
 {
-    /** @var string */
-    protected $name;
+    protected string $name;
 
-    /** @var string[] */
-    protected $attributes;
+    /** @var array<string, string> */
+    protected array $attributes;
 
     /** @var self[] */
-    protected $children;
+    protected array $children;
 
     /**
      * QuickReader constructor.
-     * @param string $name
-     * @param string[] $attributes
+     * @param array<string, string> $attributes
      * @param self[] $children
      */
     public function __construct(string $name, array $attributes = [], array $children = [])
@@ -47,24 +45,19 @@ class QuickReader extends \stdClass implements \ArrayAccess
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     * @return self[]
-     */
+    /** @return self[] */
     public function __invoke(string $name = ''): array
     {
         if ('' === $name) {
             return $this->children;
         }
-        return array_filter($this->children, function (self $item) use ($name) {
-            return $this->namesAreEqual($name, (string) $item);
-        });
+        return array_values(array_filter(
+            $this->children,
+            fn (self $item): bool => $this->namesAreEqual($name, (string) $item)
+        ));
     }
 
-    /**
-     * @param string $name
-     * @return self
-     */
+    /** @return self */
     public function __get(string $name)
     {
         $child = $this->getChildByName($name);
@@ -75,16 +68,24 @@ class QuickReader extends \stdClass implements \ArrayAccess
         return $child;
     }
 
-    public function __set($name, $value)
+    public function __set($name, $value): void
     {
         throw new \LogicException('Cannot change children');
     }
 
-    /**
-     * @param string $name
-     * @return self|null
-     */
-    protected function getChildByName(string $name)
+    /** @return self[] */
+    public function getChildren(string $name = ''): array
+    {
+        return $this->__invoke($name);
+    }
+
+    /** @return array<string, string> */
+    public function getAttributes(): array
+    {
+        return $this->attributes;
+    }
+
+    protected function getChildByName(string $name): ?self
     {
         foreach ($this->children as $child) {
             if ($this->namesAreEqual($name, (string) $child)) {
@@ -100,11 +101,7 @@ class QuickReader extends \stdClass implements \ArrayAccess
         return $this->getChildByName($name) instanceof static;
     }
 
-    /**
-     * @param string $name
-     * @return string|null
-     */
-    protected function getAttributeByName(string $name)
+    protected function getAttributeByName(string $name): ?string
     {
         foreach ($this->attributes as $key => $value) {
             if ($this->namesAreEqual($name, $key)) {
@@ -115,24 +112,24 @@ class QuickReader extends \stdClass implements \ArrayAccess
         return null;
     }
 
-    public function offsetExists($name): bool
+    public function offsetExists($offset): bool
     {
-        return (null !== $this->getAttributeByName((string) $name));
+        return (null !== $this->getAttributeByName((string) $offset));
     }
 
-    public function offsetGet($name): string
+    public function offsetGet($offset): string
     {
-        return $this->getAttributeByName((string) $name) ?? '';
+        return $this->getAttributeByName((string) $offset) ?? '';
     }
 
     #[\ReturnTypeWillChange]
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         throw new \LogicException('Cannot change attributes');
     }
 
     #[\ReturnTypeWillChange]
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         throw new \LogicException('Cannot change attributes');
     }

@@ -4,9 +4,9 @@ namespace CfdiUtils\Validate\Traits;
 
 trait XmlStringPropertyTrait
 {
-    private $xmlString = '';
+    private string $xmlString = '';
 
-    public function setXmlString(string $xmlString)
+    public function setXmlString(string $xmlString): void
     {
         $this->xmlString = $xmlString;
     }

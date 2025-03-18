@@ -7,26 +7,19 @@ use Traversable;
 class Asserts implements \Countable, \IteratorAggregate
 {
     /** @var array<string, Assert> */
-    private $asserts = [];
+    private array $asserts = [];
 
-    /** @var bool */
-    private $mustStop = false;
+    private bool $mustStop = false;
 
     /**
      * This will try to create a new assert or get and change an assert with the same code
      * The new values are preserved, except if they are null
-     *
-     * @param string $code
-     * @param string|null $title
-     * @param Status|null $status
-     * @param string|null $explanation
-     * @return Assert
      */
     public function put(
         string $code,
-        string $title = null,
-        Status $status = null,
-        string $explanation = null
+        ?string $title = null,
+        ?Status $status = null,
+        ?string $explanation = null,
     ): Assert {
         if (! $this->exists($code)) {
             $assert = new Assert($code, (string) $title, $status, (string) $explanation);
@@ -49,13 +42,8 @@ class Asserts implements \Countable, \IteratorAggregate
     /**
      * This will try to create a new assert or get and change an assert with the same code
      * The new values are preserved, except if they are null
-     *
-     * @param string $code
-     * @param Status|null $status
-     * @param string|null $explanation
-     * @return Assert
      */
-    public function putStatus(string $code, Status $status = null, string $explanation = null): Assert
+    public function putStatus(string $code, ?Status $status = null, ?string $explanation = null): Assert
     {
         return $this->put($code, null, $status, $explanation);
     }
@@ -67,7 +55,7 @@ class Asserts implements \Countable, \IteratorAggregate
      * @param bool|null $newValue value of the flag, if null then will not change the flag
      * @return bool the previous value of the flag
      */
-    public function mustStop(bool $newValue = null): bool
+    public function mustStop(?bool $newValue = null): bool
     {
         if (null === $newValue) {
             return $this->mustStop;
@@ -92,10 +80,6 @@ class Asserts implements \Countable, \IteratorAggregate
         return $this->hasStatus(Status::warn());
     }
 
-    /**
-     * @param Status $status
-     * @return Assert|null
-     */
     public function getFirstStatus(Status $status): ?Assert
     {
         foreach ($this->asserts as $assert) {
@@ -107,14 +91,11 @@ class Asserts implements \Countable, \IteratorAggregate
     }
 
     /**
-     * @param Status $status
      * @return Assert[]
      */
     public function byStatus(Status $status): array
     {
-        return array_filter($this->asserts, function (Assert $item) use ($status) {
-            return $status->equalsTo($item->getStatus());
-        });
+        return array_filter($this->asserts, fn (Assert $item): bool => $status->equalsTo($item->getStatus()));
     }
 
     public function get(string $code): Assert
@@ -164,7 +145,7 @@ class Asserts implements \Countable, \IteratorAggregate
         return $this->byStatus(Status::none());
     }
 
-    public function add(Assert $assert)
+    public function add(Assert $assert): void
     {
         $this->asserts[$assert->getCode()] = $assert;
     }
@@ -175,7 +156,7 @@ class Asserts implements \Countable, \IteratorAggregate
         return (false === $index) ? '' : $index;
     }
 
-    public function remove(Assert $assert)
+    public function remove(Assert $assert): void
     {
         $index = $this->indexOf($assert);
         if ('' !== $index) {
@@ -183,17 +164,17 @@ class Asserts implements \Countable, \IteratorAggregate
         }
     }
 
-    public function removeByCode(string $index)
+    public function removeByCode(string $index): void
     {
         unset($this->asserts[$index]);
     }
 
-    public function removeAll()
+    public function removeAll(): void
     {
         $this->asserts = [];
     }
 
-    public function import(self $asserts)
+    public function import(self $asserts): void
     {
         foreach ($asserts as $assert) {
             $this->add(clone $assert);

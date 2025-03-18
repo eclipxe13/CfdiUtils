@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class MonedaPagoTest extends TestCase
 {
-    public function testValid()
+    public function testValid(): void
     {
         $pago = new Pago([
             'MonedaP' => '999',
@@ -19,12 +19,11 @@ final class MonedaPagoTest extends TestCase
     }
 
     /**
-     * @param string|null $currency
      * @testWith [null]
      *           [""]
      *           ["XXX"]
      */
-    public function testInvalid(?string $currency)
+    public function testInvalid(?string $currency): void
     {
         $pago = new Pago([
             'MonedaP' => $currency,

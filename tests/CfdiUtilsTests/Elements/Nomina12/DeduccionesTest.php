@@ -11,8 +11,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class DeduccionesTest extends TestCase
 {
-    /** @var Deducciones */
-    public $element;
+    public Deducciones $element;
 
     protected function setUp(): void
     {
@@ -20,12 +19,12 @@ final class DeduccionesTest extends TestCase
         $this->element = new Deducciones();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('nomina12:Deducciones', $this->element->getElementName());
     }
 
-    public function testAddDeduccion()
+    public function testAddDeduccion(): void
     {
         // insert first element
         $first = $this->element->addDeduccion(['id' => 'first']);
@@ -39,7 +38,7 @@ final class DeduccionesTest extends TestCase
         $this->assertCount(2, $this->element);
     }
 
-    public function testMultiDeduccion()
+    public function testMultiDeduccion(): void
     {
         // insert first element
         $deducciones = $this->element->multiDeduccion(

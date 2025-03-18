@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class CfdiRetenRelacionadosTest extends TestCase
 {
-    /** @var CfdiRetenRelacionados */
-    public $element;
+    public CfdiRetenRelacionados $element;
 
     public function setUp(): void
     {
@@ -16,7 +15,7 @@ final class CfdiRetenRelacionadosTest extends TestCase
         $this->element = new CfdiRetenRelacionados();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('retenciones:CfdiRetenRelacionados', $this->element->getElementName());
     }

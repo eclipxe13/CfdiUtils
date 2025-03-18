@@ -16,14 +16,14 @@ final class CfdiTest extends TestCase
         ];
     }
 
-    public function testNewFromStringWithEmptyXml()
+    public function testNewFromStringWithEmptyXml(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('empty');
         Cfdi::newFromString('');
     }
 
-    public function testNewFromStringWithInvalidXml()
+    public function testNewFromStringWithInvalidXml(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('Cannot create a DOM Document');
@@ -31,9 +31,9 @@ final class CfdiTest extends TestCase
     }
 
     /** @dataProvider providerCfdiVersionNamespace */
-    public function testConstructWithoutNamespace(string $version, string $namespace)
+    public function testConstructWithoutNamespace(string $version, string $namespace): void
     {
-        $exception = $this->captureException(function () {
+        $exception = $this->captureException(function (): void {
             Cfdi::newFromString('<Comprobante ' . '/>');
         });
         $this->assertInstanceOf(CfdiCreateObjectException::class, $exception);
@@ -45,9 +45,9 @@ final class CfdiTest extends TestCase
     }
 
     /** @dataProvider providerCfdiVersionNamespace */
-    public function testConstructWithEmptyDomDocument(string $version)
+    public function testConstructWithEmptyDomDocument(string $version): void
     {
-        $exception = $this->captureException(function () {
+        $exception = $this->captureException(function (): void {
             new Cfdi(new \DOMDocument());
         });
         $this->assertInstanceOf(CfdiCreateObjectException::class, $exception);
@@ -59,9 +59,9 @@ final class CfdiTest extends TestCase
     }
 
     /** @dataProvider providerCfdiVersionNamespace */
-    public function testInvalidCfdiRootIsNotComprobante(string $version, string $namespace)
+    public function testInvalidCfdiRootIsNotComprobante(string $version, string $namespace): void
     {
-        $exception = $this->captureException(function () use ($namespace) {
+        $exception = $this->captureException(function () use ($namespace): void {
             Cfdi::newFromString(sprintf('<cfdi:X xmlns:cfdi="%s"/>', $namespace));
         });
         $this->assertInstanceOf(CfdiCreateObjectException::class, $exception);
@@ -73,9 +73,9 @@ final class CfdiTest extends TestCase
     }
 
     /** @dataProvider providerCfdiVersionNamespace */
-    public function testInvalidCfdiRootIsNotPrefixed(string $version, string $namespace)
+    public function testInvalidCfdiRootIsNotPrefixed(string $version, string $namespace): void
     {
-        $exception = $this->captureException(function () use ($namespace) {
+        $exception = $this->captureException(function () use ($namespace): void {
             Cfdi::newFromString(sprintf('<x:Comprobante xmlns:cfdi="%s"/>', $namespace));
         });
         $this->assertInstanceOf(CfdiCreateObjectException::class, $exception);
@@ -87,9 +87,9 @@ final class CfdiTest extends TestCase
     }
 
     /** @dataProvider providerCfdiVersionNamespace */
-    public function testInvalidCfdiRootIncorrectPrefix(string $version, string $namespace)
+    public function testInvalidCfdiRootIncorrectPrefix(string $version, string $namespace): void
     {
-        $exception = $this->captureException(function () use ($namespace) {
+        $exception = $this->captureException(function () use ($namespace): void {
             Cfdi::newFromString(sprintf('<x:Comprobante xmlns:x="%s"/>', $namespace));
         });
         $this->assertInstanceOf(CfdiCreateObjectException::class, $exception);
@@ -100,7 +100,7 @@ final class CfdiTest extends TestCase
         );
     }
 
-    public function testValid32()
+    public function testValid32(): void
     {
         $cfdi = Cfdi::newFromString(
             '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" version="3.2"' . '/>'
@@ -109,7 +109,7 @@ final class CfdiTest extends TestCase
         $this->assertEquals('3.2', $cfdi->getVersion());
     }
 
-    public function testValid33()
+    public function testValid33(): void
     {
         $cfdi = Cfdi::newFromString(
             '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version="3.3"' . '/>'
@@ -118,7 +118,7 @@ final class CfdiTest extends TestCase
         $this->assertEquals('3.3', $cfdi->getVersion());
     }
 
-    public function testValid40()
+    public function testValid40(): void
     {
         $cfdi = Cfdi::newFromString(
             '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4" Version="4.0"' . '/>'
@@ -127,7 +127,7 @@ final class CfdiTest extends TestCase
         $this->assertEquals('4.0', $cfdi->getVersion());
     }
 
-    public function testValid33WithXmlHeader()
+    public function testValid33WithXmlHeader(): void
     {
         $cfdi = Cfdi::newFromString(
             '<?xml version="1.0" encoding="UTF-8" ?>'
@@ -137,7 +137,7 @@ final class CfdiTest extends TestCase
         $this->assertEquals('3.3', $cfdi->getVersion());
     }
 
-    public function testVersion1980ReturnEmpty()
+    public function testVersion1980ReturnEmpty(): void
     {
         $cfdi = Cfdi::newFromString(
             '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version="1.9.80"' . '/>'
@@ -146,7 +146,7 @@ final class CfdiTest extends TestCase
         $this->assertEmpty($cfdi->getVersion());
     }
 
-    public function testVersionEmptyReturnEmpty()
+    public function testVersionEmptyReturnEmpty(): void
     {
         $cfdi = Cfdi::newFromString(
             '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version=""' . '/>'

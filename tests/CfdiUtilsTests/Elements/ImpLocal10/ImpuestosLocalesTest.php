@@ -9,8 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ImpuestosLocalesTest extends TestCase
 {
-    /** @var ImpuestosLocales */
-    public $element;
+    public ImpuestosLocales $element;
 
     protected function setUp(): void
     {
@@ -18,12 +17,12 @@ final class ImpuestosLocalesTest extends TestCase
         $this->element = new ImpuestosLocales();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('implocal:ImpuestosLocales', $this->element->getElementName());
     }
 
-    public function testRetencion()
+    public function testRetencion(): void
     {
         // object is empty
         $this->assertCount(0, $this->element);
@@ -41,7 +40,7 @@ final class ImpuestosLocalesTest extends TestCase
         $this->assertNotSame($first, $second);
     }
 
-    public function testTraslado()
+    public function testTraslado(): void
     {
         // object is empty
         $this->assertCount(0, $this->element);
@@ -59,7 +58,7 @@ final class ImpuestosLocalesTest extends TestCase
         $this->assertNotSame($first, $second);
     }
 
-    public function testChildrenOrder()
+    public function testChildrenOrder(): void
     {
         // add in inverse order
         $this->element->addTrasladoLocal();

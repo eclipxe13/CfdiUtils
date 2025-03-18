@@ -10,7 +10,14 @@ use CfdiUtilsTests\TestCase;
 
 final class RetencionesCreator20Test extends TestCase
 {
-    public function testCreatePreCfdiWithAllCorrectValues()
+    use RetencionesCreatorCommonMethodsTrait;
+
+    public function createMinimalCreator(): RetencionesCreator20
+    {
+        return new RetencionesCreator20();
+    }
+
+    public function testCreatePreCfdiWithAllCorrectValues(): void
     {
         $cerFile = $this->utilAsset('certs/EKU9003173C9.cer');
         $pemFile = $this->utilAsset('certs/EKU9003173C9.key.pem');
@@ -24,7 +31,7 @@ final class RetencionesCreator20Test extends TestCase
             'FechaExp' => '2022-01-13T14:15:16',
             'CveRetenc' => '14', // Dividendos o utilidades distribuidos
             'LugarExpRetenc' => '91778',
-        ], $xmlResolver, $xsltBuilder);
+        ], $xmlResolver, $xsltBuilder, $certificado);
         $retenciones = $creator->retenciones();
 
         // available on RET 2.0
@@ -79,6 +86,7 @@ final class RetencionesCreator20Test extends TestCase
         $this->assertSame('2.0', $root['Version']);
 
         // put additional content using helpers
+        $this->assertSame($certificado, $creator->getCertificado()); // it was placed on constructor also
         $creator->putCertificado($certificado);
         $creator->addSello('file://' . $pemFile, $passPhrase);
 
@@ -97,7 +105,7 @@ final class RetencionesCreator20Test extends TestCase
         $this->assertXmlStringEqualsXmlFile($this->utilAsset('retenciones/retenciones20.xml'), $creator->asXml());
     }
 
-    public function testValidateIsCheckingAgainstXsdViolations()
+    public function testValidateIsCheckingAgainstXsdViolations(): void
     {
         $retencion = new RetencionesCreator20();
         $retencion->setXmlResolver($this->newResolver());
@@ -105,7 +113,7 @@ final class RetencionesCreator20Test extends TestCase
         $this->assertTrue($assert->getStatus()->isError());
     }
 
-    public function testAddSelloFailsWithWrongPassPrase()
+    public function testAddSelloFailsWithWrongPassPrase(): void
     {
         $pemFile = $this->utilAsset('certs/EKU9003173C9_password.key.pem');
         $passPhrase = '_worng_passphrase_';
@@ -118,7 +126,7 @@ final class RetencionesCreator20Test extends TestCase
         $retencion->addSello('file://' . $pemFile, $passPhrase);
     }
 
-    public function testAddSelloFailsWithWrongCertificado()
+    public function testAddSelloFailsWithWrongCertificado(): void
     {
         $cerFile = $this->utilAsset('certs/CSD09_AAA010101AAA.cer');
         $pemFile = $this->utilAsset('certs/EKU9003173C9.key.pem');

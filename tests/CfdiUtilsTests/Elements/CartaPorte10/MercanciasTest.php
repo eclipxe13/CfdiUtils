@@ -15,8 +15,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class MercanciasTest extends TestCase
 {
-    /** @var Mercancias */
-    public $element;
+    public Mercancias $element;
 
     protected function setUp(): void
     {
@@ -24,12 +23,12 @@ final class MercanciasTest extends TestCase
         $this->element = new Mercancias();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cartaporte:Mercancias', $this->element->getElementName());
     }
 
-    public function testAddMercancia()
+    public function testAddMercancia(): void
     {
         // insert first element
         $first = $this->element->addMercancia(['id' => 'first']);
@@ -43,7 +42,7 @@ final class MercanciasTest extends TestCase
         $this->assertCount(2, $this->element);
     }
 
-    public function testMultiMercancia()
+    public function testMultiMercancia(): void
     {
         // insert first element
         $mercancias = $this->element->multiMercancia(
@@ -54,7 +53,7 @@ final class MercanciasTest extends TestCase
         $this->assertSame($this->element, $mercancias);
     }
 
-    public function testAddAutotransporteFederal()
+    public function testAddAutotransporteFederal(): void
     {
         // insert first element
         $first = $this->element->addAutotransporteFederal(['id' => 'first']);
@@ -68,7 +67,7 @@ final class MercanciasTest extends TestCase
         $this->assertCount(2, $this->element);
     }
 
-    public function testAddTransporteMaritimo()
+    public function testAddTransporteMaritimo(): void
     {
         // insert first element
         $first = $this->element->addTransporteMaritimo(['id' => 'first']);
@@ -82,7 +81,7 @@ final class MercanciasTest extends TestCase
         $this->assertCount(2, $this->element);
     }
 
-    public function testAddTransporteAereo()
+    public function testAddTransporteAereo(): void
     {
         // insert first element
         $first = $this->element->addTransporteAereo(['id' => 'first']);
@@ -96,7 +95,7 @@ final class MercanciasTest extends TestCase
         $this->assertCount(2, $this->element);
     }
 
-    public function testAddTransporteFerroviario()
+    public function testAddTransporteFerroviario(): void
     {
         // insert first element
         $first = $this->element->addTransporteFerroviario(['id' => 'first']);

@@ -10,7 +10,7 @@ use CfdiUtils\SumasConceptos\SumasConceptosWriter;
 
 trait SumasConceptosWriterTestTrait
 {
-    public function testFormat()
+    public function testFormat(): void
     {
         $precision = 6;
         $comprobante = $this->createComprobante();
@@ -24,7 +24,7 @@ trait SumasConceptosWriterTestTrait
         $this->assertSame('1.000000', $writer->format(1));
     }
 
-    public function testPutWithEmptyValues()
+    public function testPutWithEmptyValues(): void
     {
         $precision = 2;
         $comprobante = $this->createComprobante();
@@ -38,7 +38,7 @@ trait SumasConceptosWriterTestTrait
         $this->assertNull($comprobante->searchNode('cfdi:Impuestos'));
     }
 
-    public function testPutWithEmptyConceptosImpuestos()
+    public function testPutWithEmptyConceptosImpuestos(): void
     {
         $precision = 2;
         $comprobante = $this->createComprobante();
@@ -61,7 +61,7 @@ trait SumasConceptosWriterTestTrait
         $this->assertNull($comprobante->searchNode('cfdi:Impuestos'));
     }
 
-    public function testPutWithZeroConceptosImpuestos()
+    public function testPutWithZeroConceptosImpuestos(): void
     {
         $precision = 2;
         $comprobante = $this->createComprobante();
@@ -98,7 +98,7 @@ trait SumasConceptosWriterTestTrait
         $this->assertFalse(isset($impuestos['TotalImpuestosRetenidos']));
     }
 
-    public function testPutWithConceptosImpuestos()
+    public function testPutWithConceptosImpuestos(): void
     {
         $precision = 2;
         $comprobante = $this->createComprobante();
@@ -137,7 +137,7 @@ trait SumasConceptosWriterTestTrait
         $this->assertFalse(isset($impuestos['TotalImpuestosRetenidos']));
     }
 
-    public function testDescuentoWithValueZeroExistsIfAConceptoHasDescuento()
+    public function testDescuentoWithValueZeroExistsIfAConceptoHasDescuento(): void
     {
         $comprobante = $this->createComprobante();
         $comprobante->addConcepto([]); // first concepto does not have Descuento
@@ -151,7 +151,7 @@ trait SumasConceptosWriterTestTrait
         $this->assertSame('0.00', $comprobante['Descuento']);
     }
 
-    public function testDescuentoNotSetIfAllConceptosDoesNotHaveDescuento()
+    public function testDescuentoNotSetIfAllConceptosDoesNotHaveDescuento(): void
     {
         $comprobante = $this->createComprobante(['Descuento' => '']); // set value with discount
         $comprobante->addConcepto(); // first concepto does not have Descuento
@@ -166,7 +166,7 @@ trait SumasConceptosWriterTestTrait
         $this->assertFalse(isset($comprobante['Descuento']));
     }
 
-    public function testOnComplementoImpuestosImporteSumIsRoundedCfdi()
+    public function testOnComplementoImpuestosImporteSumIsRoundedCfdi(): void
     {
         $comprobante = $this->createComprobante();
         $comprobante->addConcepto()->multiTraslado(
@@ -218,7 +218,7 @@ trait SumasConceptosWriterTestTrait
         }
     }
 
-    public function testConceptosOnlyWithTrasladosExentosDoesNotWriteTraslados()
+    public function testConceptosOnlyWithTrasladosExentosDoesNotWriteTraslados(): void
     {
         $comprobante = $this->createComprobante();
         $concepto = $comprobante->addConcepto();
@@ -266,7 +266,7 @@ trait SumasConceptosWriterTestTrait
         $this->assertXmlStringEqualsXmlString($expected, XmlNodeUtils::nodeToXmlString($comprobante->getImpuestos()));
     }
 
-    public function testSetRequiredImpLocalAttributes()
+    public function testSetRequiredImpLocalAttributes(): void
     {
         $comprobante = $this->createComprobante();
         $impLocal = new ImpuestosLocales();
@@ -293,7 +293,7 @@ trait SumasConceptosWriterTestTrait
         $this->assertSame('54.86', $impLocal->attributes()->get('TotaldeTraslados'));
     }
 
-    public function testRemoveImpLocalComplementWhenIsEmptyAndPreservesOthersComplements()
+    public function testRemoveImpLocalComplementWhenIsEmptyAndPreservesOthersComplements(): void
     {
         $comprobante = $this->createComprobante();
         $comprobante->addComplemento(new Node('other:PrimerComplemento'));
@@ -311,7 +311,7 @@ trait SumasConceptosWriterTestTrait
         $this->assertNull($comprobante->searchNode('cfdi:Complemento', 'implocal:ImpuestosLocales'));
     }
 
-    public function testRemoveImpLocalComplementAndRemoveComplementoNodeWhenIsEmpty()
+    public function testRemoveImpLocalComplementAndRemoveComplementoNodeWhenIsEmpty(): void
     {
         $comprobante = $this->createComprobante();
         $comprobante->addComplemento(new ImpuestosLocales());

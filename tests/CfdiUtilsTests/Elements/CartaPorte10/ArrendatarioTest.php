@@ -11,8 +11,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class ArrendatarioTest extends TestCase
 {
-    /** @var Arrendatario */
-    public $element;
+    public Arrendatario $element;
 
     protected function setUp(): void
     {
@@ -20,12 +19,12 @@ final class ArrendatarioTest extends TestCase
         $this->element = new Arrendatario();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cartaporte:Arrendatario', $this->element->getElementName());
     }
 
-    public function testGetDomicilio()
+    public function testGetDomicilio(): void
     {
         $this->assertCount(0, $this->element->searchNodes('cartaporte:Domicilio'));
 
@@ -38,7 +37,7 @@ final class ArrendatarioTest extends TestCase
         $this->assertSame($first, $second);
     }
 
-    public function testAddDomicilio()
+    public function testAddDomicilio(): void
     {
         // insert first element
         $first = $this->element->addDomicilio(['id' => 'first']);

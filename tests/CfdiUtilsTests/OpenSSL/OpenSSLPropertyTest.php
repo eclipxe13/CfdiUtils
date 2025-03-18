@@ -8,12 +8,12 @@ use CfdiUtilsTests\TestCase;
 
 final class OpenSSLPropertyTest extends TestCase
 {
-    public function testCorrectImplementer()
+    public function testCorrectImplementer(): void
     {
         $object = new class () {
             use OpenSSLPropertyTrait;
 
-            public function __construct(OpenSSL $openSSL = null)
+            public function __construct(?OpenSSL $openSSL = null)
             {
                 $this->setOpenSSL($openSSL ?: new OpenSSL());
             }
@@ -22,13 +22,13 @@ final class OpenSSLPropertyTest extends TestCase
         $this->assertInstanceOf(OpenSSL::class, $object->getOpenSSL());
     }
 
-    public function testNotInstantiatedImplementer()
+    public function testNotInstantiatedImplementer(): void
     {
         $object = new class () {
             use OpenSSLPropertyTrait;
         };
 
-        $this->expectException(\TypeError::class);
+        $this->expectException(\Error::class);
         /**
          * @noinspection PhpExpressionResultUnusedInspection
          * @phpstan-ignore-next-line
@@ -36,7 +36,7 @@ final class OpenSSLPropertyTest extends TestCase
         $object->getOpenSSL();
     }
 
-    public function testWithDefaultSetterVisibility()
+    public function testWithDefaultSetterVisibility(): void
     {
         $object = new class () {
             use OpenSSLPropertyTrait;

@@ -11,14 +11,14 @@ use CfdiUtils\Validate\Status;
 
 trait SelloDigitalCertificadoWithRegularCertificadoTrait
 {
-    public function testObjectSpecification()
+    public function testObjectSpecification(): void
     {
         $this->assertInstanceOf(DiscoverableCreateInterface::class, $this->validator);
         $this->assertInstanceOf(RequireXmlStringInterface::class, $this->validator);
         $this->assertInstanceOf(RequireXmlResolverInterface::class, $this->validator);
     }
 
-    public function testValidateWithoutCertificado()
+    public function testValidateWithoutCertificado(): void
     {
         $this->runValidate();
 
@@ -29,7 +29,7 @@ trait SelloDigitalCertificadoWithRegularCertificadoTrait
         }
     }
 
-    public function testValidateBadCertificadoNumber()
+    public function testValidateBadCertificadoNumber(): void
     {
         $this->setUpCertificado([
             'NoCertificado' => 'X',
@@ -40,7 +40,7 @@ trait SelloDigitalCertificadoWithRegularCertificadoTrait
         $this->assertStatusEqualsCode(Status::error(), 'SELLO02');
     }
 
-    public function testValidateBadRfcAndNameNumber()
+    public function testValidateBadRfcAndNameNumber(): void
     {
         $this->setUpCertificado([], [
             'Rfc' => null,
@@ -53,7 +53,7 @@ trait SelloDigitalCertificadoWithRegularCertificadoTrait
         $this->assertStatusEqualsCode(Status::error(), 'SELLO04');
     }
 
-    public function testValidateOkLowerFecha()
+    public function testValidateOkLowerFecha(): void
     {
         // Fecha inicial de vigencia del certificado
         $validLowerDate = strtotime('2023-05-18T11:43:51+00:00');
@@ -63,7 +63,7 @@ trait SelloDigitalCertificadoWithRegularCertificadoTrait
         $this->assertStatusEqualsCode(Status::ok(), 'SELLO06');
     }
 
-    public function testValidateBadLowerFecha()
+    public function testValidateBadLowerFecha(): void
     {
         // Fecha inicial de vigencia del certificado - 1
         $validLowerDate = strtotime('2023-05-18T11:43:50+00:00');
@@ -73,7 +73,7 @@ trait SelloDigitalCertificadoWithRegularCertificadoTrait
         $this->assertStatusEqualsCode(Status::ok(), 'SELLO06');
     }
 
-    public function testValidateOkHigherFecha()
+    public function testValidateOkHigherFecha(): void
     {
         // Fecha final de vigencia del certificado
         $validHigherDate = strtotime('2023-06-17T19:44:13+00:00');
@@ -83,7 +83,7 @@ trait SelloDigitalCertificadoWithRegularCertificadoTrait
         $this->assertStatusEqualsCode(Status::ok(), 'SELLO06');
     }
 
-    public function testValidateBadHigherFecha()
+    public function testValidateBadHigherFecha(): void
     {
         // Fecha final de vigencia del certificado + 1
         $validHigherDate = strtotime('2027-05-18T11:43:52+00:00');
@@ -93,7 +93,7 @@ trait SelloDigitalCertificadoWithRegularCertificadoTrait
         $this->assertStatusEqualsCode(Status::error(), 'SELLO06');
     }
 
-    public function testValidateBadSelloBase64()
+    public function testValidateBadSelloBase64(): void
     {
         $this->setUpCertificado(['Sello' => 'ñ']);
         $this->runValidate();
@@ -103,19 +103,16 @@ trait SelloDigitalCertificadoWithRegularCertificadoTrait
     /**
      * This test does not care about locales
      *
-     * @param bool $expected
-     * @param string $first
-     * @param string $second
      * @testWith [true, "ABC", "ABC"]
      *           [true, "Empresa \"Equis\"", "Empresa Equis"]
      *           [false, "Empresa Equis Sa de Cv", "Empresa Equis SA CV"]
      */
-    public function testCompareNamesBasicChars(bool $expected, string $first, string $second)
+    public function testCompareNamesBasicChars(bool $expected, string $first, string $second): void
     {
         $validator = new class () {
             use SelloDigitalCertificadoValidatorTrait;
 
-            protected function validateNombre(string $emisorNombre, string $rfc)
+            protected function validateNombre(string $emisorNombre, string $rfc): void
             {
             }
 
@@ -131,18 +128,16 @@ trait SelloDigitalCertificadoWithRegularCertificadoTrait
      * This test will perform comparison only when locales are set up or can be set,
      * otherwise the test will be skipped.
      *
-     * @param string $first
-     * @param string $second
      * @testWith ["Cesar Gomez Aguero", "César Gómez Agüero"]
      *           ["Cesar Gomez Aguero", "CÉSAR GÓMEZ AGÜERO"]
      *           ["CAÑA SA", "Cana SA"]
      */
-    public function testCompareNamesExtendedChars(string $first, string $second)
+    public function testCompareNamesExtendedChars(string $first, string $second): void
     {
         $validator = new class () {
             use SelloDigitalCertificadoValidatorTrait;
 
-            protected function validateNombre(string $emisorNombre, string $rfc)
+            protected function validateNombre(string $emisorNombre, string $rfc): void
             {
             }
 
@@ -158,10 +153,11 @@ trait SelloDigitalCertificadoWithRegularCertificadoTrait
         };
 
         $currentLocale = setlocale(LC_CTYPE, '0') ?: 'C';
-        if ('C' === $currentLocale || 'POSIX' === $currentLocale) {
-            if (false === setlocale(LC_CTYPE, 'es_MX.utf8', 'en_US.utf8', 'es_MX', 'en_US', 'spanish', 'english')) {
-                $this->markTestSkipped('Cannot compare names without LC_CTYPE configured');
-            }
+        if (
+            ('C' === $currentLocale || 'POSIX' === $currentLocale)
+            && false === setlocale(LC_CTYPE, 'es_MX.utf8', 'en_US.utf8', 'es_MX', 'en_US', 'spanish', 'english')
+        ) {
+            $this->markTestSkipped('Cannot compare names without LC_CTYPE configured');
         }
 
         try {

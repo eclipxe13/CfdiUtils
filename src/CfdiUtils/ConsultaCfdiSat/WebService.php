@@ -11,13 +11,11 @@ use stdClass;
 
 class WebService
 {
-    /** @var SoapClient|null */
-    private $soapClient;
+    private ?SoapClient $soapClient = null;
 
-    /** @var Config */
-    private $config;
+    private Config $config;
 
-    public function __construct(Config $config = null)
+    public function __construct(?Config $config = null)
     {
         $this->config = $config ?: new Config();
     }
@@ -35,7 +33,7 @@ class WebService
         return $this->soapClient;
     }
 
-    public function destroySoapClient()
+    public function destroySoapClient(): void
     {
         $this->soapClient = null;
     }
@@ -76,7 +74,12 @@ class WebService
 
     public function request(RequestParameters $requestParameters): StatusResponse
     {
-        $rawResponse = $this->doRequestConsulta($requestParameters->expression());
+        return $this->requestExpression($requestParameters->expression());
+    }
+
+    public function requestExpression(string $expression): StatusResponse
+    {
+        $rawResponse = $this->doRequestConsulta($expression);
 
         if (! ($rawResponse instanceof stdClass)) {
             throw new RuntimeException('The consulta web service did not return any result');
@@ -100,9 +103,7 @@ class WebService
     /**
      * This method exists to be able to mock SOAP call
      *
-     * @param string $expression
-     * @return null|stdClass
-     *@internal
+     * @internal
      */
     protected function doRequestConsulta(string $expression): ?stdClass
     {

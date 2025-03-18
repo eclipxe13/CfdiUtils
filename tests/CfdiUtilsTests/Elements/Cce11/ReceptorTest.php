@@ -8,8 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ReceptorTest extends TestCase
 {
-    /** @var Receptor */
-    public $element;
+    public Receptor $element;
 
     protected function setUp(): void
     {
@@ -17,12 +16,12 @@ final class ReceptorTest extends TestCase
         $this->element = new Receptor();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cce11:Receptor', $this->element->getElementName());
     }
 
-    public function testDomicilio()
+    public function testDomicilio(): void
     {
         // object is empty
         $this->assertCount(0, $this->element);

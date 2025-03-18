@@ -3,6 +3,7 @@
 namespace CfdiUtilsTests\Validate\Cfdi40\Standard;
 
 use CfdiUtils\Validate\Cfdi40\Standard\SelloDigitalCertificado;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\Common\SelloDigitalCertificadoWithRegularCertificadoTrait;
 use CfdiUtilsTests\Validate\Validate40TestCase;
@@ -12,7 +13,7 @@ final class SelloDigitalCertificadoTest extends Validate40TestCase
     use SelloDigitalCertificadoWithRegularCertificadoTrait;
 
     /** @var SelloDigitalCertificado */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {
@@ -54,7 +55,7 @@ final class SelloDigitalCertificadoTest extends Validate40TestCase
         $this->assertCount(8, $this->asserts, 'All 8 were are tested');
     }
 
-    public function testValidateNameEmpty()
+    public function testValidateNameEmpty(): void
     {
         $this->setUpCertificado([], [
             'Nombre' => '',
@@ -68,7 +69,7 @@ final class SelloDigitalCertificadoTest extends Validate40TestCase
         $this->assertSame('Nombre del emisor vacío', $status->getExplanation());
     }
 
-    public function testValidateNameMoralPerson()
+    public function testValidateNameMoralPerson(): void
     {
         $this->setUpCertificado([], [
             'Nombre' => 'ESCUELA KEMPER URGATE',
@@ -85,7 +86,7 @@ final class SelloDigitalCertificadoTest extends Validate40TestCase
         );
     }
 
-    public function testValidateWithIdenticalNameRegularPerson()
+    public function testValidateWithIdenticalNameRegularPerson(): void
     {
         $this->setUpCertificado([], [
             'Rfc' => 'COSC8001137NA', // set as persona física to force name comparison and not remove suffix
@@ -97,7 +98,7 @@ final class SelloDigitalCertificadoTest extends Validate40TestCase
         $this->assertStatusEqualsCode(Status::ok(), 'SELLO04');
     }
 
-    public function testValidateWithoutIdenticalNameRegularPerson()
+    public function testValidateWithoutIdenticalNameRegularPerson(): void
     {
         $this->setUpCertificado([], [
             'Rfc' => 'COSC8001137NA',  // set as persona física to force name comparison

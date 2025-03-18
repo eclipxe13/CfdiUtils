@@ -3,13 +3,14 @@
 namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Validate\Cfdi33\Standard\ComprobanteTipoCambio;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\Validate33TestCase;
 
 final class ComprobanteTipoCambioTest extends Validate33TestCase
 {
     /** @var ComprobanteTipoCambio */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {
@@ -33,13 +34,10 @@ final class ComprobanteTipoCambioTest extends Validate33TestCase
     }
 
     /**
-     * @param string $moneda
-     * @param string|null $tipoCambio
-     * @param string $ok
      * @param string[] $nones
      * @dataProvider providerMonedaWithValidValues
      */
-    public function testMonedaWithValidValues(string $moneda, ?string $tipoCambio, string $ok, array $nones)
+    public function testMonedaWithValidValues(string $moneda, ?string $tipoCambio, string $ok, array $nones): void
     {
         $this->comprobante->addAttributes([
             'Moneda' => $moneda,
@@ -67,11 +65,9 @@ final class ComprobanteTipoCambioTest extends Validate33TestCase
     }
 
     /**
-     * @param string|null $moneda
-     * @param string|null $tipoCambio
      * @dataProvider providerNoMonedaOrEmpty
      */
-    public function testNoMonedaOrEmpty(?string $moneda, ?string $tipoCambio)
+    public function testNoMonedaOrEmpty(?string $moneda, ?string $tipoCambio): void
     {
         $this->comprobante->addAttributes([
             'Moneda' => $moneda,
@@ -107,13 +103,10 @@ final class ComprobanteTipoCambioTest extends Validate33TestCase
     }
 
     /**
-     * @param string $moneda
-     * @param string|null $tipoCambio
-     * @param string $error
      * @param string[] $nones
      * @dataProvider providerMonedaWithInvalidValues
      */
-    public function testMonedaWithInvalidValues(string $moneda, ?string $tipoCambio, string $error, array $nones)
+    public function testMonedaWithInvalidValues(string $moneda, ?string $tipoCambio, string $error, array $nones): void
     {
         $this->comprobante->addAttributes([
             'Moneda' => $moneda,

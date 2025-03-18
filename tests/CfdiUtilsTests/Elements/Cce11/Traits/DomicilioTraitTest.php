@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class DomicilioTraitTest extends TestCase
 {
-    /** @var UseDomicilio */
-    public $element;
+    public UseDomicilio $element;
 
     public function setUp(): void
     {
@@ -16,7 +15,7 @@ final class DomicilioTraitTest extends TestCase
         $this->element = new UseDomicilio();
     }
 
-    public function testDomicilio()
+    public function testDomicilio(): void
     {
         // object is empty
         $this->assertCount(0, $this->element);

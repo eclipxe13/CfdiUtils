@@ -4,13 +4,14 @@ namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Validate\Cfdi33\Standard\ReceptorResidenciaFiscal;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\Validate33TestCase;
 
 final class ReceptorResidenciaFiscalTest extends Validate33TestCase
 {
-    /** @var  ReceptorResidenciaFiscal */
-    protected $validator;
+    /** @var ReceptorResidenciaFiscal */
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {
@@ -35,11 +36,6 @@ final class ReceptorResidenciaFiscalTest extends Validate33TestCase
     }
 
     /**
-     * @param string|null $receptorRfc
-     * @param string|null $residenciaFiscal
-     * @param string|null $numRegIdTrib
-     * @param bool $putComercioExterior
-     * @param string $ok
      * @dataProvider providerValidCases
      */
     public function testValidCase(
@@ -47,8 +43,8 @@ final class ReceptorResidenciaFiscalTest extends Validate33TestCase
         ?string $residenciaFiscal,
         ?string $numRegIdTrib,
         bool $putComercioExterior,
-        string $ok
-    ) {
+        string $ok,
+    ): void {
         $this->comprobante->addChild(new Node('cfdi:Receptor', [
             'Rfc' => $receptorRfc,
             'ResidenciaFiscal' => $residenciaFiscal,
@@ -88,11 +84,6 @@ final class ReceptorResidenciaFiscalTest extends Validate33TestCase
     }
 
     /**
-     * @param string|null $receptorRfc
-     * @param string|null $residenciaFiscal
-     * @param string|null $numRegIdTrib
-     * @param bool $putComercioExterior
-     * @param string $error
      * @dataProvider providerInvalidCases
      */
     public function testInvalidCase(
@@ -100,8 +91,8 @@ final class ReceptorResidenciaFiscalTest extends Validate33TestCase
         ?string $residenciaFiscal,
         ?string $numRegIdTrib,
         bool $putComercioExterior,
-        string $error
-    ) {
+        string $error,
+    ): void {
         $this->comprobante->addChild(new Node('cfdi:Receptor', [
             'Rfc' => $receptorRfc,
             'ResidenciaFiscal' => $residenciaFiscal,
@@ -116,7 +107,7 @@ final class ReceptorResidenciaFiscalTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::error(), $error);
     }
 
-    public function testValidCaseWithoutReceptorNode()
+    public function testValidCaseWithoutReceptorNode(): void
     {
         $this->runValidate();
         $this->assertFalse($this->asserts->hasErrors());

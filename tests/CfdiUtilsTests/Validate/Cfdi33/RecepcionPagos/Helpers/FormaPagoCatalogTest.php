@@ -34,16 +34,15 @@ final class FormaPagoCatalogTest extends TestCase
     }
 
     /**
-     * @param string $key
      * @dataProvider providerObtain
      */
-    public function testObtain(string $key)
+    public function testObtain(string $key): void
     {
         $paymentType = (new FormaPagoCatalog())->obtain($key);
         $this->assertSame($key, $paymentType->key());
     }
 
-    public function testObtainWithNonExistentKey()
+    public function testObtainWithNonExistentKey(): void
     {
         $this->expectException(\OutOfBoundsException::class);
         $this->expectExceptionMessage('FOO');

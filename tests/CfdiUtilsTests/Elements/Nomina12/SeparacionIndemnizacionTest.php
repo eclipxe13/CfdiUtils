@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class SeparacionIndemnizacionTest extends TestCase
 {
-    /** @var SeparacionIndemnizacion */
-    public $element;
+    public SeparacionIndemnizacion $element;
 
     protected function setUp(): void
     {
@@ -19,7 +18,7 @@ final class SeparacionIndemnizacionTest extends TestCase
         $this->element = new SeparacionIndemnizacion();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('nomina12:SeparacionIndemnizacion', $this->element->getElementName());
     }

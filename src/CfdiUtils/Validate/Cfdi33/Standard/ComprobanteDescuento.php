@@ -16,14 +16,14 @@ use CfdiUtils\Validate\Status;
  */
 class ComprobanteDescuento extends AbstractDiscoverableVersion33
 {
-    public function validate(NodeInterface $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts): void
     {
         $asserts->put(
             'DESCUENTO01',
             'Si existe el atributo descuento,'
               . ' entonces debe ser menor o igual que el subtotal y mayor o igual que cero (CFDI33109)'
         );
-        if ($comprobante->offsetExists('Descuento')) {
+        if ($comprobante->exists('Descuento')) {
             $descuento = (float) $comprobante['Descuento'];
             $subtotal = (float) $comprobante['SubTotal'];
             $asserts->putStatus(

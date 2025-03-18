@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class DerechosDePasoTest extends TestCase
 {
-    /** @var DerechosDePaso */
-    public $element;
+    public DerechosDePaso $element;
 
     protected function setUp(): void
     {
@@ -19,7 +18,7 @@ final class DerechosDePasoTest extends TestCase
         $this->element = new DerechosDePaso();
     }
 
-    public function testConstructedObject()
+    public function testConstructedObject(): void
     {
         $this->assertSame('cartaporte:DerechosDePaso', $this->element->getElementName());
     }

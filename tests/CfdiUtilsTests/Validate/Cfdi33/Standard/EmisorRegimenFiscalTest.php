@@ -4,13 +4,14 @@ namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Validate\Cfdi33\Standard\EmisorRegimenFiscal;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\Validate33TestCase;
 
 final class EmisorRegimenFiscalTest extends Validate33TestCase
 {
-    /** @var  EmisorRegimenFiscal */
-    protected $validator;
+    /** @var EmisorRegimenFiscal */
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {
@@ -57,11 +58,9 @@ final class EmisorRegimenFiscalTest extends Validate33TestCase
     }
 
     /**
-     * @param string $emisorRfc
-     * @param string $regimenFiscal
      * @dataProvider providerValidCases
      */
-    public function testValidCases(string $emisorRfc, string $regimenFiscal)
+    public function testValidCases(string $emisorRfc, string $regimenFiscal): void
     {
         $this->comprobante->addChild(new Node('cfdi:Emisor', [
             'RegimenFiscal' => $regimenFiscal,
@@ -86,11 +85,9 @@ final class EmisorRegimenFiscalTest extends Validate33TestCase
     }
 
     /**
-     * @param string|null $emisorRfc
-     * @param string|null $regimenFiscal
      * @dataProvider providerInvalidCases
      */
-    public function testInvalidCases(?string $emisorRfc, ?string $regimenFiscal)
+    public function testInvalidCases(?string $emisorRfc, ?string $regimenFiscal): void
     {
         $this->comprobante->addChild(new Node('cfdi:Emisor', [
             'RegimenFiscal' => $regimenFiscal,

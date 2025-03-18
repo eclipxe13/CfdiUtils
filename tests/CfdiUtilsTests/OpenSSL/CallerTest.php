@@ -11,19 +11,19 @@ use Symfony\Component\Process\Process;
 
 final class CallerTest extends TestCase
 {
-    public function testConstructWithoutArguments()
+    public function testConstructWithoutArguments(): void
     {
         $caller = new Caller();
         $this->assertSame(Caller::DEFAULT_OPENSSL_EXECUTABLE, $caller->getExecutable());
     }
 
-    public function testConstructWithExecutableName()
+    public function testConstructWithExecutableName(): void
     {
         $caller = new Caller('my-openssl');
         $this->assertSame('my-openssl', $caller->getExecutable());
     }
 
-    public function testCallerWithNullCharacterOnTemplate()
+    public function testCallerWithNullCharacterOnTemplate(): void
     {
         if (in_array(PHP_OS_FAMILY, ['Windows', 'Unknown'])) {
             $this->markTestSkipped('Expected exception on non-windows systems');
@@ -43,13 +43,9 @@ final class CallerTest extends TestCase
         $process->method('getErrorOutput')->willReturn($errors);
 
         return new class ($process) extends Caller {
-            /** @var Process */
-            private $process;
-
-            public function __construct(Process $process)
+            public function __construct(private Process $process)
             {
                 parent::__construct('command');
-                $this->process = $process;
             }
 
             // change method visibility
@@ -60,7 +56,7 @@ final class CallerTest extends TestCase
         };
     }
 
-    public function testRunUsingMockedProcessExpectingError()
+    public function testRunUsingMockedProcessExpectingError(): void
     {
         $caller = $this->createFakeCaller('command', 15, 'output', 'errors');
 
@@ -76,7 +72,7 @@ final class CallerTest extends TestCase
         }
     }
 
-    public function testRunUsingMockedProcessExpectingSuccess()
+    public function testRunUsingMockedProcessExpectingSuccess(): void
     {
         $caller = $this->createFakeCaller('openssl', 0, 'OK', '');
 

@@ -4,13 +4,14 @@ namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Validate\Cfdi33\Standard\ComprobanteTipoDeComprobante;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\Validate33TestCase;
 
 final class ComprobanteTipoDeComprobanteTest extends Validate33TestCase
 {
-    /** @var  ComprobanteTipoDeComprobante */
-    protected $validator;
+    /** @var ComprobanteTipoDeComprobante */
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {
@@ -24,10 +25,9 @@ final class ComprobanteTipoDeComprobanteTest extends Validate33TestCase
     }
 
     /**
-     * @param string $tipoDeComprobante
      * @dataProvider providerTPN
      */
-    public function testValidTPN(string $tipoDeComprobante)
+    public function testValidTPN(string $tipoDeComprobante): void
     {
         $this->comprobante->addAttributes([
             'TipoDeComprobante' => $tipoDeComprobante,
@@ -38,10 +38,9 @@ final class ComprobanteTipoDeComprobanteTest extends Validate33TestCase
     }
 
     /**
-     * @param string $tipoDeComprobante
      * @dataProvider providerTPN
      */
-    public function testInvalidTPN(string $tipoDeComprobante)
+    public function testInvalidTPN(string $tipoDeComprobante): void
     {
         $this->comprobante->addAttributes([
             'TipoDeComprobante' => $tipoDeComprobante,
@@ -61,10 +60,9 @@ final class ComprobanteTipoDeComprobanteTest extends Validate33TestCase
     }
 
     /**
-     * @param string $tipoDeComprobante
      * @dataProvider providerTP
      */
-    public function testValidTP(string $tipoDeComprobante)
+    public function testValidTP(string $tipoDeComprobante): void
     {
         $this->comprobante->addAttributes([
             'TipoDeComprobante' => $tipoDeComprobante,
@@ -83,10 +81,9 @@ final class ComprobanteTipoDeComprobanteTest extends Validate33TestCase
     }
 
     /**
-     * @param string $tipoDeComprobante
      * @dataProvider providerTP
      */
-    public function testInvalidTP($tipoDeComprobante)
+    public function testInvalidTP(string $tipoDeComprobante): void
     {
         $this->comprobante->addAttributes([
             'TipoDeComprobante' => $tipoDeComprobante,
@@ -99,10 +96,9 @@ final class ComprobanteTipoDeComprobanteTest extends Validate33TestCase
     }
 
     /**
-     * @param string $tipoDeComprobante
      * @dataProvider providerTP
      */
-    public function testInvalidTPDescuentos($tipoDeComprobante)
+    public function testInvalidTPDescuentos(string $tipoDeComprobante): void
     {
         $this->comprobante->addAttributes([
             'TipoDeComprobante' => $tipoDeComprobante,
@@ -134,11 +130,9 @@ final class ComprobanteTipoDeComprobanteTest extends Validate33TestCase
     }
 
     /**
-     * @param string $tipoDeComprobante
-     * @param string|null $subtotal
      * @dataProvider providerTPNonZero
      */
-    public function testInvalidSubTotal(string $tipoDeComprobante, ?string $subtotal)
+    public function testInvalidSubTotal(string $tipoDeComprobante, ?string $subtotal): void
     {
         $this->comprobante->addAttributes([
             'TipoDeComprobante' => $tipoDeComprobante,
@@ -149,11 +143,9 @@ final class ComprobanteTipoDeComprobanteTest extends Validate33TestCase
     }
 
     /**
-     * @param string $tipoDeComprobante
-     * @param string|null $total
      * @dataProvider providerTPNonZero
      */
-    public function testInvalidTotal(string $tipoDeComprobante, ?string $total)
+    public function testInvalidTotal(string $tipoDeComprobante, ?string $total): void
     {
         $this->comprobante->addAttributes([
             'TipoDeComprobante' => $tipoDeComprobante,
@@ -169,10 +161,9 @@ final class ComprobanteTipoDeComprobanteTest extends Validate33TestCase
     }
 
     /**
-     * @param string $tipoDeComprobante
      * @dataProvider providerIEN
      */
-    public function testValidIENValorUnitarioGreaterThanZero(string $tipoDeComprobante)
+    public function testValidIENValorUnitarioGreaterThanZero(string $tipoDeComprobante): void
     {
         $this->comprobante->addAttributes([
             'TipoDeComprobante' => $tipoDeComprobante,
@@ -194,11 +185,9 @@ final class ComprobanteTipoDeComprobanteTest extends Validate33TestCase
     }
 
     /**
-     * @param string $tipoDeComprobante
-     * @param string|null $wrongUnitValue
      * @dataProvider providerIENWrongValue
      */
-    public function testInvalidIENValorUnitarioGreaterThanZero(string $tipoDeComprobante, ?string $wrongUnitValue)
+    public function testInvalidIENValorUnitarioGreaterThanZero(string $tipoDeComprobante, ?string $wrongUnitValue): void
     {
         $this->comprobante->addAttributes([
             'TipoDeComprobante' => $tipoDeComprobante,

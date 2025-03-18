@@ -6,63 +6,19 @@ use JsonSerializable;
 
 final class Totales implements JsonSerializable
 {
-    /** @var Decimal|null */
-    private $retencionIva;
-
-    /** @var Decimal|null */
-    private $retencionIsr;
-
-    /** @var Decimal|null */
-    private $retencionIeps;
-
-    /** @var Decimal|null */
-    private $trasladoIva16Base;
-
-    /** @var Decimal|null */
-    private $trasladoIva16Importe;
-
-    /** @var Decimal|null */
-    private $trasladoIva08Base;
-
-    /** @var Decimal|null */
-    private $trasladoIva08Importe;
-
-    /** @var Decimal|null */
-    private $trasladoIva00Base;
-
-    /** @var Decimal|null */
-    private $trasladoIva00Importe;
-
-    /** @var Decimal|null */
-    private $trasladoIvaExento;
-
-    /** @var Decimal */
-    private $total;
-
     public function __construct(
-        ?Decimal $retencionIva,
-        ?Decimal $retencionIsr,
-        ?Decimal $retencionIeps,
-        ?Decimal $trasladoIva16Base,
-        ?Decimal $trasladoIva16Importe,
-        ?Decimal $trasladoIva08Base,
-        ?Decimal $trasladoIva08Importe,
-        ?Decimal $trasladoIva00Base,
-        ?Decimal $trasladoIva00Importe,
-        ?Decimal $trasladoIvaExento,
-        Decimal $total
+        private ?Decimal $retencionIva,
+        private ?Decimal $retencionIsr,
+        private ?Decimal $retencionIeps,
+        private ?Decimal $trasladoIva16Base,
+        private ?Decimal $trasladoIva16Importe,
+        private ?Decimal $trasladoIva08Base,
+        private ?Decimal $trasladoIva08Importe,
+        private ?Decimal $trasladoIva00Base,
+        private ?Decimal $trasladoIva00Importe,
+        private ?Decimal $trasladoIvaExento,
+        private Decimal $total,
     ) {
-        $this->retencionIva = $retencionIva;
-        $this->retencionIsr = $retencionIsr;
-        $this->retencionIeps = $retencionIeps;
-        $this->trasladoIva16Base = $trasladoIva16Base;
-        $this->trasladoIva16Importe = $trasladoIva16Importe;
-        $this->trasladoIva08Base = $trasladoIva08Base;
-        $this->trasladoIva08Importe = $trasladoIva08Importe;
-        $this->trasladoIva00Base = $trasladoIva00Base;
-        $this->trasladoIva00Importe = $trasladoIva00Importe;
-        $this->trasladoIvaExento = $trasladoIvaExento;
-        $this->total = $total;
     }
 
     public function getRetencionIva(): ?Decimal

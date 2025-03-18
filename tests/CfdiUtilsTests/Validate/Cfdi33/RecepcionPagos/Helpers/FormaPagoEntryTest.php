@@ -8,15 +8,6 @@ use PHPUnit\Framework\TestCase;
 final class FormaPagoEntryTest extends TestCase
 {
     /**
-     * @param string $key
-     * @param string $description
-     * @param bool $allowSenderRfc
-     * @param bool $allowSenderAccount
-     * @param string $senderAccountPattern
-     * @param bool $allowReceiverRfc
-     * @param bool $allowReceiverAccount
-     * @param string $receiverAccountPattern
-     * @param bool $allowPaymentSignature
      * @testWith ["foo", "bar", false, false, "", false, false, "", false]
      *           ["foo", "bar", true, false, "", false, false, "", false]
      *           ["foo", "bar", false, true, "", false, false, "", false]
@@ -37,8 +28,8 @@ final class FormaPagoEntryTest extends TestCase
         bool $allowReceiverRfc,
         bool $allowReceiverAccount,
         string $receiverAccountPattern,
-        bool $allowPaymentSignature
-    ) {
+        bool $allowPaymentSignature,
+    ): void {
         $paymentType = new FormaPagoEntry(
             $key,
             $description,
@@ -69,7 +60,7 @@ final class FormaPagoEntryTest extends TestCase
         $this->assertSame($allowPaymentSignature, $paymentType->allowPaymentSignature());
     }
 
-    public function testConstructWithoutKey()
+    public function testConstructWithoutKey(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage(' key ');
@@ -77,7 +68,7 @@ final class FormaPagoEntryTest extends TestCase
         new FormaPagoEntry('', 'bar', false, false, '', false, false, '', false);
     }
 
-    public function testConstructWithoutDescription()
+    public function testConstructWithoutDescription(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage(' description ');

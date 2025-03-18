@@ -7,16 +7,8 @@ namespace CfdiUtils\SumasPagos20;
  */
 final class DoctoRelacionado
 {
-    /** @var Decimal */
-    private $impPagado;
-
-    /** @var Impuestos */
-    private $impuestos;
-
-    public function __construct(Decimal $impPagado, Impuestos $impuestos)
+    public function __construct(private Decimal $impPagado, private Impuestos $impuestos)
     {
-        $this->impPagado = $impPagado;
-        $this->impuestos = $impuestos;
     }
 
     public function getImpPagado(): Decimal

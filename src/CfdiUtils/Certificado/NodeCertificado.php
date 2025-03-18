@@ -6,12 +6,8 @@ use CfdiUtils\Nodes\NodeInterface;
 
 class NodeCertificado
 {
-    /** @var NodeInterface */
-    private $comprobante;
-
-    public function __construct(NodeInterface $comprobante)
+    public function __construct(private NodeInterface $comprobante)
     {
-        $this->comprobante = $comprobante;
     }
 
     /**
@@ -19,7 +15,6 @@ class NodeCertificado
      * If the node does not exists return an empty string
      * The returned string is no longer base64 encoded
      *
-     * @return string
      *
      * @throws \RuntimeException if the certificado attribute is not a valid base64 encoded string
      */
@@ -67,14 +62,12 @@ class NodeCertificado
      *
      * @see extract
      *
-     * @param string $filename
-     * @return void
      *
      * @throws \UnexpectedValueException if the filename to store the certificate is empty
      * @throws \RuntimeException if the certificado attribute is empty
      * @throws \RuntimeException if cannot write the contents of the certificate
      */
-    public function save(string $filename)
+    public function save(string $filename): void
     {
         if ('' === $filename) {
             throw new \UnexpectedValueException('The filename to store the certificate is empty');
@@ -99,8 +92,6 @@ class NodeCertificado
      * use the saveCertificado method instead
      *
      * @see save
-     *
-     * @return Certificado
      */
     public function obtain(): Certificado
     {

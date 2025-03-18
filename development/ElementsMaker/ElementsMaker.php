@@ -6,19 +6,11 @@ namespace CfdiUtils\Development\ElementsMaker;
 
 final class ElementsMaker
 {
-    /** @var Specifications */
-    private $specs;
-
-    /** @var string */
-    private $outputDir;
-
     /** @var array<string, string> */
-    private $templates = [];
+    private array $templates = [];
 
-    public function __construct(Specifications $specs, string $outputDir)
+    public function __construct(private Specifications $specs, private string $outputDir)
     {
-        $this->specs = $specs;
-        $this->outputDir = $outputDir;
     }
 
     public static function make(string $specFile, string $outputDir): self
@@ -83,6 +75,6 @@ final class ElementsMaker
         foreach ($array as $value) {
             $parts[] = var_export($value, true);
         }
-        return "[\n" . implode(",\n", $parts) . ']';
+        return "[\n" . implode(",\n", $parts) . "\n]";
     }
 }

@@ -5,13 +5,14 @@ namespace CfdiUtilsTests\Validate\Cfdi33\Standard;
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Validate\Cfdi33\Standard\SumasConceptosComprobanteImpuestos;
 use CfdiUtils\Validate\Contracts\DiscoverableCreateInterface;
+use CfdiUtils\Validate\Contracts\ValidatorInterface;
 use CfdiUtils\Validate\Status;
 use CfdiUtilsTests\Validate\Validate33TestCase;
 
 final class SumasConceptosComprobanteImpuestosTest extends Validate33TestCase
 {
     /** @var SumasConceptosComprobanteImpuestos */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
     protected function setUp(): void
     {
@@ -19,13 +20,13 @@ final class SumasConceptosComprobanteImpuestosTest extends Validate33TestCase
         $this->validator = new SumasConceptosComprobanteImpuestos();
     }
 
-    public function testObjectSpecification()
+    public function testObjectSpecification(): void
     {
         $this->assertInstanceOf(DiscoverableCreateInterface::class, $this->validator);
         $this->assertTrue($this->validator->canValidateCfdiVersion('3.3'));
     }
 
-    public function testValidateOk()
+    public function testValidateOk(): void
     {
         $this->setupCfdiFile('cfdi33-valid.xml');
         $this->runValidate();
@@ -37,7 +38,7 @@ final class SumasConceptosComprobanteImpuestosTest extends Validate33TestCase
         $this->assertCount(14, $this->asserts, 'All 14 expected asserts were are tested');
     }
 
-    public function testValidateBadSubtotal()
+    public function testValidateBadSubtotal(): void
     {
         $this->setupCfdiFile('cfdi33-valid.xml');
         $this->comprobante['SubTotal'] = '123.45';
@@ -45,7 +46,7 @@ final class SumasConceptosComprobanteImpuestosTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::error(), 'SUMAS01');
     }
 
-    public function testValidateUnsetSubtotal()
+    public function testValidateUnsetSubtotal(): void
     {
         $this->setupCfdiFile('cfdi33-valid.xml');
         unset($this->comprobante['SubTotal']);
@@ -53,7 +54,7 @@ final class SumasConceptosComprobanteImpuestosTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::error(), 'SUMAS01');
     }
 
-    public function testValidateBadDescuentos()
+    public function testValidateBadDescuentos(): void
     {
         $this->setupCfdiFile('cfdi33-valid.xml');
         $this->comprobante['Descuento'] = '123.45';
@@ -61,7 +62,7 @@ final class SumasConceptosComprobanteImpuestosTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::error(), 'SUMAS02');
     }
 
-    public function testValidateBadTotal()
+    public function testValidateBadTotal(): void
     {
         $this->setupCfdiFile('cfdi33-valid.xml');
         $this->comprobante['Total'] = '123.45';
@@ -69,7 +70,7 @@ final class SumasConceptosComprobanteImpuestosTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::error(), 'SUMAS03');
     }
 
-    public function testValidateUnsetTotal()
+    public function testValidateUnsetTotal(): void
     {
         $this->setupCfdiFile('cfdi33-valid.xml');
         unset($this->comprobante['Total']);
@@ -77,7 +78,7 @@ final class SumasConceptosComprobanteImpuestosTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::error(), 'SUMAS03');
     }
 
-    public function testValidateUnsetImpuestos()
+    public function testValidateUnsetImpuestos(): void
     {
         $this->setupCfdiFile('cfdi33-valid.xml');
         $impuestos = $this->comprobante->searchNode('cfdi:Impuestos');
@@ -93,7 +94,7 @@ final class SumasConceptosComprobanteImpuestosTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::error(), 'SUMAS10');
     }
 
-    public function testValidateUnsetTotalImpuestosTrasladados()
+    public function testValidateUnsetTotalImpuestosTrasladados(): void
     {
         $this->setupCfdiFile('cfdi33-valid.xml');
         if (null !== $impuestos = $this->comprobante->searchNode('cfdi:Impuestos')) {
@@ -103,7 +104,7 @@ final class SumasConceptosComprobanteImpuestosTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::error(), 'SUMAS04');
     }
 
-    public function testValidateUnsetOneImpuestosTrasladados()
+    public function testValidateUnsetOneImpuestosTrasladados(): void
     {
         $this->setupCfdiFile('cfdi33-valid.xml');
         $traslados = $this->comprobante->searchNode('cfdi:Impuestos', 'cfdi:Traslados');
@@ -118,7 +119,7 @@ final class SumasConceptosComprobanteImpuestosTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::error(), 'SUMAS05');
     }
 
-    public function testValidateBadOneImpuestosTrasladados()
+    public function testValidateBadOneImpuestosTrasladados(): void
     {
         $this->setupCfdiFile('cfdi33-valid.xml');
         $traslados = $this->comprobante->searchNode('cfdi:Impuestos', 'cfdi:Traslados');
@@ -132,7 +133,7 @@ final class SumasConceptosComprobanteImpuestosTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::error(), 'SUMAS06');
     }
 
-    public function testValidateMoreImpuestosTrasladados()
+    public function testValidateMoreImpuestosTrasladados(): void
     {
         $this->setupCfdiFile('cfdi33-valid.xml');
         $traslados = $this->comprobante->searchNode('cfdi:Impuestos', 'cfdi:Traslados');
@@ -156,7 +157,7 @@ final class SumasConceptosComprobanteImpuestosTest extends Validate33TestCase
         );
     }
 
-    public function testValidateUnsetTotalImpuestosRetenidos()
+    public function testValidateUnsetTotalImpuestosRetenidos(): void
     {
         $this->setupCfdiFile('cfdi33-valid.xml');
         $impuestos = $impuestos = $this->comprobante->searchNode('cfdi:Impuestos');
@@ -167,7 +168,7 @@ final class SumasConceptosComprobanteImpuestosTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::error(), 'SUMAS08');
     }
 
-    public function testValidateUnsetOneImpuestosRetenidos()
+    public function testValidateUnsetOneImpuestosRetenidos(): void
     {
         $this->setupCfdiFile('cfdi33-valid.xml');
         $retenciones = $this->comprobante->searchNode('cfdi:Impuestos', 'cfdi:Retenciones');
@@ -182,7 +183,7 @@ final class SumasConceptosComprobanteImpuestosTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::error(), 'SUMAS09');
     }
 
-    public function testValidateBadOneImpuestosRetenidos()
+    public function testValidateBadOneImpuestosRetenidos(): void
     {
         $this->setupCfdiFile('cfdi33-valid.xml');
         $retenciones = $this->comprobante->searchNode('cfdi:Impuestos', 'cfdi:Retenciones');
@@ -196,7 +197,7 @@ final class SumasConceptosComprobanteImpuestosTest extends Validate33TestCase
         $this->assertStatusEqualsCode(Status::error(), 'SUMAS10');
     }
 
-    public function testValidateMoreImpuestosRetenciones()
+    public function testValidateMoreImpuestosRetenciones(): void
     {
         $this->setupCfdiFile('cfdi33-valid.xml');
         $retenciones = $this->comprobante->searchNode('cfdi:Impuestos', 'cfdi:Retenciones');
@@ -225,13 +226,13 @@ final class SumasConceptosComprobanteImpuestosTest extends Validate33TestCase
     }
 
     /**
-     * @param string $descuento
-     * @param string $subtotal
-     * @param Status $expected
      * @dataProvider providerValidateDescuentoLessOrEqualThanSubTotal
      */
-    public function testValidateDescuentoLessOrEqualThanSubTotal(string $descuento, string $subtotal, Status $expected)
-    {
+    public function testValidateDescuentoLessOrEqualThanSubTotal(
+        string $descuento,
+        string $subtotal,
+        Status $expected,
+    ): void {
         $this->comprobante->addAttributes([
             'SubTotal' => $subtotal,
             'Descuento' => $descuento,

@@ -10,14 +10,12 @@ use PHPUnit\Framework\TestCase;
 final class BancoOrdenanteRfcProhibidoTest extends TestCase
 {
     /**
-     * @param string $paymentType
-     * @param string|null $rfc
      * @testWith ["02", "COSC8001137NA"]
      *           ["02", ""]
      *           ["02", null]
      *           ["01", null]
      */
-    public function testValid(string $paymentType, ?string $rfc)
+    public function testValid(string $paymentType, ?string $rfc): void
     {
         $pago = new Pago([
             'FormaDePagoP' => $paymentType,
@@ -29,13 +27,11 @@ final class BancoOrdenanteRfcProhibidoTest extends TestCase
     }
 
     /**
-     * @param string|null $paymentType
-     * @param string $rfc
      * @testWith ["01", "COSC8001137NA"]
      *           ["01", ""]
      *           [null, "COSC8001137NA"]
      */
-    public function testInvalid(?string $paymentType, string $rfc)
+    public function testInvalid(?string $paymentType, string $rfc): void
     {
         $pago = new Pago([
             'FormaDePagoP' => $paymentType,

@@ -24,13 +24,6 @@ class Retenciones
 {
     use XmlReaderTrait;
 
-    /**
-     * @var string Retenciones 1.0 namespace definition
-     * @deprecated :3.0.0
-     * @internal Preserve this constant to not break compatibility
-     */
-    public const RET_NAMESPACE = 'http://www.sat.gob.mx/esquemas/retencionpago/1';
-
     /** @var array<string, string> Dictionary of versions and namespaces  */
     private const RET_SPECS = [
         '2.0' => 'http://www.sat.gob.mx/esquemas/retencionpago/2',
@@ -58,7 +51,7 @@ class Retenciones
     private function loadDocumentWithNamespace(
         RetencionVersion $retVersion,
         DOMDocument $document,
-        string $namespace
+        string $namespace,
     ): void {
         $rootElement = self::checkRootElement($document, $namespace, 'retenciones', 'Retenciones');
         $this->version = $retVersion->getFromDOMElement($rootElement);

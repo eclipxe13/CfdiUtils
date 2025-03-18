@@ -20,7 +20,7 @@ use CfdiUtils\Validate\Status;
  */
 class ReceptorResidenciaFiscal extends AbstractDiscoverableVersion33
 {
-    private function registerAsserts(Asserts $asserts)
+    private function registerAsserts(Asserts $asserts): void
     {
         $assertDescriptions = [
             'RESFISC01' => 'Si el RFC no es XEXX010101000, entonces la residencia fiscal no debe existir (CFDI33134)',
@@ -34,7 +34,7 @@ class ReceptorResidenciaFiscal extends AbstractDiscoverableVersion33
         }
     }
 
-    public function validate(NodeInterface $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts): void
     {
         $this->registerAsserts($asserts);
 
@@ -46,7 +46,7 @@ class ReceptorResidenciaFiscal extends AbstractDiscoverableVersion33
         if ('XEXX010101000' !== $receptor['Rfc']) {
             $asserts->putStatus(
                 'RESFISC01',
-                Status::when(! $receptor->offsetExists('ResidenciaFiscal'))
+                Status::when(! $receptor->exists('ResidenciaFiscal'))
             );
             return;
         }
@@ -59,7 +59,7 @@ class ReceptorResidenciaFiscal extends AbstractDiscoverableVersion33
                 Status::when($isValidResidenciaFiscal)
             );
         }
-        if ($receptor->offsetExists('NumRegIdTrib')) {
+        if ($receptor->exists('NumRegIdTrib')) {
             $asserts->putStatus(
                 'RESFISC03',
                 Status::when($isValidResidenciaFiscal)

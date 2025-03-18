@@ -29,7 +29,7 @@ class SelloDigitalCertificado extends AbstractDiscoverableVersion40 implements
 {
     use SelloDigitalCertificadoValidatorTrait;
 
-    protected function validateNombre(string $emisorNombre, string $rfc)
+    protected function validateNombre(string $emisorNombre, string $rfc): void
     {
         if ('' === $emisorNombre) {
             $this->asserts->putStatus('SELLO04', Status::error(), 'Nombre del emisor vacío');

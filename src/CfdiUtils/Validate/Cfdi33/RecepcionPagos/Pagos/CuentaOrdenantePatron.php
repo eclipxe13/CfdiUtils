@@ -9,17 +9,18 @@ use CfdiUtils\Nodes\NodeInterface;
  */
 class CuentaOrdenantePatron extends AbstractPagoValidator
 {
-    protected $code = 'PAGO14';
+    protected string $code = 'PAGO14';
 
-    protected $title = 'En un pago, cuando la cuenta ordenante existe debe cumplir con su patrón específico (CRP213)';
+    protected string $title = 'En un pago, cuando la cuenta ordenante existe debe cumplir con'
+        . ' su patrón específico (CRP213)';
 
     public function validatePago(NodeInterface $pago): bool
     {
         // Solo validar si está establecida la cuenta ordenante
-        if ($pago->offsetExists('CtaOrdenante')) {
+        if ($pago->exists('CtaOrdenante')) {
             $payment = $this->createPaymentType($pago['FormaDePagoP']);
             $pattern = $payment->senderAccountPattern();
-            if (! (bool) preg_match($pattern, $pago['CtaOrdenante'])) {
+            if (! preg_match($pattern, $pago['CtaOrdenante'])) {
                 throw new ValidatePagoException(sprintf('Cuenta: "%s". Patrón "%s"', $pago['CtaOrdenante'], $pattern));
             }
         }

@@ -5,22 +5,9 @@ namespace CfdiUtilsTests;
 use CfdiUtils\CfdiVersion;
 use CfdiUtils\Nodes\Node;
 use CfdiUtils\Nodes\XmlNodeUtils;
-use CfdiUtils\VersionDiscovery\VersionDiscoverer;
 
 final class CfdiVersionTest extends TestCase
 {
-    public function testCreateDiscoverer(): void
-    {
-        $extended = new class () extends CfdiVersion {
-            public static function exposeCreateDiscoverer(): VersionDiscoverer
-            {
-                return static::createDiscoverer();
-            }
-        };
-
-        $this->assertInstanceOf(CfdiVersion::class, $extended::exposeCreateDiscoverer());
-    }
-
     public function providerCfdiVersion(): array
     {
         return [
@@ -43,9 +30,6 @@ final class CfdiVersionTest extends TestCase
     }
 
     /**
-     * @param string $expected
-     * @param string $attribute
-     * @param string|null $value
      * @dataProvider providerCfdiVersion
      */
     public function testCfdiVersion(string $expected, string $attribute, ?string $value): void

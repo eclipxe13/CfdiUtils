@@ -11,14 +11,14 @@ use CfdiUtils\Utils\Rfc;
  */
 class BancoOrdenanteRfcCorrecto extends AbstractPagoValidator
 {
-    protected $code = 'PAGO10';
+    protected string $code = 'PAGO10';
 
-    protected $title = 'En un pago, cuando el RFC del banco emisor de la cuenta ordenante existe'
+    protected string $title = 'En un pago, cuando el RFC del banco emisor de la cuenta ordenante existe'
         . ' debe ser válido y diferente de "XAXX010101000"';
 
     public function validatePago(NodeInterface $pago): bool
     {
-        if ($pago->offsetExists('RfcEmisorCtaOrd')) {
+        if ($pago->exists('RfcEmisorCtaOrd')) {
             try {
                 Rfc::checkIsValid($pago['RfcEmisorCtaOrd'], Rfc::DISALLOW_GENERIC);
             } catch (\UnexpectedValueException $exception) {

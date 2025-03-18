@@ -10,34 +10,34 @@ use CfdiUtils\Nodes\XmlNodeUtils;
 
 final class CfdiValidator33Test extends TestCase
 {
-    public function testConstructWithoutArguments()
+    public function testConstructWithoutArguments(): void
     {
         $validator = new CfdiValidator33();
         $this->assertTrue($validator->hasXmlResolver());
     }
 
-    public function testConstructWithResolver()
+    public function testConstructWithResolver(): void
     {
         $xmlResolver = $this->newResolver();
         $validator = new CfdiValidator33($xmlResolver);
         $this->assertSame($xmlResolver, $validator->getXmlResolver());
     }
 
-    public function testValidateWithIncorrectXmlString()
+    public function testValidateWithIncorrectXmlString(): void
     {
         $validator = new CfdiValidator33();
         $asserts = $validator->validateXml('<not-a-cfdi/>');
         $this->assertTrue($asserts->hasErrors());
     }
 
-    public function testValidateWithIncorrectNode()
+    public function testValidateWithIncorrectNode(): void
     {
         $validator = new CfdiValidator33();
         $asserts = $validator->validateNode(new Node('not-a-cfdi'));
         $this->assertTrue($asserts->hasErrors());
     }
 
-    public function testValidateWithCorrectData()
+    public function testValidateWithCorrectData(): void
     {
         $cfdiFile = $this->utilAsset('cfdi33-valid.xml');
         $cfdi = Cfdi::newFromString(strval(file_get_contents($cfdiFile)));
@@ -59,7 +59,7 @@ final class CfdiValidator33Test extends TestCase
      * and show in screen the value of the Sello again
      * @ test
      */
-    public function procedureCreateSelloAgainOnValidCdfi33()
+    public function procedureCreateSelloAgainOnValidCdfi33(): void
     {
         $cfdiFile = $this->utilAsset('cfdi33-valid.xml');
         $pemKeyFile = $this->utilAsset('certs/EKU9003173C9.key.pem');
@@ -80,7 +80,7 @@ final class CfdiValidator33Test extends TestCase
         $this->fail('This procedure must not run in real testing');
     }
 
-    public function testValidateThrowsExceptionIfEmptyContent()
+    public function testValidateThrowsExceptionIfEmptyContent(): void
     {
         $validator = new CfdiValidator33();
         $this->expectException(\UnexpectedValueException::class);
@@ -88,7 +88,7 @@ final class CfdiValidator33Test extends TestCase
         $validator->validate('', new Node('root'));
     }
 
-    public function testValidateCfdi33Real()
+    public function testValidateCfdi33Real(): void
     {
         $cfdiFile = $this->utilAsset('cfdi33-real.xml');
         $cfdi = Cfdi::newFromString(strval(file_get_contents($cfdiFile)));

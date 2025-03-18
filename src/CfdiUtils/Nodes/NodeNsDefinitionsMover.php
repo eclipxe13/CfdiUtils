@@ -19,21 +19,18 @@ class NodeNsDefinitionsMover
         return (null !== $this->namespaceFilter);
     }
 
-    /**
-     * @return callable|null
-     */
-    public function getNamespaceFilter()
+    public function getNamespaceFilter(): ?callable
     {
         return $this->namespaceFilter;
     }
 
-    public function setNamespaceFilter(callable $filter = null): self
+    public function setNamespaceFilter(?callable $filter = null): self
     {
         $this->namespaceFilter = $filter;
         return $this;
     }
 
-    public function process(NodeInterface $root)
+    public function process(NodeInterface $root): void
     {
         $rootSchemaLocation = SchemaLocations::fromString($root['xsi:schemaLocation'], false);
         $this->processRecursive($root->children(), $root, $rootSchemaLocation);
@@ -42,7 +39,7 @@ class NodeNsDefinitionsMover
         }
     }
 
-    protected function processRecursive(Nodes $children, NodeInterface $root, SchemaLocations $schemaLocations)
+    protected function processRecursive(Nodes $children, NodeInterface $root, SchemaLocations $schemaLocations): void
     {
         /** @var NodeInterface $child */
         foreach ($children as $child) {
@@ -52,7 +49,7 @@ class NodeNsDefinitionsMover
         }
     }
 
-    protected function moveXmlNs(NodeInterface $child, NodeInterface $root)
+    protected function moveXmlNs(NodeInterface $child, NodeInterface $root): void
     {
         $prefix = explode(':', $child->name(), 2)[0];
         if ($child->name() === $prefix) {
@@ -69,7 +66,7 @@ class NodeNsDefinitionsMover
         $child->addAttributes([$xmlns => null]);
     }
 
-    protected function moveXsiSchemaLocation(NodeInterface $child, SchemaLocations $rootSchemaLocations)
+    protected function moveXsiSchemaLocation(NodeInterface $child, SchemaLocations $rootSchemaLocations): void
     {
         if (! isset($child['xsi:schemaLocation'])) {
             return;

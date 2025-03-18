@@ -8,23 +8,23 @@ use CfdiUtilsTests\TestCase;
 
 final class NodeNsDefinitionsMoverTest extends TestCase
 {
-    public function testMoveDefinitionsWithFilter()
+    public function testMoveDefinitionsWithFilter(): void
     {
         $inputFile = $this->utilAsset('xml-with-namespace-definitions-at-child-level.xml');
         $input = XmlNodeUtils::nodeFromXmlString(file_get_contents($inputFile) ?: '');
 
         $processor = new NodeNsDefinitionsMover();
         // only process tempuri namespaces
-        $processor->setNamespaceFilter(function (string $namespace): bool {
-            return ('http://www.tempuri.org/' === strval(substr($namespace, 0, 23)));
-        });
+        $processor->setNamespaceFilter(
+            fn (string $namespace): bool => 'http://www.tempuri.org/' === strval(substr($namespace, 0, 23))
+        );
         $processor->process($input);
 
         $expectedFile = $this->utilAsset('xml-with-namespace-definitions-at-root-level-filtered.xml');
         $this->assertXmlStringEqualsXmlFile($expectedFile, XmlNodeUtils::nodeToXmlString($input));
     }
 
-    public function testMoveDefinitionsWithoutFilter()
+    public function testMoveDefinitionsWithoutFilter(): void
     {
         $inputFile = $this->utilAsset('xml-with-namespace-definitions-at-child-level.xml');
         $input = XmlNodeUtils::nodeFromXmlString(file_get_contents($inputFile) ?: '');

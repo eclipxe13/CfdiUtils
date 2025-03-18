@@ -8,8 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 final class TrasladosTest extends TestCase
 {
-    /** @var Traslados */
-    public $element;
+    public Traslados $element;
 
     protected function setUp(): void
     {
@@ -17,12 +16,12 @@ final class TrasladosTest extends TestCase
         $this->element = new Traslados();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('pago10:Traslados', $this->element->getElementName());
     }
 
-    public function testAddTraslado()
+    public function testAddTraslado(): void
     {
         $parent = $this->element;
 
@@ -43,7 +42,7 @@ final class TrasladosTest extends TestCase
         $this->assertNotSame($first, $second);
     }
 
-    public function testMultiTraslado()
+    public function testMultiTraslado(): void
     {
         $node = $this->element;
         $this->assertCount(0, $node);

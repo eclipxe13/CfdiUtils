@@ -9,14 +9,14 @@ use CfdiUtilsTests\TestCase;
 
 final class NodesTest extends TestCase
 {
-    public function testEmptyNodes()
+    public function testEmptyNodes(): void
     {
         $nodes = new Nodes();
         $this->assertCount(0, $nodes);
         $this->assertNull($nodes->firstNodeWithName('non-existent'));
     }
 
-    public function testConstructWithNodesArray()
+    public function testConstructWithNodesArray(): void
     {
         $expected = [
             new Node('foo'),
@@ -29,7 +29,7 @@ final class NodesTest extends TestCase
         }
     }
 
-    public function testManipulateTheCollection()
+    public function testManipulateTheCollection(): void
     {
         $first = new Node('first');
         $second = new Node('second');
@@ -65,7 +65,7 @@ final class NodesTest extends TestCase
         $this->assertSame($second, $nodes->firstNodeWithName('second'));
     }
 
-    public function testAddFindRemove()
+    public function testAddFindRemove(): void
     {
         $root = new Node('root');
         $nodes = $root->children();
@@ -81,13 +81,13 @@ final class NodesTest extends TestCase
         $this->assertFalse($nodes->exists($child));
     }
 
-    public function testFirstReturnsNull()
+    public function testFirstReturnsNull(): void
     {
         $nodes = new Nodes();
         $this->assertNull($nodes->first());
     }
 
-    public function testImportFromArray()
+    public function testImportFromArray(): void
     {
         $nodeOne = new Node('one');
         $nodes = new Nodes();
@@ -100,7 +100,7 @@ final class NodesTest extends TestCase
         $this->assertSame($nodeOne, $nodes->first());
     }
 
-    public function testImportFromArrayWithNonNode()
+    public function testImportFromArrayWithNonNode(): void
     {
         $nodes = new Nodes();
 
@@ -111,7 +111,7 @@ final class NodesTest extends TestCase
         $nodes->importFromArray([$specimen]);
     }
 
-    public function testGetThrowsExceptionWhenNotFound()
+    public function testGetThrowsExceptionWhenNotFound(): void
     {
         $nodes = new Nodes();
         $this->expectException(\OutOfRangeException::class);
@@ -119,7 +119,7 @@ final class NodesTest extends TestCase
         $nodes->get(0);
     }
 
-    public function testGetWithExistentElements()
+    public function testGetWithExistentElements(): void
     {
         $foo = new Node('foo');
         $bar = new Node('bar');
@@ -133,7 +133,7 @@ final class NodesTest extends TestCase
         $this->assertSame($bar, $nodes->get(0));
     }
 
-    public function testGetNodesByName()
+    public function testGetNodesByName(): void
     {
         $nodes = new Nodes();
         $first = new Node('children');
@@ -154,7 +154,7 @@ final class NodesTest extends TestCase
         $this->assertTrue($byName->exists($third));
     }
 
-    public function testOrderedChildren()
+    public function testOrderedChildren(): void
     {
         $nodes = new Nodes([
             new Node('foo'),

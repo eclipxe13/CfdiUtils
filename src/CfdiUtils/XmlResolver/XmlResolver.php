@@ -4,22 +4,20 @@ namespace CfdiUtils\XmlResolver;
 
 use CfdiUtils\CadenaOrigen\CfdiDefaultLocations;
 use CfdiUtils\Certificado\CerRetriever;
-use XmlResourceRetriever\Downloader\DownloaderInterface;
-use XmlResourceRetriever\Downloader\PhpDownloader;
-use XmlResourceRetriever\RetrieverInterface;
-use XmlResourceRetriever\XsdRetriever;
-use XmlResourceRetriever\XsltRetriever;
+use Eclipxe\XmlResourceRetriever\Downloader\DownloaderInterface;
+use Eclipxe\XmlResourceRetriever\Downloader\PhpDownloader;
+use Eclipxe\XmlResourceRetriever\RetrieverInterface;
+use Eclipxe\XmlResourceRetriever\XsdRetriever;
+use Eclipxe\XmlResourceRetriever\XsltRetriever;
 
 /**
  * XmlResolver - Class to download xml resources from internet to local paths
  */
 class XmlResolver
 {
-    /** @var string */
-    private $localPath = '';
+    private string $localPath = '';
 
-    /** @var DownloaderInterface */
-    private $downloader;
+    private DownloaderInterface $downloader;
 
     public const TYPE_XSD = 'XSD';
 
@@ -32,9 +30,8 @@ class XmlResolver
      * @see setLocalPath
      * @see setDownloaderInterface
      * @param string|null $localPath values: '' => no resolve, null => use default path, anything else is the path
-     * @param DownloaderInterface|null $downloader
      */
-    public function __construct(string $localPath = null, DownloaderInterface $downloader = null)
+    public function __construct(?string $localPath = null, ?DownloaderInterface $downloader = null)
     {
         $this->setLocalPath($localPath);
         $this->setDownloader($downloader);
@@ -52,7 +49,7 @@ class XmlResolver
      *
      * @param string|null $localPath values: '' => no resolve, null => default path, anything else is the path
      */
-    public function setLocalPath(string $localPath = null)
+    public function setLocalPath(?string $localPath = null): void
     {
         if (null === $localPath) {
             $localPath = $this->defaultLocalPath();
@@ -61,10 +58,9 @@ class XmlResolver
     }
 
     /**
-     * Return the configured localpath.
+     * Return the configured localPath.
      * An empty string means that it is not configured and method resolve will return the same url as received
      * @see resolve
-     * @return string
      */
     public function getLocalPath(): string
     {
@@ -73,8 +69,6 @@ class XmlResolver
 
     /**
      * Return when a local path has been set.
-     *
-     * @return bool
      */
     public function hasLocalPath(): bool
     {
@@ -84,10 +78,8 @@ class XmlResolver
     /**
      * Set the downloader object.
      * If send a NULL value the object return by defaultDownloader will be set.
-     *
-     * @param DownloaderInterface|null $downloader
      */
-    public function setDownloader(DownloaderInterface $downloader = null)
+    public function setDownloader(?DownloaderInterface $downloader = null): void
     {
         if (null === $downloader) {
             $downloader = $this->defaultDownloader();
@@ -111,7 +103,6 @@ class XmlResolver
      *
      * @param string $resource The url
      * @param string $type Allows XSD, XSLT and CER
-     * @return string
      */
     public function resolve(string $resource, string $type = ''): string
     {
@@ -161,10 +152,8 @@ class XmlResolver
 
     /**
      * Create a new retriever depending on the type parameter, only allow TYPE_XSLT and TYPE_XSD
-     * @param string $type
-     * @return RetrieverInterface|null
      */
-    public function newRetriever(string $type)
+    public function newRetriever(string $type): ?RetrieverInterface
     {
         if (! $this->hasLocalPath()) {
             throw new \LogicException('Cannot create a retriever if no local path was found');
@@ -196,7 +185,7 @@ class XmlResolver
         return new CerRetriever($this->getLocalPath(), $this->getDownloader());
     }
 
-    public function resolveCadenaOrigenLocation(string $version)
+    public function resolveCadenaOrigenLocation(string $version): string
     {
         return $this->resolve(CfdiDefaultLocations::location($version), self::TYPE_XSLT);
     }

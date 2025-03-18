@@ -8,8 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ComplementoTest extends TestCase
 {
-    /** @var Complemento */
-    public $element;
+    public Complemento $element;
 
     public function setUp(): void
     {
@@ -17,12 +16,12 @@ final class ComplementoTest extends TestCase
         $this->element = new Complemento();
     }
 
-    public function testGetElementName()
+    public function testGetElementName(): void
     {
         $this->assertSame('retenciones:Complemento', $this->element->getElementName());
     }
 
-    public function testAdd()
+    public function testAdd(): void
     {
         $this->assertCount(0, $this->element);
 

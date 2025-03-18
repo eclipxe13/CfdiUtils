@@ -16,7 +16,7 @@ use CfdiUtils\Validate\Status;
  */
 class ConceptoDescuento extends AbstractDiscoverableVersion33
 {
-    public function validate(NodeInterface $comprobante, Asserts $asserts)
+    public function validate(NodeInterface $comprobante, Asserts $asserts): void
     {
         $asserts->put(
             'CONCEPDESC01',
@@ -43,7 +43,7 @@ class ConceptoDescuento extends AbstractDiscoverableVersion33
 
     public function conceptoHasInvalidDiscount(NodeInterface $concepto): bool
     {
-        if (! $concepto->offsetExists('Descuento')) {
+        if (! $concepto->exists('Descuento')) {
             return false;
         }
         $descuento = (float) $concepto['Descuento'];
