@@ -53,7 +53,7 @@ final class QuickReaderTest extends TestCase
 
         $this->assertFalse(isset($foo['bar']));
         $this->assertSame('', $foo['bar']);
-        $this->assertFalse(isset($foo['bar']));
+        $this->assertFalse(isset($foo['bar'])); /** @phpstan-ignore-line */
     }
 
     public function testAccessNonExistentPropertyReturnsANewChildWithPropertyName(): void
@@ -128,13 +128,11 @@ final class QuickReaderTest extends TestCase
         $foo = new QuickReader('foo', ['bar' => 'México']);
 
         $this->assertSame('México', $foo['bar']);
-        $this->assertTrue(isset($foo['bar']));
-
+        $this->assertTrue(isset($foo['bar'])); /** @phpstan-ignore-line */
         $this->assertSame('México', $foo['Bar']);
-        $this->assertTrue(isset($foo['Bar']));
-
+        $this->assertTrue(isset($foo['Bar'])); /** @phpstan-ignore-line */
         $this->assertSame('México', $foo['BAR']);
-        $this->assertTrue(isset($foo['BAR']));
+        $this->assertTrue(isset($foo['BAR'])); /** @phpstan-ignore-line */
     }
 
     public function testInvokeWithDifferentChildNamesCase(): void
