@@ -7,7 +7,7 @@
 - Fix/improve `ElementsMaker` standard.
 - Remove code to build CFDI 3.3.
 
-## Version 3.0.0 2025-03-04
+## Version 3.0.0 2025-03-18
 
 This is a major release primary for compatibility to PHP 8.4.
 It also drops compatibility with PHP 7.3 and PHP 7.4.
