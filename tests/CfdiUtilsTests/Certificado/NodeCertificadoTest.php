@@ -91,13 +91,14 @@ final class NodeCertificadoTest extends TestCase
 
     public function testSave(): void
     {
-        $nodeCertificado = $this->createNodeCertificado(
-            '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version="3.3" Certificado="Zm9v"' . '/>'
-        );
-
+        $rawText = 'foo';
+        $base64 = base64_encode($rawText);
+        $nodeCertificado = $this->createNodeCertificado(<<<XML
+            <cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version="3.3" Certificado="$base64"/>
+            XML);
         $temporaryFile = TemporaryFile::create();
         $nodeCertificado->save($temporaryFile->getPath());
-        $this->assertStringEqualsFile($temporaryFile->getPath(), 'foo');
+        $this->assertStringEqualsFile($temporaryFile->getPath(), $rawText);
         $temporaryFile->remove();
     }
 

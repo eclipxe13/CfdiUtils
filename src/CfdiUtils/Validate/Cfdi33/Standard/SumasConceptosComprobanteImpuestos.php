@@ -281,6 +281,6 @@ class SumasConceptosComprobanteImpuestos extends AbstractDiscoverableVersion33
         if (null === $delta) {
             $delta = 0.000001;
         }
-        return (abs($first - $second) <= $delta);
+        return abs($first - $second) <= $delta;
     }
 }

@@ -30,16 +30,16 @@ class PemContainer
 
     public function hasCertificate(): bool
     {
-        return ('' !== $this->certificate);
+        return '' !== $this->certificate;
     }
 
     public function hasPublicKey(): bool
     {
-        return ('' !== $this->publicKey);
+        return '' !== $this->publicKey;
     }
 
     public function hasPrivateKey(): bool
     {
-        return ('' !== $this->privateKey);
+        return '' !== $this->privateKey;
     }
 }

@@ -238,17 +238,17 @@ class SumasConceptos
 
     public function hasTraslados(): bool
     {
-        return ([] !== $this->traslados);
+        return [] !== $this->traslados;
     }
 
     public function hasExentos(): bool
     {
-        return ([] !== $this->exentos);
+        return [] !== $this->exentos;
     }
 
     public function hasRetenciones(): bool
     {
-        return ([] !== $this->retenciones);
+        return [] !== $this->retenciones;
     }
 
     public function getImpuestosTrasladados(): float
@@ -294,12 +294,12 @@ class SumasConceptos
 
     public function hasLocalesTraslados(): bool
     {
-        return ([] !== $this->localesTraslados);
+        return [] !== $this->localesTraslados;
     }
 
     public function hasLocalesRetenciones(): bool
     {
-        return ([] !== $this->localesRetenciones);
+        return [] !== $this->localesRetenciones;
     }
 
     public function foundAnyConceptWithDiscount(): bool

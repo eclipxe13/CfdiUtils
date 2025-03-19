@@ -17,8 +17,8 @@ trait DomicilioTrait
 
     public function addDomicilio(array $attributes = []): Domicilio
     {
-        $Domicilio = $this->getDomicilio();
-        $Domicilio->addAttributes($attributes);
-        return $Domicilio;
+        $domicilio = $this->getDomicilio();
+        $domicilio->addAttributes($attributes);
+        return $domicilio;
     }
 }

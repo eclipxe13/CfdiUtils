@@ -259,7 +259,7 @@ class Certificado
         if (-1 === $verify) {
             throw new \RuntimeException('OpenSSL Error: ' . openssl_error_string());
         }
-        return (1 === $verify);
+        return 1 === $verify;
     }
 
     /**

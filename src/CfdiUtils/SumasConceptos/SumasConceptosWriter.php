@@ -127,7 +127,7 @@ class SumasConceptosWriter
 
     private function valueGreaterThanZero(float $value): bool
     {
-        return (round($value, $this->precision) > 0);
+        return round($value, $this->precision) > 0;
     }
 
     public function format(float $number): string

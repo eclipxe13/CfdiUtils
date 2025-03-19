@@ -8,7 +8,7 @@ trait CertificadoPropertyTrait
 
     public function hasCertificado(): bool
     {
-        return ($this->certificado instanceof Certificado);
+        return $this->certificado instanceof Certificado;
     }
 
     public function getCertificado(): Certificado

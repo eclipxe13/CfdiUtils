@@ -37,22 +37,22 @@ class Rfc implements \Stringable
 
     public function isPerson(): bool
     {
-        return (13 === $this->length);
+        return 13 === $this->length;
     }
 
     public function isMoral(): bool
     {
-        return (12 === $this->length);
+        return 12 === $this->length;
     }
 
     public function isGeneric(): bool
     {
-        return (static::RFC_GENERIC === $this->rfc);
+        return static::RFC_GENERIC === $this->rfc;
     }
 
     public function isForeign(): bool
     {
-        return (static::RFC_FOREIGN === $this->rfc);
+        return static::RFC_FOREIGN === $this->rfc;
     }
 
     public function checkSum(): string

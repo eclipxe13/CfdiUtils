@@ -38,7 +38,7 @@ class CurrencyDecimals
     public function doesNotExceedDecimals(string $value): bool
     {
         // use pathinfo trick to retrieve the right part after the dot
-        return ($this->decimalsCount($value) <= $this->decimals());
+        return $this->decimalsCount($value) <= $this->decimals();
     }
 
     public static function decimalsCount(string $value): int

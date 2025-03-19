@@ -137,7 +137,7 @@ class ComprobanteTipoDeComprobante extends AbstractDiscoverableVersion33
         if ('' === $value || ! is_numeric($value)) {
             return false;
         }
-        return (abs((float) $value) < 0.0000001);
+        return abs((float) $value) < 0.0000001;
     }
 
     private function isGreaterThanZero(string $value): bool
@@ -145,6 +145,6 @@ class ComprobanteTipoDeComprobante extends AbstractDiscoverableVersion33
         if ('' === $value || ! is_numeric($value)) {
             return false;
         }
-        return (abs((float) $value) > 0.0000001);
+        return abs((float) $value) > 0.0000001;
     }
 }

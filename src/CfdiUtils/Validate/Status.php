@@ -79,12 +79,15 @@ class Status implements \Stringable
 
     public static function when(bool $condition, ?self $errorStatus = null): self
     {
-        return ($condition) ? self::ok() : ($errorStatus ?: self::error());
+        if ($condition) {
+            return self::ok();
+        }
+        return $errorStatus ?? self::error();
     }
 
     public function equalsTo(self $status): bool
     {
-        return ($status->status === $this->status);
+        return $status->status === $this->status;
     }
 
     public function compareTo(self $status): int

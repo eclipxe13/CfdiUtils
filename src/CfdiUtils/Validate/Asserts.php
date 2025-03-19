@@ -67,7 +67,7 @@ class Asserts implements \Countable, \IteratorAggregate
 
     public function hasStatus(Status $status): bool
     {
-        return (null !== $this->getFirstStatus($status));
+        return null !== $this->getFirstStatus($status);
     }
 
     public function hasErrors(): bool

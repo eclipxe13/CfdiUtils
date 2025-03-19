@@ -80,26 +80,26 @@ class StatusResponse
 
     public function responseWasOk(): bool
     {
-        return (str_starts_with($this->code, 'S - '));
+        return str_starts_with($this->code, 'S - ');
     }
 
     public function isVigente(): bool
     {
-        return ('Vigente' === $this->cfdi);
+        return 'Vigente' === $this->cfdi;
     }
 
     public function isNotFound(): bool
     {
-        return ('No Encontrado' === $this->cfdi);
+        return 'No Encontrado' === $this->cfdi;
     }
 
     public function isCancelled(): bool
     {
-        return ('Cancelado' === $this->cfdi);
+        return 'Cancelado' === $this->cfdi;
     }
 
     public function isEfosListed(): bool
     {
-        return ('100' === $this->validationEfos);
+        return '100' === $this->validationEfos;
     }
 }
