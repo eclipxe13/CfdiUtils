@@ -136,15 +136,15 @@ y se encuentra amparada por la Licencia MIT (MIT). Consulte el archivo [LICENSE]
 [violations]: https://sonarcloud.io/project/issues?id=eclipxe13_cfdiutils&resolved=false
 [downloads]: https://packagist.org/packages/eclipxe/CfdiUtils
 
-[badge-source]: https://img.shields.io/badge/source-eclipxe13/CfdiUtils-blue?logo=github&style=flat-square
+[badge-source]: https://img.shields.io/badge/source-eclipxe13/CfdiUtils-blue?logo=github
 [badge-php-version]: https://img.shields.io/packagist/php-v/eclipxe/cfdiutils?logo=php
-[badge-documentation]: https://img.shields.io/readthedocs/cfdiutils/latest?logo=read-the-docs&style=flat-square
-[badge-discord]: https://img.shields.io/discord/459860554090283019?logo=discord&style=flat-square
-[badge-release]: https://img.shields.io/github/release/eclipxe13/CfdiUtils?logo=git&style=flat-square
-[badge-license]: https://img.shields.io/github/license/eclipxe13/CfdiUtils?logo=open-source-initiative&style=flat-square
-[badge-build]: https://img.shields.io/github/actions/workflow/status/eclipxe13/CfdiUtils/build.yml?branch=master&logo=github-actions&style=flat-square
+[badge-documentation]: https://img.shields.io/readthedocs/cfdiutils/latest?logo=read-the-docs
+[badge-discord]: https://img.shields.io/discord/459860554090283019?logo=discord
+[badge-release]: https://img.shields.io/github/release/eclipxe13/CfdiUtils?logo=git
+[badge-license]: https://img.shields.io/github/license/eclipxe13/CfdiUtils?logo=open-source-initiative
+[badge-build]: https://img.shields.io/github/actions/workflow/status/eclipxe13/CfdiUtils/build.yml?branch=master&logo=github-actions
 [badge-reliability]: https://sonarcloud.io/api/project_badges/measure?project=eclipxe13_cfdiutils&metric=reliability_rating
 [badge-maintainability]: https://sonarcloud.io/api/project_badges/measure?project=eclipxe13_cfdiutils&metric=sqale_rating
 [badge-coverage]: https://img.shields.io/sonar/coverage/eclipxe13_cfdiutils/master?logo=sonarcloud&server=https%3A%2F%2Fsonarcloud.io
 [badge-violations]: https://img.shields.io/sonar/violations/eclipxe13_cfdiutils/master?format=long&logo=sonarcloud&server=https%3A%2F%2Fsonarcloud.io
-[badge-downloads]: https://img.shields.io/packagist/dt/eclipxe/CfdiUtils?logo=composer&style=flat-square
+[badge-downloads]: https://img.shields.io/packagist/dt/eclipxe/CfdiUtils?logo=composer
