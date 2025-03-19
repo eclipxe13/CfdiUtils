@@ -6,5 +6,5 @@ interface CertificadoPropertyInterface
 {
     public function getCertificado(): Certificado;
 
-    public function setCertificado(Certificado $Certificado);
+    public function setCertificado(Certificado $certificado);
 }
