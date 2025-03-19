@@ -26,7 +26,7 @@ class ImporteSaldoInsolutoValor extends AbstractDoctoRelacionadoValidator
         }
 
         $expected = (float) $docto['ImpSaldoAnt'] - $this->calculateDocumentAmount($docto, $this->getPago());
-        if (! $this->isEqual($value, $expected)) {
+        if (! $this->isEqual($expected, $value)) {
             throw $this->exception(
                 sprintf('ImpSaldoInsoluto: "%s", Esperado: %F', $docto['ImpSaldoInsoluto'], $expected)
             );
