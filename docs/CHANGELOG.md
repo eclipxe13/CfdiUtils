@@ -13,6 +13,8 @@ This is a major release primary for compatibility to PHP 8.4.
 It also drops compatibility with PHP 7.3 and PHP 7.4.
 Read and follow the guide [Actualizar a versión 3.x](instalar/actualizar-3.x.md) (in spanish).
 
+Add this project to SonarCloud. Thanks Scrutinizer.
+
 ## Version 2.31.0 2025-02-19
 
 A new utility `CfdiUtils\Utils\RegimenCapitalRemover` has been created to remove the *Régimen de Capital*
