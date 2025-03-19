@@ -123,7 +123,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-version }}
           extensions: soap, intl, xsl, fileinfo, bcmath
-          coverage: xdebug
+          coverage: none
           tools: composer:v2
         env:
           fail-fast: true
@@ -148,7 +148,7 @@ jobs:
       - name: Install project dependencies
         run: composer upgrade --no-interaction --no-progress --prefer-dist
       - name: Tests (phpunit) on linux
-        run: vendor/bin/phpunit --testdox --verbose --coverage-clover=build/coverage-clover.xml
+        run: vendor/bin/phpunit --testdox --verbose
 
   tests-windows:
     name: Tests PHP ${{ matrix.php-version }} on Windows
