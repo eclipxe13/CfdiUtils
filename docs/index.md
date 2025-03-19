@@ -2,12 +2,15 @@
 
 [![Source Code][badge-source]][source]
 [![Discord][badge-discord]][discord]
+[![Packagist PHP Version Support][badge-php-version]][php-version]
 [![Latest Version][badge-release]][release]
 [![Software License][badge-license]][license]
 [![Build Status][badge-build]][build]
+[![Reliability][badge-reliability]][reliability]
+[![Maintainability][badge-maintainability]][maintainability]
+[![Code Coverage][badge-coverage]][coverage]
+[![Violations][badge-violations]][violations]
 [![Source Code][badge-documentation]][documentation]
-[![Scrutinizer][badge-quality]][quality]
-[![Coverage Status][badge-coverage]][coverage]
 [![Total Downloads][badge-downloads]][downloads]
 
 El proyecto [`eclipxe/CfdiUtils`](https://github.com/eclipxe13/CfdiUtils)
@@ -121,21 +124,27 @@ y se encuentra amparada por la Licencia MIT (MIT). Consulte el archivo [LICENSE]
 [readme]: https://github.com/eclipxe13/CfdiUtils/blob/master/README.md
 
 [source]: https://github.com/eclipxe13/CfdiUtils
+[php-version]: https://packagist.org/packages/eclipxe/cfdiutils
 [documentation]: https://cfdiutils.readthedocs.io/
 [discord]: https://discord.gg/aFGYXvX
 [release]: https://github.com/eclipxe13/CfdiUtils/releases
 [license]: https://github.com/eclipxe13/CfdiUtils/blob/master/LICENSE
 [build]: https://github.com/eclipxe13/CfdiUtils/actions/workflows/build.yml?query=branch:master
-[quality]: https://scrutinizer-ci.com/g/eclipxe13/CfdiUtils/?branch=master
-[coverage]: https://scrutinizer-ci.com/g/eclipxe13/CfdiUtils/code-structure/master/code-coverage/src/CfdiUtils/
+[reliability]:https://sonarcloud.io/component_measures?id=eclipxe13_phpcfdi&metric=Reliability
+[maintainability]: https://sonarcloud.io/component_measures?id=eclipxe13_phpcfdi&metric=Maintainability
+[coverage]: https://sonarcloud.io/component_measures?id=eclipxe13_phpcfdi&metric=Coverage
+[violations]: https://sonarcloud.io/project/issues?id=eclipxe13_phpcfdi&resolved=false
 [downloads]: https://packagist.org/packages/eclipxe/CfdiUtils
 
 [badge-source]: https://img.shields.io/badge/source-eclipxe13/CfdiUtils-blue?logo=github&style=flat-square
+[badge-php-version]: https://img.shields.io/packagist/php-v/eclipxe/cfdiutils?logo=php
 [badge-documentation]: https://img.shields.io/readthedocs/cfdiutils/latest?logo=read-the-docs&style=flat-square
 [badge-discord]: https://img.shields.io/discord/459860554090283019?logo=discord&style=flat-square
 [badge-release]: https://img.shields.io/github/release/eclipxe13/CfdiUtils?logo=git&style=flat-square
 [badge-license]: https://img.shields.io/github/license/eclipxe13/CfdiUtils?logo=open-source-initiative&style=flat-square
 [badge-build]: https://img.shields.io/github/actions/workflow/status/eclipxe13/CfdiUtils/build.yml?branch=master&logo=github-actions&style=flat-square
-[badge-quality]: https://img.shields.io/scrutinizer/g/eclipxe13/CfdiUtils/master?logo=scrutinizer-ci&style=flat-square
-[badge-coverage]: https://img.shields.io/scrutinizer/coverage/g/eclipxe13/CfdiUtils/master?logo=scrutinizer-ci&style=flat-square
+[badge-reliability]: https://sonarcloud.io/api/project_badges/measure?project=eclipxe13_phpcfdi&metric=reliability_rating
+[badge-maintainability]: https://sonarcloud.io/api/project_badges/measure?project=eclipxe13_phpcfdi&metric=sqale_rating
+[badge-coverage]: https://img.shields.io/sonar/coverage/eclipxe13_phpcfdi/master?logo=sonarcloud&server=https%3A%2F%2Fsonarcloud.io
+[badge-violations]: https://img.shields.io/sonar/violations/eclipxe13_phpcfdi/master?format=long&logo=sonarcloud&server=https%3A%2F%2Fsonarcloud.io
 [badge-downloads]: https://img.shields.io/packagist/dt/eclipxe/CfdiUtils?logo=composer&style=flat-square

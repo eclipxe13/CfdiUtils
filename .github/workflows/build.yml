@@ -111,8 +111,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # required for scrutinizer
       - name: Install libsaxonb-java on linux
         run: |
           sudo apt-get update -y -qq
@@ -151,11 +149,6 @@ jobs:
         run: composer upgrade --no-interaction --no-progress --prefer-dist
       - name: Tests (phpunit) on linux
         run: vendor/bin/phpunit --testdox --verbose --coverage-clover=build/coverage-clover.xml
-      - name: Upload code coverage to scrutinizer
-        run: |
-          mkdir -p build/scrutinizer
-          composer require scrutinizer/ocular:dev-master --working-dir=build/scrutinizer --no-progress
-          php build/scrutinizer/vendor/bin/ocular code-coverage:upload -vvv --no-interaction --format=php-clover build/coverage-clover.xml
 
   tests-windows:
     name: Tests PHP ${{ matrix.php-version }} on Windows
