@@ -21,6 +21,6 @@ final class DecimalTest extends TestCase
     /** @dataProvider providerRound() */
     public function testRound(Decimal $expected, Decimal $value, int $decimals): void
     {
-        $this->assertTrue(0 === $expected->compareTo($value->round($decimals)));
+        $this->assertSame(0, $expected->compareTo($value->round($decimals)));
     }
 }
