@@ -6,7 +6,7 @@ on:
 
 # Actions
 # shivammathur/setup-php@v2 https://github.com/marketplace/actions/setup-php-action
-# SonarSource/sonarqube-scan-action https://github.com/marketplace/actions/official-sonarqube-scan
+# SonarSource/sonarqube-scan-action@v5 https://github.com/marketplace/actions/official-sonarqube-scan
 
 jobs:
 
@@ -108,6 +108,6 @@ jobs:
           sed 's#'$GITHUB_WORKSPACE'#/github/workspace#g' build/coverage/junit.xml > build/sonar-junit.xml
           sed 's#'$GITHUB_WORKSPACE'#/github/workspace#g' build/coverage/clover.xml > build/sonar-coverage.xml
       - name: SonarCloud Scan
-        uses: SonarSource/sonarqube-scan-action
+        uses: SonarSource/sonarqube-scan-action@v5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
