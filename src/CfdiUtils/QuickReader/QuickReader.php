@@ -114,7 +114,7 @@ class QuickReader extends \stdClass implements \ArrayAccess, \Stringable
 
     public function offsetExists($offset): bool
     {
-        return (null !== $this->getAttributeByName((string) $offset));
+        return null !== $this->getAttributeByName((string) $offset);
     }
 
     public function offsetGet($offset): string
@@ -136,6 +136,6 @@ class QuickReader extends \stdClass implements \ArrayAccess, \Stringable
 
     protected function namesAreEqual(string $first, string $second): bool
     {
-        return (0 === strcasecmp($first, $second));
+        return 0 === strcasecmp($first, $second);
     }
 }

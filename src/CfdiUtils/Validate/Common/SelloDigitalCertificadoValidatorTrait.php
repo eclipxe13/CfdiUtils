@@ -152,7 +152,7 @@ trait SelloDigitalCertificadoValidatorTrait
 
     protected function compareNames(string $first, string $second): bool
     {
-        return ($this->castNombre($first) === $this->castNombre($second));
+        return $this->castNombre($first) === $this->castNombre($second);
     }
 
     protected function castNombre(string $nombre): string

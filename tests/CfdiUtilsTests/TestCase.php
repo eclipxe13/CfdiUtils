@@ -25,7 +25,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
     protected function isRunningOnWindows(): bool
     {
-        return ('\\' === DIRECTORY_SEPARATOR);
+        return '\\' === DIRECTORY_SEPARATOR;
     }
 
     protected function newResolver(): XmlResolver

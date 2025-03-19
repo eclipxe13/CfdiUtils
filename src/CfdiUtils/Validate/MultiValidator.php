@@ -37,7 +37,7 @@ class MultiValidator implements ValidatorInterface, \Countable, \IteratorAggrega
 
     public function canValidateCfdiVersion(string $version): bool
     {
-        return ($this->version === $version);
+        return $this->version === $version;
     }
 
     public function hydrate(Hydrater $hydrater): void
@@ -65,7 +65,7 @@ class MultiValidator implements ValidatorInterface, \Countable, \IteratorAggrega
 
     public function exists(ValidatorInterface $validator): bool
     {
-        return ($this->indexOf($validator) >= 0);
+        return $this->indexOf($validator) >= 0;
     }
 
     private function indexOf(ValidatorInterface $validator): int

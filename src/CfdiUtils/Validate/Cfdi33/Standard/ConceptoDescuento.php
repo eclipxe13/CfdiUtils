@@ -48,6 +48,6 @@ class ConceptoDescuento extends AbstractDiscoverableVersion33
         }
         $descuento = (float) $concepto['Descuento'];
         $importe = (float) $concepto['Importe'];
-        return (! ($descuento >= 0 && $descuento <= $importe));
+        return ! ($descuento >= 0 && $descuento <= $importe);
     }
 }

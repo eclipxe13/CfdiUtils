@@ -89,7 +89,7 @@ class Nodes implements Countable, IteratorAggregate
 
     public function exists(NodeInterface $node): bool
     {
-        return ($this->indexOf($node) >= 0);
+        return $this->indexOf($node) >= 0;
     }
 
     public function first(): ?NodeInterface

@@ -8,7 +8,7 @@ trait XsltBuilderPropertyTrait
 
     public function hasXsltBuilder(): bool
     {
-        return ($this->xsltBuilder instanceof XsltBuilderInterface);
+        return $this->xsltBuilder instanceof XsltBuilderInterface;
     }
 
     public function getXsltBuilder(): XsltBuilderInterface

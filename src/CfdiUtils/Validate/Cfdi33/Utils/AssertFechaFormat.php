@@ -27,6 +27,6 @@ class AssertFechaFormat
         }
         $value = (int) strtotime($format);
         $expecteFormat = Format::datetime($value);
-        return ($expecteFormat === $format);
+        return $expecteFormat === $format;
     }
 }

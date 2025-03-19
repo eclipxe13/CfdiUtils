@@ -16,7 +16,7 @@ class NodeNsDefinitionsMover
 
     public function hasNamespaceFilter(): bool
     {
-        return (null !== $this->namespaceFilter);
+        return null !== $this->namespaceFilter;
     }
 
     public function getNamespaceFilter(): ?callable

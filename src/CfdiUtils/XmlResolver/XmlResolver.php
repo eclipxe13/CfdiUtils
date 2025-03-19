@@ -72,7 +72,7 @@ class XmlResolver
      */
     public function hasLocalPath(): bool
     {
-        return ('' !== $this->localPath);
+        return '' !== $this->localPath;
     }
 
     /**
@@ -147,7 +147,7 @@ class XmlResolver
         if ($extLength > $length) {
             return false;
         }
-        return (0 === substr_compare(strtolower($resource), $extension, $length - $extLength, $extLength));
+        return 0 === substr_compare(strtolower($resource), $extension, $length - $extLength, $extLength);
     }
 
     /**

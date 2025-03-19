@@ -8,7 +8,7 @@ trait XmlResolverPropertyTrait
 
     public function hasXmlResolver(): bool
     {
-        return ($this->xmlResolver instanceof XmlResolver);
+        return $this->xmlResolver instanceof XmlResolver;
     }
 
     public function getXmlResolver(): XmlResolver

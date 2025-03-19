@@ -84,7 +84,7 @@ class Status implements \Stringable
 
     public function equalsTo(self $status): bool
     {
-        return ($status->status === $this->status);
+        return $status->status === $this->status;
     }
 
     public function compareTo(self $status): int

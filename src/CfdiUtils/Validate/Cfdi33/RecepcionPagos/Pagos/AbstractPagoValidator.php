@@ -41,12 +41,12 @@ abstract class AbstractPagoValidator
 
     protected function isGreaterThan(float $value, float $compare): bool
     {
-        return ($value - $compare > 0.0000001);
+        return $value - $compare > 0.0000001;
     }
 
     protected function isEqual(float $expected, float $value): bool
     {
-        return (abs($expected - $value) < 0.0000001);
+        return abs($expected - $value) < 0.0000001;
     }
 
     protected function createCurrencyDecimals(string $currency): CurrencyDecimals

@@ -64,7 +64,7 @@ class SchemaLocations implements Countable, IteratorAggregate
 
     public function isEmpty(): bool
     {
-        return ([] === $this->pairs);
+        return [] === $this->pairs;
     }
 
     /**

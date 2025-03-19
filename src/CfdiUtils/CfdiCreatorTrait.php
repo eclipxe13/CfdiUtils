@@ -84,7 +84,7 @@ trait CfdiCreatorTrait
 
     public function saveXml(string $filename): bool
     {
-        return (false !== file_put_contents($filename, $this->asXml()));
+        return false !== file_put_contents($filename, $this->asXml());
     }
 
     private function buildCadenaDeOrigenUsingXsltLocation(string $xsltLocation): string
