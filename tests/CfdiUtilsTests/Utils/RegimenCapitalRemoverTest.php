@@ -38,4 +38,13 @@ final class RegimenCapitalRemoverTest extends TestCase
         $remover = RegimenCapitalRemover::createDefault();
         $this->assertSame($expected, $remover->remove($fullname));
     }
+
+    public function testRemoveSapiDeCv(): void
+    {
+        // There are CSD (like 00001000000710061506) with "EMPRESA S A P I DE CV"
+        $fullname = 'EMPRESA S A P I DE CV';
+        $expected = 'EMPRESA';
+        $remover = RegimenCapitalRemover::createDefault();
+        $this->assertSame($expected, $remover->remove($fullname));
+    }
 }

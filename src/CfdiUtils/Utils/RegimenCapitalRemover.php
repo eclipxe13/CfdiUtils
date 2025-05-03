@@ -104,6 +104,7 @@ final class RegimenCapitalRemover
         'SAB DE CV',
         'SAB',
         'SAPI DE CV',
+        'S A P I DE CV',
         'SAPI DE CV,SOFOM,ENR',
         'SAPI',
         'SAS DE CV',
