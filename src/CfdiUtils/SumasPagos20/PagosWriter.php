@@ -90,7 +90,7 @@ final class PagosWriter
                 $trasladosElement->addTrasladoP([
                     'ImpuestoP' => $traslado->getImpuesto(),
                     'TipoFactorP' => $traslado->getTipoFactor(),
-                    'TasaOCuotaP' => $traslado->getTasaCuota(),
+                    'TasaOCuotaP' => ('Exento' === $traslado->getTipoFactor()) ? null : $traslado->getTasaCuota(),
                     'BaseP' => $traslado->getBase(),
                     'ImporteP' => ('Exento' === $traslado->getTipoFactor()) ? null : $traslado->getImporte(),
                 ]);
