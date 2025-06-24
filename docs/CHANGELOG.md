@@ -7,6 +7,11 @@
 - Fix/improve `ElementsMaker` standard.
 - Remove code to build CFDI 3.3.
 
+## Version 3.0.1 2025-05-01
+
+Add `S A P I DE CV` to `RegimenCapitalRemover`.
+This should be an error from SAT when creates the certificate 00001000000710061506, but we have deal with it.
+
 ## Version 3.0.0 2025-03-18
 
 This is a major release primary for compatibility to PHP 8.4.
