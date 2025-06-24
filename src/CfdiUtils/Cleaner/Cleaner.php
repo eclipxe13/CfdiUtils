@@ -64,10 +64,10 @@ class Cleaner
      */
     public static function isNameSpaceAllowed(string $namespace): bool
     {
-        return (
+        return
             'http://www.w3.org/' === (substr($namespace, 0, 18) ?: '')
             || 'http://www.sat.gob.mx/' === (substr($namespace, 0, 22) ?: '')
-        );
+        ;
     }
 
     /**
