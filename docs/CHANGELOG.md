@@ -12,6 +12,10 @@
 Add `S A P I DE CV` to `RegimenCapitalRemover`.
 This should be an error from SAT when creates the certificate 00001000000710061506, but we have deal with it.
 
+Fix a bug when write *pagos* summary.
+On the taxes information it was writing `TasaOCuotaP` when `TipoFactorP` is `Exento`.
+It now does not write that attribute as in `ImporteP`.
+
 ## Version 3.0.0 2025-03-18
 
 This is a major release primary for compatibility to PHP 8.4.
