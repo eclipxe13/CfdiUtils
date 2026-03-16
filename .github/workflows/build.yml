@@ -159,10 +159,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Install Microsoft Java JRE 25 to run SaxonHE
+      - name: Install Java JRE 25 to run SaxonHE
         uses: actions/setup-java@v5
         with:
-          distribution: microsoft
+          distribution: temurin
           java-package: jre
           java-version: '25'
       - name: Download SaxonHE JAR
