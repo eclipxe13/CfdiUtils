@@ -159,7 +159,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Install Java JRE 25 to run SaxonHE 10.9
+      - name: Install Java JRE 25 to run SaxonHE
         uses: actions/setup-java@v5
         with:
           distribution: temurin
@@ -169,13 +169,13 @@ jobs:
         shell: powershell
         run: |
           Invoke-WebRequest `
-            -Uri "https://repo1.maven.org/maven2/net/sf/saxon/Saxon-HE/10.9/Saxon-HE-10.9.jar" `
+            -Uri "https://github.com/Saxonica/Saxon-HE/releases/download/SaxonHE12-4/SaxonHE12-4J.zip" `
             -OutFile saxon-he.jar
       - name: Create Transform wrapper
         shell: powershell
         run: |
           $content = '@echo off
-          java -jar "%~dp0saxon-he.jar" %*'
+          java -cp "%~dp0saxon\saxon-he-12.4.jar;%~dp0saxon\lib\*" net.sf.saxon.Transform %*'
           Set-Content Transform.cmd $content
       - name: Check SaxonHE Transform version
         run: .\Transform.cmd -?
