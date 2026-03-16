@@ -159,8 +159,28 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Install saxonhe
-        run: choco install --ignore-checksums --no-progress --yes saxonhe
+      - name: Install Java JRE 25 to run SaxonHE
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-package: jre
+          java-version: '25'
+      - name: Download SaxonHE 12.9
+        shell: powershell
+        run: |
+          Invoke-WebRequest `
+            -Uri "https://github.com/Saxonica/Saxon-HE/releases/download/SaxonHE12-9/SaxonHE12-9J.zip" `
+            -OutFile saxon.zip
+          Expand-Archive saxon.zip -DestinationPath saxon
+      - name: Create Transform wrapper
+        shell: powershell
+        run: |
+          @'
+          @echo off
+          java -cp "%~dp0saxon\saxon-he-12.9.jar;%~dp0saxon\lib\*" net.sf.saxon.Transform %*
+          '@ | Set-Content Transform.cmd
+      - name: Check SaxonHE Transform version
+        run: .\Transform.cmd -?
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -194,4 +214,4 @@ jobs:
       - name: Tests (phpunit)
         run: vendor/bin/phpunit --testdox --verbose
         env:
-          saxonb-path: 'C:\ProgramData\chocolatey\bin\SaxonHE\bin\Transform.exe'
+          saxonb-path: '.\Transform.cmd'
