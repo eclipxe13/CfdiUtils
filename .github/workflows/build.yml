@@ -178,7 +178,7 @@ jobs:
           java -jar "%~dp0saxon-he.jar" %*'
           Set-Content Transform.cmd $content
       - name: Check SaxonHE Transform version
-        run: Transform.cmd -?
+        run: .\Transform.cmd -?
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -212,4 +212,4 @@ jobs:
       - name: Tests (phpunit)
         run: vendor/bin/phpunit --testdox --verbose
         env:
-          saxonb-path: 'Transform.cmd'
+          saxonb-path: '.\Transform.cmd'
