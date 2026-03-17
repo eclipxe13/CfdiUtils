@@ -56,7 +56,7 @@ final class TemporaryFileTest extends TestCase
             TemporaryFile::create($directory);
         } finally {
             // clean up
-            chmod($directory, 0777);
+            chmod($directory, 0750);
             rmdir($directory);
         }
     }
