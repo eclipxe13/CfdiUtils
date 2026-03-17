@@ -16,10 +16,12 @@ jobs:
     steps:
       - name: Check SONAR_TOKEN secret
         run: |
-          if [ -z "${{ secrets.SONAR_TOKEN }}" ]; then
+          if [ -z "$SONAR_TOKEN" ]; then
             echo "::warning ::SONAR_TOKEN non set"
             exit 1
           fi
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       - name: Checkout
         uses: actions/checkout@v4
         with:
