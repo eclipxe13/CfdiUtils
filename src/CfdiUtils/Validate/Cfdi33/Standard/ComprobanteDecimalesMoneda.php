@@ -63,9 +63,9 @@ class ComprobanteDecimalesMoneda extends AbstractDiscoverableVersion33
         }
     }
 
-    private function validateValue(string $code, NodeInterface $node, string $attribute, bool $required = false): Assert
+    private function validateValue(string $code, NodeInterface $node, string $attribute, bool $required = false): void
     {
-        return $this->asserts->putStatus(
+        $this->asserts->putStatus(
             $code,
             Status::when($this->checkValue($node, $attribute, $required)),
             vsprintf('Valor: "%s", Moneda: "%s - %d decimales"', [
