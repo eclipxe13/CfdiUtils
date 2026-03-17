@@ -71,8 +71,8 @@
             "@php tools/phpcs --colors -sp"
         ],
         "dev:fix-style": [
-            "@php tools/php-cs-fixer fix --verbose",
-            "@php tools/phpcbf --colors -sp"
+            "@php tools/php-cs-fixer fix --verbose || true",
+            "@php tools/phpcbf --colors -sp || true"
         ],
         "dev:docs": [
             "node_modules/markdownlint-cli/markdownlint.js *.md docs/",

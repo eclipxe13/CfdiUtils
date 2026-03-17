@@ -104,8 +104,8 @@ final class MultiValidatorTest extends TestCase
 
         $multiValidator->hydrate($hydrater);
 
-        $this->assertSame($requireXmlResolver->getXmlResolver(), $xmlResolver);
-        $this->assertSame($requireXmlString->getXmlString(), $xmlString);
+        $this->assertSame($xmlResolver, $requireXmlResolver->getXmlResolver());
+        $this->assertSame($xmlString, $requireXmlString->getXmlString());
     }
 
     /*

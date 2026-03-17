@@ -71,10 +71,7 @@ class Attributes implements \Countable, \IteratorAggregate, \ArrayAccess
         return $this->attributes;
     }
 
-    /**
-     * @param mixed $value
-     */
-    private function castValueToString(string $key, $value): ?string
+    private function castValueToString(string $key, mixed $value): ?string
     {
         if (null === $value) {
             return null;

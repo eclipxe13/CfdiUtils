@@ -16,7 +16,7 @@ final class NodeNsDefinitionsMoverTest extends TestCase
         $processor = new NodeNsDefinitionsMover();
         // only process tempuri namespaces
         $processor->setNamespaceFilter(
-            fn (string $namespace): bool => 'http://www.tempuri.org/' === strval(substr($namespace, 0, 23))
+            fn (string $namespace): bool => str_starts_with($namespace, 'http://www.tempuri.org/')
         );
         $processor->process($input);
 

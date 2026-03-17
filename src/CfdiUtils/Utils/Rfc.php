@@ -27,7 +27,7 @@ class Rfc implements \Stringable
         $this->rfc = $rfc;
         $this->length = mb_strlen($rfc);
         $this->checkSum = static::obtainCheckSum($rfc);
-        $this->checkSumMatch = ($this->checkSum === strval(substr($rfc, -1)));
+        $this->checkSumMatch = str_ends_with($rfc, $this->checkSum);
     }
 
     public function rfc(): string
@@ -95,7 +95,7 @@ class Rfc implements \Stringable
         if ($flags & static::DISALLOW_FOREIGN && $value === static::RFC_FOREIGN) {
             throw new \UnexpectedValueException('No se permite el RFC genérico para operaciones con extranjeros');
         }
-        // validate agains a regular expression (values and length)
+        // validate against a regular expression (values and length)
         $regex = '/^' // desde el inicio
             . '[A-ZÑ&]{3,4}' // letras y números para el nombre (3 para morales, 4 para físicas)
             . '(\d{6})' // año mes y día, la validez de la fecha se comprueba después

@@ -5,7 +5,7 @@ namespace CfdiUtils\Internals;
 /**
  * This is a value object for BaseConverter containing the sequence
  *
- * NOTE: Changes will not be considering a bracking compatibility change since this utility is for internal usage only
+ * NOTE: Changes will not be considering a breaking compatibility change since this utility is for internal usage only
  * @internal
  */
 class BaseConverterSequence implements \Stringable

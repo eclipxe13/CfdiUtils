@@ -6,7 +6,7 @@ namespace CfdiUtils\Internals;
  * NormalizeLineEndingsTrait contains a private function normalizeLineEndings
  * This help the implementer class to work with EOL
  *
- * NOTE: Changes will not be considering a bracking compatibility change since this utility is for internal usage only
+ * NOTE: Changes will not be considering a breaking compatibility change since this utility is for internal usage only
  * @internal
  */
 trait NormalizeLineEndingsTrait

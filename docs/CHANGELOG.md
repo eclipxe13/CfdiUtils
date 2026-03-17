@@ -7,6 +7,24 @@
 - Fix/improve `ElementsMaker` standard.
 - Remove code to build CFDI 3.3.
 
+## Version 3.0.2 2026-03-17
+
+- Update license year.
+- Fix some typos on validator messages.
+- Ensure compatibility with PHP 8.5.
+- Fix some types that were forces using PHP document blocks.
+
+Other development changes:
+
+- Allow to install `genkgo/xsl` on PHP 8.4.
+- Disallow to install `genkgo/xsl` on PHP 8.5 due library is not compatible.
+- Use `nosborn/github-action-markdown-cli@v3` action.
+- Fix configuration file for `php-cs-fixer`.
+- Define `$argv` on CLI script to satisfy PHPStan.
+- Fix how SaxonHE is installed on Windows.
+- Add PHP 8.5 to test matrix.
+- Update development tools.
+
 ## Version 3.0.1 2025-06-24
 
 Add `S A P I DE CV` to `RegimenCapitalRemover`.

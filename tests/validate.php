@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Example script to validate CFDI files
+ *
+ * @phpstan-var non-empty-list<string> $argv
+ */
+
+declare(strict_types=1);
+
 use CfdiUtils\Cfdi;
 use CfdiUtils\CfdiValidator33;
 use CfdiUtils\CfdiValidator40;
@@ -162,8 +170,7 @@ exit(call_user_func(new class (...$argv) {
         return $validator->validate($cfdi->getSource(), $cfdi->getNode());
     }
 
-    /** @return CfdiValidator33|CfdiValidator40 */
-    private function getValidatorForVersion(string $version)
+    private function getValidatorForVersion(string $version): CfdiValidator33|CfdiValidator40
     {
         if (! isset($this->validators[$version])) {
             throw new Exception(sprintf('There is no validator for "%s"', $version));

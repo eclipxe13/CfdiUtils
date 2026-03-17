@@ -52,7 +52,7 @@ class SchemaLocations implements Countable, IteratorAggregate
         for ($c = 0; $c < $length; $c = $c + 1) {
             $namespace = $components[$c];
             $location = $components[$c + 1] ?? '';
-            if ('.xsd' === (substr($location, -4) ?: '')) {
+            if (str_ends_with($location, '.xsd')) {
                 $schemaLocations->append($namespace, $location);
                 $c = $c + 1; // skip ns declaration
                 continue;
