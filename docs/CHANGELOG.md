@@ -16,7 +16,9 @@
 
 Other development changes:
 
-- Use nosborn/github-action-markdown-cli@v3.
+- Allow to install `genkgo/xsl` on PHP 8.4.
+- Disallow to install `genkgo/xsl` on PHP 8.5 due library is not compatible.
+- Use `nosborn/github-action-markdown-cli@v3` action.
 - Fix configuration file for `php-cs-fixer`.
 - Define `$argv` on CLI script to satisfy PHPStan.
 - Fix how SaxonHE is installed on Windows.
