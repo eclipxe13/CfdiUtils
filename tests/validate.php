@@ -1,13 +1,19 @@
 <?php
 
+/**
+ * Example script to validate CFDI files
+ *
+ * @phpstan-var non-empty-list<string> $argv
+ */
+
+declare(strict_types=1);
+
 use CfdiUtils\Cfdi;
 use CfdiUtils\CfdiValidator33;
 use CfdiUtils\CfdiValidator40;
 use CfdiUtils\Cleaner\Cleaner;
 use CfdiUtils\Validate\Assert;
 use CfdiUtils\Validate\Asserts;
-
-/** @phpstan-var non-empty-list<string> $argv */
 
 require __DIR__ . '/bootstrap.php';
 

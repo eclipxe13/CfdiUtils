@@ -1,10 +1,16 @@
 <?php
 
+/**
+ * Example script to check the CFDI SAT Status from a given XML file
+ *
+ * @phpstan-var non-empty-list<string> $argv
+ */
+
+declare(strict_types=1);
+
 use CfdiUtils\Cfdi;
 use CfdiUtils\ConsultaCfdiSat\RequestParameters;
 use CfdiUtils\ConsultaCfdiSat\WebService;
-
-/** @phpstan-var non-empty-list<string> $argv */
 
 require __DIR__ . '/bootstrap.php';
 
