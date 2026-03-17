@@ -4,6 +4,8 @@ use CfdiUtils\Cfdi;
 use CfdiUtils\ConsultaCfdiSat\RequestParameters;
 use CfdiUtils\ConsultaCfdiSat\WebService;
 
+/** @phpstan-var non-empty-list<string> $argv */
+
 require __DIR__ . '/bootstrap.php';
 
 exit(call_user_func(function (string $command, string ...$arguments): int {

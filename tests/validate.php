@@ -7,6 +7,8 @@ use CfdiUtils\Cleaner\Cleaner;
 use CfdiUtils\Validate\Assert;
 use CfdiUtils\Validate\Asserts;
 
+/** @phpstan-var non-empty-list<string> $argv */
+
 require __DIR__ . '/bootstrap.php';
 
 exit(call_user_func(new class (...$argv) {
@@ -162,8 +164,7 @@ exit(call_user_func(new class (...$argv) {
         return $validator->validate($cfdi->getSource(), $cfdi->getNode());
     }
 
-    /** @return CfdiValidator33|CfdiValidator40 */
-    private function getValidatorForVersion(string $version)
+    private function getValidatorForVersion(string $version): CfdiValidator33|CfdiValidator40
     {
         if (! isset($this->validators[$version])) {
             throw new Exception(sprintf('There is no validator for "%s"', $version));
