@@ -9,6 +9,8 @@
 
 ## Maintenance 2026-03-17
 
+Remove `curl_close()` function call since it has no effect since PHP 8.0.
+
 This changes apply to GitHub Workflows:
 
 - Run jobs using PHP 8.5.
