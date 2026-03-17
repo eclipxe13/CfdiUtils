@@ -65,8 +65,8 @@ class Cleaner
     public static function isNameSpaceAllowed(string $namespace): bool
     {
         return
-            'http://www.w3.org/' === (substr($namespace, 0, 18) ?: '')
-            || 'http://www.sat.gob.mx/' === (substr($namespace, 0, 22) ?: '')
+            str_starts_with($namespace, 'http://www.w3.org/')
+            || str_starts_with($namespace, 'http://www.sat.gob.mx/')
         ;
     }
 

@@ -27,7 +27,7 @@ class Rfc implements \Stringable
         $this->rfc = $rfc;
         $this->length = mb_strlen($rfc);
         $this->checkSum = static::obtainCheckSum($rfc);
-        $this->checkSumMatch = ($this->checkSum === strval(substr($rfc, -1)));
+        $this->checkSumMatch = str_ends_with($rfc, $this->checkSum);
     }
 
     public function rfc(): string
