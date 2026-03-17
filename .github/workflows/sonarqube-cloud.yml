@@ -33,7 +33,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.5'
+          php-version: '8.4' # Due genkgo/xsl incompatibility
           extensions: soap, intl, xsl, fileinfo, bcmath
           coverage: xdebug
           tools: composer:v2

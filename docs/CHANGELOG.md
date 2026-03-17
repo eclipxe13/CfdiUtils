@@ -13,7 +13,8 @@ Remove `curl_close()` function call since it has no effect since PHP 8.0.
 
 This changes apply to GitHub Workflows:
 
-- Run jobs using PHP 8.5.
+- Run *build* jobs using PHP 8.5.
+- Run *SonarQube Cloud* jobs using PHP 8.4 due `genkgo/xsl` incompatibility.
 - List missing actions/setup-java@v5 action.
 - Modernize SonarQube Cloud integration.
 
