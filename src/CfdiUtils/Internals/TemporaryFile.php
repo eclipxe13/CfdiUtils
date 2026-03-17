@@ -5,7 +5,7 @@ namespace CfdiUtils\Internals;
 /**
  * Utility to work with the creation of temporary files.
  *
- * NOTE: Changes will not be considering a bracking compatibility change since this utility is for internal usage only
+ * NOTE: Changes will not be considering a breaking compatibility change since this utility is for internal usage only
  * @internal
  */
 final class TemporaryFile implements \Stringable

@@ -16,18 +16,18 @@ use CfdiUtils\Validate\Status;
  * y la lista de impuestos trasladados y retenidos
  *
  * Valida que:
- * - SUMAS01: La suma de los importes de conceptos es igual a el subtotal del comprobante
- * - SUMAS02: La suma de los descuentos es igual a el descuento del comprobante
- * - SUMAS03: El cálculo del total es igual a el total del comprobante
+ * - SUMAS01: La suma de los importes de conceptos es igual al subtotal del comprobante
+ * - SUMAS02: La suma de los descuentos es igual al descuento del comprobante
+ * - SUMAS03: El cálculo del total es igual al total del comprobante
  *
- * - SUMAS04: El cálculo de impuestos trasladados es igual a el total de impuestos trasladados
+ * - SUMAS04: El cálculo de impuestos trasladados es igual al total de impuestos trasladados
  * - SUMAS05: Todos los impuestos trasladados existen en el comprobante
- * - SUMAS06: Todos los valores de los impuestos trasladados conciden con el comprobante
+ * - SUMAS06: Todos los valores de los impuestos trasladados coinciden con el comprobante
  * - SUMAS07: No existen más nodos de impuestos trasladados en el comprobante de los que se han calculado
  *
- * - SUMAS08: El cálculo de impuestos retenidos es igual a el total de impuestos retenidos
+ * - SUMAS08: El cálculo de impuestos retenidos es igual al total de impuestos retenidos
  * - SUMAS09: Todos los impuestos retenidos existen en el comprobante
- * - SUMAS10: Todos los valores de los impuestos retenidos conciden con el comprobante
+ * - SUMAS10: Todos los valores de los impuestos retenidos coinciden con el comprobante
  * - SUMAS11: No existen más nodos de impuestos trasladados en el comprobante de los que se han calculado
  *
  * - SUMAS12: El cálculo del descuento debe ser menor o igual al cálculo del subtotal
@@ -36,7 +36,7 @@ use CfdiUtils\Validate\Status;
  *      - xx puede ser 06 o 10
  *      - yyy es el consecutivo de la línea del impuesto
  *      - Se valida que El importe dek impuesto del Grupo X Impuesto X Tipo factor X Tasa o cuota X
- *                 es igual a el importe del nodo
+ *                 es igual al importe del nodo
  */
 class SumasConceptosComprobanteImpuestos extends AbstractDiscoverableVersion33
 {
@@ -49,16 +49,16 @@ class SumasConceptosComprobanteImpuestos extends AbstractDiscoverableVersion33
     private function registerAsserts(): void
     {
         $asserts = [
-            'SUMAS01' => 'La suma de los importes de conceptos es igual a el subtotal del comprobante',
-            'SUMAS02' => 'La suma de los descuentos es igual a el descuento del comprobante',
-            'SUMAS03' => 'El cálculo del total es igual a el total del comprobante',
-            'SUMAS04' => 'El cálculo de impuestos trasladados es igual a el total de impuestos trasladados',
+            'SUMAS01' => 'La suma de los importes de conceptos es igual al subtotal del comprobante',
+            'SUMAS02' => 'La suma de los descuentos es igual al descuento del comprobante',
+            'SUMAS03' => 'El cálculo del total es igual al total del comprobante',
+            'SUMAS04' => 'El cálculo de impuestos trasladados es igual al total de impuestos trasladados',
             'SUMAS05' => 'Todos los impuestos trasladados existen en el comprobante',
-            'SUMAS06' => 'Todos los valores de los impuestos trasladados conciden con el comprobante',
+            'SUMAS06' => 'Todos los valores de los impuestos trasladados coinciden con el comprobante',
             'SUMAS07' => 'No existen más nodos de impuestos trasladados en el comprobante de los que se han calculado',
-            'SUMAS08' => 'El cálculo de impuestos retenidos es igual a el total de impuestos retenidos',
+            'SUMAS08' => 'El cálculo de impuestos retenidos es igual al total de impuestos retenidos',
             'SUMAS09' => 'Todos los impuestos retenidos existen en el comprobante',
-            'SUMAS10' => 'Todos los valores de los impuestos retenidos conciden con el comprobante',
+            'SUMAS10' => 'Todos los valores de los impuestos retenidos coinciden con el comprobante',
             'SUMAS11' => 'No existen más nodos de impuestos trasladados en el comprobante de los que se han calculado',
             'SUMAS12' => 'El cálculo del descuento debe ser menor o igual al cálculo del subtotal',
         ];
@@ -249,7 +249,7 @@ class SumasConceptosComprobanteImpuestos extends AbstractDiscoverableVersion33
         if (array_key_exists('TasaOCuota', $expected)) {
             $label .= sprintf(' Tasa o cuota %s', $expected['TasaOCuota']);
         }
-        $this->asserts->put($code, sprintf('El importe del impuesto %s es igual a el importe del nodo', $label));
+        $this->asserts->put($code, sprintf('El importe del impuesto %s es igual al importe del nodo', $label));
         return $this->validateValues(
             $code,
             'Calculado',

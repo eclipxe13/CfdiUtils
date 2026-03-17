@@ -21,7 +21,7 @@ class BancoOrdenanteRfcProhibido extends AbstractPagoValidator
         }
         $payment = $this->createPaymentType($pago['FormaDePagoP']);
 
-        // si NO es banzarizado y está establecido el RFC del Emisor de la cuenta ordenante
+        // si NO es bancarizado y está establecido el RFC del Emisor de la cuenta ordenante
         if (! $payment->allowSenderRfc() && $pago->exists('RfcEmisorCtaOrd')) {
             throw new ValidatePagoException(sprintf('Bancarizado: Sí, Rfc: "%s"', $pago['RfcEmisorCtaOrd']));
         }

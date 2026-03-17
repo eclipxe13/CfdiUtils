@@ -59,7 +59,7 @@ trait XmlReaderTrait
     }
 
     /**
-     * Create a CFDI object from a xml string
+     * Create a CFDI object from an XML string
      */
     public static function newFromString(string $content): self
     {
@@ -92,7 +92,7 @@ trait XmlReaderTrait
     public function getSource(): string
     {
         if (null === $this->source) {
-            // pass the document element to avoid xml header
+            // pass the document element to avoid XML header
             $this->source = (string) $this->document->saveXML(Xml::documentElement($this->document));
         }
 

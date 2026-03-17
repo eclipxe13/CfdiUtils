@@ -9,7 +9,7 @@ namespace CfdiUtils\Internals;
  * @see https://php.net/base_convert
  * Original author: https://github.com/credomane/php_baseconvert
  *
- * NOTE: Changes will not be considering a bracking compatibility change since this utility is for internal usage only
+ * NOTE: Changes will not be considering a breaking compatibility change since this utility is for internal usage only
  * @internal
  */
 class BaseConverter
