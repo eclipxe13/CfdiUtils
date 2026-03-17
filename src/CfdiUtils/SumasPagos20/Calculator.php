@@ -143,16 +143,16 @@ class Calculator
         $trasladoIvaEx = $impuestos->find('Traslado', '002', 'Exento');
 
         return new Totales(
-            $retencionIva ? $retencionIva->getImporte() : null,
-            $retencionIsr ? $retencionIsr->getImporte() : null,
-            $retencionIeps ? $retencionIeps->getImporte() : null,
-            $trasladoIva16 ? $trasladoIva16->getBase() : null,
-            $trasladoIva16 ? $trasladoIva16->getImporte() : null,
-            $trasladoIva08 ? $trasladoIva08->getBase() : null,
-            $trasladoIva08 ? $trasladoIva08->getImporte() : null,
-            $trasladoIva00 ? $trasladoIva00->getBase() : null,
-            $trasladoIva00 ? $trasladoIva00->getImporte() : null,
-            $trasladoIvaEx ? $trasladoIvaEx->getBase() : null,
+            $retencionIva?->getImporte(),
+            $retencionIsr?->getImporte(),
+            $retencionIeps?->getImporte(),
+            $trasladoIva16?->getBase(),
+            $trasladoIva16?->getImporte(),
+            $trasladoIva08?->getBase(),
+            $trasladoIva08?->getImporte(),
+            $trasladoIva00?->getBase(),
+            $trasladoIva00?->getImporte(),
+            $trasladoIvaEx?->getBase(),
             $total->round(2) // MXN
         );
     }
