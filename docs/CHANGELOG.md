@@ -16,9 +16,10 @@
 
 Other development changes:
 
+- Use nosborn/github-action-markdown-cli@v3.
 - Fix configuration file for `php-cs-fixer`.
-- Define `$argv` on CLI script to satisfy PHPStan. 
-- Fix how SaxonHE is installed on Windows. 
+- Define `$argv` on CLI script to satisfy PHPStan.
+- Fix how SaxonHE is installed on Windows.
 - Add PHP 8.5 to test matrix.
 - Update development tools.
 

@@ -10,7 +10,7 @@ on:
 
 # Actions
 # shivammathur/setup-php@v2 - https://github.com/marketplace/actions/setup-php-action
-# nosborn/github-action-markdown-cli@v1.1.1 https://github.com/marketplace/actions/markdownlint-cli
+# nosborn/github-action-markdown-cli@v3 https://github.com/marketplace/actions/markdownlint-cli
 # Tiryoh/actions-mkdocs@v0 https://github.com/marketplace/actions/mkdocs-action
 
 jobs:
@@ -56,7 +56,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Code style (markdownlint-cli)
-        uses: nosborn/github-action-markdown-cli@v3.2.0
+        uses: nosborn/github-action-markdown-cli@v3
         with:
           files: '*.md docs/'
           config_file: '.markdownlint.json'
