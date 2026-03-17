@@ -4,37 +4,26 @@ namespace CfdiUtils\SumasConceptos;
 
 use CfdiUtils\Elements\Cfdi33\Comprobante as Comprobante33;
 use CfdiUtils\Elements\Cfdi40\Comprobante as Comprobante40;
-use CfdiUtils\Nodes\NodeInterface;
-use InvalidArgumentException;
 
 class SumasConceptosWriter
 {
-    /** @var Comprobante33|Comprobante40 */
-    private NodeInterface $comprobante;
+    private Comprobante33|Comprobante40 $comprobante;
 
-    private ?bool $writeImpuestoBase = null;
+    private bool $writeImpuestoBase;
 
-    private ?bool $writeExentos = null;
+    private bool $writeExentos;
 
-    /**
-     * Writer constructor.
-     * @param Comprobante33|Comprobante40 $comprobante
-     */
     public function __construct(
-        NodeInterface $comprobante,
+        Comprobante33|Comprobante40 $comprobante,
         private SumasConceptos $sumas,
         private int $precision = 6,
     ) {
         if ($comprobante instanceof Comprobante33) {
             $this->writeImpuestoBase = false;
             $this->writeExentos = false;
-        } elseif ($comprobante instanceof Comprobante40) {
+        } else {
             $this->writeImpuestoBase = true;
             $this->writeExentos = true;
-        } else {
-            throw new InvalidArgumentException(
-                'The argument $comprobante must be a Comprobante (CFDI 3.3 or CFDI 4.0) element'
-            );
         }
         $this->comprobante = $comprobante;
     }
@@ -135,8 +124,7 @@ class SumasConceptosWriter
         return number_format($number, $this->precision, '.', '');
     }
 
-    /** @return Comprobante33|Comprobante40 */
-    public function getComprobante(): NodeInterface
+    public function getComprobante(): Comprobante33|Comprobante40
     {
         return $this->comprobante;
     }
