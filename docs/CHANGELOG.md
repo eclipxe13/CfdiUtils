@@ -7,6 +7,16 @@
 - Fix/improve `ElementsMaker` standard.
 - Remove code to build CFDI 3.3.
 
+## Maintenance 2026-03-17
+
+Remove `curl_close()` function call since it has no effect since PHP 8.0.
+
+This changes apply to GitHub Workflows:
+
+- Run jobs using PHP 8.5.
+- List missing actions/setup-java@v5 action.
+- Modernize SonarQube Cloud integration.
+
 ## Version 3.0.2 2026-03-17
 
 - Update license year.

@@ -44,9 +44,6 @@ final class CertificateDownloaderHelper implements DownloaderInterface
         curl_setopt($ch, CURLOPT_HEADER, false);
         $result = (string) curl_exec($ch);
         $status = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
-        if (\PHP_VERSION_ID < 80500) {
-            curl_close($ch);
-        }
 
         if ('' === $result) {
             throw new Exception('Response is empty');

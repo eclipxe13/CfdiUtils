@@ -1,0 +1,62 @@
+name: "SonarQube Cloud"
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "master" ]
+
+# Actions
+# shivammathur/setup-php@v2 https://github.com/marketplace/actions/setup-php-action
+# SonarSource/sonarqube-scan-action@v7 https://github.com/marketplace/actions/official-sonarqube-scan
+
+jobs:
+
+  sonarqube-cloud:
+    name: SonarCloud Scan and Report
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: Check SONAR_TOKEN secret
+        run: |
+          if [ -z "$SONAR_TOKEN" ]; then
+            echo "::warning ::SONAR_TOKEN non set"
+            exit 1
+          fi
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Disabling shallow clones is recommended for improving the relevancy of reporting
+      - name: Install libsaxonb-java on linux
+        run: |
+          sudo apt-get update -y -qq
+          sudo apt-get install -y -qq default-jre libsaxonb-java
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          extensions: soap, intl, xsl, fileinfo, bcmath
+          coverage: xdebug
+          tools: composer:v2
+        env:
+          fail-fast: true
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-
+      - name: Install project dependencies
+        run: composer upgrade --no-interaction --no-progress --prefer-dist
+      - name: Create code coverage
+        run: vendor/bin/phpunit --testdox --coverage-xml=build/coverage --coverage-clover=build/coverage/clover.xml --log-junit=build/coverage/junit.xml
+      - name: Prepare SonarCloud Code Coverage Files
+        run: |
+          sed 's#'$GITHUB_WORKSPACE'#/github/workspace#g' build/coverage/junit.xml > build/sonar-junit.xml
+          sed 's#'$GITHUB_WORKSPACE'#/github/workspace#g' build/coverage/clover.xml > build/sonar-coverage.xml
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarqube-scan-action@v7
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
