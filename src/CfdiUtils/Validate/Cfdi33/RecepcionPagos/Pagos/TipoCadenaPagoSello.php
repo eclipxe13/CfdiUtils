@@ -6,7 +6,7 @@ use CfdiUtils\Nodes\NodeInterface;
 
 /**
  * PAGO22: En un pago, si existe el tipo de cadena de pago debe existir
- *         el sello del pago  y viceversa (CRP231 y CRP232)
+ *         el sello del pago y viceversa (CRP231 y CRP232)
  */
 class TipoCadenaPagoSello extends AbstractPagoValidator
 {
