@@ -12,6 +12,7 @@ on:
 # shivammathur/setup-php@v2 - https://github.com/marketplace/actions/setup-php-action
 # nosborn/github-action-markdown-cli@v3 https://github.com/marketplace/actions/markdownlint-cli
 # Tiryoh/actions-mkdocs@v0 https://github.com/marketplace/actions/mkdocs-action
+# actions/setup-java@v5 https://github.com/marketplace/actions/setup-java-jdk
 
 jobs:
 
