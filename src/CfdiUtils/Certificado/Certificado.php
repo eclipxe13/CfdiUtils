@@ -173,8 +173,11 @@ class Certificado
     public function getNameWithoutRegimenCapitalSuffix(): string
     {
         if (null === $this->nameWithoutRegimenCapitalSuffix) {
-            $remover = RegimenCapitalRemover::createDefault();
-            $this->nameWithoutRegimenCapitalSuffix = $remover->remove($this->name);
+             $remover = RegimenCapitalRemover::createDefault();
+-            $this->nameWithoutRegimenCapitalSuffix = $remover->remove($this->name);
++            $normalized = preg_replace('/(?<=\b[A-Z])\./', '', $this->name);
++            $this->nameWithoutRegimenCapitalSuffix = $remover->remove($normalized);
+
         }
 
         return $this->nameWithoutRegimenCapitalSuffix;
