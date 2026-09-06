@@ -33,7 +33,7 @@
         "ext-openssl": "*",
         "ext-iconv": "*",
         "ext-json": "*",
-        "symfony/process": "^5.4.47|^6.4.15|^7.1.8",
+        "symfony/process": "^5.4.47|^6.4.15|^7.1.8|^8.0",
         "eclipxe/xmlresourceretriever": "^2.0.3",
         "eclipxe/xmlschemavalidator": "^3.0.5"
     },
