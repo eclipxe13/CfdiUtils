@@ -115,7 +115,7 @@ La calculadora puede redondear o truncar los datos de impuestos según la prefer
 
 A partir de Junio 2023 se permitía truncar o redondear los datos, y al parecer a partir de Septiembre 2028
 solamente se permite truncar los datos. En la versión 2.24.1 la calculadora cambió su lógica a solamente
-permitir el redondeo de datos. En la versión 3.0.2 se permite definir si los datos son truncados o redondeados.
+permitir el redondeo de datos. En la versión 3.0.3 se permite definir si los datos son truncados o redondeados.
 
 Esta propiedad debe establecerse antes de llamar al método `Calculator::calculate()`.
 
