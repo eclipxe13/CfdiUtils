@@ -7,6 +7,12 @@
 - Fix/improve `ElementsMaker` standard.
 - Remove code to build CFDI 3.3.
 
+## Unreleased
+
+- Allow to install `symfony/process` version 8 (`^8.0`). Laravel 13 and Pest 5 require
+  `symfony/process: ^8`, and without this change Composer silently resolves to
+  CfdiUtils 2.8.1 (the last version without a `symfony/process` conflict).
+
 ## Maintenance 2026-03-17
 
 Remove `curl_close()` function call since it has no effect since PHP 8.0.
