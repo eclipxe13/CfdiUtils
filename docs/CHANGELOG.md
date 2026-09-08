@@ -7,11 +7,32 @@
 - Fix/improve `ElementsMaker` standard.
 - Remove code to build CFDI 3.3.
 
-## Unreleased
+## Version 3.0.3 2026-09-08
 
-- Allow to install `symfony/process` version 8 (`^8.0`). Laravel 13 and Pest 5 require
-  `symfony/process: ^8`, and without this change Composer silently resolves to
-  CfdiUtils 2.8.1 (the last version without a `symfony/process` conflict).
+Add `CfdiUtils\SumasPagos20\Calculator` the feature of truncate or round taxes amounts.
+This is because some PAC does not allow round anymore.
+You can change the default (round) behavior to truncate by calling `Calculator::setTaxesTruncated()`.
+
+Allow to install `symfony/process:^8.0`. Thanks to `@tisca26`.
+
+Other minor changes:
+
+- On temporary file test avoid write permission to group and other.
+- Use `bcround` if PHP 8.4 or higher on `CfdiUtils\SumasPagos20\Decimal::round()`.
+
+This changes apply to GitHub Workflows:
+
+- Update GitHub Actions versions.
+- Update SaxonHE from 12.9 to 12.10 on `tests-windows` workflow.
+- Change dependency `default-jre` to `default-jre-headless` on `tests-linux` workflow.
+- Recreate `/usr/share/man/man{1..9}` when running using `nektos/act` since `shivammathur/node-docker`
+  remove those directories and `apt` fail to install packages.
+- Do not remove `genkgo/xsl` on PHP 8.5 since it is compatible again.
+- Run *SonarQube Cloud* jobs using PHP 8.5 since `genkgo/xsl` is compatible again.
+
+Other development changes:
+
+- Update development tools.
 
 ## Maintenance 2026-03-17
 

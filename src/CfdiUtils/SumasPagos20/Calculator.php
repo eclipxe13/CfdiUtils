@@ -11,6 +11,9 @@ class Calculator
 
     private Currencies $currencies;
 
+    /** @var bool Define when calculate taxes are rounded or truncated */
+    private bool $taxesRounded = true;
+
     public function __construct(int $paymentTaxesPrecision = 6, ?Currencies $currencies = null)
     {
         $this->setPaymentTaxesPrecision($paymentTaxesPrecision);
@@ -37,6 +40,26 @@ class Calculator
         $this->currencies = $currencies;
     }
 
+    public function setTaxesRounded(): void
+    {
+        $this->taxesRounded = true;
+    }
+
+    public function setTaxesTruncated(): void
+    {
+        $this->taxesRounded = false;
+    }
+
+    public function areTaxesRounded(): bool
+    {
+        return $this->taxesRounded;
+    }
+
+    public function areTaxesTruncated(): bool
+    {
+        return ! $this->taxesRounded;
+    }
+
     public function calculate(NodeInterface $nodePagos): Pagos
     {
         $pagos = [];
@@ -59,7 +82,13 @@ class Calculator
         }
         $montoMinimo = $sumMonto->truncate($this->currencies->get($nodePago['MonedaP']));
         $monto = (isset($nodePago['Monto'])) ? new Decimal($nodePago['Monto']) : $montoMinimo;
-        $impuestos = $impuestos->round($this->paymentTaxesPrecision);
+
+        if ($this->taxesRounded) {
+            $impuestos = $impuestos->round($this->paymentTaxesPrecision);
+        } else {
+            $impuestos = $impuestos->truncate($this->paymentTaxesPrecision);
+        }
+
         $tipoCambioP = new Decimal($nodePago['TipoCambioP']);
         return new Pago($monto, $montoMinimo, $tipoCambioP, $impuestos);
     }

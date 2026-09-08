@@ -36,6 +36,11 @@ final class Decimal implements JsonSerializable, \Stringable
 
     public function round(int $decimals): self
     {
+        if (PHP_VERSION_ID >= 80400) {
+            return new self(bcround($this->value, $decimals, \RoundingMode::HalfAwayFromZero));
+        }
+
+        // for PHP versions lower than 8.4, manually implement round half away from zero.
         $exp = bcpow('10', strval($decimals + 1));
         $offset = (bccomp($this->value, '0', $decimals) < 0) ? '-5' : '5';
         return new self(bcdiv(bcadd(bcmul($this->value, $exp, 0), $offset), $exp, $decimals));

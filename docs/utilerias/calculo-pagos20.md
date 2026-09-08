@@ -109,6 +109,34 @@ Requiere de la librería `BCMath`.
 - `strval(Decimal)`: `Decimal` es un `Stringable`, por lo que puede ser convertido a cadena de caracteres.
 - `Decimal::round(int $decimals): Decimal`: obtiene el valor redondeado a un número de decimales.
 
+## Datos truncados o redondeados
+
+La calculadora puede redondear o truncar los datos de impuestos según la preferencia de implementación.
+
+A partir de Junio 2023 se permitía truncar o redondear los datos, y al parecer a partir de Septiembre 2028
+solamente se permite truncar los datos. En la versión 2.24.1 la calculadora cambió su lógica a solamente
+permitir el redondeo de datos. En la versión 3.0.3 se permite definir si los datos son truncados o redondeados.
+
+Esta propiedad debe establecerse antes de llamar al método `Calculator::calculate()`.
+
+```php
+<?php
+use \CfdiUtils\SumasPagos20\Calculator;
+
+$calculator = new Calculator();
+$calculator->areTaxesRounded();     // true
+$calculator->areTaxesTruncated();   // false
+
+$calculator->setTaxesTruncated();
+$calculator->areTaxesRounded();     // false
+$calculator->areTaxesTruncated();   // true
+
+$calculator->setTaxesRounded();
+$calculator->areTaxesRounded();     // true
+$calculator->areTaxesTruncated();   // false
+
+```
+
 ## Nota de `BCMath`
 
 Trabajar con números de punto flotante no es sencillo.

@@ -14,6 +14,8 @@ final class CalculatorTest extends TestCase
         $calculator = new Calculator();
         $this->assertSame(6, $calculator->getPaymentTaxesPrecision());
         $this->assertInstanceOf(Currencies::class, $calculator->getCurrencies());
+        $this->assertTrue($calculator->areTaxesRounded());
+        $this->assertFalse($calculator->areTaxesTruncated());
     }
 
     public function testCalculatorProperties(): void
@@ -23,6 +25,21 @@ final class CalculatorTest extends TestCase
         $calculator = new Calculator($precision, $currencies);
         $this->assertSame($precision, $calculator->getPaymentTaxesPrecision());
         $this->assertSame($currencies, $calculator->getCurrencies());
+    }
+
+    public function testCalculatorTaxtesRoundedProperty(): void
+    {
+        $calculator = new Calculator();
+        $this->assertTrue($calculator->areTaxesRounded());
+        $this->assertFalse($calculator->areTaxesTruncated());
+
+        $calculator->setTaxesTruncated();
+        $this->assertFalse($calculator->areTaxesRounded());
+        $this->assertTrue($calculator->areTaxesTruncated());
+
+        $calculator->setTaxesRounded();
+        $this->assertTrue($calculator->areTaxesRounded());
+        $this->assertFalse($calculator->areTaxesTruncated());
     }
 
     public function testCalculatorChangeProperties(): void
@@ -38,7 +55,7 @@ final class CalculatorTest extends TestCase
         $this->assertSame($currencies, $calculator->getCurrencies());
     }
 
-    public function testCalculateMinimal(): void
+    public function testCalculateMinimalRounded(): void
     {
         $xml = <<< XML
             <pago20:Pagos>
@@ -72,6 +89,43 @@ final class CalculatorTest extends TestCase
         $impuesto = $result->getPago(0)->getImpuestos()->getTraslado('002', 'Tasa', '0.160000');
         $this->assertSame('0.1235', (string) $impuesto->getBase());
         $this->assertSame('0.0198', (string) $impuesto->getImporte());
+    }
+
+    public function testCalculateMinimalTruncated(): void
+    {
+        $xml = <<< XML
+            <pago20:Pagos>
+                <pago20:Pago MonedaP="MXN" TipoCambioP="1">
+                    <pago20:DoctoRelacionado MonedaDR="MXN" EquivalenciaDR="1" ImpPagado="0.14">
+                        <pago20:ImpuestosDR>
+                            <pago20:TrasladosDR>
+                                <pago20:TrasladoDR ImpuestoDR="002" TipoFactorDR="Tasa" TasaOCuotaDR="0.160000"
+                                                   BaseDR="0.123456789" ImporteDR="0.01975308624"/>
+                            </pago20:TrasladosDR>
+                        </pago20:ImpuestosDR>
+                    </pago20:DoctoRelacionado>
+                </pago20:Pago>
+            </pago20:Pagos>
+            XML;
+        $pagos = XmlNodeUtils::nodeFromXmlString($xml);
+
+        $calculator = new Calculator();
+        $result = $calculator->calculate($pagos);
+
+        $this->assertSame('0.14', (string) $result->getTotales()->getTotal());
+        $this->assertSame('0.12', (string) $result->getTotales()->getTrasladoIva16Base());
+        $this->assertSame('0.02', (string) $result->getTotales()->getTrasladoIva16Importe());
+
+        $impuesto = $result->getPago(0)->getImpuestos()->getTraslado('002', 'Tasa', '0.160000');
+        $this->assertSame('0.123457', (string) $impuesto->getBase());
+        $this->assertSame('0.019753', (string) $impuesto->getImporte());
+
+        $calculator = new Calculator(4);
+        $calculator->setTaxesTruncated();
+        $result = $calculator->calculate($pagos);
+        $impuesto = $result->getPago(0)->getImpuestos()->getTraslado('002', 'Tasa', '0.160000');
+        $this->assertSame('0.1234', (string) $impuesto->getBase());
+        $this->assertSame('0.0197', (string) $impuesto->getImporte());
     }
 
     public function testCalculateTwoDocuments(): void
