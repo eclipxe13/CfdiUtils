@@ -166,11 +166,11 @@ jobs:
           distribution: temurin
           java-package: jre
           java-version: '25'
-      - name: Download SaxonHE 12.9
+      - name: Download SaxonHE 12.10
         shell: powershell
         run: |
           Invoke-WebRequest `
-            -Uri "https://github.com/Saxonica/Saxon-HE/releases/download/SaxonHE12-9/SaxonHE12-9J.zip" `
+            -Uri "https://github.com/Saxonica/Saxon-HE/releases/download/SaxonHE12-10/SaxonHE12-10J.zip" `
             -OutFile saxon.zip
           Expand-Archive saxon.zip -DestinationPath saxon
       - name: Create Transform wrapper
@@ -178,7 +178,7 @@ jobs:
         run: |
           @'
           @echo off
-          java -cp "%~dp0saxon\saxon-he-12.9.jar;%~dp0saxon\lib\*" net.sf.saxon.Transform %*
+          java -cp "%~dp0saxon\saxon-he-12.10.jar;%~dp0saxon\lib\*" net.sf.saxon.Transform %*
           '@ | Set-Content Transform.cmd
       - name: Check SaxonHE Transform version
         run: .\Transform.cmd -?
