@@ -115,7 +115,7 @@ jobs:
       - name: Install libsaxonb-java on linux
         run: |
           sudo apt-get update -y -qq
-          sudo apt-get install -y -qq default-jre libsaxonb-java
+          sudo apt-get install -y -qq default-jre-headless libsaxonb-java
       - name: Install dependencies running on nektos/act
         if: github.actor == 'nektos/act'
         run: sudo apt-get install -y -qq zstd
