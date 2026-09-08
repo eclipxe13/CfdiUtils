@@ -112,6 +112,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+      - name: Create missing folders on nektos/act
+        if: github.actor == 'nektos/act'
+        # /usr/share/man/* is removed by shivammathur/node-docker
+        run: |
+          sudo mkdir -p /usr/share/man/man{1..9}
       - name: Install libsaxonb-java on linux
         run: |
           sudo apt-get update -y -qq
