@@ -13,7 +13,8 @@ final class Impuestos implements JsonSerializable
     public function __construct(Impuesto ...$impuestos)
     {
         foreach ($impuestos as $impuesto) {
-            $this->impuestos[$impuesto->getKey()] = $impuesto;
+            $key = $impuesto->getKey();
+            $this->impuestos[$key] = isset($this->impuestos[$key]) ? $this->impuestos[$key]->add($impuesto) : $impuesto;
         }
     }
 
