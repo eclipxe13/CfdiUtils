@@ -166,6 +166,71 @@ final class CalculatorTest extends TestCase
         $this->assertSame('0.217284', (string) $impuesto->getImporte());
     }
 
+    public function testCalculateMultipleDocumentsTrasladosRetenciones(): void
+    {
+        $xml = <<< XML
+            <pago20:Pagos>
+                <pago20:Pago MonedaP="MXN" TipoCambioP="1" Monto="1000.00">
+                    <pago20:DoctoRelacionado MonedaDR="MXN" EquivalenciaDR="1" ImpPagado="1000.00">
+                        <pago20:ImpuestosDR>
+                            <pago20:RetencionesDR>
+                                <pago20:RetencionDR BaseDR="123.45" ImpuestoDR="002" TipoFactorDR="Tasa"
+                                 TasaOCuotaDR="0.160000" ImporteDR="19.752000" />
+                                <pago20:RetencionDR BaseDR="400.00" ImpuestoDR="002" TipoFactorDR="Tasa"
+                                 TasaOCuotaDR="0.040000" ImporteDR="16.000000" />
+                            </pago20:RetencionesDR>
+                            <pago20:TrasladosDR>
+                                <pago20:TrasladoDR BaseDR="600.00" ImpuestoDR="002" TipoFactorDR="Tasa"
+                                 TasaOCuotaDR="0.160000" ImporteDR="96.000000" />
+                                <pago20:TrasladoDR BaseDR="400.00" ImpuestoDR="002" TipoFactorDR="Tasa"
+                                 TasaOCuotaDR="0.160000" ImporteDR="64.000000" />
+                            </pago20:TrasladosDR>
+                        </pago20:ImpuestosDR>
+                    </pago20:DoctoRelacionado>
+                </pago20:Pago>
+                <pago20:Pago MonedaP="MXN" TipoCambioP="1" Monto="200.00">
+                    <pago20:DoctoRelacionado MonedaDR="MXN" EquivalenciaDR="1" ImpPagado="200.00">
+                        <pago20:ImpuestosDR>
+                            <pago20:RetencionesDR>
+                                <pago20:RetencionDR BaseDR="100.00" ImpuestoDR="002" TipoFactorDR="Tasa"
+                                 TasaOCuotaDR="0.040000" ImporteDR="4.000000" />
+                                <pago20:RetencionDR BaseDR="50.00" ImpuestoDR="002" TipoFactorDR="Tasa"
+                                 TasaOCuotaDR="0.040000" ImporteDR="2.000000" />
+                            </pago20:RetencionesDR>
+                            <pago20:TrasladosDR>
+                                <pago20:TrasladoDR BaseDR="200.00" ImpuestoDR="002" TipoFactorDR="Tasa"
+                                 TasaOCuotaDR="0.160000" ImporteDR="32.000000" />
+                            </pago20:TrasladosDR>
+                        </pago20:ImpuestosDR>
+                    </pago20:DoctoRelacionado>
+                </pago20:Pago>
+            </pago20:Pagos>
+            XML;
+        $pagos = XmlNodeUtils::nodeFromXmlString($xml);
+
+        $calculator = new Calculator(paymentTaxesPrecision: 6);
+        $result = $calculator->calculate($pagos);
+
+        $this->assertSame('1200.00', (string) $result->getTotales()->getTotal());
+        $this->assertSame('1200.00', (string) $result->getTotales()->getTrasladoIva16Base());
+        $this->assertSame('192.00', (string) $result->getTotales()->getTrasladoIva16Importe());
+        $this->assertSame('41.75', (string) $result->getTotales()->getRetencionIva());
+
+        $impuesto = $result->getPago(0)->getImpuestos()->getRetencion('002');
+        $this->assertSame('35.752000', (string) $impuesto->getImporte());
+
+        $impuesto = $result->getPago(0)->getImpuestos()->getTraslado('002', 'Tasa', '0.160000');
+        $this->assertSame('1000.000000', (string) $impuesto->getBase());
+        $this->assertSame('160.000000', (string) $impuesto->getImporte());
+
+        $impuesto = $result->getPago(1)->getImpuestos()->getRetencion('002');
+        $this->assertSame('6.000000', (string) $impuesto->getImporte());
+
+        $impuesto = $result->getPago(1)->getImpuestos()->getTraslado('002', 'Tasa', '0.160000');
+        $this->assertSame('200.000000', (string) $impuesto->getBase());
+        $this->assertSame('32.000000', (string) $impuesto->getImporte());
+    }
+
     /**
      * In the following case, also Pago::monto is greater than Pago::montoMinimo
      */

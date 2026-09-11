@@ -30,12 +30,12 @@ PagosWriter::calculateAndPut($pagos);
 
 // Se puede calcular y mandar a escribir
 $pagosCalculator = new Calculator(
-    2, // Decimales a usar en los impuestos de los pagos
-    new Currencies(['MXN' => 2, 'USD' => '2', 'EUR' => 2]) // Monedas con decimales
+    paymentTaxesPrecision: 2, // Decimales a usar en los impuestos de los pagos
+    currencies: new Currencies(['MXN' => 2, 'USD' => '2', 'EUR' => 2]) // Monedas con decimales
 );
 $result = $pagosCalculator->calculate($pagos);
 $pagosWriter = new PagosWriter($pagos);
-$pagosWriter->writePago($result);
+$pagosWriter->put($result);
 ```
 
 ## Origen de los datos

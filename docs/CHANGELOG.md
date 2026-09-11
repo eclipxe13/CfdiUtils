@@ -7,6 +7,11 @@
 - Fix/improve `ElementsMaker` standard.
 - Remove code to build CFDI 3.3.
 
+## Version 3.0.4 2026-09-11
+
+Fix sum of taxes that has same key on `CfdiUtils\SumasPagos20\Calculator`. Thanks `@blacktrue`.
+Fix usage example of `CfdiUtils\SumasPagos20\Calculator`. Thanks (again) `@blacktrue`.
+
 ## Version 3.0.3 2026-09-08
 
 Add `CfdiUtils\SumasPagos20\Calculator` the feature of truncate or round taxes amounts.
