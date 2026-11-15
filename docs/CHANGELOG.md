@@ -7,6 +7,14 @@
 - Fix/improve `ElementsMaker` standard.
 - Remove code to build CFDI 3.3.
 
+## Maintenance 2026-11-14
+
+This changes does not impact codebase and fixes GitHub build.
+
+- Fix `CfdiUtilsTests\Utils\XmlTest#testMethodNewDocumentContentWithInvalidXmlEncoding`.
+  Some XmlLib versions return a slight different message.
+- Update development tools.
+
 ## Version 3.0.4 2026-09-11
 
 Fix sum of taxes that has same key on `CfdiUtils\SumasPagos20\Calculator`. Thanks `@blacktrue`.
