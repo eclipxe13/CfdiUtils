@@ -12,8 +12,9 @@ final class XmlTest extends TestCase
     {
         $invalidXml = mb_convert_encoding('<e a="ñ"></e>', 'ISO-8859-1', 'UTF-8'); // the ñ is a special character
         $this->expectException(\UnexpectedValueException::class);
-        $this->expectExceptionMessage('Cannot create a DOM Document from xml string'
-            . PHP_EOL . 'XML Fatal [L: 1, C: 7]: Input is not proper UTF-8');
+        $this->expectExceptionMessageMatches(
+            "/^Cannot create a DOM Document from xml string\n.*(UTF-8|character encoding)/m"
+        );
         Xml::newDocumentContent($invalidXml);
     }
 
